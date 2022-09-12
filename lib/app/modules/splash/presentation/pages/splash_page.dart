@@ -1,0 +1,35 @@
+import 'package:appweb/app/modules/splash/presentation/cubit/splash_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+class SplashPage extends StatelessWidget {
+  SplashPage({super.key}) {
+    final pageCubit = Modular.get<SplashCubit>();
+    pageCubit.checkLogged();
+    pageCubit.stream.listen((state) {
+      if (!state.logged) {
+        Modular.to.popAndPushNamed('/auth');
+      } else {
+        Modular.to.popAndPushNamed('/home');
+      }
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Center(
+        child: Column(
+          children: [
+            Image.asset(
+              "images/logomarca.png",
+              width: 450,
+              height: 196,
+              //fit: BoxFit.fill,
+            ),
+            const CircularProgressIndicator(),
+          ],
+        ),
+      ),
+    );
+  }
+}
