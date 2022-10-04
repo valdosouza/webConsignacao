@@ -4,7 +4,7 @@ import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:http/http.dart' as http;
 
-/// Calls the https://www.api.gestaosetes.com.br/users/authenticate/ endpoint.
+/// Calls the https://www.api.gestaosetes.com.br/user/authenticate/ endpoint.
 ///
 /// Throws a [ServerException] for all error codes.
 abstract class AuthDatasource {
@@ -13,7 +13,7 @@ abstract class AuthDatasource {
 }
 
 class AuthDatasourceImpl implements AuthDatasource {
-  final _baseUrl = '${Constants.baseApiUrl}/users/authenticate/';
+  final _baseUrl = '${Constants.baseApiUrl}user/authenticate/';
   final client = http.Client();
   @override
   Future<AuthModel> getAuthentication(
