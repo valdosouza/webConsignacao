@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/stock/presentation/content/content_stock.dart';
 import 'package:appweb/app/modules/stock/presentation/pages/stock_page.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class StockModule extends Module {
@@ -12,6 +13,14 @@ class StockModule extends Module {
       child: (_, args) => const StockPage(),
       children: [
         ChildRoute('/content/', child: (_, args) => const ContentStock()),
+        ChildRoute('/content/stockregister/',
+            child: (_, args) => const Center(
+                  child: Text("Lista de Estoque"),
+                )),
+        ChildRoute('/content/stockstatement/',
+            child: (_, args) => const Center(
+                  child: Text("Movimentação de Estoque"),
+                )),
       ],
     ),
   ];

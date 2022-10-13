@@ -10,9 +10,12 @@ class StockMenus extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           itemMenuDraw(Icons.home, 'Cadastro de Estoques',
-              () async => Modular.to.popAndPushNamed('/stock/liststocks/')),
-          itemMenuDraw(Icons.home, 'Movimentação de Estoque',
-              () async => Modular.to.popAndPushNamed('/stock/statementstock/')),
+              () async => Modular.to.navigate('/stock/content/stockregister/')),
+          itemMenuDraw(
+              Icons.home,
+              'Movimentação de Estoque',
+              () async =>
+                  Modular.to.navigate('/stock/content/stockstatement/')),
         ],
       ),
     );

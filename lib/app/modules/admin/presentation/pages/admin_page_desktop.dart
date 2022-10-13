@@ -1,9 +1,24 @@
+import 'package:appweb/app/modules/admin/admin_module.dart';
+import 'package:appweb/app/modules/admin/presentation/pages/admin_menus.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AdminPageDesktop extends StatelessWidget {
+class AdminPageDesktop extends StatefulWidget {
   const AdminPageDesktop({super.key});
+
+  @override
+  State<AdminPageDesktop> createState() => _AdminPageDesktopState();
+}
+
+class _AdminPageDesktopState extends State<AdminPageDesktop> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<AdminModule>();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +32,10 @@ class AdminPageDesktop extends StatelessWidget {
         width: size.width,
         child: Row(
           children: const [
+            DrawerPage(),
+            AdminMenus(),
             Expanded(
               flex: 1,
-              child: DrawerPage(),
-            ),
-            Expanded(
-              flex: 5,
               child: RouterOutlet(),
             ),
           ],

@@ -8,11 +8,13 @@ import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/splash/splash_module.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppModule extends Module {
   // Provide a list of dependencies to inject into your project
   @override
   List<Bind> get binds => [
+        AsyncBind((i) => SharedPreferences.getInstance()),
         Bind.singleton((i) => DrawerCubit()),
       ];
 
@@ -21,11 +23,11 @@ class AppModule extends Module {
   List<ModularRoute> get routes => [
         ModuleRoute('/', module: SplashModule()),
         ModuleRoute('/drawer', module: DrawerModule()),
-        ModuleRoute('/auth/', module: AuthModule()),
-        ModuleRoute('/home/', module: HomeModule()),
-        ModuleRoute('/stock/', module: StockModule()),
-        ModuleRoute('/admin/', module: AdminModule()),
-        ModuleRoute('/product/', module: ProductModule()),
+        ModuleRoute('/auth', module: AuthModule()),
+        ModuleRoute('/home', module: HomeModule()),
+        ModuleRoute('/stock', module: StockModule()),
+        ModuleRoute('/admin', module: AdminModule()),
+        ModuleRoute('/product', module: ProductModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }
