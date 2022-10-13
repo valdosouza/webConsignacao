@@ -1,10 +1,9 @@
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
-import 'package:appweb/app/modules/home/presentation/content/content_desktop_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class HomePageDesktop extends StatelessWidget {
-  const HomePageDesktop({super.key});
+class StockPageDesktop extends StatelessWidget {
+  const StockPageDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +22,8 @@ class HomePageDesktop extends StatelessWidget {
               child: DrawerPage(),
             ),
             Expanded(
-              flex: 1,
+              flex: 5,
               child: RouterOutlet(),
-            ),
-            Expanded(
-              flex: 2,
-              child: ContentDesktopHome(),
             ),
           ],
         ),

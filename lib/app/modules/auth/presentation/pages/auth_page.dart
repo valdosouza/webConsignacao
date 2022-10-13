@@ -61,7 +61,7 @@ class AuthPage extends StatelessWidget {
         }
 
         if (state is AuthSuccessState) {
-          Modular.to.popAndPushNamed('/home');
+          Modular.to.popAndPushNamed('/home/');
         }
       },
       builder: (context, state) {
@@ -200,10 +200,12 @@ class AuthPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(18.0),
           ),
         ),
-        onPressed: () => context.read<AuthCubit>().login(
-              loginController.text,
-              passwordController.text,
-            ),
+        onPressed: () {
+          Modular.get<AuthCubit>().login(
+            loginController.text,
+            passwordController.text,
+          );
+        },
         child: const Text(
           'LOGIN',
           style: TextStyle(

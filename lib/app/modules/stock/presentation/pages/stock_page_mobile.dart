@@ -1,9 +1,10 @@
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
-import 'package:appweb/app/modules/home/presentation/content/content_mobile_home.dart';
+import 'package:appweb/app/modules/stock/presentation/content/content_mobile_stock.dart';
+
 import 'package:flutter/material.dart';
 
-class HomePageMobile extends StatelessWidget {
-  const HomePageMobile({super.key});
+class StockPageMobile extends StatelessWidget {
+  const StockPageMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class HomePageMobile extends StatelessWidget {
         title: const Text("Consignação e Venda"),
       ),
       drawer: const DrawerPage(),
-      body: const ContentMobileHome(),
+      body: const ContentMobileStock(),
     );
   }
 }

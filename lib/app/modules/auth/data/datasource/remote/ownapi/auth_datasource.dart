@@ -13,7 +13,7 @@ abstract class AuthDatasource {
 }
 
 class AuthDatasourceImpl implements AuthDatasource {
-  final _baseUrl = '${Constants.baseApiUrl}user/authenticate/';
+  final _baseUrl = '${baseApiUrl}user/authenticate/';
   final client = http.Client();
   @override
   Future<AuthModel> getAuthentication(

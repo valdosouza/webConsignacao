@@ -3,16 +3,15 @@ import 'package:appweb/app/modules/home/presentation/home_cubit/home_state.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intl/intl.dart';
 
-class ContentMobile extends StatefulWidget {
-  const ContentMobile({super.key});
+class ContentMobileStock extends StatefulWidget {
+  const ContentMobileStock({super.key});
 
   @override
-  State<ContentMobile> createState() => _ContentMobileState();
+  State<ContentMobileStock> createState() => _ContentMobileStockState();
 }
 
-class _ContentMobileState extends State<ContentMobile> {
+class _ContentMobileStockState extends State<ContentMobileStock> {
   late DateTime initialDate = DateTime.now();
   late DateTime finalDate = DateTime.now();
   String selectedTerminal = 'Todos';
@@ -26,14 +25,6 @@ class _ContentMobileState extends State<ContentMobile> {
         child: _build(context),
       ),
     );
-  }
-
-  String getFromInititalDate() {
-    return DateFormat('dd/MM/yyyy').format(initialDate);
-  }
-
-  String getFromFinalDate() {
-    return DateFormat('dd/MM/yyyy').format(finalDate);
   }
 
   Widget _build(BuildContext context) {

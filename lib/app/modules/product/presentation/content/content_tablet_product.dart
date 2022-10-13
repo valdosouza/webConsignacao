@@ -1,8 +1,8 @@
 import 'package:appweb/app/modules/home/presentation/component/header.dart';
 import 'package:flutter/material.dart';
 
-class ContentDesktop extends StatelessWidget {
-  const ContentDesktop({super.key});
+class ContentTabletProduct extends StatelessWidget {
+  const ContentTabletProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ContentDesktop extends StatelessWidget {
               Header(),
               Divider(thickness: 1),
               Center(
-                child: Text('Body Desktop'),
+                child: Text('Body Tablet - Produto'),
               )
             ],
           ),

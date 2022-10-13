@@ -44,17 +44,17 @@ class DrawerPage extends StatelessWidget {
             ),
           ),
           itemMenuDraw(Icons.home, 'Administração',
-              () => {Navigator.pushNamed(context, '')}),
-          itemMenuDraw(
-              Icons.home, 'Produtos', () => {Navigator.pushNamed(context, '')}),
-          itemMenuDraw(
-              Icons.home, 'Estoque', () => {Navigator.pushNamed(context, '')}),
+              () async => Modular.to.navigate('/admin/content/')),
+          itemMenuDraw(Icons.home, 'Produtos',
+              () async => Modular.to.navigate('/product/content/')),
+          itemMenuDraw(Icons.home, 'Estoque',
+              () async => Modular.to.navigate('/stock/content/')),
           itemMenuDraw(Icons.home, 'Financeiro',
-              () => {Navigator.pushNamed(context, '')}),
-          itemMenuDraw(
-              Icons.home, 'Pessoal', () => {Navigator.pushNamed(context, '')}),
-          itemMenuDraw(
-              Icons.home, 'Produção', () => {Navigator.pushNamed(context, '')}),
+              () => Modular.to.navigate('/finanancial/')),
+          itemMenuDraw(Icons.home, 'Pessoal',
+              () => Modular.to.popAndPushNamed('/home/')),
+          itemMenuDraw(Icons.home, 'Produção',
+              () => Modular.to.popAndPushNamed('/home/')),
           itemLogout(Icons.close, 'Sair'),
         ],
       ),
@@ -69,8 +69,11 @@ class DrawerPage extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey.shade400))),
         child: InkWell(
-            onTap: () => ontap,
-            splashColor: Colors.redAccent,
+            onTap: () async {
+              //Modular.to.pop();
+              ontap.call();
+            },
+            splashColor: Colors.orangeAccent,
             child: SizedBox(
               height: 50,
               child: Row(

@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/home/data/model/home_sales_payment_type_model.dart';
 import 'package:appweb/app/modules/home/presentation/component/sales_payment_type.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 Widget listSalesPaymentType(

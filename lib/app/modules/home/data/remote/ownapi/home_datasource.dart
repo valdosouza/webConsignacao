@@ -16,7 +16,7 @@ abstract class HomeDatasource {
 }
 
 class HomeDatasourceImpl implements HomeDatasource {
-  final _baseUrl = '${Constants.baseApiUrl}/financial/getClosed/';
+  final _baseUrl = '${baseApiUrl}financial/getClosed/';
   final client = http.Client();
   //List<HomeSalesPaymentTypeModel> homeSalesPaymentTypesModel = [];
   @override

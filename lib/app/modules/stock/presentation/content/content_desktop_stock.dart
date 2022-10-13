@@ -1,18 +1,14 @@
-import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
-import 'package:appweb/app/modules/home/presentation/content/content_desktop_home.dart';
+import 'package:appweb/app/modules/stock/presentation/pages/stock_menus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class HomePageDesktop extends StatelessWidget {
-  const HomePageDesktop({super.key});
+class ContentDesktopStock extends StatelessWidget {
+  const ContentDesktopStock({super.key});
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sistema Consignação e Venda"),
-      ),
       body: SizedBox(
         height: size.height,
         width: size.width,
@@ -20,15 +16,11 @@ class HomePageDesktop extends StatelessWidget {
           children: const [
             Expanded(
               flex: 1,
-              child: DrawerPage(),
+              child: StockMenus(),
             ),
             Expanded(
-              flex: 1,
+              flex: 5,
               child: RouterOutlet(),
-            ),
-            Expanded(
-              flex: 2,
-              child: ContentDesktopHome(),
             ),
           ],
         ),

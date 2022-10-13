@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import "package:flutter_localizations/flutter_localizations.dart";
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
@@ -9,22 +8,16 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Intl.defaultLocale = 'pt_BR';
-
-    return MaterialApp(
+    GlobalKey<NavigatorState>? navigatorKey;
+    Modular.setNavigatorKey(navigatorKey);
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Sistema de Consignação e Venda',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      initialRoute: '/',
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('pt', 'BR'),
-        Locale.fromSubtags(languageCode: 'br')
-      ],
-    ).modular();
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
+    );
   }
 }

@@ -8,9 +8,9 @@ class SplashPage extends StatelessWidget {
     pageCubit.checkLogged();
     pageCubit.stream.listen((state) {
       if (!state.logged) {
-        Modular.to.popAndPushNamed('/auth');
+        Modular.to.popAndPushNamed('/auth/');
       } else {
-        Modular.to.popAndPushNamed('/home');
+        Modular.to.popAndPushNamed('/home/');
       }
     });
   }
