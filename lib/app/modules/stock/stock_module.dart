@@ -13,9 +13,14 @@ class StockModule extends Module {
       child: (_, args) => const StockPage(),
       children: [
         ChildRoute('/content/', child: (_, args) => const ContentStock()),
-        ChildRoute('/content/stockregister/',
-            child: (_, args) => const Center(
-                  child: Text("Lista de Estoque"),
+        ChildRoute('/content/stocklist/',
+            child: (_, args) => Scaffold(
+                  appBar: AppBar(
+                    title: const Text("Lista de Estoques"),
+                  ),
+                  body: const Center(
+                    child: Text("Lista de Estoque"),
+                  ),
                 )),
         ChildRoute('/content/stockstatement/',
             child: (_, args) => const Center(
