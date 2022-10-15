@@ -2,14 +2,19 @@ import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_mod
 import 'package:appweb/app/modules/stock_list_register/domain/repositories/stock_list_repository.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usescases/stock_list_getlist.dart';
 import 'package:dartz/dartz.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class MockStockListRepository extends Mock implements StockListRepository {}
+import 'stock_list_getlist_test.mocks.dart';
 
+//class MockStockListRepository extends Mock implements StockListRepository {}
+
+@GenerateMocks([StockListRepository])
 void main() {
-  StockListGetlist usescase;
-  MockStockListRepository mockStockListRepository;
+  late StockListGetlist usescase;
+  late MockStockListRepository mockStockListRepository;
+  late Params tParams;
 
   setUp(() {
     mockStockListRepository = MockStockListRepository();
@@ -20,19 +25,15 @@ void main() {
   const StockListModel item = StockListModel(
       id: 1, institution: 1, description: 'Principal', main: 'S', active: 'S');
   const List<StockListModel> tListStock = [item, item];
-
+  tParams = const Params(institutionId: tInstitution);
   test(
     'should show de list of stocks from the repository',
     () async {
       //arrange
-      mockStockListRepository = MockStockListRepository();
-      usescase = StockListGetlist(repository: mockStockListRepository);
-
       when(mockStockListRepository.getList(institutionId: tInstitution))
           .thenAnswer((_) async => const Right(tListStock));
       //act
-      final result =
-          await usescase.call(const Params(institutionId: tInstitution));
+      final result = await usescase.call(tParams);
       //assert
       expect(result, const Right(tListStock));
       verify(mockStockListRepository.getList(institutionId: tInstitution));

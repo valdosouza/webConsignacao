@@ -43,14 +43,19 @@ void main() {
     () async {
       // arrange
       when(mockHomeRepository.getFinancialClosed(
-              initialDate: tParams.initialDate, finalDate: tParams.finalDate))
-          .thenAnswer((_) async => Right(tLisTSalesPaymentTypesModel));
+        initialDate: tParams.initialDate,
+        finalDate: tParams.finalDate,
+        terminal: tParams.terminal,
+      )).thenAnswer((_) async => Right(tLisTSalesPaymentTypesModel));
       // act
       final result = await usecase(tParams);
       // assert
       expect(result, Right(tLisTSalesPaymentTypesModel));
       verify(mockHomeRepository.getFinancialClosed(
-          initialDate: tParams.initialDate, finalDate: tParams.finalDate));
+        initialDate: tParams.initialDate,
+        finalDate: tParams.finalDate,
+        terminal: tParams.terminal,
+      ));
       verifyNoMoreInteractions(mockHomeRepository);
     },
   );
