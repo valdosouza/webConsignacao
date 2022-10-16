@@ -5,56 +5,41 @@ class StockListList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
     /*
-    return Observer(
-      builder: (_) {
-        switch (Future.status) {
-          case FutureStatus.pending:
-            return Center(
+    final bloc = Modular.get<StockListBloc>();
+    bloc.getlist(1);
+
+    return BlocBuilder<StockListBloc, StockListState>(
+        bloc: bloc,
+        builder: (context, state) {
+          if (state is StockListInitialState) {
+            return const Center(
               child: CircularProgressIndicator(),
             );
-
-          case FutureStatus.rejected:
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Falha ao carregar dados.',
-                    style: TextStyle(color: Colors.red),
+          } else if (state is StockListSuccessState) {
+            final stockList = state.stocklist;
+            return ListView.separated(
+              itemCount: stockList.length,
+              itemBuilder: (context, index) => ListTile(
+                leading: CircleAvatar(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Text(stockList[index].id.toString()),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    child: const Text('Tente Novamente'),
-                    onPressed: _refresh,
-                  )
-                ],
+                ),
+                title: Text(stockList[index].description),
+                trailing: IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed: () {
+                    bloc.add(RemoveStockListEvent(stocklist: stockList[index]));
+                  },
+                ),
               ),
+              separatorBuilder: (_, __) => const Divider(),
             );
-
-          case FutureStatus.fulfilled:
-            final List<GroupHasAttributeModel> posts = future.result;
-            return RefreshIndicator(
-              onRefresh: _refresh,
-              child: ListView.builder(
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: posts.length,
-                itemBuilder: (context, index) {
-                  final post = posts[index];
-                  return PizDoughItem(item: post);
-                },
-              ),
-            );
-            break;
-        }
-        return widtget;
-      },
-    );
-    */
+          }
+          return Container();
+        });*/
+    return Container();
   }
-
-  //Future _refresh() => store.fetchPosts();
 }

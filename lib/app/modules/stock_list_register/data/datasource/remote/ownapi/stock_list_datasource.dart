@@ -11,20 +11,14 @@ abstract class StockListDatasource {
 }
 
 class StockListDatasourceImpl implements StockListDatasource {
-  final _baseUrl = '${baseApiUrl}user/authenticate/';
   final client = http.Client();
   List<StockListModel> items = [];
   @override
   Future<List<StockListModel>> getlist({required int institutionId}) async {
-    final response = await client.post(
-      Uri.parse(_baseUrl),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(
-        <String, String>{'tb_instituion_id': institutionId.toString()},
-      ),
-    );
+    final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$institutionId');
+
+    final response = await client.get(uri);
+
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
 

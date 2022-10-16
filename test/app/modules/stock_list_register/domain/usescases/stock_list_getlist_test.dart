@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'stock_list_getlist_test.mocks.dart';
 
+// será criada automaticament flutter pub run build_runner build
 //class MockStockListRepository extends Mock implements StockListRepository {}
 
 @GenerateMocks([StockListRepository])
@@ -33,7 +34,7 @@ void main() {
       when(mockStockListRepository.getList(institutionId: tInstitution))
           .thenAnswer((_) async => const Right(tListStock));
       //act
-      final result = await usescase.call(tParams);
+      final result = await usescase(tParams);
       //assert
       expect(result, const Right(tListStock));
       verify(mockStockListRepository.getList(institutionId: tInstitution));

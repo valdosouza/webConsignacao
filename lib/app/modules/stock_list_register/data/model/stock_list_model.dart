@@ -17,7 +17,7 @@ class StockListModel extends StockListEntity {
   factory StockListModel.fromJson(Map<String, dynamic> json) {
     return StockListModel(
       id: int.parse(json['id'].toString()),
-      institution: int.parse(json['institution'].toString()),
+      institution: int.parse(json['tb_institution_id'].toString()),
       description: json['description'] as String,
       main: json['main'] as String,
       active: json['active'] as String,
