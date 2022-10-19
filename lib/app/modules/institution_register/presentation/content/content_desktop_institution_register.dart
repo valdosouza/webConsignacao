@@ -2,6 +2,7 @@
 
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_bloc.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_event.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_state.dart';
@@ -61,26 +62,19 @@ class _ContentDesktopInstitutionRegisterState
               const SizedBox(width: 100.0),
               IconButton(
                 onPressed: () {
-                  if (_formK.currentState != null) {
-                    if (_formK.currentState!.validate()) {
-                      if (bloc.entity.id != 0) {
-                        bloc.add(InstitutionPutEvent());
-                      } else {
-                        bloc.add(InstitutionSaveEvent());
-                      }
-                    } else {
-                      CustomToast.showToast("Ops...Revise seu CEP para.");
-                    }
-                  } else if (_formKey.currentState != null) {}
-                  if (_formKey.currentState!.validate()) {
+                  if (Validators.validateCNPJ(bloc.entity.cnpj) != null) {
+                    CustomToast.showToast(
+                        Validators.validateCNPJ(bloc.entity.cnpj)!);
+                  } else if (Validators.validateExactLength(
+                          bloc.entity.zipCode, 8) !=
+                      null) {
+                    CustomToast.showToast("CEP inválido.");
+                  } else {
                     if (bloc.entity.id != 0) {
                       bloc.add(InstitutionPutEvent());
                     } else {
                       bloc.add(InstitutionSaveEvent());
                     }
-                  } else {
-                    CustomToast.showToast(
-                        "Ops...Reviseseu CNPJ para continuar.");
                   }
                 },
                 hoverColor: Colors.transparent,
