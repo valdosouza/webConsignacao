@@ -73,3 +73,12 @@ class InstitutionCepErrorState extends InstitutionState {
   @override
   List<Object> get props => [error];
 }
+
+class InstitutionCnpjErrorState extends InstitutionState {
+  final String error;
+
+  const InstitutionCnpjErrorState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

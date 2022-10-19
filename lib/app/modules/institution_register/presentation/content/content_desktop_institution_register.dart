@@ -2,10 +2,12 @@
 
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_bloc.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_event.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_state.dart';
+import 'package:appweb/app/modules/institution_register/presentation/widgets/institution_address_widget.dart';
+import 'package:appweb/app/modules/institution_register/presentation/widgets/institution_identification_widget.dart';
+import 'package:appweb/app/modules/institution_register/presentation/widgets/institution_phone_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -21,6 +23,8 @@ class ContentDesktopInstitutionRegister extends StatefulWidget {
 class _ContentDesktopInstitutionRegisterState
     extends State<ContentDesktopInstitutionRegister> {
   late final InstitutionBloc bloc;
+  final _formKey = GlobalKey<FormState>();
+  final _formK = GlobalKey<FormState>();
   @override
   void initState() {
     bloc = Modular.get<InstitutionBloc>();
@@ -57,10 +61,26 @@ class _ContentDesktopInstitutionRegisterState
               const SizedBox(width: 100.0),
               IconButton(
                 onPressed: () {
-                  if (bloc.entity.id != 0) {
-                    bloc.add(InstitutionPutEvent());
+                  if (_formK.currentState != null) {
+                    if (_formK.currentState!.validate()) {
+                      if (bloc.entity.id != 0) {
+                        bloc.add(InstitutionPutEvent());
+                      } else {
+                        bloc.add(InstitutionSaveEvent());
+                      }
+                    } else {
+                      CustomToast.showToast("Ops...Revise seu CEP para.");
+                    }
+                  } else if (_formKey.currentState != null) {}
+                  if (_formKey.currentState!.validate()) {
+                    if (bloc.entity.id != 0) {
+                      bloc.add(InstitutionPutEvent());
+                    } else {
+                      bloc.add(InstitutionSaveEvent());
+                    }
                   } else {
-                    bloc.add(InstitutionSaveEvent());
+                    CustomToast.showToast(
+                        "Ops...Reviseseu CNPJ para continuar.");
                   }
                 },
                 hoverColor: Colors.transparent,
@@ -104,6 +124,12 @@ class _ContentDesktopInstitutionRegisterState
             } else if (state is InstitutionPutErrorState) {
               CustomToast.showToast(
                   "Ocorreu um erro ao atualizar. Tente novamente mais tarde.");
+            } else if (state is InstitutionGetErrorState) {
+              CustomToast.showToast(
+                  "Ocorreu um erro ao buscar seu estabelecimento. Tente novamente mais tarde.");
+            } else if (state is InstitutionCnpjErrorState) {
+              CustomToast.showToast(
+                  "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
             }
           },
           builder: (context, state) {
@@ -118,182 +144,19 @@ class _ContentDesktopInstitutionRegisterState
             }
             return TabBarView(
               children: <Widget>[
-                _buildIdentificationData(),
-                _buildAddress(),
-                _buildPhone(),
+                InstituitionIdentificationWidget(
+                  bloc: bloc,
+                  formKey: _formKey,
+                ),
+                InstituitionAddressWidget(
+                  bloc: bloc,
+                  formK: _formK,
+                ),
+                InstituitionPhoneWidget(bloc: bloc),
               ],
             );
           },
         ),
-      ),
-    );
-  }
-
-  Padding _buildPhone() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomInput(
-            title: 'Tipo de Telefone(Celular, residencial)',
-            keyboardType: TextInputType.number,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.phoneKind = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Celular',
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.done,
-            onChanged: (value) {
-              bloc.entity.phoneNumber = value;
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Padding _buildAddress() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomInput(
-            title: 'CEP',
-            sufixIcon: IconButton(
-              hoverColor: Colors.transparent,
-              onPressed: () {
-                bloc.add(InstitutionCepEvent(bloc.entity.zipCode));
-              },
-              icon: const Icon(
-                Icons.search,
-                size: 20.0,
-                color: Colors.white,
-              ),
-            ),
-            initialValue: bloc.entity.zipCode,
-            keyboardType: TextInputType.number,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.zipCode = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'UF',
-            initialValue: bloc.entity.region,
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.region = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Cidade',
-            initialValue: bloc.entity.latitude,
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.latitude = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Logradouro',
-            initialValue: bloc.entity.street,
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.street = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Número',
-            initialValue: bloc.entity.nmbr,
-            keyboardType: TextInputType.number,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.nmbr = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Complemento',
-            initialValue: bloc.entity.complement,
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.complement = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Bairro',
-            initialValue: bloc.entity.neighborhood,
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.done,
-            onChanged: (value) {
-              bloc.entity.neighborhood = value;
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Padding _buildIdentificationData() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomInput(
-            title: 'CNPJ',
-            initialValue: bloc.entity.cnpj,
-            keyboardType: TextInputType.number,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.cnpj = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Nome/Razão Social',
-            initialValue: bloc.entity.nameCompany,
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.nameCompany = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Apelido/Fantasia',
-            initialValue: bloc.entity.nickTrade,
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.nickTrade = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Inscrição Estadual',
-            initialValue: bloc.entity.ie,
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.ie = value;
-            },
-          ),
-        ],
       ),
     );
   }

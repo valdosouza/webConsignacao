@@ -11,3 +11,9 @@ class InstitutionCepEvent extends InstitutionEvent {
 
   InstitutionCepEvent(this.cep);
 }
+
+class InstitutionCnpjEvent extends InstitutionEvent {
+  final String cnpj;
+
+  InstitutionCnpjEvent(this.cnpj);
+}

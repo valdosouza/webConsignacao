@@ -9,12 +9,14 @@ class CustomInput extends StatelessWidget {
   final Function(String)? onChanged;
   final String? initialValue;
   final Widget? sufixIcon;
+  final String? Function(String?)? validator;
   const CustomInput({
     super.key,
     required this.title,
     required this.keyboardType,
     required this.inputAction,
     required this.onChanged,
+    this.validator,
     this.initialValue = "",
     this.sufixIcon,
     this.hint,
@@ -39,6 +41,7 @@ class CustomInput extends StatelessWidget {
             keyboardType: keyboardType,
             autofocus: true,
             textInputAction: inputAction,
+            validator: validator,
             onChanged: onChanged,
             style: const TextStyle(
               color: Colors.white,

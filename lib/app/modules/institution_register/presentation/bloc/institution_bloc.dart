@@ -1,6 +1,7 @@
 import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
 import 'package:appweb/app/modules/institution_register/domain/entity/institution_entity.dart';
-import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_cep.dart';
+import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_cep_usecase.dart';
+import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_cnpj_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_put_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_register_usecase.dart';
@@ -13,6 +14,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
   final InstitutionRegisterGet get;
   final InstitutionPut put;
   final InstitutionGetCep cep;
+  final InstitutionGetCnpj cnpj;
   InstitutionEntity entity = InstitutionEntity();
 
   InstitutionBloc({
@@ -20,8 +22,25 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     required this.get,
     required this.put,
     required this.cep,
+    required this.cnpj,
   }) : super(InstitutionInitialState()) {
     //Busca instituicao [id está mockado]
+    getInstitution();
+
+    //Salva uma nova instituicao
+    saveInstitution();
+
+    //Atualiza dados da instituicao
+    putInstitution();
+
+    //Busca CEP
+    searchCEP();
+
+    //Busca CNPJ
+    searchCNPJ();
+  }
+
+  getInstitution() {
     on<InstitutionGetEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -35,8 +54,9 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
         emit(InstitutionLoadedState());
       });
     });
+  }
 
-    //Salva uma nova instituicao
+  saveInstitution() {
     on<InstitutionSaveEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -46,8 +66,9 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
       response.fold((l) => emit(const InstitutionGetErrorState("")),
           (r) => emit(InstitutionPostSuccessState()));
     });
+  }
 
-    //Atualiza dados da instituicao
+  putInstitution() {
     on<InstitutionPutEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -57,8 +78,31 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
       response.fold((l) => emit(const InstitutionPutErrorState("")),
           (r) => emit(InstitutionPutSuccessState()));
     });
+  }
 
-    //Busca CEP
+  searchCEP() {
+    on<InstitutionCnpjEvent>((event, emit) async {
+      emit(InstitutionLoadingState());
+
+      final response = await cnpj.call(ParamsCnpj(cnpj: event.cnpj));
+
+      response.fold((l) => emit(const InstitutionCnpjErrorState("")), (r) {
+        entity.zipCode = r.cep.replaceAll("-", "").replaceAll(".", "");
+        entity.nickTrade = r.fantasia;
+        entity.cnpj = r.cnpj;
+        entity.nameCompany = r.nome;
+        entity.nmbr = r.numero;
+        entity.street = r.logradouro;
+        entity.complement = r.complemento;
+        entity.neighborhood = r.bairro;
+        entity.latitude = r.municipio;
+        entity.region = r.uf;
+        emit(InstitutionLoadedState());
+      });
+    });
+  }
+
+  searchCNPJ() {
     on<InstitutionCepEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
