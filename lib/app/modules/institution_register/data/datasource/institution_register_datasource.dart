@@ -102,8 +102,7 @@ class InstitutionRegisterDatasourceImpl
   @override
   Future<IdentificationModel> getCnpj(String cnpj) async {
     try {
-      final uri =
-          Uri.parse('https://www.receitaws.com.br/v1/cnpj/07742094000113');
+      final uri = Uri.parse('https://www.receitaws.com.br/v1/cnpj/$cnpj');
       final response = await client.get(uri);
       if (response.statusCode == 200) {
         var obj = jsonDecode(response.body);
