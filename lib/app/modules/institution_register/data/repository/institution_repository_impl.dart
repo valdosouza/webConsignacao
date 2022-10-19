@@ -2,6 +2,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/institution_register/data/datasource/institution_register_datasource.dart';
 import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
+import 'package:appweb/app/modules/institution_register/domain/entity/address_entity.dart';
 import 'package:appweb/app/modules/institution_register/domain/entity/institution_entity.dart';
 import 'package:appweb/app/modules/institution_register/domain/repository/institution_register_respository.dart';
 import 'package:dartz/dartz.dart';
@@ -52,6 +53,16 @@ class InstitutionRegisterRespositoryImpl
   Future<Either<Failure, String>> deleteInstitution({required int id}) async {
     try {
       String response = await datasource.deleteInstitution(id: id);
+      return Right(response);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, AddressEntity>> getCEP({required String cep}) async {
+    try {
+      AddressEntity response = await datasource.getCep(cep);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

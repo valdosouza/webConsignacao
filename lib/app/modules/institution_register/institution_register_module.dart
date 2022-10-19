@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/institution_register/data/datasource/institution_register_datasource.dart';
 import 'package:appweb/app/modules/institution_register/data/repository/institution_repository_impl.dart';
+import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_cep.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_put_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_register_usecase.dart';
@@ -30,10 +31,15 @@ class InstitutionRegisterModule extends Module {
           (i) => InstitutionPut(
               repository: i.get<InstitutionRegisterRespositoryImpl>()),
         ),
+        Bind.factory(
+          (i) => InstitutionGetCep(
+              repository: i.get<InstitutionRegisterRespositoryImpl>()),
+        ),
         BlocBind.singleton((i) => InstitutionBloc(
               save: i.get<InstitutionRegisterSave>(),
               get: i.get<InstitutionRegisterGet>(),
               put: i.get<InstitutionPut>(),
+              cep: i.get<InstitutionGetCep>(),
             )),
       ];
 

@@ -165,6 +165,17 @@ class _ContentDesktopInstitutionRegisterState
         children: [
           CustomInput(
             title: 'CEP',
+            sufixIcon: IconButton(
+              hoverColor: Colors.transparent,
+              onPressed: () {
+                bloc.add(InstitutionCepEvent(bloc.entity.zipCode));
+              },
+              icon: const Icon(
+                Icons.search,
+                size: 20.0,
+                color: Colors.white,
+              ),
+            ),
             initialValue: bloc.entity.zipCode,
             keyboardType: TextInputType.number,
             inputAction: TextInputAction.next,
@@ -175,6 +186,7 @@ class _ContentDesktopInstitutionRegisterState
           const SizedBox(height: 30.0),
           CustomInput(
             title: 'UF',
+            initialValue: bloc.entity.region,
             keyboardType: TextInputType.text,
             inputAction: TextInputAction.next,
             onChanged: (value) {
@@ -184,10 +196,11 @@ class _ContentDesktopInstitutionRegisterState
           const SizedBox(height: 30.0),
           CustomInput(
             title: 'Cidade',
+            initialValue: bloc.entity.latitude,
             keyboardType: TextInputType.text,
             inputAction: TextInputAction.next,
             onChanged: (value) {
-              bloc.entity.tbCityId = 12;
+              bloc.entity.latitude = value;
             },
           ),
           const SizedBox(height: 30.0),

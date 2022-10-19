@@ -64,3 +64,12 @@ class InstitutionDeleteErrorState extends InstitutionState {
   @override
   List<Object> get props => [error];
 }
+
+class InstitutionCepErrorState extends InstitutionState {
+  final String error;
+
+  const InstitutionCepErrorState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

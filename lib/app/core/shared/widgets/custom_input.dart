@@ -8,6 +8,7 @@ class CustomInput extends StatelessWidget {
   final TextInputType keyboardType;
   final Function(String)? onChanged;
   final String? initialValue;
+  final Widget? sufixIcon;
   const CustomInput({
     super.key,
     required this.title,
@@ -15,6 +16,7 @@ class CustomInput extends StatelessWidget {
     required this.inputAction,
     required this.onChanged,
     this.initialValue = "",
+    this.sufixIcon,
     this.hint,
   });
 
@@ -31,6 +33,7 @@ class CustomInput extends StatelessWidget {
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
+          width: MediaQuery.of(context).size.width * 0.3,
           child: TextFormField(
             initialValue: initialValue,
             keyboardType: keyboardType,
@@ -43,6 +46,7 @@ class CustomInput extends StatelessWidget {
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
+              suffix: sufixIcon,
               contentPadding: const EdgeInsets.only(left: 10.0),
               hintText: hint ?? "",
               hintStyle: kHintTextStyle,
