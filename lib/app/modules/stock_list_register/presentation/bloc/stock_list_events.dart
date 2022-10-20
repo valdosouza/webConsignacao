@@ -12,18 +12,18 @@ class AddStockListEvent extends StockListEvent {
   });
 }
 
-class RemoveStockListEvent extends StockListEvent {
-  StockListModel stocklist;
+class SearchStockEvent extends StockListEvent {
+  String search;
 
-  RemoveStockListEvent({
-    required this.stocklist,
+  SearchStockEvent({
+    required this.search,
   });
 }
 
-class SearchClientEvent extends StockListEvent {
-  String search;
+class DeleteStockEvent extends StockListEvent {
+  int stockId;
 
-  SearchClientEvent({
-    required this.search,
+  DeleteStockEvent({
+    required this.stockId,
   });
 }

@@ -5,4 +5,9 @@ import 'package:dartz/dartz.dart';
 abstract class StockListRepository {
   Future<Either<Failure, List<StockListModel>>> getList(
       {required int institutionId});
+
+  Future<Either<Failure, StockListModel>> addStock(
+      {required StockListModel model});
+  Future<Either<Failure, String>> putStock({required StockListModel model});
+  Future<Either<Failure, String>> deleteStock({required int stockId});
 }

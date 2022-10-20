@@ -23,4 +23,14 @@ class StockListModel extends StockListEntity {
       active: json['active'] as String,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['tb_institution_id'] = institution;
+    data['description'] = description;
+    data['main'] = main;
+    data['active'] = active;
+    return data;
+  }
 }
