@@ -19,3 +19,11 @@ class RemoveStockListEvent extends StockListEvent {
     required this.stocklist,
   });
 }
+
+class SearchClientEvent extends StockListEvent {
+  String search;
+
+  SearchClientEvent({
+    required this.search,
+  });
+}

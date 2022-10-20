@@ -16,3 +16,7 @@ class StockListSuccessState extends StockListState {
   StockListSuccessState({required List<StockListModel> stocklist})
       : super(stocklist: stocklist);
 }
+
+class StockListErrorState extends StockListState {
+  StockListErrorState() : super(stocklist: []);
+}

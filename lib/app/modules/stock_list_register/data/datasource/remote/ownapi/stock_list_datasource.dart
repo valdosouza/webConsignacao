@@ -1,7 +1,7 @@
 import 'dart:convert';
+
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
-
 import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
 import 'package:http/http.dart' as http;
 
