@@ -52,8 +52,8 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     //Busca Estados
     getState();
 
-    // //Busca Cidades
-    // getCitys();
+    //Busca Cidades
+    getCitys();
 
     //Volta para tela após escolha de cidade/estado
     on<InstitutionReturnEvent>(
@@ -157,18 +157,18 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  // getCitys() {
-  //   on<InstitutionGetCitysEvent>((event, emit) async {
-  //     emit(InstitutionLoadingState());
+  getCitys() {
+    on<InstitutionGetCitysEvent>((event, emit) async {
+      emit(InstitutionLoadingState());
 
-  //     final response = await getCity.call(ParamsGetCity(id: event.id));
+      final response = await getCity.call(ParamsGetCity(id: event.id));
 
-  //     response.fold((l) => emit(const InstitutionGetCityErrorState("")), (r) {
-  //       citys = r;
-  //       emit(InstitutionGetCitySuccessState(citys: r));
-  //     });
-  //   });
-  // }
+      response.fold((l) => emit(const InstitutionGetCityErrorState("")), (r) {
+        citys = r;
+        emit(InstitutionGetCitySuccessState(citys: r));
+      });
+    });
+  }
 
   searchEventStates() {
     on<SearchStateEvent>((event, emit) async {
