@@ -21,12 +21,14 @@ class StockInterationItem extends StatefulWidget {
 
 class _StockInterationItemState extends State<StockInterationItem> {
   bool selectRadio = false;
+  bool selectMain = false;
   StockListModel? stock;
 
   @override
   void initState() {
     if (widget.stock?.active != null) {
       selectRadio = widget.stock!.active == "S";
+      selectMain = widget.stock!.main == "S";
     }
     stock = widget.stock;
 
@@ -34,7 +36,8 @@ class _StockInterationItemState extends State<StockInterationItem> {
   }
 
   String descripton = "";
-  String active = "";
+  String active = "N";
+  String main = "N";
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -137,6 +140,53 @@ class _StockInterationItemState extends State<StockInterationItem> {
                                   });
                                   stock?.active = "N";
                                   active = "N";
+                                }
+                              : (value) {}),
+                      const SizedBox(width: 5.0),
+                      const Text("Não", style: kLabelStyle),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30.0),
+              const Text("Principal", style: kLabelStyle),
+              const SizedBox(height: 10.0),
+              Row(
+                children: [
+                  Row(
+                    children: [
+                      Radio(
+                        value: true,
+                        groupValue: selectMain,
+                        activeColor: Colors.red,
+                        onChanged: selectMain
+                            ? (value) {}
+                            : (value) {
+                                setState(() {
+                                  selectMain = true;
+                                });
+                                stock?.main = "S";
+                                main = "S";
+                              },
+                      ),
+                      const SizedBox(width: 5.0),
+                      const Text("Sim", style: kLabelStyle),
+                    ],
+                  ),
+                  const SizedBox(width: 10.0),
+                  Row(
+                    children: [
+                      Radio(
+                          value: false,
+                          groupValue: selectMain,
+                          activeColor: Colors.red,
+                          onChanged: selectMain
+                              ? (value) {
+                                  setState(() {
+                                    selectMain = false;
+                                  });
+                                  stock?.main = "N";
+                                  main = "N";
                                 }
                               : (value) {}),
                       const SizedBox(width: 5.0),

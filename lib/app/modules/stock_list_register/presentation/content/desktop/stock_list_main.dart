@@ -38,22 +38,22 @@ class StockListMaineState extends State<StockListMain> {
       bloc: bloc,
       listener: (context, state) {
         if (state is StockDeleteSuccessState) {
-          CustomToast.showToast("Cliente removido com sucesso.");
+          CustomToast.showToast("Estoque removido com sucesso.");
         } else if (state is StockListDeleteErrorState) {
           CustomToast.showToast(
-              "Erro ao remover o cliente. Tente novamente mais tarde.");
+              "Erro ao remover o estoque. Tente novamente mais tarde.");
         } else if (state is StockAddSuccessState) {
-          CustomToast.showToast("Cliente adicionado com sucesso");
+          CustomToast.showToast("Estoque adicionado com sucesso");
           bloc.add(LoadStockListEvent());
         } else if (state is StockAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar o cliente. Tente novamente mais tarde.");
+              "Erro ao adicionar o estoque. Tente novamente mais tarde.");
         } else if (state is StockEditSuccessState) {
-          CustomToast.showToast("Cliente editado com sucesso");
+          CustomToast.showToast("Estoque editado com sucesso");
           bloc.add(LoadStockListEvent());
         } else if (state is StockPutErrorState) {
           CustomToast.showToast(
-              "Erro ao editar o cliente. Tente novamente mais tarde.");
+              "Erro ao editar o estoque. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -70,7 +70,7 @@ class StockListMaineState extends State<StockListMain> {
         final stocklists = state.stocklist;
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Clientes'),
+            title: const Text('Lista de estoque'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.person_add),
@@ -93,7 +93,7 @@ class StockListMaineState extends State<StockListMain> {
                     child: stocklists.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum cliente em nossa base."))
+                                "Não encontramos nenhum estoque em nossa base."))
                         : ListView.separated(
                             itemCount: stocklists.length,
                             itemBuilder: (context, index) => InkWell(
