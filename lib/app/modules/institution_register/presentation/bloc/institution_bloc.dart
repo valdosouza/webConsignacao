@@ -1,7 +1,11 @@
+import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
+import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
 import 'package:appweb/app/modules/institution_register/domain/entity/institution_entity.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_cep_usecase.dart';
+import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_citys.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_cnpj_usecase.dart';
+import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_states.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_put_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_register_usecase.dart';
@@ -15,7 +19,11 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
   final InstitutionPut put;
   final InstitutionGetCep cep;
   final InstitutionGetCnpj cnpj;
+  final InstitutionGetStates getStates;
+  final InstitutionGetCity getCity;
   InstitutionEntity entity = InstitutionEntity();
+  List<StateModel> states = [];
+  List<CityModel> citys = [];
 
   InstitutionBloc({
     required this.save,
@@ -23,6 +31,8 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     required this.put,
     required this.cep,
     required this.cnpj,
+    required this.getStates,
+    required this.getCity,
   }) : super(InstitutionInitialState()) {
     //Busca instituicao [id está mockado]
     getInstitution();
@@ -38,6 +48,22 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
 
     //Busca CNPJ
     searchCNPJ();
+
+    //Busca Estados
+    getState();
+
+    // //Busca Cidades
+    // getCitys();
+
+    //Volta para tela após escolha de cidade/estado
+    on<InstitutionReturnEvent>(
+        (event, emit) => emit(InstitutionReturnedState()));
+
+    //Procura Estado
+    searchEventStates();
+
+    //Procura Estado
+    searchEventCitys();
   }
 
   getInstitution() {
@@ -115,6 +141,68 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
         entity.region = r.uf;
         emit(InstitutionLoadedState());
       });
+    });
+  }
+
+  getState() {
+    on<InstitutionGetStatesEvent>((event, emit) async {
+      emit(InstitutionLoadingState());
+
+      final response = await getStates.call(ParamsGetStates());
+
+      response.fold((l) => emit(const InstitutionGetStatesErrorState("")), (r) {
+        states = r;
+        emit(InstitutionGetStatesSuccessState(states: r));
+      });
+    });
+  }
+
+  // getCitys() {
+  //   on<InstitutionGetCitysEvent>((event, emit) async {
+  //     emit(InstitutionLoadingState());
+
+  //     final response = await getCity.call(ParamsGetCity(id: event.id));
+
+  //     response.fold((l) => emit(const InstitutionGetCityErrorState("")), (r) {
+  //       citys = r;
+  //       emit(InstitutionGetCitySuccessState(citys: r));
+  //     });
+  //   });
+  // }
+
+  searchEventStates() {
+    on<SearchStateEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var statestSearched = states.where((element) {
+          String name = element.name;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (statestSearched.isEmpty) {}
+        emit(InstitutionGetStatesSuccessState(states: statestSearched));
+      } else {
+        emit(InstitutionGetStatesSuccessState(states: states));
+      }
+    });
+  }
+
+  searchEventCitys() {
+    on<SearchCityEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var citystSearched = citys.where((element) {
+          String name = element.name;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (citystSearched.isEmpty) {}
+        emit(InstitutionGetCitySuccessState(citys: citystSearched));
+      } else {
+        emit(InstitutionGetCitySuccessState(citys: citys));
+      }
     });
   }
 }

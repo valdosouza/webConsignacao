@@ -71,6 +71,7 @@ dev_dependencies:
     sdk: flutter
   mockito: ^5.3.2  
   build_runner: ^2.3.0
+  json_serializable: ^6.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

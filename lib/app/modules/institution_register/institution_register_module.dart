@@ -1,7 +1,9 @@
 import 'package:appweb/app/modules/institution_register/data/datasource/institution_register_datasource.dart';
 import 'package:appweb/app/modules/institution_register/data/repository/institution_repository_impl.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_cep_usecase.dart';
+import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_citys.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_cnpj_usecase.dart';
+import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_states.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_get_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_put_usecase.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecases/institution_register_usecase.dart';
@@ -40,12 +42,23 @@ class InstitutionRegisterModule extends Module {
           (i) => InstitutionGetCnpj(
               repository: i.get<InstitutionRegisterRespositoryImpl>()),
         ),
+        Bind.factory(
+          (i) => InstitutionGetStates(
+              repository: i.get<InstitutionRegisterRespositoryImpl>()),
+        ),
+        Bind.factory(
+          (i) => InstitutionGetCity(
+              repository: i.get<InstitutionRegisterRespositoryImpl>()),
+        ),
         BlocBind.singleton((i) => InstitutionBloc(
-            save: i.get<InstitutionRegisterSave>(),
-            get: i.get<InstitutionRegisterGet>(),
-            put: i.get<InstitutionPut>(),
-            cep: i.get<InstitutionGetCep>(),
-            cnpj: i.get<InstitutionGetCnpj>())),
+              save: i.get<InstitutionRegisterSave>(),
+              get: i.get<InstitutionRegisterGet>(),
+              put: i.get<InstitutionPut>(),
+              cep: i.get<InstitutionGetCep>(),
+              cnpj: i.get<InstitutionGetCnpj>(),
+              getStates: i.get<InstitutionGetStates>(),
+              getCity: i.get<InstitutionGetCity>(),
+            )),
       ];
 
   @override

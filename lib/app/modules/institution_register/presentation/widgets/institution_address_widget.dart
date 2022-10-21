@@ -1,12 +1,15 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
+import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
+import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_bloc.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class InstituitionAddressWidget extends StatelessWidget {
+class InstituitionAddressWidget extends StatefulWidget {
   final InstitutionBloc bloc;
   final GlobalKey formK;
   const InstituitionAddressWidget({
@@ -16,9 +19,16 @@ class InstituitionAddressWidget extends StatelessWidget {
   });
 
   @override
+  State<InstituitionAddressWidget> createState() =>
+      _InstituitionAddressWidgetState();
+}
+
+class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
+  var stateId = "";
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formK,
+      key: widget.formK,
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -30,8 +40,9 @@ class InstituitionAddressWidget extends StatelessWidget {
                 sufixIcon: IconButton(
                   hoverColor: Colors.transparent,
                   onPressed: () {
-                    if (bloc.entity.zipCode.length == 8) {
-                      bloc.add(InstitutionCepEvent(bloc.entity.zipCode));
+                    if (widget.bloc.entity.zipCode.length == 8) {
+                      widget.bloc
+                          .add(InstitutionCepEvent(widget.bloc.entity.zipCode));
                     } else {
                       CustomToast.showToast("CEP inválido.");
                     }
@@ -42,72 +53,155 @@ class InstituitionAddressWidget extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                initialValue: bloc.entity.zipCode,
+                initialValue: widget.bloc.entity.zipCode,
                 keyboardType: TextInputType.number,
                 inputAction: TextInputAction.next,
                 validator: (value) => Validators.validateExactLength(value, 8),
                 onChanged: (value) {
-                  bloc.entity.zipCode = value;
+                  widget.bloc.entity.zipCode = value;
                 },
               ),
               const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'UF',
-                initialValue: bloc.entity.region,
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  bloc.entity.region = value;
-                },
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "UF",
+                    style: kLabelStyle,
+                  ),
+                  const SizedBox(height: 10.0),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      decoration: kBoxDecorationStyle,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                widget.bloc.states
+                                    .firstWhere(
+                                        (element) =>
+                                            element.id ==
+                                            widget.bloc.entity.tbStateId,
+                                        orElse: () => StateModel(name: ""))
+                                    .name,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              hoverColor: Colors.transparent,
+                              onPressed: () {
+                                widget.bloc.add(InstitutionGetStatesEvent());
+                              },
+                              icon: const Icon(
+                                Icons.search,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                ],
               ),
               const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Cidade',
-                initialValue: bloc.entity.latitude,
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  bloc.entity.latitude = value;
-                },
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Cidade",
+                    style: kLabelStyle,
+                  ),
+                  const SizedBox(height: 10.0),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      decoration: kBoxDecorationStyle,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                widget.bloc.citys
+                                    .firstWhere(
+                                        (element) =>
+                                            element.id ==
+                                            widget.bloc.entity.tbCityId,
+                                        orElse: () => CityModel(name: ""))
+                                    .name,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              hoverColor: Colors.transparent,
+                              onPressed: () {
+                                widget.bloc.add(InstitutionGetCitysEvent(
+                                    widget.bloc.entity.tbStateId.toString()));
+                              },
+                              icon: const Icon(
+                                Icons.search,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                ],
               ),
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Logradouro',
-                initialValue: bloc.entity.street,
+                initialValue: widget.bloc.entity.street,
                 keyboardType: TextInputType.text,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  bloc.entity.street = value;
+                  widget.bloc.entity.street = value;
                 },
               ),
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Número',
-                initialValue: bloc.entity.nmbr,
+                initialValue: widget.bloc.entity.nmbr,
                 keyboardType: TextInputType.number,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  bloc.entity.nmbr = value;
+                  widget.bloc.entity.nmbr = value;
                 },
               ),
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Complemento',
-                initialValue: bloc.entity.complement,
+                initialValue: widget.bloc.entity.complement,
                 keyboardType: TextInputType.text,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  bloc.entity.complement = value;
+                  widget.bloc.entity.complement = value;
                 },
               ),
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Bairro',
-                initialValue: bloc.entity.neighborhood,
+                initialValue: widget.bloc.entity.neighborhood,
                 keyboardType: TextInputType.text,
                 inputAction: TextInputAction.done,
                 onChanged: (value) {
-                  bloc.entity.neighborhood = value;
+                  widget.bloc.entity.neighborhood = value;
                 },
               ),
             ],
