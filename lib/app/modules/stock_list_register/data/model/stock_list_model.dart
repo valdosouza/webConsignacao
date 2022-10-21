@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/stock_list_register/domain/entities/stock_list_entity.dart';
 
 class StockListModel extends StockListEntity {
-  const StockListModel({
+  StockListModel({
     required int id,
     required int institution,
     required String description,
@@ -22,5 +22,15 @@ class StockListModel extends StockListEntity {
       main: json['main'] as String,
       active: json['active'] as String,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id.toString();
+    data['tb_institution_id'] = institution.toString();
+    data['description'] = description;
+    data['main'] = main;
+    data['active'] = active;
+    return data;
   }
 }

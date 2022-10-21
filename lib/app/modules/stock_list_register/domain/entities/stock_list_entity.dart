@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class StockListEntity extends Equatable {
-  final int id;
-  final int institution;
-  final String description;
-  final String main;
-  final String active;
+  int id;
+  int institution;
+  String description;
+  String main;
+  String active;
 
-  const StockListEntity(
+  StockListEntity(
       {required this.id,
       required this.institution,
       required this.description,

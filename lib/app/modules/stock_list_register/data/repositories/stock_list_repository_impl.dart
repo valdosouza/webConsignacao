@@ -23,4 +23,36 @@ class StockListRepositoryImpl implements StockListRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, StockListModel>> addStock(
+      {required StockListModel model}) async {
+    try {
+      final result = await datasource.addStock(model: model);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteStock({required int stockId}) async {
+    try {
+      final result = await datasource.deleteStock(id: stockId);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> putStock(
+      {required StockListModel model}) async {
+    try {
+      final result = await datasource.putStock(model: model);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }
