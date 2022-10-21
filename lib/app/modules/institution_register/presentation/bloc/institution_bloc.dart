@@ -48,9 +48,6 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
 
       response.fold((l) => emit(const InstitutionGetErrorState("")), (r) {
         entity = r;
-        entity.addressKind = "PRINCIPAL";
-        entity.phoneKind = "CELULAR";
-        entity.phoneNumber = "11984950306";
         emit(InstitutionLoadedState());
       });
     });

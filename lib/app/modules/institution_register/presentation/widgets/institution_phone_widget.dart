@@ -19,17 +19,9 @@ class InstituitionPhoneWidget extends StatelessWidget {
         children: [
           CustomInput(
             title: 'Tipo de Telefone(Celular, residencial)',
+            initialValue: bloc.entity.phoneNumber,
             keyboardType: TextInputType.number,
             inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.entity.phoneKind = value;
-            },
-          ),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'Celular',
-            keyboardType: TextInputType.text,
-            inputAction: TextInputAction.done,
             onChanged: (value) {
               bloc.entity.phoneNumber = value;
             },
