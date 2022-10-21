@@ -18,18 +18,22 @@ class StockListDatasourceImpl implements StockListDatasource {
   List<StockListModel> items = [];
   @override
   Future<List<StockListModel>> getlist({required int institutionId}) async {
-    final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$institutionId');
+    try {
+      final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$institutionId');
 
-    final response = await client.get(uri);
+      final response = await client.get(uri);
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
 
-      items = (data as List).map((json) {
-        return StockListModel.fromJson(json);
-      }).toList();
-      return items;
-    } else {
+        items = (data as List).map((json) {
+          return StockListModel.fromJson(json);
+        }).toList();
+        return items;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
       throw ServerException();
     }
   }
@@ -37,40 +41,51 @@ class StockListDatasourceImpl implements StockListDatasource {
   @override
   Future<StockListModel> addStock({required StockListModel model}) async {
     final uri = Uri.parse('${baseApiUrl}stockList');
+    try {
+      final response = await client.post(uri, body: model.toJson());
 
-    final response = await client.post(uri, body: model.toJson());
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      StockListModel result = StockListModel.fromJson(data);
-      return result;
-    } else {
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        StockListModel result = StockListModel.fromJson(data);
+        return result;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
       throw ServerException();
     }
   }
 
   @override
   Future<String> putStock({required StockListModel model}) async {
-    final uri = Uri.parse('${baseApiUrl}stockList');
+    try {
+      final uri = Uri.parse('${baseApiUrl}stockList');
 
-    final response = await client.put(uri, body: model.toJson());
+      final response = await client.put(uri, body: model.toJson());
 
-    if (response.statusCode == 200) {
-      return "";
-    } else {
+      if (response.statusCode == 200) {
+        return "";
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
       throw ServerException();
     }
   }
 
   @override
   Future<String> deleteStock({required int id}) async {
-    final uri = Uri.parse('${baseApiUrl}StockList/$id');
+    try {
+      final uri = Uri.parse('${baseApiUrl}StockList/$id');
 
-    final response = await client.delete(uri);
+      final response = await client.delete(uri);
 
-    if (response.statusCode == 200) {
-      return "";
-    } else {
+      if (response.statusCode == 200) {
+        return "";
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
       throw ServerException();
     }
   }

@@ -1,9 +1,9 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_bloc.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_events.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_state.dart';
+import 'package:appweb/app/modules/stock_list_register/presentation/pages/stock_interation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -34,58 +34,72 @@ class StockListMaineState extends State<StockListMain> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Clientes'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person_add),
-            onPressed: () {
-              bloc.add(AddStockListEvent(
-                  stocklist: const StockListModel(
-                      id: 4,
-                      institution: 1,
-                      description: 'Cliente 3',
-                      active: 'S',
-                      main: 'N')));
-            },
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24),
-        child: BlocConsumer<StockListBloc, StockListState>(
+    return BlocConsumer<StockListBloc, StockListState>(
+      bloc: bloc,
+      listener: (context, state) {
+        if (state is StockDeleteSuccessState) {
+          CustomToast.showToast("Cliente removido com sucesso.");
+        } else if (state is StockListDeleteErrorState) {
+          CustomToast.showToast(
+              "Erro ao remover o cliente. Tente novamente mais tarde.");
+        } else if (state is StockAddSuccessState) {
+          CustomToast.showToast("Cliente adicionado com sucesso");
+          bloc.add(LoadStockListEvent());
+        } else if (state is StockAddErrorState) {
+          CustomToast.showToast(
+              "Erro ao adicionar o cliente. Tente novamente mais tarde.");
+        } else if (state is StockEditSuccessState) {
+          CustomToast.showToast("Cliente editado com sucesso");
+          bloc.add(LoadStockListEvent());
+        } else if (state is StockPutErrorState) {
+          CustomToast.showToast(
+              "Erro ao editar o cliente. Tente novamente mais tarde.");
+        }
+      },
+      builder: (context, state) {
+        if (state is StockListInitialState) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is InterationPageState) {
+          return StockInterationItem(
             bloc: bloc,
-            listener: (context, state) {
-              if (state is StockDeleteSuccessState) {
-                CustomToast.showToast("Cliente removido com sucesso.");
-              } else if (state is StockListDeleteErrorState) {
-                CustomToast.showToast(
-                    "Erro ao remover o cliente. Tente novamente mais tarde.");
-              }
-            },
-            builder: (context, state) {
-              if (state is StockListInitialState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final stocklists = state.stocklist;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    _buildSearchInput(),
-                    const SizedBox(height: 30.0),
-                    Expanded(
-                      child: stocklists.isEmpty
-                          ? const Center(
-                              child: Text(
-                                  "Não encontramos nenhum cliente em nossa base."))
-                          : ListView.separated(
-                              itemCount: stocklists.length,
-                              itemBuilder: (context, index) => ListTile(
+            stock: state.stock,
+          );
+        }
+        final stocklists = state.stocklist;
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Clientes'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.person_add),
+                onPressed: () {
+                  bloc.add(StockListInterationEvent());
+                },
+              ),
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _buildSearchInput(),
+                  const SizedBox(height: 30.0),
+                  Expanded(
+                    child: stocklists.isEmpty
+                        ? const Center(
+                            child: Text(
+                                "Não encontramos nenhum cliente em nossa base."))
+                        : ListView.separated(
+                            itemCount: stocklists.length,
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () => bloc.add(StockListInterationEvent(
+                                  stock: stocklists[index])),
+                              child: ListTile(
                                 leading: CircleAvatar(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
@@ -97,19 +111,21 @@ class StockListMaineState extends State<StockListMain> {
                                 trailing: IconButton(
                                   icon: const Icon(Icons.remove),
                                   onPressed: () {
-                                    bloc.add(DeleteStockEvent(
-                                        stockId: stocklists[index].id));
+                                    CustomToast.showToast(
+                                        "Funcionalidade em desenvolvimento.");
                                   },
                                 ),
                               ),
-                              separatorBuilder: (_, __) => const Divider(),
                             ),
-                    ),
-                  ],
-                ),
-              );
-            }),
-      ),
+                            separatorBuilder: (_, __) => const Divider(),
+                          ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

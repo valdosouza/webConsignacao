@@ -1,6 +1,8 @@
 import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usescases/stock_list_add.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usescases/stock_list_delete.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usescases/stock_list_getlist.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usescases/stock_list_put.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_events.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_state.dart';
 import 'package:bloc/bloc.dart';
@@ -8,12 +10,16 @@ import 'package:bloc/bloc.dart';
 class StockListBloc extends Bloc<StockListEvent, StockListState> {
   final StockListGetlist getlist;
   final StockListDelete delete;
+  final StockListAdd addStock;
+  final StockListPut put;
 
   List<StockListModel> clients = [];
 
   StockListBloc({
     required this.getlist,
     required this.delete,
+    required this.addStock,
+    required this.put,
   }) : super(StockListInitialState()) {
     on<LoadStockListEvent>((event, emit) async {
       StockListInitialState();
@@ -54,6 +60,34 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
           clients.removeWhere((element) => element.id == event.stockId);
           return StockDeleteSuccessState(stocklist: clients);
         },
+      );
+      emit(result);
+    });
+
+    on<StockListInterationEvent>((event, emit) async {
+      emit(InterationPageState(stocklist: clients, stock: event.stock));
+    });
+
+    on<AddStockListEvent>((event, emit) async {
+      StockListInitialState();
+      var response = await addStock.call(AddStockParams(stock: event.stock));
+      var result = response.fold(
+        (l) => StockAddErrorState(stocklist: clients),
+        (r) => StockAddSuccessState(
+          stocklist: clients,
+        ),
+      );
+      emit(result);
+    });
+
+    on<EditStockListEvent>((event, emit) async {
+      StockListInitialState();
+      var response = await put.call(PutStockParams(stock: event.stock));
+      var result = response.fold(
+        (l) => StockPutErrorState(stocklist: clients),
+        (r) => StockEditSuccessState(
+          stocklist: clients,
+        ),
       );
       emit(result);
     });

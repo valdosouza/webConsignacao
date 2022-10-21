@@ -5,10 +5,18 @@ abstract class StockListEvent {}
 class LoadStockListEvent extends StockListEvent {}
 
 class AddStockListEvent extends StockListEvent {
-  StockListModel stocklist;
+  StockListModel stock;
 
   AddStockListEvent({
-    required this.stocklist,
+    required this.stock,
+  });
+}
+
+class EditStockListEvent extends StockListEvent {
+  StockListModel stock;
+
+  EditStockListEvent({
+    required this.stock,
   });
 }
 
@@ -25,5 +33,13 @@ class DeleteStockEvent extends StockListEvent {
 
   DeleteStockEvent({
     required this.stockId,
+  });
+}
+
+class StockListInterationEvent extends StockListEvent {
+  StockListModel? stock;
+
+  StockListInterationEvent({
+    this.stock,
   });
 }
