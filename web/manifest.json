@@ -1,6 +1,6 @@
 {
-    "name": "app_web",
-    "short_name": "app_web",
+    "name": "web_consignacao",
+    "short_name": "web_consignacao",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
