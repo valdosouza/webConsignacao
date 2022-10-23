@@ -1,36 +1,39 @@
+import 'package:appweb/app/modules/payment/domain/entities/payment_entity.dart';
 import 'package:flutter/material.dart';
 
-class PaymentModel {
-  final String id;
-  final String idInstitution;
-  final String description;
-  final bool active;
+class PaymentModel extends PaymentEntity{
+ 
+   PaymentModel({
+    required int id,
+    required int idInstitution,
+    required String description,
+    required bool active,
+  }) : super(
+            id: id,
+            idInstitution: idInstitution,
+            description: description,
+            active: active);
 
-  PaymentModel(
-      {required this.id,
-      required this.idInstitution,
-      required this.description,
-      required this.active});
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) {
     return PaymentModel(
-        id: json['id'].toString(),
-        idInstitution: json['tb_institution_id'].toString(),
+        id: json['id'],
+        idInstitution: json['tb_institution_id'],
         description: json['description'].toString(),
         active: json['active'].toString() == 'S' ? true : false);
   }
 
   toMap() {
     return {
-      'id': id,
-      'tb_institution_id': idInstitution,
+      'id': id.toString(),
+      'tb_institution_id': idInstitution.toString(),
       'description': description,
       'active': active ? 'S' : 'N'
     };
   }
 
   copyWith(
-      {String? id, String? idInstitution, String? description, bool? active}) {
+      {int? id, int? idInstitution, String? description, bool? active}) {
     return PaymentModel(
         id: id ?? this.id,
         idInstitution: idInstitution ?? this.idInstitution,

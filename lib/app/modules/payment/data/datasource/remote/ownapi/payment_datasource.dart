@@ -1,21 +1,23 @@
 import 'dart:convert';
+
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/payment/data/model/payment_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class PaymentDataSource {
-  Future<List<PaymentModel>> getlist({required int idInstitution});
-  Future<bool> postItem(
+  Future<List<PaymentModel>> getlist({required String idInstitution});
+  Future<String> postPayment(
       {required String description, required int idInstitution});
-  Future<bool> deleteItem({required PaymentModel paymentModel});
+  Future<String> deletePayment({required int paymentId});
+  Future<String> putPayment({required PaymentModel paymentModel});
 }
 
 class PaymentDataSourceImpl implements PaymentDataSource {
   final client = http.Client();
   List<PaymentModel> items = [];
   @override
-  Future<List<PaymentModel>> getlist({required int idInstitution}) async {
+  Future<List<PaymentModel>> getlist({required String idInstitution}) async {
     final uri = Uri.parse('${baseApiUrl}paymenttype/getlist/$idInstitution');
 
     final response = await client.get(uri);
@@ -32,31 +34,43 @@ class PaymentDataSourceImpl implements PaymentDataSource {
   }
 
   @override
-  Future<bool> postItem(
+  Future<String> postPayment(
       {required String description, required int idInstitution}) async {
     final uri = Uri.parse('${baseApiUrl}paymenttype');
-    final json = {
+    final body = {
       "tb_institution_id": idInstitution.toString(),
       "description": description.toUpperCase(),
       "active": 'S'
     };
 
-    final response = await client.post(uri, body: json);
+    final response = await client.post(uri, body: body);
 
-    if (response.statusCode == 201) {
-      return true;
+    if (response.statusCode == 200) {
+      return '';
     }
     throw ServerException();
   }
 
   @override
-  Future<bool> deleteItem({required PaymentModel paymentModel}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype/${paymentModel.id}');
+  Future<String> deletePayment({required int paymentId}) async {
+    final uri = Uri.parse('${baseApiUrl}paymenttype/$paymentId');
 
     final response = await client.delete(uri);
 
     if (response.statusCode == 200) {
-      return true;
+      return "";
+    }
+    throw ServerException();
+  }
+
+  @override
+  Future<String> putPayment({required PaymentModel paymentModel}) async {
+    final uri = Uri.parse('${baseApiUrl}paymenttype');
+
+    final response = await client.put(uri, body: paymentModel.toMap());
+
+    if (response.statusCode == 200) {
+      return "";
     }
     throw ServerException();
   }
