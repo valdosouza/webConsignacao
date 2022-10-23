@@ -1,11 +1,10 @@
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/payment/data/model/payment_model.dart';
-import 'package:appweb/app/modules/payment/presentation/payment_cubit/payment_cubit.dart';
-import 'package:appweb/app/modules/payment/presentation/payment_cubit/payment_events.dart';
-import 'package:appweb/app/modules/payment/presentation/payment_cubit/payment_state.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:appweb/app/modules/payment/presentation/content/widgets/list_payment.dart';
+import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_bloc.dart';
+import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_events.dart';
+import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_states.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -17,13 +16,11 @@ class ContentPaymentTablet extends StatefulWidget {
 }
 
 class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
-  late PaymentCubit paymentCubit;
-  late List<PaymentModel> paymentMethods;
+    late PaymentBloc paymentBloc;
 
   @override
   void initState() {
-    paymentCubit = Modular.get<PaymentCubit>();
-    Modular.get<PaymentEventsImpl>().getAllPayments();
+    paymentBloc = Modular.get<PaymentBloc>();
     super.initState();
   }
 
@@ -51,7 +48,8 @@ class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
                   flex: 2,
                   child: TextFormField(
                       controller: controllerSearchDescription,
-                      onChanged: search,
+                      onChanged: (value) =>
+                          paymentBloc.add(PaymentSearchEvent(search: value)),
                       decoration: const InputDecoration(
                         hintText: 'Pesquisar',
                       )),
@@ -80,71 +78,41 @@ class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
           ),
           const SizedBox(height: 20),
           Expanded(
-            child: BlocBuilder<PaymentCubit, PaymentState>(
-              bloc: paymentCubit,
-              builder: (context, state) {
-                if (state is PaymentLoadedState) {
-                  if ((state is! PaymentSearchState)) {
-                    paymentMethods = state.paymentMethods.toList();
+            child: BlocConsumer<PaymentBloc, PaymentState>(
+                bloc: paymentBloc,
+                listener: (context, state) {
+                  if (state is PaymentDeleteSuccessState) {
+                    CustomToast.showToast(
+                        "Método de pagamento removido com sucesso.");
+                  } else if (state is PaymentDeleteErrorState) {
+                    CustomToast.showToast(
+                        "Erro ao remover o método de pagamento. Tente novamente mais tarde.");
+                  } else if (state is PaymentAddSuccessState) {
+                    CustomToast.showToast(
+                        "Método de pagamento adicionado com sucesso");
+                    paymentBloc.add(PaymentGetlistEvent(idInstitution: 1));
+                  } else if (state is PaymentAddErrorState) {
+                    CustomToast.showToast(
+                        "Erro ao adicionar o método de pagamento. Tente novamente mais tarde.");
+                  } else if (state is PaymentPutSuccessState) {
+                    CustomToast.showToast(
+                        "Método de pagamento editado com sucesso");
+                    paymentBloc.add(PaymentGetlistEvent(idInstitution: 1));
+                  } else if (state is PaymentPutErrorState) {
+                    CustomToast.showToast(
+                        "Erro ao editar o método de pagamento. Tente novamente mais tarde.");
                   }
-                  PaymentLoadedState paymentLoaded = state;
-                  return ListView.separated(
-                    itemCount: paymentLoaded.paymentMethods.length,
-                    itemBuilder: (context, index) {
-                      bool checkActiveShow =
-                          !paymentLoaded.paymentMethods[index].active &&
-                              checkBoxNoActive;
-                      if (paymentLoaded.paymentMethods[index].active ||
-                          checkActiveShow) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                                width: 100,
-                                child: Text(
-                                    paymentLoaded.paymentMethods[index].id)),
-                            SizedBox(
-                                width: 100,
-                                child: Text(paymentLoaded
-                                    .paymentMethods[index].description)),
-                            SizedBox(
-                                width: 100,
-                                child: Text(
-                                    paymentLoaded.paymentMethods[index].active
-                                        ? 'Sim'
-                                        : 'Não')),
-                            paymentLoaded.paymentMethods[index].active
-                                ? TextButton(
-                                    onPressed: () => deletePayment(
-                                        paymentLoaded.paymentMethods[index]),
-                                    child: const Text("Excluir"))
-                                : const SizedBox(width: 60)
-                          ],
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                    separatorBuilder: (context, index) {
-                      bool checkActiveShow =
-                          !paymentLoaded.paymentMethods[index].active &&
-                              checkBoxNoActive;
-                      if (paymentLoaded.paymentMethods[index].active ||
-                          checkActiveShow) {
-                        return const Divider();
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  );
-                }
-
-                if (state is PaymentErrorState) {
-                  _dialogBuilderError(context, state.error);
-                }
-
-                return const SizedBox.shrink();
-              },
-            ),
+                },
+                builder: (context, state) {
+                  if (state is PaymentInitialState) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ListPayment(
+                      paymentMethods: state.payment,
+                      checkBoxNoActive: checkBoxNoActive);
+                }),
           ),
         ],
       ),
@@ -192,7 +160,9 @@ class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
               child: const Text('Confirmar'),
               onPressed: () {
                 if (stateToPaymentDescription.currentState!.validate()) {
-                  createPayment(controllerDescriptionNameToPayment.text);
+                  paymentBloc.add(PaymentAddEvent(
+                      description: controllerDescriptionNameToPayment.text,
+                      idInstitution: 1));
                   Navigator.of(context).pop();
                 }
               },
@@ -201,37 +171,5 @@ class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
         );
       },
     );
-  }
-
-  Future<void> _dialogBuilderError(BuildContext context, String messageError) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            title: Row(children: const [
-              Text("Erro"),
-              Icon(Icons.warning),
-            ]),
-            content: Text(messageError));
-      },
-    );
-  }
-
-  createPayment(String description) {
-    Modular.get<PaymentEvents>().addPayment(description: description);
-  }
-
-  deletePayment(PaymentModel payment) {
-    PaymentModel deletePayment = payment.copyWith(active: !payment.active);
-    Modular.get<PaymentEvents>().deletePayment(paymentModel: deletePayment);
-  }
-
-  search(String value) {
-    final List<PaymentModel> paymentMethodsSearched = paymentMethods
-        .where((element) =>
-            element.description.toUpperCase().contains(value.toUpperCase()))
-        .toList();
-
-    paymentCubit.search(paymentMethodsSearched);
   }
 }
