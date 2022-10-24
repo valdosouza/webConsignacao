@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/payment/domain/usescases/payment_add.dart';
 import 'package:appweb/app/modules/payment/domain/usescases/payment_delete.dart';
 import 'package:appweb/app/modules/payment/domain/usescases/payment_getlist.dart';
 import 'package:appweb/app/modules/payment/domain/usescases/payment_put.dart';
+import 'package:appweb/app/modules/payment/presentation/pages/interaction_payment.dart';
 import 'package:appweb/app/modules/payment/presentation/pages/payment.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,7 +13,8 @@ class PaymentModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.factory((i) => PaymentDataSourceImpl()),
-    Bind.factory((i) => PaymentRepositoryImpl(paymentDataSource: i.get<PaymentDataSourceImpl>())),
+    Bind.factory((i) => PaymentRepositoryImpl(
+        paymentDataSource: i.get<PaymentDataSourceImpl>())),
     Bind.factory(
         (i) => PaymentGetlist(repository: i.get<PaymentRepositoryImpl>())),
     Bind.factory((i) => PaymentAdd(repository: i.get<PaymentRepositoryImpl>())),
@@ -25,11 +27,12 @@ class PaymentModule extends Module {
           getlistPayment: i.get<PaymentGetlist>(),
           putPayment: i.get<PaymentPut>(),
         )),
-    // Bind.lazySingleton((i) => PaymentEventsImpl()),
   ];
 
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, args) => const PaymentPage()),
+    ChildRoute('/interaction/',
+        child: (_, args) => InteractionPayment(payment: args.data)),
   ];
 }

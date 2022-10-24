@@ -14,7 +14,7 @@ class PaymentAdd extends UseCase<String, AddPaymentParams>{
   @override
   Future<Either<Failure, String>> call(AddPaymentParams params) async {
     try {
-      final response = await repository.addPayment(idInstitution: params.idInstitution ,description: params.description);
+      final response = await repository.addPayment(paymentModel: params.paymentModel);
       return response;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,8 +25,7 @@ class PaymentAdd extends UseCase<String, AddPaymentParams>{
 
 
 class AddPaymentParams {
-  final String description;
-  final int idInstitution;
+  final PaymentModel paymentModel;
 
-  const AddPaymentParams({required this.idInstitution, required this.description});
+  const AddPaymentParams({required this.paymentModel});
 }

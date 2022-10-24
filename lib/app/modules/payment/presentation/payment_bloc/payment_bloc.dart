@@ -31,8 +31,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
       emit(result);
     });
     on<PaymentAddEvent>((event, emit) async {
-      final response = await addPayment.call(AddPaymentParams(
-          idInstitution: event.idInstitution, description: event.description));
+      final response = await addPayment.call(AddPaymentParams(paymentModel: event.paymentModel));
       final result = response.fold((l) => PaymentAddErrorState(payment: paymentModel), (r) {
         return PaymentAddSuccessState();
       });

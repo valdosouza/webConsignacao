@@ -8,7 +8,7 @@ abstract class PaymentRepository {
       {required int institutionId});
 
   Future<Either<Failure, String>> addPayment(
-      {required int idInstitution, required String description});
+      {required PaymentModel paymentModel});
   Future<Either<Failure, String>> putPayment({required PaymentModel paymentModel});
   Future<Either<Failure, String>> deletePayment({required int paymentId});
 }

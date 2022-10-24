@@ -15,9 +15,9 @@ class PaymentRepositoryImpl implements PaymentRepository {
   PaymentRepositoryImpl({required this.paymentDataSource});
    
   @override
-   Future<Either<Failure, String>> addPayment({required int idInstitution, required String description}) async{
+   Future<Either<Failure, String>> addPayment({required PaymentModel paymentModel}) async{
     try {
-      final result = await paymentDataSource.postPayment(description: description, idInstitution: idInstitution);
+      final result = await paymentDataSource.postPayment(paymentModel: paymentModel);
       return Right(result);
     } catch (e) {   
       return Left(ServerFailure());

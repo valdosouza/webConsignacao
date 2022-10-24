@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/payment/data/model/payment_model.dart';
 import 'package:appweb/app/modules/payment/presentation/content/widgets/list_payment.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_bloc.dart';
@@ -35,47 +36,54 @@ class _ContentPaymentDesktopState extends State<ContentPaymentDesktop> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () => _dialogBuilder(context),
+            onPressed: () async => Modular.to
+                .pushNamed('/paymenttype/interaction/', arguments: null),
           )
         ],
       ),
       body: Column(
         children: [
-          Flexible(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  flex: 2,
-                  child: TextFormField(
-                      controller: controllerSearchDescription,
-                      onChanged: (value) =>
-                          paymentBloc.add(PaymentSearchEvent(search: value)),
-                      decoration: const InputDecoration(
-                        hintText: 'Pesquisar',
-                      )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                flex: 2,
+                child: CustomInput(
+                  title: "",
+                  keyboardType: TextInputType.text,
+                  inputAction: TextInputAction.continueAction,
+                  hint: "Pesquise por um método de pagamento",
+                  onChanged: (value) =>
+                      paymentBloc.add(PaymentSearchEvent(search: value)),
                 ),
-                Flexible(
-                  flex: 1,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        activeColor: Colors.red,
-                        value: checkBoxNoActive,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            checkBoxNoActive = value!;
-                          });
-                        },
-                      ),
-                      const Text("Desativados")
-                    ],
-                  ),
-                )
-              ],
-            ),
+                // child: TextFormField(
+                //     controller: controllerSearchDescription,
+                //     onChanged: (value) =>
+                //         paymentBloc.add(PaymentSearchEvent(search: value)),
+                //     decoration: const InputDecoration(
+                //       hintText: 'Pesquisar',
+                //     )),
+              ),
+              Flexible(
+                flex: 1,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      activeColor: Colors.red,
+                      value: checkBoxNoActive,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          checkBoxNoActive = value!;
+                        });
+                      },
+                    ),
+                    const Text("Desativados")
+                  ],
+                ),
+              )
+            ],
           ),
           const SizedBox(height: 20),
           Expanded(
@@ -117,60 +125,6 @@ class _ContentPaymentDesktopState extends State<ContentPaymentDesktop> {
           ),
         ],
       ),
-    );
-  }
-
-  Future<void> _dialogBuilder(BuildContext context) {
-    TextEditingController controllerDescriptionNameToPayment =
-        TextEditingController();
-    GlobalKey<FormState> stateToPaymentDescription = GlobalKey<FormState>();
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Adicionar método de pagamento'),
-          content: Form(
-            key: stateToPaymentDescription,
-            child: TextFormField(
-              controller: controllerDescriptionNameToPayment,
-              decoration: const InputDecoration(
-                hintText: 'Descrição',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Descrição não pode ser vazia';
-                }
-                return null;
-              },
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Cancelar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Confirmar'),
-              onPressed: () {
-                if (stateToPaymentDescription.currentState!.validate()) {
-                  paymentBloc.add(PaymentAddEvent(
-                      description: controllerDescriptionNameToPayment.text,
-                      idInstitution: 1));
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

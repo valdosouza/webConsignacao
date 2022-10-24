@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 abstract class PaymentDataSource {
   Future<List<PaymentModel>> getlist({required String idInstitution});
   Future<String> postPayment(
-      {required String description, required int idInstitution});
+      {required PaymentModel paymentModel});
   Future<String> deletePayment({required int paymentId});
   Future<String> putPayment({required PaymentModel paymentModel});
 }
@@ -39,12 +39,12 @@ class PaymentDataSourceImpl implements PaymentDataSource {
 
   @override
   Future<String> postPayment(
-      {required String description, required int idInstitution}) async {
+      {required PaymentModel paymentModel}) async {
     final uri = Uri.parse('${baseApiUrl}paymenttype');
     final body = {
-      "tb_institution_id": idInstitution.toString(),
-      "description": description.toUpperCase(),
-      "active": 'S'
+      "tb_institution_id": paymentModel.idInstitution.toString(),
+      "description": paymentModel.description.toUpperCase(),
+      "active": paymentModel.active ? 'S' : 'N'
     };
 
     try {

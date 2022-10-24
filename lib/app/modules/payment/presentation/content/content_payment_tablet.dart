@@ -34,7 +34,7 @@ class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () => _dialogBuilder(context),
+            onPressed: () => Modular.to.pushNamed('/paymenttype/interaction/', arguments: null),
           )
         ],
       ),
@@ -116,60 +116,6 @@ class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
           ),
         ],
       ),
-    );
-  }
-
-  Future<void> _dialogBuilder(BuildContext context) {
-    TextEditingController controllerDescriptionNameToPayment =
-        TextEditingController();
-    GlobalKey<FormState> stateToPaymentDescription = GlobalKey<FormState>();
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Adicionar método de pagamento'),
-          content: Form(
-            key: stateToPaymentDescription,
-            child: TextFormField(
-              controller: controllerDescriptionNameToPayment,
-              decoration: const InputDecoration(
-                hintText: 'Descrição',
-              ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Descrição não pode ser vazia';
-                }
-                return null;
-              },
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Cancelar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Confirmar'),
-              onPressed: () {
-                if (stateToPaymentDescription.currentState!.validate()) {
-                  paymentBloc.add(PaymentAddEvent(
-                      description: controllerDescriptionNameToPayment.text,
-                      idInstitution: 1));
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

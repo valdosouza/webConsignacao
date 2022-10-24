@@ -18,9 +18,8 @@ class PaymentDeleteEvent extends PaymentEvent {
 }
 
 class PaymentAddEvent extends PaymentEvent {
-  final String description;
-  final int idInstitution;
-  PaymentAddEvent({required this.description, required this.idInstitution});
+  final PaymentModel paymentModel;
+  PaymentAddEvent({required this.paymentModel});
 }
 
 class PaymentPutEvent extends PaymentEvent {
