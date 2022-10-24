@@ -1,8 +1,8 @@
 import 'package:appweb/app/modules/payment_type_register/data/model/payment_model.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usescases/payment_type_add.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usescases/payment_type_delete.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usescases/payment_type_getlist.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usescases/payment_type_put.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_add.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_delete.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_getlist.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_put.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_events.dart';
 import 'package:bloc/bloc.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_states.dart';

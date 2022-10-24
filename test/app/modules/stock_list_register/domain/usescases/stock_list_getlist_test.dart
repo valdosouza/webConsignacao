@@ -13,13 +13,13 @@ import 'stock_list_getlist_test.mocks.dart';
 
 @GenerateMocks([StockListRepository])
 void main() {
-  late StockListGetlist usescase;
+  late StockListGetlist usecase;
   late MockStockListRepository mockStockListRepository;
   late Params tParams;
 
   setUp(() {
     mockStockListRepository = MockStockListRepository();
-    usescase = StockListGetlist(repository: mockStockListRepository);
+    usecase = StockListGetlist(repository: mockStockListRepository);
   });
 
   const tInstitution = 1;
@@ -34,7 +34,7 @@ void main() {
       when(mockStockListRepository.getList(institutionId: tInstitution))
           .thenAnswer((_) async => Right(tListStock));
       //act
-      final result = await usescase(tParams);
+      final result = await usecase(tParams);
       //assert
       expect(result, Right(tListStock));
       verify(mockStockListRepository.getList(institutionId: tInstitution));

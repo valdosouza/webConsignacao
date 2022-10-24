@@ -1,9 +1,9 @@
 import 'package:appweb/app/modules/payment_type_register/data/datasource/remote/ownapi/payment_type_datasource.dart';
 import 'package:appweb/app/modules/payment_type_register/data/repositories/payment_type_repository_impl.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usescases/payment_type_add.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usescases/payment_type_delete.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usescases/payment_type_getlist.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usescases/payment_type_put.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_add.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_delete.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_getlist.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_put.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/pages/interaction_payment.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/pages/payment.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_bloc.dart';

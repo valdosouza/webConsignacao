@@ -1,4 +1,5 @@
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
+import 'package:appweb/app/modules/financial/presentation/pages/financial_menus.dart';
 import 'package:appweb/app/modules/stock/presentation/pages/stock_menus.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _FinancialPageMobileState extends State<FinancialPageMobile> {
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: const Expanded(child: StockMenus()),
+        child: const Expanded(child: FinancialMenus()),
       ),
     );
   }
