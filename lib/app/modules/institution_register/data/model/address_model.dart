@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/institution_register/domain/entity/address_entity.dart';
 
+// ignore: must_be_immutable
 class AddressModel extends AddressEntity {
   AddressModel({
     String? cep,

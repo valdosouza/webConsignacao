@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class AddressEntity extends Equatable {
   String cep;
   String logradouro;

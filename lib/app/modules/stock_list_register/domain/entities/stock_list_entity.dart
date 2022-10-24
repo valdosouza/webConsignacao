@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class StockListEntity extends Equatable {
   int id;
   int institution;

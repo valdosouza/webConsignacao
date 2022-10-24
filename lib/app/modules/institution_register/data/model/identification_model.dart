@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/institution_register/domain/entity/indentification_entity.dart';
 
+// ignore: must_be_immutable
 class IdentificationModel extends IdentificationEntity {
   IdentificationModel({
     String? cnpj,
