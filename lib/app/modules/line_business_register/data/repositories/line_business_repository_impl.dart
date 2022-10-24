@@ -1,41 +1,60 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/line_business_register/data/datasource/remote/ownapi/line_business_data_source.dart';
-import 'package:appweb/app/modules/line_business_register/domain/entities/line_business.dart';
 import 'package:appweb/app/modules/line_business_register/domain/repositories/line_business_repository.dart';
 
 class LineBusinessRepositoryImpl extends LineBusinessRepository {
-
-  final LineBusinessDataSource datasource;
+  final LineBusinessDataSource dataSource;
   LineBusinessRepositoryImpl({
-    required this.datasource,
+    required this.dataSource,
   });
 
-
   @override
-  Future<Either<Failure, String>> addPayment({required LineBusinessEntity lineBusinessEntity}) async {
-    // TODO: implement addPayment
-    throw UnimplementedError();
+  Future<Either<Failure, String>> addLineBusiness(
+      {required LineBusinessModel lineBusinessModel}) async {
+    try {
+      final result =
+          await dataSource.postLineBusiness(lineBusinessModel: lineBusinessModel);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, String>> deletePayment({required int lineBusinessId}) async {
-    // TODO: implement deletePayment
-    throw UnimplementedError();
+  Future<Either<Failure, String>> deleteLineBusiness(
+      {required int lineBusinessId}) async {
+    try {
+      final result =
+          await dataSource.deleteLineBusiness(lineBusinessId: lineBusinessId);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, List<LineBusinessEntity>>> getList({required int institutionId}) async {
-    // TODO: implement getList
-    throw UnimplementedError();
+  Future<Either<Failure, List<LineBusinessModel>>> getListLineBusiness(
+      {required int institutionId}) async {
+    try {
+      final result = await dataSource.getlist(idInstitution: "1");
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, String>> putPayment({required LineBusinessEntity lineBusinessEntity}) async {
-    // TODO: implement putPayment
-    throw UnimplementedError();
+  Future<Either<Failure, String>> putLineBusiness(
+      {required LineBusinessModel lineBusinessModel}) async {
+    try {
+      final result =
+          await dataSource.putLineBusiness(lineBusinessModel: lineBusinessModel);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
   }
-
 }

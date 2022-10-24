@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/core/usecase/usecase.dart';
 import 'package:dartz/dartz.dart';
@@ -11,8 +12,12 @@ class LineBusinessDelete extends UseCase<String, DeleteLineBusinessParams> {
 
   @override
   Future<Either<Failure, String>> call(DeleteLineBusinessParams params) async {
-    // TODO: implement call
-    throw UnimplementedError();
+     try {
+      final response = await repository.deleteLineBusiness(lineBusinessId: params.idLineBusiness);
+      return response;
+    } on ServerException {
+      return Left(ServerFailure());
+    }
   }
 }
 

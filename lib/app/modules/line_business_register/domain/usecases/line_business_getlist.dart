@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:appweb/app/core/error/failures.dart';
@@ -18,8 +19,12 @@ class LineBusinessGetlist
   @override
   Future<Either<Failure, List<LineBusinessModel>>> call(
       GetlistLineBusinessParams params) async {
-    // TODO: implement call
-    throw UnimplementedError();
+   try {
+      final response = await repository.getListLineBusiness(institutionId: params.idInstitution);
+      return response;
+    } on ServerException {
+      return Left(ServerFailure());
+    }
   }
 }
 

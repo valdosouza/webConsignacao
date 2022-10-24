@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/core/usecase/usecase.dart';
 import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
@@ -11,8 +12,12 @@ class LineBusinessAdd extends UseCase<String, AddLineBusinessParams> {
   
   @override
   Future<Either<Failure, String>> call(AddLineBusinessParams params) async {
-    // TODO: implement call
-    throw UnimplementedError();
+   try {
+      final response = await repository.addLineBusiness(lineBusinessModel: params.businessModel);
+      return response;
+    } on ServerException {
+      return Left(ServerFailure());
+    }
   }
 }
 

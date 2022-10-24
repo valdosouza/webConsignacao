@@ -5,6 +5,8 @@ import 'package:appweb/app/modules/line_business_register/domain/usecases/line_b
 import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_getlist.dart';
 import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_put.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_bloc.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/pages/line_business_interaction.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/pages/line_business_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LineBusinessModule extends Module {
@@ -12,7 +14,7 @@ class LineBusinessModule extends Module {
   final List<Bind> binds = [
     Bind.factory((i) => LineBusinessDataSourceImpl()),
     Bind.factory((i) => LineBusinessRepositoryImpl(
-        datasource: i.get<LineBusinessDataSourceImpl>())),
+        dataSource: i.get<LineBusinessDataSourceImpl>())),
     Bind.factory((i) =>
         LineBusinessGetlist(repository: i.get<LineBusinessRepositoryImpl>())),
     Bind.factory((i) =>
@@ -30,5 +32,8 @@ class LineBusinessModule extends Module {
   ];
 
   @override
-  final List<ModularRoute> routes = [];
+  final List<ModularRoute> routes = [
+    ChildRoute('/', child: (context, args) => const LineBusinessRegister()),
+    ChildRoute('/interaction', child: (context, args) => InteractionLineBusiness(lineBusiness: args.data))
+  ];
 }
