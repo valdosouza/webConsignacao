@@ -20,17 +20,21 @@ class PaymentDataSourceImpl implements PaymentDataSource {
   Future<List<PaymentModel>> getlist({required String idInstitution}) async {
     final uri = Uri.parse('${baseApiUrl}paymenttype/getlist/$idInstitution');
 
-    final response = await client.get(uri);
+    try {
+      final response = await client.get(uri);
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
 
-      items = (data as List).map((json) {
-        return PaymentModel.fromJson(json);
-      }).toList();
-      return items;
+        items = (data as List).map((json) {
+          return PaymentModel.fromJson(json);
+        }).toList();
+        return items;
+      }
+      throw ServerException();
+    } catch (e) {
+      throw ServerException();
     }
-    throw ServerException();
   }
 
   @override
@@ -43,35 +47,47 @@ class PaymentDataSourceImpl implements PaymentDataSource {
       "active": 'S'
     };
 
-    final response = await client.post(uri, body: body);
+    try {
+      final response = await client.post(uri, body: body);
 
-    if (response.statusCode == 200) {
-      return '';
+      if (response.statusCode == 200) {
+        return '';
+      }
+      throw ServerException();
+    } catch (e) {
+      throw ServerException();
     }
-    throw ServerException();
   }
 
   @override
   Future<String> deletePayment({required int paymentId}) async {
     final uri = Uri.parse('${baseApiUrl}paymenttype/$paymentId');
 
-    final response = await client.delete(uri);
+    try {
+      final response = await client.delete(uri);
 
-    if (response.statusCode == 200) {
-      return "";
+      if (response.statusCode == 200) {
+        return "";
+      }
+      throw ServerException();
+    } catch (e) {
+      throw ServerException();
     }
-    throw ServerException();
   }
 
   @override
   Future<String> putPayment({required PaymentModel paymentModel}) async {
     final uri = Uri.parse('${baseApiUrl}paymenttype');
 
-    final response = await client.put(uri, body: paymentModel.toMap());
+    try {
+      final response = await client.put(uri, body: paymentModel.toMap());
 
-    if (response.statusCode == 200) {
-      return "";
+      if (response.statusCode == 200) {
+        return "";
+      }
+      throw ServerException();
+    } catch (e) {
+      throw ServerException();
     }
-    throw ServerException();
   }
 }
