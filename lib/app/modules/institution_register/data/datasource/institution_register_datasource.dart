@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/institution_register/data/model/address_model.dart';
+import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/identification_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
+import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class InstitutionRegisterDatasource {
@@ -14,12 +16,15 @@ abstract class InstitutionRegisterDatasource {
   Future<String> deleteInstitution({required int id});
   Future<AddressModel> getCep(String cep);
   Future<IdentificationModel> getCnpj(String cnpj);
+  Future<List<StateModel>> getStates();
+  Future<List<CityModel>> getCitys(String id);
 }
 
 class InstitutionRegisterDatasourceImpl
     implements InstitutionRegisterDatasource {
   final client = http.Client();
-
+  List<StateModel> states = [];
+  List<CityModel> citys = [];
   @override
   Future<InstitutionModel> getInstitution({required int id}) async {
     try {
@@ -107,6 +112,44 @@ class InstitutionRegisterDatasourceImpl
       if (response.statusCode == 200) {
         var obj = jsonDecode(response.body);
         return IdentificationModel.fromJson(obj);
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<CityModel>> getCitys(String id) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}city/getlist/$id');
+      final response = await client.get(uri);
+      if (response.statusCode == 200) {
+        var obj = jsonDecode(response.body);
+        citys = (obj as List).map((json) {
+          return CityModel.fromJson(json);
+        }).toList();
+        return citys;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<StateModel>> getStates() async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}state/getlist/');
+      final response = await client.get(uri);
+      if (response.statusCode == 200) {
+        var obj = jsonDecode(response.body);
+        states = (obj as List).map((json) {
+          return StateModel.fromJson(json);
+        }).toList();
+        return states;
       } else {
         throw ServerException();
       }

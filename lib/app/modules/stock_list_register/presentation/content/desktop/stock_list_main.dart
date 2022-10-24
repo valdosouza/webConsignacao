@@ -145,7 +145,7 @@ class StockListMaineState extends State<StockListMain> {
         decoration: const InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(left: 10.0),
-          hintText: "Pesquise pelo nome do cliente",
+          hintText: "Pesquise seu estoque",
           hintStyle: kHintTextStyle,
         ),
       ),

@@ -1,7 +1,9 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/institution_register/data/datasource/institution_register_datasource.dart';
+import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
+import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
 import 'package:appweb/app/modules/institution_register/domain/entity/address_entity.dart';
 import 'package:appweb/app/modules/institution_register/domain/entity/indentification_entity.dart';
 import 'package:appweb/app/modules/institution_register/domain/entity/institution_entity.dart';
@@ -76,6 +78,27 @@ class InstitutionRegisterRespositoryImpl
     try {
       IdentificationEntity response = await datasource.getCnpj(cnpj);
       return Right(response);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CityModel>>> getCitys(
+      {required String id}) async {
+    try {
+      List<CityModel> states = await datasource.getCitys(id);
+      return Right(states);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<StateModel>>> getStates() async {
+    try {
+      List<StateModel> states = await datasource.getStates();
+      return Right(states);
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:appweb/app/modules/home/data/model/home_sales_payment_type_model.dart';
 import 'package:appweb/app/modules/home/domain/repositories/home_repository.dart';
-import 'package:appweb/app/modules/home/domain/usescases/get_financial_closed_usecase.dart';
+import 'package:appweb/app/modules/home/domain/usecases/get_financial_closed_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
