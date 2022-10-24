@@ -3,6 +3,7 @@ import 'package:appweb/app/modules/institution_register/domain/entity/state_enti
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+// ignore: must_be_immutable
 class StateModel extends StateEntity {
   StateModel({
     int? id,

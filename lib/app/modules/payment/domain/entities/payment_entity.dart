@@ -13,6 +13,5 @@ class PaymentEntity extends Equatable {
       required this.active});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id, idInstitution, description, active];
 }

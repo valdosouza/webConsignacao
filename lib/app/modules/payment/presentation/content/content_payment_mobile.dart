@@ -1,14 +1,9 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/payment/data/model/payment_model.dart';
 import 'package:appweb/app/modules/payment/presentation/content/widgets/list_payment.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_bloc.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_events.dart';
-import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_events.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_states.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -20,7 +15,7 @@ class ContentPaymentMobile extends StatefulWidget {
 }
 
 class _ContentPaymentMobileState extends State<ContentPaymentMobile> {
-    late PaymentBloc paymentBloc;
+  late PaymentBloc paymentBloc;
 
   @override
   void initState() {
@@ -38,7 +33,8 @@ class _ContentPaymentMobileState extends State<ContentPaymentMobile> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () => Modular.to.pushNamed('/paymenttype/interaction/', arguments: null),
+            onPressed: () => Modular.to
+                .pushNamed('/paymenttype/interaction/', arguments: null),
           )
         ],
       ),

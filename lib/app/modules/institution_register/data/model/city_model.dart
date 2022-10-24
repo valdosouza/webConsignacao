@@ -3,6 +3,7 @@ import 'package:appweb/app/modules/institution_register/domain/entity/city_entit
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+// ignore: must_be_immutable
 class CityModel extends CityEntity {
   CityModel({
     int? id,

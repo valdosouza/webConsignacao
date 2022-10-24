@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class IdentificationEntity extends Equatable {
   String cnpj;
   String fantasia;

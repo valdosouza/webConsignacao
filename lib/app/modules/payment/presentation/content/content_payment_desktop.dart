@@ -1,6 +1,5 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/payment/data/model/payment_model.dart';
 import 'package:appweb/app/modules/payment/presentation/content/widgets/list_payment.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_bloc.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_events.dart';

@@ -1,5 +1,4 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/payment/data/model/payment_model.dart';
 import 'package:appweb/app/modules/payment/presentation/content/widgets/list_payment.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_bloc.dart';
 import 'package:appweb/app/modules/payment/presentation/payment_bloc/payment_events.dart';
@@ -16,7 +15,7 @@ class ContentPaymentTablet extends StatefulWidget {
 }
 
 class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
-    late PaymentBloc paymentBloc;
+  late PaymentBloc paymentBloc;
 
   @override
   void initState() {
@@ -34,7 +33,8 @@ class _ContentPaymentTabletState extends State<ContentPaymentTablet> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () => Modular.to.pushNamed('/paymenttype/interaction/', arguments: null),
+            onPressed: () => Modular.to
+                .pushNamed('/paymenttype/interaction/', arguments: null),
           )
         ],
       ),

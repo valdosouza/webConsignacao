@@ -1,9 +1,7 @@
 import 'package:appweb/app/modules/payment/domain/entities/payment_entity.dart';
-import 'package:flutter/material.dart';
 
-class PaymentModel extends PaymentEntity{
- 
-   PaymentModel({
+class PaymentModel extends PaymentEntity {
+  const PaymentModel({
     required int id,
     required int idInstitution,
     required String description,
@@ -13,7 +11,6 @@ class PaymentModel extends PaymentEntity{
             idInstitution: idInstitution,
             description: description,
             active: active);
-
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) {
     return PaymentModel(
@@ -32,8 +29,7 @@ class PaymentModel extends PaymentEntity{
     };
   }
 
-  copyWith(
-      {int? id, int? idInstitution, String? description, bool? active}) {
+  copyWith({int? id, int? idInstitution, String? description, bool? active}) {
     return PaymentModel(
         id: id ?? this.id,
         idInstitution: idInstitution ?? this.idInstitution,
