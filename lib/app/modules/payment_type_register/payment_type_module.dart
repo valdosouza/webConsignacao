@@ -9,7 +9,7 @@ import 'package:appweb/app/modules/payment_type_register/presentation/pages/paym
 import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class PaymentModule extends Module {
+class PaymentTypeRegisterModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.factory((i) => PaymentTypeDataSourceImpl()),
