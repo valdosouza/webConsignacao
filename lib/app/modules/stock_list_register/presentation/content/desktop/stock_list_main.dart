@@ -16,7 +16,6 @@ class StockListMain extends StatefulWidget {
 }
 
 class StockListMaineState extends State<StockListMain> {
-  // final clientsList = [];
   late final StockListBloc bloc;
 
   @override

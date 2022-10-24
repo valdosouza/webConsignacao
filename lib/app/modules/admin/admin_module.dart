@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/admin/presentation/content/content_admin.dart';
 import 'package:appweb/app/modules/admin/presentation/pages/admin_page.dart';
 import 'package:appweb/app/modules/institution_register/institution_register_module.dart';
-import 'package:appweb/app/modules/user_register/presentation/pages/user_register.dart';
+import 'package:appweb/app/modules/user_register/user_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AdminModule extends Module {
@@ -17,7 +17,7 @@ class AdminModule extends Module {
         ChildRoute('/content/', child: (_, args) => const ContentAdmin()),
         ModuleRoute('/content/institution/',
             module: InstitutionRegisterModule()),
-        ChildRoute('/content/user/', child: (_, args) => const UserRegister()),
+        ModuleRoute('/content/user/', module: UserRegisterModule()),
       ],
     ),
   ];
