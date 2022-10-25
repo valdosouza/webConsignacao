@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
+import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
 
 abstract class LineBusinessEvent {}
 

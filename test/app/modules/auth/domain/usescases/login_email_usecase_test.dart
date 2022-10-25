@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
-import 'package:appweb/app/modules/auth/domain/repositories/auth_repository.dart';
-import 'package:appweb/app/modules/auth/domain/usecases/login_email.dart';
+import 'package:appweb/app/modules/auth/domain/repository/auth_repository.dart';
+import 'package:appweb/app/modules/auth/domain/usecase/login_email.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

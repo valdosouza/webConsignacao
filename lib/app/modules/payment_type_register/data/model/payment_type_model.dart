@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/payment_type_register/domain/entities/payment_type_entity.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/entity/payment_type_entity.dart';
 
 // ignore: must_be_immutable
 class PaymentTypeModel extends PaymentTypeEntity {

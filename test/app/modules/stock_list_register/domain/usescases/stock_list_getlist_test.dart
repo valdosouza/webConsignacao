@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/repositories/stock_list_repository.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecases/stock_list_getlist.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_list_repository.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_getlist.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

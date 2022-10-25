@@ -1,9 +1,9 @@
 import 'package:appweb/app/modules/line_business_register/data/datasource/remote/ownapi/line_business_data_source.dart';
-import 'package:appweb/app/modules/line_business_register/data/repositories/line_business_repository_impl.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_delete.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_getlist.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_post.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_put.dart';
+import 'package:appweb/app/modules/line_business_register/data/repository/line_business_repository_impl.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_delete.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_getlist.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_post.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_put.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_bloc.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/pages/line_business_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';

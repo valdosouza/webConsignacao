@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
-import 'package:appweb/app/modules/auth/domain/usecases/login_email.dart';
+import 'package:appweb/app/modules/auth/domain/usecase/login_email.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';

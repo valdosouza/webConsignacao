@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
+import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_bloc.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_events.dart';
 import 'package:flutter/material.dart';

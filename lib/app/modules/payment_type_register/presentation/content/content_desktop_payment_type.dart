@@ -1,9 +1,9 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/pages/payment_type_interaction_page.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_bloc.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_events.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_states.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_bloc.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_events.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';

@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/auth/domain/entities/auth_entity.dart';
+import 'package:appweb/app/modules/auth/domain/entity/auth_entity.dart';
 
 class AuthModel extends AuthEntity {
   const AuthModel({

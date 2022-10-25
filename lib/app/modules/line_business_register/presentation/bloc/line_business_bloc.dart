@@ -1,8 +1,8 @@
-import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_delete.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_getlist.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_post.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_put.dart';
+import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_delete.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_getlist.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_post.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_put.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_events.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_states.dart';
 

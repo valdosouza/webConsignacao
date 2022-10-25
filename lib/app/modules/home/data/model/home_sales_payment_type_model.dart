@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/home/domain/entities/home_sales_payment_type_entity.dart';
+import 'package:appweb/app/modules/home/domain/entity/home_sales_payment_type_entity.dart';
 
 class HomeSalesPaymentTypeModel extends HomeSalesPaymentTypeEntity {
   const HomeSalesPaymentTypeModel({

@@ -2,8 +2,8 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_bloc.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_events.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_bloc.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_events.dart';
 import 'package:flutter/material.dart';
 
 class PaymentTypeInteractionPage extends StatefulWidget {

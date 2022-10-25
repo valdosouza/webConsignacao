@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
-import 'package:appweb/app/modules/auth/domain/entities/auth_entity.dart';
+import 'package:appweb/app/modules/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../../fixtures/fixture_reader.dart';
