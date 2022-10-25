@@ -1,23 +1,26 @@
+import 'dart:convert';
+
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class UserInfoPage extends StatefulWidget {
+class UserInfoInterationPage extends StatefulWidget {
   final UserRegisterModel? user;
-  const UserInfoPage({
+  const UserInfoInterationPage({
     super.key,
     this.user,
   });
 
   @override
-  State<UserInfoPage> createState() => _UserInfoPageState();
+  State<UserInfoInterationPage> createState() => _UserInfoInterationPageState();
 }
 
-class _UserInfoPageState extends State<UserInfoPage> {
+class _UserInfoInterationPageState extends State<UserInfoInterationPage> {
   late final UserRegisterBloc bloc;
   UserRegisterModel? user;
   final _formKey = GlobalKey<FormState>();
@@ -25,7 +28,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
   String nick = "";
   String email = "";
   String password = "";
-  String kind = "";
 
   @override
   void initState() {
@@ -67,8 +69,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
                             institution: 1,
                             nick: nick,
                             email: email,
-                            password: password,
-                            kind: kind,
+                            password:
+                                md5.convert(utf8.encode(password)).toString(),
                           )));
                   }
                 },
@@ -107,30 +109,19 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   },
                 ),
                 const SizedBox(height: 30.0),
-                CustomInput(
-                  title: 'Tipo',
-                  validator: (value) => Validators.validateRequired(value),
-                  initialValue: user?.kind ?? "",
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.next,
-                  onChanged: (value) {
-                    user?.kind = value;
-                    kind = value;
-                  },
-                ),
-                const SizedBox(height: 30.0),
-                CustomInput(
-                  title: 'Senha',
-                  validator: (value) => Validators.validateRequired(value),
-                  initialValue: user?.password ?? "",
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.done,
-                  obscureText: true,
-                  onChanged: (value) {
-                    user?.password = value;
-                    password = value;
-                  },
-                ),
+                if (user == null)
+                  CustomInput(
+                    title: 'Senha',
+                    validator: (value) => Validators.validateRequired(value),
+                    initialValue: user?.password ?? "",
+                    keyboardType: TextInputType.text,
+                    inputAction: TextInputAction.done,
+                    obscureText: true,
+                    onChanged: (value) {
+                      user?.password = value;
+                      password = value;
+                    },
+                  ),
                 const SizedBox(height: 30.0),
               ],
             ),

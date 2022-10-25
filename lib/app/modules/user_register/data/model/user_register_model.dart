@@ -4,7 +4,7 @@ class UserRegisterModel extends UserRegisterEntity {
   UserRegisterModel({
     int? id,
     String? password,
-    String? kind,
+    String kind = "sistema",
     int? tbDeviceId,
     String? active,
     int? institution,

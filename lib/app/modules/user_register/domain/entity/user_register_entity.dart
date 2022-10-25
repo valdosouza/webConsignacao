@@ -1,7 +1,7 @@
 class UserRegisterEntity {
   int? id;
   String? password;
-  String? kind;
+  String kind;
   int? institution;
   int? tbDeviceId;
   String? active;
@@ -11,7 +11,7 @@ class UserRegisterEntity {
   UserRegisterEntity({
     this.id,
     this.password,
-    this.kind,
+    this.kind = "sistema",
     this.tbDeviceId,
     this.active,
     this.institution,

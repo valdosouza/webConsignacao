@@ -3,7 +3,7 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_state.dart';
-import 'package:appweb/app/modules/user_register/presentation/pages/user_info_page.dart';
+import 'package:appweb/app/modules/user_register/presentation/pages/user_info_interation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -58,7 +58,7 @@ class _ContentDesktopUserRegisterState
             child: CircularProgressIndicator(),
           );
         } else if (state is UserRegisterInfoPageState) {
-          return UserInfoPage(
+          return UserInfoInterationPage(
             user: state.model,
           );
         }
