@@ -25,7 +25,7 @@ class UserRegisterModel extends UserRegisterEntity {
     return UserRegisterModel(
       id: int.parse(json['id'].toString()),
       nick: json['nick'] as String,
-      institution: json['tb_institution_id'] as int,
+      institution: json['tb_institution_id'] as int? ?? 1,
       email: json['email'] as String,
       kind: json['kind'] as String,
     );
