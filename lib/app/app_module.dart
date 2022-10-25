@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/cubit/drawer_cubit.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:appweb/app/modules/home/home_module.dart';
+import 'package:appweb/app/modules/line_business_register/line_business_module.dart';
 import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/splash/splash_module.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
@@ -29,6 +30,7 @@ class AppModule extends Module {
         ModuleRoute('/stock', module: StockModule()),
         ModuleRoute('/admin', module: AdminModule()),
         ModuleRoute('/product', module: ProductModule()),
+        ModuleRoute('/linebusiness', module: LineBusinessModule()),
         ModuleRoute('/financial', module: FinancialModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
