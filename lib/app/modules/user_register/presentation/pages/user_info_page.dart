@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
@@ -19,6 +20,7 @@ class UserInfoPage extends StatefulWidget {
 class _UserInfoPageState extends State<UserInfoPage> {
   late final UserRegisterBloc bloc;
   UserRegisterModel? user;
+  final _formKey = GlobalKey<FormState>();
 
   String nick = "";
   String email = "";
@@ -53,84 +55,85 @@ class _UserInfoPageState extends State<UserInfoPage> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
-              child: user != null
-                  ? IconButton(
-                      icon: const Icon(Icons.check),
-                      onPressed: () {
-                        bloc.add(UserRegisterEditEvent(id: user!.id!));
-                      },
-                    )
-                  : IconButton(
-                      icon: const Icon(Icons.check),
-                      onPressed: () {
-                        bloc.add(
-                          UserRegisterAddEvent(
+              child: IconButton(
+                icon: const Icon(Icons.check),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    user != null
+                        ? bloc.add(UserRegisterEditEvent(id: user!.id!))
+                        : bloc.add(UserRegisterAddEvent(
                             model: UserRegisterModel(
-                              id: 2,
-                              institution: 1,
-                              nick: nick,
-                              email: email,
-                              password: password,
-                              kind: kind,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                            id: 2,
+                            institution: 1,
+                            nick: nick,
+                            email: email,
+                            password: password,
+                            kind: kind,
+                          )));
+                  }
+                },
+              ),
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomInput(
-                title: 'Nome',
-                initialValue: user?.nick ?? "",
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  user?.nick = value;
-                  nick = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Email',
-                initialValue: user?.email ?? "",
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  user?.email = value;
-                  email = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Tipo',
-                initialValue: user?.kind ?? "",
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  user?.kind = value;
-                  kind = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Senha',
-                initialValue: user?.password ?? "",
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.done,
-                obscureText: true,
-                onChanged: (value) {
-                  user?.password = value;
-                  password = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-            ],
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomInput(
+                  title: 'Nome',
+                  initialValue: user?.nick ?? "",
+                  validator: (value) => Validators.validateRequired(value),
+                  keyboardType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    user?.nick = value;
+                    nick = value;
+                  },
+                ),
+                const SizedBox(height: 30.0),
+                CustomInput(
+                  title: 'Email',
+                  validator: (value) => Validators.validateRequired(value),
+                  initialValue: user?.email ?? "",
+                  keyboardType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    user?.email = value;
+                    email = value;
+                  },
+                ),
+                const SizedBox(height: 30.0),
+                CustomInput(
+                  title: 'Tipo',
+                  validator: (value) => Validators.validateRequired(value),
+                  initialValue: user?.kind ?? "",
+                  keyboardType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    user?.kind = value;
+                    kind = value;
+                  },
+                ),
+                const SizedBox(height: 30.0),
+                CustomInput(
+                  title: 'Senha',
+                  validator: (value) => Validators.validateRequired(value),
+                  initialValue: user?.password ?? "",
+                  keyboardType: TextInputType.text,
+                  inputAction: TextInputAction.done,
+                  obscureText: true,
+                  onChanged: (value) {
+                    user?.password = value;
+                    password = value;
+                  },
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         ),
       ),
