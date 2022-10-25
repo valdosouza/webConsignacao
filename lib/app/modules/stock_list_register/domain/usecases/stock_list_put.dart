@@ -13,7 +13,7 @@ class StockListPut implements UseCase<String, PutStockParams> {
   @override
   Future<Either<Failure, String>> call(PutStockParams params) async {
     try {
-      final response = await repository.putStock(model: params.stock);
+      final response = await repository.put(model: params.stock);
       return response;
     } on ServerException {
       return Left(ServerFailure());

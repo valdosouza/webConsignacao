@@ -1,28 +1,45 @@
-import 'package:appweb/app/modules/payment_type_register/data/model/payment_model.dart';
+import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
 
 abstract class PaymentTypeEvent {}
 
-class PaymentTypeGetlistEvent extends PaymentTypeEvent {
-  final int idInstitution;
-  PaymentTypeGetlistEvent({required this.idInstitution});
+class LoadPaymentTypeEvent extends PaymentTypeEvent {}
+
+class AddPaymentTypeEvent extends PaymentTypeEvent {
+  PaymentTypeModel paymentType;
+
+  AddPaymentTypeEvent({
+    required this.paymentType,
+  });
 }
 
-class PaymentTypeSearchEvent extends PaymentTypeEvent {
-  final String search;
-  PaymentTypeSearchEvent({required this.search});
+class EditPaymentTypeEvent extends PaymentTypeEvent {
+  PaymentTypeModel paymentType;
+
+  EditPaymentTypeEvent({
+    required this.paymentType,
+  });
 }
 
-class PaymentTypeDeleteEvent extends PaymentTypeEvent {
-  final int idPayment;
-  PaymentTypeDeleteEvent({required this.idPayment});
+class SearchPaymentTypeEvent extends PaymentTypeEvent {
+  String search;
+
+  SearchPaymentTypeEvent({
+    required this.search,
+  });
 }
 
-class PaymentTypeAddEvent extends PaymentTypeEvent {
-  final PaymentTypeModel paymentTypeModel;
-  PaymentTypeAddEvent({required this.paymentTypeModel});
+class DeletePaymentTypeEvent extends PaymentTypeEvent {
+  int paymentId;
+
+  DeletePaymentTypeEvent({
+    required this.paymentId,
+  });
 }
 
-class PaymentTypePutEvent extends PaymentTypeEvent {
-  final PaymentTypeModel paymentTypeModel;
-  PaymentTypePutEvent({required this.paymentTypeModel});
+class PaymentTypeInterationEvent extends PaymentTypeEvent {
+  PaymentTypeModel? paymentType;
+
+  PaymentTypeInterationEvent({
+    this.paymentType,
+  });
 }

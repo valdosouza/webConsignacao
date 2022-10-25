@@ -1,84 +1,84 @@
-import 'package:appweb/app/modules/payment_type_register/data/model/payment_model.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_bloc.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_events.dart';
-import 'package:flutter/material.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_bloc.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_events.dart';
+import 'package:flutter/material.dart';
 
-class InteractionPaymentType extends StatefulWidget {
-  final PaymentTypeModel? payment;
-  const InteractionPaymentType({
-    Key? key,
-    required this.payment,
-  }) : super(key: key);
+class PaymentTypeInteractionPage extends StatefulWidget {
+  final PaymentTypeBloc bloc;
+  final PaymentTypeModel? paymentType;
+  const PaymentTypeInteractionPage({
+    super.key,
+    required this.bloc,
+    this.paymentType,
+  });
 
   @override
-  State<InteractionPaymentType> createState() => _InteractionPaymentTypeState();
+  State<PaymentTypeInteractionPage> createState() =>
+      PaymentTypetInterationPageState();
 }
 
-class _InteractionPaymentTypeState extends State<InteractionPaymentType> {
+class PaymentTypetInterationPageState
+    extends State<PaymentTypeInteractionPage> {
   bool selectRadio = false;
   bool selectMain = false;
-  PaymentTypeModel? paymentModel;
-  late PaymentTypeBloc bloc;
+  PaymentTypeModel? paymentType;
+
   @override
   void initState() {
-    bloc = Modular.get<PaymentTypeBloc>();
-    if (widget.payment?.active != null) {
-      description = widget.payment!.description;
-      active = selectRadio = widget.payment!.active;
+    if (widget.paymentType?.active != null) {
+      selectRadio = widget.paymentType!.active == "S";
     }
-    paymentModel = widget.payment;
+    paymentType = widget.paymentType;
 
     super.initState();
   }
 
-  String description = "";
-  bool active = false;
+  String descripton = "";
+  String active = "N";
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        bloc.add(PaymentTypeGetlistEvent(idInstitution: 1));
+        widget.bloc.add(LoadPaymentTypeEvent());
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: paymentModel == null
+          title: paymentType == null
               ? const Text('Adicionar')
               : const Text('Editar'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Modular.to.pop();
-              bloc.add(PaymentTypeGetlistEvent(idInstitution: 1));
+              widget.bloc.add(LoadPaymentTypeEvent());
             },
           ),
           actions: [
             IconButton(
               icon: const Icon(Icons.check),
               onPressed: () {
-                if (paymentModel != null) {
-                  if (description.isEmpty) {
+                if (paymentType != null) {
+                  if (paymentType!.description.isEmpty) {
                     CustomToast.showToast("Campo descrição é obrigatório.");
                   } else {
-                    paymentModel = paymentModel!
-                        .copyWith(description: description, active: active);
-                    bloc.add(
-                        PaymentTypePutEvent(paymentTypeModel: paymentModel!));
+                    widget.bloc
+                        .add(EditPaymentTypeEvent(paymentType: paymentType!));
                   }
                 } else {
-                  if (description.isEmpty) {
+                  if (descripton.isEmpty) {
                     CustomToast.showToast("Campo descrição é obrigatório.");
                   } else {
-                    bloc.add(
-                      PaymentTypeAddEvent(
-                        paymentTypeModel: PaymentTypeModel(
-                          id: 0,
-                          idInstitution: bloc.state.payment.last.idInstitution,
-                          description: description,
+                    widget.bloc.add(
+                      AddPaymentTypeEvent(
+                        paymentType: PaymentTypeModel(
+                          id: (widget.bloc.state.paymentTypeList.last.id + 1),
+                          institution: widget
+                              .bloc.state.paymentTypeList.last.institution,
+                          description: descripton,
                           active: active,
                         ),
                       ),
@@ -96,11 +96,12 @@ class _InteractionPaymentTypeState extends State<InteractionPaymentType> {
             children: [
               CustomInput(
                 title: 'Descrição',
-                initialValue: paymentModel?.description ?? "",
+                initialValue: paymentType?.description ?? "",
                 keyboardType: TextInputType.number,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  description = value;
+                  paymentType?.description = value;
+                  descripton = value;
                 },
               ),
               const SizedBox(height: 30.0),
@@ -120,7 +121,8 @@ class _InteractionPaymentTypeState extends State<InteractionPaymentType> {
                                 setState(() {
                                   selectRadio = true;
                                 });
-                                active = true;
+                                paymentType?.active = "S";
+                                active = "S";
                               },
                       ),
                       const SizedBox(width: 5.0),
@@ -139,7 +141,8 @@ class _InteractionPaymentTypeState extends State<InteractionPaymentType> {
                                   setState(() {
                                     selectRadio = false;
                                   });
-                                  active = false;
+                                  paymentType?.active = "N";
+                                  active = "N";
                                 }
                               : (value) {}),
                       const SizedBox(width: 5.0),
@@ -147,7 +150,8 @@ class _InteractionPaymentTypeState extends State<InteractionPaymentType> {
                     ],
                   ),
                 ],
-              )
+              ),
+              const SizedBox(height: 30.0),
             ],
           ),
         ),

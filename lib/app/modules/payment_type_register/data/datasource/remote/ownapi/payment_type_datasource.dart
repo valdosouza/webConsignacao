@@ -2,91 +2,93 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
-import 'package:appweb/app/modules/payment_type_register/data/model/payment_model.dart';
+import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
 import 'package:http/http.dart' as http;
 
-abstract class PaymentTypeDataSource {
-  Future<List<PaymentTypeModel>> getlist({required String idInstitution});
-  Future<String> postPaymentType({required PaymentTypeModel paymentModel});
-  Future<String> deletePaymentType({required int paymentId});
-  Future<String> putPaymentType({required PaymentTypeModel paymentTypeModel});
+/// Throws a [ServerException] for all error codes.
+abstract class PaymentTypeDatasource {
+  Future<List<PaymentTypeModel>> getlist({required int institutionId});
+  Future<PaymentTypeModel> post({required PaymentTypeModel model});
+  Future<String> put({required PaymentTypeModel model});
+  Future<String> delete({required int id});
 }
 
-class PaymentTypeDataSourceImpl implements PaymentTypeDataSource {
+class PaymentTypeDatasourceImpl implements PaymentTypeDatasource {
   final client = http.Client();
   List<PaymentTypeModel> items = [];
   @override
-  Future<List<PaymentTypeModel>> getlist(
-      {required String idInstitution}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype/getlist/$idInstitution');
-
+  Future<List<PaymentTypeModel>> getlist({required int institutionId}) async {
     try {
+      final uri = Uri.parse('${baseApiUrl}paymenttype/getlist/$institutionId');
+
       final response = await client.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-
+        print(response.body);
+        print("--------");
         items = (data as List).map((json) {
+          print(json);
+          print("--------");
           return PaymentTypeModel.fromJson(json);
         }).toList();
+        print(items);
         return items;
+      } else {
+        throw ServerException();
       }
-      throw ServerException();
     } catch (e) {
       throw ServerException();
     }
   }
 
   @override
-  Future<String> postPaymentType(
-      {required PaymentTypeModel paymentModel}) async {
+  Future<PaymentTypeModel> post({required PaymentTypeModel model}) async {
     final uri = Uri.parse('${baseApiUrl}paymenttype');
-    final body = {
-      "tb_institution_id": paymentModel.idInstitution.toString(),
-      "description": paymentModel.description.toUpperCase(),
-      "active": paymentModel.active ? 'S' : 'N'
-    };
-
     try {
-      final response = await client.post(uri, body: body);
+      final response = await client.post(uri, body: model.toJson());
 
       if (response.statusCode == 200) {
-        return '';
+        final data = json.decode(response.body);
+        PaymentTypeModel result = PaymentTypeModel.fromJson(data);
+        return result;
+      } else {
+        throw ServerException();
       }
-      throw ServerException();
     } catch (e) {
       throw ServerException();
     }
   }
 
   @override
-  Future<String> deletePaymentType({required int paymentId}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype/$paymentId');
-
+  Future<String> put({required PaymentTypeModel model}) async {
     try {
+      final uri = Uri.parse('${baseApiUrl}paymenttype');
+
+      final response = await client.put(uri, body: model.toJson());
+
+      if (response.statusCode == 200) {
+        return "";
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<String> delete({required int id}) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}paymenttype/$id');
+
       final response = await client.delete(uri);
 
       if (response.statusCode == 200) {
         return "";
+      } else {
+        throw ServerException();
       }
-      throw ServerException();
-    } catch (e) {
-      throw ServerException();
-    }
-  }
-
-  @override
-  Future<String> putPaymentType(
-      {required PaymentTypeModel paymentTypeModel}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype');
-
-    try {
-      final response = await client.put(uri, body: paymentTypeModel.toMap());
-
-      if (response.statusCode == 200) {
-        return "";
-      }
-      throw ServerException();
     } catch (e) {
       throw ServerException();
     }

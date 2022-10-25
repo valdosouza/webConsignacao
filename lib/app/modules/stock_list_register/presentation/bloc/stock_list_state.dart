@@ -52,9 +52,9 @@ class StockListDeleteErrorState extends StockListState {
       : super(stocklist: stocklist);
 }
 
-class InterationPageState extends StockListState {
+class StockListInterationPageState extends StockListState {
   final StockListModel? stock;
-  InterationPageState({
+  StockListInterationPageState({
     required List<StockListModel> stocklist,
     this.stock,
   }) : super(stocklist: stocklist);

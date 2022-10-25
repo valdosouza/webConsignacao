@@ -8,9 +8,9 @@ import 'package:http/http.dart' as http;
 /// Throws a [ServerException] for all error codes.
 abstract class StockListDatasource {
   Future<List<StockListModel>> getlist({required int institutionId});
-  Future<StockListModel> addStock({required StockListModel model});
-  Future<String> putStock({required StockListModel model});
-  Future<String> deleteStock({required int id});
+  Future<StockListModel> post({required StockListModel model});
+  Future<String> put({required StockListModel model});
+  Future<String> delete({required int id});
 }
 
 class StockListDatasourceImpl implements StockListDatasource {
@@ -25,10 +25,12 @@ class StockListDatasourceImpl implements StockListDatasource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-
+        print(data);
+        print("--------");
         items = (data as List).map((json) {
           return StockListModel.fromJson(json);
         }).toList();
+        print(items);
         return items;
       } else {
         throw ServerException();
@@ -39,7 +41,7 @@ class StockListDatasourceImpl implements StockListDatasource {
   }
 
   @override
-  Future<StockListModel> addStock({required StockListModel model}) async {
+  Future<StockListModel> post({required StockListModel model}) async {
     final uri = Uri.parse('${baseApiUrl}stockList');
     try {
       final response = await client.post(uri, body: model.toJson());
@@ -57,7 +59,7 @@ class StockListDatasourceImpl implements StockListDatasource {
   }
 
   @override
-  Future<String> putStock({required StockListModel model}) async {
+  Future<String> put({required StockListModel model}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}stockList');
 
@@ -74,7 +76,7 @@ class StockListDatasourceImpl implements StockListDatasource {
   }
 
   @override
-  Future<String> deleteStock({required int id}) async {
+  Future<String> delete({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}StockList/$id');
 

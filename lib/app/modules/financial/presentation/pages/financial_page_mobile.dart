@@ -1,6 +1,5 @@
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
 import 'package:appweb/app/modules/financial/presentation/pages/financial_menus.dart';
-import 'package:appweb/app/modules/stock/presentation/pages/stock_menus.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';

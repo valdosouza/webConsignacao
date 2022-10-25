@@ -1,73 +1,97 @@
-import 'package:appweb/app/modules/payment_type_register/data/model/payment_model.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_add.dart';
+import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_post.dart';
 import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_delete.dart';
 import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_getlist.dart';
 import 'package:appweb/app/modules/payment_type_register/domain/usecases/payment_type_put.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_events.dart';
-import 'package:bloc/bloc.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_states.dart';
 
+import 'package:bloc/bloc.dart';
+
 class PaymentTypeBloc extends Bloc<PaymentTypeEvent, PaymentTypeState> {
-  final PaymentTypeGetlist getlistPaymentType;
-  final PaymentTypeDelete deletePaymentType;
-  final PaymentTypeAdd addPaymentType;
-  final PaymentTypePut putPaymentType;
+  final PaymentTypeGetlist getlist;
+  final PaymentTypeDelete delete;
+  final PaymentTypePost post;
+  final PaymentTypePut put;
 
-  late List<PaymentTypeModel> paymentTypeModel;
+  List<PaymentTypeModel> list = [];
 
-  PaymentTypeBloc(
-      {required this.addPaymentType,
-      required this.deletePaymentType,
-      required this.getlistPaymentType,
-      required this.putPaymentType})
-      : super(PaymentInitialState()) {
-    on<PaymentTypeGetlistEvent>((event, emit) async {
-      final response = await getlistPaymentType
-          .call(GetlistPaymentTypeParams(idInstitution: event.idInstitution));
-      final result = response.fold((l) => PaymentGetlistErrorState(), (r) {
-        paymentTypeModel = r;
-        return PaymentGetlistSuccessEvent(payment: paymentTypeModel);
-      });
+  PaymentTypeBloc({
+    required this.getlist,
+    required this.delete,
+    required this.post,
+    required this.put,
+  }) : super(PaymentTypeInitialState()) {
+    on<LoadPaymentTypeEvent>((event, emit) async {
+      PaymentTypeInitialState();
+      var response = await getlist.call(const Params(institutionId: 1));
+      var result = response.fold(
+        (l) => PaymentTypeErrorState(),
+        (r) {
+          list = r;
+          return PaymentTypeSuccessState(paymentTypeList: r);
+        },
+      );
       emit(result);
     });
-    on<PaymentTypeAddEvent>((event, emit) async {
-      final response = await addPaymentType
-          .call(AddPaymentTypeParams(paymentTypeModel: event.paymentTypeModel));
-      final result = response
-          .fold((l) => PaymentAddErrorState(payment: paymentTypeModel), (r) {
-        return PaymentAddSuccessState();
-      });
+
+    on<SearchPaymentTypeEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var clienstSearched = list.where((element) {
+          String name = element.description;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (clienstSearched.isEmpty) {}
+        emit(PaymentTypeSuccessState(paymentTypeList: clienstSearched));
+      } else {
+        emit(PaymentTypeSuccessState(paymentTypeList: list));
+      }
+    });
+
+    on<DeletePaymentTypeEvent>((event, emit) async {
+      PaymentTypeInitialState();
+      var response = await delete
+          .call(DeletePayamentTypeParams(paymentTypeId: event.paymentId));
+      var result = response.fold(
+        (l) => PaymentTypeDeleteErrorState(paymentTypeList: list),
+        (r) {
+          list.removeWhere((element) => element.id == event.paymentId);
+          return PaymentTypeDeleteSuccessState(paymentTypeList: list);
+        },
+      );
       emit(result);
     });
-    on<PaymentTypePutEvent>((event, emit) async {
-      final response = await putPaymentType
-          .call(PutPaymentTypeParams(paymentTypeModel: event.paymentTypeModel));
-      final result = response
-          .fold((l) => PaymentPutErrorState(payment: paymentTypeModel), (r) {
-        return PaymentPutSuccessState();
-      });
+
+    on<PaymentTypeInterationEvent>((event, emit) async {
+      emit(PaymentTypeInterationPageState(
+          paymentTypeList: list, paymentType: event.paymentType));
+    });
+
+    on<AddPaymentTypeEvent>((event, emit) async {
+      PaymentTypeInitialState();
+      var response = await post
+          .call(PostPaymentTypeParams(paymentTypeId: event.paymentType));
+      var result = response.fold(
+        (l) => PaymentTypeAddErrorState(paymentTypeList: list),
+        (r) => PaymentTypeAddSuccessState(
+          paymentTypeList: list,
+        ),
+      );
       emit(result);
     });
-    on<PaymentTypeDeleteEvent>((event, emit) async {
-      final response = await deletePaymentType
-          .call(DeletePaymentTypeParams(idPaymentType: event.idPayment));
-      final result = response
-          .fold((l) => PaymentDeleteErrorState(payment: paymentTypeModel), (r) {
-        paymentTypeModel
-            .removeWhere((element) => element.id == event.idPayment);
-        return PaymentDeleteErrorState(payment: paymentTypeModel);
-      });
+
+    on<EditPaymentTypeEvent>((event, emit) async {
+      PaymentTypeInitialState();
+      var response =
+          await put.call(PutPaymentTypeParams(paymentType: event.paymentType));
+      var result = response.fold(
+        (l) => PaymentTypePutErrorState(paymentTypeList: list),
+        (r) => PaymentTypePutErrorState(paymentTypeList: list),
+      );
       emit(result);
-    });
-    on<PaymentTypeSearchEvent>((event, emit) async {
-      String search = event.search.trim().toUpperCase();
-      List<PaymentTypeModel> searchedPayments =
-          paymentTypeModel.where((element) {
-        bool containsSearchedPayment =
-            element.description.trim().toUpperCase().contains(search);
-        return containsSearchedPayment;
-      }).toList();
-      emit(PaymentSearchState(payment: searchedPayments));
     });
   }
 }

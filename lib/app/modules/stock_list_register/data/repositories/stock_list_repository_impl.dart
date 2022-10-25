@@ -25,10 +25,10 @@ class StockListRepositoryImpl implements StockListRepository {
   }
 
   @override
-  Future<Either<Failure, StockListModel>> addStock(
+  Future<Either<Failure, StockListModel>> post(
       {required StockListModel model}) async {
     try {
-      final result = await datasource.addStock(model: model);
+      final result = await datasource.post(model: model);
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());
@@ -36,9 +36,9 @@ class StockListRepositoryImpl implements StockListRepository {
   }
 
   @override
-  Future<Either<Failure, String>> deleteStock({required int stockId}) async {
+  Future<Either<Failure, String>> delete({required int stockId}) async {
     try {
-      final result = await datasource.deleteStock(id: stockId);
+      final result = await datasource.delete(id: stockId);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());
@@ -46,10 +46,9 @@ class StockListRepositoryImpl implements StockListRepository {
   }
 
   @override
-  Future<Either<Failure, String>> putStock(
-      {required StockListModel model}) async {
+  Future<Either<Failure, String>> put({required StockListModel model}) async {
     try {
-      final result = await datasource.putStock(model: model);
+      final result = await datasource.put(model: model);
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());

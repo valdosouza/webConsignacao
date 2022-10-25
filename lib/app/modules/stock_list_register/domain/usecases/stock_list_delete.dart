@@ -13,7 +13,7 @@ class StockListDelete implements UseCase<String, DeleteStockParams> {
   @override
   Future<Either<Failure, String>> call(DeleteStockParams params) async {
     try {
-      final list = await repository.deleteStock(stockId: params.stockId);
+      final list = await repository.delete(stockId: params.stockId);
       return list;
     } on ServerException {
       return Left(ServerFailure());

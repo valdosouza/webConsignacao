@@ -1,17 +1,18 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class PaymentTypeEntity extends Equatable {
-  final int id;
-  final int idInstitution;
-  final String description;
-  final bool active;
+  int id;
+  int institution;
+  String description;
+  String active;
 
-  const PaymentTypeEntity(
+  PaymentTypeEntity(
       {required this.id,
-      required this.idInstitution,
+      required this.institution,
       required this.description,
       required this.active});
 
   @override
-  List<Object?> get props => [id, idInstitution, description, active];
+  List<Object?> get props => [id, institution, description, active];
 }

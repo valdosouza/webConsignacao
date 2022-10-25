@@ -3,23 +3,25 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_bloc.dart';
+
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_events.dart';
 import 'package:flutter/material.dart';
 
-class StockInterationItem extends StatefulWidget {
+class StockListInterationPage extends StatefulWidget {
   final StockListBloc bloc;
   final StockListModel? stock;
-  const StockInterationItem({
+  const StockListInterationPage({
     super.key,
     required this.bloc,
     this.stock,
   });
 
   @override
-  State<StockInterationItem> createState() => _StockInterationItemState();
+  State<StockListInterationPage> createState() =>
+      _StockListInterationPageState();
 }
 
-class _StockInterationItemState extends State<StockInterationItem> {
+class _StockListInterationPageState extends State<StockListInterationPage> {
   bool selectRadio = false;
   bool selectMain = false;
   StockListModel? stock;

@@ -1,66 +1,62 @@
-import 'package:appweb/app/modules/payment_type_register/data/model/payment_model.dart';
+import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
 
 abstract class PaymentTypeState {
-  List<PaymentTypeModel> payment;
+  List<PaymentTypeModel> paymentTypeList;
 
   PaymentTypeState({
-    required this.payment,
+    required this.paymentTypeList,
   });
 }
 
-class PaymentInitialState extends PaymentTypeState {
-  PaymentInitialState() : super(payment: []);
+class PaymentTypeInitialState extends PaymentTypeState {
+  PaymentTypeInitialState() : super(paymentTypeList: []);
 }
 
-class PaymentSuccessState extends PaymentTypeState {
-  PaymentSuccessState({
-    required List<PaymentTypeModel> payment,
-  }) : super(payment: payment);
+class PaymentTypeSuccessState extends PaymentTypeState {
+  PaymentTypeSuccessState({
+    required List<PaymentTypeModel> paymentTypeList,
+  }) : super(paymentTypeList: paymentTypeList);
 }
 
-class PaymentEditSuccessState extends PaymentTypeState {
-  PaymentEditSuccessState({required List<PaymentTypeModel> payment})
-      : super(payment: payment);
+class PaymentTypeEditSuccessState extends PaymentTypeState {
+  PaymentTypeEditSuccessState({required List<PaymentTypeModel> paymentTypeList})
+      : super(paymentTypeList: paymentTypeList);
 }
 
-class PaymentAddSuccessState extends PaymentTypeState {
-  PaymentAddSuccessState() : super(payment: []);
+class PaymentTypeAddSuccessState extends PaymentTypeState {
+  PaymentTypeAddSuccessState({required List<PaymentTypeModel> paymentTypeList})
+      : super(paymentTypeList: paymentTypeList);
 }
 
-class PaymentPutErrorState extends PaymentTypeState {
-  PaymentPutErrorState({required List<PaymentTypeModel> payment})
-      : super(payment: payment);
+class PaymentTypePutErrorState extends PaymentTypeState {
+  PaymentTypePutErrorState({required List<PaymentTypeModel> paymentTypeList})
+      : super(paymentTypeList: paymentTypeList);
 }
 
-class PaymentPutSuccessState extends PaymentTypeState {
-  PaymentPutSuccessState() : super(payment: []);
+class PaymentTypeAddErrorState extends PaymentTypeState {
+  PaymentTypeAddErrorState({required List<PaymentTypeModel> paymentTypeList})
+      : super(paymentTypeList: paymentTypeList);
 }
 
-class PaymentAddErrorState extends PaymentTypeState {
-  PaymentAddErrorState({required List<PaymentTypeModel> payment})
-      : super(payment: payment);
+class PaymentTypeErrorState extends PaymentTypeState {
+  PaymentTypeErrorState() : super(paymentTypeList: []);
 }
 
-class PaymentGetlistErrorState extends PaymentTypeState {
-  PaymentGetlistErrorState() : super(payment: []);
+class PaymentTypeDeleteSuccessState extends PaymentTypeState {
+  PaymentTypeDeleteSuccessState(
+      {required List<PaymentTypeModel> paymentTypeList})
+      : super(paymentTypeList: paymentTypeList);
 }
 
-class PaymentGetlistSuccessEvent extends PaymentTypeState {
-  PaymentGetlistSuccessEvent({required List<PaymentTypeModel> payment})
-      : super(payment: payment);
+class PaymentTypeDeleteErrorState extends PaymentTypeState {
+  PaymentTypeDeleteErrorState({required List<PaymentTypeModel> paymentTypeList})
+      : super(paymentTypeList: paymentTypeList);
 }
 
-class PaymentDeleteSuccessState extends PaymentTypeState {
-  PaymentDeleteSuccessState({required List<PaymentTypeModel> payment})
-      : super(payment: payment);
-}
-
-class PaymentDeleteErrorState extends PaymentTypeState {
-  PaymentDeleteErrorState({required List<PaymentTypeModel> payment})
-      : super(payment: payment);
-}
-
-class PaymentSearchState extends PaymentTypeState {
-  PaymentSearchState({required List<PaymentTypeModel> payment})
-      : super(payment: payment);
+class PaymentTypeInterationPageState extends PaymentTypeState {
+  final PaymentTypeModel? paymentType;
+  PaymentTypeInterationPageState({
+    required List<PaymentTypeModel> paymentTypeList,
+    this.paymentType,
+  }) : super(paymentTypeList: paymentTypeList);
 }

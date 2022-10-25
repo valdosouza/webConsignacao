@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/stock_list_register/data/datasource/remote/ownapi/stock_list_datasource.dart';
 import 'package:appweb/app/modules/stock_list_register/data/repositories/stock_list_repository_impl.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecases/stock_list_add.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecases/stock_list_post.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usecases/stock_list_delete.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usecases/stock_list_getlist.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usecases/stock_list_put.dart';
@@ -26,7 +26,7 @@ class StockListRegisterModule extends Module {
           (i) => StockListDelete(repository: i.get<StockListRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) => StockListAdd(repository: i.get<StockListRepositoryImpl>()),
+          (i) => StockListPost(repository: i.get<StockListRepositoryImpl>()),
         ),
         Bind.factory(
           (i) => StockListPut(repository: i.get<StockListRepositoryImpl>()),
@@ -35,7 +35,7 @@ class StockListRegisterModule extends Module {
           (i) => StockListBloc(
             getlist: i.get<StockListGetlist>(),
             delete: i.get<StockListDelete>(),
-            addStock: i.get<StockListAdd>(),
+            post: i.get<StockListPost>(),
             put: i.get<StockListPut>(),
           ),
         ),

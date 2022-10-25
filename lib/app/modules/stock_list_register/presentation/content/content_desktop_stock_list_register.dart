@@ -3,19 +3,21 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_bloc.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_events.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_state.dart';
-import 'package:appweb/app/modules/stock_list_register/presentation/pages/stock_interation_page.dart';
+import 'package:appweb/app/modules/stock_list_register/presentation/pages/stock_list_interation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class StockListMain extends StatefulWidget {
-  const StockListMain({Key? key}) : super(key: key);
+class ContentDesktopStockListRegister extends StatefulWidget {
+  const ContentDesktopStockListRegister({Key? key}) : super(key: key);
 
   @override
-  State<StockListMain> createState() => StockListMaineState();
+  State<ContentDesktopStockListRegister> createState() =>
+      ContentDesktopStockListRegistereState();
 }
 
-class StockListMaineState extends State<StockListMain> {
+class ContentDesktopStockListRegistereState
+    extends State<ContentDesktopStockListRegister> {
   // final clientsList = [];
   late final StockListBloc bloc;
 
@@ -61,8 +63,8 @@ class StockListMaineState extends State<StockListMain> {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is InterationPageState) {
-          return StockInterationItem(
+        } else if (state is StockListInterationPageState) {
+          return StockListInterationPage(
             bloc: bloc,
             stock: state.stock,
           );
@@ -93,7 +95,7 @@ class StockListMaineState extends State<StockListMain> {
                     child: stocklists.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum estoque em nossa base."))
+                                "Não encontramos nenhum registros em nossa base."))
                         : ListView.separated(
                             itemCount: stocklists.length,
                             itemBuilder: (context, index) => InkWell(
@@ -145,7 +147,7 @@ class StockListMaineState extends State<StockListMain> {
         decoration: const InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(left: 10.0),
-          hintText: "Pesquise seu estoque",
+          hintText: "Pesquise estoques",
           hintStyle: kHintTextStyle,
         ),
       ),

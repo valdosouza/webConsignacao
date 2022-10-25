@@ -6,8 +6,7 @@ abstract class StockListRepository {
   Future<Either<Failure, List<StockListModel>>> getList(
       {required int institutionId});
 
-  Future<Either<Failure, StockListModel>> addStock(
-      {required StockListModel model});
-  Future<Either<Failure, String>> putStock({required StockListModel model});
-  Future<Either<Failure, String>> deleteStock({required int stockId});
+  Future<Either<Failure, StockListModel>> post({required StockListModel model});
+  Future<Either<Failure, String>> put({required StockListModel model});
+  Future<Either<Failure, String>> delete({required int stockId});
 }
