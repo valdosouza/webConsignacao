@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 abstract class UserRegisterDataSource {
   Future<List<UserRegisterModel>> getlist({required int id});
   Future<UserRegisterModel> addUser({required UserRegisterModel user});
+  Future<String> editUser({required int id});
   Future<String> deleteUser({required int id});
 }
 
@@ -39,6 +40,23 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
       final uri = Uri.parse('${baseApiUrl}User/$id');
 
       final response = await client.delete(uri);
+
+      if (response.statusCode == 200) {
+        return "";
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<String> editUser({required int id}) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}user/$id');
+
+      final response = await client.put(uri);
 
       if (response.statusCode == 200) {
         return "";

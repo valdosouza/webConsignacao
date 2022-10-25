@@ -3,6 +3,7 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_state.dart';
+import 'package:appweb/app/modules/user_register/presentation/pages/user_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -34,12 +35,31 @@ class _ContentDesktopUserRegisterState
         if (state is UserRegisterErrorState) {
           CustomToast.showToast(
               "Erro ao buscar os usuários. Tente novamente mais tarde.");
+        } else if (state is UserRegisterSuccessState) {
+          CustomToast.showToast("Usuário adicionado com sucesso.");
+        } else if (state is UserRegisterAddErrorState) {
+          CustomToast.showToast(
+              "Erro ao adicionar o usuário. Tente novamente mais tarde.");
+        } else if (state is UserRegisterEditSuccessState) {
+          CustomToast.showToast("Usuário editado com sucesso.");
+        } else if (state is UserRegisterEditErrorState) {
+          CustomToast.showToast(
+              "Erro ao editar o usuário. Tente novamente mais tarde.");
+        } else if (state is UserRegisterDeleteSuccessState) {
+          CustomToast.showToast("Usuário removido com sucesso.");
+        } else if (state is UserRegisterDeleteErrorState) {
+          CustomToast.showToast(
+              "Erro ao remover o usuário. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
         if (state is UserRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        } else if (state is UserRegisterInfoPageState) {
+          return UserInfoPage(
+            user: state.model,
           );
         }
         final users = state.users;
@@ -50,7 +70,7 @@ class _ContentDesktopUserRegisterState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  // bloc.add(StockListInterationEvent());
+                  bloc.add(UserRegisterInfoEvent());
                 },
               ),
             ],
@@ -72,12 +92,15 @@ class _ContentDesktopUserRegisterState
                         : ListView.separated(
                             itemCount: users.length,
                             itemBuilder: (context, index) => InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                bloc.add(
+                                    UserRegisterInfoEvent(model: users[index]));
+                              },
                               child: ListTile(
                                 leading: CircleAvatar(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text(index.toString()),
+                                    child: Text((index + 1).toString()),
                                   ),
                                 ),
                                 title: Column(
@@ -90,6 +113,8 @@ class _ContentDesktopUserRegisterState
                                 trailing: IconButton(
                                   icon: const Icon(Icons.remove),
                                   onPressed: () {
+                                    // bloc.add(UserRegisterDeleteEvent(
+                                    //     id: users[index].id!));
                                     CustomToast.showToast(
                                         "Funcionalidade em desenvolvimento.");
                                   },

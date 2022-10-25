@@ -10,6 +10,7 @@ class CustomInput extends StatelessWidget {
   final String? initialValue;
   final Widget? sufixIcon;
   final String? Function(String?)? validator;
+  final bool obscureText;
   const CustomInput({
     super.key,
     required this.title,
@@ -20,6 +21,7 @@ class CustomInput extends StatelessWidget {
     this.initialValue = "",
     this.sufixIcon,
     this.hint,
+    this.obscureText = false,
   });
 
   @override
@@ -43,6 +45,7 @@ class CustomInput extends StatelessWidget {
             textInputAction: inputAction,
             validator: validator,
             onChanged: onChanged,
+            obscureText: obscureText,
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',

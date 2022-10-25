@@ -43,4 +43,14 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>> editUser({required int userId}) async {
+    try {
+      final result = await datasource.editUser(id: userId);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
 }

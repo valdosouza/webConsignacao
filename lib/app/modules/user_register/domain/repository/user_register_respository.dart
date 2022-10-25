@@ -7,4 +7,5 @@ abstract class UserRegisterRepository {
   Future<Either<Failure, UserRegisterModel>> addUser(
       {required UserRegisterModel model});
   Future<Either<Failure, String>> deleteUser({required int userId});
+  Future<Either<Failure, String>> editUser({required int userId});
 }

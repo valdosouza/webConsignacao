@@ -34,7 +34,7 @@ class UserRegisterModel extends UserRegisterEntity {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id.toString();
-    data['Institution'] = institution;
+    data['Institution'] = institution.toString();
     data['nick'] = nick;
     data['email'] = email;
     data['password'] = password;

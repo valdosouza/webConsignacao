@@ -1,6 +1,8 @@
 import 'package:appweb/app/modules/user_register/data/datasource/user_register_datasource.dart';
 import 'package:appweb/app/modules/user_register/data/repository/user_repository_impl.dart';
 import 'package:appweb/app/modules/user_register/domain/usecase/user_register_add.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_delete.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_edit.dart';
 import 'package:appweb/app/modules/user_register/domain/usecase/user_register_getlist.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/pages/user_register.dart';
@@ -25,9 +27,19 @@ class UserRegisterModule extends Module {
           (i) =>
               UserRegisterAdd(repository: i.get<UserRegisterRepositoryImpl>()),
         ),
+        Bind.factory(
+          (i) =>
+              UserRegisterEdit(repository: i.get<UserRegisterRepositoryImpl>()),
+        ),
+        Bind.factory(
+          (i) => UserRegisterDelete(
+              repository: i.get<UserRegisterRepositoryImpl>()),
+        ),
         BlocBind.singleton((i) => UserRegisterBloc(
               getlist: i.get<UserRegisterGetlist>(),
               addUser: i.get<UserRegisterAdd>(),
+              edit: i.get<UserRegisterEdit>(),
+              delete: i.get<UserRegisterDelete>(),
             )),
       ];
   @override
