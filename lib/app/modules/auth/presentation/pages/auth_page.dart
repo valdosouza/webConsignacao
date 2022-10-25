@@ -1,22 +1,37 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/auth/presentation/auth_cubit/auth_cubit.dart';
+import 'package:appweb/app/modules/auth/presentation/bloc/auth_bloc.dart';
+import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 // ignore: must_be_immutable
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
+  AuthPage({super.key});
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  late final AuthBloc bloc;
   TextEditingController loginController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   final _form = GlobalKey<FormState>();
 
-  AuthPage({super.key});
+  @override
+  void initState() {
+    super.initState();
+    bloc = Modular.get<AuthBloc>();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => Modular.get<AuthCubit>(),
+        create: (context) => bloc,
         child: Stack(
           children: <Widget>[
             Container(
@@ -49,7 +64,7 @@ class AuthPage extends StatelessWidget {
   }
 
   Widget _buildForm(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthErrorState) {
           const String errorMsg = "Login ou senha inválidos";
@@ -201,10 +216,8 @@ class AuthPage extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Modular.get<AuthCubit>().login(
-            loginController.text,
-            passwordController.text,
-          );
+          bloc.add(AuthLoginEvent(
+              login: loginController.text, password: passwordController.text));
         },
         child: const Text(
           'LOGIN',
