@@ -1,28 +1,45 @@
-import '../../data/models/line_business_model.dart';
+import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
 
 abstract class LineBusinessEvent {}
 
-class LineBusinessGetlistEvent extends LineBusinessEvent {
-  final int idInstitution;
-  LineBusinessGetlistEvent({required this.idInstitution});
+class LoadLineBusinessEvent extends LineBusinessEvent {}
+
+class AddLineBusinessEvent extends LineBusinessEvent {
+  LineBusinessModel lineBusiness;
+
+  AddLineBusinessEvent({
+    required this.lineBusiness,
+  });
 }
 
-class LineBusinessSearchEvent extends LineBusinessEvent {
-  final String search;
-  LineBusinessSearchEvent({required this.search});
+class EditLineBusinessEvent extends LineBusinessEvent {
+  LineBusinessModel lineBusiness;
+
+  EditLineBusinessEvent({
+    required this.lineBusiness,
+  });
 }
 
-class LineBusinessDeleteEvent extends LineBusinessEvent {
-  final int idLineBusiness;
-  LineBusinessDeleteEvent({required this.idLineBusiness});
+class SearchLineBusinessEvent extends LineBusinessEvent {
+  String search;
+
+  SearchLineBusinessEvent({
+    required this.search,
+  });
 }
 
-class LineBusinessAddEvent extends LineBusinessEvent {
-  final LineBusinessModel lineBusinessModel;
-  LineBusinessAddEvent({required this.lineBusinessModel});
+class DeleteLineBusinessEvent extends LineBusinessEvent {
+  int lineBusinessId;
+
+  DeleteLineBusinessEvent({
+    required this.lineBusinessId,
+  });
 }
 
-class LineBusinessPutEvent extends LineBusinessEvent {
-  final LineBusinessModel lineBusinessModel;
-  LineBusinessPutEvent({required this.lineBusinessModel});
+class LineBusinessInterationEvent extends LineBusinessEvent {
+  LineBusinessModel? lineBusiness;
+
+  LineBusinessInterationEvent({
+    this.lineBusiness,
+  });
 }

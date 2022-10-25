@@ -8,16 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ContentDesktopStockListRegister extends StatefulWidget {
-  const ContentDesktopStockListRegister({Key? key}) : super(key: key);
+class ContentDesktopStockList extends StatefulWidget {
+  const ContentDesktopStockList({Key? key}) : super(key: key);
 
   @override
-  State<ContentDesktopStockListRegister> createState() =>
-      ContentDesktopStockListRegistereState();
+  State<ContentDesktopStockList> createState() =>
+      _ContentDesktopStockListeState();
 }
 
-class ContentDesktopStockListRegistereState
-    extends State<ContentDesktopStockListRegister> {
+class _ContentDesktopStockListeState extends State<ContentDesktopStockList> {
   // final clientsList = [];
   late final StockListBloc bloc;
 

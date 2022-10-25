@@ -1,28 +1,29 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/pages/payment_type_interaction_page.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_bloc.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_events.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/payment_type_bloc/payment_type_states.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_bloc.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_events.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_states.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/pages/line_business_interaction_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ContentDesktopPaymentType extends StatefulWidget {
-  const ContentDesktopPaymentType({super.key});
+class ContentDesktopLineBusiness extends StatefulWidget {
+  const ContentDesktopLineBusiness({super.key});
 
   @override
-  State<ContentDesktopPaymentType> createState() =>
-      _ContentDesktopPaymentTypeState();
+  State<ContentDesktopLineBusiness> createState() =>
+      _ContentDesktoLineBusinesseState();
 }
 
-class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
-  late PaymentTypeBloc bloc;
+class _ContentDesktoLineBusinesseState
+    extends State<ContentDesktopLineBusiness> {
+  late LineBusinessBloc bloc;
 
   @override
   void initState() {
-    bloc = Modular.get<PaymentTypeBloc>();
-    bloc.add(LoadPaymentTypeEvent());
+    bloc = Modular.get<LineBusinessBloc>();
+    bloc.add(LoadLineBusinessEvent());
     super.initState();
   }
 
@@ -34,40 +35,40 @@ class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PaymentTypeBloc, PaymentTypeState>(
+    return BlocConsumer<LineBusinessBloc, LineBusinessState>(
       bloc: bloc,
       listener: (context, state) {
-        if (state is PaymentTypeDeleteSuccessState) {
+        if (state is LineBusinessDeleteSuccessState) {
           CustomToast.showToast("Forma de pagamento removido com sucesso.");
-        } else if (state is PaymentTypeDeleteErrorState) {
+        } else if (state is LineBusinessDeleteErrorState) {
           CustomToast.showToast(
               "Erro ao remover forma de pagamento. Tente novamente mais tarde.");
-        } else if (state is PaymentTypeAddSuccessState) {
+        } else if (state is LineBusinessAddSuccessState) {
           CustomToast.showToast("Forma de pagamento adicionado com sucesso");
-          bloc.add(LoadPaymentTypeEvent());
-        } else if (state is PaymentTypeAddErrorState) {
+          bloc.add(LoadLineBusinessEvent());
+        } else if (state is LineBusinessAddErrorState) {
           CustomToast.showToast(
               "Erro ao adicionar forma de pagamento. Tente novamente mais tarde.");
-        } else if (state is PaymentTypeEditSuccessState) {
+        } else if (state is LineBusinessEditSuccessState) {
           CustomToast.showToast("Forma de pagamento editado com sucesso");
-          bloc.add(LoadPaymentTypeEvent());
-        } else if (state is PaymentTypePutErrorState) {
+          bloc.add(LoadLineBusinessEvent());
+        } else if (state is LineBusinessPutErrorState) {
           CustomToast.showToast(
               "Erro ao editar forma de pagamento. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
-        if (state is PaymentTypeInitialState) {
+        if (state is LineBusinessInitialState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is PaymentTypeInterationPageState) {
-          return PaymentTypeInteractionPage(
+        } else if (state is LineBusinessInterationPageState) {
+          return LineBusinessInteractionPage(
             bloc: bloc,
-            paymentType: state.paymentType,
+            lineBusiness: state.lineBusiness,
           );
         }
-        final paymentTypeList = state.paymentTypeList;
+        final paymentTypeList = state.lineBusinessList;
 
         return Scaffold(
           appBar: AppBar(
@@ -76,7 +77,7 @@ class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(PaymentTypeInterationEvent());
+                  bloc.add(LineBusinessInterationEvent());
                 },
               ),
             ],
@@ -98,8 +99,8 @@ class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
                         : ListView.separated(
                             itemCount: paymentTypeList.length,
                             itemBuilder: (context, index) => InkWell(
-                              onTap: () => bloc.add(PaymentTypeInterationEvent(
-                                  paymentType: paymentTypeList[index])),
+                              onTap: () => bloc.add(LineBusinessInterationEvent(
+                                  lineBusiness: paymentTypeList[index])),
                               child: ListTile(
                                 leading: CircleAvatar(
                                   child: ClipRRect(
@@ -137,7 +138,7 @@ class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
         keyboardType: TextInputType.text,
         autofocus: true,
         onChanged: (value) {
-          bloc.add(SearchPaymentTypeEvent(search: value));
+          bloc.add(SearchLineBusinessEvent(search: value));
         },
         style: const TextStyle(
           color: Colors.white,

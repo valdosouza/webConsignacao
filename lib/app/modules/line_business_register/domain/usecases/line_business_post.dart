@@ -5,15 +5,17 @@ import 'package:appweb/app/modules/line_business_register/data/models/line_busin
 import 'package:appweb/app/modules/line_business_register/domain/repositories/line_business_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class LineBusinessAdd extends UseCase<String, AddLineBusinessParams> {
+class LineBusinessPost
+    implements UseCase<LineBusinessModel, PostLineBusinessParams> {
   final LineBusinessRepository repository;
 
-  LineBusinessAdd({required this.repository});
-  
+  LineBusinessPost({required this.repository});
+
   @override
-  Future<Either<Failure, String>> call(AddLineBusinessParams params) async {
-   try {
-      final response = await repository.addLineBusiness(lineBusinessModel: params.businessModel);
+  Future<Either<Failure, LineBusinessModel>> call(
+      PostLineBusinessParams params) async {
+    try {
+      final response = await repository.post(model: params.lineBusinessId);
       return response;
     } on ServerException {
       return Left(ServerFailure());
@@ -21,9 +23,10 @@ class LineBusinessAdd extends UseCase<String, AddLineBusinessParams> {
   }
 }
 
-class AddLineBusinessParams {
-  final LineBusinessModel businessModel;
-  AddLineBusinessParams({
-    required this.businessModel,
+class PostLineBusinessParams {
+  final LineBusinessModel lineBusinessId;
+
+  const PostLineBusinessParams({
+    required this.lineBusinessId,
   });
 }

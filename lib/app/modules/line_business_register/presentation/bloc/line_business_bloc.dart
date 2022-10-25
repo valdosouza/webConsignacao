@@ -1,68 +1,97 @@
 import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_add.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_delete.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_getlist.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_post.dart';
 import 'package:appweb/app/modules/line_business_register/domain/usecases/line_business_put.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_events.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_states.dart';
+
 import 'package:bloc/bloc.dart';
 
-import '../../domain/usecases/line_business_delete.dart';
-import '../../domain/usecases/line_business_getlist.dart';
-
 class LineBusinessBloc extends Bloc<LineBusinessEvent, LineBusinessState> {
-  final LineBusinessGetlist getlistLineBusiness;
-  final LineBusinessDelete deleteLineBusiness;
-  final LineBusinessAdd addLineBusiness;
-  final LineBusinessPut putLineBusiness;
+  final LineBusinessGetlist getlist;
+  final LineBusinessDelete delete;
+  final LineBusinessPost post;
+  final LineBusinessPut put;
 
-  late List<LineBusinessModel> lineBusinessModel;
+  List<LineBusinessModel> list = [];
 
-  LineBusinessBloc(
-      {required this.addLineBusiness,
-      required this.deleteLineBusiness,
-      required this.getlistLineBusiness,
-      required this.putLineBusiness})
-      : super(LineBusinessInitialState()) {
-    on<LineBusinessGetlistEvent>((event, emit) async {
-      final response = await getlistLineBusiness
-          .call(GetlistLineBusinessParams(idInstitution: event.idInstitution));
-      final result = response.fold((l) => LineBusinessGetlistErrorState(), (r) {
-        lineBusinessModel = r;
-        return LineBusinessGetlistSuccessEvent(lineBusiness: lineBusinessModel);
-      });
+  LineBusinessBloc({
+    required this.getlist,
+    required this.delete,
+    required this.post,
+    required this.put,
+  }) : super(LineBusinessInitialState()) {
+    on<LoadLineBusinessEvent>((event, emit) async {
+      LineBusinessInitialState();
+      var response = await getlist.call(const Params(institutionId: 1));
+      var result = response.fold(
+        (l) => LineBusinessErrorState(),
+        (r) {
+          list = r;
+          return LineBusinessSuccessState(lineBusinessList: r);
+        },
+      );
       emit(result);
     });
-    on<LineBusinessAddEvent>((event, emit) async {
-      final response = await addLineBusiness.call(AddLineBusinessParams(businessModel: event.lineBusinessModel));
-      final result = response.fold((l) => LineBusinessAddErrorState(lineBusiness: lineBusinessModel), (r) {
-        return LineBusinessAddSuccessState();
-      });
+
+    on<SearchLineBusinessEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var clienstSearched = list.where((element) {
+          String name = element.description;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (clienstSearched.isEmpty) {}
+        emit(LineBusinessSuccessState(lineBusinessList: clienstSearched));
+      } else {
+        emit(LineBusinessSuccessState(lineBusinessList: list));
+      }
+    });
+
+    on<DeleteLineBusinessEvent>((event, emit) async {
+      LineBusinessInitialState();
+      var response = await delete
+          .call(DeleteLineBusinessParams(idLineBusiness: event.lineBusinessId));
+      var result = response.fold(
+        (l) => LineBusinessDeleteErrorState(lineBusinessList: list),
+        (r) {
+          list.removeWhere((element) => element.id == event.lineBusinessId);
+          return LineBusinessDeleteSuccessState(lineBusinessList: list);
+        },
+      );
       emit(result);
     });
-    on<LineBusinessPutEvent>((event, emit) async {
-      final response = await putLineBusiness
-          .call(PutLineBusinessParams(businessModel: event.lineBusinessModel));
-      final result = response.fold((l) => LineBusinessPutErrorState(lineBusiness: lineBusinessModel), (r) {
-        return LineBusinessPutSuccessState();
-      });
+
+    on<LineBusinessInterationEvent>((event, emit) async {
+      emit(LineBusinessInterationPageState(
+          lineBusinessList: list, lineBusiness: event.lineBusiness));
+    });
+
+    on<AddLineBusinessEvent>((event, emit) async {
+      LineBusinessInitialState();
+      var response = await post
+          .call(PostLineBusinessParams(lineBusinessId: event.lineBusiness));
+      var result = response.fold(
+        (l) => LineBusinessAddErrorState(lineBusinessList: list),
+        (r) => LineBusinessAddSuccessState(
+          lineBusinessList: list,
+        ),
+      );
       emit(result);
     });
-    on<LineBusinessDeleteEvent>((event, emit) async {
-      final response = await deleteLineBusiness
-          .call(DeleteLineBusinessParams(idLineBusiness: event.idLineBusiness));
-      final result = response.fold((l) => LineBusinessDeleteErrorState(lineBusiness: lineBusinessModel), (r) {
-        lineBusinessModel.removeWhere((element) => element.id == event.idLineBusiness);
-        return LineBusinessDeleteErrorState(lineBusiness: lineBusinessModel);
-      });
+
+    on<EditLineBusinessEvent>((event, emit) async {
+      LineBusinessInitialState();
+      var response = await put
+          .call(PutLineBusinessParams(businessModel: event.lineBusiness));
+      var result = response.fold(
+        (l) => LineBusinessPutErrorState(lineBusinessList: list),
+        (r) => LineBusinessPutErrorState(lineBusinessList: list),
+      );
       emit(result);
-    });
-    on<LineBusinessSearchEvent>((event, emit) async {
-      String search = event.search.trim().toUpperCase();
-      List<LineBusinessModel> searchedLineBusinesss = lineBusinessModel.where((element) {
-        bool containsSearchedLineBusiness =
-            element.description.trim().toUpperCase().contains(search);
-        return containsSearchedLineBusiness;
-      }).toList();
-      emit(LineBusinessSearchState(lineBusiness: searchedLineBusinesss));
     });
   }
 }

@@ -25,14 +25,9 @@ class PaymentTypeDatasourceImpl implements PaymentTypeDatasource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print(response.body);
-        print("--------");
         items = (data as List).map((json) {
-          print(json);
-          print("--------");
           return PaymentTypeModel.fromJson(json);
         }).toList();
-        print(items);
         return items;
       } else {
         throw ServerException();

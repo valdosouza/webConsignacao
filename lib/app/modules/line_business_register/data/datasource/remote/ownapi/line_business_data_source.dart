@@ -5,90 +5,87 @@ import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
 import 'package:http/http.dart' as http;
 
-abstract class LineBusinessDataSource {
-   Future<List<LineBusinessModel>> getlist({required String idInstitution});
-  Future<String> postLineBusiness(
-      {required LineBusinessModel lineBusinessModel});
-  Future<String> deleteLineBusiness({required int lineBusinessId});
-  Future<String> putLineBusiness({required LineBusinessModel lineBusinessModel});
+/// Throws a [ServerException] for all error codes.
+abstract class LineBusinessDatasource {
+  Future<List<LineBusinessModel>> getlist({required int institutionId});
+  Future<LineBusinessModel> post({required LineBusinessModel model});
+  Future<String> put({required LineBusinessModel model});
+  Future<String> delete({required int id});
 }
 
-class LineBusinessDataSourceImpl extends LineBusinessDataSource{
+class LineBusinessDatasourceImpl implements LineBusinessDatasource {
   final client = http.Client();
   List<LineBusinessModel> items = [];
-
   @override
-  Future<String> deleteLineBusiness({required int lineBusinessId}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype/getlist/$lineBusinessId');
-
+  Future<List<LineBusinessModel>> getlist({required int institutionId}) async {
     try {
-      final response = await client.delete(uri);
+      final uri = Uri.parse('${baseApiUrl}linebusiness/getlist/$institutionId');
 
-      if (response.statusCode == 200) {      
-        return '';
-      }
-      throw ServerException();
-    } catch (e) {
-      throw ServerException();
-    }
-  }
-
-  @override
-  Future<List<LineBusinessModel>> getlist({required String idInstitution}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype/getlist/$idInstitution');
-
-    try {
       final response = await client.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-
         items = (data as List).map((json) {
           return LineBusinessModel.fromJson(json);
         }).toList();
         return items;
+      } else {
+        throw ServerException();
       }
-      throw ServerException();
     } catch (e) {
       throw ServerException();
     }
   }
 
   @override
-  Future<String> postLineBusiness({required LineBusinessModel lineBusinessModel}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype');
-    final body = {
-      "tb_institution_id": lineBusinessModel.idInstitution.toString(),
-      "description": lineBusinessModel.description.toUpperCase(),
-      "active": lineBusinessModel.active ? 'S' : 'N'
-    };
-
+  Future<LineBusinessModel> post({required LineBusinessModel model}) async {
+    final uri = Uri.parse('${baseApiUrl}linebusiness');
     try {
-      final response = await client.post(uri, body: body);
+      final response = await client.post(uri, body: model.toJson());
 
       if (response.statusCode == 200) {
-        return '';
+        final data = json.decode(response.body);
+        LineBusinessModel result = LineBusinessModel.fromJson(data);
+        return result;
+      } else {
+        throw ServerException();
       }
-      throw ServerException();
     } catch (e) {
       throw ServerException();
     }
   }
 
   @override
-  Future<String> putLineBusiness({required LineBusinessModel lineBusinessModel}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype');
-
+  Future<String> put({required LineBusinessModel model}) async {
     try {
-      final response = await client.put(uri, body: lineBusinessModel.toMap());
+      final uri = Uri.parse('${baseApiUrl}linebusiness');
+
+      final response = await client.put(uri, body: model.toJson());
 
       if (response.statusCode == 200) {
         return "";
+      } else {
+        throw ServerException();
       }
-      throw ServerException();
     } catch (e) {
       throw ServerException();
     }
   }
 
+  @override
+  Future<String> delete({required int id}) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}linebusiness/$id');
+
+      final response = await client.delete(uri);
+
+      if (response.statusCode == 200) {
+        return "";
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
 }

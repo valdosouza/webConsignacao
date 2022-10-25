@@ -12,8 +12,9 @@ class LineBusinessDelete extends UseCase<String, DeleteLineBusinessParams> {
 
   @override
   Future<Either<Failure, String>> call(DeleteLineBusinessParams params) async {
-     try {
-      final response = await repository.deleteLineBusiness(lineBusinessId: params.idLineBusiness);
+    try {
+      final response =
+          await repository.delete(lineBusinessId: params.idLineBusiness);
       return response;
     } on ServerException {
       return Left(ServerFailure());

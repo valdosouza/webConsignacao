@@ -1,84 +1,84 @@
+import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_bloc.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/line_business_events.dart';
 import 'package:flutter/material.dart';
 
-import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-
-class InteractionLineBusiness extends StatefulWidget {
+class LineBusinessInteractionPage extends StatefulWidget {
+  final LineBusinessBloc bloc;
   final LineBusinessModel? lineBusiness;
-  const InteractionLineBusiness({
-    Key? key,
-    required this.lineBusiness,
-  }) : super(key: key);
+  const LineBusinessInteractionPage({
+    super.key,
+    required this.bloc,
+    this.lineBusiness,
+  });
 
   @override
-  State<InteractionLineBusiness> createState() => _InteractionLineBusinessState();
+  State<LineBusinessInteractionPage> createState() =>
+      _LineBusinessInterationPageState();
 }
 
-class _InteractionLineBusinessState extends State<InteractionLineBusiness> {
+class _LineBusinessInterationPageState
+    extends State<LineBusinessInteractionPage> {
   bool selectRadio = false;
   bool selectMain = false;
-  LineBusinessModel? lineBusinessModel;
-  late LineBusinessBloc bloc;
+  LineBusinessModel? lineBusiness;
+
   @override
   void initState() {
-    bloc = Modular.get<LineBusinessBloc>();
     if (widget.lineBusiness?.active != null) {
-      description = widget.lineBusiness!.description;
-      active = selectRadio = widget.lineBusiness!.active;
+      selectRadio = widget.lineBusiness!.active == "S";
     }
-    lineBusinessModel = widget.lineBusiness;
+    lineBusiness = widget.lineBusiness;
 
     super.initState();
   }
 
-  String description = "";
-  bool active = false;
+  String descripton = "";
+  String active = "N";
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        bloc.add(LineBusinessGetlistEvent(idInstitution: 1));
+        widget.bloc.add(LoadLineBusinessEvent());
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: lineBusinessModel == null
+          title: lineBusiness == null
               ? const Text('Adicionar')
               : const Text('Editar'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Modular.to.pop();
-              bloc.add(LineBusinessGetlistEvent(idInstitution: 1));
+              widget.bloc.add(LoadLineBusinessEvent());
             },
           ),
           actions: [
             IconButton(
               icon: const Icon(Icons.check),
               onPressed: () {
-                if (lineBusinessModel != null) {
-                  if (description.isEmpty) {
+                if (lineBusiness != null) {
+                  if (lineBusiness!.description.isEmpty) {
                     CustomToast.showToast("Campo descrição é obrigatório.");
                   } else {
-                    lineBusinessModel = lineBusinessModel!
-                        .copyWith(description: description, active: active);
-                    bloc.add(LineBusinessPutEvent(lineBusinessModel: lineBusinessModel!));
+                    widget.bloc.add(
+                        EditLineBusinessEvent(lineBusiness: lineBusiness!));
                   }
                 } else {
-                  if (description.isEmpty) {
+                  if (descripton.isEmpty) {
                     CustomToast.showToast("Campo descrição é obrigatório.");
                   } else {
-                    bloc.add(
-                      LineBusinessAddEvent(
-                        lineBusinessModel: LineBusinessModel(
-                          id: 0,
-                          idInstitution: bloc.state.lineBusiness.last.idInstitution,
-                          description: description,
+                    widget.bloc.add(
+                      AddLineBusinessEvent(
+                        lineBusiness: LineBusinessModel(
+                          id: (widget.bloc.state.lineBusinessList.last.id + 1),
+                          institution: widget
+                              .bloc.state.lineBusinessList.last.institution,
+                          description: descripton,
                           active: active,
                         ),
                       ),
@@ -96,11 +96,12 @@ class _InteractionLineBusinessState extends State<InteractionLineBusiness> {
             children: [
               CustomInput(
                 title: 'Descrição',
-                initialValue: lineBusinessModel?.description ?? "",
+                initialValue: lineBusiness?.description ?? "",
                 keyboardType: TextInputType.number,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  description = value;
+                  lineBusiness?.description = value;
+                  descripton = value;
                 },
               ),
               const SizedBox(height: 30.0),
@@ -120,7 +121,8 @@ class _InteractionLineBusinessState extends State<InteractionLineBusiness> {
                                 setState(() {
                                   selectRadio = true;
                                 });
-                                active = true;
+                                lineBusiness?.active = "S";
+                                active = "S";
                               },
                       ),
                       const SizedBox(width: 5.0),
@@ -139,7 +141,8 @@ class _InteractionLineBusinessState extends State<InteractionLineBusiness> {
                                   setState(() {
                                     selectRadio = false;
                                   });
-                                  active = false;
+                                  lineBusiness?.active = "N";
+                                  active = "N";
                                 }
                               : (value) {}),
                       const SizedBox(width: 5.0),
@@ -147,7 +150,8 @@ class _InteractionLineBusinessState extends State<InteractionLineBusiness> {
                     ],
                   ),
                 ],
-              )
+              ),
+              const SizedBox(height: 30.0),
             ],
           ),
         ),

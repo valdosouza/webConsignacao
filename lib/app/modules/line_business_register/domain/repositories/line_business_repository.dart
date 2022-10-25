@@ -1,14 +1,13 @@
+import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failures.dart';
-
-abstract class LineBusinessRepository{
-   Future<Either<Failure, List<LineBusinessModel>>> getListLineBusiness(
+abstract class LineBusinessRepository {
+  Future<Either<Failure, List<LineBusinessModel>>> getList(
       {required int institutionId});
 
-  Future<Either<Failure, String>> addLineBusiness(
-      {required LineBusinessModel lineBusinessModel});
-  Future<Either<Failure, String>> putLineBusiness({required LineBusinessModel lineBusinessModel});
-  Future<Either<Failure, String>> deleteLineBusiness({required int lineBusinessId});
+  Future<Either<Failure, LineBusinessModel>> post(
+      {required LineBusinessModel model});
+  Future<Either<Failure, String>> put({required LineBusinessModel model});
+  Future<Either<Failure, String>> delete({required int lineBusinessId});
 }

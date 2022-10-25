@@ -25,12 +25,10 @@ class StockListDatasourceImpl implements StockListDatasource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print(data);
-        print("--------");
         items = (data as List).map((json) {
           return StockListModel.fromJson(json);
         }).toList();
-        print(items);
+
         return items;
       } else {
         throw ServerException();

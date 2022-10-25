@@ -8,23 +8,20 @@ import '../../../../core/usecase/usecase.dart';
 import '../repositories/line_business_repository.dart';
 
 class LineBusinessPut extends UseCase<String, PutLineBusinessParams> {
-  
-    final LineBusinessRepository repository;
+  final LineBusinessRepository repository;
   LineBusinessPut({
     required this.repository,
   });
-  
+
   @override
   Future<Either<Failure, String>> call(PutLineBusinessParams params) async {
-   try {
-      final response =
-          await repository.putLineBusiness(lineBusinessModel: params.businessModel);
+    try {
+      final response = await repository.put(model: params.businessModel);
       return response;
     } on ServerException {
       return Left(ServerFailure());
     }
   }
-  
 }
 
 class PutLineBusinessParams {

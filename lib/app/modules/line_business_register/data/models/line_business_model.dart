@@ -1,35 +1,33 @@
-import 'package:appweb/app/modules/line_business_register/domain/entities/line_business.dart';
+import 'package:appweb/app/modules/line_business_register/domain/entities/line_business_entity.dart';
 
-class LineBusinessModel extends LineBusinessEntity {
-  LineBusinessModel(
-      {required super.id,
-      required super.idInstitution,
-      required super.description,
-      required super.active});
+// ignore: must_be_immutable
+class LineBusinessModel extends LinebusinessEntity {
+  LineBusinessModel({
+    required int id,
+    required int institution,
+    required String description,
+    required String active,
+  }) : super(
+            id: id,
+            institution: institution,
+            description: description,
+            active: active);
 
-        factory LineBusinessModel.fromJson(Map<String, dynamic> json) {
+  factory LineBusinessModel.fromJson(Map<String, dynamic> json) {
     return LineBusinessModel(
-        id: json['id'],
-        idInstitution: json['tb_institution_id'],
-        description: json['description'].toString(),
-        active: json['active'].toString() == 'S' ? true : false);
+      id: int.parse(json['id'].toString()),
+      institution: int.parse(json['tb_institution_id'].toString()),
+      description: json['description'] as String,
+      active: json['active'] as String,
+    );
   }
 
-  toMap() {
-    return {
-      'id': id.toString(),
-      'tb_institution_id': idInstitution.toString(),
-      'description': description,
-      'active': active ? 'S' : 'N'
-    };
-  }
-
-  copyWith(
-      {int? id, int? idInstitution, String? description, bool? active}) {
-    return LineBusinessModel(
-        id: id ?? this.id,
-        idInstitution: idInstitution ?? this.idInstitution,
-        description: description ?? this.description,
-        active: active ?? this.active);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id.toString();
+    data['tb_institution_id'] = institution.toString();
+    data['description'] = description;
+    data['active'] = active;
+    return data;
   }
 }

@@ -1,63 +1,65 @@
 import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
 
 abstract class LineBusinessState {
-  List<LineBusinessModel> lineBusiness;
+  List<LineBusinessModel> lineBusinessList;
 
   LineBusinessState({
-    required this.lineBusiness,
+    required this.lineBusinessList,
   });
 }
 
 class LineBusinessInitialState extends LineBusinessState {
-  LineBusinessInitialState() : super(lineBusiness: []);
+  LineBusinessInitialState() : super(lineBusinessList: []);
 }
 
 class LineBusinessSuccessState extends LineBusinessState {
   LineBusinessSuccessState({
-    required List<LineBusinessModel> lineBusiness,
-  }) : super(lineBusiness: lineBusiness);
+    required List<LineBusinessModel> lineBusinessList,
+  }) : super(lineBusinessList: lineBusinessList);
 }
 
 class LineBusinessEditSuccessState extends LineBusinessState {
-  LineBusinessEditSuccessState({required List<LineBusinessModel> lineBusiness})
-      : super(lineBusiness: lineBusiness);
+  LineBusinessEditSuccessState(
+      {required List<LineBusinessModel> lineBusinessList})
+      : super(lineBusinessList: lineBusinessList);
 }
 
 class LineBusinessAddSuccessState extends LineBusinessState {
-  LineBusinessAddSuccessState()
-      : super(lineBusiness: []);
+  LineBusinessAddSuccessState(
+      {required List<LineBusinessModel> lineBusinessList})
+      : super(lineBusinessList: lineBusinessList);
 }
 
 class LineBusinessPutErrorState extends LineBusinessState {
-  LineBusinessPutErrorState({required List<LineBusinessModel> lineBusiness})
-      : super(lineBusiness: lineBusiness);
-}
-class LineBusinessPutSuccessState extends LineBusinessState {
-  LineBusinessPutSuccessState()
-      : super(lineBusiness: []);
+  LineBusinessPutErrorState({required List<LineBusinessModel> lineBusinessList})
+      : super(lineBusinessList: lineBusinessList);
 }
 
 class LineBusinessAddErrorState extends LineBusinessState {
-  LineBusinessAddErrorState({required List<LineBusinessModel> lineBusiness})
-      : super(lineBusiness: lineBusiness);
+  LineBusinessAddErrorState({required List<LineBusinessModel> lineBusinessList})
+      : super(lineBusinessList: lineBusinessList);
 }
-class LineBusinessGetlistErrorState extends LineBusinessState {
-  LineBusinessGetlistErrorState() : super(lineBusiness: []);
-}
-class LineBusinessGetlistSuccessEvent extends LineBusinessState {
-  LineBusinessGetlistSuccessEvent({required List<LineBusinessModel> lineBusiness}) : super(lineBusiness: lineBusiness);
+
+class LineBusinessErrorState extends LineBusinessState {
+  LineBusinessErrorState() : super(lineBusinessList: []);
 }
 
 class LineBusinessDeleteSuccessState extends LineBusinessState {
-  LineBusinessDeleteSuccessState({required List<LineBusinessModel> lineBusiness})
-      : super(lineBusiness: lineBusiness);
+  LineBusinessDeleteSuccessState(
+      {required List<LineBusinessModel> lineBusinessList})
+      : super(lineBusinessList: lineBusinessList);
 }
 
 class LineBusinessDeleteErrorState extends LineBusinessState {
-  LineBusinessDeleteErrorState({required List<LineBusinessModel> lineBusiness})
-      : super(lineBusiness: lineBusiness);
+  LineBusinessDeleteErrorState(
+      {required List<LineBusinessModel> lineBusinessList})
+      : super(lineBusinessList: lineBusinessList);
 }
-class LineBusinessSearchState extends LineBusinessState {
-  LineBusinessSearchState({required List<LineBusinessModel> lineBusiness})
-      : super(lineBusiness: lineBusiness);
+
+class LineBusinessInterationPageState extends LineBusinessState {
+  final LineBusinessModel? lineBusiness;
+  LineBusinessInterationPageState({
+    required List<LineBusinessModel> lineBusinessList,
+    this.lineBusiness,
+  }) : super(lineBusinessList: lineBusinessList);
 }

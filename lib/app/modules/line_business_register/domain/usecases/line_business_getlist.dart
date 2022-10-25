@@ -1,36 +1,36 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:appweb/app/core/error/exceptions.dart';
-import 'package:dartz/dartz.dart';
-
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/core/usecase/usecase.dart';
+import 'package:appweb/app/modules/line_business_register/data/models/line_business_model.dart';
+import 'package:appweb/app/modules/line_business_register/domain/repositories/line_business_repository.dart';
+import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 
-import '../../data/models/line_business_model.dart';
-import '../repositories/line_business_repository.dart';
-
-class LineBusinessGetlist
-    extends UseCase<List<LineBusinessModel>, GetlistLineBusinessParams> {
+class LineBusinessGetlist implements UseCase<List<LineBusinessModel>, Params> {
   final LineBusinessRepository repository;
-  LineBusinessGetlist({
-    required this.repository,
-  });
+
+  LineBusinessGetlist({required this.repository});
 
   @override
-  Future<Either<Failure, List<LineBusinessModel>>> call(
-      GetlistLineBusinessParams params) async {
-   try {
-      final response = await repository.getListLineBusiness(institutionId: params.idInstitution);
-      return response;
+  Future<Either<Failure, List<LineBusinessModel>>> call(Params params) async {
+    try {
+      final list =
+          await repository.getList(institutionId: params.institutionId);
+
+      return list;
     } on ServerException {
       return Left(ServerFailure());
     }
   }
 }
 
-class GetlistLineBusinessParams {
-  final int idInstitution;
-  GetlistLineBusinessParams({
-    required this.idInstitution,
+class Params extends Equatable {
+  final int institutionId;
+
+  const Params({
+    required this.institutionId,
   });
+
+  @override
+  List<Object?> get props => [institutionId];
 }

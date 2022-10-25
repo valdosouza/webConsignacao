@@ -53,7 +53,7 @@ class DrawerPage extends StatelessWidget {
           itemMenuDraw(Icons.home, 'Financeiro',
               () => Modular.to.navigate('/financial/content/')),
           itemMenuDraw(Icons.home, 'Pessoal',
-              () => Modular.to.popAndPushNamed('/ResourceHuman/content/')),
+              () => Modular.to.popAndPushNamed('/resourcehuman/content/')),
           itemMenuDraw(Icons.home, 'Produção',
               () => Modular.to.popAndPushNamed('/home/')),
           itemLogout(Icons.close, 'Sair'),
