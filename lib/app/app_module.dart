@@ -2,7 +2,7 @@ import 'package:appweb/app/core/shared/page_404.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/drawer/drawer_module.dart';
-import 'package:appweb/app/modules/drawer/presentation/cubit/drawer_cubit.dart';
+import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:appweb/app/modules/home/home_module.dart';
 import 'package:appweb/app/modules/product/product_module.dart';
@@ -17,7 +17,7 @@ class AppModule extends Module {
   @override
   List<Bind> get binds => [
         AsyncBind((i) => SharedPreferences.getInstance()),
-        Bind.singleton((i) => DrawerCubit()),
+        Bind.singleton((i) => DrawerBloc()),
       ];
 
   // Provide all the routes for your module
