@@ -1,64 +1,91 @@
 import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
-import 'package:appweb/app/modules/drawer/presentation/cubit/drawer_cubit.dart';
+import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
+import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_event.dart';
+import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class DrawerPage extends StatelessWidget {
+class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key});
 
   @override
+  State<DrawerPage> createState() => _DrawerPageState();
+}
+
+class _DrawerPageState extends State<DrawerPage> {
+  late final DrawerBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = Modular.get<DrawerBloc>();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: <Widget>[
-          DrawerHeader(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-              colors: <Color>[
-                Colors.red,
-                Colors.black,
-                Colors.black,
-                Colors.white,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )),
-            child: Column(
-              children: <Widget>[
-                Material(
-                  borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-                  elevation: 10,
-                  child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        "images/logomarca.png",
-                        width: 160,
-                        height: 70,
-                        //fit: BoxFit.fill,
-                      )),
+    return BlocConsumer<DrawerBloc, DrawerState>(
+      bloc: bloc,
+      listener: (context, state) {
+        if (state is DrawerLogoutState) {
+          Modular.to.popAndPushNamed('/auth/');
+        }
+      },
+      builder: (context, state) {
+        return Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: <Color>[
+                    Colors.red,
+                    Colors.black,
+                    Colors.black,
+                    Colors.white,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                )),
+                child: Column(
+                  children: <Widget>[
+                    Material(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(50.0)),
+                      elevation: 10,
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            "images/logomarca.png",
+                            width: 160,
+                            height: 70,
+                            //fit: BoxFit.fill,
+                          )),
+                    ),
+                    const Text(
+                      'Nome do Usuario',
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    )
+                  ],
                 ),
-                const Text(
-                  'Nome do Usuario',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                )
-              ],
-            ),
+              ),
+              itemMenuDraw(Icons.home, 'Administração',
+                  () async => Modular.to.navigate('/admin/content/')),
+              itemMenuDraw(Icons.home, 'Produtos',
+                  () async => Modular.to.navigate('/product/content/')),
+              itemMenuDraw(Icons.home, 'Estoque',
+                  () async => Modular.to.navigate('/stock/content/')),
+              itemMenuDraw(Icons.home, 'Financeiro',
+                  () => Modular.to.navigate('/financial/content/')),
+              itemMenuDraw(Icons.home, 'Pessoal',
+                  () => Modular.to.popAndPushNamed('/resourcehuman/content/')),
+              itemMenuDraw(Icons.home, 'Produção',
+                  () => Modular.to.popAndPushNamed('/home/')),
+              itemLogout(Icons.close, 'Sair'),
+            ],
           ),
-          itemMenuDraw(Icons.home, 'Administração',
-              () async => Modular.to.navigate('/admin/content/')),
-          itemMenuDraw(Icons.home, 'Produtos',
-              () async => Modular.to.navigate('/product/content/')),
-          itemMenuDraw(Icons.home, 'Estoque',
-              () async => Modular.to.navigate('/stock/content/')),
-          itemMenuDraw(Icons.home, 'Financeiro',
-              () => Modular.to.navigate('/financial/content/')),
-          itemMenuDraw(Icons.home, 'Pessoal',
-              () => Modular.to.popAndPushNamed('/resourcehuman/content/')),
-          itemMenuDraw(Icons.home, 'Produção',
-              () => Modular.to.popAndPushNamed('/home/')),
-          itemLogout(Icons.close, 'Sair'),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -69,10 +96,8 @@ class DrawerPage extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey.shade400))),
         child: InkWell(
-            onTap: () async {
-              final drawerCubit = Modular.get<DrawerCubit>();
-              await drawerCubit.logOut();
-              await Modular.to.popAndPushNamed('/auth/');
+            onTap: () {
+              bloc.add(DrawerLogoutEvent());
             },
             splashColor: Colors.orangeAccent,
             child: SizedBox(
