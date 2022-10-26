@@ -1,4 +1,3 @@
-import 'package:appweb/app/core/shared/style.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
@@ -7,18 +6,18 @@ import 'package:appweb/app/modules/user_register/presentation/bloc/user_register
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class UserInfoPage extends StatefulWidget {
+class UserInteractionPage extends StatefulWidget {
   final UserRegisterModel? user;
-  const UserInfoPage({
+  const UserInteractionPage({
     super.key,
     this.user,
   });
 
   @override
-  State<UserInfoPage> createState() => _UserInfoPageState();
+  State<UserInteractionPage> createState() => _UserInteractionPageState();
 }
 
-class _UserInfoPageState extends State<UserInfoPage> {
+class _UserInteractionPageState extends State<UserInteractionPage> {
   late final UserRegisterBloc bloc;
   UserRegisterModel? user;
   final _formKey = GlobalKey<FormState>();
@@ -27,6 +26,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
   String email = "";
   String password = "";
   String kind = "";
+  String active = "S";
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     user != null
-                        ? bloc.add(UserRegisterEditEvent(id: user!.id!))
+                        ? bloc.add(UserRegisterEditEvent(id: user!.id))
                         : bloc.add(UserRegisterAddEvent(
                             model: UserRegisterModel(
                             id: 0,

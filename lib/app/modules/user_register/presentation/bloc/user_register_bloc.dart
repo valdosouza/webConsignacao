@@ -53,14 +53,14 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     on<UserRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var usersSearchedName = users.where((element) {
-          String name = element.nick ?? "";
+          String name = element.nick;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
         var usersSearchedEmail = users.where((element) {
-          String email = element.email ?? "";
+          String email = element.email;
           return email
               .toLowerCase()
               .trim()
