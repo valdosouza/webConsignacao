@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/domain/usecase/login_email.dart';
+import 'package:appweb/app/modules/auth/domain/usecase/recovery_password.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,8 +10,10 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginEmail loginEmail;
+  final RecoveryPassword recovery;
   AuthBloc({
     required this.loginEmail,
+    required this.recovery,
   }) : super(AuthInitial()) {
     on<AuthLoginEvent>((event, emit) async {
       emit(AuthLoadingState());
@@ -37,6 +40,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await sp.setString('token', '');
       await Modular.to.popAndPushNamed('/');
       emit(AuthLogoutSucessState());
+    });
+
+    on<AuthRecoveryEvent>((event, emit) async {
+      emit(AuthLoadingState());
+
+      final response = await recovery.call(ParamsRecovery(email: event.email));
+
+      var result = response.fold(
+          (l) => AuthRecoveryErrorState(), (r) => AuthRecoverySuccessState());
+      emit(result);
     });
   }
 }

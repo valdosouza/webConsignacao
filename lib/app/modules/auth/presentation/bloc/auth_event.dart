@@ -8,3 +8,9 @@ class AuthLoginEvent extends AuthEvent {
 }
 
 class AuthLogoutEvent extends AuthEvent {}
+
+class AuthRecoveryEvent extends AuthEvent {
+  final String email;
+
+  AuthRecoveryEvent({required this.email});
+}

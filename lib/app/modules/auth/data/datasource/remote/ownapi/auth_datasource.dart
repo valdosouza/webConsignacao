@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
+import 'package:appweb/app/modules/auth/data/model/auth_change_password_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +12,8 @@ import 'package:http/http.dart' as http;
 abstract class AuthDatasource {
   Future<AuthModel> getAuthentication(
       {required String username, required String password});
+  Future<String> changePassword({required AuthChangePasswordModel model});
+  Future<String> recoveryPassword({required String email});
 }
 
 class AuthDatasourceImpl implements AuthDatasource {
@@ -35,6 +39,42 @@ class AuthDatasourceImpl implements AuthDatasource {
 
       return AuthModel.fromJson(jsonMap);
     } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<String> changePassword(
+      {required AuthChangePasswordModel model}) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}user/changepassword');
+      final response = await client.post(uri, body: model.toJson());
+      if (response.statusCode == 200) {
+        return "";
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<String> recoveryPassword({required String email}) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}user/recoverypassword');
+      final response = await client.post(uri,
+          body: jsonEncode(
+            <String, String>{
+              'email': email,
+            },
+          ));
+      if (response.statusCode == 200) {
+        return "";
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
       throw ServerException();
     }
   }

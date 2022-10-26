@@ -17,3 +17,7 @@ class AuthErrorState extends AuthState {
 
   const AuthErrorState(this.error);
 }
+
+class AuthRecoverySuccessState extends AuthState {}
+
+class AuthRecoveryErrorState extends AuthState {}

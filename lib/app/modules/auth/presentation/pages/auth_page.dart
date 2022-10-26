@@ -102,6 +102,8 @@ class _AuthPageState extends State<AuthPage> {
                 _buildEmail(),
                 _buildPassword(),
                 _buildRememberMeCheckbox(),
+                const SizedBox(height: 20.0),
+                _buildForgetPassword(),
                 _buildLoginBtn(context),
               ],
             ),
@@ -200,6 +202,18 @@ class _AuthPageState extends State<AuthPage> {
           style: kLabelStyle,
         ),
       ],
+    );
+  }
+
+  Widget _buildForgetPassword() {
+    return TextButton(
+      onPressed: () {
+        Modular.to.pushNamed('/auth/recovery-password');
+      },
+      child: const Text(
+        'Esqueci minha senha',
+        style: kLabelStyle,
+      ),
     );
   }
 
