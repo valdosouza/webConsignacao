@@ -3,14 +3,14 @@ import 'package:appweb/app/modules/user_register/domain/entity/user_register_ent
 // ignore: must_be_immutable
 class UserRegisterModel extends UserRegisterEntity {
   UserRegisterModel({
-    required int id,
-    required int tbInstitutionId,
-    required String password,
-    required String kind,
-    required int tbDeviceId,
-    required String active,
-    required String email,
-    required String nick,
+    int? id,
+    String? password,
+    String kind = "sistema",
+    int? tbDeviceId,
+    String? active,
+    int? institution,
+    String? email,
+    String? nick,
   }) : super(
           id: id,
           password: password,
@@ -25,6 +25,8 @@ class UserRegisterModel extends UserRegisterEntity {
   factory UserRegisterModel.fromJson(Map<String, dynamic> json) {
     return UserRegisterModel(
       id: int.parse(json['id'].toString()),
+      nick: json['nick'] as String,
+      email: json['email'] as String,
       tbInstitutionId: json['tb_institution_id'] as int,
       password: "",
       kind: json['kind'] as String,
