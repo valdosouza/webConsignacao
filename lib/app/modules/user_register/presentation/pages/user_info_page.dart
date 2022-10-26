@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/style.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
@@ -45,7 +46,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
         appBar: AppBar(
           title: user == null
               ? const Text('Adicionar usuário')
-              : Text('Editar ${user!.nick ?? "usuário"}'),
+              : Text('Editar ${user!.nick}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -63,12 +64,14 @@ class _UserInfoPageState extends State<UserInfoPage> {
                         ? bloc.add(UserRegisterEditEvent(id: user!.id!))
                         : bloc.add(UserRegisterAddEvent(
                             model: UserRegisterModel(
-                            id: 2,
-                            institution: 1,
+                            id: 0,
+                            tbInstitutionId: 1,
+                            tbDeviceId: 0,
                             nick: nick,
                             email: email,
                             password: password,
                             kind: kind,
+                            active: active,
                           )));
                   }
                 },
