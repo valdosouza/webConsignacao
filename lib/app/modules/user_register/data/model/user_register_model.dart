@@ -6,7 +6,7 @@ class UserRegisterModel extends UserRegisterEntity {
     required int id,
     required int tbInstitutionId,
     required String password,
-    required String kind,
+    String kind = "sistema",
     required int tbDeviceId,
     required String active,
     required String email,
@@ -27,11 +27,11 @@ class UserRegisterModel extends UserRegisterEntity {
       id: int.parse(json['id'].toString()),
       nick: json['nick'] as String,
       email: json['email'] as String,
-      tbInstitutionId: json['tb_institution_id'] as int,
+      tbInstitutionId: json['tb_institution_id'] as int? ?? 1,
       password: "",
       kind: json['kind'] as String,
-      tbDeviceId: json['tb_device_id'] as int,
-      active: json['active'] as String,
+      tbDeviceId: json['tb_device_id'] as int? ?? 0,
+      active: json['active'] as String? ?? "N",
     );
   }
 
