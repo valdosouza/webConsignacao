@@ -7,7 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 // ignore: must_be_immutable
 class AuthPage extends StatefulWidget {
-  AuthPage({super.key});
+  const AuthPage({super.key});
 
   @override
   State<AuthPage> createState() => _AuthPageState();
