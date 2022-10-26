@@ -11,14 +11,14 @@ class UserRegisterEntity extends Equatable {
   String email;
   String nick;
   UserRegisterEntity({
-    this.id,
-    this.password,
+    required this.id,
+    required this.password,
     this.kind = "sistema",
-    this.tbDeviceId,
-    this.active,
-    this.institution,
-    this.email,
-    this.nick,
+    required this.tbDeviceId,
+    required this.active,
+    required this.tbInstitutionId,
+    required this.email,
+    required this.nick,
   });
 
   @override

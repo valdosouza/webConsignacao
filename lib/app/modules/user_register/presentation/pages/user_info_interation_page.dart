@@ -28,6 +28,7 @@ class _UserInfoInterationPageState extends State<UserInfoInterationPage> {
   String nick = "";
   String email = "";
   String password = "";
+  String active = "";
 
   @override
   void initState() {
@@ -47,7 +48,7 @@ class _UserInfoInterationPageState extends State<UserInfoInterationPage> {
         appBar: AppBar(
           title: user == null
               ? const Text('Adicionar usuário')
-              : Text('Editar ${user!.nick ?? "usuário"}'),
+              : Text('Editar ${user!.nick}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -62,15 +63,18 @@ class _UserInfoInterationPageState extends State<UserInfoInterationPage> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     user != null
-                        ? bloc.add(UserRegisterEditEvent(id: user!.id!))
+                        ? bloc.add(UserRegisterEditEvent(id: user!.id))
                         : bloc.add(UserRegisterAddEvent(
                             model: UserRegisterModel(
                             id: 2,
-                            institution: 1,
+                            tbInstitutionId: 1,
                             nick: nick,
                             email: email,
                             password:
                                 md5.convert(utf8.encode(password)).toString(),
+                            active: active,
+                            kind: "sistema",
+                            tbDeviceId: 0,
                           )));
                   }
                 },
