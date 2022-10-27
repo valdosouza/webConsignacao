@@ -77,7 +77,7 @@ class _AuthPageState extends State<AuthPage> {
         }
 
         if (state is AuthSuccessState) {
-          Modular.to.popAndPushNamed('/home/');
+          Modular.to.navigate('/home/');
         }
       },
       builder: (context, state) {

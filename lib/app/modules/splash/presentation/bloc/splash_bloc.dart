@@ -5,6 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   SplashBloc() : super(SplashInitState()) {
+    loggedSate();
+  }
+
+  loggedSate() {
     on<SplashInitEvent>((event, emit) async {
       final SharedPreferences sp = await SharedPreferences.getInstance();
       final String token = sp.getString('token').toString();

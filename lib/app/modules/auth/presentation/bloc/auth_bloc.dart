@@ -18,8 +18,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.recovery,
     required this.change,
   }) : super(AuthInitial()) {
+    login();
+    logout();
+    recoveryPassword();
+    changePassword();
+  }
+
+  login() async {
     on<AuthLoginEvent>((event, emit) async {
       emit(AuthLoadingState());
+
       final result = await loginEmail(
           Params(username: event.login, password: event.password));
       final SharedPreferences sp = await SharedPreferences.getInstance();
@@ -39,14 +47,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
       emit(response);
     });
+  }
 
+  logout() async {
     on<AuthLogoutEvent>((event, emit) async {
       final SharedPreferences sp = await SharedPreferences.getInstance();
       await sp.setString('token', '');
       await Modular.to.popAndPushNamed('/');
       emit(AuthLogoutSucessState());
     });
+  }
 
+  recoveryPassword() async {
     on<AuthRecoveryEvent>((event, emit) async {
       emit(AuthLoadingState());
 
@@ -56,7 +68,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           (l) => AuthRecoveryErrorState(), (r) => AuthRecoverySuccessState());
       emit(result);
     });
+  }
 
+  changePassword() async {
     on<AuthChangeEvent>((event, emit) async {
       emit(AuthLoadingState());
 

@@ -37,10 +37,10 @@ class AuthModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, args) => const AuthPage()),
-    ChildRoute('/recovery-password',
+    ChildRoute('/recovery-password/',
         child: (_, args) => const AuthRecoveryPasswordPage()),
     ChildRoute(
-      '/change-password',
+      '/change-password/',
       child: (_, args) => AuthChangePasswordPage(
         userId: args.queryParams['userId'] ?? "1",
         salt: args.queryParams['salt'] ?? "1",
