@@ -22,20 +22,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoadingState());
       final result = await loginEmail(
           Params(username: event.login, password: event.password));
+      final SharedPreferences sp = await SharedPreferences.getInstance();
 
-      result.fold((l) => const AuthErrorState('Erro ao realizar Login'),
-          (authResponse) async {
-        final SharedPreferences sp = await SharedPreferences.getInstance();
+      var response = result
+          .fold((l) => const AuthErrorState('Erro ao realizar Login'),
+              (authResponse) {
         final AuthModel authModel = authResponse;
         final bool auth = authModel.jwt.compareTo("") != 0;
-        await sp.setString('token', authModel.jwt);
-        await sp.setString('institution', authModel.institution.toString());
+        sp.setString('token', authModel.jwt);
+        sp.setString('institution', authModel.institution.toString());
         if (auth) {
-          emit(AuthSuccessState());
+          return AuthSuccessState();
         } else {
-          emit(const AuthErrorState('Login ou senha inválido'));
+          return const AuthErrorState('Login ou senha inválido');
         }
       });
+      emit(response);
     });
 
     on<AuthLogoutEvent>((event, emit) async {
