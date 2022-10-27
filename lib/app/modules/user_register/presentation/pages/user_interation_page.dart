@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
@@ -22,6 +23,8 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
   UserRegisterModel? user;
   final _formKey = GlobalKey<FormState>();
 
+  bool selectRadio = false;
+
   String nick = "";
   String email = "";
   String password = "";
@@ -33,6 +36,9 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
     super.initState();
     bloc = Modular.get<UserRegisterBloc>();
     user = widget.user;
+    if (user != null) {
+      selectRadio = user!.active == "S";
+    }
   }
 
   @override
@@ -109,32 +115,67 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
                     email = value;
                   },
                 ),
+                if (user == null) const SizedBox(height: 30.0),
+                if (user == null)
+                  CustomInput(
+                    title: 'Senha',
+                    validator: (value) => Validators.validateRequired(value),
+                    initialValue: user?.password ?? "",
+                    keyboardType: TextInputType.text,
+                    inputAction: TextInputAction.done,
+                    obscureText: true,
+                    onChanged: (value) {
+                      user?.password = value;
+                      password = value;
+                    },
+                  ),
                 const SizedBox(height: 30.0),
-                CustomInput(
-                  title: 'Tipo',
-                  validator: (value) => Validators.validateRequired(value),
-                  initialValue: user?.kind ?? "",
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.next,
-                  onChanged: (value) {
-                    user?.kind = value;
-                    kind = value;
-                  },
+                const Text("Ativo", style: kLabelStyle),
+                const SizedBox(height: 10.0),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio(
+                          value: true,
+                          groupValue: selectRadio,
+                          activeColor: Colors.red,
+                          onChanged: selectRadio
+                              ? (value) {}
+                              : (value) {
+                                  setState(() {
+                                    selectRadio = true;
+                                  });
+                                  user?.active = "S";
+                                  active = "S";
+                                },
+                        ),
+                        const SizedBox(width: 5.0),
+                        const Text("Sim", style: kLabelStyle),
+                      ],
+                    ),
+                    const SizedBox(width: 10.0),
+                    Row(
+                      children: [
+                        Radio(
+                            value: false,
+                            groupValue: selectRadio,
+                            activeColor: Colors.red,
+                            onChanged: selectRadio
+                                ? (value) {
+                                    setState(() {
+                                      selectRadio = false;
+                                    });
+                                    user?.active = "N";
+                                    active = "N";
+                                  }
+                                : (value) {}),
+                        const SizedBox(width: 5.0),
+                        const Text("Não", style: kLabelStyle),
+                      ],
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 30.0),
-                CustomInput(
-                  title: 'Senha',
-                  validator: (value) => Validators.validateRequired(value),
-                  initialValue: user?.password ?? "",
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.done,
-                  obscureText: true,
-                  onChanged: (value) {
-                    user?.password = value;
-                    password = value;
-                  },
-                ),
-                const SizedBox(height: 30.0),
               ],
             ),
           ),
