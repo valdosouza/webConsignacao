@@ -17,3 +17,11 @@ class AuthErrorState extends AuthState {
 
   const AuthErrorState(this.error);
 }
+
+class AuthRecoverySuccessState extends AuthState {}
+
+class AuthRecoveryErrorState extends AuthState {}
+
+class AuthChangeSuccessState extends AuthState {}
+
+class AuthChangeErrorState extends AuthState {}
