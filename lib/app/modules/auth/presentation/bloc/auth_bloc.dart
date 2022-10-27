@@ -1,4 +1,5 @@
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
+import 'package:appweb/app/modules/auth/domain/usecase/change_password.dart';
 import 'package:appweb/app/modules/auth/domain/usecase/login_email.dart';
 import 'package:appweb/app/modules/auth/domain/usecase/recovery_password.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
@@ -11,9 +12,11 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginEmail loginEmail;
   final RecoveryPassword recovery;
+  final ChangePassword change;
   AuthBloc({
     required this.loginEmail,
     required this.recovery,
+    required this.change,
   }) : super(AuthInitial()) {
     on<AuthLoginEvent>((event, emit) async {
       emit(AuthLoadingState());
@@ -49,6 +52,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       var result = response.fold(
           (l) => AuthRecoveryErrorState(), (r) => AuthRecoverySuccessState());
+      emit(result);
+    });
+
+    on<AuthChangeEvent>((event, emit) async {
+      emit(AuthLoadingState());
+
+      final response = await change.call(ParamsChange(model: event.model));
+
+      var result = response.fold(
+          (l) => AuthChangeErrorState(), (r) => AuthChangeSuccessState());
       emit(result);
     });
   }

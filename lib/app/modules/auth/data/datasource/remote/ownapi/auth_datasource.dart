@@ -63,12 +63,12 @@ class AuthDatasourceImpl implements AuthDatasource {
   Future<String> recoveryPassword({required String email}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}user/recoverypassword');
-      final response = await client.post(uri,
-          body: jsonEncode(
-            <String, String>{
-              'email': email,
-            },
-          ));
+      final response = await client.post(
+        uri,
+        body: {
+          'email': email,
+        },
+      );
       if (response.statusCode == 200) {
         return "";
       } else {

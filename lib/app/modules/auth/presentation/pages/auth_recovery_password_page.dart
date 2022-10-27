@@ -35,6 +35,11 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
         }
       },
       builder: (context, state) {
+        if (state is AuthLoadingState) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Scaffold(
           appBar: AppBar(
             title: const Text("Esqueci minha senha"),
@@ -128,9 +133,10 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
                     if (state is AuthRecoverySuccessState)
                       const SizedBox(height: 30.0),
                     if (state is AuthRecoverySuccessState)
-                      const Text(
-                        'Por favor acesse seu email e utilize o link enviado para efetuar a troca da senha',
-                        style: kLabelStyle,
+                      Text(
+                        'Por favor, acesse seu email e utilize o link enviado para efetuar a troca da senha',
+                        textAlign: TextAlign.center,
+                        style: kLabelStyle.copyWith(color: Colors.red),
                       ),
                   ],
                 ),
