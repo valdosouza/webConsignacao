@@ -65,6 +65,7 @@ class _AuthPageState extends State<AuthPage> {
 
   Widget _buildForm(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
+      bloc: bloc,
       listener: (context, state) {
         if (state is AuthErrorState) {
           const String errorMsg = "Login ou senha inválidos";
@@ -76,7 +77,7 @@ class _AuthPageState extends State<AuthPage> {
         }
 
         if (state is AuthSuccessState) {
-          Modular.to.popAndPushNamed('/home/');
+          Modular.to.navigate('/home/');
         }
       },
       builder: (context, state) {

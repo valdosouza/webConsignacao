@@ -18,18 +18,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.recovery,
     required this.change,
   }) : super(AuthInitial()) {
+    login();
+    logout();
+    recoveryPassword();
+    changePassword();
+  }
+
+  login() async {
     on<AuthLoginEvent>((event, emit) async {
       emit(AuthLoadingState());
+
       final result = await loginEmail(
           Params(username: event.login, password: event.password));
+      final SharedPreferences sp = await SharedPreferences.getInstance();
 
       result.fold((l) => const AuthErrorState('Erro ao realizar Login'),
           (authResponse) async {
-        final SharedPreferences sp = await SharedPreferences.getInstance();
         final AuthModel authModel = authResponse;
         final bool auth = authModel.jwt.compareTo("") != 0;
-        await sp.setString('token', authModel.jwt);
-        await sp.setString('institution', authModel.institution.toString());
+        sp.setString('token', authModel.jwt);
+        sp.setString('institution', authModel.institution.toString());
         if (auth) {
           emit(AuthSuccessState());
         } else {
@@ -37,14 +45,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       });
     });
+  }
 
+  logout() async {
     on<AuthLogoutEvent>((event, emit) async {
       final SharedPreferences sp = await SharedPreferences.getInstance();
       await sp.setString('token', '');
       await Modular.to.popAndPushNamed('/');
       emit(AuthLogoutSucessState());
     });
+  }
 
+  recoveryPassword() async {
     on<AuthRecoveryEvent>((event, emit) async {
       emit(AuthLoadingState());
 
@@ -54,7 +66,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           (l) => AuthRecoveryErrorState(), (r) => AuthRecoverySuccessState());
       emit(result);
     });
+  }
 
+  changePassword() async {
     on<AuthChangeEvent>((event, emit) async {
       emit(AuthLoadingState());
 
