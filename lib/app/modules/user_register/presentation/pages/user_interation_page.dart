@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -75,8 +78,9 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
                             tbDeviceId: 0,
                             nick: nick,
                             email: email,
-                            password: password,
-                            kind: kind,
+                            password:
+                                md5.convert(utf8.encode(password)).toString(),
+                            kind: "sistema",
                             active: active,
                           )));
                   }

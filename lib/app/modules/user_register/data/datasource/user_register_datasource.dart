@@ -18,12 +18,20 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
 
   @override
   Future<UserRegisterModel> addUser({required UserRegisterModel user}) async {
-    final uri = Uri.parse('${baseApiUrl}user');
     try {
-      final response = await client.post(uri, body: user.toJson());
-
+      final uri = Uri.parse('${baseApiUrl}user');
+      print(jsonEncode(user.toJson()));
+      final response = await client.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(user.toJson()),
+      );
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        print("-----------------");
+        print(data);
         UserRegisterModel result = UserRegisterModel.fromJson(data);
         return result;
       } else {

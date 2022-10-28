@@ -15,6 +15,7 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   late final AuthBloc bloc;
+  bool confirmPasswordVisible = false;
   TextEditingController loginController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
@@ -101,9 +102,9 @@ class _AuthPageState extends State<AuthPage> {
                   const CircularProgressIndicator(),
                 const SizedBox(height: 30.0),
                 _buildEmail(),
+                const SizedBox(height: 30.0),
                 _buildPassword(),
                 _buildRememberMeCheckbox(),
-                const SizedBox(height: 20.0),
                 _buildForgetPassword(),
                 _buildLoginBtn(context),
               ],
@@ -154,33 +155,49 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const SizedBox(height: 10.0),
+      children: [
         const Text(
-          'Senha',
+          'Confirma Senha',
           style: kLabelStyle,
         ),
         const SizedBox(height: 10.0),
         Container(
-          alignment: Alignment.centerLeft,
+          width: MediaQuery.of(context).size.width * 0.4,
           decoration: kBoxDecorationStyle,
           child: TextFormField(
+            obscureText: !confirmPasswordVisible,
             controller: passwordController,
             keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
-            obscureText: true,
+            autofocus: true,
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.lock,
                 color: Colors.white,
               ),
-              hintText: 'Digite tua senha',
+              suffixIcon: IconButton(
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                onPressed: () {
+                  setState(() {
+                    confirmPasswordVisible = !confirmPasswordVisible;
+                  });
+                },
+                icon: Icon(
+                  confirmPasswordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  color: Colors.white,
+                ),
+              ),
+              hintText: 'Confirme sua senha',
               hintStyle: kHintTextStyle,
             ),
           ),

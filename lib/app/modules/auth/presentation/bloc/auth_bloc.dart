@@ -38,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       result.fold((l) => const AuthErrorState('Erro ao realizar Login'),
           (authResponse) async {
         final AuthModel authModel = authResponse;
-        final bool auth = authModel.jwt.compareTo("") != 0;
+        final bool auth = authModel.auth;
         sp.setString('token', authModel.jwt);
         sp.setString('institution', authModel.institution.toString());
         if (auth) {

@@ -89,8 +89,8 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
                           width: MediaQuery.of(context).size.width * 0.4,
                           decoration: kBoxDecorationStyle,
                           child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            obscureText: !passwordVisible,
+                            //keyboardType: TextInputType.emailAddress,
+                            //obscureText: !passwordVisible,
                             autofocus: true,
                             onChanged: (value) {
                               code = value;
@@ -253,7 +253,7 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
                                 } else {
                                   bloc.add(AuthChangeEvent(
                                     model: AuthChangePasswordModel(
-                                      user: bloc.recoveryModel.user,
+                                      userId: bloc.recoveryModel.user,
                                       salt: code,
                                       newPassword: md5
                                           .convert(utf8.encode(password))
