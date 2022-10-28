@@ -8,11 +8,11 @@ class CustomerCompanyModel extends CustomerCompanyEntity {
     String? dtFoundation,
     String? indIeDestinatario,
   }) : super(
-          cnpj: cnpj = "",
-          ie: ie = "",
-          iest: iest = "",
-          dtFoundation: dtFoundation = "",
-          indIeDestinatario: indIeDestinatario = "",
+          cnpj: cnpj ?? "",
+          ie: ie ?? "",
+          iest: iest ?? "",
+          dtFoundation: dtFoundation ?? "",
+          indIeDestinatario: indIeDestinatario ?? "",
         );
 
   factory CustomerCompanyModel.fromJson(Map<String, dynamic> json) {

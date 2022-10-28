@@ -12,7 +12,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   @override
   Future<List<CustomerMainModel>> getlist({required int id}) async {
     List<CustomerMainModel> listMock =
-        List.generate(6, (index) => CustomerMainModel.mock());
+        List.generate(6, (index) => CustomerMainModel.mock(index));
 
     await Future.delayed(const Duration(seconds: 2));
 

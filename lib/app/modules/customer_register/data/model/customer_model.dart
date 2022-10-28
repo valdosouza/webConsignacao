@@ -11,13 +11,13 @@ class CustomerModel extends CustomerEntity {
     double? multiplier,
     String? active,
   }) : super(
-          tbSalesmanId: tbSalesmanId = 0,
-          tbCarrierId: tbCarrierId = 0,
-          creditStatus: creditStatus = "",
-          creditValue: creditValue = 0.0,
-          wallet: wallet = "",
-          consumer: consumer = "",
-          multiplier: multiplier = 0.0,
+          tbSalesmanId: tbSalesmanId ?? 0,
+          tbCarrierId: tbCarrierId ?? 0,
+          creditStatus: creditStatus ?? "",
+          creditValue: creditValue ?? 0.0,
+          wallet: wallet ?? "",
+          consumer: consumer ?? "",
+          multiplier: multiplier ?? 0.0,
           active: active ?? "",
         );
 

@@ -14,6 +14,8 @@ class CustomerRegisterBloc
     required this.getlist,
   }) : super(CustomerRegisterLoadingState()) {
     getList();
+
+    searchCostumer();
   }
 
   getList() {
@@ -29,6 +31,43 @@ class CustomerRegisterBloc
       });
 
       emit(result);
+    });
+  }
+
+  searchCostumer() {
+    on<CustomerRegisterSearchEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var customersSearchedName = customers.where((element) {
+          String name = element.entity.nameCompany;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        var customersSearchedCnpj = customers.where((element) {
+          String email = element.company.cnpj;
+          return email
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        var customersSearchedCpf = customers.where((element) {
+          String email = element.person.cpf;
+          return email
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (customersSearchedName.isNotEmpty) {
+          emit(CustomerRegisterLoadedState(customers: customersSearchedName));
+        } else if (customersSearchedCnpj.isNotEmpty) {
+          emit(CustomerRegisterLoadedState(customers: customersSearchedCnpj));
+        } else {
+          emit(CustomerRegisterLoadedState(customers: customersSearchedCpf));
+        }
+      } else {
+        emit(CustomerRegisterLoadedState(customers: customers));
+      }
     });
   }
 }

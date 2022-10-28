@@ -8,11 +8,11 @@ class CustomerBusinessModel extends CustomerBusinessEntity {
     String? aniversary,
     String? note,
   }) : super(
-          nameCompany: nameCompany = "",
-          nickTrade: nickTrade = "",
-          tbLineBuinessId: tbLineBuinessId = 0,
-          aniversary: aniversary = "",
-          note: note = "",
+          nameCompany: nameCompany ?? "",
+          nickTrade: nickTrade ?? "",
+          tbLineBuinessId: tbLineBuinessId ?? 0,
+          aniversary: aniversary ?? "",
+          note: note ?? "",
         );
 
   factory CustomerBusinessModel.fromJson(Map<String, dynamic> json) {

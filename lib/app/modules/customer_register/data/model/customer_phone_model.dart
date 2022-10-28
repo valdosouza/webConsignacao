@@ -7,10 +7,10 @@ class CustomerPhoneModel extends CustomerPhoneEntity {
     String? number,
     String? addressKind,
   }) : super(
-          kind: kind = "",
-          contact: contact = "",
-          number: number = "",
-          addressKind: addressKind = "",
+          kind: kind ?? "",
+          contact: contact ?? "",
+          number: number ?? "",
+          addressKind: addressKind ?? "",
         );
 
   factory CustomerPhoneModel.fromJson(Map<String, dynamic> json) {

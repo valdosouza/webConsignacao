@@ -83,8 +83,6 @@ class _DrawerPageState extends State<DrawerPage> {
                   () => Modular.to.navigate('/resourcehuman/content/')),
               itemMenuDraw(Icons.home, 'Produção',
                   () => Modular.to.navigate('/home/content/')),
-              itemMenuDraw(Icons.home, 'Cliente',
-                  () => Modular.to.navigate('/costumer/content/')),
               itemLogout(Icons.close, 'Sair'),
             ],
           ),

@@ -10,12 +10,12 @@ class CustomerPersonModel extends CustomerPersonEntity {
     String? birthday,
     String? tbProfessionId,
   }) : super(
-            cpf: cpf = "",
-            rg: rg = "",
-            rgDtEmission: rgDtEmission = "",
-            rgOrganIssuer: rgOrganIssuer = "",
-            rgStateIssuer: rgStateIssuer = "",
-            birthday: birthday = "",
+            cpf: cpf ?? "",
+            rg: rg ?? "",
+            rgDtEmission: rgDtEmission ?? "",
+            rgOrganIssuer: rgOrganIssuer ?? "",
+            rgStateIssuer: rgStateIssuer ?? "",
+            birthday: birthday ?? "",
             tbProfessionId: tbProfessionId ?? "");
 
   factory CustomerPersonModel.fromJson(Map<String, dynamic> json) {

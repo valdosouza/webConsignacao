@@ -116,7 +116,9 @@ class _ContentDesktopCustomerRegisterState
       child: TextFormField(
         keyboardType: TextInputType.text,
         autofocus: true,
-        onChanged: (value) {},
+        onChanged: (value) {
+          bloc.add(CustomerRegisterSearchEvent(search: value));
+        },
         style: const TextStyle(
           color: Colors.white,
           fontFamily: 'OpenSans',

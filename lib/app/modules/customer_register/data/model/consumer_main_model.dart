@@ -53,7 +53,7 @@ class CustomerMainModel extends CustomerMainEntity {
     return data;
   }
 
-  factory CustomerMainModel.mock() {
+  factory CustomerMainModel.mock(int index) {
     return CustomerMainModel(
       id: 2,
       tbInstitutionId: 1,
@@ -83,7 +83,7 @@ class CustomerMainModel extends CustomerMainEntity {
       ),
       person: CustomerPersonModel(
         birthday: "teste",
-        cpf: "123456789",
+        cpf: "123456789$index",
         rg: "teste",
         rgDtEmission: "teste",
         rgOrganIssuer: "teste",
