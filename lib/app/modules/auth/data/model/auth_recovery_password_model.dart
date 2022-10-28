@@ -11,7 +11,7 @@ class AuthRecoveryPasswordModel extends AuthRecoveryPasswordEntity {
 
   factory AuthRecoveryPasswordModel.fromJson(Map<String, dynamic> json) {
     return AuthRecoveryPasswordModel(
-      user: json['user'] as String? ?? "",
+      user: (json['user'] as int).toString(),
       email: json['email'] as String? ?? "",
     );
   }

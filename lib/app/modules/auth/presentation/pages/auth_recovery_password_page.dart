@@ -32,6 +32,8 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
         if (state is AuthRecoveryErrorState) {
           CustomToast.showToast(
               "Ops...Ocorreu um erro ao enviar o email. Tente novamente mais tarde");
+        } else if (state is AuthRecoverySuccessState) {
+          Modular.to.pushNamed('/auth/change-password/');
         }
       },
       builder: (context, state) {
@@ -157,14 +159,6 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
                         ),
                       ),
                     ),
-                    if (state is AuthRecoverySuccessState)
-                      const SizedBox(height: 30.0),
-                    if (state is AuthRecoverySuccessState)
-                      Text(
-                        'Por favor, acesse seu email e utilize o link enviado para efetuar a troca da senha',
-                        textAlign: TextAlign.center,
-                        style: kLabelStyle.copyWith(color: Colors.red),
-                      ),
                   ],
                 ),
               ),
