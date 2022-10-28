@@ -32,6 +32,8 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
         if (state is AuthRecoveryErrorState) {
           CustomToast.showToast(
               "Ops...Ocorreu um erro ao enviar o email. Tente novamente mais tarde");
+        } else if (state is AuthRecoverySuccessState) {
+          Modular.to.pushNamed('/auth/change-password/');
         }
       },
       builder: (context, state) {
@@ -130,14 +132,33 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
                         ),
                       ),
                     ),
-                    if (state is AuthRecoverySuccessState)
-                      const SizedBox(height: 30.0),
-                    if (state is AuthRecoverySuccessState)
-                      Text(
-                        'Por favor, acesse seu email e utilize o link enviado para efetuar a troca da senha',
-                        textAlign: TextAlign.center,
-                        style: kLabelStyle.copyWith(color: Colors.red),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 25.0),
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(100, 60),
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Colors.black),
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                        onPressed: () {
+                          Modular.to.pop();
+                        },
+                        child: const Text(
+                          'Voltar para área de login',
+                          style: TextStyle(
+                            color: Colors.black,
+                            letterSpacing: 1.5,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'OpenSans',
+                          ),
+                        ),
                       ),
+                    ),
                   ],
                 ),
               ),

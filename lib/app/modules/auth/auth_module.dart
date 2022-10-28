@@ -41,10 +41,7 @@ class AuthModule extends Module {
         child: (_, args) => const AuthRecoveryPasswordPage()),
     ChildRoute(
       '/change-password/',
-      child: (_, args) => AuthChangePasswordPage(
-        userId: args.queryParams['userId'] ?? "1",
-        salt: args.queryParams['salt'] ?? "1",
-      ),
+      child: (_, args) => const AuthChangePasswordPage(),
     ),
   ];
 }

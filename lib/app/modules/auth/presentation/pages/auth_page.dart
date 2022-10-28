@@ -209,9 +209,7 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildForgetPassword() {
     return TextButton(
       onPressed: () {
-        ///Rota para alteracao de senha com passagem de queryParameters na url
-        // Modular.to.pushNamed('/auth/change-password?userId=1&salt=2');
-        Modular.to.navigate('/auth/recovery-password/');
+        Modular.to.pushNamed('/auth/recovery-password/');
       },
       child: const Text(
         'Esqueci minha senha',
