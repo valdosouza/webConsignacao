@@ -18,7 +18,7 @@ class CustomerPhoneModel extends CustomerPhoneEntity {
       kind: json['kind'] as String? ?? "",
       contact: json['contact'] as String? ?? "",
       number: json['number'] as String? ?? "",
-      addressKind: json['addressKind'] as String? ?? "",
+      addressKind: json['address_kind'] as String? ?? "",
     );
   }
 
@@ -27,7 +27,7 @@ class CustomerPhoneModel extends CustomerPhoneEntity {
     data['kind'] = kind;
     data['contact'] = contact;
     data['number'] = number;
-    data['addressKind'] = addressKind;
+    data['address_kind'] = addressKind;
     return data;
   }
 }
