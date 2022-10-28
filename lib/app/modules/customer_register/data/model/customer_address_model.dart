@@ -8,6 +8,7 @@ class CustomerAddressModel extends CustomerAddressEntity {
     String? neighborhood,
     String? region,
     String? addressKind,
+    String? zipCode,
     int? tbCountryId,
     String? countryName,
     int? tbStateId,
@@ -31,6 +32,7 @@ class CustomerAddressModel extends CustomerAddressEntity {
           tbCityId: tbCityId ?? 0,
           cityName: cityName ?? "",
           main: main ?? "",
+          zipCode: zipCode ?? "",
           longitude: longitude ?? "",
           latitude: latitude ?? "",
         );
@@ -43,6 +45,7 @@ class CustomerAddressModel extends CustomerAddressEntity {
       region: json['region'] as String? ?? "",
       complement: json['complement'] as String? ?? "",
       addressKind: json['address_kind'] as String? ?? "",
+      zipCode: json['zipCode'] as String? ?? "",
       tbCountryId: json['tb_country_id'] as int? ?? 0,
       countryName: json['country_name'] as String? ?? "",
       tbStateId: json['tb_state_id'] as int? ?? 0,

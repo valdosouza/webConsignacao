@@ -3,6 +3,7 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
+import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register_interation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -41,6 +42,9 @@ class _ContentDesktopCustomerRegisterState
             child: CircularProgressIndicator(),
           );
         }
+        if (state is CustomerRegisterInfoPageState) {
+          return CustomerRegisterInterationPage(customer: state.model);
+        }
         final customers = state.customers;
         return Scaffold(
           appBar: AppBar(
@@ -48,7 +52,9 @@ class _ContentDesktopCustomerRegisterState
             actions: [
               IconButton(
                 icon: const Icon(Icons.person_add),
-                onPressed: () {},
+                onPressed: () {
+                  bloc.add(CustomerRegisterInfoEvent());
+                },
               ),
             ],
           ),
@@ -69,7 +75,10 @@ class _ContentDesktopCustomerRegisterState
                         : ListView.separated(
                             itemCount: customers.length,
                             itemBuilder: (context, index) => InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                bloc.add(CustomerRegisterInfoEvent(
+                                    model: customers[index]));
+                              },
                               child: ListTile(
                                 leading: CircleAvatar(
                                   child: ClipRRect(
@@ -83,10 +92,11 @@ class _ContentDesktopCustomerRegisterState
                                     Text(
                                         "Nome: ${customers[index].entity.nameCompany}"),
                                     const SizedBox(height: 5.0),
-                                    Text(
-                                        "CNPJ: ${customers[index].company.cnpj}"),
-                                    const SizedBox(height: 5.0),
-                                    Text("CPF: ${customers[index].person.cpf}"),
+                                    customers[index].company.cnpj.isNotEmpty
+                                        ? Text(
+                                            "CNPJ: ${customers[index].company.cnpj}")
+                                        : Text(
+                                            "CPF: ${customers[index].person.cpf}"),
                                   ],
                                 ),
                                 trailing: IconButton(

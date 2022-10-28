@@ -92,6 +92,7 @@ class CustomerMainModel extends CustomerMainEntity {
       ),
       address: CustomerAddressModel(
         addressKind: "teste",
+        zipCode: "",
         cityName: "teste",
         complement: "teste",
         countryName: "teste",

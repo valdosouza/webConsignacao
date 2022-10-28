@@ -16,6 +16,8 @@ class CustomerRegisterBloc
     getList();
 
     searchCostumer();
+
+    goToCustomerInfoPage();
   }
 
   getList() {
@@ -68,6 +70,13 @@ class CustomerRegisterBloc
       } else {
         emit(CustomerRegisterLoadedState(customers: customers));
       }
+    });
+  }
+
+  goToCustomerInfoPage() {
+    on<CustomerRegisterInfoEvent>((event, emit) async {
+      emit(CustomerRegisterInfoPageState(
+          customers: customers, model: event.model));
     });
   }
 }

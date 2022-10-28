@@ -10,6 +10,7 @@ class CustomerAddressEntity {
   int tbStateId;
   String stateName;
   int tbCityId;
+  String zipCode;
   String cityName;
   String main;
   String longitude;
@@ -28,6 +29,7 @@ class CustomerAddressEntity {
     this.stateName = "",
     this.tbCityId = 0,
     this.cityName = "",
+    this.zipCode = "",
     this.main = "",
     this.longitude = "",
     this.latitude = "",
@@ -47,6 +49,7 @@ class CustomerAddressEntity {
     data['state_name'] = stateName;
     data['tb_city_id'] = tbCityId;
     data['city_name'] = cityName;
+    data['zip_code'] = zipCode;
     data['main'] = main;
     data['longitude'] = longitude;
     data['latitude'] = latitude;

@@ -14,8 +14,6 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
     List<CustomerMainModel> listMock =
         List.generate(6, (index) => CustomerMainModel.mock(index));
 
-    await Future.delayed(const Duration(seconds: 2));
-
     return listMock;
     // try {
     // final uri = Uri.parse('${baseApiUrl}user/getlist/$id');

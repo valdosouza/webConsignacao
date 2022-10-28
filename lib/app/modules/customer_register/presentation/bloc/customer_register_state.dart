@@ -23,3 +23,10 @@ class CustomerRegisterErrorState extends CustomerRegisterState {
     required List<CustomerMainModel> customers,
   }) : super(customers: customers);
 }
+
+class CustomerRegisterInfoPageState extends CustomerRegisterState {
+  final CustomerMainModel? model;
+  CustomerRegisterInfoPageState(
+      {required List<CustomerMainModel> customers, this.model})
+      : super(customers: customers);
+}
