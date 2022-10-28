@@ -1,8 +1,10 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
+import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:flutter/material.dart';
 
 class CustomerRegisterAddressWidget extends StatefulWidget {
@@ -35,12 +37,12 @@ class _CustomerRegisterAddressWidgetState
               sufixIcon: IconButton(
                 hoverColor: Colors.transparent,
                 onPressed: () {
-                  // if (widget.bloc.entity.zipCode.length == 8) {
-                  //   widget.bloc
-                  //       .add(InstitutionCepEvent(widget.bloc.entity.zipCode));
-                  // } else {
-                  //   CustomToast.showToast("CEP inválido.");
-                  // }
+                  if (widget.bloc.customer.address.zipCode.length == 8) {
+                    widget.bloc.add(CustomerRegisterCepEvent(
+                        widget.bloc.customer.address.zipCode));
+                  } else {
+                    CustomToast.showToast("CEP inválido.");
+                  }
                 },
                 icon: const Icon(
                   Icons.search,
@@ -71,30 +73,24 @@ class _CustomerRegisterAddressWidgetState
                     width: MediaQuery.of(context).size.width * 0.3,
                     child: Row(
                       children: [
-                        // Expanded(
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.only(left: 10.0),
-                        //     child: Text(
-                        //       widget.bloc.states
-                        //           .firstWhere(
-                        //               (element) =>
-                        //                   element.id ==
-                        //                   widget.bloc.entity.tbStateId,
-                        //               orElse: () => StateModel(name: ""))
-                        //           .name,
-                        //       style: const TextStyle(
-                        //         color: Colors.white,
-                        //         fontFamily: 'OpenSans',
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              widget.bloc.customer.address.stateName,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'OpenSans',
+                              ),
+                            ),
+                          ),
+                        ),
                         Align(
                           alignment: Alignment.centerRight,
                           child: IconButton(
                             hoverColor: Colors.transparent,
                             onPressed: () {
-                              // widget.bloc.add(InstitutionGetStatesEvent());
+                              widget.bloc.add(CustomerRegisterGetStatesEvent());
                             },
                             icon: const Icon(
                               Icons.search,
@@ -122,31 +118,26 @@ class _CustomerRegisterAddressWidgetState
                     width: MediaQuery.of(context).size.width * 0.3,
                     child: Row(
                       children: [
-                        // Expanded(
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.only(left: 10.0),
-                        //     child: Text(
-                        //       widget.bloc.citys
-                        //           .firstWhere(
-                        //               (element) =>
-                        //                   element.id ==
-                        //                   widget.bloc.entity.tbCityId,
-                        //               orElse: () => CityModel(name: ""))
-                        //           .name,
-                        //       style: const TextStyle(
-                        //         color: Colors.white,
-                        //         fontFamily: 'OpenSans',
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              widget.bloc.customer.address.cityName,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'OpenSans',
+                              ),
+                            ),
+                          ),
+                        ),
                         Align(
                           alignment: Alignment.centerRight,
                           child: IconButton(
                             hoverColor: Colors.transparent,
                             onPressed: () {
-                              // widget.bloc.add(InstitutionGetCitysEvent(
-                              //     widget.bloc.entity.tbStateId.toString()));
+                              widget.bloc.add(CustomerRegisterGetCitysEvent(
+                                  widget.bloc.customer.address.tbStateId
+                                      .toString()));
                             },
                             icon: const Icon(
                               Icons.search,

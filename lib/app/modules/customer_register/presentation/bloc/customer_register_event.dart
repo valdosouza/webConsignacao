@@ -11,6 +11,44 @@ class CustomerRegisterSearchEvent extends CustomerRegisterEvent {
 }
 
 class CustomerRegisterInfoEvent extends CustomerRegisterEvent {
-  final CustomerMainModel? model;
-  CustomerRegisterInfoEvent({this.model});
+  final CustomerMainModel model;
+  CustomerRegisterInfoEvent({required this.model});
+}
+
+class CustomerRegisterCepEvent extends CustomerRegisterEvent {
+  final String cep;
+
+  CustomerRegisterCepEvent(this.cep);
+}
+
+class CustomerRegisterCnpjEvent extends CustomerRegisterEvent {
+  final String cnpj;
+
+  CustomerRegisterCnpjEvent(this.cnpj);
+}
+
+class CustomerRegisterGetStatesEvent extends CustomerRegisterEvent {}
+
+class CustomerRegisterGetCitysEvent extends CustomerRegisterEvent {
+  final String id;
+
+  CustomerRegisterGetCitysEvent(this.id);
+}
+
+class CustomerRegisterReturnEvent extends CustomerRegisterEvent {}
+
+class CustomerRegisterSearchStateEvent extends CustomerRegisterEvent {
+  String search;
+
+  CustomerRegisterSearchStateEvent({
+    required this.search,
+  });
+}
+
+class CustomerRegisterSearchCityEvent extends CustomerRegisterEvent {
+  String search;
+
+  CustomerRegisterSearchCityEvent({
+    required this.search,
+  });
 }

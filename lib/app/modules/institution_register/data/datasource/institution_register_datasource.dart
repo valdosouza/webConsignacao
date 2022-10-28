@@ -31,8 +31,8 @@ class InstitutionRegisterDatasourceImpl
       final uri = Uri.parse('${baseApiUrl}Institution/$id');
       final response = await client.get(uri);
       if (response.statusCode == 200) {
-        final data = json.decode(response.body) as List;
-        return InstitutionModel.fromJson(data[0]);
+        final data = json.decode(response.body);
+        return InstitutionModel.fromJson(data);
       } else {
         throw ServerException();
       }

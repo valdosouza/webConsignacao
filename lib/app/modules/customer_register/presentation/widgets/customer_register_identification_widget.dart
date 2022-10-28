@@ -4,6 +4,7 @@ import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
+import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:flutter/material.dart';
 
 class CustomerRegisterIdentificationWidget extends StatefulWidget {
@@ -24,6 +25,12 @@ class _CustomerRegisterIdentificationWidgetState
     extends State<CustomerRegisterIdentificationWidget> {
   bool selectPersonType = false;
   bool selectWallet = false;
+  @override
+  void initState() {
+    super.initState();
+    selectPersonType = widget.customer?.company.cnpj.isNotEmpty == true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -50,7 +57,7 @@ class _CustomerRegisterIdentificationWidgetState
                           },
                   ),
                   const SizedBox(width: 5.0),
-                  const Text("Sim", style: kLabelStyle),
+                  const Text("Jurídica", style: kLabelStyle),
                 ],
               ),
               const SizedBox(width: 10.0),
@@ -68,7 +75,7 @@ class _CustomerRegisterIdentificationWidgetState
                             }
                           : (value) {}),
                   const SizedBox(width: 5.0),
-                  const Text("Não", style: kLabelStyle),
+                  const Text("Física", style: kLabelStyle),
                 ],
               ),
             ],
@@ -137,7 +144,8 @@ class _CustomerRegisterIdentificationWidgetState
             hoverColor: Colors.transparent,
             onPressed: () {
               if (widget.customer?.company.cnpj.length == 14) {
-                // widget.bloc.add(InstitutionCnpjEvent(bloc.entity.cnpj));
+                widget.bloc.add(
+                    CustomerRegisterCnpjEvent(widget.customer!.company.cnpj));
               } else {
                 CustomToast.showToast("CNPJ inválido.");
               }

@@ -115,4 +115,63 @@ class CustomerMainModel extends CustomerMainEntity {
           number: "12312665432"),
     );
   }
+  factory CustomerMainModel.empty() {
+    return CustomerMainModel(
+      id: 0,
+      tbInstitutionId: 1,
+      customer: CustomerModel(
+        tbSalesmanId: 1,
+        tbCarrierId: 1,
+        creditStatus: "",
+        creditValue: 0.0,
+        wallet: "",
+        consumer: "",
+        multiplier: 0.0,
+        active: "N",
+      ),
+      entity: CustomerBusinessModel(
+        nameCompany: "",
+        nickTrade: "",
+        tbLineBuinessId: 1,
+        aniversary: "",
+        note: "",
+      ),
+      company: CustomerCompanyModel(
+        cnpj: "",
+        dtFoundation: "",
+        ie: "",
+        iest: "",
+        indIeDestinatario: "",
+      ),
+      person: CustomerPersonModel(
+        birthday: "",
+        cpf: "",
+        rg: "",
+        rgDtEmission: "",
+        rgOrganIssuer: "",
+        rgStateIssuer: "",
+        tbProfessionId: "",
+      ),
+      address: CustomerAddressModel(
+        addressKind: "",
+        zipCode: "",
+        cityName: "",
+        complement: "",
+        countryName: "",
+        latitude: "",
+        longitude: "",
+        main: "N",
+        neighborhood: "",
+        nmbr: "",
+        region: "",
+        stateName: "",
+        street: "",
+        tbCityId: 1,
+        tbCountryId: 1,
+        tbStateId: 1,
+      ),
+      phone: CustomerPhoneModel(
+          addressKind: "", contact: "", kind: "", number: ""),
+    );
+  }
 }

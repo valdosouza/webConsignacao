@@ -28,7 +28,7 @@ class _CustomerRegisterOthersWidgetState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Tipo de Pessoa", style: kLabelStyle),
+          const Text("Ativo", style: kLabelStyle),
           const SizedBox(height: 10.0),
           Row(
             children: [

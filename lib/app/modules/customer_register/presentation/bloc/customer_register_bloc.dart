@@ -1,23 +1,56 @@
 import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_cep_usecase.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_citys.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_cnpj.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_list.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_states.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
+import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
+import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
 import 'package:bloc/bloc.dart';
 
 class CustomerRegisterBloc
     extends Bloc<CustomerRegisterEvent, CustomerRegisterState> {
   final CustomerRegisterGetlist getlist;
+  final CustomerRegisterGetCep getCep;
+  final CustomerRegisterGetCity getCity;
+  final CustomerRegisterGetCnpj getCnpj;
+  final CustomerRegisterGetStates getStates;
 
   List<CustomerMainModel> customers = [];
+  CustomerMainModel customer = CustomerMainModel.empty();
+  List<StateModel> states = [];
+  List<CityModel> citys = [];
 
   CustomerRegisterBloc({
     required this.getlist,
+    required this.getCep,
+    required this.getCity,
+    required this.getCnpj,
+    required this.getStates,
   }) : super(CustomerRegisterLoadingState()) {
     getList();
 
     searchCostumer();
 
     goToCustomerInfoPage();
+
+    searchCEP();
+
+    searchCNPJ();
+
+    getState();
+
+    getCitys();
+
+    searchEventStates();
+
+    searchEventCitys();
+
+    on<CustomerRegisterReturnEvent>((event, emit) => emit(
+        CustomerRegisterInfoPageState(
+            model: customer, customers: customers, tabIndex: 1)));
   }
 
   getList() {
@@ -76,7 +109,124 @@ class CustomerRegisterBloc
   goToCustomerInfoPage() {
     on<CustomerRegisterInfoEvent>((event, emit) async {
       emit(CustomerRegisterInfoPageState(
-          customers: customers, model: event.model));
+          customers: customers, model: event.model, tabIndex: 0));
+    });
+  }
+
+  searchCNPJ() {
+    on<CustomerRegisterCnpjEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
+
+      final response = await getCnpj.call(ParamsCnpj(cnpj: event.cnpj));
+
+      response.fold((l) => emit(CustomerRegisterCnpjErrorState(customers, "")),
+          (r) {
+        customer.address.zipCode =
+            r.cep.replaceAll("-", "").replaceAll(".", "");
+        customer.entity.nickTrade = r.fantasia;
+        customer.company.cnpj = r.cnpj;
+        customer.entity.nameCompany = r.nome;
+        customer.address.nmbr = r.numero;
+        customer.address.street = r.logradouro;
+        customer.address.complement = r.complemento;
+        customer.address.neighborhood = r.bairro;
+        customer.address.latitude = r.municipio;
+        customer.address.region = r.uf;
+        emit(CustomerRegisterInfoPageState(
+            customers: customers, model: customer, tabIndex: 0));
+      });
+    });
+  }
+
+  searchCEP() {
+    on<CustomerRegisterCepEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
+
+      final response = await getCep.call(ParamsCep(cep: event.cep));
+
+      response.fold((l) => emit(CustomerRegisterCepErrorState(customers, "")),
+          (r) {
+        customer.address.zipCode = r.cep.replaceAll("-", "");
+        customer.address.street = r.logradouro;
+        customer.address.complement = r.complemento;
+        customer.address.neighborhood = r.bairro;
+        customer.address.stateName = r.uf;
+        customer.address.cityName = r.localidade;
+        emit(CustomerRegisterInfoPageState(
+            customers: customers, model: customer, tabIndex: 1));
+      });
+    });
+  }
+
+  getState() {
+    on<CustomerRegisterGetStatesEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
+
+      final response = await getStates.call(ParamsGetStates());
+
+      response.fold(
+          (l) => emit(CustomerRegisterGetStatesErrorState(customers, "")), (r) {
+        states = r;
+        emit(CustomerRegisterGetStatesSuccessState(
+            states: r, customers: customers));
+      });
+    });
+  }
+
+  getCitys() {
+    on<CustomerRegisterGetCitysEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
+
+      final response = await getCity.call(ParamsGetCity(id: event.id));
+
+      response.fold(
+          (l) => emit(CustomerRegisterGetCityErrorState(customers, "")), (r) {
+        citys = r;
+        emit(CustomerRegisterGetCitySuccessState(
+            citys: r, customers: customers));
+      });
+    });
+  }
+
+  searchEventStates() {
+    on<CustomerRegisterSearchStateEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var statestSearched = states.where((element) {
+          String name = element.name;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (statestSearched.isEmpty) {}
+        emit(CustomerRegisterGetStatesSuccessState(
+          states: statestSearched,
+          customers: customers,
+        ));
+      } else {
+        emit(CustomerRegisterGetStatesSuccessState(
+            states: states, customers: customers));
+      }
+    });
+  }
+
+  searchEventCitys() {
+    on<CustomerRegisterSearchCityEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var citystSearched = citys.where((element) {
+          String name = element.name;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (citystSearched.isEmpty) {}
+        emit(CustomerRegisterGetCitySuccessState(
+            citys: citystSearched, customers: customers));
+      } else {
+        emit(CustomerRegisterGetCitySuccessState(
+            citys: citys, customers: customers));
+      }
     });
   }
 }

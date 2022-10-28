@@ -1,9 +1,11 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
 import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register_interation_page.dart';
+import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register_lists_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -19,6 +21,7 @@ class ContentDesktopCustomerRegister extends StatefulWidget {
 class _ContentDesktopCustomerRegisterState
     extends State<ContentDesktopCustomerRegister> {
   late final CustomerRegisterBloc bloc;
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +37,9 @@ class _ContentDesktopCustomerRegisterState
         if (state is CustomerRegisterErrorState) {
           CustomToast.showToast(
               "Erro ao buscar os clientes. Tente novamente mais tarde");
+        } else if (state is CustomerRegisterCnpjErrorState) {
+          CustomToast.showToast(
+              "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -42,8 +48,16 @@ class _ContentDesktopCustomerRegisterState
             child: CircularProgressIndicator(),
           );
         }
+        if (state is CustomerRegisterGetCitySuccessState ||
+            state is CustomerRegisterGetStatesSuccessState) {
+          return const CustomerRegisterListsPage();
+        }
+
         if (state is CustomerRegisterInfoPageState) {
-          return CustomerRegisterInterationPage(customer: state.model);
+          return CustomerRegisterInterationPage(
+            customer: state.model,
+            tabIndex: state.tabIndex,
+          );
         }
         final customers = state.customers;
         return Scaffold(
@@ -53,7 +67,8 @@ class _ContentDesktopCustomerRegisterState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(CustomerRegisterInfoEvent());
+                  bloc.customer = CustomerMainModel.empty();
+                  bloc.add(CustomerRegisterInfoEvent(model: bloc.customer));
                 },
               ),
             ],
@@ -78,6 +93,7 @@ class _ContentDesktopCustomerRegisterState
                               onTap: () {
                                 bloc.add(CustomerRegisterInfoEvent(
                                     model: customers[index]));
+                                bloc.customer = customers[index];
                               },
                               child: ListTile(
                                 leading: CircleAvatar(
