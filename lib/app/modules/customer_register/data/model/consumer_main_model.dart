@@ -52,4 +52,66 @@ class CustomerMainModel extends CustomerMainEntity {
     data['phone'] = phone.toJson();
     return data;
   }
+
+  factory CustomerMainModel.mock() {
+    return CustomerMainModel(
+      id: 2,
+      tbInstitutionId: 1,
+      customer: CustomerModel(
+        tbSalesmanId: 1,
+        tbCarrierId: 1,
+        creditStatus: "teste",
+        creditValue: 10.0,
+        wallet: "teste",
+        consumer: "teste",
+        multiplier: 10.0,
+        active: "S",
+      ),
+      entity: CustomerBusinessModel(
+        nameCompany: "Teste",
+        nickTrade: "Nick Teste",
+        tbLineBuinessId: 1,
+        aniversary: "teste",
+        note: "teste",
+      ),
+      company: CustomerCompanyModel(
+        cnpj: "0976543221",
+        dtFoundation: "teste",
+        ie: "teste",
+        iest: "teste",
+        indIeDestinatario: "teste",
+      ),
+      person: CustomerPersonModel(
+        birthday: "teste",
+        cpf: "123456789",
+        rg: "teste",
+        rgDtEmission: "teste",
+        rgOrganIssuer: "teste",
+        rgStateIssuer: "teste",
+        tbProfessionId: "teste",
+      ),
+      address: CustomerAddressModel(
+        addressKind: "teste",
+        cityName: "teste",
+        complement: "teste",
+        countryName: "teste",
+        latitude: "teste",
+        longitude: "teste",
+        main: "N",
+        neighborhood: "teste",
+        nmbr: "teste",
+        region: "teste",
+        stateName: "teste",
+        street: "teste",
+        tbCityId: 1,
+        tbCountryId: 1,
+        tbStateId: 1,
+      ),
+      phone: CustomerPhoneModel(
+          addressKind: "teste",
+          contact: "teste",
+          kind: "teste",
+          number: "12312665432"),
+    );
+  }
 }
