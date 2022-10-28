@@ -32,4 +32,24 @@ class CustomerAddressEntity {
     this.longitude = "",
     this.latitude = "",
   });
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['street'] = street;
+    data['nmbr'] = nmbr;
+    data['neighborhood'] = neighborhood;
+    data['region'] = region;
+    data['complement'] = complement;
+    data['address_kind'] = addressKind;
+    data['tb_country_id'] = tbCountryId;
+    data['country_name'] = countryName;
+    data['tb_state_id'] = tbStateId;
+    data['state_name'] = stateName;
+    data['tb_city_id'] = tbCityId;
+    data['city_name'] = cityName;
+    data['main'] = main;
+    data['longitude'] = longitude;
+    data['latitude'] = latitude;
+    return data;
+  }
 }

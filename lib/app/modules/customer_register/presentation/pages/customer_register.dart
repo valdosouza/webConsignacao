@@ -4,15 +4,15 @@ import 'package:appweb/app/modules/customer_register/presentation/contents/conte
 import 'package:appweb/app/modules/customer_register/presentation/contents/content_tablet_costumer_register.dart';
 import 'package:flutter/material.dart';
 
-class ContentCostumerRegister extends StatelessWidget {
-  const ContentCostumerRegister({super.key});
+class ContentCustomerRegister extends StatelessWidget {
+  const ContentCustomerRegister({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Responsive(
-      mobile: ContentMobileCostumerRegister(),
-      tablet: ContentTabletCostumerRegister(),
-      desktop: ContentDesktopCostumerRegister(),
+      mobile: ContentMobileCustomerRegister(),
+      tablet: ContentTabletCustomerRegister(),
+      desktop: ContentDesktopCustomerRegister(),
     );
   }
 }

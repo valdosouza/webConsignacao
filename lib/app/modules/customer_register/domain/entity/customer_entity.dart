@@ -18,4 +18,17 @@ class CustomerEntity {
     this.multiplier = 0.0,
     this.active = "",
   });
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['tb_salesman_id'] = tbSalesmanId;
+    data['tb_carrier_id'] = tbCarrierId;
+    data['credit_status'] = creditStatus;
+    data['credit_value'] = creditValue;
+    data['wallet'] = wallet;
+    data['consumer'] = consumer;
+    data['multiplier'] = multiplier;
+    data['active'] = active;
+    return data;
+  }
 }

@@ -21,13 +21,4 @@ class CustomerPhoneModel extends CustomerPhoneEntity {
       addressKind: json['address_kind'] as String? ?? "",
     );
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['kind'] = kind;
-    data['contact'] = contact;
-    data['number'] = number;
-    data['address_kind'] = addressKind;
-    return data;
-  }
 }

@@ -12,4 +12,14 @@ class CustomerBusinessEntity {
     this.aniversary = "",
     this.note = "",
   });
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name_company'] = nameCompany;
+    data['nick_trade'] = nickTrade;
+    data['tb_line_buiness_id'] = tbLineBuinessId;
+    data['aniversary'] = aniversary;
+    data['note'] = note;
+    return data;
+  }
 }

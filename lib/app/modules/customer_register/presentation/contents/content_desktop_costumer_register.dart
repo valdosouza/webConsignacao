@@ -2,16 +2,16 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:flutter/material.dart';
 
-class ContentDesktopCostumerRegister extends StatefulWidget {
-  const ContentDesktopCostumerRegister({super.key});
+class ContentDesktopCustomerRegister extends StatefulWidget {
+  const ContentDesktopCustomerRegister({super.key});
 
   @override
-  State<ContentDesktopCostumerRegister> createState() =>
-      _ContentDesktopCostumerRegisterState();
+  State<ContentDesktopCustomerRegister> createState() =>
+      _ContentDesktopCustomerRegisterState();
 }
 
-class _ContentDesktopCostumerRegisterState
-    extends State<ContentDesktopCostumerRegister> {
+class _ContentDesktopCustomerRegisterState
+    extends State<ContentDesktopCustomerRegister> {
   @override
   void initState() {
     super.initState();

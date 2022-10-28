@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ContentTabletCostumerRegister extends StatelessWidget {
-  const ContentTabletCostumerRegister({super.key});
+class ContentTabletCustomerRegister extends StatelessWidget {
+  const ContentTabletCustomerRegister({super.key});
 
   @override
   Widget build(BuildContext context) {

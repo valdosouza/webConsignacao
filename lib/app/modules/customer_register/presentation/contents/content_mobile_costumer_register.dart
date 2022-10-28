@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ContentMobileCostumerRegister extends StatelessWidget {
-  const ContentMobileCostumerRegister({super.key});
+class ContentMobileCustomerRegister extends StatelessWidget {
+  const ContentMobileCustomerRegister({super.key});
 
   @override
   Widget build(BuildContext context) {
