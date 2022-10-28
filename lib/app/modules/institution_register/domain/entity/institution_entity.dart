@@ -29,8 +29,11 @@ class InstitutionEntity extends Equatable {
   String addressKind;
   String zipCode;
   int tbCountryId;
+  String nameCountry;
   int tbStateId;
+  String nameState;
   int tbCityId;
+  String nameCity;
   String main;
   String longitude;
   String latitude;
@@ -65,8 +68,11 @@ class InstitutionEntity extends Equatable {
     this.addressKind = "",
     this.zipCode = "",
     this.tbCountryId = 0,
+    this.nameCountry = "",
     this.tbStateId = 0,
+    this.nameState = "",
     this.tbCityId = 0,
+    this.nameCity = "",
     this.main = "",
     this.longitude = "",
     this.latitude = "",

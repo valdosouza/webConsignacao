@@ -211,7 +211,7 @@ class _AuthPageState extends State<AuthPage> {
       onPressed: () {
         ///Rota para alteracao de senha com passagem de queryParameters na url
         // Modular.to.pushNamed('/auth/change-password?userId=1&salt=2');
-        Modular.to.pushNamed('/auth/recovery-password');
+        Modular.to.navigate('/auth/recovery-password/');
       },
       child: const Text(
         'Esqueci minha senha',
