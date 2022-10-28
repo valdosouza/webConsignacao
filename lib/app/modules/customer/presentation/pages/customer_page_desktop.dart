@@ -1,19 +1,23 @@
-import 'package:appweb/app/modules/costumer/presentation/pages/costumer_menus.dart';
+import 'package:appweb/app/modules/customer/presentation/pages/customer_menus.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
+import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CostumerPageDesktop extends StatefulWidget {
-  const CostumerPageDesktop({super.key});
+class CustomerPageDesktop extends StatefulWidget {
+  const CustomerPageDesktop({super.key});
 
   @override
-  State<CostumerPageDesktop> createState() => _CostumerPageDesktopState();
+  State<CustomerPageDesktop> createState() => FinancialnPageDesktopState();
 }
 
-class _CostumerPageDesktopState extends State<CostumerPageDesktop> {
+class FinancialnPageDesktopState extends State<CustomerPageDesktop> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<FinancialModule>();
+    });
   }
 
   @override
@@ -29,7 +33,7 @@ class _CostumerPageDesktopState extends State<CostumerPageDesktop> {
         child: Row(
           children: const [
             DrawerPage(),
-            CostumerMenus(),
+            CustomerMenus(),
             Expanded(
               flex: 1,
               child: RouterOutlet(),

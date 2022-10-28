@@ -1,19 +1,23 @@
-import 'package:appweb/app/modules/costumer/presentation/pages/costumer_menus.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
+import 'package:appweb/app/modules/financial/presentation/pages/financial_menus.dart';
+import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CostumerPageTablet extends StatefulWidget {
-  const CostumerPageTablet({super.key});
+class CustomerPageMobile extends StatefulWidget {
+  const CustomerPageMobile({super.key});
 
   @override
-  State<CostumerPageTablet> createState() => _CostumerPageTabletState();
+  State<CustomerPageMobile> createState() => _CustomerPageMobileState();
 }
 
-class _CostumerPageTabletState extends State<CostumerPageTablet> {
+class _CustomerPageMobileState extends State<CustomerPageMobile> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<StockModule>();
+    });
   }
 
   @override
@@ -27,14 +31,7 @@ class _CostumerPageTabletState extends State<CostumerPageTablet> {
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: Row(
-          children: const [
-            CostumerMenus(),
-            Expanded(
-              child: RouterOutlet(),
-            ),
-          ],
-        ),
+        child: const Expanded(child: FinancialMenus()),
       ),
     );
   }

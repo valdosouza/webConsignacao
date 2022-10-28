@@ -2,8 +2,8 @@ import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CostumerMenus extends StatelessWidget {
-  const CostumerMenus({super.key});
+class CustomerMenus extends StatelessWidget {
+  const CustomerMenus({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,9 @@ class CostumerMenus extends StatelessWidget {
         children: <Widget>[
           itemMenuDraw(
               Icons.home,
-              'Clientes',
-              () =>
-                  Modular.to.navigate('/costumer/content/customer-register/')),
+              'Cadastro de Clientes',
+              () async =>
+                  Modular.to.navigate('/customer/content/customerregister/')),
         ],
       ),
     );

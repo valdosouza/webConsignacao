@@ -11,12 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AuthChangePasswordPage extends StatefulWidget {
-  final String userId;
-  final String salt;
   const AuthChangePasswordPage({
     Key? key,
-    required this.userId,
-    required this.salt,
   }) : super(key: key);
 
   @override
@@ -24,6 +20,7 @@ class AuthChangePasswordPage extends StatefulWidget {
 }
 
 class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
+  String code = "";
   String password = "";
   String confirmPassword = "";
   bool passwordVisible = false;
@@ -43,7 +40,9 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
       listener: (context, state) {
         if (state is AuthChangeErrorState) {
           CustomToast.showToast(
-              "Ops...Ocorreu um erro na alteração da senha. Tente novamente mais tarde");
+              "Ops...Ocorreu um erro na alteração da senha. Tente novamente mais tarde.");
+        } else if (state is AuthChangeSuccessState) {
+          CustomToast.showToast("Senha alterada com sucesso.");
         }
       },
       builder: (context, state) {
@@ -70,6 +69,50 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
                       "images/logomarca.png",
                       width: 250,
                       height: 140,
+                    ),
+                    const SizedBox(height: 15.0),
+                    Text(
+                      'Verifique o código que foi enviado via email',
+                      textAlign: TextAlign.center,
+                      style: kLabelStyle.copyWith(color: Colors.red),
+                    ),
+                    const SizedBox(height: 30.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Código',
+                          style: kLabelStyle,
+                        ),
+                        const SizedBox(height: 10.0),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          decoration: kBoxDecorationStyle,
+                          child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            obscureText: !passwordVisible,
+                            autofocus: true,
+                            onChanged: (value) {
+                              code = value;
+                            },
+                            textInputAction: TextInputAction.done,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'OpenSans',
+                            ),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.only(top: 14.0),
+                              prefixIcon: Icon(
+                                Icons.email,
+                                color: Colors.white,
+                              ),
+                              hintText: 'Digite o código recebido no seu email',
+                              hintStyle: kHintTextStyle,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 30.0),
                     Column(
@@ -204,11 +247,14 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
                                 } else if (password != confirmPassword) {
                                   CustomToast.showToast(
                                       "As senhas devem ser iguais.");
+                                } else if (code.isEmpty) {
+                                  CustomToast.showToast(
+                                      "Necessário informar o código recebido via email.");
                                 } else {
                                   bloc.add(AuthChangeEvent(
                                     model: AuthChangePasswordModel(
-                                      user: widget.userId,
-                                      salt: widget.salt,
+                                      user: bloc.recoveryModel.user,
+                                      salt: code,
                                       newPassword: md5
                                           .convert(utf8.encode(password))
                                           .toString(),
@@ -228,13 +274,34 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
                         ),
                       ),
                     ),
-                    if (state is AuthChangeSuccessState)
-                      const SizedBox(height: 30.0),
-                    if (state is AuthChangeSuccessState)
-                      Text(
-                        'Senha alterada com sucesso.',
-                        style: kLabelStyle.copyWith(color: Colors.red),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 25.0),
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(100, 60),
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: Colors.black),
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                        onPressed: () {
+                          Modular.to.pop();
+                          Modular.to.pop();
+                        },
+                        child: const Text(
+                          'Voltar para área de login',
+                          style: TextStyle(
+                            color: Colors.black,
+                            letterSpacing: 1.5,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'OpenSans',
+                          ),
+                        ),
                       ),
+                    ),
                   ],
                 ),
               ),
