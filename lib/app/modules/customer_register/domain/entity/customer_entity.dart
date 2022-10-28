@@ -1,4 +1,4 @@
-class CostumerEntity {
+class CustomerEntity {
   int tbSalesmanId;
   int tbCarrierId;
   String creditStatus;
@@ -8,7 +8,7 @@ class CostumerEntity {
   double multiplier;
   String active;
 
-  CostumerEntity({
+  CustomerEntity({
     this.tbSalesmanId = 0,
     this.tbCarrierId = 0,
     this.creditStatus = "",
