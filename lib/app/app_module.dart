@@ -6,6 +6,7 @@ import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:appweb/app/modules/home/home_module.dart';
+import 'package:appweb/app/modules/institution_register/institution_register_module.dart';
 import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
 import 'package:appweb/app/modules/splash/splash_module.dart';

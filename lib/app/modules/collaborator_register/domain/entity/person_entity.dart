@@ -7,16 +7,16 @@ class PersonEntity extends Equatable {
   String cpf;
   String rg;
   String rgDtEmission;
-  String rfOrganIssuer;
-  String rfStateIssuer;
+  String rgOrganIssuer;
+  String rgStateIssuer;
   String birthday;
   int tbProfessionId;
   PersonEntity({
     this.cpf = "",
     this.rg = "",
     this.rgDtEmission = "",
-    this.rfOrganIssuer = "",
-    this.rfStateIssuer = "",
+    this.rgOrganIssuer = "",
+    this.rgStateIssuer = "",
     this.birthday = "",
     this.tbProfessionId = 0,
   });

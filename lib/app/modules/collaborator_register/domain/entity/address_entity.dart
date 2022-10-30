@@ -16,7 +16,7 @@ class AddressEntity extends Equatable {
   String countryName;
   int tbCountryId;
   String stateName;
-  int tbCstateId;
+  int tbStateId;
   String cityName;
   int tbCityId;
   String latitude;
@@ -36,7 +36,7 @@ class AddressEntity extends Equatable {
     this.cityName = "",
     this.tbCityId = 0,
     this.stateName = "",
-    this.tbCstateId = 0,
+    this.tbStateId = 0,
     this.latitude = "",
     this.longitude = "",
   });

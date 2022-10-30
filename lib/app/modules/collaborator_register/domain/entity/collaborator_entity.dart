@@ -12,6 +12,7 @@ import 'package:appweb/app/modules/collaborator_register/data/model/phone.dart';
 class CollaboratorEntity extends Equatable {
   int id;
   int? institution;
+  String? name;
   String? dtAdmission;
   String? dtResignation;
   String? active;
@@ -23,6 +24,7 @@ class CollaboratorEntity extends Equatable {
   CollaboratorEntity({
     required this.id,
     this.institution,
+    this.name,
     this.dtAdmission,
     this.dtResignation,
     this.active,

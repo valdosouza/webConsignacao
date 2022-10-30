@@ -1,8 +1,8 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/core/usecase/usecase.dart';
+import 'package:appweb/app/modules/collaborator_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/repository/collaborator_register_respository.dart';
-import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
 import 'package:dartz/dartz.dart';
 
 class CollaboratorGetCity implements UseCase<List<CityModel>, ParamsGetCity> {
