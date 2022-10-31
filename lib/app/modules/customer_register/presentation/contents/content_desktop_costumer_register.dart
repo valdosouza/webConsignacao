@@ -40,6 +40,19 @@ class _ContentDesktopCustomerRegisterState
         } else if (state is CustomerRegisterCnpjErrorState) {
           CustomToast.showToast(
               "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
+        } else if (state is CustomerRegisterPostAddSuccessState) {
+          CustomToast.showToast("Cliente adicionado com sucesso.");
+        } else if (state is CustomerRegisterPostEditSuccessState) {
+          CustomToast.showToast("Cliente editado com sucesso.");
+        } else if (state is CustomerRegisterPostAddErrorState) {
+          CustomToast.showToast(
+              "Ocorreu um erro ao adicionar o cliente. Tente novamente mais tarde.");
+        } else if (state is CustomerRegisterPostEditErrorState) {
+          CustomToast.showToast(
+              "Ocorreu um erro ao editar o cliente. Tente novamente mais tarde.");
+        } else if (state is CustomerRegisterGetErrorState) {
+          CustomToast.showToast(
+              "Ocorreu um erro ao buscar os dados do cliente. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -68,7 +81,7 @@ class _ContentDesktopCustomerRegisterState
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
                   bloc.customer = CustomerMainModel.empty();
-                  bloc.add(CustomerRegisterInfoEvent(model: bloc.customer));
+                  bloc.add(CustomerRegisterInfoEvent());
                 },
               ),
             ],
@@ -92,8 +105,7 @@ class _ContentDesktopCustomerRegisterState
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
                                 bloc.add(CustomerRegisterInfoEvent(
-                                    model: customers[index]));
-                                bloc.customer = customers[index];
+                                    id: customers[index].id));
                               },
                               child: ListTile(
                                 leading: CircleAvatar(
@@ -106,13 +118,13 @@ class _ContentDesktopCustomerRegisterState
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        "Nome: ${customers[index].entity.nameCompany}"),
+                                        "Nome: ${customers[index].nameCompany}"),
                                     const SizedBox(height: 5.0),
-                                    customers[index].company.cnpj.isNotEmpty
+                                    customers[index].docType == "J"
                                         ? Text(
-                                            "CNPJ: ${customers[index].company.cnpj}")
+                                            "CNPJ: ${customers[index].documento}")
                                         : Text(
-                                            "CPF: ${customers[index].person.cpf}"),
+                                            "CPF: ${customers[index].documento}"),
                                   ],
                                 ),
                                 trailing: IconButton(

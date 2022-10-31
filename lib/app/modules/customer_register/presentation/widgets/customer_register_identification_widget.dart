@@ -28,7 +28,7 @@ class _CustomerRegisterIdentificationWidgetState
   @override
   void initState() {
     super.initState();
-    selectPersonType = widget.customer?.company.cnpj.isNotEmpty == true;
+    selectPersonType = widget.customer?.company?.cnpj.isNotEmpty == true;
   }
 
   @override
@@ -137,15 +137,15 @@ class _CustomerRegisterIdentificationWidgetState
       children: [
         CustomInput(
           title: 'CNPJ',
-          initialValue: widget.customer?.company.cnpj,
+          initialValue: widget.customer?.company?.cnpj,
           keyboardType: TextInputType.number,
           inputAction: TextInputAction.next,
           sufixIcon: IconButton(
             hoverColor: Colors.transparent,
             onPressed: () {
-              if (widget.customer?.company.cnpj.length == 14) {
+              if (widget.customer?.company?.cnpj.length == 14) {
                 widget.bloc.add(
-                    CustomerRegisterCnpjEvent(widget.customer!.company.cnpj));
+                    CustomerRegisterCnpjEvent(widget.customer!.company!.cnpj));
               } else {
                 CustomToast.showToast("CNPJ inválido.");
               }
@@ -158,7 +158,7 @@ class _CustomerRegisterIdentificationWidgetState
           ),
           validator: (value) => Validators.validateCNPJ(value),
           onChanged: (value) {
-            widget.customer?.company.cnpj = value;
+            widget.customer?.company?.cnpj = value;
           },
         ),
         const SizedBox(height: 30.0),
@@ -184,11 +184,11 @@ class _CustomerRegisterIdentificationWidgetState
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'Inscrição Estadual',
-          initialValue: widget.customer?.company.ie,
+          initialValue: widget.customer?.company?.ie,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.done,
           onChanged: (value) {
-            widget.customer?.company.ie = value;
+            widget.customer?.company?.ie = value;
           },
         ),
       ],
@@ -200,11 +200,11 @@ class _CustomerRegisterIdentificationWidgetState
       children: [
         CustomInput(
           title: 'CPF',
-          initialValue: widget.customer?.person.cpf,
+          initialValue: widget.customer?.person?.cpf,
           keyboardType: TextInputType.number,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.customer?.person.cpf = value;
+            widget.customer?.person?.cpf = value;
           },
         ),
         const SizedBox(height: 30.0),
@@ -230,11 +230,11 @@ class _CustomerRegisterIdentificationWidgetState
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'R.G',
-          initialValue: widget.customer?.person.rg,
+          initialValue: widget.customer?.person?.rg,
           keyboardType: TextInputType.number,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.customer?.person.rg = value;
+            widget.customer?.person?.rg = value;
           },
         ),
       ],

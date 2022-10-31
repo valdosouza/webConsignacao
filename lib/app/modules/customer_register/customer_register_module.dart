@@ -1,5 +1,7 @@
 import 'package:appweb/app/modules/customer_register/data/datasource/customer_register_datasource.dart';
 import 'package:appweb/app/modules/customer_register/data/repository/customer_register_repository.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/customer_post.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_cep_usecase.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_citys.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_cnpj.dart';
@@ -40,12 +42,22 @@ class CustomerRegisterModule extends Module {
           (i) => CustomerRegisterGetStates(
               repository: i.get<CustomerRegisterRepositoryImpl>()),
         ),
+        Bind.factory(
+          (i) => CustomerRegisterGet(
+              repository: i.get<CustomerRegisterRepositoryImpl>()),
+        ),
+        Bind.factory(
+          (i) => CustomerRegisterPost(
+              repository: i.get<CustomerRegisterRepositoryImpl>()),
+        ),
         BlocBind.singleton((i) => CustomerRegisterBloc(
               getlist: i.get<CustomerRegisterGetlist>(),
               getCep: i.get<CustomerRegisterGetCep>(),
               getCity: i.get<CustomerRegisterGetCity>(),
               getCnpj: i.get<CustomerRegisterGetCnpj>(),
               getStates: i.get<CustomerRegisterGetStates>(),
+              getCustomer: i.get<CustomerRegisterGet>(),
+              postCustomer: i.get<CustomerRegisterPost>(),
             )),
       ];
   @override

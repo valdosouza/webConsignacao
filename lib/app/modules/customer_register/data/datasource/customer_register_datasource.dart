@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
+import 'package:appweb/app/modules/customer_register/data/model/consumer_list_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/address_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
@@ -10,7 +11,9 @@ import 'package:appweb/app/modules/institution_register/data/model/state_model.d
 import 'package:http/http.dart' as http;
 
 abstract class CustomerRegisterDataSource {
-  Future<List<CustomerMainModel>> getlist({required int id});
+  Future<List<CustomerListModel>> getlist({required int id});
+  Future<CustomerMainModel> getCostumer({required int id});
+  Future<CustomerMainModel> postCostumer({required CustomerMainModel customer});
   Future<AddressModel> getCep(String cep);
   Future<IdentificationModel> getCnpj(String cnpj);
   Future<List<StateModel>> getStates();
@@ -19,34 +22,30 @@ abstract class CustomerRegisterDataSource {
 
 class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   final client = http.Client();
-  List<CustomerMainModel> items = [];
+  List<CustomerListModel> items = [];
   List<StateModel> states = [];
   List<CityModel> citys = [];
 
   @override
-  Future<List<CustomerMainModel>> getlist({required int id}) async {
-    List<CustomerMainModel> listMock =
-        List.generate(6, (index) => CustomerMainModel.mock(index));
+  Future<List<CustomerListModel>> getlist({required int id}) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}customer/getlist/$id');
 
-    return listMock;
-    // try {
-    // final uri = Uri.parse('${baseApiUrl}user/getlist/$id');
+      final response = await client.get(uri);
 
-    // final response = await client.get(uri);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        items = (data as List).map((json) {
+          return CustomerListModel.fromJson(json);
+        }).toList();
 
-    //   if (response.statusCode == 200) {
-    //     final data = json.decode(response.body);
-
-    //     items = (data as List).map((json) {
-    //       return UserRegisterModel.fromJson(json);
-    //     }).toList();
-    //     return items;
-    //   } else {
-    //     throw ServerException();
-    //   }
-    // } catch (e) {
-    //   throw ServerException();
-    // }
+        return items;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
   }
 
   @override
@@ -110,6 +109,47 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
           return StateModel.fromJson(json);
         }).toList();
         return states;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<CustomerMainModel> getCostumer({required int id}) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}customer/$id');
+
+      final response = await client.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        var model = CustomerMainModel.fromJson(data);
+        return model;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<CustomerMainModel> postCostumer(
+      {required CustomerMainModel customer}) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}customer');
+
+      var teste = jsonEncode(customer.toJson());
+
+      final response = await client.post(uri, body: teste);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        var model = CustomerMainModel.fromJson(data);
+        return model;
       } else {
         throw ServerException();
       }

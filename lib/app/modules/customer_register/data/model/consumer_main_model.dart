@@ -8,17 +8,13 @@ import 'package:appweb/app/modules/customer_register/domain/entity/customer_main
 
 class CustomerMainModel extends CustomerMainEntity {
   CustomerMainModel({
-    required int id,
-    required int tbInstitutionId,
     required CustomerModel customer,
     required CustomerBusinessModel entity,
-    required CustomerCompanyModel company,
-    required CustomerPersonModel person,
+    CustomerCompanyModel? company,
+    CustomerPersonModel? person,
     required CustomerAddressModel address,
     required CustomerPhoneModel phone,
   }) : super(
-          id: id,
-          tbInstitutionId: tbInstitutionId,
           customer: customer,
           entity: entity,
           company: company,
@@ -29,104 +25,42 @@ class CustomerMainModel extends CustomerMainEntity {
 
   factory CustomerMainModel.fromJson(Map<String, dynamic> json) {
     return CustomerMainModel(
-      id: json['id'],
-      tbInstitutionId: json['tb_institution_id'],
-      customer: CustomerModel.fromJson(json['customer']),
+      customer: CustomerModel.fromJson(json['custommer']),
       entity: CustomerBusinessModel.fromJson(json['entity']),
-      company: CustomerCompanyModel.fromJson(json['company']),
-      person: CustomerPersonModel.fromJson(json['person']),
+      company: json['company'] != null
+          ? CustomerCompanyModel.fromJson(json['company'])
+          : null,
+      person: json['person'] != null
+          ? CustomerPersonModel.fromJson(json['person'])
+          : null,
       address: CustomerAddressModel.fromJson(json['address']),
       phone: CustomerPhoneModel.fromJson(json['phone']),
     );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['tb_institution_id'] = tbInstitutionId;
-    data['entity'] = customer.toJson();
-    data['customer'] = entity.toJson();
-    data['company'] = company.toJson();
-    data['person'] = person.toJson();
+  Map<dynamic, dynamic> toJson() {
+    final Map<dynamic, dynamic> data = <dynamic, dynamic>{};
+    data['custommer'] = customer.toJson();
+    data['entity'] = entity.toJson();
+    data['company'] = company?.toJson();
+    data['person'] = person?.toJson();
     data['address'] = address.toJson();
     data['phone'] = phone.toJson();
     return data;
   }
 
-  factory CustomerMainModel.mock(int index) {
-    return CustomerMainModel(
-      id: 2,
-      tbInstitutionId: 1,
-      customer: CustomerModel(
-        tbSalesmanId: 1,
-        tbCarrierId: 1,
-        creditStatus: "teste",
-        creditValue: 10.0,
-        wallet: "teste",
-        consumer: "teste",
-        multiplier: 10.0,
-        active: "S",
-      ),
-      entity: CustomerBusinessModel(
-        nameCompany: "Teste",
-        nickTrade: "Nick Teste",
-        tbLineBuinessId: 1,
-        aniversary: "teste",
-        note: "teste",
-      ),
-      company: CustomerCompanyModel(
-        cnpj: "0976543221",
-        dtFoundation: "teste",
-        ie: "teste",
-        iest: "teste",
-        indIeDestinatario: "teste",
-      ),
-      person: CustomerPersonModel(
-        birthday: "teste",
-        cpf: "123456789$index",
-        rg: "teste",
-        rgDtEmission: "teste",
-        rgOrganIssuer: "teste",
-        rgStateIssuer: "teste",
-        tbProfessionId: "teste",
-      ),
-      address: CustomerAddressModel(
-        addressKind: "teste",
-        zipCode: "",
-        cityName: "teste",
-        complement: "teste",
-        countryName: "teste",
-        latitude: "teste",
-        longitude: "teste",
-        main: "N",
-        neighborhood: "teste",
-        nmbr: "teste",
-        region: "teste",
-        stateName: "teste",
-        street: "teste",
-        tbCityId: 1,
-        tbCountryId: 1,
-        tbStateId: 1,
-      ),
-      phone: CustomerPhoneModel(
-          addressKind: "teste",
-          contact: "teste",
-          kind: "teste",
-          number: "12312665432"),
-    );
-  }
   factory CustomerMainModel.empty() {
     return CustomerMainModel(
-      id: 0,
-      tbInstitutionId: 1,
       customer: CustomerModel(
+        id: 0,
+        tbInstitutionId: 1,
         tbSalesmanId: 1,
         tbCarrierId: 1,
         creditStatus: "",
-        creditValue: 0.0,
+        creditValue: "",
         wallet: "",
         consumer: "",
-        multiplier: 0.0,
+        multiplier: "",
         active: "N",
       ),
       entity: CustomerBusinessModel(
@@ -149,8 +83,8 @@ class CustomerMainModel extends CustomerMainEntity {
         rg: "",
         rgDtEmission: "",
         rgOrganIssuer: "",
-        rgStateIssuer: "",
-        tbProfessionId: "",
+        rgStateIssuer: 0,
+        tbProfessionId: 0,
       ),
       address: CustomerAddressModel(
         addressKind: "",

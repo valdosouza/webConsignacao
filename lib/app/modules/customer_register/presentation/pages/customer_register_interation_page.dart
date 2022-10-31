@@ -92,12 +92,16 @@ class _CustomerRegisterInterationPageState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    customer.id != 0 ? "Editar Cliente" : "Adicionar Cliente",
+                    customer.customer.id != 0
+                        ? "Editar Cliente"
+                        : "Adicionar Cliente",
                     style: kHintTextStyle.copyWith(fontSize: 32.0),
                   ),
                   const SizedBox(width: 100.0),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      bloc.add(CustomerRegisterPostEvent(model: bloc.customer));
+                    },
                     hoverColor: Colors.transparent,
                     icon: const Icon(
                       Icons.check,

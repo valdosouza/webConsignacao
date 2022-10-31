@@ -17,7 +17,7 @@ class CustomerBusinessEntity {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name_company'] = nameCompany;
     data['nick_trade'] = nickTrade;
-    data['tb_line_buiness_id'] = tbLineBuinessId;
+    data['tb_line_buiness_id'] = 0;
     data['aniversary'] = aniversary;
     data['note'] = note;
     return data;

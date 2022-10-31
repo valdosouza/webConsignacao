@@ -6,18 +6,14 @@ import 'package:appweb/app/modules/customer_register/domain/entity/customer_pers
 import 'package:appweb/app/modules/customer_register/domain/entity/customer_phone_entity.dart';
 
 class CustomerMainEntity {
-  int id;
-  int tbInstitutionId;
   CustomerEntity customer;
   CustomerBusinessEntity entity;
-  CustomerCompanyEntity company;
-  CustomerPersonEntity person;
+  CustomerCompanyEntity? company;
+  CustomerPersonEntity? person;
   CustomerAddressEntity address;
   CustomerPhoneEntity phone;
 
   CustomerMainEntity({
-    required this.id,
-    required this.tbInstitutionId,
     required this.customer,
     required this.entity,
     required this.company,

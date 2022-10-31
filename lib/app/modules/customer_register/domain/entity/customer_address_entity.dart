@@ -44,11 +44,11 @@ class CustomerAddressEntity {
     data['complement'] = complement;
     data['address_kind'] = addressKind;
     data['tb_country_id'] = tbCountryId;
-    data['country_name'] = countryName;
+    data['name_country'] = countryName;
     data['tb_state_id'] = tbStateId;
-    data['state_name'] = stateName;
+    data['name_state'] = stateName;
     data['tb_city_id'] = tbCityId;
-    data['city_name'] = cityName;
+    data['name_city'] = cityName;
     data['zip_code'] = zipCode;
     data['main'] = main;
     data['longitude'] = longitude;

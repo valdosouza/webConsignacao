@@ -11,8 +11,8 @@ class CustomerRegisterSearchEvent extends CustomerRegisterEvent {
 }
 
 class CustomerRegisterInfoEvent extends CustomerRegisterEvent {
-  final CustomerMainModel model;
-  CustomerRegisterInfoEvent({required this.model});
+  final int? id;
+  CustomerRegisterInfoEvent({this.id});
 }
 
 class CustomerRegisterCepEvent extends CustomerRegisterEvent {
@@ -50,5 +50,13 @@ class CustomerRegisterSearchCityEvent extends CustomerRegisterEvent {
 
   CustomerRegisterSearchCityEvent({
     required this.search,
+  });
+}
+
+class CustomerRegisterPostEvent extends CustomerRegisterEvent {
+  CustomerMainModel model;
+
+  CustomerRegisterPostEvent({
+    required this.model,
   });
 }
