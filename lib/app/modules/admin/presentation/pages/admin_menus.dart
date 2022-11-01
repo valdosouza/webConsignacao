@@ -12,9 +12,9 @@ class AdminMenus extends StatelessWidget {
         children: <Widget>[
           itemMenuDraw(Icons.home, 'Estabelecimento',
               () async => Modular.to.navigate('/admin/content/institution/')),
-          itemMenuDraw(Icons.home, 'Usuários',
+          itemMenuDraw(Icons.home, 'Cadastro de Usuários',
               () async => Modular.to.navigate('/admin/content/user/')),
-          itemMenuDraw(Icons.home, 'Rotas',
+          itemMenuDraw(Icons.home, 'Cadastro de Rotas',
               () async => Modular.to.navigate('/admin/content/routes/')),
         ],
       ),

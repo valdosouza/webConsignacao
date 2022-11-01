@@ -87,6 +87,7 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     on<UserRegisterAddEvent>((event, emit) async {
       UserRegisterLoadingState();
       var response = await addUser.call(ParamsAddUser(user: event.model));
+
       var result = response.fold(
         (l) => UserRegisterAddErrorState(users: users),
         (r) {

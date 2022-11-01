@@ -24,10 +24,12 @@ class UserRegisterModel extends UserRegisterEntity {
 
   factory UserRegisterModel.fromJson(Map<String, dynamic> json) {
     return UserRegisterModel(
-      id: int.parse(json['id'].toString()),
+      tbInstitutionId: json['tb_institution_id'] is String
+          ? int.parse(json['tb_institution_id'])
+          : json['tb_institution_id'],
+      id: json['id'] is String ? int.parse(json['id']) : json['id'],
       nick: json['nick'] as String,
       email: json['email'] as String,
-      tbInstitutionId: json['tb_institution_id'] as int? ?? 1,
       password: "",
       kind: json['kind'] as String,
       tbDeviceId: json['tb_device_id'] as int? ?? 0,

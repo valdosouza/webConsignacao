@@ -15,6 +15,11 @@ class ResourceHumanMenus extends StatelessWidget {
               'Cargos',
               () async =>
                   Modular.to.navigate('/resourcehuman/content/lineBusiness/')),
+          itemMenuDraw(
+              Icons.home,
+              'Colaboradores',
+              () async =>
+                  Modular.to.navigate('/resourcehuman/content/collaborator/')),
         ],
       ),
     );
