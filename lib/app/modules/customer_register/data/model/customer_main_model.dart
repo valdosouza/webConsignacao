@@ -25,7 +25,7 @@ class CustomerMainModel extends CustomerMainEntity {
 
   factory CustomerMainModel.fromJson(Map<String, dynamic> json) {
     return CustomerMainModel(
-      customer: CustomerModel.fromJson(json['custommer']),
+      customer: CustomerModel.fromJson(json['customer']),
       entity: CustomerBusinessModel.fromJson(json['entity']),
       company: json['company'] != null
           ? CustomerCompanyModel.fromJson(json['company'])
@@ -40,7 +40,7 @@ class CustomerMainModel extends CustomerMainEntity {
 
   Map<dynamic, dynamic> toJson() {
     final Map<dynamic, dynamic> data = <dynamic, dynamic>{};
-    data['custommer'] = customer.toJson();
+    data['customer'] = customer.toJson();
     data['entity'] = entity.toJson();
     data['company'] = company?.toJson();
     data['person'] = person?.toJson();

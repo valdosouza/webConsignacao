@@ -6,6 +6,7 @@ class CustomerModel extends CustomerEntity {
     int? tbInstitutionId,
     int? tbSalesmanId,
     int? tbCarrierId,
+    String? salesmanName,
     String? creditStatus,
     String? creditValue,
     String? wallet,
@@ -17,6 +18,7 @@ class CustomerModel extends CustomerEntity {
           tbInstitutionId: tbInstitutionId ?? 0,
           tbSalesmanId: tbSalesmanId ?? 0,
           tbCarrierId: tbCarrierId ?? 0,
+          salesmanName: salesmanName ?? "",
           creditStatus: creditStatus ?? "",
           creditValue: creditValue ?? "",
           wallet: wallet ?? "",
@@ -31,6 +33,7 @@ class CustomerModel extends CustomerEntity {
       tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
       tbSalesmanId: json['tb_salesman_id'] as int? ?? 0,
       tbCarrierId: json['tb_carrier_id'] as int? ?? 0,
+      salesmanName: json['salesman_name'] as String? ?? "",
       creditStatus: json['credit_status'] as String? ?? "",
       creditValue: json['credit_value'] is String
           ? json['credit_value']

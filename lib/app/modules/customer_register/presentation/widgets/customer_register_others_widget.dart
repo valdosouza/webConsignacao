@@ -87,12 +87,12 @@ class _CustomerRegisterOthersWidgetState
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Padding(
-                          padding: EdgeInsets.only(left: 10.0),
+                          padding: const EdgeInsets.only(left: 10.0),
                           child: Text(
-                            "",
-                            style: TextStyle(
+                            widget.customer?.customer.salesmanName ?? "",
+                            style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'OpenSans',
                             ),

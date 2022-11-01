@@ -218,7 +218,8 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                                 onTap: () {
                                   bloc.customer.customer.tbSalesmanId =
                                       state.salesmans[index].id;
-                                  //TODO:: Pendente o campo com o nome do vendedor para popular o obj
+                                  bloc.customer.customer.salesmanName =
+                                      state.salesmans[index].nameCompany;
                                   bloc.add(
                                       CustomerRegisterReturnEvent(index: 3));
                                 },
