@@ -41,8 +41,6 @@ class AddressEntity extends Equatable {
     this.longitude = "",
   });
 
-  
-
   @override
   List<Object?> get props => [zipCode, street, region];
 }

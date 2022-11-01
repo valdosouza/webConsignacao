@@ -9,7 +9,7 @@ import 'package:appweb/app/modules/collaborator_register/presentation/bloc/colla
 import 'package:flutter/material.dart';
 
 class CollaboratorAddressWidget extends StatefulWidget {
-  final CollaboratorBloc bloc;
+  final CollaboratorRegisterBloc bloc;
   final GlobalKey formK;
   const CollaboratorAddressWidget({
     super.key,

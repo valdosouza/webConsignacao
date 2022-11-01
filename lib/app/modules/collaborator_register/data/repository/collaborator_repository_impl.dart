@@ -1,6 +1,7 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/collaborator_register/data/datasource/collaborator_register_datasource.dart';
+import 'package:appweb/app/modules/collaborator_register/data/model/adress_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/state_model.dart';
@@ -63,9 +64,9 @@ class CollaboratorRegisterRespositoryImpl
   }
 
   @override
-  Future<Either<Failure, AddressEntity>> getCEP({required String cep}) async {
+  Future<Either<Failure, AddressModel>> getCEP({required String cep}) async {
     try {
-      AddressEntity response = await datasource.getCep(cep);
+      AddressModel response = await datasource.getCep(cep);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());
@@ -109,6 +110,16 @@ class CollaboratorRegisterRespositoryImpl
     try {
       List<LineBusinessModel> lineBusiness = await datasource.getLineBusiness(institution: institution);
       return Right(lineBusiness);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  
+  @override
+  Future<Either<Failure, List<CollaboratorModel>>> getlistCollaborator({required int institution}) async {
+    try {
+      List<CollaboratorModel> collaborators = await datasource.getlistCollaborator(institution: institution);
+      return Right(collaborators);
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -21,7 +21,7 @@ class CollaboratorRegisterModule extends Module {
         ),
         Bind.factory(
           (i) => CollaboratorRegisterRespositoryImpl(
-              datasource: i.get<CollaboratorRegisterDatasourceImpl>()),
+              datasource: i.get<CollaboratorRegisterDatasource>()),
         ),
         Bind.factory(
           (i) => CollaboratorRegisterSave(
@@ -55,7 +55,7 @@ class CollaboratorRegisterModule extends Module {
           (i) => CollaboratorGetLineBusiness(
               repository: i.get<CollaboratorRegisterRespositoryImpl>()),
         ),
-        BlocBind.singleton((i) => CollaboratorBloc(
+        BlocBind.singleton((i) => CollaboratorRegisterBloc(
               save: i.get<CollaboratorRegisterSave>(),
               get: i.get<CollaboratorRegisterGet>(),
               put: i.get<CollaboratorPut>(),
@@ -69,6 +69,6 @@ class CollaboratorRegisterModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, args) => const CollaboratorRegister()),
+    ChildRoute('/', child: (_, args) => CollaboratorRegister(collaborator: args.data,)),
   ];
 }

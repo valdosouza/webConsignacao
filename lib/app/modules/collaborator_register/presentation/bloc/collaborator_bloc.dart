@@ -15,7 +15,8 @@ import 'package:appweb/app/modules/collaborator_register/presentation/bloc/colla
 import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
 import 'package:bloc/bloc.dart';
 
-class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
+class CollaboratorRegisterBloc
+    extends Bloc<CollaboratorEvent, CollaboratorState> {
   final CollaboratorRegisterSave save;
   final CollaboratorRegisterGet get;
   final CollaboratorPut put;
@@ -29,16 +30,16 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
   List<CityModel> citys = [];
   List<LineBusinessModel> lineBusiness = [];
 
-  CollaboratorBloc({
-    required this.save,
-    required this.get,
-    required this.put,
-    required this.cep,
-    required this.cnpj,
-    required this.getStates,
-    required this.getCity,
-    required this.getLineBusiness
-  }) : super(CollaboratorInitialState()) {
+  CollaboratorRegisterBloc(
+      {required this.save,
+      required this.get,
+      required this.put,
+      required this.cep,
+      required this.cnpj,
+      required this.getStates,
+      required this.getCity,
+      required this.getLineBusiness})
+      : super(CollaboratorInitialState()) {
     //Busca instituicao [id está mockado]
     getCollaborator();
 
@@ -51,18 +52,15 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
     //Busca CEP
     searchCEP();
 
-    //Busca CNPJ
-    searchCNPJ();
-
     //Busca Estados
     getState();
 
     //Busca Cidades
     getCitys();
 
-    //Volta para tela após escolha de cidade/estado
-    on<CollaboratorReturnEvent>(
-        (event, emit) => emit(CollaboratorReturnedState()));
+    //Volta para tela após escolha de cidade/estado/cargo
+    on<CollaboratorReturnEvent>((event, emit) =>
+        emit(CollaboratorReturnedState(returnTo: event.screenIndex)));
 
     //Procura Estado
     searchEventStates();
@@ -72,17 +70,23 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
 
     //Busca todos os cargos
     getAllLineBusiness();
+
+    //Procura cargo
+    searchEventLineBusiness();
+
+    //Tela em estado de carregamento
+    loading();
   }
 
   getCollaborator() {
     on<CollaboratorGetEvent>((event, emit) async {
       emit(CollaboratorLoadingState());
 
-      final response = await get.call(const ParamsGet(id: 1));
+      final response = await get.call(ParamsGet(id: event.collaboratorId));
 
       response.fold((l) => emit(const CollaboratorGetErrorState("")), (r) {
         entity = r;
-        emit(CollaboratorLoadedState());
+        emit(CollaboratorGetSuccesseState());
       });
     });
   }
@@ -94,7 +98,7 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
       final response =
           await save.call(Params(model: CollaboratorModel.fromEntity(entity)));
 
-      response.fold((l) => emit(const CollaboratorGetErrorState("")),
+      response.fold((l) => emit(const CollaboratorPostErrorState("")),
           (r) => emit(CollaboratorPostSuccessState()));
     });
   }
@@ -103,8 +107,8 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
     on<CollaboratorPutEvent>((event, emit) async {
       emit(CollaboratorLoadingState());
 
-      final response =
-          await put.call(ParamsPut(model: CollaboratorModel.fromEntity(entity)));
+      final response = await put
+          .call(ParamsPut(model: CollaboratorModel.fromEntity(entity)));
 
       response.fold((l) => emit(const CollaboratorPutErrorState("")),
           (r) => emit(CollaboratorPutSuccessState()));
@@ -112,39 +116,19 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
   }
 
   searchCEP() {
-    on<CollaboratorCnpjEvent>((event, emit) async {
-      emit(CollaboratorLoadingState());
-
-      final response = await cnpj.call(ParamsCnpj(cnpj: event.cnpj));
-
-      response.fold((l) => emit(const CollaboratorCnpjErrorState("")), (r) {
-        entity.address!.zipCode = r.address!.zipCode.replaceAll("-", "").replaceAll(".", "");
-        entity.entity!.nickTrade = r.entity!.nickTrade;
-        entity.company!.cnpj = r.company!.cnpj;
-        entity.entity!.nameCompany = r.entity!.nameCompany;
-        entity.address!.nmbr = r.address!.nmbr;
-        entity.address!.street = r.address!.street;
-        entity.address!.complement = r.address!.complement;
-        entity.address!.neighborhood = r.address!.neighborhood;
-        emit(CollaboratorLoadedState());
-      });
-    });
-  }
-
-  searchCNPJ() {
     on<CollaboratorCepEvent>((event, emit) async {
       emit(CollaboratorLoadingState());
 
       final response = await cep.call(ParamsCep(cep: event.cep));
 
       response.fold((l) => emit(const CollaboratorCepErrorState("")), (r) {
-        entity.address!.zipCode = r.zipCode.replaceAll("-", "");
+        entity.address!.zipCode =
+            r.zipCode.replaceAll("-", "").replaceAll(".", "");
         entity.address!.street = r.street;
         entity.address!.complement = r.complement;
         entity.address!.neighborhood = r.neighborhood;
-        entity.address!.latitude = r.latitude;
-        entity.address!.tbCityId = r.tbCityId;
-        entity.address!.region = r.region;
+        entity.address!.stateName = r.stateName;
+        entity.address!.cityName = r.cityName;
         emit(CollaboratorLoadedState());
       });
     });
@@ -156,7 +140,8 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
 
       final response = await getStates.call(ParamsGetStates());
 
-      response.fold((l) => emit(const CollaboratorGetStatesErrorState("")), (r) {
+      response.fold((l) => emit(const CollaboratorGetStatesErrorState("")),
+          (r) {
         states = r;
         emit(CollaboratorGetStatesSuccessState(states: r));
       });
@@ -212,16 +197,43 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
     });
   }
 
-  getAllLineBusiness(){
+  getAllLineBusiness() {
     on<CollaboratorGetLineBusinessEvent>((event, emit) async {
-     emit(CollaboratorLoadingState());
+      emit(CollaboratorLoadingState());
 
-      final response = await getLineBusiness.call(ParamLineBusiness(institution: event.institution));
+      final response = await getLineBusiness
+          .call(ParamLineBusiness(institution: event.institution));
 
-      response.fold((l) => emit(const CollaboratorGetLineBusinessErrorState("Erro ao buscar Cargos")), (r) {
+      response.fold(
+          (l) => emit(const CollaboratorGetLineBusinessErrorState(
+              "Erro ao buscar Cargos")), (r) {
         lineBusiness = r;
-        emit(CollaboratorGetLineBusinessSuccessState(lineBussines: r));
+        emit(CollaboratorGetLineBusinessSuccessState(lineBusiness: r));
       });
+    });
+  }
+
+  searchEventLineBusiness() {
+    on<SearchLineBusinessEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var lineBusinesstSearched = lineBusiness.where((element) {
+          String name = element.description;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (lineBusinesstSearched.isEmpty) {}
+        emit(CollaboratorGetLineBusinessSuccessState(lineBusiness: lineBusinesstSearched));
+      } else {
+        emit(CollaboratorGetLineBusinessSuccessState(lineBusiness: lineBusiness));
+      }
+    });
+  }
+
+  loading() {
+    on<CollaboratorLoadingEvent>((event, emit) async {
+      emit(CollaboratorLoadingState());
     });
   }
 }

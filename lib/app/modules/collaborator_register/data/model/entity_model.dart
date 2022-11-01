@@ -20,9 +20,9 @@ class EntityModel extends EntityEntity {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'nameCompany': nameCompany,
-      'nickTrade': nickTrade,
-      'tbLineBussinessId': tbLineBussinessId,
+      'name_company': nameCompany,
+      'nick_trade': nickTrade,
+      'tb_line_buiness_id': tbLineBussinessId,
       'nameLineBussiness': nameLineBussiness,
       'aniversary': aniversary,
       'note': note,
@@ -31,12 +31,12 @@ class EntityModel extends EntityEntity {
 
   factory EntityModel.fromMap(Map<String, dynamic> map) {
     return EntityModel(
-      nameCompany: map['nameCompany'] as String,
-      nickTrade: map['nickTrade'] as String,
-      tbLineBussinessId: map['tbLineBussinessId'] as int,
-      nameLineBussiness: map['nameLineBussiness'] as String,
-      aniversary: map['aniversary'] as String,
-      note: map['note'] as String,
+      nameCompany: map['name_company'] != null ? map['name_company'] as String : "",
+      nickTrade: map['nick_trade'] != null ? map['nick_trade'] as String : "",
+      tbLineBussinessId: map['tb_line_buiness_id'] != null ? map['tb_line_buiness_id'] as int : 0,
+      nameLineBussiness: map['name_line_business'] != null ?  map['name_line_business'] as String: "",
+      aniversary: map['aniversary'] != null ? map['aniversary'] as String : "",
+      note: map['note'] != null ? map['note'] as String : "",
     );
   }
 

@@ -1,5 +1,4 @@
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_model.dart';
-import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_bloc.dart';
 
 abstract class CollaboratorState {
   List<CollaboratorModel> collaboratorList;
@@ -11,6 +10,10 @@ abstract class CollaboratorState {
 
 class CollaboratorInitialState extends CollaboratorState {
   CollaboratorInitialState() : super(collaboratorList: []);
+}
+
+class CollaboratorLoadingState extends CollaboratorState {
+  CollaboratorLoadingState() : super(collaboratorList: []);
 }
 
 class CollaboratorGetlistSuccessState extends CollaboratorState {

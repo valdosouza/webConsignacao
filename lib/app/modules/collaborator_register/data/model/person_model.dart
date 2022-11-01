@@ -9,7 +9,7 @@ class PersonModel extends PersonEntity {
       String? rg,
       String? rgDtEmission,
       String? rgOrganIssuer,
-      String? rgStateIssuer,
+      int? rgStateIssuer,
       String? birthday,
       int? tbProfessionId})
       : super(
@@ -17,7 +17,7 @@ class PersonModel extends PersonEntity {
             rg: rg ?? "",
             rgDtEmission: rgDtEmission ?? "",
             rgOrganIssuer: rgOrganIssuer ?? "",
-            rgStateIssuer: rgStateIssuer ?? "",
+            rgStateIssuer: rgStateIssuer ?? 0,
             birthday: birthday ?? "",
             tbProfessionId: tbProfessionId ?? 0);
 
@@ -25,23 +25,23 @@ class PersonModel extends PersonEntity {
     return <String, dynamic>{
       'cpf': cpf,
       'rg': rg,
-      'rgDtEmission': rgDtEmission,
-      'rgOrganIssuer': rgOrganIssuer,
-      'rgStateIssuer': rgStateIssuer,
+      'rg_dt_emission': rgDtEmission,
+      'rg_organ_issuer': rgOrganIssuer,
+      'rg_state_issuer': rgStateIssuer,
       'birthday': birthday,
-      'tbProfessionId': tbProfessionId,
+      'tb_profession_id': tbProfessionId,
     };
   }
 
   factory PersonModel.fromMap(Map<String, dynamic> map) {
     return PersonModel(
-      cpf: map['cpf'] as String,
-      rg: map['rg'] as String,
-      rgDtEmission: map['rgDtEmission'] as String,
-      rgOrganIssuer: map['rgOrganIssuer'] as String,
-      rgStateIssuer: map['rgStateIssuer'] as String,
-      birthday: map['birthday'] as String,
-      tbProfessionId: map['tbProfessionId'] as int,
+      cpf: map['cpf'] != null ? map['cpf'] as String : "",
+      rg: map['rg'] != null ? map['rg'] as String : "",
+      rgDtEmission: map['rg_dt_emission'] != null ? map['rg_dt_emission'] as String : "",
+      rgOrganIssuer: map['rg_organ_issuer'] != null ? map['rg_organ_issuer'] as String : "",
+      rgStateIssuer: map['rg_state_issuer'] != null ? map['rg_state_issuer'] as int : 0,
+      birthday: map['birthday'] != null ? map['birthday'] as String : "",
+      tbProfessionId: map['tb_profession_id'] != null ? map['tb_profession_id'] as int : 0
     );
   }
 

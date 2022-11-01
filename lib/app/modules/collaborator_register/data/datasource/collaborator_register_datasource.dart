@@ -20,6 +20,7 @@ abstract class CollaboratorRegisterDatasource {
   Future<List<StateModel>> getStates();
   Future<List<CityModel>> getCitys(String id);
   Future<List<LineBusinessModel>> getLineBusiness({required int institution});
+  Future<List<CollaboratorModel>> getlistCollaborator({required int institution});
 }
 
 class CollaboratorRegisterDatasourceImpl
@@ -30,11 +31,11 @@ class CollaboratorRegisterDatasourceImpl
   @override
   Future<CollaboratorModel> getCollaborator({required int id}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}Collaborator/$id');
+      final uri = Uri.parse('${baseApiUrl}collaborator/$id');
       final response = await client.get(uri);
       if (response.statusCode == 200) {
-        final data = json.decode(response.body) as List;
-        return CollaboratorModel.fromJson(data[0]);
+        final data = json.decode(response.body);
+        return CollaboratorModel.fromMap(data) ;
       } else {
         throw ServerException();
       }
@@ -47,11 +48,11 @@ class CollaboratorRegisterDatasourceImpl
   Future<CollaboratorModel> postCollaborator(
       {required CollaboratorModel model}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}Collaborator/');
+      final uri = Uri.parse('${baseApiUrl}collaborator/');
       final response = await client.post(uri, body: model.toJson());
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        return CollaboratorModel.fromJson(data);
+        return CollaboratorModel.fromMap(data as Map<String, dynamic>);
       } else {
         throw ServerException();
       }
@@ -63,9 +64,8 @@ class CollaboratorRegisterDatasourceImpl
   @override
   Future<String> putCollaborator({required CollaboratorModel model}) async {
     try {
-      final int id = model.id;
-      final uri = Uri.parse('${baseApiUrl}Collaborator/$id');
-      final response = await client.put(uri, body: model.toJson());
+      final uri = Uri.parse('${baseApiUrl}collaborator');
+      final response = await client.post(uri, body: model.toJson());
       if (response.statusCode == 200) {
         return "";
       } else {
@@ -97,7 +97,7 @@ class CollaboratorRegisterDatasourceImpl
       final uri = Uri.parse('https://viacep.com.br/ws/$cep/json/');
       final response = await client.get(uri);
       if (response.statusCode == 200) {
-        return AddressModel.fromJson(jsonDecode(response.body));
+        return AddressModel.fromMapRemoteAPI(jsonDecode(response.body));
       } else {
         throw ServerException();
       }
@@ -173,6 +173,25 @@ class CollaboratorRegisterDatasourceImpl
           return LineBusinessModel.fromJson(json);
         }).toList();
         return lineBusiness;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+  
+  @override
+  Future<List<CollaboratorModel>> getlistCollaborator({required int institution}) async {
+       try {
+      final uri = Uri.parse('${baseApiUrl}collaborator/getlist/$institution');
+      final response = await client.get(uri);
+      if (response.statusCode == 200) {
+        final obj = json.decode(response.body);
+        List<CollaboratorModel> collaborators = (obj as List).map((json) {
+          return CollaboratorModel.fromAPI(json);
+        }).toList();
+        return collaborators;
       } else {
         throw ServerException();
       }

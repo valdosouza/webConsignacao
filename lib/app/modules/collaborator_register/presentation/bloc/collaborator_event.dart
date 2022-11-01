@@ -1,24 +1,34 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 abstract class CollaboratorEvent {}
+
+class CollaboratorLoadingEvent extends CollaboratorEvent {}
 
 class CollaboratorSaveEvent extends CollaboratorEvent {}
 
-class CollaboratorGetEvent extends CollaboratorEvent {}
+class CollaboratorGetEvent extends CollaboratorEvent {
+  final int collaboratorId;
+  CollaboratorGetEvent({
+    required this.collaboratorId,
+  });
+}
 
 class CollaboratorPutEvent extends CollaboratorEvent {}
+
+class CollaboratorGetStatesEvent extends CollaboratorEvent {}
+
+class CollaboratorReturnEvent extends CollaboratorEvent {
+  final int screenIndex;
+  CollaboratorReturnEvent({
+    required this.screenIndex,
+  });
+  
+}
 
 class CollaboratorCepEvent extends CollaboratorEvent {
   final String cep;
 
   CollaboratorCepEvent(this.cep);
 }
-
-class CollaboratorCnpjEvent extends CollaboratorEvent {
-  final String cnpj;
-
-  CollaboratorCnpjEvent(this.cnpj);
-}
-
-class CollaboratorGetStatesEvent extends CollaboratorEvent {}
 
 class CollaboratorGetCitysEvent extends CollaboratorEvent {
   final String id;
@@ -32,8 +42,6 @@ class CollaboratorGetLineBusinessEvent extends CollaboratorEvent{
   CollaboratorGetLineBusinessEvent(this.institution);
 }
 
-class CollaboratorReturnEvent extends CollaboratorEvent {}
-
 class SearchStateEvent extends CollaboratorEvent {
   String search;
 
@@ -46,6 +54,14 @@ class SearchCityEvent extends CollaboratorEvent {
   String search;
 
   SearchCityEvent({
+    required this.search,
+  });
+}
+
+class SearchLineBusinessEvent extends CollaboratorEvent {
+  String search;
+
+  SearchLineBusinessEvent({
     required this.search,
   });
 }

@@ -16,16 +16,16 @@ class PhoneModel extends PhoneEntity {
       'kind': kind,
       'contact': contact,
       'number': number,
-      'addressKind': addressKind,
+      'address_kind': addressKind,
     };
   }
 
   factory PhoneModel.fromMap(Map<String, dynamic> map) {
     return PhoneModel(
-      kind: map['kind'] as String,
-      contact: map['contact'] as String,
-      number: map['number'] as String,
-      addressKind: map['addressKind'] as String,
+      kind: map['kind'] != null ?  map['kind'] as String : "",
+      contact: map['contact'] != null ? map['contact'] as String : "",
+      number: map['number'] != null ? map['number'] as String : "",
+      addressKind: map['address_kind'] != null ? map['address_kind'] as String : "",
     );
   }
 

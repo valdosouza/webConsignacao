@@ -16,7 +16,7 @@ class CollaboratorListsPage extends StatefulWidget {
 }
 
 class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
-  late final CollaboratorBloc bloc;
+  late final CollaboratorRegisterBloc bloc;
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CollaboratorBloc, CollaboratorState>(
+    return BlocBuilder<CollaboratorRegisterBloc, CollaboratorState>(
       bloc: bloc,
       builder: (context, state) {
         if (state is CollaboratorGetStatesSuccessState) {
@@ -36,7 +36,7 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  bloc.add(CollaboratorReturnEvent());
+                  bloc.add(CollaboratorReturnEvent(screenIndex: 1));
                 },
               ),
             ),
@@ -79,7 +79,7 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
                                 onTap: () {
                                   bloc.entity.address!.tbStateId =
                                       state.states[index].id;
-                                  bloc.add(CollaboratorReturnEvent());
+                                  bloc.add(CollaboratorReturnEvent(screenIndex: 1));
                                 },
                                 child: ListTile(
                                   leading: Text(
@@ -101,7 +101,7 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  bloc.add(CollaboratorReturnEvent());
+                  bloc.add(CollaboratorReturnEvent(screenIndex: 1));
                 },
               ),
             ),
@@ -143,7 +143,7 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
                                   bloc.entity.address!.tbCityId = state.citys[index].id;
-                                  bloc.add(CollaboratorReturnEvent());
+                                  bloc.add(CollaboratorReturnEvent(screenIndex: 1));
                                 },
                                 child: ListTile(
                                   leading: Text(state.citys[index].name),
@@ -164,7 +164,7 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  bloc.add(CollaboratorReturnEvent());
+                  bloc.add(CollaboratorReturnEvent(screenIndex: 0));
                 },
               ),
             ),
@@ -181,7 +181,7 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
                         keyboardType: TextInputType.text,
                         autofocus: true,
                         onChanged: (value) {
-                          bloc.add(SearchCityEvent(search: value));
+                          bloc.add(SearchLineBusinessEvent(search: value));
                         },
                         style: const TextStyle(
                           color: Colors.white,
@@ -197,20 +197,20 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
                     ),
                     const SizedBox(height: 30.0),
                     Expanded(
-                      child: state.lineBussines.isEmpty
+                      child: state.lineBusiness.isEmpty
                           ? const Center(
                               child: Text(
                                   "Não encontramos nenhum cargo em nossa base."))
                           : ListView.separated(
-                              itemCount: state.lineBussines.length,
+                              itemCount: state.lineBusiness.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
-                                  bloc.entity.entity!.tbLineBussinessId = state.lineBussines[index].id;
-                                  bloc.entity.entity!.nameLineBussiness = state.lineBussines[index].description;
-                                  bloc.add(CollaboratorReturnEvent());
+                                  bloc.entity.entity!.tbLineBussinessId = state.lineBusiness[index].id;
+                                  bloc.entity.entity!.nameLineBussiness = state.lineBusiness[index].description;
+                                  bloc.add(CollaboratorReturnEvent(screenIndex: 0));
                                 },
                                 child: ListTile(
-                                  leading: Text(state.lineBussines[index].description),
+                                  leading: Text(state.lineBusiness[index].description),
                                 ),
                               ),
                               separatorBuilder: (_, __) => const Divider(),

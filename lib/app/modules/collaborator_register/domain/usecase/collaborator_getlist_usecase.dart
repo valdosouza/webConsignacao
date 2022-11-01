@@ -1,20 +1,21 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/core/usecase/usecase.dart';
+import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/entity/collaborator_entity.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/repository/collaborator_register_respository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class CollaboratorRegisterGet implements UseCase<CollaboratorEntity, ParamsGet> {
+class CollaboratorGetlist implements UseCase<List<CollaboratorModel>, ParamsGetlist> {
   final CollaboratorRegisterRespository repository;
 
-  CollaboratorRegisterGet({required this.repository});
+  CollaboratorGetlist({required this.repository});
 
   @override
-  Future<Either<Failure, CollaboratorEntity>> call(ParamsGet params) async {
+  Future<Either<Failure, List<CollaboratorModel>>> call(ParamsGetlist params) async {
     try {
-      final response = await repository.getCollaborator(id: params.id);
+      final response = await repository.getlistCollaborator(institution: params.institution);
       return response;
     } on ServerException {
       return Left(ServerFailure());
@@ -22,13 +23,13 @@ class CollaboratorRegisterGet implements UseCase<CollaboratorEntity, ParamsGet> 
   }
 }
 
-class ParamsGet extends Equatable {
-  final int id;
+class ParamsGetlist extends Equatable {
+  final int institution;
 
-  const ParamsGet({
-    required this.id,
+  const ParamsGetlist({
+    required this.institution,
   });
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [institution];
 }

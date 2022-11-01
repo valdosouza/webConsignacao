@@ -31,8 +31,8 @@ class CompanyModel extends CompanyEntity {
       cnpj: map['cnpj'] as String,
       ie: map['ie'] as String,
       iest: map['iest'] as String,
-      dtFoundation: map['dtFoundation'] as String,
-      indIeDestinatario: map['indIeDestinatario'] as String,
+      dtFoundation: map['dt_foundation'] as String,
+      indIeDestinatario: map['ind_ie_destinatario'] as String,
     );
   }
 

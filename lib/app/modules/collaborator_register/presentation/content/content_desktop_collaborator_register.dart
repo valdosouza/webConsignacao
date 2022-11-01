@@ -25,7 +25,7 @@ class ContentDesktopCollaboratorRegister extends StatefulWidget {
 class _ContentDesktopCollaboratorRegisterState
     extends State<ContentDesktopCollaboratorRegister>
     with SingleTickerProviderStateMixin {
-  late final CollaboratorBloc bloc;
+  late final CollaboratorRegisterBloc bloc;
   final _formKey = GlobalKey<FormState>();
   final _formK = GlobalKey<FormState>();
   late TabController _tabController;
@@ -38,7 +38,8 @@ class _ContentDesktopCollaboratorRegisterState
 
   @override
   void initState() {
-    bloc = Modular.get<CollaboratorBloc>();
+    bloc = Modular.get<CollaboratorRegisterBloc>();
+    bloc.add(CollaboratorGetEvent(collaboratorId: bloc.entity.id));
     _tabController = TabController(vsync: this, length: myTabs.length);
     super.initState();
   }
@@ -47,7 +48,7 @@ class _ContentDesktopCollaboratorRegisterState
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => bloc,
-      child: BlocConsumer<CollaboratorBloc, CollaboratorState>(
+      child: BlocConsumer<CollaboratorRegisterBloc, CollaboratorState>(
         bloc: bloc,
         listener: (context, state) {
           if (state is CollaboratorPostSuccessState) {
@@ -60,13 +61,7 @@ class _ContentDesktopCollaboratorRegisterState
           } else if (state is CollaboratorPutErrorState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao atualizar. Tente novamente mais tarde.");
-          } else if (state is CollaboratorGetErrorState) {
-            CustomToast.showToast(
-                "Ocorreu um erro ao buscar seu estabelecimento. Tente novamente mais tarde.");
-          } else if (state is CollaboratorCnpjErrorState) {
-            CustomToast.showToast(
-                "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
-          } else if (state is CollaboratorGetCityErrorState) {
+          }  else if (state is CollaboratorGetCityErrorState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao buscar a lista de cidades. Tente novamente mais tarde.");
           } else if (state is CollaboratorGetStatesErrorState) {
@@ -76,7 +71,7 @@ class _ContentDesktopCollaboratorRegisterState
             CustomToast.showToast(
                 "Ocorreu um erro ao buscar a lista de cargos. Tente novamente mais tarde.");
           } else if (state is CollaboratorReturnedState) {
-            _tabController.animateTo(1);
+            _tabController.animateTo(state.returnTo);
           }
         },
         builder: (context, state) {
@@ -113,11 +108,7 @@ class _ContentDesktopCollaboratorRegisterState
                   const SizedBox(width: 100.0),
                   IconButton(
                     onPressed: () {
-                      if (Validators.validateCNPJ(bloc.entity.company!.cnpj) !=
-                          null) {
-                        CustomToast.showToast(Validators.validateCNPJ(
-                            bloc.entity.company!.cnpj)!);
-                      } else if (Validators.validateExactLength(
+                      if (Validators.validateExactLength(
                               bloc.entity.address!.zipCode, 8) !=
                           null) {
                         CustomToast.showToast("CEP inválido.");

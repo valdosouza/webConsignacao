@@ -1,13 +1,13 @@
-import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_event.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
 import 'package:flutter/material.dart';
 
 class CollaboratorIdentificationPersonWidget extends StatefulWidget {
-  final CollaboratorBloc bloc;
+  final CollaboratorRegisterBloc bloc;
   final GlobalKey formKey;
   const CollaboratorIdentificationPersonWidget({
     super.key,
@@ -34,7 +34,7 @@ class _CollaboratorIdentificationPersonWidgetState
             children: [
               CustomInput(
                 title: 'Nome',
-                initialValue: widget.bloc.entity.name,
+                initialValue: widget.bloc.entity.entity!.nameCompany,
                 keyboardType: TextInputType.text,
                 inputAction: TextInputAction.next,
                 validator: (value) => Validators.validateRequired(value),
@@ -44,8 +44,19 @@ class _CollaboratorIdentificationPersonWidgetState
               ),
               const SizedBox(height: 30.0),
               CustomInput(
+                title: 'Apelido',
+                initialValue: widget.bloc.entity.entity!.nickTrade,
+                keyboardType: TextInputType.text,
+                inputAction: TextInputAction.next,
+                validator: (value) => Validators.validateRequired(value),
+                onChanged: (value) {
+                  widget.bloc.entity.entity!.nickTrade = value;
+                },
+              ),
+              const SizedBox(height: 30.0),
+              CustomInput(
                 title: 'CPF',
-                initialValue: widget.bloc.entity.name,
+                initialValue: widget.bloc.entity.person!.cpf,
                 keyboardType: TextInputType.text,
                 inputAction: TextInputAction.next,
                 validator: (value) => Validators.validateCPF(value!),
@@ -88,17 +99,6 @@ class _CollaboratorIdentificationPersonWidgetState
               ),
               const SizedBox(height: 30.0),
               CustomInput(
-                title: 'Estado emissor do RG',
-                initialValue: widget.bloc.entity.person!.rgStateIssuer,
-                validator: (value) => Validators.validateRequired(value),
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  widget.bloc.entity.person!.rgStateIssuer = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-              CustomInput(
                 title: 'Data de Nascimento',
                 initialValue: widget.bloc.entity.person!.birthday,
                 validator: (value) => Validators.validateRequired(value),
@@ -106,52 +106,65 @@ class _CollaboratorIdentificationPersonWidgetState
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
                   widget.bloc.entity.person!.birthday = value;
-                  widget.bloc.entity.entity!.aniversary = value;
                 },
               ),
               const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Data de Admissão',
-                initialValue: widget.bloc.entity.dtAdmission,
-                validator: (value) => Validators.validateRequired(value),
-                keyboardType: TextInputType.datetime,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  widget.bloc.entity.dtAdmission = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Data de Demissão',
-                initialValue: widget.bloc.entity.dtResignation,
-                validator: (value) => Validators.validateRequired(value),
-                keyboardType: TextInputType.datetime,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  widget.bloc.entity.dtResignation = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Cargo',
-                initialValue: widget.bloc.entity.entity!.nameLineBussiness,
-                keyboardType: TextInputType.number,
-                inputAction: TextInputAction.next,
-                sufixIcon: IconButton(
-                  hoverColor: Colors.transparent,
-                  onPressed: () {
-                    widget.bloc.add(CollaboratorGetLineBusinessEvent(widget.bloc.entity.institution!));
-                  },
-                  icon: const Icon(
-                    Icons.search,
-                    size: 20.0,
-                    color: Colors.white,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Cargo",
+                    style: kLabelStyle,
                   ),
-                ),
-                validator: (value) => Validators.validateRequired(value),
-                onChanged: (value) {
-                  widget.bloc.entity.entity!.nameLineBussiness = value;
-                },
+                  const SizedBox(height: 10.0),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      decoration: kBoxDecorationStyle,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                widget.bloc.lineBusiness
+                                    .firstWhere(
+                                        (element) =>
+                                            element.id ==
+                                            widget
+                                                .bloc.entity.entity!.tbLineBussinessId,
+                                        orElse: () => LineBusinessModel(
+                                            description: "",
+                                            active: 's',
+                                            id: 0,
+                                            institution: 1))
+                                    .description,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              hoverColor: Colors.transparent,
+                              onPressed: () {
+                                widget.bloc.add(
+                                    CollaboratorGetLineBusinessEvent(
+                                        widget.bloc.entity.institution!));
+                              },
+                              icon: const Icon(
+                                Icons.search,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                ],
               ),
             ],
           ),

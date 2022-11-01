@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/collaborator_register/presentation/bloc/colla
 import 'package:flutter/material.dart';
 
 class CollaboratorPhoneWidget extends StatelessWidget {
-  final CollaboratorBloc bloc;
+  final CollaboratorRegisterBloc bloc;
   const CollaboratorPhoneWidget({
     super.key,
     required this.bloc,

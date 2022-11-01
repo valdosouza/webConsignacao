@@ -1,21 +1,29 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:appweb/app/modules/collaborator_register/data/model/person_model.dart';
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 import 'package:appweb/app/modules/collaborator_register/data/model/adress_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/company_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/entity_model.dart';
+import 'package:appweb/app/modules/collaborator_register/data/model/person_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/phone.dart';
-
 
 // ignore: must_be_immutable
 class CollaboratorEntity extends Equatable {
   int id;
   int? institution;
-  String? name;
   String? dtAdmission;
   String? dtResignation;
   String? active;
+  String? salary;
+  String? pis;
+  String? fathersName;
+  String? mothersName;
+  String? voteNumber;
+  String? voteZone;
+  String? voteSection;
+  String? militaryCertificate;
   EntityModel? entity;
   CompanyModel? company;
   PersonModel? person;
@@ -24,10 +32,17 @@ class CollaboratorEntity extends Equatable {
   CollaboratorEntity({
     required this.id,
     this.institution,
-    this.name,
     this.dtAdmission,
     this.dtResignation,
     this.active,
+    this.salary,
+    this.pis,
+    this.fathersName,
+    this.mothersName,
+    this.voteNumber,
+    this.voteZone,
+    this.voteSection,
+    this.militaryCertificate,
     this.entity,
     this.company,
     this.person,
@@ -36,5 +51,5 @@ class CollaboratorEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id];  
 }

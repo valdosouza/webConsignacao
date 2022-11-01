@@ -65,7 +65,10 @@ class _ContentDesktopCollaboratorState
             child: CircularProgressIndicator(),
           );
         } else if (state is CollaboratorInterationPageState) {
-          Modular.to.pushReplacementNamed('/admin/content/collaborator/', arguments: state.collaborator);         
+          Modular.to.pushReplacementNamed('/admin/content/collaborator/', arguments: state.collaborator);
+          return const Center(
+            child: CircularProgressIndicator(),
+          );    
         }
         final collaboratorList = state.collaboratorList;
         return Scaffold(
