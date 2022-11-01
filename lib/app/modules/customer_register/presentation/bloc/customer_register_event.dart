@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 
 abstract class CustomerRegisterEvent {}
 
@@ -35,7 +35,12 @@ class CustomerRegisterGetCitysEvent extends CustomerRegisterEvent {
   CustomerRegisterGetCitysEvent(this.id);
 }
 
-class CustomerRegisterReturnEvent extends CustomerRegisterEvent {}
+class CustomerRegisterReturnEvent extends CustomerRegisterEvent {
+  int index;
+  CustomerRegisterReturnEvent({
+    required this.index,
+  });
+}
 
 class CustomerRegisterSearchStateEvent extends CustomerRegisterEvent {
   String search;
@@ -58,5 +63,15 @@ class CustomerRegisterPostEvent extends CustomerRegisterEvent {
 
   CustomerRegisterPostEvent({
     required this.model,
+  });
+}
+
+class CustomerRegisterGetSalesmanEvent extends CustomerRegisterEvent {}
+
+class CustomerRegisterSearchSalesmanEvent extends CustomerRegisterEvent {
+  String search;
+
+  CustomerRegisterSearchSalesmanEvent({
+    required this.search,
   });
 }

@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
@@ -62,7 +62,8 @@ class _ContentDesktopCustomerRegisterState
           );
         }
         if (state is CustomerRegisterGetCitySuccessState ||
-            state is CustomerRegisterGetStatesSuccessState) {
+            state is CustomerRegisterGetStatesSuccessState ||
+            state is CustomerRegisterGetSalesmanSuccessState) {
           return const CustomerRegisterListsPage();
         }
 

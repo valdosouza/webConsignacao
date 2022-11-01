@@ -37,7 +37,7 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  bloc.add(CustomerRegisterReturnEvent());
+                  bloc.add(CustomerRegisterReturnEvent(index: 1));
                 },
               ),
             ),
@@ -83,7 +83,8 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                                       state.states[index].id;
                                   bloc.customer.address.stateName =
                                       state.states[index].name;
-                                  bloc.add(CustomerRegisterReturnEvent());
+                                  bloc.add(
+                                      CustomerRegisterReturnEvent(index: 1));
                                 },
                                 child: ListTile(
                                   leading: Text(
@@ -105,7 +106,7 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  bloc.add(CustomerRegisterReturnEvent());
+                  bloc.add(CustomerRegisterReturnEvent(index: 1));
                 },
               ),
             ),
@@ -151,10 +152,79 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                                       state.citys[index].id;
                                   bloc.customer.address.cityName =
                                       state.citys[index].name;
-                                  bloc.add(CustomerRegisterReturnEvent());
+                                  bloc.add(
+                                      CustomerRegisterReturnEvent(index: 1));
                                 },
                                 child: ListTile(
                                   leading: Text(state.citys[index].name),
+                                ),
+                              ),
+                              separatorBuilder: (_, __) => const Divider(),
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        } else if (state is CustomerRegisterGetSalesmanSuccessState) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Lista de vendedores'),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                onPressed: () {
+                  bloc.add(CustomerRegisterReturnEvent(index: 3));
+                },
+              ),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      decoration: kBoxDecorationStyle,
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        autofocus: true,
+                        onChanged: (value) {
+                          bloc.add(CustomerRegisterSearchSalesmanEvent(
+                              search: value));
+                        },
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'OpenSans',
+                        ),
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(left: 10.0),
+                          hintText: "Pesquise aqui",
+                          hintStyle: kHintTextStyle,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30.0),
+                    Expanded(
+                      child: state.salesmans.isEmpty
+                          ? const Center(
+                              child: Text(
+                                  "Não encontramos nenhum vendedor em nossa base."))
+                          : ListView.separated(
+                              itemCount: state.salesmans.length,
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: () {
+                                  bloc.customer.customer.tbSalesmanId =
+                                      state.salesmans[index].id;
+                                  //TODO:: Pendente o campo com o nome do vendedor para popular o obj
+                                  bloc.add(
+                                      CustomerRegisterReturnEvent(index: 3));
+                                },
+                                child: ListTile(
+                                  leading:
+                                      Text(state.salesmans[index].nameCompany),
                                 ),
                               ),
                               separatorBuilder: (_, __) => const Divider(),

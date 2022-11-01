@@ -1,6 +1,7 @@
 import 'package:appweb/app/modules/customer_register/data/datasource/customer_register_datasource.dart';
 import 'package:appweb/app/modules/customer_register/data/repository/customer_register_repository.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get_salesmans.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_post.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_cep_usecase.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_citys.dart';
@@ -50,6 +51,10 @@ class CustomerRegisterModule extends Module {
           (i) => CustomerRegisterPost(
               repository: i.get<CustomerRegisterRepositoryImpl>()),
         ),
+        Bind.factory(
+          (i) => CustomerRegisterGetSalesmans(
+              repository: i.get<CustomerRegisterRepositoryImpl>()),
+        ),
         BlocBind.singleton((i) => CustomerRegisterBloc(
               getlist: i.get<CustomerRegisterGetlist>(),
               getCep: i.get<CustomerRegisterGetCep>(),
@@ -58,6 +63,7 @@ class CustomerRegisterModule extends Module {
               getStates: i.get<CustomerRegisterGetStates>(),
               getCustomer: i.get<CustomerRegisterGet>(),
               postCustomer: i.get<CustomerRegisterPost>(),
+              getSalesmans: i.get<CustomerRegisterGetSalesmans>(),
             )),
       ];
   @override
