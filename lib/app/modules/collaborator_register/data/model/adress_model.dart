@@ -5,7 +5,8 @@ import 'package:appweb/app/modules/collaborator_register/domain/entity/address_e
 // ignore: must_be_immutable
 class AddressModel extends AddressEntity {
   AddressModel(
-      {String? zipCode,
+      {int? id,
+      String? zipCode,
       String? street,
       String? complement,
       String? neighborhood,
@@ -22,6 +23,7 @@ class AddressModel extends AddressEntity {
       String? latitude,
       String? longitude})
       : super(
+            id: id ?? 0,
             zipCode: zipCode ?? "",
             street: street ?? "",
             complement: complement ?? "",
@@ -29,9 +31,9 @@ class AddressModel extends AddressEntity {
             region: region ?? "",
             kind: kind ?? "",
             nmbr: nmbr ?? "",
-            main: main ?? "",
+            main: main ?? "S",
             countryName: countryName ?? "",
-            tbCountryId: tbCountryId ?? 0,
+            tbCountryId: tbCountryId ?? 1058,
             stateName: stateName ?? "",
             tbStateId: tbStateId ?? 0,
             cityName: cityName ?? "",
@@ -40,29 +42,33 @@ class AddressModel extends AddressEntity {
             longitude: longitude ?? "");
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'zip_code': zipCode,
-      'street': street,
-      'complement': complement,
-      'neighborhood': neighborhood,
-      'region': region,
-      'kind': kind,
-      'nmbr': nmbr,
-      'main': main,
-      'name_country': countryName,
-      'tb_country_id': tbCountryId,
-      'name_state': stateName,
-      'tb_state_id': tbStateId,
-      'name_city': cityName,
-      'tb_city_id': tbCityId,
-      'latitude': latitude,
-      'longitude': longitude,
-    };
+    Map<String, dynamic> address = <String, dynamic>{};
+
+    address['id'] = id;
+    address['zip_code'] = zipCode;
+    address['street'] = street;
+    address['complement'] = complement;
+    address['neighborhood'] = neighborhood;
+    address['region'] = region;
+    address['kind'] = kind;
+    address['nmbr'] = nmbr;
+    address['main'] = main;
+    address['name_country'] = countryName;
+    address['tb_country_id'] = tbCountryId;
+    address['name_state'] = stateName;
+    address['tb_state_id'] = tbStateId;
+    address['name_city'] = cityName;
+    address['tb_city_id'] = tbCityId;
+    address['latitude'] = latitude;
+    address['longitude'] = longitude;
+
+    return address;
   }
 
   factory AddressModel.fromMap(Map<String, dynamic> map) {
     return AddressModel(
-      zipCode: map['zipCode'] != null ? map['zipCode'] as String : null,
+      id: map['id'] != null ? map['id'] as int : 0,
+      zipCode: map['zip_code'] != null ? map['zip_code'] as String : null,
       street: map['street'] != null ? map['street'] as String : null,
       complement:
           map['complement'] != null ? map['complement'] as String : null,
@@ -73,26 +79,25 @@ class AddressModel extends AddressEntity {
       nmbr: map['nmbr'] != null ? map['nmbr'] as String : null,
       main: map['main'] != null ? map['main'] as String : null,
       countryName:
-          map['countryName'] != null ? map['countryName'] as String : null,
+          map['country_name'] != null ? map['country_name'] as String : null,
       tbCountryId:
-          map['tbCountryId'] != null ? map['tbCountryId'] as int : null,
-      stateName: map['stateName'] != null ? map['stateName'] as String : null,
-      tbStateId: map['tbStateId'] != null ? map['tbStateId'] as int : null,
-      cityName: map['cityName'] != null ? map['cityName'] as String : null,
-      tbCityId: map['tbCityId'] != null ? map['tbCityId'] as int : null,
+          map['tb_country_id'] != null ? map['tb_country_id'] as int : null,
+      stateName: map['name_state'] != null ? map['name_state'] as String : null,
+      tbStateId: map['tb_state_id'] != null ? map['tb_state_id'] as int : null,
+      cityName: map['name_city'] != null ? map['name_city'] as String : null,
+      tbCityId: map['tb_city_id'] != null ? map['tb_city_id'] as int : null,
       latitude: map['latitude'] != null ? map['latitude'] as String : null,
       longitude: map['longitude'] != null ? map['longitude'] as String : null,
     );
   }
   factory AddressModel.fromMapRemoteAPI(Map<String, dynamic> map) {
     return AddressModel(
-      zipCode: map['cep'] as String,
-      street: map['logradouro'] as String,
-      complement: map['complemento'] as String,
-      neighborhood: map['bairro'] as String,
-      stateName: map['uf'] as String,
-      cityName: map['localidade'] as String
-    );
+        zipCode: map['cep'] as String,
+        street: map['logradouro'] as String,
+        complement: map['complemento'] as String,
+        neighborhood: map['bairro'] as String,
+        stateName: map['uf'] as String,
+        cityName: map['localidade'] as String);
   }
 
   String toJson() => json.encode(toMap());

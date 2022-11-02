@@ -33,8 +33,8 @@ class CollaboratorModel extends CollaboratorEntity {
             institution: institution ?? 1,
             dtAdmission: dtAdmission ?? "",
             dtResignation: dtResignation ?? "",
-            active: active,
-            salary: salary ?? "",
+            active: active ?? "S",
+            salary: salary ?? "0.00",
             pis: pis ?? "",
             fathersName: fathersName ?? "",
             mothersName: mothersName ?? "",
@@ -49,30 +49,32 @@ class CollaboratorModel extends CollaboratorEntity {
             phone: phone ?? PhoneModel());
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'collaborator': _collaborator(),
-      'entity': entity?.toMap(),
-      'person': person?.toMap(),
-      'address': address?.toMap(),
-      'phone': phone?.toMap(),
-    };
+    Map<String, dynamic> map = <String, dynamic>{};
+    
+      map['collaborator'] =  _collaborator();
+      map['entity'] =  entity?.toMap();
+      map['person'] =  person?.toMap();
+      map['address'] =  address?.toMap();
+      map['phone'] =  phone?.toMap();
+    return map;
   }
   Map<String, dynamic> _collaborator() {
-    return <String, dynamic>{      
-      'id': id,
-      'tb_institution_id': institution,
-      'dt_admission': dtAdmission,
-      'dt_resignation': dtResignation,
-      'active': active,
-      'salary': salary,
-      "pis": "",
-      'fahters_name': fathersName,
-      'mothers_name': mothersName,
-      'vote_number': voteNumber,
-      'vote_zone': voteZone,
-      'vote_section': voteSection,
-      'military_certificate': militaryCertificate,
-    };
+    Map<String, dynamic> collaborator = <String, dynamic>{};
+          
+      collaborator['id'] = id;
+      collaborator['tb_institution_id'] = institution ?? 1;
+      collaborator['dt_admission'] = dtAdmission ?? "";
+      collaborator['dt_resignation'] = dtResignation ?? "";
+      collaborator['active'] = "S";
+      collaborator['salary'] = "0.00";
+      collaborator["pis"] = pis ?? "";
+      collaborator['fahters_name'] = fathersName ?? "";
+      collaborator['mothers_name'] = mothersName ?? "";
+      collaborator['vote_number'] = voteNumber ?? "";
+      collaborator['vote_zone'] = voteZone ?? "";
+      collaborator['vote_section'] = voteSection ?? "";
+      collaborator['military_certificate'] = militaryCertificate ?? "";
+    return collaborator;
   }
 
 

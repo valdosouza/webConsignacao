@@ -84,7 +84,7 @@ class _CollaboratorAddressWidgetState extends State<CollaboratorAddressWidget> {
                                         (element) =>
                                             element.id ==
                                             widget.bloc.entity.address!.tbStateId,
-                                        orElse: () => StateModel(name: ""))
+                                        orElse: () => StateModel(name: widget.bloc.entity.address!.stateName))
                                     .name,
                                 style: const TextStyle(
                                   color: Colors.white,
@@ -135,7 +135,7 @@ class _CollaboratorAddressWidgetState extends State<CollaboratorAddressWidget> {
                                         (element) =>
                                             element.id ==
                                             widget.bloc.entity.address!.tbCityId,
-                                        orElse: () => CityModel(name: ""))
+                                        orElse: () => CityModel(name: widget.bloc.entity.address!.cityName))
                                     .name,
                                 style: const TextStyle(
                                   color: Colors.white,

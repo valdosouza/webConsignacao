@@ -55,6 +55,39 @@ class _CollaboratorIdentificationPersonWidgetState
               ),
               const SizedBox(height: 30.0),
               CustomInput(
+                title: 'Nome da mãe',
+                initialValue: widget.bloc.entity.mothersName,
+                keyboardType: TextInputType.text,
+                inputAction: TextInputAction.next,
+                validator: (value) => Validators.validateRequired(value),
+                onChanged: (value) {
+                  widget.bloc.entity.mothersName = value;
+                },
+              ),
+              const SizedBox(height: 30.0),
+              CustomInput(
+                title: 'Nome do pai',
+                initialValue: widget.bloc.entity.fathersName,
+                keyboardType: TextInputType.text,
+                inputAction: TextInputAction.next,
+                validator: (value) => Validators.validateRequired(value),
+                onChanged: (value) {
+                  widget.bloc.entity.fathersName = value;
+                },
+              ),
+              const SizedBox(height: 30.0),
+              CustomInput(
+                title: 'Salário',
+                initialValue: widget.bloc.entity.salary,
+                keyboardType: TextInputType.text,
+                inputAction: TextInputAction.next,
+                validator: (value) => Validators.validateRequired(value),
+                onChanged: (value) {
+                  widget.bloc.entity.salary = value;
+                },
+              ),            
+              const SizedBox(height: 30.0),
+              CustomInput(
                 title: 'CPF',
                 initialValue: widget.bloc.entity.person!.cpf,
                 keyboardType: TextInputType.text,
@@ -75,37 +108,15 @@ class _CollaboratorIdentificationPersonWidgetState
                   widget.bloc.entity.person!.rg = value;
                 },
               ),
-              const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Data de emissão do RG',
-                initialValue: widget.bloc.entity.person!.rgDtEmission,
-                validator: (value) => Validators.validateRequired(value),
-                keyboardType: TextInputType.datetime,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  widget.bloc.entity.person!.rgDtEmission = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-              CustomInput(
-                title: 'Orgão emissor do RG',
-                initialValue: widget.bloc.entity.person!.rgOrganIssuer,
-                validator: (value) => Validators.validateRequired(value),
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  widget.bloc.entity.person!.rgOrganIssuer = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
+              const SizedBox(height: 30.0),             
               CustomInput(
                 title: 'Data de Nascimento',
-                initialValue: widget.bloc.entity.person!.birthday,
+                initialValue: widget.bloc.entity.entity!.aniversary,
                 validator: (value) => Validators.validateRequired(value),
                 keyboardType: TextInputType.datetime,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  widget.bloc.entity.person!.birthday = value;
+                  widget.bloc.entity.entity!.aniversary = value;
                 },
               ),
               const SizedBox(height: 30.0),
@@ -134,7 +145,7 @@ class _CollaboratorIdentificationPersonWidgetState
                                             widget
                                                 .bloc.entity.entity!.tbLineBussinessId,
                                         orElse: () => LineBusinessModel(
-                                            description: "",
+                                            description:  widget.bloc.entity.entity!.nameLineBussiness,
                                             active: 's',
                                             id: 0,
                                             institution: 1))

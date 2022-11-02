@@ -14,8 +14,6 @@ class CollaboratorLoadedState extends CollaboratorState {}
 
 class CollaboratorPostSuccessState extends CollaboratorState {}
 
-class CollaboratorPutSuccessState extends CollaboratorState {}
-
 class CollaboratorDeleteSuccesseState extends CollaboratorState {}
 
 class CollaboratorGetSuccesseState extends CollaboratorState {}
@@ -47,12 +45,6 @@ class CollaboratorPostErrorState extends CollaboratorState {
   final String error;
 
   const CollaboratorPostErrorState(this.error);
-}
-
-class CollaboratorPutErrorState extends CollaboratorState {
-  final String error;
-
-  const CollaboratorPutErrorState(this.error);
 }
 
 class CollaboratorDeleteErrorState extends CollaboratorState {

@@ -4,13 +4,15 @@ import 'package:appweb/app/modules/collaborator_register/domain/entity/entity_en
 
 class EntityModel extends EntityEntity {
   EntityModel(
-      {String? nameCompany,
+      {int? id,
+      String? nameCompany,
       String? nickTrade,
       int? tbLineBussinessId,
       String? nameLineBussiness,
       String? aniversary,
       String? note})
       : super(
+            id: id ?? 0,
             nameCompany: nameCompany ?? "",
             nickTrade: nickTrade ?? "",
             tbLineBussinessId: tbLineBussinessId ?? 0,
@@ -19,22 +21,28 @@ class EntityModel extends EntityEntity {
             note: note ?? "");
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name_company': nameCompany,
-      'nick_trade': nickTrade,
-      'tb_line_buiness_id': tbLineBussinessId,
-      'nameLineBussiness': nameLineBussiness,
-      'aniversary': aniversary,
-      'note': note,
-    };
+    Map<String, dynamic> entity = <String, dynamic>{};
+    
+    entity['id'] = id;
+    entity['name_company'] = nameCompany;
+    entity['nick_trade'] = nickTrade;
+    entity['tb_linebusiness_id'] = tbLineBussinessId;
+    entity['aniversary'] = aniversary;
+    entity['note'] = note;
+    
+    return entity;
   }
 
   factory EntityModel.fromMap(Map<String, dynamic> map) {
     return EntityModel(
-      nameCompany: map['name_company'] != null ? map['name_company'] as String : "",
+      id:
+          map['id'] != null ? map['id'] as int : 0,
+      nameCompany:
+          map['name_company'] != null ? map['name_company'] as String : "",
       nickTrade: map['nick_trade'] != null ? map['nick_trade'] as String : "",
-      tbLineBussinessId: map['tb_line_buiness_id'] != null ? map['tb_line_buiness_id'] as int : 0,
-      nameLineBussiness: map['name_line_business'] != null ?  map['name_line_business'] as String: "",
+      tbLineBussinessId: map['tb_linebusiness_id'] != null
+          ? map['tb_linebusiness_id'] as int
+          : 0,
       aniversary: map['aniversary'] != null ? map['aniversary'] as String : "",
       note: map['note'] != null ? map['note'] as String : "",
     );

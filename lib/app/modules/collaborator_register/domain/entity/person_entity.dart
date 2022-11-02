@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class PersonEntity extends Equatable {
+  int id;
   String cpf;
   String rg;
   String rgDtEmission;
@@ -12,6 +13,7 @@ class PersonEntity extends Equatable {
   String birthday;
   int tbProfessionId;
   PersonEntity({
+    this.id = 0,
     this.cpf = "",
     this.rg = "",
     this.rgDtEmission = "",

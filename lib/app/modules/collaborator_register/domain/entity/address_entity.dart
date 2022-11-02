@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
 class AddressEntity extends Equatable {
+  int id;
   String zipCode;
   String street;
   String complement;
@@ -23,6 +24,7 @@ class AddressEntity extends Equatable {
   String longitude;
 
   AddressEntity({
+    this.id = 0,
     this.zipCode = "",
     this.street = "",
     this.complement = "",

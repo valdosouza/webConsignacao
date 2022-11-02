@@ -2,11 +2,9 @@ import 'package:appweb/app/modules/collaborator_register/data/datasource/collabo
 import 'package:appweb/app/modules/collaborator_register/data/repository/collaborator_repository_impl.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_cep_usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_citys.dart';
-import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_cnpj_usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_line_business.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_states.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_usecase.dart';
-import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_put_usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_register_usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/pages/collaborator_register.dart';
@@ -32,17 +30,9 @@ class CollaboratorRegisterModule extends Module {
               repository: i.get<CollaboratorRegisterRespositoryImpl>()),
         ),
         Bind.factory(
-          (i) => CollaboratorPut(
-              repository: i.get<CollaboratorRegisterRespositoryImpl>()),
-        ),
-        Bind.factory(
           (i) => CollaboratorGetCep(
               repository: i.get<CollaboratorRegisterRespositoryImpl>()),
-        ),
-        Bind.factory(
-          (i) => CollaboratorGetCnpj(
-              repository: i.get<CollaboratorRegisterRespositoryImpl>()),
-        ),
+        ),        
         Bind.factory(
           (i) => CollaboratorGetStates(
               repository: i.get<CollaboratorRegisterRespositoryImpl>()),
@@ -58,9 +48,7 @@ class CollaboratorRegisterModule extends Module {
         BlocBind.singleton((i) => CollaboratorRegisterBloc(
               save: i.get<CollaboratorRegisterSave>(),
               get: i.get<CollaboratorRegisterGet>(),
-              put: i.get<CollaboratorPut>(),
               cep: i.get<CollaboratorGetCep>(),
-              cnpj: i.get<CollaboratorGetCnpj>(),
               getStates: i.get<CollaboratorGetStates>(),
               getCity: i.get<CollaboratorGetCity>(),
               getLineBusiness: i.get<CollaboratorGetLineBusiness>()

@@ -5,7 +5,6 @@ import 'package:appweb/app/modules/collaborator_register/data/model/adress_model
 import 'package:appweb/app/modules/collaborator_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/state_model.dart';
-import 'package:appweb/app/modules/collaborator_register/domain/entity/address_entity.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/entity/collaborator_entity.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/repository/collaborator_register_respository.dart';
 import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
@@ -31,23 +30,12 @@ class CollaboratorRegisterRespositoryImpl
   }
 
   @override
-  Future<Either<Failure, CollaboratorEntity>> postCollaborator(
+  Future<Either<Failure, String>> postCollaborator(
       {required CollaboratorModel model}) async {
     try {
-      CollaboratorEntity institution =
+      String result =
           await datasource.postCollaborator(model: model);
-      return Right(institution);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, String>> putCollaborator(
-      {required CollaboratorModel model}) async {
-    try {
-      String response = await datasource.putCollaborator(model: model);
-      return Right(response);
+      return Right(result);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -67,17 +55,6 @@ class CollaboratorRegisterRespositoryImpl
   Future<Either<Failure, AddressModel>> getCEP({required String cep}) async {
     try {
       AddressModel response = await datasource.getCep(cep);
-      return Right(response);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, CollaboratorModel>> getCnpj(
-      {required String cnpj}) async {
-    try {
-      CollaboratorModel response = await datasource.getCnpj(cnpj);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

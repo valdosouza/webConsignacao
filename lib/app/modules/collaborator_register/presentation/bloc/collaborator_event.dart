@@ -12,8 +12,6 @@ class CollaboratorGetEvent extends CollaboratorEvent {
   });
 }
 
-class CollaboratorPutEvent extends CollaboratorEvent {}
-
 class CollaboratorGetStatesEvent extends CollaboratorEvent {}
 
 class CollaboratorReturnEvent extends CollaboratorEvent {

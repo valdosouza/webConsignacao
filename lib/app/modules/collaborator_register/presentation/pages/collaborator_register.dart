@@ -13,12 +13,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 // ignore: must_be_immutable
 class CollaboratorRegister extends StatefulWidget {
-  
-  CollaboratorModel? collaborator;
+  CollaboratorModel collaborator;
 
   CollaboratorRegister({
     Key? key,
-    this.collaborator,
+    required this.collaborator,
   }) : super(key: key);
 
   @override
@@ -26,17 +25,12 @@ class CollaboratorRegister extends StatefulWidget {
 }
 
 class _CollaboratorRegisterState extends State<CollaboratorRegister> {
-
   @override
   void initState() {
-    if(widget.collaborator != null){
-      Modular.get<CollaboratorRegisterBloc>().entity = widget.collaborator!;
-      Modular.get<CollaboratorRegisterBloc>().add(CollaboratorLoadingEvent());
-
-    }
+    Modular.get<CollaboratorRegisterBloc>().entity = widget.collaborator!;
+    Modular.get<CollaboratorRegisterBloc>().add(CollaboratorLoadingEvent());
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {

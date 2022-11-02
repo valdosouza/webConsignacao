@@ -53,15 +53,11 @@ class _ContentDesktopCollaboratorRegisterState
         listener: (context, state) {
           if (state is CollaboratorPostSuccessState) {
             CustomToast.showToast("Cadastro realizado com sucesso.");
-          } else if (state is CollaboratorPutSuccessState) {
-            CustomToast.showToast("Cadastro atualizado com sucesso.");
+            Modular.to.pushReplacementNamed("/admin/content/institution/");
           } else if (state is CollaboratorPostErrorState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao salvar. Tente novamente mais tarde.");
-          } else if (state is CollaboratorPutErrorState) {
-            CustomToast.showToast(
-                "Ocorreu um erro ao atualizar. Tente novamente mais tarde.");
-          }  else if (state is CollaboratorGetCityErrorState) {
+          } else if (state is CollaboratorGetCityErrorState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao buscar a lista de cidades. Tente novamente mais tarde.");
           } else if (state is CollaboratorGetStatesErrorState) {
@@ -113,11 +109,7 @@ class _ContentDesktopCollaboratorRegisterState
                           null) {
                         CustomToast.showToast("CEP inválido.");
                       } else {
-                        if (bloc.entity.id != 0) {
-                          bloc.add(CollaboratorPutEvent());
-                        } else {
-                          bloc.add(CollaboratorSaveEvent());
-                        }
+                        bloc.add(CollaboratorSaveEvent());
                       }
                     },
                     hoverColor: Colors.transparent,

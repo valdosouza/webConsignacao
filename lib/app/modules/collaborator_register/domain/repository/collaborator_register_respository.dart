@@ -10,13 +10,10 @@ import 'package:dartz/dartz.dart';
 
 abstract class CollaboratorRegisterRespository {
   Future<Either<Failure, CollaboratorEntity>> getCollaborator({required int id});
-  Future<Either<Failure, CollaboratorEntity>> postCollaborator(
-      {required CollaboratorModel model});
-  Future<Either<Failure, String>> putCollaborator(
+  Future<Either<Failure, String>> postCollaborator(
       {required CollaboratorModel model});
   Future<Either<Failure, String>> deleteCollaborator({required int id});
   Future<Either<Failure, AddressModel>> getCEP({required String cep});
-  Future<Either<Failure, CollaboratorModel>> getCnpj({required String cnpj});
   Future<Either<Failure, List<StateModel>>> getStates();
   Future<Either<Failure, List<CityModel>>> getCitys({required String id});
   Future<Either<Failure, List<LineBusinessModel>>> getLineBusiness({required int institution});

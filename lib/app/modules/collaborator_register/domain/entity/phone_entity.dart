@@ -4,11 +4,13 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class PhoneEntity extends Equatable {
+  int id;
   String kind;
   String contact;
   String number;
   String addressKind;
   PhoneEntity({
+    this.id = 0,
     this.kind = "",
     this.contact = "",
     this.number = "",

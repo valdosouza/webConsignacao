@@ -1,14 +1,13 @@
+import 'package:appweb/app/modules/collaborator/presentation/bloc/collaborator_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/state_model.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/entity/collaborator_entity.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_cep_usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_citys.dart';
-import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_cnpj_usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_line_business.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_states.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_get_usecase.dart';
-import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_put_usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_register_usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_event.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_state.dart';
@@ -19,9 +18,7 @@ class CollaboratorRegisterBloc
     extends Bloc<CollaboratorEvent, CollaboratorState> {
   final CollaboratorRegisterSave save;
   final CollaboratorRegisterGet get;
-  final CollaboratorPut put;
   final CollaboratorGetCep cep;
-  final CollaboratorGetCnpj cnpj;
   final CollaboratorGetStates getStates;
   final CollaboratorGetCity getCity;
   final CollaboratorGetLineBusiness getLineBusiness;
@@ -33,9 +30,7 @@ class CollaboratorRegisterBloc
   CollaboratorRegisterBloc(
       {required this.save,
       required this.get,
-      required this.put,
       required this.cep,
-      required this.cnpj,
       required this.getStates,
       required this.getCity,
       required this.getLineBusiness})
@@ -45,9 +40,6 @@ class CollaboratorRegisterBloc
 
     //Salva uma nova instituicao
     saveCollaborator();
-
-    //Atualiza dados da instituicao
-    putCollaborator();
 
     //Busca CEP
     searchCEP();
@@ -85,7 +77,9 @@ class CollaboratorRegisterBloc
       final response = await get.call(ParamsGet(id: event.collaboratorId));
 
       response.fold((l) => emit(const CollaboratorGetErrorState("")), (r) {
+        String lineBusiness = entity.entity!.nameLineBussiness;
         entity = r;
+        entity.entity!.nameLineBussiness = lineBusiness;
         emit(CollaboratorGetSuccesseState());
       });
     });
@@ -94,24 +88,16 @@ class CollaboratorRegisterBloc
   saveCollaborator() {
     on<CollaboratorSaveEvent>((event, emit) async {
       emit(CollaboratorLoadingState());
-
+      CollaboratorModel model = CollaboratorModel.fromEntity(entity);
+      model.entity!.id = model.id;
+      model.person!.id = model.id;
+      model.address!.id = model.id;
+      model.phone!.id = model.id;
       final response =
-          await save.call(Params(model: CollaboratorModel.fromEntity(entity)));
+          await save.call(Params(model: model));
 
       response.fold((l) => emit(const CollaboratorPostErrorState("")),
           (r) => emit(CollaboratorPostSuccessState()));
-    });
-  }
-
-  putCollaborator() {
-    on<CollaboratorPutEvent>((event, emit) async {
-      emit(CollaboratorLoadingState());
-
-      final response = await put
-          .call(ParamsPut(model: CollaboratorModel.fromEntity(entity)));
-
-      response.fold((l) => emit(const CollaboratorPutErrorState("")),
-          (r) => emit(CollaboratorPutSuccessState()));
     });
   }
 

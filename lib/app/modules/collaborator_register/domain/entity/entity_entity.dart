@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
 class EntityEntity extends Equatable {
+  int id;
   String nameCompany;
   String nickTrade;
   int tbLineBussinessId;
@@ -13,6 +14,7 @@ class EntityEntity extends Equatable {
   String note;
 
   EntityEntity({
+    this.id = 0,
     this.nameCompany = "",
     this.nickTrade = "",
     this.tbLineBussinessId = 0,
