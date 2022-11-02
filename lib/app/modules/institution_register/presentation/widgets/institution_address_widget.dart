@@ -81,10 +81,12 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                               child: Text(
                                 widget.bloc.states
                                     .firstWhere(
-                                        (element) =>
-                                            element.id ==
-                                            widget.bloc.entity.tbStateId,
-                                        orElse: () => StateModel(name: ""))
+                                      (element) =>
+                                          element.id ==
+                                          widget.bloc.entity.tbStateId,
+                                      orElse: () => StateModel(
+                                          name: widget.bloc.entity.nameState),
+                                    )
                                     .name,
                                 style: const TextStyle(
                                   color: Colors.white,
@@ -132,10 +134,12 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                               child: Text(
                                 widget.bloc.citys
                                     .firstWhere(
-                                        (element) =>
-                                            element.id ==
-                                            widget.bloc.entity.tbCityId,
-                                        orElse: () => CityModel(name: ""))
+                                      (element) =>
+                                          element.id ==
+                                          widget.bloc.entity.tbCityId,
+                                      orElse: () => CityModel(
+                                          name: widget.bloc.entity.nameCity),
+                                    )
                                     .name,
                                 style: const TextStyle(
                                   color: Colors.white,

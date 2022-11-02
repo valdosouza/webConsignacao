@@ -11,10 +11,22 @@ class CustomerMenus extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           itemMenuDraw(
-              Icons.home,
-              'Cadastro de Clientes',
-              () async =>
-                  Modular.to.navigate('/customer/content/customerregister/')),
+            Icons.home,
+            'Rotas',
+            () async =>
+                Modular.to.navigate('/customer/content/customerrouter/'),
+          ),
+          itemMenuDraw(
+            Icons.home,
+            'Lista',
+            () async =>
+                Modular.to.navigate('/customer/content/customer-register/'),
+          ),
+          itemMenuDraw(
+            Icons.home,
+            'Novo',
+            () async => Modular.to.navigate('/customer/content/customernew/'),
+          ),
         ],
       ),
     );

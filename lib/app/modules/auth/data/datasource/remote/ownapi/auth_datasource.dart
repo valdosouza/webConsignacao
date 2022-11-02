@@ -18,13 +18,14 @@ abstract class AuthDatasource {
 }
 
 class AuthDatasourceImpl implements AuthDatasource {
-  final _baseUrl = '${baseApiUrl}user/authenticate/';
+  final _baseUrl = baseApiUrl;
   final client = http.Client();
   @override
   Future<AuthModel> getAuthentication(
       {required String username, required String password}) async {
+    final uri = Uri.parse('${_baseUrl}user/authenticate/');
     final response = await client.post(
-      Uri.parse(_baseUrl),
+      uri,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -37,7 +38,6 @@ class AuthDatasourceImpl implements AuthDatasource {
     );
     if (response.statusCode == 200) {
       final jsonMap = json.decode(response.body) as Map<String, dynamic>;
-
       return AuthModel.fromJson(jsonMap);
     } else {
       throw ServerException();
@@ -48,10 +48,16 @@ class AuthDatasourceImpl implements AuthDatasource {
   Future<String> changePassword(
       {required AuthChangePasswordModel model}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}user/changepassword');
-      final response = await client.post(uri, body: model.toJson());
+      final uri = Uri.parse('${_baseUrl}user/changepassword');
+      final response = await client.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(model.toJson()),
+      );
       if (response.statusCode == 200) {
-        return "";
+        return response.body;
       } else {
         throw ServerException();
       }

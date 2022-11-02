@@ -124,7 +124,7 @@ class InstitutionModel extends InstitutionEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id.toString();
+    data['id'] = id;
     data['name_company'] = nameCompany;
     data['nick_trade'] = nickTrade;
     data['tb_line_buiness_id'] = tbLineBuinessId;
@@ -150,9 +150,9 @@ class InstitutionModel extends InstitutionEntity {
     data['region'] = region;
     data['address_kind'] = addressKind;
     data['zip_code'] = zipCode;
-    data['tb_country_id'] = tbCountryId.toString();
-    data['tb_state_id'] = tbStateId.toString();
-    data['tb_city_id'] = tbCityId.toString();
+    data['tb_country_id'] = tbCountryId;
+    data['tb_state_id'] = tbStateId;
+    data['tb_city_id'] = tbCityId;
     data['main'] = main;
     data['longitude'] = longitude;
     data['latitude'] = latitude;
