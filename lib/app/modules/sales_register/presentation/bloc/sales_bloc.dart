@@ -9,11 +9,9 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
 
   List<SalesModel> salesModel = [];
 
-  SalesBloc({required this.post}) : super(SalesInitialState()) {
-    on<LoadSalesEvent>((event, emit) async {
-      SalesInitialState();
-      emit(SalesInitialState());
-    });
+  SalesBloc({
+    required this.post,
+  }) : super(SalesInitialState()) {
     on<AddSalesEvent>(
       (event, emit) async {
         SalesInitialState();
