@@ -22,7 +22,23 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
         emit(CollaboratorGetlistSuccessState(collaboratorList: collaborators));
       });
     });
-    on<SearchCollaboratorEvent>((event, emit) {});
+    on<SearchCollaboratorEvent>((event, emit) {
+        if (event.search.isNotEmpty) {
+        var collaboratorSearched = collaborators.where((element) {
+          String name = element.entity!.nameCompany;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (collaboratorSearched.isEmpty) {}
+        emit(CollaboratorGetlistSuccessState(
+            collaboratorList: collaboratorSearched));
+      } else {
+        emit(CollaboratorGetlistSuccessState(
+            collaboratorList: collaborators));
+      }
+    });
     on<DeleteCollaboratorEvent>((event, emit) {});
     on<CollaboratorInterationEvent>((event, emit) {
       emit(CollaboratorInterationPageState(collaborator: event.collaborator));

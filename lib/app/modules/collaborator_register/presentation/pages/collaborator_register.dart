@@ -27,7 +27,7 @@ class CollaboratorRegister extends StatefulWidget {
 class _CollaboratorRegisterState extends State<CollaboratorRegister> {
   @override
   void initState() {
-    Modular.get<CollaboratorRegisterBloc>().entity = widget.collaborator!;
+    Modular.get<CollaboratorRegisterBloc>().entity = widget.collaborator;
     Modular.get<CollaboratorRegisterBloc>().add(CollaboratorLoadingEvent());
     super.initState();
   }

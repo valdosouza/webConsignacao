@@ -53,7 +53,7 @@ class _ContentDesktopCollaboratorRegisterState
         listener: (context, state) {
           if (state is CollaboratorPostSuccessState) {
             CustomToast.showToast("Cadastro realizado com sucesso.");
-            Modular.to.pushReplacementNamed("/admin/content/institution/");
+            Modular.to.pushReplacementNamed("/resourcehuman/content/collaborator/");
           } else if (state is CollaboratorPostErrorState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao salvar. Tente novamente mais tarde.");

@@ -65,7 +65,7 @@ class _ContentDesktopCollaboratorState
             child: CircularProgressIndicator(),
           );
         } else if (state is CollaboratorInterationPageState) {
-          Modular.to.pushReplacementNamed('/admin/content/collaborator/', arguments: state.collaborator);
+          Modular.to.pushReplacementNamed('/resourcehuman/content/collaborator/register/', arguments: state.collaborator);
           return const Center(
             child: CircularProgressIndicator(),
           );    
