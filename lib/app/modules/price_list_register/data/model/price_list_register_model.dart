@@ -37,8 +37,7 @@ class PriceListRegisterModel extends PriceListRegisterEntity {
     data['tb_institution_id'] = tbInstitutionId;
     data['description'] = description;
     data['validity'] = validity;
-    data['modality'] = modality;
-    data['aliq_profit'] = int.parse(aliqProfit);
+    data['aliq_profit'] = 0;
     data['active'] = active;
     return data;
   }

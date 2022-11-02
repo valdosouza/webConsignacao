@@ -48,7 +48,7 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
 
       var teste = jsonEncode(priceModel.toJson());
 
-      final response = await client.put(uri, body: teste);
+      final response = await client.post(uri, body: teste);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -70,7 +70,7 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
 
       var teste = jsonEncode(priceModel.toJson());
 
-      final response = await client.post(uri, body: teste);
+      final response = await client.put(uri, body: teste);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

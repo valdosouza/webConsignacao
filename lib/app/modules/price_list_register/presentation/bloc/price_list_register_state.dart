@@ -21,3 +21,33 @@ class PriceListRegisterErrorState extends PriceListRegisterState {
   PriceListRegisterErrorState({required List<PriceListRegisterModel> prices})
       : super(prices: prices);
 }
+
+class PriceListRegisterInfoPageState extends PriceListRegisterState {
+  final PriceListRegisterModel? model;
+  PriceListRegisterInfoPageState(
+      {required List<PriceListRegisterModel> prices, this.model})
+      : super(prices: prices);
+}
+
+class PriceListRegisterAddSuccessState extends PriceListRegisterState {
+  PriceListRegisterAddSuccessState(
+      {required List<PriceListRegisterModel> prices})
+      : super(prices: prices);
+}
+
+class PriceListRegisterAddErrorState extends PriceListRegisterState {
+  PriceListRegisterAddErrorState({required List<PriceListRegisterModel> prices})
+      : super(prices: prices);
+}
+
+class PriceListRegisterEditSuccessState extends PriceListRegisterState {
+  PriceListRegisterEditSuccessState(
+      {required List<PriceListRegisterModel> prices})
+      : super(prices: prices);
+}
+
+class PriceListRegisterEditErrorState extends PriceListRegisterState {
+  PriceListRegisterEditErrorState(
+      {required List<PriceListRegisterModel> prices})
+      : super(prices: prices);
+}

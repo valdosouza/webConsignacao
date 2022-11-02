@@ -25,6 +25,12 @@ class PriceListRegisterBloc
     getList();
 
     searchPrices();
+
+    goToInfoPage();
+
+    addFunction();
+
+    editFunction();
   }
 
   getList() {
@@ -57,6 +63,43 @@ class PriceListRegisterBloc
       } else {
         emit(PriceListRegisterLoadedState(prices: prices));
       }
+    });
+  }
+
+  goToInfoPage() {
+    on<PriceListRegisterInfoEvent>((event, emit) async {
+      emit(PriceListRegisterInfoPageState(prices: prices, model: event.model));
+    });
+  }
+
+  addFunction() {
+    on<PriceListRegisterAddEvent>((event, emit) async {
+      PriceListRegisterLoadingState();
+      var response = await post.call(ParamsPriceListPost(model: event.price));
+
+      var result = response.fold(
+        (l) => PriceListRegisterAddErrorState(prices: prices),
+        (r) {
+          prices.add(r);
+          return PriceListRegisterAddSuccessState(prices: prices);
+        },
+      );
+      emit(result);
+    });
+  }
+
+  editFunction() {
+    on<PriceListRegisterEditEvent>((event, emit) async {
+      PriceListRegisterLoadingState();
+      var response = await put.call(ParamsPriceListEdit(model: event.model));
+
+      var result = response.fold(
+        (l) => PriceListRegisterEditErrorState(prices: prices),
+        (r) {
+          return PriceListRegisterEditSuccessState(prices: prices);
+        },
+      );
+      emit(result);
     });
   }
 }

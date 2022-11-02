@@ -3,6 +3,7 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_bloc.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_event.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_state.dart';
+import 'package:appweb/app/modules/price_list_register/presentation/pages/price_list_register_interation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -34,12 +35,27 @@ class _ContentDesktopPriceListRegisterState
         if (state is PriceListRegisterErrorState) {
           CustomToast.showToast(
               "Erro ao buscar a lista. Tente novamente mais tarde.");
+        } else if (state is PriceListRegisterAddSuccessState) {
+          CustomToast.showToast("Preço adicionado com sucesso.");
+        } else if (state is PriceListRegisterAddErrorState) {
+          CustomToast.showToast(
+              "Erro ao adicionar um preço. Tente novamente mais tarde.");
+        } else if (state is PriceListRegisterEditSuccessState) {
+          CustomToast.showToast("Preço editado com sucesso.");
+        } else if (state is PriceListRegisterEditErrorState) {
+          CustomToast.showToast(
+              "Erro ao editar um preço. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
         if (state is PriceListRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        } else if (state is PriceListRegisterInfoPageState) {
+          return PriceListRegisterInterationPage(
+            price: state.model,
+            index: state.prices.last.id,
           );
         }
         final prices = state.prices;
@@ -50,7 +66,7 @@ class _ContentDesktopPriceListRegisterState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  // bloc.add(UserRegisterInfoEvent());
+                  bloc.add(PriceListRegisterInfoEvent());
                 },
               ),
             ],
@@ -73,8 +89,8 @@ class _ContentDesktopPriceListRegisterState
                             itemCount: prices.length,
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
-                                // bloc.add(
-                                //     UserRegisterInfoEvent(model: users[index]));
+                                bloc.add(PriceListRegisterInfoEvent(
+                                    model: prices[index]));
                               },
                               child: ListTile(
                                 leading: CircleAvatar(
