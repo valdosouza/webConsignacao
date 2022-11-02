@@ -22,12 +22,11 @@ class _PriceListRegisterInterationPageState
     extends State<PriceListRegisterInterationPage> {
   late final PriceListRegisterBloc bloc;
   PriceListRegisterModel? price;
-  final _formKey = GlobalKey<FormState>();
 
   bool selectRadio = false;
 
   String description = "";
-  String active = "S";
+  String active = "N";
 
   @override
   void initState() {
@@ -36,6 +35,7 @@ class _PriceListRegisterInterationPageState
     price = widget.price;
     if (price != null) {
       selectRadio = price!.active == "S";
+      active = price!.active;
     }
   }
 
@@ -63,89 +63,84 @@ class _PriceListRegisterInterationPageState
               child: IconButton(
                 icon: const Icon(Icons.check),
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    price != null
-                        ? bloc.add(PriceListRegisterEditEvent(model: price!))
-                        : bloc.add(PriceListRegisterAddEvent(
-                            price: PriceListRegisterModel(
-                            id: widget.index + 1,
-                            tbInstitutionId: 1,
-                            description: description,
-                            active: active,
-                          )));
-                  }
+                  price != null
+                      ? bloc.add(PriceListRegisterEditEvent(model: price!))
+                      : bloc.add(PriceListRegisterAddEvent(
+                          price: PriceListRegisterModel(
+                          id: widget.index + 1,
+                          tbInstitutionId: 1,
+                          description: description,
+                          active: active,
+                        )));
                 },
               ),
             ),
           ],
         ),
-        body: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Ativo", style: kLabelStyle),
-                const SizedBox(height: 10.0),
-                Row(
-                  children: [
-                    Row(
-                      children: [
-                        Radio(
-                          value: true,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Ativo", style: kLabelStyle),
+              const SizedBox(height: 10.0),
+              Row(
+                children: [
+                  Row(
+                    children: [
+                      Radio(
+                        value: true,
+                        groupValue: selectRadio,
+                        activeColor: Colors.red,
+                        onChanged: selectRadio
+                            ? (value) {}
+                            : (value) {
+                                setState(() {
+                                  selectRadio = true;
+                                });
+                                price?.active = "S";
+                                active = "S";
+                              },
+                      ),
+                      const SizedBox(width: 5.0),
+                      const Text("Sim", style: kLabelStyle),
+                    ],
+                  ),
+                  const SizedBox(width: 10.0),
+                  Row(
+                    children: [
+                      Radio(
+                          value: false,
                           groupValue: selectRadio,
                           activeColor: Colors.red,
                           onChanged: selectRadio
-                              ? (value) {}
-                              : (value) {
+                              ? (value) {
                                   setState(() {
-                                    selectRadio = true;
+                                    selectRadio = false;
                                   });
-                                  price?.active = "S";
-                                  active = "S";
-                                },
-                        ),
-                        const SizedBox(width: 5.0),
-                        const Text("Sim", style: kLabelStyle),
-                      ],
-                    ),
-                    const SizedBox(width: 10.0),
-                    Row(
-                      children: [
-                        Radio(
-                            value: false,
-                            groupValue: selectRadio,
-                            activeColor: Colors.red,
-                            onChanged: selectRadio
-                                ? (value) {
-                                    setState(() {
-                                      selectRadio = false;
-                                    });
-                                    price?.active = "N";
-                                    active = "N";
-                                  }
-                                : (value) {}),
-                        const SizedBox(width: 5.0),
-                        const Text("Não", style: kLabelStyle),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30.0),
-                CustomInput(
-                  title: 'Descrição',
-                  initialValue: price?.description ?? "",
-                  validator: (value) => Validators.validateRequired(value),
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.next,
-                  onChanged: (value) {
-                    price?.description = value;
-                    description = value;
-                  },
-                ),
-              ],
-            ),
+                                  price?.active = "N";
+                                  active = "N";
+                                }
+                              : (value) {}),
+                      const SizedBox(width: 5.0),
+                      const Text("Não", style: kLabelStyle),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30.0),
+              CustomInput(
+                title: 'Descrição',
+                initialValue: price?.description ?? "",
+                validator: (value) => Validators.validateRequired(value),
+                keyboardType: TextInputType.text,
+                inputAction: TextInputAction.next,
+                onChanged: (value) {
+                  price?.description = value;
+                  description = value;
+                },
+              ),
+            ],
           ),
         ),
       ),

@@ -29,6 +29,7 @@ class _CustomerRegisterIdentificationWidgetState
   void initState() {
     super.initState();
     selectPersonType = widget.customer?.company?.cnpj.isNotEmpty == true;
+    selectWallet = widget.customer?.customer.consumer == "S";
   }
 
   @override
