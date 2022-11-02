@@ -1,6 +1,8 @@
-import 'package:appweb/app/modules/customer_register/data/model/consumer_list_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_salesman_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get_salesmans.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_post.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_cep_usecase.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_citys.dart';
@@ -22,11 +24,13 @@ class CustomerRegisterBloc
   final CustomerRegisterGetStates getStates;
   final CustomerRegisterGet getCustomer;
   final CustomerRegisterPost postCustomer;
+  final CustomerRegisterGetSalesmans getSalesmans;
 
   List<CustomerListModel> customers = [];
   CustomerMainModel customer = CustomerMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> citys = [];
+  List<CustomerSalesmanModel> salesmans = [];
 
   CustomerRegisterBloc({
     required this.getlist,
@@ -36,6 +40,7 @@ class CustomerRegisterBloc
     required this.getStates,
     required this.getCustomer,
     required this.postCustomer,
+    required this.getSalesmans,
   }) : super(CustomerRegisterLoadingState()) {
     getList();
 
@@ -57,9 +62,13 @@ class CustomerRegisterBloc
 
     postCustomerAction();
 
+    getSalesmansAction();
+
+    searchSalesmans();
+
     on<CustomerRegisterReturnEvent>((event, emit) => emit(
         CustomerRegisterInfoPageState(
-            model: customer, customers: customers, tabIndex: 1)));
+            model: customer, customers: customers, tabIndex: event.index)));
   }
 
   getList() {
@@ -149,6 +158,7 @@ class CustomerRegisterBloc
 
         final response =
             await getCustomer.call(ParamsGetCustomer(id: event.id!));
+
         response.fold(
             (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
             (r) {
@@ -276,6 +286,39 @@ class CustomerRegisterBloc
       } else {
         emit(CustomerRegisterGetCitySuccessState(
             citys: citys, customers: customers));
+      }
+    });
+  }
+
+  getSalesmansAction() {
+    on<CustomerRegisterGetSalesmanEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
+
+      var response = await getSalesmans.call(ParamsGetListSalesman(id: 1));
+
+      response.fold(
+          (l) => emit(CustomerRegisterGetSalesmanErrorState(customers)), (r) {
+        salesmans = r;
+        emit(CustomerRegisterGetSalesmanSuccessState(customers, r));
+      });
+    });
+  }
+
+  searchSalesmans() {
+    on<CustomerRegisterSearchSalesmanEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var salesmanSearched = salesmans.where((element) {
+          String name = element.nameCompany;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (salesmanSearched.isEmpty) {}
+        emit(CustomerRegisterGetSalesmanSuccessState(
+            customers, salesmanSearched));
+      } else {
+        emit(CustomerRegisterGetSalesmanSuccessState(customers, salesmans));
       }
     });
   }

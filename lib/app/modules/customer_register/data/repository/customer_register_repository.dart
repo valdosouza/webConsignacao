@@ -1,8 +1,9 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/customer_register/data/datasource/customer_register_datasource.dart';
-import 'package:appweb/app/modules/customer_register/data/model/consumer_list_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_salesman_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/repository/customer_register_respository.dart';
 import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
@@ -85,6 +86,17 @@ class CustomerRegisterRepositoryImpl implements CustomerRegisterRepository {
       {required CustomerMainModel customer}) async {
     try {
       final response = await datasource.postCostumer(customer: customer);
+      return Right(response);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CustomerSalesmanModel>>> getSalesmans(
+      {required int id}) async {
+    try {
+      final response = await datasource.getSalesmans(id: id);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

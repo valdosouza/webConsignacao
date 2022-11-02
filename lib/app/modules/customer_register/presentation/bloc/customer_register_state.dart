@@ -1,5 +1,6 @@
-import 'package:appweb/app/modules/customer_register/data/model/consumer_list_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_salesman_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
 
@@ -117,5 +118,18 @@ class CustomerRegisterPostEditErrorState extends CustomerRegisterState {
 
   CustomerRegisterPostEditErrorState(
       List<CustomerListModel> customers, this.error)
+      : super(customers: customers);
+}
+
+class CustomerRegisterGetSalesmanSuccessState extends CustomerRegisterState {
+  final List<CustomerSalesmanModel> salesmans;
+
+  CustomerRegisterGetSalesmanSuccessState(
+      List<CustomerListModel> customers, this.salesmans)
+      : super(customers: customers);
+}
+
+class CustomerRegisterGetSalesmanErrorState extends CustomerRegisterState {
+  CustomerRegisterGetSalesmanErrorState(List<CustomerListModel> customers)
       : super(customers: customers);
 }

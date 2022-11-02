@@ -44,6 +44,9 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
         }
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const Text("Esqueci minha senha"),
             centerTitle: true,
           ),

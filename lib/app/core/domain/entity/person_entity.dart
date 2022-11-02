@@ -1,4 +1,5 @@
-class CustomerPersonEntity {
+class PersonEntity {
+  int id;
   String cpf;
   String rg;
   String rgDtEmission;
@@ -7,7 +8,8 @@ class CustomerPersonEntity {
   String birthday;
   int tbProfessionId;
 
-  CustomerPersonEntity({
+  PersonEntity({
+    this.id = 0,
     this.cpf = "",
     this.rg = "",
     this.rgDtEmission = "",
@@ -19,6 +21,7 @@ class CustomerPersonEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['cpf'] = cpf;
     data['rg'] = rg;
     data['rg_dt_emission'] = rgDtEmission;

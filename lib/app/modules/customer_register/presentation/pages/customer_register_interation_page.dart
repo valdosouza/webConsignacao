@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
@@ -69,6 +69,9 @@ class _CustomerRegisterInterationPageState
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
+              flexibleSpace: Container(
+                decoration: kBoxDecorationflexibleSpace,
+              ),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
@@ -76,18 +79,6 @@ class _CustomerRegisterInterationPageState
                 },
               ),
               centerTitle: true,
-              flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Color.fromARGB(255, 229, 57, 57),
-                        Color.fromARGB(255, 224, 71, 71),
-                        Color.fromARGB(255, 241, 97, 97),
-                      ]),
-                ),
-              ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

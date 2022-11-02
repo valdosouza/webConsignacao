@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 class Page404 extends StatelessWidget {
@@ -8,6 +9,9 @@ class Page404 extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
+        ),
         title: const Text("Sistema Consignação e Venda"),
       ),
       body: SizedBox(

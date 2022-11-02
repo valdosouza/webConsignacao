@@ -37,16 +37,17 @@ class _DrawerPageState extends State<DrawerPage> {
             children: <Widget>[
               DrawerHeader(
                 decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: <Color>[
-                    Colors.red,
-                    Colors.black,
-                    Colors.black,
-                    Colors.white,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )),
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Colors.red,
+                      Colors.black,
+                      Colors.black,
+                      Colors.white,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
                 child: Column(
                   children: <Widget>[
                     Material(

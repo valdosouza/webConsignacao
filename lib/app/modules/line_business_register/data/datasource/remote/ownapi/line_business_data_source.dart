@@ -41,7 +41,13 @@ class LineBusinessDatasourceImpl implements LineBusinessDatasource {
   Future<LineBusinessModel> post({required LineBusinessModel model}) async {
     final uri = Uri.parse('${baseApiUrl}linebusiness');
     try {
-      final response = await client.post(uri, body: model.toJson());
+      final response = await client.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: model.toJson(),
+      );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

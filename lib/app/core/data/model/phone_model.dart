@@ -1,20 +1,23 @@
-import 'package:appweb/app/modules/customer_register/domain/entity/customer_phone_entity.dart';
+import 'package:appweb/app/core/domain/entity/phone_entity.dart';
 
-class CustomerPhoneModel extends CustomerPhoneEntity {
-  CustomerPhoneModel({
+class PhoneModel extends PhoneEntity {
+  PhoneModel({
+    int? id,
     String? kind,
     String? contact,
     String? number,
     String? addressKind,
   }) : super(
+          id: id ?? 0,
           kind: kind ?? "",
           contact: contact ?? "",
           number: number ?? "",
           addressKind: addressKind ?? "",
         );
 
-  factory CustomerPhoneModel.fromJson(Map<String, dynamic> json) {
-    return CustomerPhoneModel(
+  factory PhoneModel.fromJson(Map<String, dynamic> json) {
+    return PhoneModel(
+      id: json['id'] as int? ?? 0,
       kind: json['kind'] as String? ?? "",
       contact: json['contact'] as String? ?? "",
       number: json['number'] as String? ?? "",

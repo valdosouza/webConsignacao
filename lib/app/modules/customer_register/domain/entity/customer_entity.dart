@@ -3,11 +3,12 @@ class CustomerEntity {
   int tbInstitutionId;
   int tbSalesmanId;
   int tbCarrierId;
+  String salesmanName;
   String creditStatus;
-  String creditValue;
+  double creditValue;
   String wallet;
   String consumer;
-  String multiplier;
+  double multiplier;
   String active;
 
   CustomerEntity({
@@ -15,11 +16,12 @@ class CustomerEntity {
     this.tbInstitutionId = 0,
     this.tbSalesmanId = 0,
     this.tbCarrierId = 0,
+    this.salesmanName = "",
     this.creditStatus = "",
-    this.creditValue = "",
+    this.creditValue = 0,
     this.wallet = "",
     this.consumer = "",
-    this.multiplier = "",
+    this.multiplier = 0,
     this.active = "",
   });
 
@@ -30,6 +32,7 @@ class CustomerEntity {
     data['tb_salesman_id'] = tbSalesmanId;
     data['tb_carrier_id'] = tbCarrierId;
     data['credit_status'] = creditStatus;
+    data['salesman_name'] = salesmanName;
     data['credit_value'] = 0;
     data['wallet'] = wallet;
     data['consumer'] = consumer;

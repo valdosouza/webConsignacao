@@ -1,19 +1,19 @@
-import 'package:appweb/app/modules/customer_register/data/model/customer_address_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_business_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_company_model.dart';
+import 'package:appweb/app/core/data/model/address_model.dart';
+import 'package:appweb/app/core/data/model/entity_model.dart';
+import 'package:appweb/app/core/data/model/company_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_person_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_phone_model.dart';
+import 'package:appweb/app/core/data/model/person_model.dart';
+import 'package:appweb/app/core/data/model/phone_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/entity/customer_main_entity.dart';
 
 class CustomerMainModel extends CustomerMainEntity {
   CustomerMainModel({
     required CustomerModel customer,
-    required CustomerBusinessModel entity,
-    CustomerCompanyModel? company,
-    CustomerPersonModel? person,
-    required CustomerAddressModel address,
-    required CustomerPhoneModel phone,
+    required EntityModel entity,
+    CompanyModel? company,
+    PersonModel? person,
+    required AddressModel address,
+    required PhoneModel phone,
   }) : super(
           customer: customer,
           entity: entity,
@@ -24,23 +24,24 @@ class CustomerMainModel extends CustomerMainEntity {
         );
 
   factory CustomerMainModel.fromJson(Map<String, dynamic> json) {
+    CustomerModel retcustomer = CustomerModel.fromJson(json['customer']);
+    EntityModel retentity = EntityModel.fromJson(json['entity']);
     return CustomerMainModel(
-      customer: CustomerModel.fromJson(json['custommer']),
-      entity: CustomerBusinessModel.fromJson(json['entity']),
+      customer: retcustomer,
+      entity: retentity,
       company: json['company'] != null
-          ? CustomerCompanyModel.fromJson(json['company'])
+          ? CompanyModel.fromJson(json['company'])
           : null,
-      person: json['person'] != null
-          ? CustomerPersonModel.fromJson(json['person'])
-          : null,
-      address: CustomerAddressModel.fromJson(json['address']),
-      phone: CustomerPhoneModel.fromJson(json['phone']),
+      person:
+          json['person'] != null ? PersonModel.fromJson(json['person']) : null,
+      address: AddressModel.fromJson(json['address']),
+      phone: PhoneModel.fromJson(json['phone']),
     );
   }
 
   Map<dynamic, dynamic> toJson() {
     final Map<dynamic, dynamic> data = <dynamic, dynamic>{};
-    data['custommer'] = customer.toJson();
+    data['customer'] = customer.toJson();
     data['entity'] = entity.toJson();
     data['company'] = company?.toJson();
     data['person'] = person?.toJson();
@@ -57,27 +58,30 @@ class CustomerMainModel extends CustomerMainEntity {
         tbSalesmanId: 1,
         tbCarrierId: 1,
         creditStatus: "",
-        creditValue: "",
+        creditValue: 0,
         wallet: "",
         consumer: "",
-        multiplier: "",
+        multiplier: 0,
         active: "N",
       ),
-      entity: CustomerBusinessModel(
+      entity: EntityModel(
+        id: 0,
         nameCompany: "",
         nickTrade: "",
         tbLineBuinessId: 1,
         aniversary: "",
         note: "",
       ),
-      company: CustomerCompanyModel(
+      company: CompanyModel(
+        id: 0,
         cnpj: "",
         dtFoundation: "",
         ie: "",
         iest: "",
         indIeDestinatario: "",
       ),
-      person: CustomerPersonModel(
+      person: PersonModel(
+        id: 0,
         birthday: "",
         cpf: "",
         rg: "",
@@ -86,8 +90,9 @@ class CustomerMainModel extends CustomerMainEntity {
         rgStateIssuer: 0,
         tbProfessionId: 0,
       ),
-      address: CustomerAddressModel(
-        addressKind: "",
+      address: AddressModel(
+        id: 0,
+        kind: "",
         zipCode: "",
         cityName: "",
         complement: "",
@@ -104,8 +109,7 @@ class CustomerMainModel extends CustomerMainEntity {
         tbCountryId: 1,
         tbStateId: 1,
       ),
-      phone: CustomerPhoneModel(
-          addressKind: "", contact: "", kind: "", number: ""),
+      phone: PhoneModel(addressKind: "", contact: "", kind: "", number: ""),
     );
   }
 }

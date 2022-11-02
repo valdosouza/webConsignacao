@@ -1,13 +1,15 @@
-import 'package:appweb/app/modules/customer_register/domain/entity/customer_company_entity.dart';
+import 'package:appweb/app/core/domain/entity/company_entity.dart';
 
-class CustomerCompanyModel extends CustomerCompanyEntity {
-  CustomerCompanyModel({
+class CompanyModel extends CompanyEntity {
+  CompanyModel({
+    int? id,
     String? cnpj,
     String? ie,
     String? iest,
     String? dtFoundation,
     String? indIeDestinatario,
   }) : super(
+          id: id ?? 0,
           cnpj: cnpj ?? "",
           ie: ie ?? "",
           iest: iest ?? "",
@@ -15,8 +17,9 @@ class CustomerCompanyModel extends CustomerCompanyEntity {
           indIeDestinatario: indIeDestinatario ?? "",
         );
 
-  factory CustomerCompanyModel.fromJson(Map<String, dynamic> json) {
-    return CustomerCompanyModel(
+  factory CompanyModel.fromJson(Map<String, dynamic> json) {
+    return CompanyModel(
+      id: json['id'] as int? ?? 0,
       cnpj: json['cnpj'] as String? ?? "",
       ie: json['ie'] as String? ?? "",
       iest: json['iest'] as String? ?? "",

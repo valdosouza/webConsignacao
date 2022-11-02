@@ -48,6 +48,9 @@ class _LineBusinessInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
+          ),
           title: lineBusiness == null
               ? const Text('Adicionar')
               : const Text('Editar'),

@@ -1,5 +1,5 @@
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/customer_register/data/model/consumer_main_model.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:flutter/material.dart';
 

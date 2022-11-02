@@ -87,19 +87,10 @@ class _ContentDesktopInstitutionRegisterState
           }
           return Scaffold(
             appBar: AppBar(
-              centerTitle: true,
               flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Color.fromARGB(255, 229, 57, 57),
-                        Color.fromARGB(255, 224, 71, 71),
-                        Color.fromARGB(255, 241, 97, 97),
-                      ]),
-                ),
+                decoration: kBoxDecorationflexibleSpace,
               ),
+              centerTitle: true,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

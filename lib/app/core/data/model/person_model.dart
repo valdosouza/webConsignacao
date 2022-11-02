@@ -1,7 +1,8 @@
-import 'package:appweb/app/modules/customer_register/domain/entity/customer_person_entity.dart';
+import 'package:appweb/app/core/domain/entity/person_entity.dart';
 
-class CustomerPersonModel extends CustomerPersonEntity {
-  CustomerPersonModel({
+class PersonModel extends PersonEntity {
+  PersonModel({
+    int? id,
     String? cpf,
     String? rg,
     String? rgDtEmission,
@@ -10,6 +11,7 @@ class CustomerPersonModel extends CustomerPersonEntity {
     String? birthday,
     int? tbProfessionId,
   }) : super(
+            id: id ?? 0,
             cpf: cpf ?? "",
             rg: rg ?? "",
             rgDtEmission: rgDtEmission ?? "",
@@ -18,8 +20,9 @@ class CustomerPersonModel extends CustomerPersonEntity {
             birthday: birthday ?? "",
             tbProfessionId: tbProfessionId ?? 0);
 
-  factory CustomerPersonModel.fromJson(Map<String, dynamic> json) {
-    return CustomerPersonModel(
+  factory PersonModel.fromJson(Map<String, dynamic> json) {
+    return PersonModel(
+      id: json['id'] as int? ?? 0,
       cpf: json['cpf'] as String? ?? "",
       rg: json['rg'] as String? ?? "",
       rgDtEmission: json['rg_dt_emission'] as String? ?? "",
