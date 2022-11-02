@@ -12,6 +12,7 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
   SalesBloc({required this.post}) : super(SalesInitialState()) {
     on<LoadSalesEvent>((event, emit) async {
       SalesInitialState();
+      emit(SalesInitialState());
     });
     on<AddSalesEvent>(
       (event, emit) async {
