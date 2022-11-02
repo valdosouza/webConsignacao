@@ -11,12 +11,12 @@ class ProductMenus extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           itemMenuDraw(Icons.home, 'Cadastro de Produtos',
-              () async => Modular.to.popAndPushNamed('/product/listproduct/')),
+              () async => Modular.to.navigate('/product/listproduct/')),
           itemMenuDraw(
               Icons.home,
               'Tabela de Preço',
               () async =>
-                  Modular.to.popAndPushNamed('/product/listpricetable/')),
+                  Modular.to.navigate('/product/content/listpricetable/')),
         ],
       ),
     );
