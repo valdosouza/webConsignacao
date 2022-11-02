@@ -9,7 +9,9 @@ import '../../data/models/sales_model.dart';
 class SalesPost implements UseCase<SalesModel, SalesParams> {
   final SalesRepository repository;
 
-  SalesPost(this.repository);
+  SalesPost({
+    required this.repository,
+  });
 
   @override
   Future<Either<Failure, SalesModel>> call(SalesParams params) async {
