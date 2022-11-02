@@ -8,6 +8,10 @@ abstract class SalesState {
   });
 }
 
+class SalesInitialState extends SalesState {
+  SalesInitialState() : super(listSalesModel: []);
+}
+
 class SalesSuccessSate extends SalesState {
   SalesSuccessSate({
     required super.listSalesModel,
