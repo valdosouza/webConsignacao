@@ -14,4 +14,13 @@ class SalesModel extends SalesEntity {
         "description": description,
         "active": active,
       };
+
+  factory SalesModel.fromJson(Map<String, dynamic> json) {
+    return SalesModel(
+      id: json["id"],
+      institution: json["institution"],
+      description: json["description"],
+      active: json["active"],
+    );
+  }
 }
