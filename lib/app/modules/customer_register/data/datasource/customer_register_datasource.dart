@@ -135,7 +135,6 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
         throw ServerException();
       }
     } catch (e) {
-      print(e);
       throw ServerException();
     }
   }
@@ -163,7 +162,6 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
         throw ServerException();
       }
     } catch (e) {
-      print(e);
       throw ServerException();
     }
   }
