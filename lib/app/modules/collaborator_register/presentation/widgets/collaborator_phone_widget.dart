@@ -1,6 +1,7 @@
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class CollaboratorPhoneWidget extends StatelessWidget {
   final CollaboratorRegisterBloc bloc;
@@ -11,6 +12,8 @@ class CollaboratorPhoneWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController phoneController = MaskedTextController(
+        text: bloc.entity.phone!.number, mask: "(00) 0 0000-0000");
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -48,7 +51,7 @@ class CollaboratorPhoneWidget extends StatelessWidget {
           const SizedBox(height: 30.0),
           CustomInput(
             title: 'Número',
-            initialValue: bloc.entity.phone!.number,
+            controller: phoneController,
             keyboardType: TextInputType.number,
             inputAction: TextInputAction.next,
             onChanged: (value) {

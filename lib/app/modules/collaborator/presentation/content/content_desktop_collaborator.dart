@@ -78,7 +78,9 @@ class _ContentDesktopCollaboratorState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(CollaboratorInterationEvent());
+                  bloc.collaborators.last.id + 1;
+                  CollaboratorModel model = CollaboratorModel(id: bloc.collaborators.last.id + 1);
+                  bloc.add(CollaboratorInterationEvent(collaborator: model));
                 },
               ),
             ],

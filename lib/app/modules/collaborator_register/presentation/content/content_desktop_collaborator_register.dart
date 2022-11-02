@@ -108,6 +108,10 @@ class _ContentDesktopCollaboratorRegisterState
                               bloc.entity.address!.zipCode, 8) !=
                           null) {
                         CustomToast.showToast("CEP inválido.");
+                      } else if (Validators.validateCPF(
+                              bloc.entity.person!.cpf) !=
+                          null) {
+                        CustomToast.showToast("CPF inválido.");
                       } else {
                         bloc.add(CollaboratorSaveEvent());
                       }

@@ -8,6 +8,7 @@ import 'package:appweb/app/modules/collaborator_register/domain/usecase/collabor
 
 class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
   final CollaboratorGetlist getlist;
+  List<CollaboratorModel> collaborators = [];
 
   CollaboratorBloc({required this.getlist})
       : super(CollaboratorInitialState()) {
@@ -17,7 +18,7 @@ class CollaboratorBloc extends Bloc<CollaboratorEvent, CollaboratorState> {
       result.fold((l) {
         emit(CollaboratorGetlistErrorState());
       }, (r) {
-        List<CollaboratorModel> collaborators = r;
+        collaborators = r;
         emit(CollaboratorGetlistSuccessState(collaboratorList: collaborators));
       });
     });

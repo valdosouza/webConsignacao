@@ -1,10 +1,14 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_event.dart';
 import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class CollaboratorIdentificationPersonWidget extends StatefulWidget {
   final CollaboratorRegisterBloc bloc;
@@ -24,6 +28,8 @@ class _CollaboratorIdentificationPersonWidgetState
     extends State<CollaboratorIdentificationPersonWidget> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController controllerAniversary = MaskedTextController(
+        text: _convertData(widget.bloc.entity.entity!.aniversary), mask: '00/00/0000');
     return Form(
       key: widget.formKey,
       child: Padding(
@@ -85,7 +91,7 @@ class _CollaboratorIdentificationPersonWidgetState
                 onChanged: (value) {
                   widget.bloc.entity.salary = value;
                 },
-              ),            
+              ),
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'CPF',
@@ -108,15 +114,23 @@ class _CollaboratorIdentificationPersonWidgetState
                   widget.bloc.entity.person!.rg = value;
                 },
               ),
-              const SizedBox(height: 30.0),             
+              const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Data de Nascimento',
-                initialValue: widget.bloc.entity.entity!.aniversary,
+                controller: controllerAniversary,
                 validator: (value) => Validators.validateRequired(value),
                 keyboardType: TextInputType.datetime,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  widget.bloc.entity.entity!.aniversary = value;
+                  if (value.length == 10) {
+                    int day = int.parse(value.substring(0, 2));
+                    int month = int.parse(value.substring(3, 5));
+                    int year = int.parse(value.substring(6));
+
+                    DateTime time = DateTime.utc(year, month, day);
+                    widget.bloc.entity.entity!.aniversary =
+                        time.toString().substring(0, 10);
+                  }
                 },
               ),
               const SizedBox(height: 30.0),
@@ -142,10 +156,11 @@ class _CollaboratorIdentificationPersonWidgetState
                                     .firstWhere(
                                         (element) =>
                                             element.id ==
-                                            widget
-                                                .bloc.entity.entity!.tbLineBussinessId,
+                                            widget.bloc.entity.entity!
+                                                .tbLineBussinessId,
                                         orElse: () => LineBusinessModel(
-                                            description:  widget.bloc.entity.entity!.nameLineBussiness,
+                                            description: widget.bloc.entity
+                                                .entity!.nameLineBussiness,
                                             active: 's',
                                             id: 0,
                                             institution: 1))
@@ -182,5 +197,18 @@ class _CollaboratorIdentificationPersonWidgetState
         ),
       ),
     );
+  }
+
+  _convertData(String data) {
+    try {
+      if(data.isEmpty) return "";
+      DateTime time = DateTime.tryParse(data)!;
+      initializeDateFormatting('pt-br', null);
+      var formatter =  DateFormat("dd/MM/yyyy");
+      return formatter.format(time);
+
+    } catch (e) {
+      CustomToast.showToast("Data inválida");
+    }
   }
 }

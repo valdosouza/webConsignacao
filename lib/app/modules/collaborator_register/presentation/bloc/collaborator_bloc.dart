@@ -93,8 +93,7 @@ class CollaboratorRegisterBloc
       model.person!.id = model.id;
       model.address!.id = model.id;
       model.phone!.id = model.id;
-      final response =
-          await save.call(Params(model: model));
+      final response = await save.call(Params(model: model));
 
       response.fold((l) => emit(const CollaboratorPostErrorState("")),
           (r) => emit(CollaboratorPostSuccessState()));
@@ -115,8 +114,11 @@ class CollaboratorRegisterBloc
         entity.address!.neighborhood = r.neighborhood;
         entity.address!.stateName = r.stateName;
         entity.address!.cityName = r.cityName;
-        emit(CollaboratorLoadedState());
       });
+      await _getStatesPerCep(entity.address!.stateName);
+      await _getCitysPerCep(
+          entity.address!.cityName, entity.address!.tbStateId);
+      emit(CollaboratorLoadedState());
     });
   }
 
@@ -210,9 +212,11 @@ class CollaboratorRegisterBloc
               .contains(event.search.toLowerCase().trim());
         }).toList();
         if (lineBusinesstSearched.isEmpty) {}
-        emit(CollaboratorGetLineBusinessSuccessState(lineBusiness: lineBusinesstSearched));
+        emit(CollaboratorGetLineBusinessSuccessState(
+            lineBusiness: lineBusinesstSearched));
       } else {
-        emit(CollaboratorGetLineBusinessSuccessState(lineBusiness: lineBusiness));
+        emit(CollaboratorGetLineBusinessSuccessState(
+            lineBusiness: lineBusiness));
       }
     });
   }
@@ -220,6 +224,32 @@ class CollaboratorRegisterBloc
   loading() {
     on<CollaboratorLoadingEvent>((event, emit) async {
       emit(CollaboratorLoadingState());
+    });
+  }
+
+  _getStatesPerCep(String uf) async {
+    final response = await getStates.call(ParamsGetStates());
+
+    response.fold((l) {}, (r) {
+      final state = r.firstWhere(
+        (element) => element.abbreviation.toUpperCase().trim() == uf.toUpperCase().trim(),
+        orElse: () => StateModel(),
+      );
+      entity.address!.stateName = state.name;
+      entity.address!.tbStateId = state.id;
+    });
+  }
+
+  _getCitysPerCep(String cityName, int stateId) async {
+    final response = await getCity.call(ParamsGetCity(id: stateId.toString()));
+
+    response.fold((l) {}, (r) {
+      final city = r.firstWhere(
+        (element) => element.name.toUpperCase().trim() == cityName.toUpperCase().trim(),
+        orElse: () => CityModel(),
+      );
+      entity.address!.cityName = city.name;
+      entity.address!.tbCityId = city.id;
     });
   }
 }

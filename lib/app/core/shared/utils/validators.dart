@@ -58,36 +58,42 @@ class Validators {
     }
     return "CNPJ inválido.";
   }
-  static String? validateCPF(String cpf) {
-   
-    if (cpf.isEmpty || cpf.length != 11) {
-      return "CPF inválido";
+
+  static String? validateCPF(String text) {
+    var validate = validateRequired(text);
+    if (validate != null) {
+      return validate;
     }
 
-    String numbers = cpf.substring(0, 9);
-    numbers += _verifierDigit(numbers).toString();
-    numbers += _verifierDigit(numbers).toString();
+    const expectedLength = 11;
+    var numbers = text.replaceAll(RegExp(r'[\.\-\/]'), '');
 
-    return numbers.substring(numbers.length - 2) ==
-        cpf.substring(cpf.length - 2) ? "CPF inválido" : null;
+    validate = validateExactLength(numbers, expectedLength);
+    if (validate != null) {
+      return validate;
+    }
+
+    var digits = RegExp(r'\d')
+        .allMatches(numbers)
+        .map((it) => int.parse(numbers.substring(it.start, it.end)))
+        .toList();
+    bool justOneDigit = digits.every((element) => element == digits.first);
+    if(justOneDigit) return "CPF inválido";
+
+    int sumResultFirstDigit = 0;
+    int sumResultLastDigit = 0;
+    for (int i = 10, j = 0; i >= 2; i--, j++) {
+      sumResultFirstDigit += digits[j] * i;
+    }
+
+    for (int i = 11, j = 0; i >= 2; i--, j++) {
+      sumResultLastDigit += digits[j] * i;
+    }
+
+    if (!(((sumResultFirstDigit * 10) % 11) % 10 == digits[9] &&
+        ((sumResultLastDigit * 10) % 11) % 10 == digits[10])) {
+      return "CPF Inválido";
+    }
+    return null;
   }
-
 }
-
-
-  int _verifierDigit(String cpf) {
-    List<int> numbers =
-    cpf.split("").map((number) => int.parse(number, radix: 10)).toList();
-
-    int modulus = numbers.length + 1;
-
-    List<int> multiplied = [];
-
-    for (var i = 0; i < numbers.length; i++) {
-      multiplied.add(numbers[i] * (modulus - i));
-    }
-
-    int mod = multiplied.reduce((buffer, number) => buffer + number) % 11;
-
-    return (mod < 2 ? 0 : 11 - mod);
-  }
