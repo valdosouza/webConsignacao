@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
 import 'package:appweb/app/modules/product/presentation/pages/product_menus.dart';
@@ -25,6 +26,9 @@ class _ProductPageTabletState extends State<ProductPageTablet> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
+        ),
         title: const Text("Sistema Consignação e Venda"),
       ),
       drawer: const DrawerPage(),

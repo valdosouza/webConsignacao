@@ -72,6 +72,9 @@ class _ContentDesktoLineBusinesseState
 
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const Text('Lista de Formas de Pagamento'),
             actions: [
               IconButton(

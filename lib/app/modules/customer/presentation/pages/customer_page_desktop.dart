@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/customer/presentation/pages/customer_menus.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
@@ -25,6 +26,9 @@ class FinancialnPageDesktopState extends State<CustomerPageDesktop> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
+        ),
         title: const Text("Sistema Consignação e Venda"),
       ),
       body: SizedBox(

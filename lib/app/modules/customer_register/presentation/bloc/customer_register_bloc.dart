@@ -158,6 +158,7 @@ class CustomerRegisterBloc
 
         final response =
             await getCustomer.call(ParamsGetCustomer(id: event.id!));
+
         response.fold(
             (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
             (r) {

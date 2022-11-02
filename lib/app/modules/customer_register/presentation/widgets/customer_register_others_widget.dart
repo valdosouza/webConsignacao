@@ -20,9 +20,9 @@ class CustomerRegisterOthersWidget extends StatefulWidget {
 
 class _CustomerRegisterOthersWidgetState
     extends State<CustomerRegisterOthersWidget> {
-  bool active = false;
   @override
   Widget build(BuildContext context) {
+    bool active = (widget.customer?.customer.active == "S");
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(

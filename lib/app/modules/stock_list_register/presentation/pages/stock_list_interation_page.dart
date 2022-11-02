@@ -49,6 +49,9 @@ class _StockListInterationPageState extends State<StockListInterationPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
+          ),
           title: stock == null ? const Text('Adicionar') : const Text('Editar'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),

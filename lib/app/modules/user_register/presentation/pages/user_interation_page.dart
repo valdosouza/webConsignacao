@@ -53,6 +53,9 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
+          ),
           title: user == null
               ? const Text('Adicionar usuário')
               : Text('Editar ${user!.nick}'),

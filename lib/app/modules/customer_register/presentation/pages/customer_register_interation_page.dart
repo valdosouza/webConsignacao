@@ -69,6 +69,9 @@ class _CustomerRegisterInterationPageState
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
+              flexibleSpace: Container(
+                decoration: kBoxDecorationflexibleSpace,
+              ),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
@@ -76,18 +79,6 @@ class _CustomerRegisterInterationPageState
                 },
               ),
               centerTitle: true,
-              flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Color.fromARGB(255, 229, 57, 57),
-                        Color.fromARGB(255, 224, 71, 71),
-                        Color.fromARGB(255, 241, 97, 97),
-                      ]),
-                ),
-              ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
 import 'package:appweb/app/modules/resource_human/presentation/pages/resource_human_menus.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
@@ -26,6 +27,9 @@ class ResourceHumanlPageTabletState extends State<ResourceHumanPageTablet> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
+        ),
         title: const Text("Sistema Consignação e Venda"),
       ),
       drawer: const DrawerPage(),

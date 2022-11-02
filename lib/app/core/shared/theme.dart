@@ -23,6 +23,17 @@ const kBoxDecorationStyle = BoxDecoration(
   ],
 );
 
+const kBoxDecorationflexibleSpace = BoxDecoration(
+  gradient: LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: <Color>[
+        Color.fromARGB(255, 241, 97, 97),
+        Color.fromARGB(255, 224, 71, 71),
+        Color.fromARGB(255, 229, 57, 57),
+      ]),
+);
+
 const kPrimaryColor = Color(0xFF366CF6);
 const kSecondaryColor = Color(0xFFF5F6FC);
 const kBgLightColor = Color(0xFFF2F4FC);

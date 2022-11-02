@@ -65,6 +65,9 @@ class _ContentDesktopUserRegisterState
         final users = state.users;
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const Text('Lista de usuários'),
             actions: [
               IconButton(

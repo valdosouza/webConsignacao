@@ -33,6 +33,9 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
         if (state is CustomerRegisterGetStatesSuccessState) {
           return Scaffold(
             appBar: AppBar(
+              flexibleSpace: Container(
+                decoration: kBoxDecorationflexibleSpace,
+              ),
               title: const Text('Lista de estados'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
@@ -102,6 +105,9 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
         } else if (state is CustomerRegisterGetCitySuccessState) {
           return Scaffold(
             appBar: AppBar(
+              flexibleSpace: Container(
+                decoration: kBoxDecorationflexibleSpace,
+              ),
               title: const Text('Lista de cidades'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
@@ -170,6 +176,9 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
         } else if (state is CustomerRegisterGetSalesmanSuccessState) {
           return Scaffold(
             appBar: AppBar(
+              flexibleSpace: Container(
+                decoration: kBoxDecorationflexibleSpace,
+              ),
               title: const Text('Lista de vendedores'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),

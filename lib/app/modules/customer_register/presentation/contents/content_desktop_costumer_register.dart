@@ -76,6 +76,9 @@ class _ContentDesktopCustomerRegisterState
         final customers = state.customers;
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const Text('Lista de Clientes'),
             actions: [
               IconButton(

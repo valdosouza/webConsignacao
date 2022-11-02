@@ -1,13 +1,14 @@
-import 'package:appweb/app/modules/customer_register/domain/entity/customer_address_entity.dart';
+import 'package:appweb/app/core/domain/entity/address_entity.dart';
 
-class CustomerAddressModel extends CustomerAddressEntity {
-  CustomerAddressModel({
+class AddressModel extends AddressEntity {
+  AddressModel({
+    int? id,
     String? street,
     String? nmbr,
     String? complement,
     String? neighborhood,
     String? region,
-    String? addressKind,
+    String? kind,
     String? zipCode,
     int? tbCountryId,
     String? countryName,
@@ -19,12 +20,13 @@ class CustomerAddressModel extends CustomerAddressEntity {
     String? longitude,
     String? latitude,
   }) : super(
+          id: id ?? 0,
           street: street ?? "",
           nmbr: nmbr ?? "",
           complement: complement ?? "",
           neighborhood: neighborhood ?? "",
           region: region ?? "",
-          addressKind: addressKind ?? "",
+          kind: kind ?? "",
           tbCountryId: tbCountryId ?? 0,
           countryName: countryName ?? "",
           tbStateId: tbStateId ?? 0,
@@ -37,14 +39,15 @@ class CustomerAddressModel extends CustomerAddressEntity {
           latitude: latitude ?? "",
         );
 
-  factory CustomerAddressModel.fromJson(Map<String?, dynamic> json) {
-    return CustomerAddressModel(
+  factory AddressModel.fromJson(Map<String?, dynamic> json) {
+    return AddressModel(
+      id: json['id'] as int? ?? 0,
       street: json['street'] as String? ?? "",
       nmbr: json['nmbr'] as String? ?? "",
       neighborhood: json['neighborhood'] as String? ?? "",
       region: json['region'] as String? ?? "",
       complement: json['complement'] as String? ?? "",
-      addressKind: json['address_kind'] as String? ?? "",
+      kind: json['address_kind'] as String? ?? "",
       zipCode: json['zip_code'] as String? ?? "",
       tbCountryId: json['tb_country_id'] as int? ?? 0,
       countryName: json['name_country'] as String? ?? "",

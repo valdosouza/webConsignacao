@@ -1,10 +1,12 @@
-class CustomerPhoneEntity {
+class PhoneEntity {
+  int id;
   String kind;
   String contact;
   String number;
   String addressKind;
 
-  CustomerPhoneEntity({
+  PhoneEntity({
+    this.id = 0,
     this.kind = "",
     this.contact = "",
     this.number = "",
@@ -13,6 +15,7 @@ class CustomerPhoneEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['kind'] = kind;
     data['contact'] = contact;
     data['number'] = number;

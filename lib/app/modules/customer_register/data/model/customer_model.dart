@@ -8,10 +8,10 @@ class CustomerModel extends CustomerEntity {
     int? tbCarrierId,
     String? salesmanName,
     String? creditStatus,
-    String? creditValue,
+    double? creditValue,
     String? wallet,
     String? consumer,
-    String? multiplier,
+    double? multiplier,
     String? active,
   }) : super(
           id: id ?? 0,
@@ -20,30 +20,32 @@ class CustomerModel extends CustomerEntity {
           tbCarrierId: tbCarrierId ?? 0,
           salesmanName: salesmanName ?? "",
           creditStatus: creditStatus ?? "",
-          creditValue: creditValue ?? "",
+          creditValue: creditValue ?? 0,
           wallet: wallet ?? "",
           consumer: consumer ?? "",
-          multiplier: multiplier ?? "",
+          multiplier: multiplier ?? 0,
           active: active ?? "",
         );
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) {
     return CustomerModel(
-      id: json['id'] as int? ?? 0,
+      id: json['id'] is String ? int.parse(json['id']) : json['id'],
       tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
-      tbSalesmanId: json['tb_salesman_id'] as int? ?? 0,
+      tbSalesmanId: json['tb_salesman_id'] is String
+          ? int.parse(json['tb_salesman_id'])
+          : json['tb_salesman_id'],
       tbCarrierId: json['tb_carrier_id'] as int? ?? 0,
       salesmanName: json['salesman_name'] as String? ?? "",
       creditStatus: json['credit_status'] as String? ?? "",
       creditValue: json['credit_value'] is String
-          ? json['credit_value']
-          : int.parse(json['credit_value']),
+          ? double.parse(json['credit_value'])
+          : json['multiplier'],
       wallet: json['wallet'] as String? ?? "",
       consumer: json['consumer'] as String? ?? "",
       multiplier: json['multiplier'] is String
-          ? json['multiplier']
-          : int.parse(json['multiplier']),
-      active: json['active'] as String? ?? "",
+          ? double.parse(json['multiplier'])
+          : json['multiplier'],
+      active: json['active'] as String? ?? "S",
     );
   }
 }

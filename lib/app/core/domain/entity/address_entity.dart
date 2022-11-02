@@ -1,10 +1,11 @@
-class CustomerAddressEntity {
+class AddressEntity {
+  int id;
   String street;
   String nmbr;
   String complement;
   String neighborhood;
   String region;
-  String addressKind;
+  String kind;
   int tbCountryId;
   String countryName;
   int tbStateId;
@@ -16,13 +17,14 @@ class CustomerAddressEntity {
   String longitude;
   String latitude;
 
-  CustomerAddressEntity({
+  AddressEntity({
+    this.id = 0,
     this.street = "",
     this.nmbr = "",
     this.complement = "",
     this.neighborhood = "",
     this.region = "",
-    this.addressKind = "",
+    this.kind = "",
     this.tbCountryId = 0,
     this.countryName = "",
     this.tbStateId = 0,
@@ -37,12 +39,13 @@ class CustomerAddressEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['street'] = street;
     data['nmbr'] = nmbr;
     data['neighborhood'] = neighborhood;
     data['region'] = region;
     data['complement'] = complement;
-    data['address_kind'] = addressKind;
+    data['kind'] = kind;
     data['tb_country_id'] = tbCountryId;
     data['name_country'] = countryName;
     data['tb_state_id'] = tbStateId;

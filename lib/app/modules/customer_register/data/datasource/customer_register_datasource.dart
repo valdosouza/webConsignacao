@@ -135,6 +135,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
         throw ServerException();
       }
     } catch (e) {
+      print(e);
       throw ServerException();
     }
   }
@@ -145,9 +146,14 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
     try {
       final uri = Uri.parse('${baseApiUrl}customer');
 
-      var teste = jsonEncode(customer.toJson());
-
-      final response = await client.post(uri, body: teste);
+      var bodyCustomer = jsonEncode(customer.toJson());
+      final response = await client.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: bodyCustomer,
+      );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -157,6 +163,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
         throw ServerException();
       }
     } catch (e) {
+      print(e);
       throw ServerException();
     }
   }

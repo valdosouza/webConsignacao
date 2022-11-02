@@ -32,6 +32,9 @@ class _InstitutionListsPageState extends State<InstitutionListsPage> {
         if (state is InstitutionGetStatesSuccessState) {
           return Scaffold(
             appBar: AppBar(
+              flexibleSpace: Container(
+                decoration: kBoxDecorationflexibleSpace,
+              ),
               title: const Text('Lista de estados'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
@@ -97,6 +100,9 @@ class _InstitutionListsPageState extends State<InstitutionListsPage> {
         } else if (state is InstitutionGetCitySuccessState) {
           return Scaffold(
             appBar: AppBar(
+              flexibleSpace: Container(
+                decoration: kBoxDecorationflexibleSpace,
+              ),
               title: const Text('Lista de cidades'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),

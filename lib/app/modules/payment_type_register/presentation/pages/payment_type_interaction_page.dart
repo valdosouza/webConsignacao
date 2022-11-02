@@ -48,6 +48,9 @@ class PaymentTypetInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
+          ),
           title: paymentType == null
               ? const Text('Adicionar')
               : const Text('Editar'),

@@ -1,11 +1,13 @@
-class CustomerCompanyEntity {
+class CompanyEntity {
+  int id;
   String cnpj;
   String ie;
   String iest;
   String dtFoundation;
   String indIeDestinatario;
 
-  CustomerCompanyEntity({
+  CompanyEntity({
+    this.id = 0,
     this.cnpj = "",
     this.ie = "",
     this.iest = "",
@@ -15,6 +17,7 @@ class CustomerCompanyEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['cnpj'] = cnpj;
     data['ie'] = ie;
     data['iest'] = iest;

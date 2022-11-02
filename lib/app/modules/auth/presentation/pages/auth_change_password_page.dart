@@ -53,6 +53,9 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
         }
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const Text("Alterar senha"),
             centerTitle: true,
           ),
