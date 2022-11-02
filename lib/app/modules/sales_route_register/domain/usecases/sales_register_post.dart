@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/core/usecase/usecase.dart';
-import 'package:appweb/app/modules/sales_register/domain/repository/sales_register_repository.dart';
+import 'package:appweb/app/modules/sales_route_register/domain/repository/sales_register_repository.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/exceptions.dart';

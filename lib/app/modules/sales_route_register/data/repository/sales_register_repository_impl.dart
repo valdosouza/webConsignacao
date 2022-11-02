@@ -1,8 +1,8 @@
 import 'package:appweb/app/core/error/exceptions.dart';
-import 'package:appweb/app/modules/sales_register/data/datasource/remote/ownapi/sales_data_source.dart';
-import 'package:appweb/app/modules/sales_register/data/models/sales_model.dart';
+import 'package:appweb/app/modules/sales_route_register/data/datasource/remote/ownapi/sales_data_source.dart';
+import 'package:appweb/app/modules/sales_route_register/data/models/sales_model.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/modules/sales_register/domain/repository/sales_register_repository.dart';
+import 'package:appweb/app/modules/sales_route_register/domain/repository/sales_register_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class SalesRepositoryImpl implements SalesRepository {

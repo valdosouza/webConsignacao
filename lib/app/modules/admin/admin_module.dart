@@ -4,6 +4,8 @@ import 'package:appweb/app/modules/institution_register/institution_register_mod
 import 'package:appweb/app/modules/user_register/user_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../sales_route_register/sales_route_register_module.dart';
+
 class AdminModule extends Module {
   @override
   List<Bind> get binds => [];
@@ -18,6 +20,8 @@ class AdminModule extends Module {
         ModuleRoute('/content/institution/',
             module: InstitutionRegisterModule()),
         ModuleRoute('/content/user/', module: UserRegisterModule()),
+        ModuleRoute('/content/sales_route/',
+            module: SalesRouteRegisterModule()),
       ],
     ),
   ];

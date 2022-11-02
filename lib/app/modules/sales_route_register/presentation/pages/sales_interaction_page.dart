@@ -1,6 +1,6 @@
-import 'package:appweb/app/modules/sales_register/data/models/sales_model.dart';
-import 'package:appweb/app/modules/sales_register/presentation/bloc/sales_bloc.dart';
-import 'package:appweb/app/modules/sales_register/presentation/bloc/sales_events.dart';
+import 'package:appweb/app/modules/sales_route_register/data/models/sales_model.dart';
+import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_bloc.dart';
+import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_events.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/shared/utils/toast.dart';

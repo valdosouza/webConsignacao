@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/sales_register/domain/entity/sale_entity.dart';
+import 'package:appweb/app/modules/sales_route_register/domain/entity/sale_entity.dart';
 
 class SalesModel extends SalesEntity {
   const SalesModel({
