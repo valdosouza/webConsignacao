@@ -88,7 +88,6 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
         throw ServerException();
       }
     } catch (e) {
-      print(e);
       throw ServerException();
     }
   }
