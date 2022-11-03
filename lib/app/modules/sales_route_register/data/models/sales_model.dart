@@ -1,12 +1,13 @@
 import 'package:appweb/app/modules/sales_route_register/domain/entity/sale_entity.dart';
 
+// ignore: must_be_immutable
 class SalesModel extends SalesEntity {
-  const SalesModel({
-    required super.id,
-    required super.institution,
-    required super.description,
-    required super.active,
-  });
+  SalesModel(
+    super.id,
+    super.institution,
+    super.description,
+    super.active,
+  );
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -17,10 +18,10 @@ class SalesModel extends SalesEntity {
 
   factory SalesModel.fromJson(Map<String, dynamic> json) {
     return SalesModel(
-      id: json["id"],
-      institution: json["institution"],
-      description: json["description"],
-      active: json["active"],
+      json["id"],
+      json["institution"],
+      json["description"],
+      json["active"],
     );
   }
 }
