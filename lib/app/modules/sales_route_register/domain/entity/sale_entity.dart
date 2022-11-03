@@ -7,12 +7,12 @@ class SalesEntity extends Equatable {
   String description;
   String active;
 
-  SalesEntity(
-    this.id,
-    this.institution,
-    this.description,
-    this.active,
-  );
+  SalesEntity({
+    required this.id,
+    required this.institution,
+    required this.description,
+    required this.active,
+  });
   @override
   List<Object?> get props => [id, institution, description, active];
 }

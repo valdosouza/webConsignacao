@@ -65,10 +65,10 @@ class _SalesInteractionPageState extends State<SalesInteractionPage> {
                   widget.bloc.add(
                     AddSalesEvent(
                       salesModel: SalesModel(
-                        1,
-                        5,
-                        description,
-                        active,
+                        id: 0,
+                        institution: 1,
+                        description: description,
+                        active: active,
                       ),
                     ),
                   );
