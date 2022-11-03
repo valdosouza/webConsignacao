@@ -6,10 +6,11 @@ import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_l
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class StockListGetlist implements UseCase<List<StockListModel>, Params> {
+class StockListRegisterGetlist
+    implements UseCase<List<StockListModel>, Params> {
   final StockListRepository repository;
 
-  StockListGetlist({required this.repository});
+  StockListRegisterGetlist({required this.repository});
 
   @override
   Future<Either<Failure, List<StockListModel>>> call(Params params) async {

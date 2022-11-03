@@ -5,15 +5,15 @@ import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_mod
 import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_list_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class StockListPost implements UseCase<StockListModel, AddStockParams> {
+class StockListRegisterPut implements UseCase<String, PutStockParams> {
   final StockListRepository repository;
 
-  StockListPost({required this.repository});
+  StockListRegisterPut({required this.repository});
 
   @override
-  Future<Either<Failure, StockListModel>> call(AddStockParams params) async {
+  Future<Either<Failure, String>> call(PutStockParams params) async {
     try {
-      final response = await repository.post(model: params.stock);
+      final response = await repository.put(model: params.stock);
       return response;
     } on ServerException {
       return Left(ServerFailure());
@@ -21,10 +21,10 @@ class StockListPost implements UseCase<StockListModel, AddStockParams> {
   }
 }
 
-class AddStockParams {
+class PutStockParams {
   final StockListModel stock;
 
-  const AddStockParams({
+  const PutStockParams({
     required this.stock,
   });
 }

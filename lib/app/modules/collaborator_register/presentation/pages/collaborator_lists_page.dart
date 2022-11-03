@@ -79,7 +79,8 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
                                 onTap: () {
                                   bloc.entity.address!.tbStateId =
                                       state.states[index].id;
-                                  bloc.add(CollaboratorReturnEvent(screenIndex: 1));
+                                  bloc.add(
+                                      CollaboratorReturnEvent(screenIndex: 1));
                                 },
                                 child: ListTile(
                                   leading: Text(
@@ -142,8 +143,10 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
                               itemCount: state.citys.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
-                                  bloc.entity.address!.tbCityId = state.citys[index].id;
-                                  bloc.add(CollaboratorReturnEvent(screenIndex: 1));
+                                  bloc.entity.address!.tbCityId =
+                                      state.citys[index].id;
+                                  bloc.add(
+                                      CollaboratorReturnEvent(screenIndex: 1));
                                 },
                                 child: ListTile(
                                   leading: Text(state.citys[index].name),
@@ -157,8 +160,8 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
               ),
             ),
           );
-        } else if(state is CollaboratorGetLineBusinessSuccessState) {
-           return Scaffold(
+        } else if (state is CollaboratorGetLineBusinessSuccessState) {
+          return Scaffold(
             appBar: AppBar(
               title: const Text('Lista de cargos'),
               leading: IconButton(
@@ -205,12 +208,16 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
                               itemCount: state.lineBusiness.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
-                                  bloc.entity.entity!.tbLineBussinessId = state.lineBusiness[index].id;
-                                  bloc.entity.entity!.nameLineBussiness = state.lineBusiness[index].description;
-                                  bloc.add(CollaboratorReturnEvent(screenIndex: 0));
+                                  bloc.entity.entity!.tbLineBusinessId =
+                                      state.lineBusiness[index].id;
+                                  bloc.entity.entity!.nameLineBussiness =
+                                      state.lineBusiness[index].description;
+                                  bloc.add(
+                                      CollaboratorReturnEvent(screenIndex: 0));
                                 },
                                 child: ListTile(
-                                  leading: Text(state.lineBusiness[index].description),
+                                  leading: Text(
+                                      state.lineBusiness[index].description),
                                 ),
                               ),
                               separatorBuilder: (_, __) => const Divider(),
@@ -221,7 +228,7 @@ class _CollaboratorListsPageState extends State<CollaboratorListsPage> {
               ),
             ),
           );
-          }else {
+        } else {
           return Container();
         }
       },

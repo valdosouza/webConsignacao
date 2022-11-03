@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_list_repository.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_getlist.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_getlist.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -13,13 +13,13 @@ import 'stock_list_getlist_test.mocks.dart';
 
 @GenerateMocks([StockListRepository])
 void main() {
-  late StockListGetlist usecase;
+  late StockListRegisterGetlist usecase;
   late MockStockListRepository mockStockListRepository;
   late Params tParams;
 
   setUp(() {
     mockStockListRepository = MockStockListRepository();
-    usecase = StockListGetlist(repository: mockStockListRepository);
+    usecase = StockListRegisterGetlist(repository: mockStockListRepository);
   });
 
   const tInstitution = 1;

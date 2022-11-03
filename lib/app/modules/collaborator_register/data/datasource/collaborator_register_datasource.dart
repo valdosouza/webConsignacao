@@ -33,7 +33,7 @@ class CollaboratorRegisterDatasourceImpl
       final response = await client.get(uri);
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        return CollaboratorModel.fromMap(data);
+        return CollaboratorModel.fromJson(data);
       } else {
         throw ServerException();
       }

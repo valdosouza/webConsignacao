@@ -68,7 +68,7 @@ class CustomerMainModel extends CustomerMainEntity {
         id: 0,
         nameCompany: "",
         nickTrade: "",
-        tbLineBuinessId: 1,
+        tbLineBusinessId: 1,
         aniversary: "",
         note: "",
       ),

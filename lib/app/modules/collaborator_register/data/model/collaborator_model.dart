@@ -1,10 +1,8 @@
-import 'dart:convert';
-
+import 'package:appweb/app/core/data/model/company_model.dart';
+import 'package:appweb/app/core/data/model/entity_model.dart';
+import 'package:appweb/app/core/data/model/person_model.dart';
+import 'package:appweb/app/core/data/model/phone_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/adress_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/company_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/entity_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/person_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/phone.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/entity/collaborator_entity.dart';
 
 // ignore: must_be_immutable
@@ -48,75 +46,89 @@ class CollaboratorModel extends CollaboratorEntity {
             address: address ?? AddressModel(),
             phone: phone ?? PhoneModel());
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     Map<String, dynamic> map = <String, dynamic>{};
-    
-      map['collaborator'] =  _collaborator();
-      map['entity'] =  entity?.toMap();
-      map['person'] =  person?.toMap();
-      map['address'] =  address?.toMap();
-      map['phone'] =  phone?.toMap();
+
+    map['collaborator'] = _collaborator();
+    map['entity'] = entity?.toJson();
+    map['person'] = person?.toJson();
+    map['address'] = address?.toMap();
+    map['phone'] = phone?.toJson();
     return map;
   }
+
   Map<String, dynamic> _collaborator() {
     Map<String, dynamic> collaborator = <String, dynamic>{};
-          
-      collaborator['id'] = id;
-      collaborator['tb_institution_id'] = institution ?? 1;
-      collaborator['dt_admission'] = dtAdmission ?? "";
-      collaborator['dt_resignation'] = dtResignation ?? "";
-      collaborator['active'] = "S";
-      collaborator['salary'] = "0.00";
-      collaborator["pis"] = pis ?? "";
-      collaborator['fahters_name'] = fathersName ?? "";
-      collaborator['mothers_name'] = mothersName ?? "";
-      collaborator['vote_number'] = voteNumber ?? "";
-      collaborator['vote_zone'] = voteZone ?? "";
-      collaborator['vote_section'] = voteSection ?? "";
-      collaborator['military_certificate'] = militaryCertificate ?? "";
+
+    collaborator['id'] = id;
+    collaborator['tb_institution_id'] = institution ?? 1;
+    collaborator['dt_admission'] = dtAdmission ?? "";
+    collaborator['dt_resignation'] = dtResignation ?? "";
+    collaborator['active'] = "S";
+    collaborator['salary'] = "0.00";
+    collaborator["pis"] = pis ?? "";
+    collaborator['fahters_name'] = fathersName ?? "";
+    collaborator['mothers_name'] = mothersName ?? "";
+    collaborator['vote_number'] = voteNumber ?? "";
+    collaborator['vote_zone'] = voteZone ?? "";
+    collaborator['vote_section'] = voteSection ?? "";
+    collaborator['military_certificate'] = militaryCertificate ?? "";
     return collaborator;
   }
 
-
-
-  factory CollaboratorModel.fromMap(map) {
+  factory CollaboratorModel.fromJson(map) {
     return CollaboratorModel(
       id: map['collaborator']['id'] as int,
-      institution:
-          map['collaborator']['tb_institution_id'] != null ? map['collaborator']['tb_institution_id'] as int : null,
-      dtAdmission:
-          map['collaborator']['dt_admission'] != null ? map['collaborator']['dt_admission'] as String : null,
-      dtResignation:
-          map['collaborator']['dt_resignation'] != null ? map['collaborator']['dt_resignation'] as String : null,
-      active: map['collaborator']['active'] != null ? map['collaborator']['active'] as String : null,
-      salary: map['collaborator']['salary'] != null ? map['collaborator']['salary'] as String : null,
-      pis: map['collaborator']['pis'] != null ? map['collaborator']['pis'] as String : null,
-      fathersName:
-          map['collaborator']['fahters_name'] != null ? map['collaborator']['fahters_name'] as String : null,
-      mothersName:
-          map['collaborator']['mothers_name'] != null ? map['collaborator']['mothers_name'] as String : null,
-      voteNumber:
-          map['collaborator']['vote_number'] != null ? map['collaborator']['vote_number'] as String : null,
-      voteZone: map['collaborator']['vote_zone'] != null ? map['collaborator']['vote_zone'] as String : null,
-      voteSection:
-          map['collaborator']['vote_section'] != null ? map['collaborator']['vote_section'] as String : null,
+      institution: map['collaborator']['tb_institution_id'] != null
+          ? map['collaborator']['tb_institution_id'] as int
+          : null,
+      dtAdmission: map['collaborator']['dt_admission'] != null
+          ? map['collaborator']['dt_admission'] as String
+          : null,
+      dtResignation: map['collaborator']['dt_resignation'] != null
+          ? map['collaborator']['dt_resignation'] as String
+          : null,
+      active: map['collaborator']['active'] != null
+          ? map['collaborator']['active'] as String
+          : null,
+      salary: map['collaborator']['salary'] != null
+          ? map['collaborator']['salary'] as String
+          : null,
+      pis: map['collaborator']['pis'] != null
+          ? map['collaborator']['pis'] as String
+          : null,
+      fathersName: map['collaborator']['fahters_name'] != null
+          ? map['collaborator']['fahters_name'] as String
+          : null,
+      mothersName: map['collaborator']['mothers_name'] != null
+          ? map['collaborator']['mothers_name'] as String
+          : null,
+      voteNumber: map['collaborator']['vote_number'] != null
+          ? map['collaborator']['vote_number'] as String
+          : null,
+      voteZone: map['collaborator']['vote_zone'] != null
+          ? map['collaborator']['vote_zone'] as String
+          : null,
+      voteSection: map['collaborator']['vote_section'] != null
+          ? map['collaborator']['vote_section'] as String
+          : null,
       militaryCertificate: map['collaborator']['military_certificate'] != null
           ? map['collaborator']['military_certificate'] as String
           : null,
       entity: map['entity'] != null
-          ? EntityModel.fromMap(map['entity'] as Map<String, dynamic>)
+          ? EntityModel.fromJson(map['entity'] as Map<String, dynamic>)
           : null,
       company: map['company'] != null
-          ? CompanyModel.fromMap(map['company'] as Map<String, dynamic>)
+          ? CompanyModel.fromJson(map['company'] as Map<String, dynamic>)
           : null,
       person: map['person'] != null
-          ? PersonModel.fromMap(map['person'] as Map<String, dynamic>)
+          ? PersonModel.fromJson(map['person'] as Map<String, dynamic>)
           : null,
       address: map['address'] != null
           ? AddressModel.fromMap(map['address'] as Map<String, dynamic>)
           : null,
       phone: map['phone'] != null
-          ? PhoneModel.fromMap(map['phone'] as Map<String, dynamic>)
+          ? PhoneModel.fromJson(map['phone'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -144,15 +156,13 @@ class CollaboratorModel extends CollaboratorEntity {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
   factory CollaboratorModel.fromAPI(json) {
     return CollaboratorModel(
         id: json['id'],
         entity: EntityModel(
             nameCompany: json['name_company'],
             nickTrade: json['nick_trade'],
-            tbLineBussinessId: json['tb_linebusiness_id'],
-            nameLineBussiness: json["desc_linebusiness"]));
+            tbLineBusinessId: json['tb_linebusiness_id'],
+            nameLineBussiness: json["name_linebusiness"]));
   }
 }

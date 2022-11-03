@@ -4,8 +4,6 @@ import 'package:appweb/app/modules/collaborator/presentation/bloc/collaborator_b
 import 'package:appweb/app/modules/collaborator/presentation/bloc/collaborator_event.dart';
 import 'package:appweb/app/modules/collaborator/presentation/bloc/collaborator_state.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_model.dart';
-import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_bloc.dart';
-import 'package:appweb/app/modules/collaborator_register/presentation/pages/collaborator_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -65,10 +63,12 @@ class _ContentDesktopCollaboratorState
             child: CircularProgressIndicator(),
           );
         } else if (state is CollaboratorInterationPageState) {
-          Modular.to.pushReplacementNamed('/resourcehuman/content/collaborator/register/', arguments: state.collaborator);
+          Modular.to.pushReplacementNamed(
+              '/resourcehuman/content/collaborator/register/',
+              arguments: state.collaborator);
           return const Center(
             child: CircularProgressIndicator(),
-          );    
+          );
         }
         final collaboratorList = state.collaboratorList;
         return Scaffold(
@@ -79,7 +79,8 @@ class _ContentDesktopCollaboratorState
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
                   bloc.collaborators.last.id + 1;
-                  CollaboratorModel model = CollaboratorModel(id: bloc.collaborators.last.id + 1);
+                  CollaboratorModel model =
+                      CollaboratorModel(id: bloc.collaborators.last.id + 1);
                   bloc.add(CollaboratorInterationEvent(collaborator: model));
                 },
               ),
@@ -115,21 +116,21 @@ class _ContentDesktopCollaboratorState
                                   ),
                                 ),
                                 title: IntrinsicHeight(
-                                  child: Row(children: [
-                                    Text(collaboratorList[index]
-                                      .entity!
-                                      .nameCompany),
+                                  child: Row(
+                                    children: [
+                                      Text(collaboratorList[index]
+                                          .entity!
+                                          .nameCompany),
                                       const VerticalDivider(),
-                                    Text(collaboratorList[index]
-                                      .entity!
-                                      .nickTrade),
+                                      Text(collaboratorList[index]
+                                          .entity!
+                                          .nickTrade),
                                       const VerticalDivider(),
-                                
-                                    Text(collaboratorList[index]
-                                      .entity!
-                                      .nameLineBussiness),
-                                
-                                  ],),
+                                      Text(collaboratorList[index]
+                                          .entity!
+                                          .nameLineBussiness),
+                                    ],
+                                  ),
                                 ),
                                 trailing: IconButton(
                                   icon: const Icon(Icons.remove),

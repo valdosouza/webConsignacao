@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_event.dart';
-import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_state.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appweb/app/core/shared/helpers/responsive.dart';

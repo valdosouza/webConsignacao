@@ -1,9 +1,9 @@
 import 'package:appweb/app/modules/stock_list_register/data/datasource/remote/ownapi/stock_list_datasource.dart';
 import 'package:appweb/app/modules/stock_list_register/data/repository/stock_list_repository_impl.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_post.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_delete.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_getlist.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_put.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_post.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_delete.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_getlist.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_put.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_bloc.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/pages/stock_list_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,23 +20,27 @@ class StockListRegisterModule extends Module {
               datasource: i.get<StockListDatasourceImpl>()),
         ),
         Bind.factory(
-          (i) => StockListGetlist(repository: i.get<StockListRepositoryImpl>()),
+          (i) => StockListRegisterGetlist(
+              repository: i.get<StockListRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) => StockListDelete(repository: i.get<StockListRepositoryImpl>()),
+          (i) => StockListRegisterDelete(
+              repository: i.get<StockListRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) => StockListPost(repository: i.get<StockListRepositoryImpl>()),
+          (i) => StockListRegisterPost(
+              repository: i.get<StockListRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) => StockListPut(repository: i.get<StockListRepositoryImpl>()),
+          (i) => StockListRegisterPut(
+              repository: i.get<StockListRepositoryImpl>()),
         ),
         BlocBind.factory(
           (i) => StockListBloc(
-            getlist: i.get<StockListGetlist>(),
-            delete: i.get<StockListDelete>(),
-            post: i.get<StockListPost>(),
-            put: i.get<StockListPut>(),
+            getlist: i.get<StockListRegisterGetlist>(),
+            delete: i.get<StockListRegisterDelete>(),
+            post: i.get<StockListRegisterPost>(),
+            put: i.get<StockListRegisterPut>(),
           ),
         ),
       ];

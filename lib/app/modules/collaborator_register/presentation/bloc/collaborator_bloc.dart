@@ -1,4 +1,3 @@
-import 'package:appweb/app/modules/collaborator/presentation/bloc/collaborator_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/city_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/state_model.dart';
@@ -232,7 +231,9 @@ class CollaboratorRegisterBloc
 
     response.fold((l) {}, (r) {
       final state = r.firstWhere(
-        (element) => element.abbreviation.toUpperCase().trim() == uf.toUpperCase().trim(),
+        (element) =>
+            element.abbreviation.toUpperCase().trim() ==
+            uf.toUpperCase().trim(),
         orElse: () => StateModel(),
       );
       entity.address!.stateName = state.name;
@@ -245,7 +246,8 @@ class CollaboratorRegisterBloc
 
     response.fold((l) {}, (r) {
       final city = r.firstWhere(
-        (element) => element.name.toUpperCase().trim() == cityName.toUpperCase().trim(),
+        (element) =>
+            element.name.toUpperCase().trim() == cityName.toUpperCase().trim(),
         orElse: () => CityModel(),
       );
       entity.address!.cityName = city.name;

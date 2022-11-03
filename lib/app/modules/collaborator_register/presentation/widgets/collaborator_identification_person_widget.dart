@@ -29,7 +29,8 @@ class _CollaboratorIdentificationPersonWidgetState
   @override
   Widget build(BuildContext context) {
     TextEditingController controllerAniversary = MaskedTextController(
-        text: _convertData(widget.bloc.entity.entity!.aniversary), mask: '00/00/0000');
+        text: _convertData(widget.bloc.entity.entity!.aniversary),
+        mask: '00/00/0000');
     return Form(
       key: widget.formKey,
       child: Padding(
@@ -157,7 +158,7 @@ class _CollaboratorIdentificationPersonWidgetState
                                         (element) =>
                                             element.id ==
                                             widget.bloc.entity.entity!
-                                                .tbLineBussinessId,
+                                                .tbLineBusinessId,
                                         orElse: () => LineBusinessModel(
                                             description: widget.bloc.entity
                                                 .entity!.nameLineBussiness,
@@ -201,12 +202,11 @@ class _CollaboratorIdentificationPersonWidgetState
 
   _convertData(String data) {
     try {
-      if(data.isEmpty) return "";
+      if (data.isEmpty) return "";
       DateTime time = DateTime.tryParse(data)!;
       initializeDateFormatting('pt-br', null);
-      var formatter =  DateFormat("dd/MM/yyyy");
+      var formatter = DateFormat("dd/MM/yyyy");
       return formatter.format(time);
-
     } catch (e) {
       CustomToast.showToast("Data inválida");
     }

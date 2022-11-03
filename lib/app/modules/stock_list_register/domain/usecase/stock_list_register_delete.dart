@@ -5,10 +5,10 @@ import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_l
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class StockListDelete implements UseCase<String, DeleteStockParams> {
+class StockListRegisterDelete implements UseCase<String, DeleteStockParams> {
   final StockListRepository repository;
 
-  StockListDelete({required this.repository});
+  StockListRegisterDelete({required this.repository});
 
   @override
   Future<Either<Failure, String>> call(DeleteStockParams params) async {

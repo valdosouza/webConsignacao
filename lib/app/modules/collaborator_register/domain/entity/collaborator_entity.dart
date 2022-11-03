@@ -1,13 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
+import 'package:appweb/app/core/data/model/company_model.dart';
+import 'package:appweb/app/core/data/model/entity_model.dart';
+import 'package:appweb/app/core/data/model/person_model.dart';
+import 'package:appweb/app/core/data/model/phone_model.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:appweb/app/modules/collaborator_register/data/model/adress_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/company_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/entity_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/person_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/phone.dart';
 
 // ignore: must_be_immutable
 class CollaboratorEntity extends Equatable {
@@ -51,5 +49,5 @@ class CollaboratorEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id];  
+  List<Object?> get props => [id];
 }

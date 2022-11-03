@@ -1,17 +1,17 @@
 import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_post.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_delete.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_getlist.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_put.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_post.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_delete.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_getlist.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_put.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_events.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_state.dart';
 import 'package:bloc/bloc.dart';
 
 class StockListBloc extends Bloc<StockListEvent, StockListState> {
-  final StockListGetlist getlist;
-  final StockListDelete delete;
-  final StockListPost post;
-  final StockListPut put;
+  final StockListRegisterGetlist getlist;
+  final StockListRegisterDelete delete;
+  final StockListRegisterPost post;
+  final StockListRegisterPut put;
 
   List<StockListModel> clients = [];
 
