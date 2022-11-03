@@ -11,7 +11,7 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
 
   SalesBloc({
     required this.post,
-  }) : super(SalesInitialState()) {
+  }) : super(SalesSuccessSate(listSalesModel: [])) {
     on<AddSalesEvent>((event, emit) async {
       SalesInitialState();
       var response = await post.call(SalesParams(model: event.salesModel));
@@ -21,5 +21,10 @@ class SalesBloc extends Bloc<SalesEvent, SalesState> {
       );
       emit(result);
     });
+    on<SalesInteractionEvent>(
+      (event, emit) async {
+        emit(SalesInterationPageState(salesList: salesModel));
+      },
+    );
   }
 }

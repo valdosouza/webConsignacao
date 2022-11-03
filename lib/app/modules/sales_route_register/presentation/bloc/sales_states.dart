@@ -1,7 +1,7 @@
 import '../../data/models/sales_model.dart';
 
 abstract class SalesState {
-  final List<SalesModel> listSalesModel;
+  List<SalesModel> listSalesModel;
 
   SalesState({
     required this.listSalesModel,
@@ -28,4 +28,13 @@ class SalesAddErrorSate extends SalesState {
   SalesAddErrorSate({
     required super.listSalesModel,
   });
+}
+
+class SalesInterationPageState extends SalesState {
+  final SalesModel? salesModel;
+
+  SalesInterationPageState({
+    required List<SalesModel> salesList,
+    this.salesModel,
+  }) : super(listSalesModel: salesList);
 }

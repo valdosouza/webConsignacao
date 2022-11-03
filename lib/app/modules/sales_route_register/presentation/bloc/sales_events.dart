@@ -11,3 +11,11 @@ class AddSalesEvent extends SalesEvent {
     required this.salesModel,
   });
 }
+
+class SalesInteractionEvent extends SalesEvent {
+  final SalesModel? salesModel;
+
+  SalesInteractionEvent({
+    this.salesModel,
+  });
+}
