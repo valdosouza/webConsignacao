@@ -5,15 +5,15 @@ import 'package:appweb/app/modules/institution_register/domain/repository/instit
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class InstitutionDelete implements UseCase<String, ParamsDelete> {
+class InstitutionRegisterDelete implements UseCase<String, ParamsDelete> {
   final InstitutionRegisterRespository repository;
 
-  InstitutionDelete({required this.repository});
+  InstitutionRegisterDelete({required this.repository});
 
   @override
   Future<Either<Failure, String>> call(ParamsDelete params) async {
     try {
-      final response = await repository.deleteInstitution(id: params.id);
+      final response = await repository.delete(id: params.id);
       return response;
     } on ServerException {
       return Left(ServerFailure());

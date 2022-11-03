@@ -10,10 +10,10 @@ import 'package:appweb/app/modules/institution_register/data/model/state_model.d
 import 'package:http/http.dart' as http;
 
 abstract class InstitutionRegisterDatasource {
-  Future<InstitutionModel> getInstitution({required int id});
-  Future<InstitutionModel> postInstitution({required InstitutionModel model});
-  Future<String> putInstitution({required InstitutionModel model});
-  Future<String> deleteInstitution({required int id});
+  Future<InstitutionModel> get({required int id});
+  Future<InstitutionModel> post({required InstitutionModel model});
+  Future<String> put({required InstitutionModel model});
+  Future<String> delete({required int id});
   Future<AddressModel> getCep(String cep);
   Future<IdentificationModel> getCnpj(String cnpj);
   Future<List<StateModel>> getStates();
@@ -26,7 +26,7 @@ class InstitutionRegisterDatasourceImpl
   List<StateModel> states = [];
   List<CityModel> citys = [];
   @override
-  Future<InstitutionModel> getInstitution({required int id}) async {
+  Future<InstitutionModel> get({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}institution/$id');
       final response = await client.get(uri);
@@ -43,8 +43,7 @@ class InstitutionRegisterDatasourceImpl
   }
 
   @override
-  Future<InstitutionModel> postInstitution(
-      {required InstitutionModel model}) async {
+  Future<InstitutionModel> post({required InstitutionModel model}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}Institution/');
       final response = await client.post(
@@ -66,7 +65,7 @@ class InstitutionRegisterDatasourceImpl
   }
 
   @override
-  Future<String> putInstitution({required InstitutionModel model}) async {
+  Future<String> put({required InstitutionModel model}) async {
     try {
       final int id = model.id;
       final uri = Uri.parse('${baseApiUrl}Institution/$id');
@@ -82,7 +81,7 @@ class InstitutionRegisterDatasourceImpl
   }
 
   @override
-  Future<String> deleteInstitution({required int id}) async {
+  Future<String> delete({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}Institution/$id');
       final response = await client.delete(uri);

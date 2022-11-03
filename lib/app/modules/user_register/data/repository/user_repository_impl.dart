@@ -24,10 +24,10 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, UserRegisterModel>> addUser(
+  Future<Either<Failure, UserRegisterModel>> post(
       {required UserRegisterModel model}) async {
     try {
-      final result = await datasource.addUser(user: model);
+      final result = await datasource.post(user: model);
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());
@@ -35,9 +35,9 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, String>> deleteUser({required int userId}) async {
+  Future<Either<Failure, String>> delete({required int userId}) async {
     try {
-      final result = await datasource.deleteUser(id: userId);
+      final result = await datasource.delete(id: userId);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());
@@ -45,9 +45,9 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, String>> editUser({required int userId}) async {
+  Future<Either<Failure, String>> put({required int userId}) async {
     try {
-      final result = await datasource.editUser(id: userId);
+      final result = await datasource.put(id: userId);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());

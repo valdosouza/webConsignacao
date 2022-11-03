@@ -13,7 +13,7 @@ class UserRegisterAdd implements UseCase<UserRegisterModel, ParamsAddUser> {
   @override
   Future<Either<Failure, UserRegisterModel>> call(ParamsAddUser params) async {
     try {
-      final user = await repository.addUser(model: params.user);
+      final user = await repository.post(model: params.user);
       return user;
     } on ServerException {
       return Left(ServerFailure());

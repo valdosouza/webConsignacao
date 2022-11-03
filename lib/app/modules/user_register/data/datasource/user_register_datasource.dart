@@ -7,9 +7,9 @@ import 'package:http/http.dart' as http;
 
 abstract class UserRegisterDataSource {
   Future<List<UserRegisterModel>> getlist({required int id});
-  Future<UserRegisterModel> addUser({required UserRegisterModel user});
-  Future<String> editUser({required int id});
-  Future<String> deleteUser({required int id});
+  Future<UserRegisterModel> post({required UserRegisterModel user});
+  Future<String> put({required int id});
+  Future<String> delete({required int id});
 }
 
 class UserRegisterDataSourceImpl extends UserRegisterDataSource {
@@ -17,7 +17,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
   List<UserRegisterModel> items = [];
 
   @override
-  Future<UserRegisterModel> addUser({required UserRegisterModel user}) async {
+  Future<UserRegisterModel> post({required UserRegisterModel user}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}user');
       final response = await client.post(
@@ -41,7 +41,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
   }
 
   @override
-  Future<String> deleteUser({required int id}) async {
+  Future<String> delete({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}User/$id');
 
@@ -58,7 +58,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
   }
 
   @override
-  Future<String> editUser({required int id}) async {
+  Future<String> put({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}user/$id');
 

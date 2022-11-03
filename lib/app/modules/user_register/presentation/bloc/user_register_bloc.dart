@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
-import 'package:appweb/app/modules/user_register/domain/usecase/user_register_add.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_post.dart';
 import 'package:appweb/app/modules/user_register/domain/usecase/user_register_delete.dart';
-import 'package:appweb/app/modules/user_register/domain/usecase/user_register_edit.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_put.dart';
 import 'package:appweb/app/modules/user_register/domain/usecase/user_register_getlist.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_state.dart';

@@ -2,20 +2,19 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/core/usecase/usecase.dart';
 import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
-import 'package:appweb/app/modules/institution_register/domain/entity/institution_entity.dart';
 import 'package:appweb/app/modules/institution_register/domain/repository/institution_register_respository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class InstitutionRegisterSave implements UseCase<InstitutionEntity, Params> {
+class InstitutionPut implements UseCase<String, ParamsPut> {
   final InstitutionRegisterRespository repository;
 
-  InstitutionRegisterSave({required this.repository});
+  InstitutionPut({required this.repository});
 
   @override
-  Future<Either<Failure, InstitutionEntity>> call(Params params) async {
+  Future<Either<Failure, String>> call(ParamsPut params) async {
     try {
-      final response = await repository.postInstitution(model: params.model);
+      final response = await repository.put(model: params.model);
       return response;
     } on ServerException {
       return Left(ServerFailure());
@@ -23,10 +22,10 @@ class InstitutionRegisterSave implements UseCase<InstitutionEntity, Params> {
   }
 }
 
-class Params extends Equatable {
+class ParamsPut extends Equatable {
   final InstitutionModel model;
 
-  const Params({
+  const ParamsPut({
     required this.model,
   });
 

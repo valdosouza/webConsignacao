@@ -12,7 +12,7 @@ class UserRegisterDelete implements UseCase<String, ParamsDeleteUser> {
   @override
   Future<Either<Failure, String>> call(ParamsDeleteUser params) async {
     try {
-      final user = await repository.editUser(userId: params.id);
+      final user = await repository.delete(userId: params.id);
       return user;
     } on ServerException {
       return Left(ServerFailure());

@@ -8,12 +8,11 @@ import 'package:appweb/app/modules/institution_register/domain/entity/institutio
 import 'package:dartz/dartz.dart';
 
 abstract class InstitutionRegisterRespository {
-  Future<Either<Failure, InstitutionEntity>> getInstitution({required int id});
-  Future<Either<Failure, InstitutionEntity>> postInstitution(
+  Future<Either<Failure, InstitutionEntity>> get({required int id});
+  Future<Either<Failure, InstitutionEntity>> post(
       {required InstitutionModel model});
-  Future<Either<Failure, String>> putInstitution(
-      {required InstitutionModel model});
-  Future<Either<Failure, String>> deleteInstitution({required int id});
+  Future<Either<Failure, String>> put({required InstitutionModel model});
+  Future<Either<Failure, String>> delete({required int id});
   Future<Either<Failure, AddressEntity>> getCEP({required String cep});
   Future<Either<Failure, IdentificationEntity>> getCnpj({required String cnpj});
   Future<Either<Failure, List<StateModel>>> getStates();

@@ -12,9 +12,9 @@ import 'package:appweb/app/modules/institution_register/data/model/state_model.d
 import 'package:http/http.dart' as http;
 
 abstract class CustomerRegisterDataSource {
-  Future<List<CustomerListModel>> getlist({required int id});
-  Future<CustomerMainModel> getCostumer({required int id});
-  Future<CustomerMainModel> postCostumer({required CustomerMainModel customer});
+  Future<List<CustomerListModel>> getList({required int id});
+  Future<CustomerMainModel> get({required int id});
+  Future<CustomerMainModel> post({required CustomerMainModel customer});
   Future<List<CustomerSalesmanModel>> getSalesmans({required int id});
   Future<AddressModel> getCep(String cep);
   Future<IdentificationModel> getCnpj(String cnpj);
@@ -30,7 +30,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   List<CustomerSalesmanModel> salesmans = [];
 
   @override
-  Future<List<CustomerListModel>> getlist({required int id}) async {
+  Future<List<CustomerListModel>> getList({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}customer/getlist/$id');
 
@@ -121,7 +121,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   }
 
   @override
-  Future<CustomerMainModel> getCostumer({required int id}) async {
+  Future<CustomerMainModel> get({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}customer/$id');
 
@@ -140,8 +140,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   }
 
   @override
-  Future<CustomerMainModel> postCostumer(
-      {required CustomerMainModel customer}) async {
+  Future<CustomerMainModel> post({required CustomerMainModel customer}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}customer');
 

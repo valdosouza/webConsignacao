@@ -15,7 +15,7 @@ class CustomerRegisterPost
   Future<Either<Failure, CustomerMainModel>> call(
       ParamsPostCustomer params) async {
     try {
-      final model = await repository.postCustomer(customer: params.customer);
+      final model = await repository.post(customer: params.customer);
       return model;
     } on ServerException {
       return Left(ServerFailure());

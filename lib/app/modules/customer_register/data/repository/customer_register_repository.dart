@@ -21,7 +21,7 @@ class CustomerRegisterRepositoryImpl implements CustomerRegisterRepository {
   Future<Either<Failure, List<CustomerListModel>>> getList(
       {required int id}) async {
     try {
-      final list = await datasource.getlist(id: id);
+      final list = await datasource.getList(id: id);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());
@@ -71,10 +71,9 @@ class CustomerRegisterRepositoryImpl implements CustomerRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, CustomerMainModel>> getCustomer(
-      {required int id}) async {
+  Future<Either<Failure, CustomerMainModel>> get({required int id}) async {
     try {
-      final customer = await datasource.getCostumer(id: id);
+      final customer = await datasource.get(id: id);
       return Right(customer);
     } on ServerException {
       return Left(ServerFailure());
@@ -82,10 +81,10 @@ class CustomerRegisterRepositoryImpl implements CustomerRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, CustomerMainModel>> postCustomer(
+  Future<Either<Failure, CustomerMainModel>> post(
       {required CustomerMainModel customer}) async {
     try {
-      final response = await datasource.postCostumer(customer: customer);
+      final response = await datasource.post(customer: customer);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

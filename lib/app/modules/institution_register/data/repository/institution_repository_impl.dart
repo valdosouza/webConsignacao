@@ -19,10 +19,9 @@ class InstitutionRegisterRespositoryImpl
   });
 
   @override
-  Future<Either<Failure, InstitutionEntity>> getInstitution(
-      {required int id}) async {
+  Future<Either<Failure, InstitutionEntity>> get({required int id}) async {
     try {
-      InstitutionEntity institution = await datasource.getInstitution(id: id);
+      InstitutionEntity institution = await datasource.get(id: id);
       return Right(institution);
     } on ServerException {
       return Left(ServerFailure());
@@ -30,11 +29,10 @@ class InstitutionRegisterRespositoryImpl
   }
 
   @override
-  Future<Either<Failure, InstitutionEntity>> postInstitution(
+  Future<Either<Failure, InstitutionEntity>> post(
       {required InstitutionModel model}) async {
     try {
-      InstitutionEntity institution =
-          await datasource.postInstitution(model: model);
+      InstitutionEntity institution = await datasource.post(model: model);
       return Right(institution);
     } on ServerException {
       return Left(ServerFailure());
@@ -42,10 +40,9 @@ class InstitutionRegisterRespositoryImpl
   }
 
   @override
-  Future<Either<Failure, String>> putInstitution(
-      {required InstitutionModel model}) async {
+  Future<Either<Failure, String>> put({required InstitutionModel model}) async {
     try {
-      String response = await datasource.putInstitution(model: model);
+      String response = await datasource.put(model: model);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());
@@ -53,9 +50,9 @@ class InstitutionRegisterRespositoryImpl
   }
 
   @override
-  Future<Either<Failure, String>> deleteInstitution({required int id}) async {
+  Future<Either<Failure, String>> delete({required int id}) async {
     try {
-      String response = await datasource.deleteInstitution(id: id);
+      String response = await datasource.delete(id: id);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

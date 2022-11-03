@@ -12,7 +12,7 @@ class UserRegisterEdit implements UseCase<String, ParamsEditUser> {
   @override
   Future<Either<Failure, String>> call(ParamsEditUser params) async {
     try {
-      final user = await repository.editUser(userId: params.id);
+      final user = await repository.put(userId: params.id);
       return user;
     } on ServerException {
       return Left(ServerFailure());
