@@ -6,4 +6,9 @@ abstract class SalesRepository {
   Future<Either<Failure, SalesModel>> post({
     required SalesModel model,
   });
+  Future<Either<Failure, List<SalesModel>>> getList(
+      {required int institutionId});
+
+  Future<Either<Failure, String>> put({required SalesModel model});
+  Future<Either<Failure, String>> delete({required int institutionId});
 }

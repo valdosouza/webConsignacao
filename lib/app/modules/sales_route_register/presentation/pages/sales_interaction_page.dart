@@ -21,8 +21,6 @@ class SalesInteractionPage extends StatefulWidget {
 }
 
 class _SalesInteractionPageState extends State<SalesInteractionPage> {
-  String description = "";
-  String active = "N";
   bool selectRadio = false;
   SalesModel? salesModel;
 
@@ -36,112 +34,123 @@ class _SalesInteractionPageState extends State<SalesInteractionPage> {
     super.initState();
   }
 
+  String description = "";
+  String active = "N";
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: widget.model == null
-            ? const Text("SALES PAGE")
-            : const Text("Editar"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
+    return WillPopScope(
+      onWillPop: () async {
+        widget.bloc.add(LoadSalesEvent());
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: salesModel == null
+              ? const Text("Adicionar")
+              : const Text("Editar"),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              if (widget.model != null) {
-                if (widget.model!.description.isEmpty) {
-                  CustomToast.showToast("Campo descrição é obrigatório.");
-                } else {
-                  // widget.bloc
-                  //     .add(EditLineBusinessEvent(lineBusiness: widget.model!));
-                }
-              } else {
-                if (description.isEmpty) {
-                  CustomToast.showToast("Campo descrição é obrigatório.");
-                } else {
-                  widget.bloc.add(
-                    AddSalesEvent(
-                      salesModel: SalesModel(
-                        id: 0,
-                        institution: 1,
-                        description: description,
-                        active: active,
-                      ),
-                    ),
-                  );
-                }
-              }
+              widget.bloc.add(LoadSalesEvent());
             },
           ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomInput(
-              title: 'Descrição',
-              initialValue: "",
-              keyboardType: TextInputType.number,
-              inputAction: TextInputAction.next,
-              onChanged: (value) {
-                widget.model?.description = value;
-                description = value;
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.check),
+              onPressed: () {
+                if (widget.model != null) {
+                  if (salesModel!.description.isEmpty) {
+                    CustomToast.showToast("Campo descrição é obrigatório.");
+                  } else {
+                    widget.bloc.add(EditSalesEvent(salesModel: widget.model!));
+                  }
+                } else {
+                  if (description.isEmpty) {
+                    CustomToast.showToast("Campo descrição é obrigatório.");
+                  } else {
+                    widget.bloc.add(
+                      AddSalesEvent(
+                        salesModel: SalesModel(
+                          id: (widget.bloc.state.listSalesModel.last.id + 1),
+                          institution:
+                              widget.bloc.state.listSalesModel.last.institution,
+                          description: description,
+                          active: active,
+                        ),
+                      ),
+                    );
+                  }
+                }
               },
             ),
-            const SizedBox(height: 30.0),
-            const Text("Ativo", style: kLabelStyle),
-            const SizedBox(height: 10.0),
-            Row(
-              children: [
-                Row(
-                  children: [
-                    Radio(
-                      value: true,
-                      groupValue: selectRadio,
-                      activeColor: Colors.red,
-                      onChanged: selectRadio
-                          ? (value) {}
-                          : (value) {
-                              setState(() {
-                                selectRadio = true;
-                              });
-                              widget.model?.active = "S";
-                              active = "S";
-                            },
-                    ),
-                    const SizedBox(width: 5.0),
-                    const Text("Sim", style: kLabelStyle),
-                  ],
-                ),
-                const SizedBox(width: 10.0),
-                Row(
-                  children: [
-                    Radio(
-                        value: false,
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomInput(
+                title: 'Descrição',
+                initialValue: "",
+                keyboardType: TextInputType.number,
+                inputAction: TextInputAction.next,
+                onChanged: (value) {
+                  widget.model?.description = value;
+                  description = value;
+                },
+              ),
+              const SizedBox(height: 30.0),
+              const Text("Ativo", style: kLabelStyle),
+              const SizedBox(height: 10.0),
+              Row(
+                children: [
+                  Row(
+                    children: [
+                      Radio(
+                        value: true,
                         groupValue: selectRadio,
                         activeColor: Colors.red,
                         onChanged: selectRadio
-                            ? (value) {
+                            ? (value) {}
+                            : (value) {
                                 setState(() {
-                                  selectRadio = false;
+                                  selectRadio = true;
                                 });
-                                widget.model?.active = "N";
-                                active = "N";
-                              }
-                            : (value) {}),
-                    const SizedBox(width: 5.0),
-                    const Text("Não", style: kLabelStyle),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 30.0),
-          ],
+                                widget.model?.active = "S";
+                                active = "S";
+                              },
+                      ),
+                      const SizedBox(width: 5.0),
+                      const Text("Sim", style: kLabelStyle),
+                    ],
+                  ),
+                  const SizedBox(width: 10.0),
+                  Row(
+                    children: [
+                      Radio(
+                          value: false,
+                          groupValue: selectRadio,
+                          activeColor: Colors.red,
+                          onChanged: selectRadio
+                              ? (value) {
+                                  setState(() {
+                                    selectRadio = false;
+                                  });
+                                  widget.model?.active = "N";
+                                  active = "N";
+                                }
+                              : (value) {}),
+                      const SizedBox(width: 5.0),
+                      const Text("Não", style: kLabelStyle),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
         ),
       ),
     );

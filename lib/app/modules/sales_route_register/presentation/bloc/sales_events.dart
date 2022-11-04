@@ -12,6 +12,30 @@ class AddSalesEvent extends SalesEvent {
   });
 }
 
+class EditSalesEvent extends SalesEvent {
+  final SalesModel salesModel;
+
+  EditSalesEvent({
+    required this.salesModel,
+  });
+}
+
+class SearchSalesEvent extends SalesEvent {
+  String search;
+
+  SearchSalesEvent({
+    required this.search,
+  });
+}
+
+class DeleteSalesEvent extends SalesEvent {
+  int salesId;
+
+  DeleteSalesEvent({
+    required this.salesId,
+  });
+}
+
 class SalesInteractionEvent extends SalesEvent {
   final SalesModel? salesModel;
 

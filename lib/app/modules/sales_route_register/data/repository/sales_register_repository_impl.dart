@@ -23,4 +23,36 @@ class SalesRepositoryImpl implements SalesRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<SalesModel>>> getList(
+      {required int institutionId}) async {
+    try {
+      final list = await datasource.getlist(institutionId: institutionId);
+
+      return Right(list);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> delete({required int institutionId}) async {
+    try {
+      final result = await datasource.delete(id: institutionId);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> put({required SalesModel model}) async {
+    try {
+      final result = await datasource.put(model: model);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }
