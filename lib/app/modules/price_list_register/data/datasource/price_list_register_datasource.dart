@@ -2,24 +2,22 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
-import 'package:appweb/app/modules/price_list_register/data/model/price_list_register_model.dart';
+import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class PriceListRegisterDataSource {
-  Future<List<PriceListRegisterModel>> getlist({required int id});
-  Future<PriceListRegisterModel> post(
-      {required PriceListRegisterModel priceModel});
-  Future<PriceListRegisterModel> put(
-      {required PriceListRegisterModel priceModel});
+  Future<List<PriceListModel>> getlist({required int id});
+  Future<PriceListModel> post({required PriceListModel model});
+  Future<PriceListModel> put({required PriceListModel model});
   Future<String> delete({required int id});
 }
 
 class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   final client = http.Client();
-  List<PriceListRegisterModel> prices = [];
+  List<PriceListModel> prices = [];
 
   @override
-  Future<List<PriceListRegisterModel>> getlist({required int id}) async {
+  Future<List<PriceListModel>> getlist({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}pricelist/getlist/$id');
 
@@ -28,7 +26,7 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         prices = (data as List).map((json) {
-          return PriceListRegisterModel.fromJson(json);
+          return PriceListModel.fromJson(json);
         }).toList();
 
         return prices;
@@ -41,8 +39,7 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   }
 
   @override
-  Future<PriceListRegisterModel> post(
-      {required PriceListRegisterModel priceModel}) async {
+  Future<PriceListModel> post({required PriceListModel model}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}pricelist');
 
@@ -51,12 +48,12 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(priceModel.toJson()),
+        body: jsonEncode(model.toJson()),
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = PriceListRegisterModel.fromJson(data);
+        var model = PriceListModel.fromJson(data);
         return model;
       } else {
         throw ServerException();
@@ -67,8 +64,7 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   }
 
   @override
-  Future<PriceListRegisterModel> put(
-      {required PriceListRegisterModel priceModel}) async {
+  Future<PriceListModel> put({required PriceListModel model}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}pricelist');
 
@@ -77,12 +73,12 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(priceModel.toJson()),
+        body: jsonEncode(model.toJson()),
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = PriceListRegisterModel.fromJson(data);
+        var model = PriceListModel.fromJson(data);
         return model;
       } else {
         throw ServerException();

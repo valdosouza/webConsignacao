@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/price_list_register/data/model/price_list_register_model.dart';
+import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 
 abstract class PriceListRegisterEvent {}
 
@@ -12,19 +12,19 @@ class PriceListRegisterSearchEvent extends PriceListRegisterEvent {
   });
 }
 
-class PriceListRegisterEditEvent extends PriceListRegisterEvent {
-  final PriceListRegisterModel model;
+class PriceListRegisterPutEvent extends PriceListRegisterEvent {
+  final PriceListModel model;
 
-  PriceListRegisterEditEvent({required this.model});
+  PriceListRegisterPutEvent({required this.model});
 }
 
-class PriceListRegisterAddEvent extends PriceListRegisterEvent {
-  final PriceListRegisterModel price;
+class PriceListRegisterPostEvent extends PriceListRegisterEvent {
+  final PriceListModel model;
 
-  PriceListRegisterAddEvent({required this.price});
+  PriceListRegisterPostEvent({required this.model});
 }
 
 class PriceListRegisterInfoEvent extends PriceListRegisterEvent {
-  final PriceListRegisterModel? model;
+  final PriceListModel? model;
   PriceListRegisterInfoEvent({this.model});
 }

@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/price_list_register/domain/entity/price_list_register_entity.dart';
 
-class PriceListRegisterModel extends PriceListRegisterEntity {
-  PriceListRegisterModel({
+class PriceListModel extends PriceListRegisterEntity {
+  PriceListModel({
     int? id,
     int? tbInstitutionId,
     String? description,
@@ -19,8 +19,8 @@ class PriceListRegisterModel extends PriceListRegisterEntity {
           active: active ?? "",
         );
 
-  factory PriceListRegisterModel.fromJson(Map<String?, dynamic> json) {
-    return PriceListRegisterModel(
+  factory PriceListModel.fromJson(Map<String?, dynamic> json) {
+    return PriceListModel(
       id: json['id'] is String ? int.parse(json['id']) : json['id'],
       tbInstitutionId: json['tb_institution_id'] is String
           ? int.parse(json['tb_institution_id'])

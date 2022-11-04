@@ -73,9 +73,6 @@ class AuthDatasourceImpl implements AuthDatasource {
       final uri = Uri.parse('${baseApiUrl}user/recoverypassword');
       final response = await client.post(
         uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
         body: {
           'email': email,
         },

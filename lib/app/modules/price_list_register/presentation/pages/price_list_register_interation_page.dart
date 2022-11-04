@@ -1,14 +1,14 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/price_list_register/data/model/price_list_register_model.dart';
+import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_bloc.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class PriceListRegisterInterationPage extends StatefulWidget {
-  final PriceListRegisterModel? price;
+  final PriceListModel? price;
   final int index;
   const PriceListRegisterInterationPage(
       {super.key, this.price, required this.index});
@@ -21,7 +21,7 @@ class PriceListRegisterInterationPage extends StatefulWidget {
 class _PriceListRegisterInterationPageState
     extends State<PriceListRegisterInterationPage> {
   late final PriceListRegisterBloc bloc;
-  PriceListRegisterModel? price;
+  PriceListModel? price;
   final _formKey = GlobalKey<FormState>();
 
   bool selectRadio = false;
@@ -65,9 +65,9 @@ class _PriceListRegisterInterationPageState
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     price != null
-                        ? bloc.add(PriceListRegisterEditEvent(model: price!))
-                        : bloc.add(PriceListRegisterAddEvent(
-                            price: PriceListRegisterModel(
+                        ? bloc.add(PriceListRegisterPutEvent(model: price!))
+                        : bloc.add(PriceListRegisterPutEvent(
+                            model: PriceListModel(
                             id: widget.index + 1,
                             tbInstitutionId: 1,
                             description: description,

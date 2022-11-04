@@ -1,47 +1,47 @@
-import 'package:appweb/app/modules/payment_type_register/data/datasource/remote/ownapi/payment_type_datasource.dart';
+import 'package:appweb/app/modules/payment_type_register/data/datasource/remote/ownapi/payment_type_register_datasource.dart';
 import 'package:appweb/app/modules/payment_type_register/data/repository/payment_type_repository_impl.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_delete.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_getlist.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_post.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_put.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_delete.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_getlist.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_post.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_put.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_bloc.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/pages/payment_type_register.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_bloc.dart';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 
 class PaymentTypeRegisterModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.factory<PaymentTypeDatasource>(
-          (i) => PaymentTypeDatasourceImpl(),
+        Bind.factory<PaymentTypeRegisterDataSource>(
+          (i) => PaymentTypeRegisterDataSourceImpl(),
         ),
         Bind.factory(
-          (i) => PaymentTypeRepositoryImpl(
-              datasource: i.get<PaymentTypeDatasourceImpl>()),
+          (i) => PaymentTypeRegisterRepositoryImpl(
+              datasource: i.get<PaymentTypeRegisterDataSource>()),
         ),
         Bind.factory(
-          (i) => PaymentTypeGetlist(
-              repository: i.get<PaymentTypeRepositoryImpl>()),
+          (i) => PaymentTypeRegisterGetlist(
+              repository: i.get<PaymentTypeRegisterRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) =>
-              PaymentTypeDelete(repository: i.get<PaymentTypeRepositoryImpl>()),
+          (i) => PaymentTypeRegisterPost(
+              repository: i.get<PaymentTypeRegisterRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) =>
-              PaymentTypePost(repository: i.get<PaymentTypeRepositoryImpl>()),
+          (i) => PaymentTypeRegisterPut(
+              repository: i.get<PaymentTypeRegisterRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) => PaymentTypePut(repository: i.get<PaymentTypeRepositoryImpl>()),
+          (i) => PaymentTypeRegisterDelete(
+              repository: i.get<PaymentTypeRegisterRepositoryImpl>()),
         ),
-        BlocBind.factory(
-          (i) => PaymentTypeBloc(
-            getlist: i.get<PaymentTypeGetlist>(),
-            delete: i.get<PaymentTypeDelete>(),
-            post: i.get<PaymentTypePost>(),
-            put: i.get<PaymentTypePut>(),
-          ),
-        ),
+        BlocBind.singleton((i) => PaymentTypeRegisterBloc(
+              getlist: i.get<PaymentTypeRegisterGetlist>(),
+              post: i.get<PaymentTypeRegisterPost>(),
+              put: i.get<PaymentTypeRegisterPut>(),
+              delete: i.get<PaymentTypeRegisterDelete>(),
+            )),
       ];
   @override
   final List<ModularRoute> routes = [

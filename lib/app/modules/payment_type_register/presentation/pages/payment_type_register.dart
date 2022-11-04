@@ -15,9 +15,9 @@ class _PaymentTypeRegisterState extends State<PaymentTypeRegister> {
   @override
   Widget build(BuildContext context) {
     return const Responsive(
-      mobile: ContentMobilePaymentType(),
-      tablet: ContentTabletPaymentType(),
-      desktop: ContentDesktopPaymentType(),
+      mobile: ContentMobilePaymentTypeRegister(),
+      tablet: ContentTabletPaymentTypeRegister(),
+      desktop: ContentDesktopPaymentTypeRegister(),
     );
   }
 }

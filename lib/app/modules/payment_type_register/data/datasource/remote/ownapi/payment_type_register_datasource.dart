@@ -5,17 +5,17 @@ import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
 import 'package:http/http.dart' as http;
 
-/// Throws a [ServerException] for all error codes.
-abstract class PaymentTypeDatasource {
+abstract class PaymentTypeRegisterDataSource {
   Future<List<PaymentTypeModel>> getlist({required int institutionId});
   Future<PaymentTypeModel> post({required PaymentTypeModel model});
-  Future<String> put({required PaymentTypeModel model});
+  Future<PaymentTypeModel> put({required PaymentTypeModel model});
   Future<String> delete({required int id});
 }
 
-class PaymentTypeDatasourceImpl implements PaymentTypeDatasource {
+class PaymentTypeRegisterDataSourceImpl extends PaymentTypeRegisterDataSource {
   final client = http.Client();
-  List<PaymentTypeModel> items = [];
+  List<PaymentTypeModel> prices = [];
+
   @override
   Future<List<PaymentTypeModel>> getlist({required int institutionId}) async {
     try {
@@ -25,11 +25,11 @@ class PaymentTypeDatasourceImpl implements PaymentTypeDatasource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-
-        items = (data as List).map((json) {
+        prices = (data as List).map((json) {
           return PaymentTypeModel.fromJson(json);
         }).toList();
-        return items;
+
+        return prices;
       } else {
         throw ServerException();
       }
@@ -40,20 +40,21 @@ class PaymentTypeDatasourceImpl implements PaymentTypeDatasource {
 
   @override
   Future<PaymentTypeModel> post({required PaymentTypeModel model}) async {
-    final uri = Uri.parse('${baseApiUrl}paymenttype');
     try {
+      final uri = Uri.parse('${baseApiUrl}paymenttype');
+
       final response = await client.post(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: model.toJson(),
+        body: jsonEncode(model.toJson()),
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        PaymentTypeModel result = PaymentTypeModel.fromJson(data);
-        return result;
+        var model = PaymentTypeModel.fromJson(data);
+        return model;
       } else {
         throw ServerException();
       }
@@ -63,14 +64,22 @@ class PaymentTypeDatasourceImpl implements PaymentTypeDatasource {
   }
 
   @override
-  Future<String> put({required PaymentTypeModel model}) async {
+  Future<PaymentTypeModel> put({required PaymentTypeModel model}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}paymenttype');
 
-      final response = await client.put(uri, body: model.toJson());
+      final response = await client.put(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(model.toJson()),
+      );
 
       if (response.statusCode == 200) {
-        return "";
+        final data = json.decode(response.body);
+        var model = PaymentTypeModel.fromJson(data);
+        return model;
       } else {
         throw ServerException();
       }

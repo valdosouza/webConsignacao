@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ContentTabletPaymentType extends StatelessWidget {
-  const ContentTabletPaymentType({super.key});
+class ContentTabletPaymentTypeRegister extends StatelessWidget {
+  const ContentTabletPaymentTypeRegister({super.key});
 
   @override
   Widget build(BuildContext context) {

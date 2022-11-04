@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ContentMobilePaymentType extends StatelessWidget {
-  const ContentMobilePaymentType({super.key});
+class ContentMobilePaymentTypeRegister extends StatelessWidget {
+  const ContentMobilePaymentTypeRegister({super.key});
 
   @override
   Widget build(BuildContext context) {

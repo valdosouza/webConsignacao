@@ -1,8 +1,8 @@
-import 'package:appweb/app/modules/price_list_register/data/model/price_list_register_model.dart';
+import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 import 'package:appweb/app/modules/price_list_register/domain/usecase/price_list_register_delete.dart';
-import 'package:appweb/app/modules/price_list_register/domain/usecase/price_list_register_put.dart';
 import 'package:appweb/app/modules/price_list_register/domain/usecase/price_list_register_get_list.dart';
 import 'package:appweb/app/modules/price_list_register/domain/usecase/price_list_register_post.dart';
+import 'package:appweb/app/modules/price_list_register/domain/usecase/price_list_register_put.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_event.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,10 +11,10 @@ class PriceListRegisterBloc
     extends Bloc<PriceListRegisterEvent, PriceListRegisterState> {
   final PriceListRegisterGetlist getlist;
   final PriceListRegisterPost post;
-  final PriceListRegisterEdit put;
+  final PriceListRegisterPut put;
   final PriceListRegisterDelete delete;
 
-  List<PriceListRegisterModel> prices = [];
+  List<PriceListModel> prices = [];
 
   PriceListRegisterBloc({
     required this.getlist,
@@ -39,10 +39,10 @@ class PriceListRegisterBloc
 
       var response = await getlist.call(ParamsPriceListGet(id: 1));
 
-      var result = response
-          .fold((l) => PriceListRegisterErrorState(prices: prices), (r) {
+      var result =
+          response.fold((l) => PriceListRegisterErrorState(list: prices), (r) {
         prices = r;
-        return PriceListRegisterLoadedState(prices: r);
+        return PriceListRegisterLoadedState(list: r);
       });
 
       emit(result);
@@ -59,29 +59,29 @@ class PriceListRegisterBloc
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        emit(PriceListRegisterLoadedState(prices: priceSearched));
+        emit(PriceListRegisterLoadedState(list: priceSearched));
       } else {
-        emit(PriceListRegisterLoadedState(prices: prices));
+        emit(PriceListRegisterLoadedState(list: prices));
       }
     });
   }
 
   goToInfoPage() {
     on<PriceListRegisterInfoEvent>((event, emit) async {
-      emit(PriceListRegisterInfoPageState(prices: prices, model: event.model));
+      emit(PriceListRegisterInfoPageState(list: prices, model: event.model));
     });
   }
 
   addFunction() {
-    on<PriceListRegisterAddEvent>((event, emit) async {
+    on<PriceListRegisterPostEvent>((event, emit) async {
       PriceListRegisterLoadingState();
-      var response = await post.call(ParamsPriceListPost(model: event.price));
+      var response = await post.call(ParamsPriceListPost(model: event.model));
 
       var result = response.fold(
-        (l) => PriceListRegisterAddErrorState(prices: prices),
+        (l) => PriceListRegisterAddErrorState(list: prices),
         (r) {
           prices.add(r);
-          return PriceListRegisterAddSuccessState(prices: prices);
+          return PriceListRegisterAddSuccessState(list: prices);
         },
       );
       emit(result);
@@ -89,14 +89,14 @@ class PriceListRegisterBloc
   }
 
   editFunction() {
-    on<PriceListRegisterEditEvent>((event, emit) async {
+    on<PriceListRegisterPutEvent>((event, emit) async {
       PriceListRegisterLoadingState();
-      var response = await put.call(ParamsPriceListEdit(model: event.model));
+      var response = await put.call(ParamsPriceListPut(model: event.model));
 
       var result = response.fold(
-        (l) => PriceListRegisterEditErrorState(prices: prices),
+        (l) => PriceListRegisterEditErrorState(list: prices),
         (r) {
-          return PriceListRegisterEditSuccessState(prices: prices);
+          return PriceListRegisterEditSuccessState(list: prices);
         },
       );
       emit(result);

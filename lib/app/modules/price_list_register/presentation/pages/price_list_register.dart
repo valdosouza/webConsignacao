@@ -4,8 +4,8 @@ import 'package:appweb/app/modules/price_list_register/presentation/contents/con
 import 'package:appweb/app/modules/price_list_register/presentation/contents/content_tablet_price_list_register.dart';
 import 'package:flutter/material.dart';
 
-class ContentPriceListRegister extends StatelessWidget {
-  const ContentPriceListRegister({super.key});
+class PriceListRegister extends StatelessWidget {
+  const PriceListRegister({super.key});
 
   @override
   Widget build(BuildContext context) {

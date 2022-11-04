@@ -1,85 +1,72 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_bloc.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_events.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_states.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/pages/payment_type_interaction_page.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_bloc.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_events.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ContentDesktopPaymentType extends StatefulWidget {
-  const ContentDesktopPaymentType({super.key});
+class ContentDesktopPaymentTypeRegister extends StatefulWidget {
+  const ContentDesktopPaymentTypeRegister({super.key});
 
   @override
-  State<ContentDesktopPaymentType> createState() =>
-      _ContentDesktopPaymentTypeState();
+  State<ContentDesktopPaymentTypeRegister> createState() =>
+      _ContentDesktopPaymentTypeRegisterState();
 }
 
-class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
-  late PaymentTypeBloc bloc;
+class _ContentDesktopPaymentTypeRegisterState
+    extends State<ContentDesktopPaymentTypeRegister> {
+  late final PaymentTypeRegisterBloc bloc;
 
   @override
   void initState() {
-    bloc = Modular.get<PaymentTypeBloc>();
-    bloc.add(LoadPaymentTypeEvent());
+    bloc = Modular.get<PaymentTypeRegisterBloc>();
+    bloc.add(PaymentTypeRegisterGetListEvent());
     super.initState();
   }
 
   @override
-  void dispose() {
-    bloc.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PaymentTypeBloc, PaymentTypeState>(
+    return BlocConsumer<PaymentTypeRegisterBloc, PaymentTypeRegisterState>(
       bloc: bloc,
       listener: (context, state) {
-        if (state is PaymentTypeDeleteSuccessState) {
-          CustomToast.showToast("Forma de pagamento removido com sucesso.");
-        } else if (state is PaymentTypeDeleteErrorState) {
+        if (state is PaymentTypeRegisterErrorState) {
           CustomToast.showToast(
-              "Erro ao remover forma de pagamento. Tente novamente mais tarde.");
-        } else if (state is PaymentTypeAddSuccessState) {
-          CustomToast.showToast("Forma de pagamento adicionado com sucesso");
-          bloc.add(LoadPaymentTypeEvent());
-        } else if (state is PaymentTypeAddErrorState) {
+              "Erro ao buscar a lista. Tente novamente mais tarde.");
+        } else if (state is PaymentTypeRegisterAddSuccessState) {
+          CustomToast.showToast("Forma de Pagamento adicionado com sucesso.");
+        } else if (state is PaymentTypeRegisterAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar forma de pagamento. Tente novamente mais tarde.");
-        } else if (state is PaymentTypeEditSuccessState) {
-          CustomToast.showToast("Forma de pagamento editado com sucesso");
-          bloc.add(LoadPaymentTypeEvent());
-        } else if (state is PaymentTypePutErrorState) {
+              "Erro ao adicionar Forma de Pagamento. Tente novamente mais tarde.");
+        } else if (state is PaymentTypeRegisterEditSuccessState) {
+          CustomToast.showToast("Forma de Pagamento editado com sucesso.");
+        } else if (state is PaymentTypeRegisterEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar forma de pagamento. Tente novamente mais tarde.");
+              "Erro ao editar Forma de Pagamento. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
-        if (state is PaymentTypeInitialState) {
+        if (state is PaymentTypeRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is PaymentTypeInterationPageState) {
-          return PaymentTypeInteractionPage(
-            bloc: bloc,
-            paymentType: state.paymentType,
+        } else if (state is PaymentTypeRegisterInfoPageState) {
+          return PaymentTypeRegisterInterationPage(
+            model: state.model,
+            index: state.list.last.id,
           );
         }
-        final paymentTypeList = state.paymentTypeList;
-
+        final prices = state.list;
         return Scaffold(
           appBar: AppBar(
-            flexibleSpace: Container(
-              decoration: kBoxDecorationflexibleSpace,
-            ),
-            title: const Text('Lista de Formas de Pagamento'),
+            title: const Text('Formas de Pagamentos'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(PaymentTypeInterationEvent());
+                  bloc.add(PaymentTypeRegisterInfoEvent());
                 },
               ),
             ],
@@ -94,24 +81,30 @@ class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
                   _buildSearchInput(),
                   const SizedBox(height: 30.0),
                   Expanded(
-                    child: paymentTypeList.isEmpty
+                    child: prices.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum regsitro em nossa base."))
+                                "Não encontramos nenhum dado em nossa base."))
                         : ListView.separated(
-                            itemCount: paymentTypeList.length,
+                            itemCount: prices.length,
                             itemBuilder: (context, index) => InkWell(
-                              onTap: () => bloc.add(PaymentTypeInterationEvent(
-                                  paymentType: paymentTypeList[index])),
+                              onTap: () {
+                                bloc.add(PaymentTypeRegisterInfoEvent(
+                                    model: prices[index]));
+                              },
                               child: ListTile(
                                 leading: CircleAvatar(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text(
-                                        paymentTypeList[index].id.toString()),
+                                    child: Text((index + 1).toString()),
                                   ),
                                 ),
-                                title: Text(paymentTypeList[index].description),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(prices[index].description),
+                                  ],
+                                ),
                                 trailing: IconButton(
                                   icon: const Icon(Icons.remove),
                                   onPressed: () {
@@ -140,7 +133,7 @@ class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
         keyboardType: TextInputType.text,
         autofocus: true,
         onChanged: (value) {
-          bloc.add(SearchPaymentTypeEvent(search: value));
+          bloc.add(PaymentTypeRegisterSearchEvent(search: value));
         },
         style: const TextStyle(
           color: Colors.white,
@@ -149,7 +142,7 @@ class _ContentDesktopPaymentTypeState extends State<ContentDesktopPaymentType> {
         decoration: const InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(left: 10.0),
-          hintText: "Pesquise as formas de pagamento",
+          hintText: "Pesquise pelo nome",
           hintStyle: kHintTextStyle,
         ),
       ),

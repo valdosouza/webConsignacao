@@ -36,15 +36,15 @@ class _ContentDesktopPriceListRegisterState
           CustomToast.showToast(
               "Erro ao buscar a lista. Tente novamente mais tarde.");
         } else if (state is PriceListRegisterAddSuccessState) {
-          CustomToast.showToast("Preço adicionado com sucesso.");
+          CustomToast.showToast("Lista de Preço adicionado com sucesso.");
         } else if (state is PriceListRegisterAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar um preço. Tente novamente mais tarde.");
+              "Erro ao adicionar Lista de preço. Tente novamente mais tarde.");
         } else if (state is PriceListRegisterEditSuccessState) {
-          CustomToast.showToast("Preço editado com sucesso.");
+          CustomToast.showToast("Lista de Preço editado com sucesso.");
         } else if (state is PriceListRegisterEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar um preço. Tente novamente mais tarde.");
+              "Erro ao editar Lista de preço. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -55,10 +55,10 @@ class _ContentDesktopPriceListRegisterState
         } else if (state is PriceListRegisterInfoPageState) {
           return PriceListRegisterInterationPage(
             price: state.model,
-            index: state.prices.last.id,
+            index: state.list.last.id,
           );
         }
-        final prices = state.prices;
+        final prices = state.list;
         return Scaffold(
           appBar: AppBar(
             title: const Text('Lista de preços'),

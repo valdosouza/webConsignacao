@@ -16,34 +16,34 @@ class PriceListRegisterModule extends Module {
           (i) => PriceListRegisterDataSourceImpl(),
         ),
         Bind.factory(
-          (i) => PriceListRepositoryImpl(
+          (i) => PriceListRegisterRepositoryImpl(
               datasource: i.get<PriceListRegisterDataSource>()),
         ),
         Bind.factory(
           (i) => PriceListRegisterGetlist(
-              repository: i.get<PriceListRepositoryImpl>()),
+              repository: i.get<PriceListRegisterRepositoryImpl>()),
         ),
         Bind.factory(
           (i) => PriceListRegisterPost(
-              repository: i.get<PriceListRepositoryImpl>()),
+              repository: i.get<PriceListRegisterRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) => PriceListRegisterEdit(
-              repository: i.get<PriceListRepositoryImpl>()),
+          (i) => PriceListRegisterPut(
+              repository: i.get<PriceListRegisterRepositoryImpl>()),
         ),
         Bind.factory(
           (i) => PriceListRegisterDelete(
-              repository: i.get<PriceListRepositoryImpl>()),
+              repository: i.get<PriceListRegisterRepositoryImpl>()),
         ),
         BlocBind.singleton((i) => PriceListRegisterBloc(
               getlist: i.get<PriceListRegisterGetlist>(),
               post: i.get<PriceListRegisterPost>(),
-              put: i.get<PriceListRegisterEdit>(),
+              put: i.get<PriceListRegisterPut>(),
               delete: i.get<PriceListRegisterDelete>(),
             )),
       ];
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, args) => const ContentPriceListRegister()),
+    ChildRoute('/', child: (_, args) => const PriceListRegister()),
   ];
 }

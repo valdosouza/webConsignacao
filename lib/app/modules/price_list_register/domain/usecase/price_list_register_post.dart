@@ -1,22 +1,22 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/core/usecase/usecase.dart';
-import 'package:appweb/app/modules/price_list_register/data/model/price_list_register_model.dart';
+import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 import 'package:appweb/app/modules/price_list_register/domain/repository/price_list_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
 class PriceListRegisterPost
-    implements UseCase<PriceListRegisterModel, ParamsPriceListPost> {
+    implements UseCase<PriceListModel, ParamsPriceListPost> {
   final PriceListRegisterRepository repository;
 
   PriceListRegisterPost({required this.repository});
 
   @override
-  Future<Either<Failure, PriceListRegisterModel>> call(
+  Future<Either<Failure, PriceListModel>> call(
       ParamsPriceListPost params) async {
     try {
-      final list = await repository.post(priceModel: params.model);
-      return list;
+      final response = await repository.post(model: params.model);
+      return response;
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -24,6 +24,6 @@ class PriceListRegisterPost
 }
 
 class ParamsPriceListPost {
-  PriceListRegisterModel model;
+  PriceListModel model;
   ParamsPriceListPost({required this.model});
 }
