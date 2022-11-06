@@ -2,13 +2,18 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
+import 'package:appweb/app/modules/product_register/data/model/product_register_main_model.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ProductRegisterDataSource {
   Future<List<ProductRegisterModel>> getlist({required int id});
-  Future<ProductRegisterModel> post({required ProductRegisterModel model});
-  Future<ProductRegisterModel> put({required ProductRegisterModel model});
+  Future<ProductRegisterMainModel> get(
+      {required int intitutionId, required int productId});
+  Future<ProductRegisterMainModel> post(
+      {required ProductRegisterMainModel model});
+  Future<ProductRegisterMainModel> put(
+      {required ProductRegisterMainModel model});
   Future<String> delete({required int id});
 }
 
@@ -39,10 +44,10 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   }
 
   @override
-  Future<ProductRegisterModel> post(
-      {required ProductRegisterModel model}) async {
+  Future<ProductRegisterMainModel> post(
+      {required ProductRegisterMainModel model}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}pricelist');
+      final uri = Uri.parse('${baseApiUrl}product');
 
       final response = await client.post(
         uri,
@@ -54,7 +59,7 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = ProductRegisterModel.fromJson(data);
+        var model = ProductRegisterMainModel.fromJson(data);
         return model;
       } else {
         throw ServerException();
@@ -65,10 +70,10 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   }
 
   @override
-  Future<ProductRegisterModel> put(
-      {required ProductRegisterModel model}) async {
+  Future<ProductRegisterMainModel> put(
+      {required ProductRegisterMainModel model}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}pricelist');
+      final uri = Uri.parse('${baseApiUrl}product');
 
       final response = await client.put(
         uri,
@@ -80,7 +85,7 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = ProductRegisterModel.fromJson(data);
+        var model = ProductRegisterMainModel.fromJson(data);
         return model;
       } else {
         throw ServerException();
@@ -93,12 +98,33 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   @override
   Future<String> delete({required int id}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}pricelist/$id');
+      final uri = Uri.parse('${baseApiUrl}product/$id');
 
       final response = await client.delete(uri);
 
       if (response.statusCode == 200) {
         return "";
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<ProductRegisterMainModel> get(
+      {required int intitutionId, required int productId}) async {
+    try {
+      final uri =
+          Uri.parse('${baseApiUrl}product/get/$intitutionId/$productId');
+
+      final response = await client.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        var model = ProductRegisterMainModel.fromJson(data);
+        return model;
       } else {
         throw ServerException();
       }

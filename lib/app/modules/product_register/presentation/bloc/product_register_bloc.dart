@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_delete.dart';
+import 'package:appweb/app/modules/product_register/domain/usecase/product_register_get.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_get_list.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_post.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_put.dart';
@@ -13,6 +14,7 @@ class ProductRegisterBloc
   final ProductRegisterPost post;
   final ProductRegisterPut put;
   final ProductRegisterDelete delete;
+  final ProductRegisterGet get;
 
   List<ProductRegisterModel> products = [];
 
@@ -21,6 +23,7 @@ class ProductRegisterBloc
     required this.post,
     required this.put,
     required this.delete,
+    required this.get,
   }) : super(ProductRegisterLoadingState()) {
     getList();
 
@@ -68,20 +71,38 @@ class ProductRegisterBloc
 
   goToInfoPage() {
     on<ProductRegisterInfoEvent>((event, emit) async {
-      emit(ProductRegisterInfoPageState(list: products, model: event.model));
+      if (event.model != null) {
+        emit(ProductRegisterLoadingState());
+
+        var response = await get.call(ParamsProductRegisterGet(
+            intitutionId: 1, productId: event.model!.id));
+
+        var result = response.fold(
+            (l) => ProductRegisterGetErrorState(list: products),
+            (r) => ProductRegisterInfoPageState(list: products, model: r));
+
+        emit(result);
+      } else {
+        emit(ProductRegisterInfoPageState(list: products, model: null));
+      }
     });
   }
 
   addFunction() {
     on<ProductRegisterPostEvent>((event, emit) async {
-      ProductRegisterLoadingState();
+      emit(ProductRegisterLoadingState());
       var response =
           await post.call(ParamsProductRegisterPost(model: event.model));
 
       var result = response.fold(
         (l) => ProductRegisterPostErrorState(list: products),
         (r) {
-          // products.add(r);
+          products.add(ProductRegisterModel(
+            id: r.product.id,
+            tbInstitutionId: r.product.tbInstitutionId,
+            description: r.product.description,
+            active: r.product.active,
+          ));
           return ProductRegisterPostSuccessState(list: products);
         },
       );
@@ -91,7 +112,7 @@ class ProductRegisterBloc
 
   editFunction() {
     on<ProductRegisterPutEvent>((event, emit) async {
-      ProductRegisterLoadingState();
+      emit(ProductRegisterLoadingState());
       var response =
           await put.call(ParamsProductRegisterPut(model: event.model));
 

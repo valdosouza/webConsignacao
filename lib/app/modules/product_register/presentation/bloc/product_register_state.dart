@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/product_register/data/model/product_register_main_model.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
 
 abstract class ProductRegisterState {
@@ -23,9 +24,14 @@ class ProductRegisterErrorState extends ProductRegisterState {
 }
 
 class ProductRegisterInfoPageState extends ProductRegisterState {
-  final ProductRegisterModel? model;
+  final ProductRegisterMainModel? model;
   ProductRegisterInfoPageState(
       {required List<ProductRegisterModel> list, this.model})
+      : super(list: list);
+}
+
+class ProductRegisterGetErrorState extends ProductRegisterState {
+  ProductRegisterGetErrorState({required List<ProductRegisterModel> list})
       : super(list: list);
 }
 

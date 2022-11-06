@@ -14,8 +14,8 @@ class ProductRegisterMainModel extends ProductRegisterMainEntity {
   factory ProductRegisterMainModel.fromJson(Map<String?, dynamic> json) {
     return ProductRegisterMainModel(
       product: ProductRegisterModel.fromJson(json['product']),
-      priceList: (json['priceilist'] as List)
-          .map((e) => ProductPriceListModel.fromJson(json['priceilist']))
+      priceList: (json['pricelist'] as List)
+          .map((e) => ProductPriceListModel.fromJson(e))
           .toList(),
     );
   }
@@ -23,7 +23,7 @@ class ProductRegisterMainModel extends ProductRegisterMainEntity {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['product'] = product.toJson();
-    data['priceilist'] = priceList.map((e) => e.toJson()).toList();
+    data['pricelist'] = priceList.map((e) => e.toJson()).toList();
     return data;
   }
 }

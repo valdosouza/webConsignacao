@@ -1,6 +1,7 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/product_register/data/datasource/product_register_datasource.dart';
+import 'package:appweb/app/modules/product_register/data/model/product_register_main_model.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
 import 'package:appweb/app/modules/product_register/domain/repository/product_register_respository.dart';
 import 'package:dartz/dartz.dart';
@@ -20,8 +21,8 @@ class ProductRegisterRepositoryImpl implements ProductRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, ProductRegisterModel>> put(
-      {required ProductRegisterModel model}) async {
+  Future<Either<Failure, ProductRegisterMainModel>> put(
+      {required ProductRegisterMainModel model}) async {
     try {
       final list = await datasource.put(model: model);
       return Right(list);
@@ -42,10 +43,22 @@ class ProductRegisterRepositoryImpl implements ProductRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, ProductRegisterModel>> post(
-      {required ProductRegisterModel model}) async {
+  Future<Either<Failure, ProductRegisterMainModel>> post(
+      {required ProductRegisterMainModel model}) async {
     try {
       final list = await datasource.post(model: model);
+      return Right(list);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProductRegisterMainModel>> get(
+      {required int intitutionId, required int productId}) async {
+    try {
+      final list = await datasource.get(
+          intitutionId: intitutionId, productId: productId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

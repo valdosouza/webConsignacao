@@ -5,25 +5,30 @@ import 'package:appweb/app/modules/product_register/data/model/product_register_
 import 'package:appweb/app/modules/product_register/domain/repository/product_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
-class ProductRegisterPost
-    implements UseCase<ProductRegisterMainModel, ParamsProductRegisterPost> {
+class ProductRegisterGet
+    implements UseCase<ProductRegisterMainModel, ParamsProductRegisterGet> {
   final ProductRegisterRepository repository;
 
-  ProductRegisterPost({required this.repository});
+  ProductRegisterGet({required this.repository});
 
   @override
   Future<Either<Failure, ProductRegisterMainModel>> call(
-      ParamsProductRegisterPost params) async {
+      ParamsProductRegisterGet params) async {
     try {
-      final response = await repository.post(model: params.model);
-      return response;
+      final list = await repository.get(
+          intitutionId: params.intitutionId, productId: params.productId);
+      return list;
     } on ServerException {
       return Left(ServerFailure());
     }
   }
 }
 
-class ParamsProductRegisterPost {
-  ProductRegisterMainModel model;
-  ParamsProductRegisterPost({required this.model});
+class ParamsProductRegisterGet {
+  int intitutionId;
+  int productId;
+  ParamsProductRegisterGet({
+    required this.intitutionId,
+    required this.productId,
+  });
 }

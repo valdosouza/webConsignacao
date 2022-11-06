@@ -1,11 +1,11 @@
 class ProductPriceListEntity {
   int tbPriceListId;
-  int priceTag;
+  dynamic priceTag;
   String namePriceList;
 
   ProductPriceListEntity({
     this.tbPriceListId = 0,
-    this.priceTag = 0,
+    this.priceTag,
     this.namePriceList = "",
   });
 

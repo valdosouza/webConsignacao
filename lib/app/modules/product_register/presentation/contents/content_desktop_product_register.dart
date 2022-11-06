@@ -45,6 +45,9 @@ class _ContentDesktopProductRegisterState
         } else if (state is ProductRegisterPutErrorState) {
           CustomToast.showToast(
               "Erro ao editar o produto. Tente novamente mais tarde.");
+        } else if (state is ProductRegisterGetErrorState) {
+          CustomToast.showToast(
+              "Erro ao buscar o produto. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -61,7 +64,7 @@ class _ContentDesktopProductRegisterState
         final prices = state.list;
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Lista de preços'),
+            title: const Text('Lista de Produtos'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.person_add),

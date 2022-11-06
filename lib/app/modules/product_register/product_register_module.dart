@@ -1,6 +1,7 @@
 import 'package:appweb/app/modules/product_register/data/datasource/product_register_datasource.dart';
 import 'package:appweb/app/modules/product_register/data/repository/product_register_repository_impl.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_delete.dart';
+import 'package:appweb/app/modules/product_register/domain/usecase/product_register_get.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_get_list.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_post.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_put.dart';
@@ -35,11 +36,16 @@ class ProductRegisterModule extends Module {
           (i) => ProductRegisterDelete(
               repository: i.get<ProductRegisterRepositoryImpl>()),
         ),
+        Bind.factory(
+          (i) => ProductRegisterGet(
+              repository: i.get<ProductRegisterRepositoryImpl>()),
+        ),
         BlocBind.singleton((i) => ProductRegisterBloc(
               getlist: i.get<ProductRegisterGetlist>(),
               post: i.get<ProductRegisterPost>(),
               put: i.get<ProductRegisterPut>(),
               delete: i.get<ProductRegisterDelete>(),
+              get: i.get<ProductRegisterGet>(),
             )),
       ];
   @override

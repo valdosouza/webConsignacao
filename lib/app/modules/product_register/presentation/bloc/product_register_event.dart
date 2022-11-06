@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/product_register/data/model/product_register_main_model.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
 
 abstract class ProductRegisterEvent {}
@@ -13,13 +14,13 @@ class ProductRegisterSearchEvent extends ProductRegisterEvent {
 }
 
 class ProductRegisterPutEvent extends ProductRegisterEvent {
-  final ProductRegisterModel model;
+  final ProductRegisterMainModel model;
 
   ProductRegisterPutEvent({required this.model});
 }
 
 class ProductRegisterPostEvent extends ProductRegisterEvent {
-  final ProductRegisterModel model;
+  final ProductRegisterMainModel model;
 
   ProductRegisterPostEvent({required this.model});
 }
