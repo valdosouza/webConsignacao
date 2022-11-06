@@ -81,7 +81,7 @@ class _ProductRegisterInterationPageState
                     product != null
                         ? bloc.add(ProductRegisterPutEvent(model: product!))
                         : bloc.add(
-                            ProductRegisterPutEvent(
+                            ProductRegisterPostEvent(
                               model: ProductRegisterMainModel(
                                 product: ProductRegisterModel(
                                   id: widget.index + 1,

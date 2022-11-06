@@ -119,6 +119,14 @@ class ProductRegisterBloc
       var result = response.fold(
         (l) => ProductRegisterPutErrorState(list: products),
         (r) {
+          products
+              .removeWhere((element) => element.id == event.model.product.id);
+          products.add(ProductRegisterModel(
+            id: event.model.product.id,
+            tbInstitutionId: event.model.product.tbInstitutionId,
+            description: event.model.product.description,
+            active: event.model.product.active,
+          ));
           return ProductRegisterPutSuccessState(list: products);
         },
       );
