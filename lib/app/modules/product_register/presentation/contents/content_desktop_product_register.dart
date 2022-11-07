@@ -57,7 +57,7 @@ class _ContentDesktopProductRegisterState
           );
         } else if (state is ProductRegisterInfoPageState) {
           return ProductRegisterInterationPage(
-            product: state.model,
+            product: state.model!,
             index: state.list.last.id,
           );
         }

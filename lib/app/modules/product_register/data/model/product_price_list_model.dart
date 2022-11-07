@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/product_register/domain/entity/product_price_
 class ProductPriceListModel extends ProductPriceListEntity {
   ProductPriceListModel({
     int? tbPriceListId,
-    dynamic priceTag,
+    double? priceTag,
     String? namePriceList,
   }) : super(
           tbPriceListId: tbPriceListId ?? 0,
@@ -14,7 +14,7 @@ class ProductPriceListModel extends ProductPriceListEntity {
   factory ProductPriceListModel.fromJson(Map<String?, dynamic> json) {
     return ProductPriceListModel(
       tbPriceListId: json['tb_price_list_id'] as int? ?? 0,
-      priceTag: json['price_tag'],
+      priceTag: json['price_tag'] as dynamic ?? 0.0,
       namePriceList: json['name_price_list'] as String? ?? "",
     );
   }

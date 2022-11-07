@@ -71,20 +71,17 @@ class ProductRegisterBloc
 
   goToInfoPage() {
     on<ProductRegisterInfoEvent>((event, emit) async {
-      if (event.model != null) {
-        emit(ProductRegisterLoadingState());
+      emit(ProductRegisterLoadingState());
 
-        var response = await get.call(ParamsProductRegisterGet(
-            intitutionId: 1, productId: event.model!.id));
+      var response = await get.call(ParamsProductRegisterGet(
+          intitutionId: 1,
+          productId: event.model != null ? event.model!.id : 0));
 
-        var result = response.fold(
-            (l) => ProductRegisterGetErrorState(list: products),
-            (r) => ProductRegisterInfoPageState(list: products, model: r));
+      var result = response.fold(
+          (l) => ProductRegisterGetErrorState(list: products),
+          (r) => ProductRegisterInfoPageState(list: products, model: r));
 
-        emit(result);
-      } else {
-        emit(ProductRegisterInfoPageState(list: products, model: null));
-      }
+      emit(result);
     });
   }
 

@@ -1,12 +1,14 @@
+import 'package:appweb/app/modules/product_register/data/model/product_price_list_model.dart';
+
 class ProductPriceListEntity {
-  int tbPriceListId;
-  dynamic priceTag;
-  String namePriceList;
+  int? tbPriceListId;
+  double? priceTag;
+  String? namePriceList;
 
   ProductPriceListEntity({
-    this.tbPriceListId = 0,
+    this.tbPriceListId,
     this.priceTag,
-    this.namePriceList = "",
+    this.namePriceList,
   });
 
   Map<String, dynamic> toJson() {
@@ -15,5 +17,13 @@ class ProductPriceListEntity {
     data['price_tag'] = priceTag;
     data['name_price_list'] = namePriceList;
     return data;
+  }
+
+  ProductPriceListModel toModel(ProductPriceListEntity entity) {
+    return ProductPriceListModel(
+      tbPriceListId: entity.tbPriceListId,
+      namePriceList: entity.namePriceList,
+      priceTag: entity.priceTag,
+    );
   }
 }

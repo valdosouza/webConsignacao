@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class ProductRegisterInterationPage extends StatefulWidget {
-  final ProductRegisterMainModel? product;
+  final ProductRegisterMainModel product;
   final int index;
   const ProductRegisterInterationPage(
-      {super.key, this.product, required this.index});
+      {super.key, required this.product, required this.index});
 
   @override
   State<ProductRegisterInterationPage> createState() =>
@@ -26,7 +26,7 @@ class _ProductRegisterInterationPageState
   late TabController _tabController;
 
   late final ProductRegisterBloc bloc;
-  ProductRegisterMainModel? product;
+  late ProductRegisterMainModel product;
   final _formKey = GlobalKey<FormState>();
 
   bool selectRadio = false;
@@ -34,7 +34,6 @@ class _ProductRegisterInterationPageState
   List<ProductPriceListModel> priceList = [];
 
   String description = "";
-  String priceTag = "";
   String active = "S";
 
   final List<Tab> myTabs = <Tab>[
@@ -47,9 +46,7 @@ class _ProductRegisterInterationPageState
     super.initState();
     bloc = Modular.get<ProductRegisterBloc>();
     product = widget.product;
-    if (product != null) {
-      selectRadio = product!.product.active == "S";
-    }
+    selectRadio = product.product.active == "S";
     _tabController = TabController(vsync: this, length: myTabs.length);
   }
 
@@ -62,9 +59,9 @@ class _ProductRegisterInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
-          title: product == null
+          title: product.product.id == 0
               ? const Text('Adicionar')
-              : Text('Editar ${product!.product.description}'),
+              : Text('Editar ${product.product.description}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -77,23 +74,23 @@ class _ProductRegisterInterationPageState
               child: IconButton(
                 icon: const Icon(Icons.check),
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    product != null
-                        ? bloc.add(ProductRegisterPutEvent(model: product!))
-                        : bloc.add(
-                            ProductRegisterPostEvent(
-                              model: ProductRegisterMainModel(
-                                product: ProductRegisterModel(
-                                  id: widget.index + 1,
-                                  tbInstitutionId: 1,
-                                  description: description,
-                                  active: active,
-                                ),
-                                priceList: [],
+                  product.product.id != 0
+                      ? bloc.add(ProductRegisterPutEvent(model: product))
+                      : bloc.add(
+                          ProductRegisterPostEvent(
+                            model: ProductRegisterMainModel(
+                              product: ProductRegisterModel(
+                                id: widget.index + 1,
+                                tbInstitutionId: 1,
+                                description: description,
+                                active: active,
                               ),
+                              priceList: product.priceList
+                                  .map((e) => e.toModel(e))
+                                  .toList(),
                             ),
-                          );
-                  }
+                          ),
+                        );
                 },
               ),
             ),
@@ -138,12 +135,12 @@ class _ProductRegisterInterationPageState
             // const SizedBox(height: 30.0),
             CustomInput(
               title: 'Descrição',
-              initialValue: product?.product.description ?? "",
+              initialValue: product.product.description,
               validator: (value) => Validators.validateRequired(value),
               keyboardType: TextInputType.text,
               inputAction: TextInputAction.next,
               onChanged: (value) {
-                product?.product.description = value;
+                product.product.description = value;
                 description = value;
               },
             ),
@@ -164,7 +161,7 @@ class _ProductRegisterInterationPageState
                               setState(() {
                                 selectRadio = true;
                               });
-                              product?.product.active = "S";
+                              product.product.active = "S";
                               active = "S";
                             },
                     ),
@@ -184,7 +181,7 @@ class _ProductRegisterInterationPageState
                                 setState(() {
                                   selectRadio = false;
                                 });
-                                product?.product.active = "N";
+                                product.product.active = "N";
                                 active = "N";
                               }
                             : (value) {}),
@@ -201,34 +198,29 @@ class _ProductRegisterInterationPageState
   }
 
   Widget _buildPriceList() {
-    if (product == null) {
-      return const Center(
-        child: Text("Este produto ainda não possui uma tabela de preço"),
-      );
-    } else if (product!.priceList.isEmpty) {
+    if (product.priceList.isEmpty) {
       return const Center(
         child: Text("Este produto ainda não possui uma tabela de preço"),
       );
     } else {
       return Column(
         children: List.generate(
-          product!.priceList.length,
+          product.priceList.length,
           (index) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${product?.priceList[index].namePriceList}'),
+                Text(product.priceList[index].namePriceList!),
                 CustomInput(
                   title: '',
                   initialValue:
-                      product?.priceList[index].priceTag.toString() ?? "0.0",
+                      product.priceList[index].priceTag!.toStringAsFixed(2),
                   validator: (value) => Validators.validateRequired(value),
                   keyboardType: TextInputType.number,
                   inputAction: TextInputAction.next,
                   onChanged: (value) {
-                    product?.priceList[index].priceTag = int.parse(value);
-                    priceTag = value;
+                    product.priceList[index].priceTag = double.parse(value);
                   },
                 ),
               ],
