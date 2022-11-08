@@ -25,14 +25,14 @@ class InstituitionIdentificationWidget extends StatelessWidget {
           children: [
             CustomInput(
               title: 'CNPJ',
-              initialValue: bloc.entity.cnpj,
+              initialValue: bloc.institution.cnpj,
               keyboardType: TextInputType.number,
               inputAction: TextInputAction.next,
               sufixIcon: IconButton(
                 hoverColor: Colors.transparent,
                 onPressed: () {
-                  if (bloc.entity.cnpj.length == 14) {
-                    bloc.add(InstitutionCnpjEvent(bloc.entity.cnpj));
+                  if (bloc.institution.cnpj.length == 14) {
+                    bloc.add(InstitutionCnpjEvent(bloc.institution.cnpj));
                   } else {
                     CustomToast.showToast("CNPJ inválido.");
                   }
@@ -45,37 +45,37 @@ class InstituitionIdentificationWidget extends StatelessWidget {
               ),
               validator: (value) => Validators.validateCNPJ(value),
               onChanged: (value) {
-                bloc.entity.cnpj = value;
+                bloc.institution.cnpj = value;
               },
             ),
             const SizedBox(height: 30.0),
             CustomInput(
               title: 'Nome/Razão Social',
-              initialValue: bloc.entity.nameCompany,
+              initialValue: bloc.institution.nameCompany,
               keyboardType: TextInputType.text,
               inputAction: TextInputAction.next,
               onChanged: (value) {
-                bloc.entity.nameCompany = value;
+                bloc.institution.nameCompany = value;
               },
             ),
             const SizedBox(height: 30.0),
             CustomInput(
               title: 'Apelido/Fantasia',
-              initialValue: bloc.entity.nickTrade,
+              initialValue: bloc.institution.nickTrade,
               keyboardType: TextInputType.text,
               inputAction: TextInputAction.next,
               onChanged: (value) {
-                bloc.entity.nickTrade = value;
+                bloc.institution.nickTrade = value;
               },
             ),
             const SizedBox(height: 30.0),
             CustomInput(
               title: 'Inscrição Estadual',
-              initialValue: bloc.entity.ie,
+              initialValue: bloc.institution.ie,
               keyboardType: TextInputType.text,
               inputAction: TextInputAction.next,
               onChanged: (value) {
-                bloc.entity.ie = value;
+                bloc.institution.ie = value;
               },
             ),
           ],

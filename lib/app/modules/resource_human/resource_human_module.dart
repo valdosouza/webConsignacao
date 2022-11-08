@@ -1,4 +1,3 @@
-import 'package:appweb/app/modules/collaborator/collaborator_module.dart';
 import 'package:appweb/app/modules/collaborator_register/collaborator_register_module.dart';
 import 'package:appweb/app/modules/line_business_register/line_business_register_module.dart';
 import 'package:appweb/app/modules/resource_human/presentation/content/content_resource_human.dart';
@@ -18,7 +17,8 @@ class ResourceHumanModule extends Module {
             child: (_, args) => const ContentResourceHuman()),
         ModuleRoute('/content/lineBusiness/',
             module: LinebusinessRegisterModule()),
-        ModuleRoute('/content/collaborator/', module: CollaboratorModule()),
+        ModuleRoute('/content/collaborator/',
+            module: CollaboratorRegisterModule()),
         ModuleRoute('/content/collaborator/register/',
             module: CollaboratorRegisterModule()),
       ],

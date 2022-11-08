@@ -24,7 +24,8 @@ class LineBusinessBloc extends Bloc<LineBusinessEvent, LineBusinessState> {
   }) : super(LineBusinessInitialState()) {
     on<LoadLineBusinessEvent>((event, emit) async {
       LineBusinessInitialState();
-      var response = await getlist.call(const Params(institutionId: 1));
+      var response = await getlist
+          .call(const ParamsLineBusinessGetList(tbInstitutionId: 1));
       var result = response.fold(
         (l) => LineBusinessErrorState(),
         (r) {

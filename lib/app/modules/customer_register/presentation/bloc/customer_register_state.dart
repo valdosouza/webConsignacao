@@ -1,8 +1,8 @@
-import 'package:appweb/app/modules/customer_register/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/city_model.dart';
+import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_salesman_model.dart';
-import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
-import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
 
 abstract class CustomerRegisterState {
   List<CustomerListModel> customers;
@@ -80,10 +80,10 @@ class CustomerRegisterGetStatesErrorState extends CustomerRegisterState {
 }
 
 class CustomerRegisterGetCitySuccessState extends CustomerRegisterState {
-  final List<CityModel> citys;
+  final List<CityModel> cities;
 
   CustomerRegisterGetCitySuccessState(
-      {required List<CustomerListModel> customers, required this.citys})
+      {required List<CustomerListModel> customers, required this.cities})
       : super(customers: customers);
 }
 
@@ -122,7 +122,7 @@ class CustomerRegisterPostEditErrorState extends CustomerRegisterState {
 }
 
 class CustomerRegisterGetSalesmanSuccessState extends CustomerRegisterState {
-  final List<CustomerSalesmanModel> salesmans;
+  final List<SalesmanListModel> salesmans;
 
   CustomerRegisterGetSalesmanSuccessState(
       List<CustomerListModel> customers, this.salesmans)

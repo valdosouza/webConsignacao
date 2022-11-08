@@ -39,22 +39,22 @@ class _ContentDesktoLineBusinesseState
       bloc: bloc,
       listener: (context, state) {
         if (state is LineBusinessDeleteSuccessState) {
-          CustomToast.showToast("Forma de pagamento removido com sucesso.");
+          CustomToast.showToast("Cargos removido com sucesso.");
         } else if (state is LineBusinessDeleteErrorState) {
           CustomToast.showToast(
-              "Erro ao remover forma de pagamento. Tente novamente mais tarde.");
+              "Erro ao remover Cargos. Tente novamente mais tarde.");
         } else if (state is LineBusinessAddSuccessState) {
-          CustomToast.showToast("Forma de pagamento adicionado com sucesso");
+          CustomToast.showToast("Cargo adicionado com sucesso");
           bloc.add(LoadLineBusinessEvent());
         } else if (state is LineBusinessAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar forma de pagamento. Tente novamente mais tarde.");
+              "Erro ao adicionar Cargo. Tente novamente mais tarde.");
         } else if (state is LineBusinessEditSuccessState) {
-          CustomToast.showToast("Forma de pagamento editado com sucesso");
+          CustomToast.showToast("Cargo editado com sucesso");
           bloc.add(LoadLineBusinessEvent());
         } else if (state is LineBusinessPutErrorState) {
           CustomToast.showToast(
-              "Erro ao editar forma de pagamento. Tente novamente mais tarde.");
+              "Erro ao editar Cargo. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -75,7 +75,7 @@ class _ContentDesktoLineBusinesseState
             flexibleSpace: Container(
               decoration: kBoxDecorationflexibleSpace,
             ),
-            title: const Text('Lista de Formas de Pagamento'),
+            title: const Text('Lista de Cargos'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.person_add),
@@ -150,7 +150,7 @@ class _ContentDesktoLineBusinesseState
         decoration: const InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(left: 10.0),
-          hintText: "Pesquise as formas de pagamento",
+          hintText: "Pesquise os cargos",
           hintStyle: kHintTextStyle,
         ),
       ),

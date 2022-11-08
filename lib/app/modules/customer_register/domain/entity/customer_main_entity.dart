@@ -1,17 +1,17 @@
-import 'package:appweb/app/core/domain/entity/address_entity.dart';
-import 'package:appweb/app/core/domain/entity/entity_entity.dart';
-import 'package:appweb/app/core/domain/entity/company_entity.dart';
+import 'package:appweb/app/modules/Core/data/model/address_model.dart';
+import 'package:appweb/app/modules/Core/data/model/company_model.dart';
+import 'package:appweb/app/modules/Core/data/model/entity_model.dart';
+import 'package:appweb/app/modules/Core/data/model/person_model.dart';
+import 'package:appweb/app/modules/Core/data/model/phone_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/entity/customer_entity.dart';
-import 'package:appweb/app/core/domain/entity/person_entity.dart';
-import 'package:appweb/app/core/domain/entity/phone_entity.dart';
 
 class CustomerMainEntity {
   CustomerEntity customer;
-  EntityEntity entity;
-  CompanyEntity? company;
-  PersonEntity? person;
-  AddressEntity address;
-  PhoneEntity phone;
+  EntityModel entity;
+  CompanyModel? company;
+  PersonModel? person;
+  AddressModel address;
+  PhoneModel phone;
   CustomerMainEntity({
     required this.customer,
     required this.entity,

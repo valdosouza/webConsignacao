@@ -1,5 +1,5 @@
-import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
-import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
+import 'package:appweb/app/modules/Core/data/model/city_model.dart';
+import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 
 abstract class InstitutionState {
   const InstitutionState();
@@ -66,9 +66,9 @@ class InstitutionGetStatesErrorState extends InstitutionState {
 }
 
 class InstitutionGetCitySuccessState extends InstitutionState {
-  final List<CityModel> citys;
+  final List<CityModel> cities;
 
-  const InstitutionGetCitySuccessState({required this.citys});
+  const InstitutionGetCitySuccessState({required this.cities});
 }
 
 class InstitutionGetCityErrorState extends InstitutionState {

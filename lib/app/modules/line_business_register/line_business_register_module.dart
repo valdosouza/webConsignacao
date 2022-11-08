@@ -14,14 +14,17 @@ class LinebusinessRegisterModule extends Module {
   List<Bind> get binds => [
         Bind.factory<LineBusinessDatasource>(
           (i) => LineBusinessDatasourceImpl(),
+          export: true,
         ),
         Bind.factory(
           (i) => LineBusinessRepositoryImpl(
               datasource: i.get<LineBusinessDatasourceImpl>()),
+          export: true,
         ),
         Bind.factory(
           (i) => LineBusinessGetlist(
               repository: i.get<LineBusinessRepositoryImpl>()),
+          export: true,
         ),
         Bind.factory(
           (i) => LineBusinessDelete(

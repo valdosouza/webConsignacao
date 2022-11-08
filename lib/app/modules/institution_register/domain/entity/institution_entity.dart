@@ -1,11 +1,8 @@
-import 'package:equatable/equatable.dart';
-
-// ignore: must_be_immutable
-class InstitutionEntity extends Equatable {
+class InstitutionEntity {
   int id;
   String nameCompany;
   String nickTrade;
-  String tbLineBuinessId;
+  int tbLineBuinessId;
   String note;
   String active;
   String cnpj;
@@ -44,7 +41,7 @@ class InstitutionEntity extends Equatable {
     this.id = 0,
     this.nameCompany = "",
     this.nickTrade = "",
-    this.tbLineBuinessId = "",
+    this.tbLineBuinessId = 0,
     this.note = "",
     this.active = "",
     this.cnpj = "",
@@ -79,12 +76,4 @@ class InstitutionEntity extends Equatable {
     this.phoneKind = "",
     this.phoneNumber = "",
   });
-
-  @override
-  List<Object?> get props => [id, cnpj, nameCompany, ie];
-
-  @override
-  String toString() {
-    return "InstitutionEntity: id: $id, nameCompany: $nameCompany, nickTrade: $nickTrade, tbLineBuinessId: $tbLineBuinessId,  note: $note, active: $active, cnpj: $cnpj, ie: $ie, im: $im, iest: $iest, dtFoundation: $dtFoundation, crt: $crt, crtModal: $crtModal, indIeDestinatario: $indIeDestinatario, issIndExig: $issIndExig, issRetencao: $issRetencao, issIncFiscal: $issIncFiscal, issProcessNumber: $issProcessNumber, sendXmlNfeOnly: $sendXmlNfeOnly, street: $street, nmbr: $nmbr, complement: $complement";
-  }
 }

@@ -1,10 +1,24 @@
+import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
+
 abstract class InstitutionEvent {}
 
-class InstitutionSaveEvent extends InstitutionEvent {}
+class InstitutionSaveEvent extends InstitutionEvent {
+  InstitutionModel model;
+
+  InstitutionSaveEvent({
+    required this.model,
+  });
+}
 
 class InstitutionGetEvent extends InstitutionEvent {}
 
-class InstitutionPutEvent extends InstitutionEvent {}
+class InstitutionPutEvent extends InstitutionEvent {
+  InstitutionModel model;
+
+  InstitutionPutEvent({
+    required this.model,
+  });
+}
 
 class InstitutionCepEvent extends InstitutionEvent {
   final String cep;
@@ -20,10 +34,10 @@ class InstitutionCnpjEvent extends InstitutionEvent {
 
 class InstitutionGetStatesEvent extends InstitutionEvent {}
 
-class InstitutionGetCitysEvent extends InstitutionEvent {
-  final String id;
+class InstitutionGetCitiesEvent extends InstitutionEvent {
+  final int tbStateId;
 
-  InstitutionGetCitysEvent(this.id);
+  InstitutionGetCitiesEvent(this.tbStateId);
 }
 
 class InstitutionReturnEvent extends InstitutionEvent {}

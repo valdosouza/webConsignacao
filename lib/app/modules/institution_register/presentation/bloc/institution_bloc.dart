@@ -1,11 +1,10 @@
-import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
+import 'package:appweb/app/modules/Core/data/model/city_model.dart';
+import 'package:appweb/app/modules/Core/data/model/state_model.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
-import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
-import 'package:appweb/app/modules/institution_register/domain/entity/institution_entity.dart';
-import 'package:appweb/app/modules/institution_register/domain/usecase/institution_get_cep.dart';
-import 'package:appweb/app/modules/institution_register/domain/usecase/institution_get_citys.dart';
-import 'package:appweb/app/modules/institution_register/domain/usecase/institution_get_cnpj.dart';
-import 'package:appweb/app/modules/institution_register/domain/usecase/institution_get_states.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecase/institution_register_get.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecase/institution_register_put.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecase/institution_register_post.dart';
@@ -17,13 +16,13 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
   final InstitutionRegisterSave save;
   final InstitutionRegisterGet get;
   final InstitutionPut put;
-  final InstitutionGetCep cep;
-  final InstitutionGetCnpj cnpj;
-  final InstitutionGetStates getStates;
-  final InstitutionGetCity getCity;
-  InstitutionEntity entity = InstitutionEntity();
+  final GetCep cep;
+  final GetCnpj cnpj;
+  final GetStates getStates;
+  final GetCities getCity;
+  InstitutionModel institution = InstitutionModel.empty();
   List<StateModel> states = [];
-  List<CityModel> citys = [];
+  List<CityModel> cities = [];
 
   InstitutionBloc({
     required this.save,
@@ -73,7 +72,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
       final response = await get.call(const ParamsGet(id: 1));
 
       response.fold((l) => emit(const InstitutionGetErrorState("")), (r) {
-        entity = r;
+        institution = r;
         emit(InstitutionLoadedState());
       });
     });
@@ -84,7 +83,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
       emit(InstitutionLoadingState());
 
       final response =
-          await save.call(Params(model: InstitutionModel.fromEntity(entity)));
+          await save.call(ParamsPostInstitution(model: event.model));
 
       response.fold((l) => emit(const InstitutionGetErrorState("")),
           (r) => emit(InstitutionPostSuccessState()));
@@ -95,8 +94,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     on<InstitutionPutEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
-      final response =
-          await put.call(ParamsPut(model: InstitutionModel.fromEntity(entity)));
+      final response = await put.call(ParamsPut(model: event.model));
 
       response.fold((l) => emit(const InstitutionPutErrorState("")),
           (r) => emit(InstitutionPutSuccessState()));
@@ -110,16 +108,16 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
       final response = await cnpj.call(ParamsCnpj(cnpj: event.cnpj));
 
       response.fold((l) => emit(const InstitutionCnpjErrorState("")), (r) {
-        entity.zipCode = r.cep.replaceAll("-", "").replaceAll(".", "");
-        entity.nickTrade = r.fantasia;
-        entity.cnpj = r.cnpj;
-        entity.nameCompany = r.nome;
-        entity.nmbr = r.numero;
-        entity.street = r.logradouro;
-        entity.complement = r.complemento;
-        entity.neighborhood = r.bairro;
-        entity.latitude = r.municipio;
-        entity.region = r.uf;
+        institution.zipCode = r.cep.replaceAll("-", "").replaceAll(".", "");
+        institution.nickTrade = r.fantasia;
+        institution.cnpj = r.cnpj;
+        institution.nameCompany = r.nome;
+        institution.nmbr = r.numero;
+        institution.street = r.logradouro;
+        institution.complement = r.complemento;
+        institution.neighborhood = r.bairro;
+        institution.latitude = r.municipio;
+        institution.region = r.uf;
         emit(InstitutionLoadedState());
       });
     });
@@ -132,13 +130,13 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
       final response = await cep.call(ParamsCep(cep: event.cep));
 
       response.fold((l) => emit(const InstitutionCepErrorState("")), (r) {
-        entity.zipCode = r.cep.replaceAll("-", "");
-        entity.street = r.logradouro;
-        entity.complement = r.complemento;
-        entity.neighborhood = r.bairro;
-        entity.latitude = r.localidade;
-        entity.tbCityId = int.parse(r.ddd);
-        entity.region = r.uf;
+        institution.zipCode = r.zipCode.replaceAll("-", "");
+        institution.street = r.street;
+        institution.complement = r.complement;
+        institution.neighborhood = r.neighborhood;
+        institution.nameCity = r.cityName;
+        institution.tbCityId = r.tbCityId;
+        institution.tbStateId = r.tbCountryId;
         emit(InstitutionLoadedState());
       });
     });
@@ -158,14 +156,15 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
   }
 
   getCitys() {
-    on<InstitutionGetCitysEvent>((event, emit) async {
+    on<InstitutionGetCitiesEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
-      final response = await getCity.call(ParamsGetCity(id: event.id));
+      final response =
+          await getCity.call(ParamsGetCity(tbStateId: event.tbStateId));
 
       response.fold((l) => emit(const InstitutionGetCityErrorState("")), (r) {
-        citys = r;
-        emit(InstitutionGetCitySuccessState(citys: r));
+        cities = r;
+        emit(InstitutionGetCitySuccessState(cities: r));
       });
     });
   }
@@ -191,17 +190,17 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
   searchEventCitys() {
     on<SearchCityEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var citystSearched = citys.where((element) {
+        var citiestSearched = cities.where((element) {
           String name = element.name;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        if (citystSearched.isEmpty) {}
-        emit(InstitutionGetCitySuccessState(citys: citystSearched));
+        if (citiestSearched.isEmpty) {}
+        emit(InstitutionGetCitySuccessState(cities: citiestSearched));
       } else {
-        emit(InstitutionGetCitySuccessState(citys: citys));
+        emit(InstitutionGetCitySuccessState(cities: cities));
       }
     });
   }

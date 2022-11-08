@@ -146,23 +146,23 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                     ),
                     const SizedBox(height: 30.0),
                     Expanded(
-                      child: state.citys.isEmpty
+                      child: state.cities.isEmpty
                           ? const Center(
                               child: Text(
                                   "Não encontramos nenhuma cidade em nossa base."))
                           : ListView.separated(
-                              itemCount: state.citys.length,
+                              itemCount: state.cities.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
                                   bloc.customer.address.tbCityId =
-                                      state.citys[index].id;
+                                      state.cities[index].id;
                                   bloc.customer.address.cityName =
-                                      state.citys[index].name;
+                                      state.cities[index].name;
                                   bloc.add(
                                       CustomerRegisterReturnEvent(index: 1));
                                 },
                                 child: ListTile(
-                                  leading: Text(state.citys[index].name),
+                                  leading: Text(state.cities[index].name),
                                 ),
                               ),
                               separatorBuilder: (_, __) => const Divider(),

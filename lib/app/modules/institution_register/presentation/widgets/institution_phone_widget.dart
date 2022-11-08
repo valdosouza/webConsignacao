@@ -18,11 +18,11 @@ class InstituitionPhoneWidget extends StatelessWidget {
         children: [
           CustomInput(
             title: 'Tipo de Telefone(Celular, residencial)',
-            initialValue: bloc.entity.phoneNumber,
+            initialValue: bloc.institution.phoneNumber,
             keyboardType: TextInputType.number,
             inputAction: TextInputAction.next,
             onChanged: (value) {
-              bloc.entity.phoneNumber = value;
+              bloc.institution.phoneNumber = value;
             },
           ),
         ],

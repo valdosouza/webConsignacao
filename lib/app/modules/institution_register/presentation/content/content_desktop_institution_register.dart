@@ -101,18 +101,21 @@ class _ContentDesktopInstitutionRegisterState
                   const SizedBox(width: 100.0),
                   IconButton(
                     onPressed: () {
-                      if (Validators.validateCNPJ(bloc.entity.cnpj) != null) {
+                      if (Validators.validateCNPJ(bloc.institution.cnpj) !=
+                          null) {
                         CustomToast.showToast(
-                            Validators.validateCNPJ(bloc.entity.cnpj)!);
+                            Validators.validateCNPJ(bloc.institution.cnpj)!);
                       } else if (Validators.validateExactLength(
-                              bloc.entity.zipCode, 8) !=
+                              bloc.institution.zipCode, 8) !=
                           null) {
                         CustomToast.showToast("CEP inválido.");
                       } else {
-                        if (bloc.entity.id != 0) {
-                          bloc.add(InstitutionPutEvent());
+                        if (bloc.institution.id != 0) {
+                          bloc.add(
+                              InstitutionPutEvent(model: bloc.institution));
                         } else {
-                          bloc.add(InstitutionSaveEvent());
+                          bloc.add(
+                              InstitutionSaveEvent(model: bloc.institution));
                         }
                       }
                     },

@@ -1,9 +1,9 @@
-import 'package:appweb/app/core/data/model/address_model.dart';
-import 'package:appweb/app/core/data/model/entity_model.dart';
-import 'package:appweb/app/core/data/model/company_model.dart';
+import 'package:appweb/app/modules/Core/data/model/address_model.dart';
+import 'package:appweb/app/modules/Core/data/model/company_model.dart';
+import 'package:appweb/app/modules/Core/data/model/entity_model.dart';
+import 'package:appweb/app/modules/Core/data/model/person_model.dart';
+import 'package:appweb/app/modules/Core/data/model/phone_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_model.dart';
-import 'package:appweb/app/core/data/model/person_model.dart';
-import 'package:appweb/app/core/data/model/phone_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/entity/customer_main_entity.dart';
 
 class CustomerMainModel extends CustomerMainEntity {
@@ -52,64 +52,11 @@ class CustomerMainModel extends CustomerMainEntity {
 
   factory CustomerMainModel.empty() {
     return CustomerMainModel(
-      customer: CustomerModel(
-        id: 0,
-        tbInstitutionId: 1,
-        tbSalesmanId: 1,
-        tbCarrierId: 1,
-        creditStatus: "",
-        creditValue: 0,
-        wallet: "",
-        consumer: "",
-        multiplier: 0,
-        active: "N",
-      ),
-      entity: EntityModel(
-        id: 0,
-        nameCompany: "",
-        nickTrade: "",
-        tbLineBusinessId: 1,
-        aniversary: "",
-        note: "",
-      ),
-      company: CompanyModel(
-        id: 0,
-        cnpj: "",
-        dtFoundation: "",
-        ie: "",
-        iest: "",
-        indIeDestinatario: "",
-      ),
-      person: PersonModel(
-        id: 0,
-        birthday: "",
-        cpf: "",
-        rg: "",
-        rgDtEmission: "",
-        rgOrganIssuer: "",
-        rgStateIssuer: 0,
-        tbProfessionId: 0,
-      ),
-      address: AddressModel(
-        id: 0,
-        kind: "",
-        zipCode: "",
-        cityName: "",
-        complement: "",
-        countryName: "",
-        latitude: "",
-        longitude: "",
-        main: "N",
-        neighborhood: "",
-        nmbr: "",
-        region: "",
-        stateName: "",
-        street: "",
-        tbCityId: 1,
-        tbCountryId: 1,
-        tbStateId: 1,
-      ),
-      phone: PhoneModel(addressKind: "", contact: "", kind: "", number: ""),
-    );
+        customer: CustomerModel.empty(),
+        entity: EntityModel.empty(),
+        company: CompanyModel.empty(),
+        person: PersonModel.empty(),
+        address: AddressModel.empty(),
+        phone: PhoneModel.empty());
   }
 }

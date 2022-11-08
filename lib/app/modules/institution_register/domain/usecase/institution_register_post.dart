@@ -1,19 +1,20 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/core/usecase/usecase.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 import 'package:appweb/app/modules/institution_register/data/model/institution_model.dart';
 import 'package:appweb/app/modules/institution_register/domain/entity/institution_entity.dart';
 import 'package:appweb/app/modules/institution_register/domain/repository/institution_register_respository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 
-class InstitutionRegisterSave implements UseCase<InstitutionEntity, Params> {
+class InstitutionRegisterSave
+    implements UseCase<InstitutionEntity, ParamsPostInstitution> {
   final InstitutionRegisterRespository repository;
 
   InstitutionRegisterSave({required this.repository});
 
   @override
-  Future<Either<Failure, InstitutionEntity>> call(Params params) async {
+  Future<Either<Failure, InstitutionEntity>> call(
+      ParamsPostInstitution params) async {
     try {
       final response = await repository.post(model: params.model);
       return response;
@@ -23,13 +24,10 @@ class InstitutionRegisterSave implements UseCase<InstitutionEntity, Params> {
   }
 }
 
-class Params extends Equatable {
+class ParamsPostInstitution {
   final InstitutionModel model;
 
-  const Params({
+  const ParamsPostInstitution({
     required this.model,
   });
-
-  @override
-  List<Object?> get props => [model.id];
 }

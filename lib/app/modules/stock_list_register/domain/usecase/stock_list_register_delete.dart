@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/core/usecase/usecase.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_list_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';

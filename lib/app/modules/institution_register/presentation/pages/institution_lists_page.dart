@@ -80,7 +80,7 @@ class _InstitutionListsPageState extends State<InstitutionListsPage> {
                               itemCount: state.states.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
-                                  bloc.entity.tbStateId =
+                                  bloc.institution.tbStateId =
                                       state.states[index].id;
                                   bloc.add(InstitutionReturnEvent());
                                 },
@@ -140,19 +140,20 @@ class _InstitutionListsPageState extends State<InstitutionListsPage> {
                     ),
                     const SizedBox(height: 30.0),
                     Expanded(
-                      child: state.citys.isEmpty
+                      child: state.cities.isEmpty
                           ? const Center(
                               child: Text(
                                   "Não encontramos nenhuma cidade em nossa base."))
                           : ListView.separated(
-                              itemCount: state.citys.length,
+                              itemCount: state.cities.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
-                                  bloc.entity.tbCityId = state.citys[index].id;
+                                  bloc.institution.tbCityId =
+                                      state.cities[index].id;
                                   bloc.add(InstitutionReturnEvent());
                                 },
                                 child: ListTile(
-                                  leading: Text(state.citys[index].name),
+                                  leading: Text(state.cities[index].name),
                                 ),
                               ),
                               separatorBuilder: (_, __) => const Divider(),

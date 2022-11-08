@@ -1,36 +1,36 @@
-import 'package:appweb/app/modules/customer_register/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/city_model.dart';
+import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/state_model.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_salesmans.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_salesman_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get.dart';
-import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get_salesmans.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_post.dart';
-import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_cep_usecase.dart';
-import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_citys.dart';
-import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_cnpj.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_list.dart';
-import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_states.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
-import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
-import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
 import 'package:bloc/bloc.dart';
 
 class CustomerRegisterBloc
     extends Bloc<CustomerRegisterEvent, CustomerRegisterState> {
   final CustomerRegisterGetlist getlist;
-  final CustomerRegisterGetCep getCep;
-  final CustomerRegisterGetCity getCity;
-  final CustomerRegisterGetCnpj getCnpj;
-  final CustomerRegisterGetStates getStates;
+  final GetCep getCep;
+  final GetCities getCity;
+  final GetCnpj getCnpj;
+  final GetStates getStates;
   final CustomerRegisterGet getCustomer;
   final CustomerRegisterPost postCustomer;
-  final CustomerRegisterGetSalesmans getSalesmans;
+  final GetSalesmans getSalesmans;
 
   List<CustomerListModel> customers = [];
   CustomerMainModel customer = CustomerMainModel.empty();
   List<StateModel> states = [];
-  List<CityModel> citys = [];
-  List<CustomerSalesmanModel> salesmans = [];
+  List<CityModel> cities = [];
+  List<SalesmanListModel> salesmans = [];
 
   CustomerRegisterBloc({
     required this.getlist,
@@ -75,7 +75,8 @@ class CustomerRegisterBloc
     on<CustomerRegisterGetListEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
-      var response = await getlist.call(ParamsGetListCustomer(id: 1));
+      var response =
+          await getlist.call(ParamsGetListCustomer(tbInstitutionId: 1));
 
       var result = response
           .fold((l) => CustomerRegisterErrorState(customers: customers), (r) {
@@ -206,12 +207,12 @@ class CustomerRegisterBloc
 
       response.fold((l) => emit(CustomerRegisterCepErrorState(customers, "")),
           (r) {
-        customer.address.zipCode = r.cep.replaceAll("-", "");
-        customer.address.street = r.logradouro;
-        customer.address.complement = r.complemento;
-        customer.address.neighborhood = r.bairro;
-        customer.address.stateName = r.uf;
-        customer.address.cityName = r.localidade;
+        customer.address.zipCode = r.zipCode.replaceAll("-", "");
+        customer.address.street = r.street;
+        customer.address.complement = r.complement;
+        customer.address.neighborhood = r.neighborhood;
+        customer.address.stateName = r.stateName;
+        customer.address.cityName = r.cityName;
         emit(CustomerRegisterInfoPageState(
             customers: customers, model: customer, tabIndex: 1));
       });
@@ -237,13 +238,14 @@ class CustomerRegisterBloc
     on<CustomerRegisterGetCitysEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
-      final response = await getCity.call(ParamsGetCity(id: event.id));
+      final response =
+          await getCity.call(ParamsGetCity(tbStateId: event.tbStateId));
 
       response.fold(
           (l) => emit(CustomerRegisterGetCityErrorState(customers, "")), (r) {
-        citys = r;
+        cities = r;
         emit(CustomerRegisterGetCitySuccessState(
-            citys: r, customers: customers));
+            cities: r, customers: customers));
       });
     });
   }
@@ -273,19 +275,19 @@ class CustomerRegisterBloc
   searchEventCitys() {
     on<CustomerRegisterSearchCityEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var citystSearched = citys.where((element) {
+        var citiestSearched = cities.where((element) {
           String name = element.name;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        if (citystSearched.isEmpty) {}
+        if (citiestSearched.isEmpty) {}
         emit(CustomerRegisterGetCitySuccessState(
-            citys: citystSearched, customers: customers));
+            cities: citiestSearched, customers: customers));
       } else {
         emit(CustomerRegisterGetCitySuccessState(
-            citys: citys, customers: customers));
+            cities: cities, customers: customers));
       }
     });
   }
@@ -294,7 +296,8 @@ class CustomerRegisterBloc
     on<CustomerRegisterGetSalesmanEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
-      var response = await getSalesmans.call(ParamsGetListSalesman(id: 1));
+      var response =
+          await getSalesmans.call(ParamsSalesmanListGet(tbInstitutionId: 1));
 
       response.fold(
           (l) => emit(CustomerRegisterGetSalesmanErrorState(customers)), (r) {

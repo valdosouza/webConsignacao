@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/core/usecase/usecase.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 import 'package:appweb/app/modules/user_register/domain/repository/user_register_respository.dart';
 import 'package:dartz/dartz.dart';
 

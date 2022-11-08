@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/core/usecase/usecase.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 import 'package:appweb/app/modules/customer_register/domain/repository/customer_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -15,7 +15,8 @@ class CustomerRegisterGetlist
   Future<Either<Failure, List<CustomerListModel>>> call(
       ParamsGetListCustomer params) async {
     try {
-      final list = await repository.getList(id: params.id);
+      final list =
+          await repository.getList(tbInstitutionId: params.tbInstitutionId);
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -24,6 +25,6 @@ class CustomerRegisterGetlist
 }
 
 class ParamsGetListCustomer {
-  int id;
-  ParamsGetListCustomer({required this.id});
+  int tbInstitutionId;
+  ParamsGetListCustomer({required this.tbInstitutionId});
 }

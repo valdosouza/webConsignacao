@@ -30,9 +30,9 @@ class CustomerRegisterCnpjEvent extends CustomerRegisterEvent {
 class CustomerRegisterGetStatesEvent extends CustomerRegisterEvent {}
 
 class CustomerRegisterGetCitysEvent extends CustomerRegisterEvent {
-  final String id;
+  final int tbStateId;
 
-  CustomerRegisterGetCitysEvent(this.id);
+  CustomerRegisterGetCitysEvent(this.tbStateId);
 }
 
 class CustomerRegisterReturnEvent extends CustomerRegisterEvent {

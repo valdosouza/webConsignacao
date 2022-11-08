@@ -136,8 +136,7 @@ class _CustomerRegisterAddressWidgetState
                             hoverColor: Colors.transparent,
                             onPressed: () {
                               widget.bloc.add(CustomerRegisterGetCitysEvent(
-                                  widget.bloc.customer.address.tbStateId
-                                      .toString()));
+                                  widget.bloc.customer.address.tbStateId));
                             },
                             icon: const Icon(
                               Icons.search,

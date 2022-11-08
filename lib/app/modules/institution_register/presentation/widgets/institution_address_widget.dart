@@ -2,8 +2,8 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/institution_register/data/model/city_model.dart';
-import 'package:appweb/app/modules/institution_register/data/model/state_model.dart';
+import 'package:appweb/app/modules/Core/data/model/city_model.dart';
+import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_bloc.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_event.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +39,9 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                 sufixIcon: IconButton(
                   hoverColor: Colors.transparent,
                   onPressed: () {
-                    if (widget.bloc.entity.zipCode.length == 8) {
-                      widget.bloc
-                          .add(InstitutionCepEvent(widget.bloc.entity.zipCode));
+                    if (widget.bloc.institution.zipCode.length == 8) {
+                      widget.bloc.add(
+                          InstitutionCepEvent(widget.bloc.institution.zipCode));
                     } else {
                       CustomToast.showToast("CEP inválido.");
                     }
@@ -52,12 +52,12 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                     color: Colors.white,
                   ),
                 ),
-                initialValue: widget.bloc.entity.zipCode,
+                initialValue: widget.bloc.institution.zipCode,
                 keyboardType: TextInputType.number,
                 inputAction: TextInputAction.next,
                 validator: (value) => Validators.validateExactLength(value, 8),
                 onChanged: (value) {
-                  widget.bloc.entity.zipCode = value;
+                  widget.bloc.institution.zipCode = value;
                 },
               ),
               const SizedBox(height: 30.0),
@@ -83,9 +83,10 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                                     .firstWhere(
                                       (element) =>
                                           element.id ==
-                                          widget.bloc.entity.tbStateId,
+                                          widget.bloc.institution.tbStateId,
                                       orElse: () => StateModel(
-                                          name: widget.bloc.entity.nameState),
+                                          name: widget
+                                              .bloc.institution.nameState),
                                     )
                                     .name,
                                 style: const TextStyle(
@@ -132,13 +133,14 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                             child: Padding(
                               padding: const EdgeInsets.only(left: 10.0),
                               child: Text(
-                                widget.bloc.citys
+                                widget.bloc.cities
                                     .firstWhere(
                                       (element) =>
                                           element.id ==
-                                          widget.bloc.entity.tbCityId,
+                                          widget.bloc.institution.tbCityId,
                                       orElse: () => CityModel(
-                                          name: widget.bloc.entity.nameCity),
+                                          name:
+                                              widget.bloc.institution.nameCity),
                                     )
                                     .name,
                                 style: const TextStyle(
@@ -153,8 +155,8 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                             child: IconButton(
                               hoverColor: Colors.transparent,
                               onPressed: () {
-                                widget.bloc.add(InstitutionGetCitysEvent(
-                                    widget.bloc.entity.tbStateId.toString()));
+                                widget.bloc.add(InstitutionGetCitiesEvent(
+                                    widget.bloc.institution.tbStateId));
                               },
                               icon: const Icon(
                                 Icons.search,
@@ -170,41 +172,41 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Logradouro',
-                initialValue: widget.bloc.entity.street,
+                initialValue: widget.bloc.institution.street,
                 keyboardType: TextInputType.text,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  widget.bloc.entity.street = value;
+                  widget.bloc.institution.street = value;
                 },
               ),
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Número',
-                initialValue: widget.bloc.entity.nmbr,
+                initialValue: widget.bloc.institution.nmbr,
                 keyboardType: TextInputType.number,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  widget.bloc.entity.nmbr = value;
+                  widget.bloc.institution.nmbr = value;
                 },
               ),
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Complemento',
-                initialValue: widget.bloc.entity.complement,
+                initialValue: widget.bloc.institution.complement,
                 keyboardType: TextInputType.text,
                 inputAction: TextInputAction.next,
                 onChanged: (value) {
-                  widget.bloc.entity.complement = value;
+                  widget.bloc.institution.complement = value;
                 },
               ),
               const SizedBox(height: 30.0),
               CustomInput(
                 title: 'Bairro',
-                initialValue: widget.bloc.entity.neighborhood,
+                initialValue: widget.bloc.institution.neighborhood,
                 keyboardType: TextInputType.text,
                 inputAction: TextInputAction.done,
                 onChanged: (value) {
-                  widget.bloc.entity.neighborhood = value;
+                  widget.bloc.institution.neighborhood = value;
                 },
               ),
             ],

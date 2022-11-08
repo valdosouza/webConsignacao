@@ -48,4 +48,18 @@ class CustomerModel extends CustomerEntity {
       active: json['active'] as String? ?? "S",
     );
   }
+  factory CustomerModel.empty() {
+    return CustomerModel(
+      id: 0,
+      tbInstitutionId: 1,
+      tbSalesmanId: 1,
+      tbCarrierId: 1,
+      creditStatus: "",
+      creditValue: 0,
+      wallet: "",
+      consumer: "",
+      multiplier: 0,
+      active: "N",
+    );
+  }
 }
