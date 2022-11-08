@@ -44,7 +44,7 @@ class CustomerRegisterBloc
   }) : super(CustomerRegisterLoadingState()) {
     getList();
 
-    searchCostumer();
+    searchCustomer();
 
     goToCustomerInfoPage();
 
@@ -115,7 +115,7 @@ class CustomerRegisterBloc
     });
   }
 
-  searchCostumer() {
+  searchCustomer() {
     on<CustomerRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var customersSearchedName = customers.where((element) {

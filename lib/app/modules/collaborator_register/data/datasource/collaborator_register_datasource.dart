@@ -42,7 +42,7 @@ class CollaboratorRegisterDatasourceImpl
     final uri = Uri.parse('${baseApiUrl}collaborator');
     try {
       final bodyEnvio = json.encode(model.toJson());
-      print(bodyEnvio);
+
       final response = await client.post(
         uri,
         headers: <String, String>{

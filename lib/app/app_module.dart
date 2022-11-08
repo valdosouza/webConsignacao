@@ -34,7 +34,7 @@ class AppModule extends Module {
         ModuleRoute('/customer', module: CustomerModule()),
         ModuleRoute('/financial', module: FinancialModule()),
         ModuleRoute('/resourcehuman', module: ResourceHumanModule()),
-        ModuleRoute('/costumer', module: CustomerModule()),
+        ModuleRoute('/customer', module: CustomerModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }

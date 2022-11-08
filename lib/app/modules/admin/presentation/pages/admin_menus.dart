@@ -15,7 +15,7 @@ class AdminMenus extends StatelessWidget {
           itemMenuDraw(Icons.home, 'Cadastro de Usuários',
               () async => Modular.to.navigate('/admin/content/user/')),
           itemMenuDraw(Icons.home, 'Cadastro de Rotas',
-              () async => Modular.to.navigate('/admin/content/routes/')),
+              () async => Modular.to.navigate('/admin/content/salesroute/')),
         ],
       ),
     );
