@@ -220,7 +220,9 @@ class _ProductRegisterInterationPageState
                   keyboardType: TextInputType.number,
                   inputAction: TextInputAction.next,
                   onChanged: (value) {
-                    product.priceList[index].priceTag = double.parse(value);
+                    if (value.isNotEmpty) {
+                      product.priceList[index].priceTag = double.parse(value);
+                    }
                   },
                 ),
               ],

@@ -13,8 +13,12 @@ class ProductPriceListModel extends ProductPriceListEntity {
 
   factory ProductPriceListModel.fromJson(Map<String?, dynamic> json) {
     return ProductPriceListModel(
-      tbPriceListId: json['tb_price_list_id'] as int? ?? 0,
-      priceTag: json['price_tag'] as dynamic ?? 0.0,
+      tbPriceListId: json['tb_price_list_id'] is String
+          ? int.parse(json['tb_price_list_id'])
+          : json['tb_price_list_id'],
+      priceTag: json['price_tag'] is String
+          ? double.parse(json['price_tag'])
+          : json['price_tag'],
       namePriceList: json['name_price_list'] as String? ?? "",
     );
   }

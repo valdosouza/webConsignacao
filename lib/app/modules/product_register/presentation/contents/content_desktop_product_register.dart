@@ -99,7 +99,7 @@ class _ContentDesktopProductRegisterState
                                 leading: CircleAvatar(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text((index + 1).toString()),
+                                    child: Text(prices[index].id.toString()),
                                   ),
                                 ),
                                 title: Column(
