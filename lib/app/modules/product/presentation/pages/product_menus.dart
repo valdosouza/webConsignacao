@@ -11,7 +11,7 @@ class ProductMenus extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           itemMenuDraw(Icons.home, 'Cadastro de Produtos',
-              () async => Modular.to.navigate('/product/listproduct/')),
+              () async => Modular.to.navigate('/product/content/listproduct/')),
           itemMenuDraw(
               Icons.home,
               'Tabela de Preço',

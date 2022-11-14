@@ -74,7 +74,7 @@ class PriceListRegisterBloc
 
   addFunction() {
     on<PriceListRegisterPostEvent>((event, emit) async {
-      PriceListRegisterLoadingState();
+      emit(PriceListRegisterLoadingState());
       var response = await post.call(ParamsPriceListPost(model: event.model));
 
       var result = response.fold(
@@ -90,7 +90,7 @@ class PriceListRegisterBloc
 
   editFunction() {
     on<PriceListRegisterPutEvent>((event, emit) async {
-      PriceListRegisterLoadingState();
+      emit(PriceListRegisterLoadingState());
       var response = await put.call(ParamsPriceListPut(model: event.model));
 
       var result = response.fold(
