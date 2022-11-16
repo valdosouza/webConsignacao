@@ -1,8 +1,8 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/core/usecase/usecase.dart';
 import 'package:appweb/app/modules/product_register/domain/repository/product_register_respository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 
 class ProductRegisterDelete
     implements UseCase<String, ParamsProductRegisterDelete> {

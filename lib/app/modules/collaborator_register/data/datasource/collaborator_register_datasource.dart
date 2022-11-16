@@ -48,7 +48,7 @@ class CollaboratorRegisterDatasourceImpl
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: json.encode(model.toJson()),
+        body: bodyEnvio,
       );
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
