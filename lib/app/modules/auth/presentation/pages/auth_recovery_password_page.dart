@@ -108,7 +108,7 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(100, 60),
-                          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                          //backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                           ),
@@ -141,7 +141,7 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(100, 60),
-                          backgroundColor: Colors.white,
+                          //backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             side: const BorderSide(color: Colors.black),
                             borderRadius: BorderRadius.circular(18.0),

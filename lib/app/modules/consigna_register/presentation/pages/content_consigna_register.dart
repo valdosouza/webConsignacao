@@ -11,7 +11,6 @@ class ContentConsignaRegister extends StatefulWidget {
 class _ContentConsignaRegisterState extends State<ContentConsignaRegister> {
   @override
   void initState() {
-    print("oi");
     super.initState();
   }
 
