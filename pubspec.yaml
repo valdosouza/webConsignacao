@@ -43,7 +43,7 @@ dependencies:
   modular_bloc_bind: ^1.0.1
   intl: ^0.17.0
   
-  shared_preferences: ^2.0.6  
+  shared_preferences: ^2.0.13  
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
   injectable: ^1.5.3
