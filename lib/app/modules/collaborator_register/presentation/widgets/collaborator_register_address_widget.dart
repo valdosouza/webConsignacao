@@ -70,7 +70,7 @@ class _CollaboratorRegisterAddressWidgetState
                 Container(
                     alignment: Alignment.centerLeft,
                     decoration: kBoxDecorationStyle,
-                    width: MediaQuery.of(context).size.width * 0.3,
+                    width: MediaQuery.of(context).size.width,
                     child: Row(
                       children: [
                         Expanded(
@@ -116,7 +116,7 @@ class _CollaboratorRegisterAddressWidgetState
                 Container(
                     alignment: Alignment.centerLeft,
                     decoration: kBoxDecorationStyle,
-                    width: MediaQuery.of(context).size.width * 0.3,
+                    width: MediaQuery.of(context).size.width,
                     child: Row(
                       children: [
                         Expanded(

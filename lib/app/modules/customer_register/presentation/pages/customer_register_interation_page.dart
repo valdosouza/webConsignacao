@@ -36,9 +36,9 @@ class _CustomerRegisterInterationPageState
   late final CustomerRegisterBloc bloc;
 
   final List<Tab> myTabs = <Tab>[
-    const Tab(text: 'Dados Principais'),
+    const Tab(text: 'Principal'),
     const Tab(text: 'Endereço'),
-    const Tab(text: 'Telefone'),
+    const Tab(text: 'Fone'),
     const Tab(text: 'Outros'),
   ];
 
@@ -78,30 +78,23 @@ class _CustomerRegisterInterationPageState
                   bloc.add(CustomerRegisterGetListEvent());
                 },
               ),
-              centerTitle: true,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    customer.customer.id != 0
-                        ? "Editar Cliente"
-                        : "Adicionar Cliente",
-                    style: kHintTextStyle.copyWith(fontSize: 32.0),
-                  ),
-                  const SizedBox(width: 100.0),
-                  IconButton(
-                    onPressed: () {
-                      bloc.add(CustomerRegisterPostEvent(model: bloc.customer));
-                    },
-                    hoverColor: Colors.transparent,
-                    icon: const Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 40.0,
-                    ),
-                  ),
-                ],
+              title: Text(
+                customer.customer.id != 0
+                    ? "Editar Cliente"
+                    : "Adicionar Cliente",
+                style: kHintTextStyle.copyWith(fontSize: 20.0),
               ),
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.check,
+                    size: 30.0,
+                  ),
+                  onPressed: () {
+                    bloc.add(CustomerRegisterPostEvent(model: bloc.customer));
+                  },
+                ),
+              ],
               bottom: TabBar(
                 controller: _tabController,
                 indicatorWeight: 2.0,

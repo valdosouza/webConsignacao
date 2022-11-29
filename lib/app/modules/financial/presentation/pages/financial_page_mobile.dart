@@ -23,7 +23,6 @@ class _FinancialPageMobileState extends State<FinancialPageMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -32,10 +31,8 @@ class _FinancialPageMobileState extends State<FinancialPageMobile> {
         title: const Text("Sistema Consignação e Venda"),
       ),
       drawer: const DrawerPageMain(),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Expanded(child: FinancialMenus()),
+      body: const Expanded(
+        child: FinancialMenus(),
       ),
     );
   }

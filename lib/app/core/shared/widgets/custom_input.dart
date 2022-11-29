@@ -12,19 +12,18 @@ class CustomInput extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final TextEditingController? controller;
-  const CustomInput({
-    super.key,
-    required this.title,
-    required this.keyboardType,
-    required this.inputAction,
-    required this.onChanged,
-    this.validator,
-    this.initialValue,
-    this.sufixIcon,
-    this.hint,
-    this.obscureText = false,
-    this.controller
-  });
+  const CustomInput(
+      {super.key,
+      required this.title,
+      required this.keyboardType,
+      required this.inputAction,
+      required this.onChanged,
+      this.validator,
+      this.initialValue,
+      this.sufixIcon,
+      this.hint,
+      this.obscureText = false,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +38,11 @@ class CustomInput extends StatelessWidget {
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
-          width: MediaQuery.of(context).size.width * 0.3,
+          width: MediaQuery.of(context).size.width,
           child: TextFormField(
             initialValue: initialValue,
             keyboardType: keyboardType,
-            autofocus: true,
+            autofocus: false,
             textInputAction: inputAction,
             validator: validator,
             onChanged: onChanged,

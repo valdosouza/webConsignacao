@@ -35,7 +35,7 @@ class _CustomerPageMobileState extends State<CustomerPageMobile> {
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: const Expanded(child: CustomerMenusMobile()),
+        child: const CustomerMenusMobile(),
       ),
     );
   }

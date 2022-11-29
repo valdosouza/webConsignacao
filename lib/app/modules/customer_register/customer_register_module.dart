@@ -10,7 +10,7 @@ import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_post.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_list.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
-import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register.dart';
+import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 
@@ -53,6 +53,15 @@ class CustomerRegisterModule extends Module {
       ];
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, args) => const ContentCustomerRegister()),
+    ChildRoute(
+      '/',
+      child: (_, args) => const CustomerRegisterPage(),
+      children: [
+        ChildRoute(
+          '/content/',
+          child: (_, args) => const CustomerRegisterPage(),
+        ),
+      ],
+    ),
   ];
 }

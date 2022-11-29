@@ -45,9 +45,9 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
               ),
             ),
             body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -55,7 +55,7 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                       decoration: kBoxDecorationStyle,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        autofocus: true,
+                        autofocus: false,
                         onChanged: (value) {
                           bloc.add(
                               CustomerRegisterSearchStateEvent(search: value));
@@ -66,13 +66,13 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                         ),
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(left: 10.0),
+                          contentPadding: EdgeInsets.only(left: 4.0),
                           hintText: "Pesquise aqui",
                           hintStyle: kHintTextStyle,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30.0),
+                    const SizedBox(height: 5.0),
                     Expanded(
                       child: state.states.isEmpty
                           ? const Center(
@@ -117,9 +117,9 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
               ),
             ),
             body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -127,7 +127,7 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                       decoration: kBoxDecorationStyle,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        autofocus: true,
+                        autofocus: false,
                         onChanged: (value) {
                           bloc.add(
                               CustomerRegisterSearchCityEvent(search: value));
@@ -138,13 +138,13 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                         ),
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(left: 10.0),
+                          contentPadding: EdgeInsets.only(left: 5.0),
                           hintText: "Pesquise aqui",
                           hintStyle: kHintTextStyle,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30.0),
+                    const SizedBox(height: 5.0),
                     Expanded(
                       child: state.cities.isEmpty
                           ? const Center(
@@ -188,9 +188,9 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
               ),
             ),
             body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -198,7 +198,7 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                       decoration: kBoxDecorationStyle,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        autofocus: true,
+                        autofocus: false,
                         onChanged: (value) {
                           bloc.add(CustomerRegisterSearchSalesmanEvent(
                               search: value));
@@ -209,13 +209,13 @@ class _CustomerRegisterListsPageState extends State<CustomerRegisterListsPage> {
                         ),
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(left: 10.0),
+                          contentPadding: EdgeInsets.only(left: 5.0),
                           hintText: "Pesquise aqui",
                           hintStyle: kHintTextStyle,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30.0),
+                    const SizedBox(height: 5.0),
                     Expanded(
                       child: state.salesmans.isEmpty
                           ? const Center(

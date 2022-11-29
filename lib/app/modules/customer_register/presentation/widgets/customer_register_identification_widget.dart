@@ -34,12 +34,12 @@ class _CustomerRegisterIdentificationWidgetState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text("Tipo de Pessoa", style: kLabelStyle),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 5.0),
           Row(
             children: [
               Row(
@@ -60,7 +60,7 @@ class _CustomerRegisterIdentificationWidgetState
                   const Text("Jurídica", style: kLabelStyle),
                 ],
               ),
-              const SizedBox(width: 10.0),
+              const SizedBox(width: 5.0),
               Row(
                 children: [
                   Radio(
@@ -80,9 +80,9 @@ class _CustomerRegisterIdentificationWidgetState
               ),
             ],
           ),
-          const SizedBox(height: 30.0),
-          selectPersonType ? _buildJuridicalPerson() : _buildPerson(),
-          const SizedBox(height: 30.0),
+          const SizedBox(height: 10.0),
+          selectPersonType ? _buildCompany() : _buildPerson(),
+          const SizedBox(height: 10.0),
           const Text("Consumidor Final", style: kLabelStyle),
           const SizedBox(height: 10.0),
           Row(
@@ -132,7 +132,7 @@ class _CustomerRegisterIdentificationWidgetState
     );
   }
 
-  Column _buildJuridicalPerson() {
+  Column _buildCompany() {
     return Column(
       children: [
         CustomInput(

@@ -37,9 +37,9 @@ class _CollaboratorRegisterInterationPageState
   late final CollaboratorRegisterBloc bloc;
 
   final List<Tab> myTabs = <Tab>[
-    const Tab(text: 'Dados Principais'),
+    const Tab(text: 'Principal'),
     const Tab(text: 'Endereço'),
-    const Tab(text: 'Telefone'),
+    const Tab(text: 'Fone'),
     const Tab(text: 'Outros'),
   ];
 

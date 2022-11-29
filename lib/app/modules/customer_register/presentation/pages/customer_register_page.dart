@@ -4,8 +4,8 @@ import 'package:appweb/app/modules/customer_register/presentation/contents/conte
 import 'package:appweb/app/modules/customer_register/presentation/contents/content_tablet_customer_register.dart';
 import 'package:flutter/material.dart';
 
-class ContentCustomerRegister extends StatelessWidget {
-  const ContentCustomerRegister({super.key});
+class CustomerRegisterPage extends StatelessWidget {
+  const CustomerRegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {

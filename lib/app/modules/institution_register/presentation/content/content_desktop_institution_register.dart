@@ -31,9 +31,9 @@ class _ContentDesktopInstitutionRegisterState
   late TabController _tabController;
 
   final List<Tab> myTabs = <Tab>[
-    const Tab(text: 'Dados Principais'),
+    const Tab(text: 'Principal'),
     const Tab(text: 'Endereço'),
-    const Tab(text: 'Telefone'),
+    const Tab(text: 'Fone'),
   ];
 
   @override

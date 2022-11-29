@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/attendance_salesman/attendance_salesman_modul
 import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/cashier/cashier_module.dart';
 import 'package:appweb/app/modules/customer/customer_module.dart';
+import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
 import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
@@ -37,7 +38,7 @@ class AppModule extends Module {
         ModuleRoute('/customer', module: CustomerModule()),
         ModuleRoute('/financial', module: FinancialModule()),
         ModuleRoute('/resourcehuman', module: ResourceHumanModule()),
-        ModuleRoute('/customer', module: CustomerModule()),
+        ModuleRoute('/customerregister', module: CustomerRegisterModule()),
         ModuleRoute('/attendancesalesroute',
             module: AttendanceSalesRouteModule()),
         ModuleRoute('/attendancesalesman', module: AttendanceSalesmanModule()),

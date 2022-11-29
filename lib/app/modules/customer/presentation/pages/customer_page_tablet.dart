@@ -23,7 +23,6 @@ class _CustomerPageTabletState extends State<CustomerPageTablet> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -32,10 +31,8 @@ class _CustomerPageTabletState extends State<CustomerPageTablet> {
         title: const Text("Sistema Consignação e Venda"),
       ),
       drawer: const DrawerPageMobile(),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Expanded(child: CustomerMenusMobile()),
+      body: const Expanded(
+        child: CustomerMenusMobile(),
       ),
     );
   }
