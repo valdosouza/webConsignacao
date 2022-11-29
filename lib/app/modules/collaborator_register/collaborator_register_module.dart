@@ -10,8 +10,8 @@ import 'package:appweb/app/modules/collaborator_register/domain/usecase/collabor
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_register_post.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/pages/collaborator_register.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_getlist.dart';
-import 'package:appweb/app/modules/line_business_register/line_business_register_module.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/linebusiness_register_getlist.dart';
+import 'package:appweb/app/modules/line_business_register/linebusiness_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 
@@ -50,7 +50,7 @@ class CollaboratorRegisterModule extends Module {
               getStates: i.get<GetStates>(),
               getCollaborator: i.get<CollaboratorRegisterGet>(),
               postCollaborator: i.get<CollaboratorRegisterPost>(),
-              getLinebusines: i.get<LineBusinessGetlist>(),
+              getLinebusines: i.get<LinebusinessRegisterGetlist>(),
             )),
       ];
   @override

@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
-import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
-import 'package:appweb/app/modules/product/presentation/pages/product_menus.dart';
+import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
+import 'package:appweb/app/modules/product/presentation/pages/product_menus_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -36,8 +36,8 @@ class _ProductPageDesktopState extends State<ProductPageDesktop> {
         width: size.width,
         child: Row(
           children: const [
-            DrawerPage(),
-            ProductMenus(),
+            DrawerPageMain(),
+            ProductMenusMain(),
             Expanded(
               child: RouterOutlet(),
             ),

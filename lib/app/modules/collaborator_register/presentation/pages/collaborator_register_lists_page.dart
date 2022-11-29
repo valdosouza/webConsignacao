@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/collaborator_register/collaborator_register_module.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_event.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_state.dart';
@@ -22,8 +23,11 @@ class _CollaboratorRegisterListsPageState
 
   @override
   void initState() {
-    bloc = Modular.get();
     super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<CollaboratorRegisterModule>();
+    });
+    bloc = Modular.get<CollaboratorRegisterBloc>();
   }
 
   @override
@@ -228,7 +232,7 @@ class _CollaboratorRegisterListsPageState
                                 onTap: () {
                                   bloc.collaborator.entity.tbLineBusinessId =
                                       state.linebusiness[index].id;
-                                  bloc.collaborator.entity.nameLineBussiness =
+                                  bloc.collaborator.entity.nameLinebusiness =
                                       state.linebusiness[index].description;
                                   bloc.add(CollaboratorRegisterReturnEvent(
                                       index: 3));

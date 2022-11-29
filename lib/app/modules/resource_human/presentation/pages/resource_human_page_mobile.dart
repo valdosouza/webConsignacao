@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
+import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
 import 'package:appweb/app/modules/resource_human/presentation/pages/resource_human_menus.dart';
-import 'package:appweb/app/modules/stock/stock_module.dart';
+import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -18,7 +18,7 @@ class ResourceHumanlPageMobileState extends State<ResourceHumanPageMobile> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<StockModule>();
+      await Modular.isModuleReady<ResourceHumanModule>();
     });
   }
 
@@ -32,7 +32,7 @@ class ResourceHumanlPageMobileState extends State<ResourceHumanPageMobile> {
         ),
         title: const Text("Sistema Consignação e Venda"),
       ),
-      drawer: const DrawerPage(),
+      drawer: const DrawerPageMain(),
       body: SizedBox(
         height: size.height,
         width: size.width,

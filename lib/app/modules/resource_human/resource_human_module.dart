@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/collaborator_register/collaborator_register_module.dart';
-import 'package:appweb/app/modules/line_business_register/line_business_register_module.dart';
+import 'package:appweb/app/modules/line_business_register/linebusiness_register_module.dart';
 import 'package:appweb/app/modules/resource_human/presentation/content/content_resource_human.dart';
 import 'package:appweb/app/modules/resource_human/presentation/pages/resource_human_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';

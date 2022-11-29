@@ -77,7 +77,7 @@ class _CollaboratorRegisterOthersWidgetState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Vendedor",
+                "Cargo",
                 style: kLabelStyle,
               ),
               const SizedBox(height: 10.0),
@@ -91,7 +91,7 @@ class _CollaboratorRegisterOthersWidgetState
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10.0),
                           child: Text(
-                            widget.collaborator?.entity.nameLineBussiness ?? "",
+                            widget.collaborator?.entity.nameLinebusiness ?? "",
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'OpenSans',

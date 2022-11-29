@@ -2,10 +2,12 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
+import 'package:appweb/app/modules/collaborator_register/collaborator_register_module.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_event.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CollaboratorRegisterIdentificationWidget extends StatefulWidget {
   final CollaboratorRegisterBloc bloc;
@@ -28,6 +30,10 @@ class _CollaboratorRegisterIdentificationWidgetState
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<CollaboratorRegisterModule>();
+    });
+
     selectPersonType = widget.collaborator?.company?.cnpj.isNotEmpty == true;
   }
 

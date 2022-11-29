@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
-import 'package:appweb/app/modules/stock/presentation/pages/stock_menus.dart';
+import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
+import 'package:appweb/app/modules/stock/presentation/menus/stock_menus_main.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,10 +9,10 @@ class StockPageDesktop extends StatefulWidget {
   const StockPageDesktop({super.key});
 
   @override
-  State<StockPageDesktop> createState() => StocknPageDesktopState();
+  State<StockPageDesktop> createState() => StockPageDesktopState();
 }
 
-class StocknPageDesktopState extends State<StockPageDesktop> {
+class StockPageDesktopState extends State<StockPageDesktop> {
   @override
   void initState() {
     super.initState();
@@ -36,10 +36,9 @@ class StocknPageDesktopState extends State<StockPageDesktop> {
         width: size.width,
         child: Row(
           children: const [
-            DrawerPage(),
-            StockMenus(),
+            DrawerPageMain(),
+            StockMenusMain(),
             Expanded(
-              flex: 1,
               child: RouterOutlet(),
             ),
           ],

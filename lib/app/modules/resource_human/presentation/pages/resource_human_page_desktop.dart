@@ -1,5 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
+import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:appweb/app/modules/resource_human/presentation/pages/resource_human_menus.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +36,9 @@ class FinancialnPageDesktopState extends State<ResourceHumanPageDesktop> {
         width: size.width,
         child: Row(
           children: const [
-            DrawerPage(),
+            DrawerPageMain(),
             ResourceHumanMenus(),
             Expanded(
-              flex: 1,
               child: RouterOutlet(),
             ),
           ],

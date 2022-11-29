@@ -1,7 +1,8 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
-import 'package:appweb/app/modules/admin/presentation/pages/admin_menus.dart';
-import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
+import 'package:appweb/app/modules/admin/presentation/menus/admin_menus_main.dart';
+import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -36,10 +37,9 @@ class _AdminPageDesktopState extends State<AdminPageDesktop> {
         width: size.width,
         child: Row(
           children: const [
-            DrawerPage(),
-            AdminMenus(),
+            DrawerPageMain(),
+            AdminMenusMain(),
             Expanded(
-              flex: 1,
               child: RouterOutlet(),
             ),
           ],

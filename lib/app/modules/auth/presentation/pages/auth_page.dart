@@ -1,4 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/widgets/degrade_area.dart';
+import 'package:appweb/app/core/shared/widgets/logo_area.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_bloc.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
 import 'package:flutter/material.dart';
@@ -35,23 +37,7 @@ class _AuthPageState extends State<AuthPage> {
         create: (context) => bloc,
         child: Stack(
           children: <Widget>[
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromARGB(255, 0, 0, 0),
-                    Color.fromARGB(255, 255, 255, 255),
-                    Color.fromARGB(255, 255, 255, 255),
-                    Color.fromARGB(255, 241, 97, 97),
-                    Color.fromARGB(255, 224, 71, 71),
-                    Color.fromARGB(255, 229, 57, 57),
-                  ],
-                  //stops: [0.1, 0.4, 0.7, 0.9],
-                ),
-              ),
-            ),
+            degradeArea(),
             Center(
               child: SizedBox(
                 width: 400,
@@ -85,27 +71,20 @@ class _AuthPageState extends State<AuthPage> {
         return Form(
           key: _form,
           child: SingleChildScrollView(
-            //physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30.0,
-              //vertical: 120.0,
-            ),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  "images/logomarca.png",
-                  width: 250,
-                  height: 140,
-                ),
+                logoArea(),
                 if (state is AuthLoadingState)
                   const CircularProgressIndicator(),
-                const SizedBox(height: 30.0),
+                const SizedBox(height: 10.0),
                 _buildEmail(),
-                const SizedBox(height: 30.0),
+                const SizedBox(height: 10.0),
                 _buildPassword(),
                 _buildRememberMeCheckbox(),
                 _buildForgetPassword(),
+                const SizedBox(height: 10.0),
                 _buildLoginBtn(context),
               ],
             ),
@@ -130,7 +109,7 @@ class _AuthPageState extends State<AuthPage> {
           child: TextFormField(
             controller: loginController,
             keyboardType: TextInputType.emailAddress,
-            autofocus: true,
+            autofocus: false,
             textInputAction: TextInputAction.done,
             style: const TextStyle(
               color: Colors.white,
@@ -157,19 +136,19 @@ class _AuthPageState extends State<AuthPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Confirma Senha',
+          'Senha',
           style: kLabelStyle,
         ),
         const SizedBox(height: 10.0),
         Container(
-          width: MediaQuery.of(context).size.width * 0.4,
+          width: MediaQuery.of(context).size.width,
           decoration: kBoxDecorationStyle,
           child: TextFormField(
             obscureText: !confirmPasswordVisible,
             controller: passwordController,
             keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
-            autofocus: true,
+            autofocus: false,
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -197,7 +176,7 @@ class _AuthPageState extends State<AuthPage> {
                   color: Colors.white,
                 ),
               ),
-              hintText: 'Confirme sua senha',
+              hintText: 'Digite sua senha',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -236,13 +215,12 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Widget _buildLoginBtn(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 25.0),
+    return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(100, 60),
-          //backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
           ),

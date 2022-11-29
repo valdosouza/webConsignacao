@@ -1,5 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
+import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -21,7 +21,7 @@ class HomePageDesktop extends StatelessWidget {
         width: size.width,
         child: Row(
           children: const [
-            DrawerPage(),
+            DrawerPageMain(),
             Expanded(
               flex: 5,
               child: RouterOutlet(),

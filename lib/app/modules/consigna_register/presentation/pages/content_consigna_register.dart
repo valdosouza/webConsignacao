@@ -1,4 +1,6 @@
+import 'package:appweb/app/modules/consigna_register/consigna_register_module.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentConsignaRegister extends StatefulWidget {
   const ContentConsignaRegister({super.key});
@@ -12,6 +14,9 @@ class _ContentConsignaRegisterState extends State<ContentConsignaRegister> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<ConsignaRegisterModule>();
+    });
   }
 
   @override

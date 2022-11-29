@@ -1,6 +1,9 @@
 import 'package:appweb/app/core/shared/page_404.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
+import 'package:appweb/app/modules/attendance_sales_route/attendance_sales_route_module.dart';
+import 'package:appweb/app/modules/attendance_salesman/attendance_salesman_module.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
+import 'package:appweb/app/modules/cashier/cashier_module.dart';
 import 'package:appweb/app/modules/customer/customer_module.dart';
 import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
@@ -35,6 +38,10 @@ class AppModule extends Module {
         ModuleRoute('/financial', module: FinancialModule()),
         ModuleRoute('/resourcehuman', module: ResourceHumanModule()),
         ModuleRoute('/customer', module: CustomerModule()),
+        ModuleRoute('/attendancesalesroute',
+            module: AttendanceSalesRouteModule()),
+        ModuleRoute('/attendancesalesman', module: AttendanceSalesmanModule()),
+        ModuleRoute('/cashier', module: CashierModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }

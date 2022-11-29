@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/collaborator_register/collaborator_register_module.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_event.dart';
@@ -25,7 +26,10 @@ class _ContentDesktopCollaboratorRegisterState
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<CollaboratorRegisterModule>();
+    });
+    bloc = Modular.get<CollaboratorRegisterBloc>();
     bloc.add(CollaboratorRegisterGetListEvent());
   }
 

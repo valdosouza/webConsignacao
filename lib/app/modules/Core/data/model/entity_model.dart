@@ -6,7 +6,7 @@ class EntityModel extends EntityEntity {
     String? nameCompany,
     String? nickTrade,
     int? tbLineBusinessId,
-    String? nameLineBussiness,
+    String? nameLinebusiness,
     String? aniversary,
     String? note,
   }) : super(
@@ -14,7 +14,7 @@ class EntityModel extends EntityEntity {
           nameCompany: nameCompany ?? "",
           nickTrade: nickTrade ?? "",
           tbLineBusinessId: tbLineBusinessId ?? 0,
-          nameLineBussiness: nameLineBussiness ?? "",
+          nameLinebusiness: nameLinebusiness ?? "",
           aniversary: aniversary ?? "",
           note: note ?? "",
         );
@@ -25,6 +25,7 @@ class EntityModel extends EntityEntity {
       nameCompany: json['name_company'] as String? ?? "",
       nickTrade: json['nick_trade'] as String? ?? "",
       tbLineBusinessId: json['tb_line_buiness_id'] as int? ?? 0,
+      nameLinebusiness: json['name_linebusiness'] as String? ?? "",
       aniversary: json['aniversary'] as String? ?? "",
       note: json['note'] as String? ?? "",
     );
@@ -35,8 +36,20 @@ class EntityModel extends EntityEntity {
       nameCompany: "",
       nickTrade: "",
       tbLineBusinessId: 1,
+      nameLinebusiness: '',
       aniversary: "",
       note: "",
     );
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name_company'] = nameCompany;
+    data['nick_trade'] = nickTrade;
+    data['tb_linebusiness_id'] = tbLineBusinessId;
+    data['name_linebusiness'] = nameLinebusiness;
+    data['aniversary'] = aniversary;
+    data['note'] = note;
+    return data;
   }
 }

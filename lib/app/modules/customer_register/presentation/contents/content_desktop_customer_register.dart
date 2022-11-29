@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
@@ -25,7 +26,10 @@ class _ContentDesktopCustomerRegisterState
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<CustomerRegisterModule>();
+    });
+    bloc = Modular.get<CustomerRegisterBloc>();
     bloc.add(CustomerRegisterGetListEvent());
   }
 

@@ -3,7 +3,7 @@ class EntityEntity {
   String nameCompany;
   String nickTrade;
   int tbLineBusinessId;
-  String nameLineBussiness;
+  String nameLinebusiness;
   String aniversary;
   String note;
 
@@ -12,20 +12,8 @@ class EntityEntity {
     this.nameCompany = "",
     this.nickTrade = "",
     this.tbLineBusinessId = 0,
-    this.nameLineBussiness = "",
+    this.nameLinebusiness = "",
     this.aniversary = "",
     this.note = "",
   });
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name_company'] = nameCompany;
-    data['nick_trade'] = nickTrade;
-    data['tb_linebuiness_id'] = tbLineBusinessId;
-    data['name_linebusiness'] = nameLineBussiness;
-    data['aniversary'] = aniversary;
-    data['note'] = note;
-    return data;
-  }
 }

@@ -11,8 +11,8 @@ import 'package:appweb/app/modules/collaborator_register/domain/usecase/collabor
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_register_post.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_event.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_state.dart';
-import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
-import 'package:appweb/app/modules/line_business_register/domain/usecase/line_business_getlist.dart';
+import 'package:appweb/app/modules/line_business_register/data/model/linebusiness_model.dart';
+import 'package:appweb/app/modules/line_business_register/domain/usecase/linebusiness_register_getlist.dart';
 import 'package:bloc/bloc.dart';
 
 class CollaboratorRegisterBloc
@@ -24,13 +24,13 @@ class CollaboratorRegisterBloc
   final GetStates getStates;
   final CollaboratorRegisterGet getCollaborator;
   final CollaboratorRegisterPost postCollaborator;
-  final LineBusinessGetlist getLinebusines;
+  final LinebusinessRegisterGetlist getLinebusines;
 
   List<CollaboratorListModel> modelList = [];
   CollaboratorMainModel collaborator = CollaboratorMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> cities = [];
-  List<LineBusinessModel> linebusiness = [];
+  List<LinebusinessModel> linebusiness = [];
 
   CollaboratorRegisterBloc({
     required this.getlist,
@@ -302,7 +302,7 @@ class CollaboratorRegisterBloc
       emit(CollaboratorRegisterLoadingState());
 
       var response = await getLinebusines
-          .call(const ParamsLineBusinessGetList(tbInstitutionId: 1));
+          .call(ParamsLinebusinessRegisterGet(tbInstitutionId: 1));
 
       response.fold(
           (l) => emit(CollaboratorRegisterGetLinebusinessErrorState(

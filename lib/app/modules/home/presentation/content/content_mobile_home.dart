@@ -1,5 +1,4 @@
 import 'package:appweb/app/modules/home/presentation/bloc/home_bloc.dart';
-import 'package:appweb/app/modules/home/presentation/bloc/home_event.dart';
 import 'package:appweb/app/modules/home/presentation/bloc/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,11 +22,13 @@ class _ContentMobileHomeState extends State<ContentMobileHome> {
   void initState() {
     super.initState();
     bloc = Modular.get<HomeBloc>();
+    /*
     bloc.add(HomeGetFinancialEvent(
       initialDate: '2020-04-01',
       finalDate: '2020-04-01',
       terminal: selectedTerminal,
     ));
+    */
   }
 
   @override

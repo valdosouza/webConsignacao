@@ -22,9 +22,9 @@ class _ContentDesktopPriceListRegisterState
 
   @override
   void initState() {
+    super.initState();
     bloc = Modular.get<PriceListRegisterBloc>();
     bloc.add(PriceListRegisterGetListEvent());
-    super.initState();
   }
 
   @override

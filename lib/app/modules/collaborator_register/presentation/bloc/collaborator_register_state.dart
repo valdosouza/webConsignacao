@@ -2,7 +2,7 @@ import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/collaborator_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
-import 'package:appweb/app/modules/line_business_register/data/model/line_business_model.dart';
+import 'package:appweb/app/modules/line_business_register/data/model/linebusiness_model.dart';
 
 abstract class CollaboratorRegisterState {
   List<CollaboratorListModel> modelList;
@@ -132,7 +132,7 @@ class CollaboratorRegisterPostEditErrorState extends CollaboratorRegisterState {
 
 class CollaboratorRegisterGetLinebusinessSuccessState
     extends CollaboratorRegisterState {
-  final List<LineBusinessModel> linebusiness;
+  final List<LinebusinessModel> linebusiness;
 
   CollaboratorRegisterGetLinebusinessSuccessState(
       {required List<CollaboratorListModel> modellist,

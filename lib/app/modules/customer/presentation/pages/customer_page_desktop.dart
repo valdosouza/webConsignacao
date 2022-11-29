@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/customer/presentation/pages/customer_menus.dart';
-import 'package:appweb/app/modules/drawer/presentation/drawer_page.dart';
+import 'package:appweb/app/modules/customer/presentation/menus/customer_menus_main.dart';
+import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,10 +9,10 @@ class CustomerPageDesktop extends StatefulWidget {
   const CustomerPageDesktop({super.key});
 
   @override
-  State<CustomerPageDesktop> createState() => FinancialnPageDesktopState();
+  State<CustomerPageDesktop> createState() => FinancialPageDesktopState();
 }
 
-class FinancialnPageDesktopState extends State<CustomerPageDesktop> {
+class FinancialPageDesktopState extends State<CustomerPageDesktop> {
   @override
   void initState() {
     super.initState();
@@ -36,10 +36,9 @@ class FinancialnPageDesktopState extends State<CustomerPageDesktop> {
         width: size.width,
         child: Row(
           children: const [
-            DrawerPage(),
-            CustomerMenus(),
+            DrawerPageMain(),
+            CustomerMenusMain(),
             Expanded(
-              flex: 1,
               child: RouterOutlet(),
             ),
           ],
