@@ -12,16 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ContentDesktopCustomerRegister extends StatefulWidget {
-  const ContentDesktopCustomerRegister({super.key});
+class CustomerRegisterListPage extends StatefulWidget {
+  const CustomerRegisterListPage({super.key});
 
   @override
-  State<ContentDesktopCustomerRegister> createState() =>
-      _ContentDesktopCustomerRegisterState();
+  State<CustomerRegisterListPage> createState() =>
+      CustomerRegisterListPagerState();
 }
 
-class _ContentDesktopCustomerRegisterState
-    extends State<ContentDesktopCustomerRegister> {
+class CustomerRegisterListPagerState extends State<CustomerRegisterListPage> {
   late final CustomerRegisterBloc bloc;
 
   @override
