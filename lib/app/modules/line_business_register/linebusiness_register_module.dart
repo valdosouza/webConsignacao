@@ -14,39 +14,35 @@ class LinebusinessRegisterModule extends Module {
   List<Bind> get binds => [
         Bind.factory<LinebusinessRegisterDataSource>(
           (i) => LinebusinessRegisterDataSourceImpl(),
-          export: true,
         ),
         Bind.factory(
           (i) => LinebusinessRegisterRepositoryImpl(
               datasource: i.get<LinebusinessRegisterDataSource>()),
-          export: true,
         ),
         Bind.factory(
           (i) => LinebusinessRegisterGetlist(
               repository: i.get<LinebusinessRegisterRepositoryImpl>()),
-          export: true,
         ),
         Bind.factory(
           (i) => LinebusinessRegisterPost(
               repository: i.get<LinebusinessRegisterRepositoryImpl>()),
-          export: true,
         ),
         Bind.factory(
           (i) => LinebusinessRegisterPut(
               repository: i.get<LinebusinessRegisterRepositoryImpl>()),
-          export: true,
         ),
         Bind.factory(
           (i) => LinebusinessRegisterDelete(
               repository: i.get<LinebusinessRegisterRepositoryImpl>()),
-          export: true,
         ),
-        BlocBind.singleton((i) => LinebusinessRegisterBloc(
-              getlist: i.get<LinebusinessRegisterGetlist>(),
-              post: i.get<LinebusinessRegisterPost>(),
-              put: i.get<LinebusinessRegisterPut>(),
-              delete: i.get<LinebusinessRegisterDelete>(),
-            )),
+        BlocBind.singleton(
+          (i) => LinebusinessRegisterBloc(
+            getlist: i.get<LinebusinessRegisterGetlist>(),
+            post: i.get<LinebusinessRegisterPost>(),
+            put: i.get<LinebusinessRegisterPut>(),
+            delete: i.get<LinebusinessRegisterDelete>(),
+          ),
+        ),
       ];
   @override
   final List<ModularRoute> routes = [

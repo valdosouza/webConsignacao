@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/line_business_register/linebusiness_register_module.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_bloc.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_events.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_states.dart';
@@ -22,9 +23,12 @@ class _ContentDesktopLinebusinessRegisterState
 
   @override
   void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<LinebusinessRegisterModule>();
+    });
     bloc = Modular.get<LinebusinessRegisterBloc>();
     bloc.add(LinebusinessRegisterGetListEvent());
-    super.initState();
   }
 
   @override

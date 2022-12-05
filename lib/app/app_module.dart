@@ -10,6 +10,7 @@ import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:appweb/app/modules/home/home_module.dart';
+import 'package:appweb/app/modules/order_production/order_production_module.dart';
 import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
 import 'package:appweb/app/modules/splash/splash_module.dart';
@@ -42,6 +43,7 @@ class AppModule extends Module {
         ModuleRoute('/attendancesalesroute',
             module: AttendanceSalesRouteModule()),
         ModuleRoute('/attendancesalesman', module: AttendanceSalesmanModule()),
+        ModuleRoute('/orderproduction', module: OrderProductionModule()),
         ModuleRoute('/cashier', module: CashierModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];

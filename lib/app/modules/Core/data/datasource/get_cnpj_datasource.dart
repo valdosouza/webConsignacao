@@ -22,7 +22,6 @@ class GetCnpjDatasourceImpl implements GetCnpjDatasource {
         throw ServerException();
       }
     } catch (e) {
-      print(e);
       throw ServerException();
     }
   }

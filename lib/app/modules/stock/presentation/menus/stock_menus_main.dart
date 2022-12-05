@@ -23,7 +23,7 @@ class StockMenusMain extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Carregamentos',
-            () async => Modular.to.navigate('/stock/content/chargement/'),
+            () async => Modular.to.navigate('/stock/content/stocktransfer/'),
           ),
           itemMenuDraw(
             Icons.home,

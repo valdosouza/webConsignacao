@@ -56,12 +56,6 @@ class CustomerRegisterModule extends Module {
     ChildRoute(
       '/',
       child: (_, args) => const CustomerRegisterPage(),
-      children: [
-        ChildRoute(
-          '/content/',
-          child: (_, args) => const CustomerRegisterPage(),
-        ),
-      ],
     ),
   ];
 }

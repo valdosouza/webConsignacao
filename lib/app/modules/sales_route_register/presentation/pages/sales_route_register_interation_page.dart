@@ -48,6 +48,9 @@ class SalesRoutetRegisterInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
+          ),
           title: model == null
               ? const Text('Adicionar')
               : Text('Editar ${model!.description}'),

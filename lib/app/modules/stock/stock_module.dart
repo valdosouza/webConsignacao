@@ -1,4 +1,5 @@
-import 'package:appweb/app/modules/stock/presentation/content/content_stock.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_transfer_register_module.dart';
 import 'package:appweb/app/modules/stock/presentation/pages/stock_page.dart';
 import 'package:appweb/app/modules/stock_list_register/stock_list_register_module.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,15 @@ class StockModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute(
-      '/',
+      '/content/',
       child: (_, args) => const StockPage(),
       children: [
-        ChildRoute('/content/', child: (_, args) => const ContentStock()),
-        ModuleRoute('/content/stocklist/', module: StockListRegisterModule()),
-        ChildRoute('/content/stockstatement/',
+        ModuleRoute('/stocklist/', module: StockListRegisterModule()),
+        ModuleRoute('/stockadjustement/',
+            module: OrderStockAdjustmentRegisterModule()),
+        ModuleRoute('/stocktransfer/',
+            module: OrderStockTransferRegisterModule()),
+        ChildRoute('/stockstatement/',
             child: (_, args) => const Center(
                   child: Text("Movimentação de Estoque"),
                 )),

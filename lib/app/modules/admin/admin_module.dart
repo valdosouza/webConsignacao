@@ -1,4 +1,3 @@
-import 'package:appweb/app/modules/admin/presentation/content/content_admin.dart';
 import 'package:appweb/app/modules/admin/presentation/pages/admin_page.dart';
 import 'package:appweb/app/modules/institution_register/institution_register_module.dart';
 import 'package:appweb/app/modules/sales_route_register/sales_route_register_module.dart';
@@ -12,14 +11,12 @@ class AdminModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute(
-      '/',
+      '/content/',
       child: (_, args) => const AdminPage(),
       children: [
-        ChildRoute('/content/', child: (_, args) => const ContentAdmin()),
-        ModuleRoute('/content/institution/',
-            module: InstitutionRegisterModule()),
-        ModuleRoute('/content/user/', module: UserRegisterModule()),
-        ModuleRoute('/content/salesroute/', module: SalesRouteRegisterModule()),
+        ModuleRoute('/institution/', module: InstitutionRegisterModule()),
+        ModuleRoute('/user/', module: UserRegisterModule()),
+        ModuleRoute('/salesroute/', module: SalesRouteRegisterModule()),
       ],
     ),
   ];
