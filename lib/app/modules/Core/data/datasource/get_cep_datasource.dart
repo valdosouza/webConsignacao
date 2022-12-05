@@ -19,13 +19,13 @@ class GetCepDatasourceImpl implements GetCepDatasource {
       final uri = Uri.parse('https://viacep.com.br/ws/$cep/json/');
       final response = await client.get(uri);
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+        final data = json.decode(response.body);
         //Pega o codigo da Cidade
-        final cityCode = await getCityID(data.ibge);
-        data.push({"tb_city_id": cityCode});
+        final cityCode = await getCityID(data['ibge']);
+        data['tb_city_id'] = cityCode;
         //Pega o codigo do estado
-        final stateCode = await getStateID(data.uf);
-        data.push({"tb_state_id": stateCode});
+        final stateCode = await getStateID(data['uf']);
+        data['tb_state_id'] = stateCode;
         return AddressModel.fromApiCep(data);
       } else {
         throw ServerException();
@@ -37,11 +37,11 @@ class GetCepDatasourceImpl implements GetCepDatasource {
 
   Future<int> getCityID(String ibge) async {
     try {
-      final uri = Uri.parse('{$baseApiUrl}get/$ibge');
+      final uri = Uri.parse('${baseApiUrl}city/get/$ibge');
       final response = await client.get(uri);
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return data.id;
+        final data = json.decode(response.body);
+        return data['id'];
       } else {
         return 4004;
       }
@@ -52,11 +52,11 @@ class GetCepDatasourceImpl implements GetCepDatasource {
 
   Future<int> getStateID(String sigla) async {
     try {
-      final uri = Uri.parse('{$baseApiUrl}state/get/$sigla');
+      final uri = Uri.parse('${baseApiUrl}state/get/$sigla');
       final response = await client.get(uri);
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return data.id;
+        final data = json.decode(response.body);
+        return data['id'];
       } else {
         return 41;
       }

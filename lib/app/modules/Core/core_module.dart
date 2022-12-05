@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/Core/data/datasource/cet_cnpj_datasource.dart';
+import 'package:appweb/app/modules/Core/data/datasource/get_cnpj_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_cep_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_cities_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_salesman_datasource.dart';

@@ -12,22 +12,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CustomerRegisterInterationPage extends StatefulWidget {
+class ContentCustomerRegisterDesktop extends StatefulWidget {
   final CustomerMainModel customer;
   final int tabIndex;
-  const CustomerRegisterInterationPage({
+  const ContentCustomerRegisterDesktop({
     Key? key,
     required this.customer,
     required this.tabIndex,
   }) : super(key: key);
 
   @override
-  State<CustomerRegisterInterationPage> createState() =>
-      _CustomerRegisterInterationPageState();
+  State<ContentCustomerRegisterDesktop> createState() =>
+      _ContentCustomerRegisterDesktopState();
 }
 
-class _CustomerRegisterInterationPageState
-    extends State<CustomerRegisterInterationPage>
+class _ContentCustomerRegisterDesktopState
+    extends State<ContentCustomerRegisterDesktop>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

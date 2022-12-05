@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/Core/data/datasource/cet_cnpj_datasource.dart';
+import 'package:appweb/app/modules/Core/data/datasource/get_cnpj_datasource.dart';
 import 'package:appweb/app/modules/Core/data/model/identification_company_model.dart';
 import 'package:appweb/app/modules/Core/domain/repository/get_cnpj_respository.dart';
 import 'package:appweb/app/core/error/exceptions.dart';

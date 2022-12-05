@@ -46,7 +46,9 @@ class CustomerRegisterBloc
 
     searchCustomer();
 
-    goToCustomerInfoPage();
+    goToCustomerDesktopPage();
+
+    goToCustomerMobilePage();
 
     searchCEP();
 
@@ -97,10 +99,10 @@ class CustomerRegisterBloc
 
       response.fold(
           (l) => event.model.customer.id != 0
-              ? emit(CustomerRegisterPostEditErrorState(customers, ""))
-              : emit(CustomerRegisterPostAddErrorState(customers, "")), (r) {
+              ? emit(CustomerRegisterPostErrorState(customers, ""))
+              : emit(CustomerRegisterPutErrorState(customers, "")), (r) {
         if (event.model.customer.id != 0) {
-          emit(CustomerRegisterPostEditSuccessState(customers));
+          emit(CustomerRegisterPostSuccessState(customers));
         } else {
           customers.add(CustomerListModel(
             id: r.customer.id,
@@ -109,7 +111,7 @@ class CustomerRegisterBloc
             nameCompany: r.entity.nameCompany,
             nickTrade: r.entity.nickTrade,
           ));
-          emit(CustomerRegisterPostAddSuccessState(customers));
+          emit(CustomerRegisterPostSuccessState(customers));
         }
       });
     });
@@ -152,8 +154,30 @@ class CustomerRegisterBloc
     });
   }
 
-  goToCustomerInfoPage() {
-    on<CustomerRegisterInfoEvent>((event, emit) async {
+  goToCustomerDesktopPage() {
+    on<CustomerRegisterDesktopEvent>((event, emit) async {
+      if (event.id != null) {
+        emit(CustomerRegisterLoadingState());
+
+        final response =
+            await getCustomer.call(ParamsGetCustomer(id: event.id!));
+
+        response.fold(
+            (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
+            (r) {
+          customer = r;
+          emit(CustomerRegisterInfoPageState(
+              customers: customers, model: r, tabIndex: 0));
+        });
+      } else {
+        emit(CustomerRegisterInfoPageState(
+            customers: customers, model: customer, tabIndex: 0));
+      }
+    });
+  }
+
+  goToCustomerMobilePage() {
+    on<CustomerRegisterMobileEvent>((event, emit) async {
       if (event.id != null) {
         emit(CustomerRegisterLoadingState());
 
@@ -194,7 +218,7 @@ class CustomerRegisterBloc
         customer.address.latitude = r.municipio;
         customer.address.region = r.uf;
         emit(CustomerRegisterInfoPageState(
-            customers: customers, model: customer, tabIndex: 0));
+            customers: customers, model: customer, tabIndex: 1));
       });
     });
   }

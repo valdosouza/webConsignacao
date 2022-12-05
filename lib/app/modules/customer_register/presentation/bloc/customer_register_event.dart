@@ -10,9 +10,14 @@ class CustomerRegisterSearchEvent extends CustomerRegisterEvent {
   CustomerRegisterSearchEvent({required this.search});
 }
 
-class CustomerRegisterInfoEvent extends CustomerRegisterEvent {
+class CustomerRegisterDesktopEvent extends CustomerRegisterEvent {
   final int? id;
-  CustomerRegisterInfoEvent({this.id});
+  CustomerRegisterDesktopEvent({this.id});
+}
+
+class CustomerRegisterMobileEvent extends CustomerRegisterEvent {
+  final int? id;
+  CustomerRegisterMobileEvent({this.id});
 }
 
 class CustomerRegisterCepEvent extends CustomerRegisterEvent {

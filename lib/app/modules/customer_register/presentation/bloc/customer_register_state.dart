@@ -21,6 +21,59 @@ class CustomerRegisterLoadingState extends CustomerRegisterState {
   CustomerRegisterLoadingState() : super(customers: []);
 }
 
+class CustomerRegisterInfoPageState extends CustomerRegisterState {
+  final CustomerMainModel model;
+  final int tabIndex;
+  CustomerRegisterInfoPageState({
+    required List<CustomerListModel> customers,
+    required this.model,
+    required this.tabIndex,
+  }) : super(customers: customers);
+}
+
+/*------------------------CEP - Customer----------------------------------*/
+class CustomerRegisterCepErrorState extends CustomerRegisterState {
+  final String error;
+
+  CustomerRegisterCepErrorState(List<CustomerListModel> customers, this.error)
+      : super(customers: customers);
+}
+
+/*------------------------CNPJ - Customer----------------------------------*/
+class CustomerRegisterCnpjErrorState extends CustomerRegisterState {
+  final String error;
+
+  CustomerRegisterCnpjErrorState(List<CustomerListModel> customers, this.error)
+      : super(customers: customers);
+}
+
+/*------------------------POST - Customer----------------------------------*/
+class CustomerRegisterPostSuccessState extends CustomerRegisterState {
+  CustomerRegisterPostSuccessState(List<CustomerListModel> customers)
+      : super(customers: customers);
+}
+
+class CustomerRegisterPostErrorState extends CustomerRegisterState {
+  final String error;
+
+  CustomerRegisterPostErrorState(List<CustomerListModel> customers, this.error)
+      : super(customers: customers);
+}
+
+/*------------------------PUT - Customer----------------------------------*/
+class CustomerRegisterPutSuccessState extends CustomerRegisterState {
+  CustomerRegisterPutSuccessState(List<CustomerListModel> customers)
+      : super(customers: customers);
+}
+
+class CustomerRegisterPutErrorState extends CustomerRegisterState {
+  final String error;
+
+  CustomerRegisterPutErrorState(List<CustomerListModel> customers, this.error)
+      : super(customers: customers);
+}
+
+/*------------------------Getlist - Customer----------------------------------*/
 class CustomerRegisterLoadedState extends CustomerRegisterState {
   CustomerRegisterLoadedState({
     required List<CustomerListModel> customers,
@@ -39,30 +92,7 @@ class CustomerRegisterGetErrorState extends CustomerRegisterState {
   }) : super(customers: customers);
 }
 
-class CustomerRegisterInfoPageState extends CustomerRegisterState {
-  final CustomerMainModel model;
-  final int tabIndex;
-  CustomerRegisterInfoPageState({
-    required List<CustomerListModel> customers,
-    required this.model,
-    required this.tabIndex,
-  }) : super(customers: customers);
-}
-
-class CustomerRegisterCepErrorState extends CustomerRegisterState {
-  final String error;
-
-  CustomerRegisterCepErrorState(List<CustomerListModel> customers, this.error)
-      : super(customers: customers);
-}
-
-class CustomerRegisterCnpjErrorState extends CustomerRegisterState {
-  final String error;
-
-  CustomerRegisterCnpjErrorState(List<CustomerListModel> customers, this.error)
-      : super(customers: customers);
-}
-
+/*------------------------Getlist - State-------------------------------------*/
 class CustomerRegisterGetStatesSuccessState extends CustomerRegisterState {
   final List<StateModel> states;
 
@@ -79,6 +109,7 @@ class CustomerRegisterGetStatesErrorState extends CustomerRegisterState {
       : super(customers: customers);
 }
 
+/*------------------------Getlist - City-------------------------------------*/
 class CustomerRegisterGetCitySuccessState extends CustomerRegisterState {
   final List<CityModel> cities;
 
@@ -95,32 +126,7 @@ class CustomerRegisterGetCityErrorState extends CustomerRegisterState {
       : super(customers: customers);
 }
 
-class CustomerRegisterPostAddSuccessState extends CustomerRegisterState {
-  CustomerRegisterPostAddSuccessState(List<CustomerListModel> customers)
-      : super(customers: customers);
-}
-
-class CustomerRegisterPostEditSuccessState extends CustomerRegisterState {
-  CustomerRegisterPostEditSuccessState(List<CustomerListModel> customers)
-      : super(customers: customers);
-}
-
-class CustomerRegisterPostAddErrorState extends CustomerRegisterState {
-  final String error;
-
-  CustomerRegisterPostAddErrorState(
-      List<CustomerListModel> customers, this.error)
-      : super(customers: customers);
-}
-
-class CustomerRegisterPostEditErrorState extends CustomerRegisterState {
-  final String error;
-
-  CustomerRegisterPostEditErrorState(
-      List<CustomerListModel> customers, this.error)
-      : super(customers: customers);
-}
-
+/*------------------------Getlist - Salesman----------------------------------*/
 class CustomerRegisterGetSalesmanSuccessState extends CustomerRegisterState {
   final List<SalesmanListModel> salesmans;
 
