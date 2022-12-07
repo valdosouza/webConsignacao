@@ -27,6 +27,7 @@ class _CustomerRegisterPageMobileState
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<CustomerRegisterModule>();
     });
+
     bloc = Modular.get<CustomerRegisterBloc>();
     bloc.customer = CustomerMainModel.empty();
     bloc.add(CustomerRegisterMobileEvent());

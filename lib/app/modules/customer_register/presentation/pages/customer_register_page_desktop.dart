@@ -31,6 +31,7 @@ class _CustomerRegisterPageDesktopState
   @override
   void initState() {
     super.initState();
+
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<CustomerRegisterModule>();
     });

@@ -23,7 +23,8 @@ class CustomerMenusMobile extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Novo',
-            () async => Modular.to.navigate('/customerregister/content/'),
+            () async =>
+                Modular.to.navigate('/customer/mobile/customer-register/'),
           ),
         ],
       ),

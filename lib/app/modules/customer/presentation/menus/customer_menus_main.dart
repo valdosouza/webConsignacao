@@ -14,7 +14,7 @@ class CustomerMenusMain extends StatelessWidget {
             Icons.home,
             'Cadastro de Clientes',
             () async =>
-                Modular.to.navigate('/customer/content/customer-register/'),
+                Modular.to.navigate('/customer/desktop/customer-register/'),
           ),
         ],
       ),
