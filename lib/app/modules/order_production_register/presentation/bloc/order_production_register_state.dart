@@ -1,56 +1,55 @@
-import 'package:appweb/app/modules/product_register/data/model/product_register_main_model.dart';
-import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 
-abstract class ProductRegisterState {
-  List<ProductRegisterModel> list;
+abstract class OrderProductionState {
+  List<OrderProductionRegisterModel> list;
 
-  ProductRegisterState({
+  OrderProductionState({
     required this.list,
   });
 }
 
-class ProductRegisterLoadingState extends ProductRegisterState {
-  ProductRegisterLoadingState() : super(list: []);
+class OrderProductionLoadingState extends OrderProductionState {
+  OrderProductionLoadingState() : super(list: []);
 }
 
-class ProductRegisterLoadedState extends ProductRegisterState {
-  ProductRegisterLoadedState({required List<ProductRegisterModel> list})
+class OrderProductionLoadedState extends OrderProductionState {
+  OrderProductionLoadedState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class ProductRegisterErrorState extends ProductRegisterState {
-  ProductRegisterErrorState({required List<ProductRegisterModel> list})
+class OrderProductionErrorState extends OrderProductionState {
+  OrderProductionErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class ProductRegisterInfoPageState extends ProductRegisterState {
-  final ProductRegisterMainModel? model;
-  ProductRegisterInfoPageState(
-      {required List<ProductRegisterModel> list, this.model})
+class OrderProductionInfoPageState extends OrderProductionState {
+  final OrderProductionRegisterModel? model;
+  OrderProductionInfoPageState(
+      {required List<OrderProductionRegisterModel> list, this.model})
       : super(list: list);
 }
 
-class ProductRegisterGetErrorState extends ProductRegisterState {
-  ProductRegisterGetErrorState({required List<ProductRegisterModel> list})
+class OrderProductionGetErrorState extends OrderProductionState {
+  OrderProductionGetErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class ProductRegisterPostSuccessState extends ProductRegisterState {
-  ProductRegisterPostSuccessState({required List<ProductRegisterModel> list})
+class OrderProductionPostSuccessState extends OrderProductionState {
+  OrderProductionPostSuccessState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class ProductRegisterPostErrorState extends ProductRegisterState {
-  ProductRegisterPostErrorState({required List<ProductRegisterModel> list})
+class OrderProductionPostErrorState extends OrderProductionState {
+  OrderProductionPostErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class ProductRegisterPutSuccessState extends ProductRegisterState {
-  ProductRegisterPutSuccessState({required List<ProductRegisterModel> list})
+class OrderProductionPutSuccessState extends OrderProductionState {
+  OrderProductionPutSuccessState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class ProductRegisterPutErrorState extends ProductRegisterState {
-  ProductRegisterPutErrorState({required List<ProductRegisterModel> list})
+class OrderProductionPutErrorState extends OrderProductionState {
+  OrderProductionPutErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
