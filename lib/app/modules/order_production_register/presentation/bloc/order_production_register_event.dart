@@ -51,7 +51,12 @@ class OrderProductionRegisterDeleteEvent extends OrderProductionRegisterEvent {
   OrderProductionRegisterDeleteEvent({required this.model});
 }
 
-class OrderProductionRegisterInfoEvent extends OrderProductionRegisterEvent {
+class OrderProductionRegisterDesktopEvent extends OrderProductionRegisterEvent {
   final OrderProductionRegisterModel? model;
-  OrderProductionRegisterInfoEvent({this.model});
+  OrderProductionRegisterDesktopEvent({this.model});
+}
+
+class OrderProductionRegisterMobileEvent extends OrderProductionRegisterEvent {
+  final OrderProductionRegisterModel? model;
+  OrderProductionRegisterMobileEvent({this.model});
 }

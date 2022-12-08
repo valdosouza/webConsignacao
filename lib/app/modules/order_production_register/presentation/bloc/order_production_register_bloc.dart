@@ -70,14 +70,13 @@ class OrderProductionRegisterBloc
       var response = await getlistOrderProduction
           .call(ParamsGetlistOrderProductionRegister(id: 1));
 
-      var result = response.fold(
-          (l) => OrderProductionRegisterErrorState(list: orderProductions),
+      response.fold(
+          (l) =>
+              emit(OrderProductionRegisterErrorState(list: orderProductions)),
           (r) {
         orderProductions = r;
-        return OrderProductionRegisterLoadedState(list: r);
+        emit(OrderProductionRegisterLoadedState(list: r));
       });
-
-      emit(result);
     });
   }
 
