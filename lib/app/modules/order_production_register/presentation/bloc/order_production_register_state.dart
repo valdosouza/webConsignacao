@@ -1,55 +1,55 @@
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 
-abstract class OrderProductionState {
+abstract class OrderProductionRegisterState {
   List<OrderProductionRegisterModel> list;
 
-  OrderProductionState({
+  OrderProductionRegisterState({
     required this.list,
   });
 }
 
-class OrderProductionLoadingState extends OrderProductionState {
-  OrderProductionLoadingState() : super(list: []);
+class OrderProductionRegisterLoadingState extends OrderProductionRegisterState {
+  OrderProductionRegisterLoadingState() : super(list: []);
 }
 
-class OrderProductionLoadedState extends OrderProductionState {
-  OrderProductionLoadedState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterLoadedState extends OrderProductionRegisterState {
+  OrderProductionRegisterLoadedState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionErrorState extends OrderProductionState {
-  OrderProductionErrorState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterErrorState extends OrderProductionRegisterState {
+  OrderProductionRegisterErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionInfoPageState extends OrderProductionState {
+class OrderProductionRegisterInfoPageState extends OrderProductionRegisterState {
   final OrderProductionRegisterModel? model;
-  OrderProductionInfoPageState(
+  OrderProductionRegisterInfoPageState(
       {required List<OrderProductionRegisterModel> list, this.model})
       : super(list: list);
 }
 
-class OrderProductionGetErrorState extends OrderProductionState {
-  OrderProductionGetErrorState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterGetErrorState extends OrderProductionRegisterState {
+  OrderProductionRegisterGetErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionPostSuccessState extends OrderProductionState {
-  OrderProductionPostSuccessState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterPostSuccessState extends OrderProductionRegisterState {
+  OrderProductionRegisterPostSuccessState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionPostErrorState extends OrderProductionState {
-  OrderProductionPostErrorState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterPostErrorState extends OrderProductionRegisterState {
+  OrderProductionRegisterPostErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionPutSuccessState extends OrderProductionState {
-  OrderProductionPutSuccessState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterPutSuccessState extends OrderProductionRegisterState {
+  OrderProductionRegisterPutSuccessState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionPutErrorState extends OrderProductionState {
-  OrderProductionPutErrorState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterPutErrorState extends OrderProductionRegisterState {
+  OrderProductionRegisterPutErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }

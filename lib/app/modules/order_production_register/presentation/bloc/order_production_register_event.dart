@@ -1,30 +1,30 @@
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 
-abstract class OrderProductionEvent {}
+abstract class OrderProductionRegisterEvent {}
 
-class OrderProductionGetListEvent extends OrderProductionEvent {}
+class OrderProductionGetListEvent extends OrderProductionRegisterEvent {}
 
-class OrderProductionGetProductsEvent extends OrderProductionEvent {
+class OrderProductionGetProductsEvent extends OrderProductionRegisterEvent {
   final int tbInstitutionId;
   OrderProductionGetProductsEvent({required this.tbInstitutionId});
 }
 
-class OrderProductionGetStocksEvent extends OrderProductionEvent {
+class OrderProductionGetStocksEvent extends OrderProductionRegisterEvent {
   final int tbInstitutionId;
   OrderProductionGetStocksEvent({required this.tbInstitutionId});
 }
 
-class OrderProductionSearchProductsEvent extends OrderProductionEvent {
+class OrderProductionSearchProductsEvent extends OrderProductionRegisterEvent {
   final int id;
   OrderProductionSearchProductsEvent({required this.id});
 }
 
-class OrderProductionSearchStocksEvent extends OrderProductionEvent {
+class OrderProductionSearchStocksEvent extends OrderProductionRegisterEvent {
   final int id;
   OrderProductionSearchStocksEvent({required this.id});
 }
 
-class OrderProductionSearchEvent extends OrderProductionEvent {
+class OrderProductionSearchEvent extends OrderProductionRegisterEvent {
   String search;
 
   OrderProductionSearchEvent({
@@ -32,25 +32,25 @@ class OrderProductionSearchEvent extends OrderProductionEvent {
   });
 }
 
-class OrderProductionPutEvent extends OrderProductionEvent {
+class OrderProductionPutEvent extends OrderProductionRegisterEvent {
   final OrderProductionRegisterModel model;
 
   OrderProductionPutEvent({required this.model});
 }
 
-class OrderProductionPostEvent extends OrderProductionEvent {
+class OrderProductionPostEvent extends OrderProductionRegisterEvent {
   final OrderProductionRegisterModel model;
 
   OrderProductionPostEvent({required this.model});
 }
 
-class OrderProductionDeleteEvent extends OrderProductionEvent {
+class OrderProductionDeleteEvent extends OrderProductionRegisterEvent {
   final OrderProductionRegisterModel model;
 
   OrderProductionDeleteEvent({required this.model});
 }
 
-class OrderProductionInfoEvent extends OrderProductionEvent {
+class OrderProductionInfoEvent extends OrderProductionRegisterEvent {
   final OrderProductionRegisterModel? model;
   OrderProductionInfoEvent({this.model});
 }

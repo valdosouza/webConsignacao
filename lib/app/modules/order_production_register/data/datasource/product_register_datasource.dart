@@ -21,7 +21,7 @@ abstract class OrderProductionRegisterDataSource {
   Future<List<StockListModel>> getListStock({required int institutionId});
 }
 
-class ProductRegisterDataSourceImpl extends OrderProductionRegisterDataSource {
+class OrderProductionRegisterDataSourceImpl extends OrderProductionRegisterDataSource {
   final client = http.Client();
   List<OrderProductionRegisterModel> orderProduction = [];
   List<ProductModel> products = [];

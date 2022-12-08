@@ -1,22 +1,22 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
-import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
-import 'package:appweb/app/modules/product_register/domain/repository/product_register_respository.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/product_model.dart';
+import 'package:appweb/app/modules/order_production_register/domain/repository/order_production_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
-class ProductRegisterGetlist
+class ProductGetlist
     implements
-        UseCase<List<ProductRegisterModel>, ParamsProductRegisterGetlist> {
-  final ProductRegisterRepository repository;
+        UseCase<List<ProductModel>, ParamsProductGetlist> {
+  final OrderProductionRegisterRepository repository;
 
-  ProductRegisterGetlist({required this.repository});
+  ProductGetlist({required this.repository});
 
   @override
-  Future<Either<Failure, List<ProductRegisterModel>>> call(
-      ParamsProductRegisterGetlist params) async {
+  Future<Either<Failure, List<ProductModel>>> call(
+      ParamsProductGetlist params) async {
     try {
-      final list = await repository.getList(id: params.id);
+      final list = await repository.getListProducts(id: params.id);
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -24,7 +24,7 @@ class ProductRegisterGetlist
   }
 }
 
-class ParamsProductRegisterGetlist {
+class ParamsProductGetlist {
   int id;
-  ParamsProductRegisterGetlist({required this.id});
+  ParamsProductGetlist({required this.id});
 }

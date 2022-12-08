@@ -1,22 +1,22 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_list_repository.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/order_production_register/domain/repository/order_production_register_respository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class StockListRegisterGetlist
-    implements UseCase<List<StockListModel>, Params> {
-  final StockListRepository repository;
+class StockListGetlist
+    implements UseCase<List<StockListModel>, ParamsStockList> {
+  final OrderProductionRegisterRepository repository;
 
-  StockListRegisterGetlist({required this.repository});
+  StockListGetlist({required this.repository});
 
   @override
-  Future<Either<Failure, List<StockListModel>>> call(Params params) async {
+  Future<Either<Failure, List<StockListModel>>> call(ParamsStockList params) async {
     try {
       final list =
-          await repository.getList(institutionId: params.institutionId);
+          await repository.getListStock(id: params.institutionId);
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -24,10 +24,10 @@ class StockListRegisterGetlist
   }
 }
 
-class Params extends Equatable {
+class ParamsStockList extends Equatable {
   final int institutionId;
 
-  const Params({
+  const ParamsStockList({
     required this.institutionId,
   });
 
