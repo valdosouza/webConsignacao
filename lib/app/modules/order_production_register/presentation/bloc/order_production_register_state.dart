@@ -53,3 +53,12 @@ class OrderProductionRegisterPutErrorState extends OrderProductionRegisterState 
   OrderProductionRegisterPutErrorState({required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
+class OrderProductionRegisterDeleteSuccessState extends OrderProductionRegisterState {
+  OrderProductionRegisterDeleteSuccessState({required List<OrderProductionRegisterModel> list})
+      : super(list: list);
+}
+
+class OrderProductionRegisterDeleteErrorState extends OrderProductionRegisterState {
+  OrderProductionRegisterDeleteErrorState({required List<OrderProductionRegisterModel> list})
+      : super(list: list);
+}

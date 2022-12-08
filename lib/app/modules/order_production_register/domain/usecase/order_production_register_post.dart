@@ -6,14 +6,14 @@ import 'package:appweb/app/modules/order_production_register/domain/repository/o
 import 'package:dartz/dartz.dart';
 
 class OrderProductionRegisterPost
-    implements UseCase<OrderProductionRegisterModel, ParamsOrderProductionRegisterPost> {
+    implements UseCase<OrderProductionRegisterModel, ParamsPostOrderProductionRegister> {
   final OrderProductionRegisterRepository repository;
 
   OrderProductionRegisterPost({required this.repository});
 
   @override
   Future<Either<Failure, OrderProductionRegisterModel>> call(
-      ParamsOrderProductionRegisterPost params) async {
+      ParamsPostOrderProductionRegister params) async {
     try {
       final response = await repository.post(model: params.model);
       return response;
@@ -23,7 +23,7 @@ class OrderProductionRegisterPost
   }
 }
 
-class ParamsOrderProductionRegisterPost {
+class ParamsPostOrderProductionRegister {
   OrderProductionRegisterModel model;
-  ParamsOrderProductionRegisterPost({required this.model});
+  ParamsPostOrderProductionRegister({required this.model});
 }

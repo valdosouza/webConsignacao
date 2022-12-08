@@ -5,14 +5,14 @@ import 'package:dartz/dartz.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 
 class OrderProductionRegisterDelete
-    implements UseCase<String, ParamsOrderProductionRegisterDelete> {
+    implements UseCase<String, ParamsDeleteOrderProductionRegister> {
   final OrderProductionRegisterRepository repository;
 
   OrderProductionRegisterDelete({required this.repository});
 
   @override
   Future<Either<Failure, String>> call(
-      ParamsOrderProductionRegisterDelete params) async {
+      ParamsDeleteOrderProductionRegister params) async {
     try {
       final list = await repository.delete(id: params.id);
       return list;
@@ -22,7 +22,7 @@ class OrderProductionRegisterDelete
   }
 }
 
-class ParamsOrderProductionRegisterDelete {
+class ParamsDeleteOrderProductionRegister {
   int id;
-  ParamsOrderProductionRegisterDelete({required this.id});
+  ParamsDeleteOrderProductionRegister({required this.id});
 }

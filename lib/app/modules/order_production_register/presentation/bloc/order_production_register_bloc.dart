@@ -3,6 +3,9 @@ import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/product_model.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_delete.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get_list.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_post.dart';
@@ -15,20 +18,17 @@ import 'package:bloc/bloc.dart';
 
 class OrderProductionRegisterBloc
     extends Bloc<OrderProductionRegisterEvent, OrderProductionRegisterState> {
-    
-    final OrderProductionRegisterGetlist getlistOrderProduction;
-    final OrderProductionRegisterPost postOrderProduction;
-    final OrderProductionRegisterPut putOrderProduction;
-    final OrderProductionRegisterDelete deleteOrderProduction;
-    final ProductGetlist productGetlist;
-    final StockListGetlist stockListGetlist;
-    
+  final OrderProductionRegisterGetlist getlistOrderProduction;
+  final OrderProductionRegisterPost postOrderProduction;
+  final OrderProductionRegisterPut putOrderProduction;
+  final OrderProductionRegisterDelete deleteOrderProduction;
+  final ProductGetlist productGetlist;
+  final StockListGetlist stockListGetlist;
 
-  List<CustomerListModel> customers = [];
-  CustomerMainModel customer = CustomerMainModel.empty();
-  List<StateModel> states = [];
-  List<CityModel> cities = [];
-  List<SalesmanListModel> salesmans = [];
+  List<OrderProductionRegisterModel> orderProductions = [];
+  OrderProductionRegisterModel orderProduction = OrderProductionRegisterModel();
+  List<ProductModel> products = [];
+  List<StockListModel> stocks = [];
 
   OrderProductionRegisterBloc({
     required this.getlistOrderProduction,
@@ -38,7 +38,7 @@ class OrderProductionRegisterBloc
     required this.productGetlist,
     required this.stockListGetlist,
   }) : super(OrderProductionRegisterLoadingState()) {
-    // getList();
+    getList();
 
     // searchCustomer();
 
@@ -46,21 +46,15 @@ class OrderProductionRegisterBloc
 
     // goToCustomerMobilePage();
 
-    // searchCEP();
-
-    // searchCNPJ();
-
-    // getState();
-
-    // getCitys();
-
     // searchEventStates();
 
     // searchEventCitys();
 
-    // postCustomerAction();
+    postOrderProductionAction();
 
-    // getSalesmansAction();
+    putOrderProductionAction();
+
+    deleteOrderProductionAction();
 
     // searchSalesmans();
 
@@ -69,49 +63,81 @@ class OrderProductionRegisterBloc
     //         model: customer, customers: customers, tabIndex: event.index)));
   }
 
-  // getList() {
-  //   on<CustomerRegisterGetListEvent>((event, emit) async {
-  //     emit(CustomerRegisterLoadingState());
+  getList() {
+    on<OrderProductionRegisterGetListEvent>((event, emit) async {
+      emit(OrderProductionRegisterLoadingState());
 
-  //     var response =
-  //         await getlist.call(ParamsGetListCustomer(tbInstitutionId: 1));
+      var response = await getlistOrderProduction
+          .call(ParamsGetlistOrderProductionRegister(id: 1));
 
-  //     var result = response
-  //         .fold((l) => CustomerRegisterErrorState(customers: customers), (r) {
-  //       customers = r;
-  //       return CustomerRegisterLoadedState(customers: r);
-  //     });
+      var result = response.fold(
+          (l) => OrderProductionRegisterErrorState(list: orderProductions),
+          (r) {
+        orderProductions = r;
+        return OrderProductionRegisterLoadedState(list: r);
+      });
 
-  //     emit(result);
-  //   });
-  // }
+      emit(result);
+    });
+  }
 
-  // postCustomerAction() {
-  //   on<CustomerRegisterPostEvent>((event, emit) async {
-  //     emit(CustomerRegisterLoadingState());
+  postOrderProductionAction() {
+    on<OrderProductionRegisterPostEvent>((event, emit) async {
+      emit(OrderProductionRegisterLoadingState());
 
-  //     var response =
-  //         await postCustomer.call(ParamsPostCustomer(customer: event.model));
+      var response = await postOrderProduction
+          .call(ParamsPostOrderProductionRegister(model: event.model));
 
-  //     response.fold(
-  //         (l) => event.model.customer.id != 0
-  //             ? emit(CustomerRegisterPostErrorState(customers, ""))
-  //             : emit(CustomerRegisterPutErrorState(customers, "")), (r) {
-  //       if (event.model.customer.id != 0) {
-  //         emit(CustomerRegisterPostSuccessState(customers));
-  //       } else {
-  //         customers.add(CustomerListModel(
-  //           id: r.customer.id,
-  //           docType: r.person != null ? "F" : "J",
-  //           documento: r.person != null ? r.person!.cpf : r.company!.cnpj,
-  //           nameCompany: r.entity.nameCompany,
-  //           nickTrade: r.entity.nickTrade,
-  //         ));
-  //         emit(CustomerRegisterPostSuccessState(customers));
-  //       }
-  //     });
-  //   });
-  // }
+      response.fold(
+          (l) => event.model.id != 0
+              ? emit(
+                  OrderProductionRegisterPostErrorState(list: orderProductions))
+              : emit(
+                  OrderProductionRegisterPutErrorState(list: orderProductions)),
+          (r) {
+        orderProductions.add(r);
+        emit(OrderProductionRegisterPostSuccessState(list: orderProductions));
+      });
+    });
+  }
+
+  putOrderProductionAction() {
+    on<OrderProductionRegisterPutEvent>((event, emit) async {
+      emit(OrderProductionRegisterLoadingState());
+
+      var response = await putOrderProduction
+          .call(ParamsPutOrderProductionRegister(model: event.model));
+
+      response.fold(
+          (l) => event.model.id != 0
+              ? emit(
+                  OrderProductionRegisterPutErrorState(list: orderProductions))
+              : emit(
+                  OrderProductionRegisterPutErrorState(list: orderProductions)),
+          (r) {
+        orderProductions.removeWhere((element) => element.id == r.id);
+        orderProductions.add(r);
+        emit(OrderProductionRegisterPutSuccessState(list: orderProductions));
+      });
+    });
+  }
+
+  deleteOrderProductionAction() {
+    on<OrderProductionRegisterDeleteEvent>((event, emit) async {
+      emit(OrderProductionRegisterLoadingState());
+
+      var response = await deleteOrderProduction
+          .call(ParamsDeleteOrderProductionRegister(id: event.model.id));
+
+      response.fold(
+          (l) => emit(
+              OrderProductionRegisterDeleteErrorState(list: orderProductions)),
+          (r) {
+        orderProductions.removeWhere((element) => element.id == event.model.id);
+        emit(OrderProductionRegisterDeleteSuccessState(list: orderProductions));
+      });
+    });
+  }
 
   // searchCustomer() {
   //   on<CustomerRegisterSearchEvent>((event, emit) async {
