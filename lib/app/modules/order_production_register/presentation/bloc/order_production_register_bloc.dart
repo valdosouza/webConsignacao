@@ -1,12 +1,8 @@
-import 'package:appweb/app/modules/Core/data/model/city_model.dart';
-import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
-import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
-import 'package:appweb/app/modules/Core/data/model/state_model.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/product_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_delete.dart';
+import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get_list.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_post.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_put.dart';
@@ -15,9 +11,11 @@ import 'package:appweb/app/modules/order_production_register/domain/usecase/stoc
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_event.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:http/http.dart';
 
 class OrderProductionRegisterBloc
     extends Bloc<OrderProductionRegisterEvent, OrderProductionRegisterState> {
+  final OrderProductionRegisterGet getOrderProduction;
   final OrderProductionRegisterGetlist getlistOrderProduction;
   final OrderProductionRegisterPost postOrderProduction;
   final OrderProductionRegisterPut putOrderProduction;
@@ -31,6 +29,7 @@ class OrderProductionRegisterBloc
   List<StockListModel> stocks = [];
 
   OrderProductionRegisterBloc({
+    required this.getOrderProduction,
     required this.getlistOrderProduction,
     required this.postOrderProduction,
     required this.putOrderProduction,
@@ -42,7 +41,7 @@ class OrderProductionRegisterBloc
 
     // searchCustomer();
 
-    // goToCustomerDesktopPage();
+    goToOrderProductionDesktopPage();
 
     // goToCustomerMobilePage();
 
@@ -135,6 +134,28 @@ class OrderProductionRegisterBloc
         orderProductions.removeWhere((element) => element.id == event.model.id);
         emit(OrderProductionRegisterDeleteSuccessState(list: orderProductions));
       });
+    });
+  }
+
+  goToOrderProductionDesktopPage() {
+    on<OrderProductionRegisterDesktopEvent>((event, emit) async {
+      if (event.model != null) {
+        emit(OrderProductionRegisterLoadingState());
+
+        final response = await getOrderProduction.call(
+            ParamsGetOrderProductionRegister(
+                id: event.model!.id, intitutionId: 1));
+
+        response.fold(
+            (l) => emit(
+                OrderProductionRegisterGetErrorState(list: orderProductions)),
+            (r) {
+          orderProduction = r;
+          emit(OrderProductionRegisterInfoPageState(list: []));
+        });
+      } else {
+        emit(OrderProductionRegisterInfoPageState(list: []));
+      }
     });
   }
 

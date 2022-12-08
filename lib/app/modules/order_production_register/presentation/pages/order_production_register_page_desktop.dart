@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/order_production_register/order_production_re
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_bloc.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_event.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
+import 'package:appweb/app/modules/order_production_register/presentation/contents/content_order_production_desktop.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/contents/content_order_production_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,10 +47,9 @@ class OrderProductionRegisterPageDesktopState
         }
 
         if (state is OrderProductionRegisterInfoPageState) {
-          // return ContentOrderProductionRegisterDesktop(
-          //   customer: state.model,
-          //   tabIndex: state.tabIndex,
-          // );
+          return ContentOrderProductionRegisterDesktop(
+            orderProduction: bloc.orderProduction,
+          );
         }
 
         final orderProductions = state.list;

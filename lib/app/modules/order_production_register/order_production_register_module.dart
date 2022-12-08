@@ -2,6 +2,7 @@ import 'package:appweb/app/modules/Core/core_module.dart';
 import 'package:appweb/app/modules/order_production_register/data/datasource/product_register_datasource.dart';
 import 'package:appweb/app/modules/order_production_register/data/repository/product_register_repository_impl.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_delete.dart';
+import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get_list.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_post.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_put.dart';
@@ -24,6 +25,10 @@ class OrderProductionRegisterModule extends Module {
         Bind.factory(
           (i) => OrderProductionRegisterRepositoryImpl(
               datasource: i.get<OrderProductionRegisterDataSource>()),
+        ),
+        Bind.factory(
+          (i) => OrderProductionRegisterGet(
+              repository: i.get<OrderProductionRegisterRepositoryImpl>()),
         ),
         Bind.factory(
           (i) => OrderProductionRegisterGetlist(
@@ -50,6 +55,7 @@ class OrderProductionRegisterModule extends Module {
               repository: i.get<OrderProductionRegisterRepositoryImpl>()),
         ),
         Bind.singleton((i) => OrderProductionRegisterBloc(
+            getOrderProduction: i.get<OrderProductionRegisterGet>(),
             getlistOrderProduction: i.get<OrderProductionRegisterGetlist>(),
             postOrderProduction: i.get<OrderProductionRegisterPost>(),
             putOrderProduction: i.get<OrderProductionRegisterPut>(),

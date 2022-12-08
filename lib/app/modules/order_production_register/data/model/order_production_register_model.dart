@@ -1,4 +1,6 @@
 import 'package:appweb/app/modules/order_production_register/domain/entity/order_production_register_entity.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
   OrderProductionRegisterModel(
@@ -37,7 +39,7 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
       tbUserId: json['tb_user_id'] is String
           ? int.parse(json['tb_user_id'])
           : json['tb_user_id'],
-      dtRecord: json['dt_record'] as String? ?? "",
+      dtRecord: _formatDate(json['dt_record'], "dd/MM/yyyy") as String? ?? "",
       number:
           json['number'] is String ? int.parse(json['number']) : json['number'],
       status: json['status'] as String? ?? "",
@@ -54,5 +56,15 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
       nameStockListDes: json['name_stock_list_des'] as String? ?? "",
       note: json['note'] as String? ?? "",
     );
+  }
+
+  static _formatDate(String date, String typeFormat) {
+    try {
+      initializeDateFormatting('pt_BR,', null);
+      DateTime time = DateTime.tryParse(date)!;
+      return (DateFormat(typeFormat).format(time));
+    } catch (e) {
+      return "";
+    }
   }
 }

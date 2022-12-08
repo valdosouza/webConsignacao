@@ -13,52 +13,92 @@ class OrderProductionRegisterLoadingState extends OrderProductionRegisterState {
 }
 
 class OrderProductionRegisterLoadedState extends OrderProductionRegisterState {
-  OrderProductionRegisterLoadedState({required List<OrderProductionRegisterModel> list})
+  OrderProductionRegisterLoadedState(
+      {required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
 class OrderProductionRegisterErrorState extends OrderProductionRegisterState {
-  OrderProductionRegisterErrorState({required List<OrderProductionRegisterModel> list})
+  OrderProductionRegisterErrorState(
+      {required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionRegisterInfoPageState extends OrderProductionRegisterState {
+class OrderProductionRegisterInfoPageState
+    extends OrderProductionRegisterState {
   final OrderProductionRegisterModel? model;
   OrderProductionRegisterInfoPageState(
       {required List<OrderProductionRegisterModel> list, this.model})
       : super(list: list);
 }
 
-class OrderProductionRegisterGetErrorState extends OrderProductionRegisterState {
-  OrderProductionRegisterGetErrorState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterGetErrorState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterGetErrorState(
+      {required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionRegisterPostSuccessState extends OrderProductionRegisterState {
-  OrderProductionRegisterPostSuccessState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterPostSuccessState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterPostSuccessState(
+      {required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionRegisterPostErrorState extends OrderProductionRegisterState {
-  OrderProductionRegisterPostErrorState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterPostErrorState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterPostErrorState(
+      {required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionRegisterPutSuccessState extends OrderProductionRegisterState {
-  OrderProductionRegisterPutSuccessState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterPutSuccessState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterPutSuccessState(
+      {required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionRegisterPutErrorState extends OrderProductionRegisterState {
-  OrderProductionRegisterPutErrorState({required List<OrderProductionRegisterModel> list})
-      : super(list: list);
-}
-class OrderProductionRegisterDeleteSuccessState extends OrderProductionRegisterState {
-  OrderProductionRegisterDeleteSuccessState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterPutErrorState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterPutErrorState(
+      {required List<OrderProductionRegisterModel> list})
       : super(list: list);
 }
 
-class OrderProductionRegisterDeleteErrorState extends OrderProductionRegisterState {
-  OrderProductionRegisterDeleteErrorState({required List<OrderProductionRegisterModel> list})
+class OrderProductionRegisterDeleteSuccessState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterDeleteSuccessState(
+      {required List<OrderProductionRegisterModel> list})
       : super(list: list);
+}
+
+class OrderProductionRegisterDeleteErrorState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterDeleteErrorState(
+      {required List<OrderProductionRegisterModel> list})
+      : super(list: list);
+}
+
+class OrderProductionRegisterProductSuccessState {
+  final int id;
+  final int name;
+  OrderProductionRegisterProductSuccessState(
+      {required this.id, required this.name});
+}
+
+class OrderProductionRegisterProductErrorState {
+  OrderProductionRegisterProductErrorState();
+}
+
+class OrderProductionRegisterStockSuccessState {
+  final int id;
+  final int name;
+  OrderProductionRegisterStockSuccessState(
+      {required this.id, required this.name});
+}
+
+class OrderProductionRegisterStockErrorState {
+  OrderProductionRegisterStockErrorState();
 }

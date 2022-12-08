@@ -8,6 +8,7 @@ class CustomInput extends StatelessWidget {
   final TextInputType keyboardType;
   final Function(String)? onChanged;
   final String? initialValue;
+  final int? maxLines;
   final Widget? sufixIcon;
   final String? Function(String?)? validator;
   final bool obscureText;
@@ -20,6 +21,7 @@ class CustomInput extends StatelessWidget {
       required this.onChanged,
       this.validator,
       this.initialValue,
+      this.maxLines,
       this.sufixIcon,
       this.hint,
       this.obscureText = false,
@@ -41,6 +43,7 @@ class CustomInput extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: TextFormField(
             initialValue: initialValue,
+            maxLines: maxLines,
             keyboardType: keyboardType,
             autofocus: false,
             textInputAction: inputAction,
@@ -55,7 +58,7 @@ class CustomInput extends StatelessWidget {
             decoration: InputDecoration(
               border: InputBorder.none,
               suffix: sufixIcon,
-              contentPadding: const EdgeInsets.only(left: 10.0),
+              contentPadding: const EdgeInsets.only(left: 10.0, top: 5),
               hintText: hint ?? "",
               hintStyle: kHintTextStyle,
             ),
