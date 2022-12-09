@@ -7,14 +7,14 @@ import 'package:dartz/dartz.dart';
 
 class ProductGetlist
     implements
-        UseCase<List<ProductModel>, ParamsProductGetlist> {
+        UseCase<List<ProductModel>, ParamsGetlistProduct> {
   final OrderProductionRegisterRepository repository;
 
   ProductGetlist({required this.repository});
 
   @override
   Future<Either<Failure, List<ProductModel>>> call(
-      ParamsProductGetlist params) async {
+      ParamsGetlistProduct params) async {
     try {
       final list = await repository.getListProducts(id: params.id);
       return list;
@@ -24,7 +24,7 @@ class ProductGetlist
   }
 }
 
-class ParamsProductGetlist {
+class ParamsGetlistProduct {
   int id;
-  ParamsProductGetlist({required this.id});
+  ParamsGetlistProduct({required this.id});
 }

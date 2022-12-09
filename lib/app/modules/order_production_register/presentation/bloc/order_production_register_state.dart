@@ -1,4 +1,6 @@
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/product_model.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
 
 abstract class OrderProductionRegisterState {
   List<OrderProductionRegisterModel> list;
@@ -81,24 +83,26 @@ class OrderProductionRegisterDeleteErrorState
       : super(list: list);
 }
 
-class OrderProductionRegisterProductSuccessState {
-  final int id;
-  final int name;
-  OrderProductionRegisterProductSuccessState(
-      {required this.id, required this.name});
+class OrderProductionRegisterProductSuccessState
+    extends OrderProductionRegisterState {
+  final List<ProductModel> products;
+  OrderProductionRegisterProductSuccessState({required this.products})
+      : super(list: []);
 }
 
-class OrderProductionRegisterProductErrorState {
-  OrderProductionRegisterProductErrorState();
+class OrderProductionRegisterProductErrorState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterProductErrorState() : super(list: []);
 }
 
-class OrderProductionRegisterStockSuccessState {
-  final int id;
-  final int name;
-  OrderProductionRegisterStockSuccessState(
-      {required this.id, required this.name});
+class OrderProductionRegisterStockSuccessState
+    extends OrderProductionRegisterState {
+  final List<StockListModel> stock;
+  OrderProductionRegisterStockSuccessState({required this.stock})
+      : super(list: []);
 }
 
-class OrderProductionRegisterStockErrorState {
-  OrderProductionRegisterStockErrorState();
+class OrderProductionRegisterStockErrorState
+    extends OrderProductionRegisterState {
+  OrderProductionRegisterStockErrorState() : super(list: []);
 }

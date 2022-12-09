@@ -6,6 +6,8 @@ import 'package:appweb/app/modules/order_production_register/presentation/bloc/o
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/contents/content_order_production_desktop.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/contents/content_order_production_register.dart';
+import 'package:appweb/app/modules/order_production_register/presentation/widgets/order_production_register_list_products.dart';
+import 'package:appweb/app/modules/order_production_register/presentation/widgets/order_production_register_list_stocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,7 +22,7 @@ class OrderProductionRegisterPageDesktop extends StatefulWidget {
 
 class OrderProductionRegisterPageDesktopState
     extends State<OrderProductionRegisterPageDesktop> {
- late final OrderProductionRegisterBloc bloc;
+  late final OrderProductionRegisterBloc bloc;
 
   @override
   void initState() {
@@ -34,7 +36,8 @@ class OrderProductionRegisterPageDesktopState
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<OrderProductionRegisterBloc, OrderProductionRegisterState>(
+    return BlocConsumer<OrderProductionRegisterBloc,
+        OrderProductionRegisterState>(
       bloc: bloc,
       listener: (context, state) {
         statesCustomer(state);
@@ -48,6 +51,18 @@ class OrderProductionRegisterPageDesktopState
 
         if (state is OrderProductionRegisterInfoPageState) {
           return ContentOrderProductionRegisterDesktop(
+            orderProduction: bloc.orderProduction,
+          );
+        }
+
+        if (state is OrderProductionRegisterProductSuccessState) {
+          return OrderProductionRegisterProductsListWidget(
+            orderProduction: bloc.orderProduction,
+          );
+        }
+
+        if (state is OrderProductionRegisterStockSuccessState) {
+          return OrderProductionRegisterStocksListWidget(
             orderProduction: bloc.orderProduction,
           );
         }

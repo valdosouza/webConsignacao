@@ -7,13 +7,13 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 class StockListGetlist
-    implements UseCase<List<StockListModel>, ParamsStockList> {
+    implements UseCase<List<StockListModel>, ParamsGetListStock> {
   final OrderProductionRegisterRepository repository;
 
   StockListGetlist({required this.repository});
 
   @override
-  Future<Either<Failure, List<StockListModel>>> call(ParamsStockList params) async {
+  Future<Either<Failure, List<StockListModel>>> call(ParamsGetListStock params) async {
     try {
       final list =
           await repository.getListStock(id: params.institutionId);
@@ -24,10 +24,10 @@ class StockListGetlist
   }
 }
 
-class ParamsStockList extends Equatable {
+class ParamsGetListStock extends Equatable {
   final int institutionId;
 
-  const ParamsStockList({
+  const ParamsGetListStock({
     required this.institutionId,
   });
 

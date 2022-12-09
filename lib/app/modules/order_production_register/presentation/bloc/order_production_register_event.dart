@@ -1,33 +1,36 @@
-
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 
 abstract class OrderProductionRegisterEvent {}
 
-class OrderProductionRegisterGetListEvent extends OrderProductionRegisterEvent {}
+class OrderProductionRegisterGetListEvent extends OrderProductionRegisterEvent {
+}
 
-class OrderProductionRegisterGetProductsEvent extends OrderProductionRegisterEvent {
+class OrderProductionRegisterGetProductsEvent
+    extends OrderProductionRegisterEvent {
   final int tbInstitutionId;
   OrderProductionRegisterGetProductsEvent({required this.tbInstitutionId});
 }
 
-class OrderProductionRegisterGetStocksEvent extends OrderProductionRegisterEvent {
+class OrderProductionRegisterGetStocksEvent
+    extends OrderProductionRegisterEvent {
   final int tbInstitutionId;
   OrderProductionRegisterGetStocksEvent({required this.tbInstitutionId});
 }
 
-class OrderProductionRegisterSearchProductsEvent extends OrderProductionRegisterEvent {
-  final int id;
-  OrderProductionRegisterSearchProductsEvent({required this.id});
+class OrderProductionRegisterSearchProductsEvent
+    extends OrderProductionRegisterEvent {
+  final String search;
+  OrderProductionRegisterSearchProductsEvent({required this.search});
 }
 
-class OrderProductionRegisterSearchStocksEvent extends OrderProductionRegisterEvent {
-  final int id;
-  OrderProductionRegisterSearchStocksEvent({required this.id});
+class OrderProductionRegisterSearchStocksEvent
+    extends OrderProductionRegisterEvent {
+  final String search;
+  OrderProductionRegisterSearchStocksEvent({required this.search});
 }
 
 class OrderProductionRegisterSearchEvent extends OrderProductionRegisterEvent {
   String search;
-
   OrderProductionRegisterSearchEvent({
     required this.search,
   });
@@ -59,4 +62,8 @@ class OrderProductionRegisterDesktopEvent extends OrderProductionRegisterEvent {
 class OrderProductionRegisterMobileEvent extends OrderProductionRegisterEvent {
   final OrderProductionRegisterModel? model;
   OrderProductionRegisterMobileEvent({this.model});
+}
+
+class OrderProductionRegisterReturnEvent extends OrderProductionRegisterEvent {
+  OrderProductionRegisterReturnEvent();
 }

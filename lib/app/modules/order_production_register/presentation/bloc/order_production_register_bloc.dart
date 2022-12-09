@@ -55,11 +55,14 @@ class OrderProductionRegisterBloc
 
     deleteOrderProductionAction();
 
+    getProducts();
+
+    getStocks();
+
     // searchSalesmans();
 
-    // on<CustomerRegisterReturnEvent>((event, emit) => emit(
-    //     CustomerRegisterInfoPageState(
-    //         model: customer, customers: customers, tabIndex: event.index)));
+    on<OrderProductionRegisterReturnEvent>(
+        (event, emit) => emit(OrderProductionRegisterInfoPageState(list: [])));
   }
 
   getList() {
@@ -285,20 +288,33 @@ class OrderProductionRegisterBloc
   //   });
   // }
 
-  // getState() {
-  //   on<CustomerRegisterGetStatesEvent>((event, emit) async {
-  //     emit(CustomerRegisterLoadingState());
+  getProducts() {
+    on<OrderProductionRegisterGetProductsEvent>((event, emit) async {
+      emit(OrderProductionRegisterLoadingState());
 
-  //     final response = await getStates.call(ParamsGetStates());
+      final response = await productGetlist.call(ParamsGetlistProduct(id: event.tbInstitutionId));
 
-  //     response.fold(
-  //         (l) => emit(CustomerRegisterGetStatesErrorState(customers, "")), (r) {
-  //       states = r;
-  //       emit(CustomerRegisterGetStatesSuccessState(
-  //           states: r, customers: customers));
-  //     });
-  //   });
-  // }
+      response.fold((l) => emit(OrderProductionRegisterProductErrorState()),
+          (r) {
+        products = r;
+        emit(OrderProductionRegisterProductSuccessState(products: r));
+      });
+    });
+  }
+
+  getStocks() {
+    on<OrderProductionRegisterGetStocksEvent>((event, emit) async {
+      emit(OrderProductionRegisterLoadingState());
+
+      final response = await stockListGetlist
+          .call(ParamsGetListStock(institutionId: event.tbInstitutionId));
+
+      response.fold((l) => emit(OrderProductionRegisterStockErrorState()), (r) {
+        stocks = r;
+        emit(OrderProductionRegisterStockSuccessState(stock: r));
+      });
+    });
+  }
 
   // getCitys() {
   //   on<CustomerRegisterGetCitysEvent>((event, emit) async {
