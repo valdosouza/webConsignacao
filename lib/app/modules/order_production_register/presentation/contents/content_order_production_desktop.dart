@@ -6,6 +6,7 @@ import 'package:appweb/app/modules/order_production_register/presentation/bloc/o
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_event.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/widgets/order_production_register_custom_input_button_widget.dart';
+import 'package:appweb/app/modules/order_production_register/presentation/widgets/order_production_register_situation_widget.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,15 +30,15 @@ class _ContentOrderProductionRegisterDesktopState
   late OrderProductionRegisterModel orderProduction;
 
   late final OrderProductionRegisterBloc bloc;
-    late MaskedTextController controller;
-
+  late MaskedTextController controller;
 
   @override
   void initState() {
     super.initState();
     bloc = Modular.get();
     orderProduction = widget.orderProduction;
-    controller = MaskedTextController(mask: '00/00/0000', text: orderProduction.dtRecord);
+    controller = MaskedTextController(
+        mask: '00/00/0000', text: orderProduction.dtRecord);
   }
 
   @override
@@ -94,6 +95,7 @@ class _ContentOrderProductionRegisterDesktopState
               body: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomInputButtonWidget(
                         bloc: bloc,
@@ -114,14 +116,13 @@ class _ContentOrderProductionRegisterDesktopState
                         controller: controller,
                         keyboardType: TextInputType.datetime,
                         inputAction: TextInputAction.go,
-                        onChanged: (value) => {orderProduction.dtRecord = value}),
+                        onChanged: (value) =>
+                            {orderProduction.dtRecord = value}),
                     const SizedBox(height: 10),
-                    CustomInput(
-                        title: "Situação",
-                        initialValue: orderProduction.status,
-                        keyboardType: TextInputType.datetime,
-                        inputAction: TextInputAction.go,
-                        onChanged: (value) => {orderProduction.dtRecord = value}),
+                    const Text("Situação", style: kLabelStyle),
+                    const SizedBox(height: 10),
+                    OrderProductionRegisterSituationWidget(
+                        orderProduction: orderProduction),
                     const SizedBox(height: 10),
                     CustomInput(
                         title: "Observação",
@@ -129,7 +130,8 @@ class _ContentOrderProductionRegisterDesktopState
                         initialValue: orderProduction.note,
                         keyboardType: TextInputType.datetime,
                         inputAction: TextInputAction.go,
-                        onChanged: (value) => {orderProduction.dtRecord = value})
+                        onChanged: (value) =>
+                            {orderProduction.dtRecord = value})
                   ],
                 ),
               ));

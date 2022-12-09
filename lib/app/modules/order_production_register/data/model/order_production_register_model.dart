@@ -22,7 +22,7 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
             tbUserId: tbUserId ?? 0,
             dtRecord: dtRecord ?? "",
             number: number ?? 0,
-            status: status ?? "",
+            status: status ?? "A",
             tbMerchandiseId: tbMerchandiseId ?? 0,
             nameMerchandise: nameMerchandise ?? "",
             qttyForecast: qttyForecast ?? 0,
