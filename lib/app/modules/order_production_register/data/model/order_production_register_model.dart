@@ -18,8 +18,8 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
       String? note})
       : super(
             id: id ?? 0,
-            tbInstitutionId: tbInstitutionId ?? 0,
-            tbUserId: tbUserId ?? 0,
+            tbInstitutionId: tbInstitutionId ?? 1,
+            tbUserId: tbUserId ?? 2,
             dtRecord: dtRecord ?? "",
             number: number ?? 0,
             status: status ?? "A",
@@ -39,7 +39,7 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
       tbUserId: json['tb_user_id'] is String
           ? int.parse(json['tb_user_id'])
           : json['tb_user_id'],
-      dtRecord: _formatDate(json['dt_record'], "dd/MM/yyyy") as String? ?? "",
+      dtRecord: formatDate(json['dt_record'], "dd/MM/yyyy") as String? ?? "",
       number:
           json['number'] is String ? int.parse(json['number']) : json['number'],
       status: json['status'] as String? ?? "",
@@ -58,13 +58,34 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
     );
   }
 
-  static _formatDate(String date, String typeFormat) {
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["tb_institution_id"] = tbInstitutionId;
+    data["tb_user_id"] = tbUserId;
+    data["dt_record"] = convertDate(dtRecord);
+    data["number"] = number;
+    data["status"] = status;
+    data["tb_merchandise_id"] = tbMerchandiseId;
+    data["name_merchandise"] = nameMerchandise;
+    data["qtty_forecast"] = qttyForecast;
+    data["tb_stock_list_id_des"] = tbStockListIdDes;
+    data["name_stock_list_des"] = nameStockListDes;
+    data["note"] = note;
+    return data;
+  }
+
+  static formatDate(String date, String typeFormat) {
     try {
       initializeDateFormatting('pt_BR,', null);
-      DateTime time = DateTime.tryParse(date)!;
+      DateTime time = DateTime.parse(date);
       return (DateFormat(typeFormat).format(time));
     } catch (e) {
       return "";
     }
+  }
+
+  convertDate(String date) {
+    return date.split("/").reversed.join("-");
   }
 }

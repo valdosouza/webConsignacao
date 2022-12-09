@@ -39,15 +39,9 @@ class OrderProductionRegisterBloc
   }) : super(OrderProductionRegisterLoadingState()) {
     getList();
 
-    // searchCustomer();
-
     goToOrderProductionDesktopPage();
 
-    // goToCustomerMobilePage();
-
-    // searchEventStates();
-
-    // searchEventCitys();
+    // goToOrderProductionMobilePage();
 
     postOrderProductionAction();
 
@@ -64,8 +58,6 @@ class OrderProductionRegisterBloc
     searchEventStocks();
 
     searchEventOrderProduction();
-
-    // searchSalesmans();
 
     on<OrderProductionRegisterReturnEvent>(
         (event, emit) => emit(OrderProductionRegisterInfoPageState(list: [])));
@@ -96,11 +88,7 @@ class OrderProductionRegisterBloc
           .call(ParamsPostOrderProductionRegister(model: event.model));
 
       response.fold(
-          (l) => event.model.id != 0
-              ? emit(
-                  OrderProductionRegisterPostErrorState(list: orderProductions))
-              : emit(
-                  OrderProductionRegisterPutErrorState(list: orderProductions)),
+          (l) => emit(OrderProductionRegisterPostErrorState(list: orderProductions)),
           (r) {
         orderProductions.add(r);
         emit(OrderProductionRegisterPostSuccessState(list: orderProductions));
@@ -167,43 +155,6 @@ class OrderProductionRegisterBloc
       }
     });
   }
-
-  // searchCustomer() {
-  //   on<CustomerRegisterSearchEvent>((event, emit) async {
-  //     if (event.search.isNotEmpty) {
-  //       var customersSearchedName = customers.where((element) {
-  //         String name = element.nameCompany;
-  //         return name
-  //             .toLowerCase()
-  //             .trim()
-  //             .contains(event.search.toLowerCase().trim());
-  //       }).toList();
-  //       var customersSearchedCnpj = customers.where((element) {
-  //         String email = element.documento;
-  //         return email
-  //             .toLowerCase()
-  //             .trim()
-  //             .contains(event.search.toLowerCase().trim());
-  //       }).toList();
-  //       var customersSearchedCpf = customers.where((element) {
-  //         String email = element.documento;
-  //         return email
-  //             .toLowerCase()
-  //             .trim()
-  //             .contains(event.search.toLowerCase().trim());
-  //       }).toList();
-  //       if (customersSearchedName.isNotEmpty) {
-  //         emit(CustomerRegisterLoadedState(customers: customersSearchedName));
-  //       } else if (customersSearchedCnpj.isNotEmpty) {
-  //         emit(CustomerRegisterLoadedState(customers: customersSearchedCnpj));
-  //       } else {
-  //         emit(CustomerRegisterLoadedState(customers: customersSearchedCpf));
-  //       }
-  //     } else {
-  //       emit(CustomerRegisterLoadedState(customers: customers));
-  //     }
-  //   });
-  // }
 
   getProducts() {
     on<OrderProductionRegisterGetProductsEvent>((event, emit) async {
@@ -309,58 +260,4 @@ class OrderProductionRegisterBloc
       }
     });
   }
-
-  // searchEventCitys() {
-  //   on<CustomerRegisterSearchCityEvent>((event, emit) async {
-  //     if (event.search.isNotEmpty) {
-  //       var citiestSearched = cities.where((element) {
-  //         String name = element.name;
-  //         return name
-  //             .toLowerCase()
-  //             .trim()
-  //             .contains(event.search.toLowerCase().trim());
-  //       }).toList();
-  //       if (citiestSearched.isEmpty) {}
-  //       emit(CustomerRegisterGetCitySuccessState(
-  //           cities: citiestSearched, customers: customers));
-  //     } else {
-  //       emit(CustomerRegisterGetCitySuccessState(
-  //           cities: cities, customers: customers));
-  //     }
-  //   });
-  // }
-
-  // getSalesmansAction() {
-  //   on<CustomerRegisterGetSalesmanEvent>((event, emit) async {
-  //     emit(CustomerRegisterLoadingState());
-
-  //     var response =
-  //         await getSalesmans.call(ParamsSalesmanListGet(tbInstitutionId: 1));
-
-  //     response.fold(
-  //         (l) => emit(CustomerRegisterGetSalesmanErrorState(customers)), (r) {
-  //       salesmans = r;
-  //       emit(CustomerRegisterGetSalesmanSuccessState(customers, r));
-  //     });
-  //   });
-  // }
-
-  // searchSalesmans() {
-  //   on<CustomerRegisterSearchSalesmanEvent>((event, emit) async {
-  //     if (event.search.isNotEmpty) {
-  //       var salesmanSearched = salesmans.where((element) {
-  //         String name = element.nameCompany;
-  //         return name
-  //             .toLowerCase()
-  //             .trim()
-  //             .contains(event.search.toLowerCase().trim());
-  //       }).toList();
-  //       if (salesmanSearched.isEmpty) {}
-  //       emit(CustomerRegisterGetSalesmanSuccessState(
-  //           customers, salesmanSearched));
-  //     } else {
-  //       emit(CustomerRegisterGetSalesmanSuccessState(customers, salesmans));
-  //     }
-  //   });
-  // }
 }

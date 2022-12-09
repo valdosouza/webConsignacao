@@ -30,15 +30,24 @@ class _ContentOrderProductionRegisterDesktopState
   late OrderProductionRegisterModel orderProduction;
 
   late final OrderProductionRegisterBloc bloc;
-  late MaskedTextController controller;
+  late MaskedTextController controllerDate;
 
   @override
   void initState() {
     super.initState();
     bloc = Modular.get();
     orderProduction = widget.orderProduction;
-    controller = MaskedTextController(
-        mask: '00/00/0000', text: orderProduction.dtRecord);
+    String initialValueDate = orderProduction.dtRecord == ""
+        ? OrderProductionRegisterModel.formatDate(
+            DateTime.now().toString(), "dd/MM/yyyy")
+        : orderProduction.dtRecord;
+    orderProduction.dtRecord = initialValueDate;
+    controllerDate =
+        MaskedTextController(mask: '00/00/0000', text: initialValueDate);
+
+    orderProduction.id = orderProduction.id == 0
+        ? bloc.orderProductions.last.id + 1
+        : orderProduction.id;
   }
 
   @override
@@ -86,8 +95,11 @@ class _ContentOrderProductionRegisterDesktopState
                       size: 30.0,
                     ),
                     onPressed: () {
-                      bloc.add(OrderProductionRegisterPostEvent(
-                          model: orderProduction));
+                      orderProduction.id != 0
+                          ? bloc.add(OrderProductionRegisterPutEvent(
+                              model: orderProduction))
+                          : bloc.add(OrderProductionRegisterPostEvent(
+                              model: orderProduction));
                     },
                   ),
                 ],
@@ -97,6 +109,14 @@ class _ContentOrderProductionRegisterDesktopState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    CustomInput(
+                        title: "Número",
+                        initialValue: orderProduction.id.toString(),
+                        keyboardType: TextInputType.number,
+                        inputAction: TextInputAction.go,
+                        onChanged: (value) =>
+                            {orderProduction.id = int.parse(value)}),
+                    const SizedBox(height: 10),
                     CustomInputButtonWidget(
                         bloc: bloc,
                         initialValue: orderProduction.nameMerchandise,
@@ -113,7 +133,7 @@ class _ContentOrderProductionRegisterDesktopState
                     const SizedBox(height: 10),
                     CustomInput(
                         title: "Data",
-                        controller: controller,
+                        controller: controllerDate,
                         keyboardType: TextInputType.datetime,
                         inputAction: TextInputAction.go,
                         onChanged: (value) =>
@@ -125,13 +145,12 @@ class _ContentOrderProductionRegisterDesktopState
                         orderProduction: orderProduction),
                     const SizedBox(height: 10),
                     CustomInput(
-                        title: "Observação",
+                        title: "Observações",
                         maxLines: 10,
                         initialValue: orderProduction.note,
                         keyboardType: TextInputType.datetime,
                         inputAction: TextInputAction.go,
-                        onChanged: (value) =>
-                            {orderProduction.dtRecord = value})
+                        onChanged: (value) => {orderProduction.note = value})
                   ],
                 ),
               ));

@@ -29,20 +29,4 @@ class OrderProductionRegisterEntity {
     this.note = "",
   });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data["id"] = id;
-    data["tb_institution_id"] = tbInstitutionId;
-    data["tb_user_id"] = tbUserId;
-    data["dt_record"] = dtRecord;
-    data["number"] = number;
-    data["status"] = status;
-    data["tb_merchandise_id"] = tbMerchandiseId;
-    data["name_merchandise"] = nameMerchandise;
-    data["qtty_forecast"] = qttyForecast;
-    data["tb_stock_list_id_des"] = tbStockListIdDes;
-    data["name_stock_list_des"] = nameStockListDes;
-    data["note"] = note;
-    return data;
-  }
 }

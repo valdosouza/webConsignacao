@@ -54,13 +54,13 @@ class OrderProductionRegisterDataSourceImpl extends OrderProductionRegisterDataS
       {required OrderProductionRegisterModel model}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}orderproduction');
-
+      final body = jsonEncode(model.toJson());
       final response = await client.post(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(model.toJson()),
+        body: body
       );
 
       if (response.statusCode == 200) {

@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/Core/core_module.dart';
-import 'package:appweb/app/modules/order_production_register/data/datasource/product_register_datasource.dart';
+import 'package:appweb/app/modules/order_production_register/data/datasource/order_production_register_datasource.dart';
 import 'package:appweb/app/modules/order_production_register/data/repository/product_register_repository_impl.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_delete.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get.dart';
