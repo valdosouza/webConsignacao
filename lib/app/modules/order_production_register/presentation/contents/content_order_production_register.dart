@@ -51,17 +51,17 @@ buildSearchInput(OrderProductionRegisterBloc bloc) {
 }
 
 buildListView(OrderProductionRegisterBloc bloc,
-    List<OrderProductionRegisterModel> customers) {
+    List<OrderProductionRegisterModel> orderProductions) {
   return Expanded(
-    child: customers.isEmpty
+    child: orderProductions.isEmpty
         ? const Center(
             child: Text("Não encontramos nenhum registro em nossa base."))
         : ListView.separated(
-            itemCount: customers.length,
+            itemCount: orderProductions.length,
             itemBuilder: (context, index) => InkWell(
               onTap: () {
                 bloc.add(OrderProductionRegisterDesktopEvent(
-                    model: customers[index]));
+                    model: orderProductions[index]));
               },
               child: ListTile(
                 leading: CircleAvatar(
@@ -73,9 +73,9 @@ buildListView(OrderProductionRegisterBloc bloc,
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(customers[index].nameMerchandise),
+                    Text(orderProductions[index].nameMerchandise),
                     const SizedBox(height: 5.0),
-                    Text(customers[index].dtRecord)
+                    Text(orderProductions[index].dtRecord)
                   ],
                 ),
                 trailing: IconButton(

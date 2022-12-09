@@ -59,6 +59,12 @@ class OrderProductionRegisterBloc
 
     getStocks();
 
+    searchEventProducts();
+
+    searchEventStocks();
+
+    searchEventOrderProduction();
+
     // searchSalesmans();
 
     on<OrderProductionRegisterReturnEvent>(
@@ -199,100 +205,12 @@ class OrderProductionRegisterBloc
   //   });
   // }
 
-  // goToCustomerDesktopPage() {
-  //   on<CustomerRegisterDesktopEvent>((event, emit) async {
-  //     if (event.id != null) {
-  //       emit(CustomerRegisterLoadingState());
-
-  //       final response =
-  //           await getCustomer.call(ParamsGetCustomer(id: event.id!));
-
-  //       response.fold(
-  //           (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
-  //           (r) {
-  //         customer = r;
-  //         emit(CustomerRegisterInfoPageState(
-  //             customers: customers, model: r, tabIndex: 0));
-  //       });
-  //     } else {
-  //       emit(CustomerRegisterInfoPageState(
-  //           customers: customers, model: customer, tabIndex: 0));
-  //     }
-  //   });
-  // }
-
-  // goToCustomerMobilePage() {
-  //   on<CustomerRegisterMobileEvent>((event, emit) async {
-  //     if (event.id != null) {
-  //       emit(CustomerRegisterLoadingState());
-
-  //       final response =
-  //           await getCustomer.call(ParamsGetCustomer(id: event.id!));
-
-  //       response.fold(
-  //           (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
-  //           (r) {
-  //         customer = r;
-  //         emit(CustomerRegisterInfoPageState(
-  //             customers: customers, model: r, tabIndex: 0));
-  //       });
-  //     } else {
-  //       emit(CustomerRegisterInfoPageState(
-  //           customers: customers, model: customer, tabIndex: 0));
-  //     }
-  //   });
-  // }
-
-  // searchCNPJ() {
-  //   on<CustomerRegisterCnpjEvent>((event, emit) async {
-  //     emit(CustomerRegisterLoadingState());
-
-  //     final response = await getCnpj.call(ParamsCnpj(cnpj: event.cnpj));
-
-  //     response.fold((l) => emit(CustomerRegisterCnpjErrorState(customers, "")),
-  //         (r) {
-  //       customer.address.zipCode =
-  //           r.cep.replaceAll("-", "").replaceAll(".", "");
-  //       customer.entity.nickTrade = r.fantasia;
-  //       customer.company?.cnpj = r.cnpj;
-  //       customer.entity.nameCompany = r.nome;
-  //       customer.address.nmbr = r.numero;
-  //       customer.address.street = r.logradouro;
-  //       customer.address.complement = r.complemento;
-  //       customer.address.neighborhood = r.bairro;
-  //       customer.address.latitude = r.municipio;
-  //       customer.address.region = r.uf;
-  //       emit(CustomerRegisterInfoPageState(
-  //           customers: customers, model: customer, tabIndex: 1));
-  //     });
-  //   });
-  // }
-
-  // searchCEP() {
-  //   on<CustomerRegisterCepEvent>((event, emit) async {
-  //     emit(CustomerRegisterLoadingState());
-
-  //     final response = await getCep.call(ParamsCep(cep: event.cep));
-
-  //     response.fold((l) => emit(CustomerRegisterCepErrorState(customers, "")),
-  //         (r) {
-  //       customer.address.zipCode = r.zipCode.replaceAll("-", "");
-  //       customer.address.street = r.street;
-  //       customer.address.complement = r.complement;
-  //       customer.address.neighborhood = r.neighborhood;
-  //       customer.address.stateName = r.stateName;
-  //       customer.address.cityName = r.cityName;
-  //       emit(CustomerRegisterInfoPageState(
-  //           customers: customers, model: customer, tabIndex: 1));
-  //     });
-  //   });
-  // }
-
   getProducts() {
     on<OrderProductionRegisterGetProductsEvent>((event, emit) async {
       emit(OrderProductionRegisterLoadingState());
 
-      final response = await productGetlist.call(ParamsGetlistProduct(id: event.tbInstitutionId));
+      final response = await productGetlist
+          .call(ParamsGetlistProduct(id: event.tbInstitutionId));
 
       response.fold((l) => emit(OrderProductionRegisterProductErrorState()),
           (r) {
@@ -316,43 +234,81 @@ class OrderProductionRegisterBloc
     });
   }
 
-  // getCitys() {
-  //   on<CustomerRegisterGetCitysEvent>((event, emit) async {
-  //     emit(CustomerRegisterLoadingState());
+  searchEventProducts() {
+    on<OrderProductionRegisterSearchProductsEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var productstSearched = products.where((element) {
+          String name = element.description;
+          int id = element.id;
+          return (name
+                  .toLowerCase()
+                  .trim()
+                  .contains(event.search.toLowerCase().trim()) ||
+              id.toString() == event.search);
+        }).toList();
+        if (productstSearched.isNotEmpty) {
+          emit(OrderProductionRegisterProductSuccessState(
+              products: productstSearched));
+        } else {
+          emit(OrderProductionRegisterProductSuccessState(products: []));
+        }
+      } else {
+        emit(OrderProductionRegisterProductSuccessState(products: products));
+      }
+    });
+  }
 
-  //     final response =
-  //         await getCity.call(ParamsGetCity(tbStateId: event.tbStateId));
+  searchEventStocks() {
+    on<OrderProductionRegisterSearchStocksEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var stockSearched = stocks.where((element) {
+          String name = element.description;
+          int id = element.id;
+          return (name
+                  .toLowerCase()
+                  .trim()
+                  .contains(event.search.toLowerCase().trim()) ||
+              id.toString() == event.search);
+        }).toList();
+        if (stockSearched.isNotEmpty) {
+          emit(OrderProductionRegisterStockSuccessState(stock: stockSearched));
+        } else {
+          emit(OrderProductionRegisterStockSuccessState(stock: []));
+        }
+      } else {
+        emit(OrderProductionRegisterStockSuccessState(stock: stocks));
+      }
+    });
+  }
 
-  //     response.fold(
-  //         (l) => emit(CustomerRegisterGetCityErrorState(customers, "")), (r) {
-  //       cities = r;
-  //       emit(CustomerRegisterGetCitySuccessState(
-  //           cities: r, customers: customers));
-  //     });
-  //   });
-  // }
-
-  // searchEventStates() {
-  //   on<CustomerRegisterSearchStateEvent>((event, emit) async {
-  //     if (event.search.isNotEmpty) {
-  //       var statestSearched = states.where((element) {
-  //         String name = element.name;
-  //         return name
-  //             .toLowerCase()
-  //             .trim()
-  //             .contains(event.search.toLowerCase().trim());
-  //       }).toList();
-  //       if (statestSearched.isEmpty) {}
-  //       emit(CustomerRegisterGetStatesSuccessState(
-  //         states: statestSearched,
-  //         customers: customers,
-  //       ));
-  //     } else {
-  //       emit(CustomerRegisterGetStatesSuccessState(
-  //           states: states, customers: customers));
-  //     }
-  //   });
-  // }
+  searchEventOrderProduction() {
+    on<OrderProductionRegisterSearchEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var orderProductionsSearched = orderProductions.where((element) {
+          String name = element.nameMerchandise;
+          int id = element.id;
+          String date = element.dtRecord;
+          return (name
+                  .toLowerCase()
+                  .trim()
+                  .contains(event.search.toLowerCase().trim()) ||
+              date
+                  .toLowerCase()
+                  .trim()
+                  .contains(event.search.toLowerCase().trim()) ||
+              id.toString() == event.search);
+        }).toList();
+        if (orderProductionsSearched.isNotEmpty) {
+          emit(OrderProductionRegisterLoadedState(
+              list: orderProductionsSearched));
+        } else {
+          emit(OrderProductionRegisterLoadedState(list: []));
+        }
+      } else {
+        emit(OrderProductionRegisterLoadedState(list: orderProductions));
+      }
+    });
+  }
 
   // searchEventCitys() {
   //   on<CustomerRegisterSearchCityEvent>((event, emit) async {
