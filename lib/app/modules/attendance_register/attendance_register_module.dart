@@ -2,16 +2,16 @@ import 'package:appweb/app/modules/attendance_salesman/presentation/content/cont
 import 'package:appweb/app/modules/attendance_salesman/presentation/pages/attendance_salesman_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AttendanceSalesmanModule extends Module {
+class AttendanceRegisterModule extends Module {
   @override
   List<Bind> get binds => [];
   @override
   final List<ModularRoute> routes = [
     ChildRoute(
-      '/mobile/',
+      '/',
       child: (_, args) => const AttendanceSalesmanPage(),
       children: [
-        ChildRoute('/customer_list_by_salesman/',
+        ChildRoute('/content/',
             child: (_, args) => const ContentAttendanceSalesman()),
       ],
     ),

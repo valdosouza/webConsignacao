@@ -13,18 +13,18 @@ class CustomerMenusMobile extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Por rota',
-            () async => Modular.to.navigate('/attendancesalesroute/content/'),
+            () async => Modular.to.navigate('/attendancesalesroute/mobile/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Por vendedor',
-            () async => Modular.to.navigate('/attendancesalesman/content/'),
+            () async => Modular.to.navigate('/attendancesalesman/mobile/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Novo',
-            () async =>
-                Modular.to.navigate('/customer/mobile/customer-register/'),
+            () async => Modular.to
+                .navigate('/customer/mobile/register/customer-register/'),
           ),
         ],
       ),

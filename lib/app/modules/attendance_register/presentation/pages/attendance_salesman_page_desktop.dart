@@ -3,16 +3,16 @@ import 'package:appweb/app/modules/attendance_sales_route/attendance_sales_route
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AttendanceSalesRoutePageMobile extends StatefulWidget {
-  const AttendanceSalesRoutePageMobile({super.key});
+class AttendanceSalesmanPageDesktop extends StatefulWidget {
+  const AttendanceSalesmanPageDesktop({super.key});
 
   @override
-  State<AttendanceSalesRoutePageMobile> createState() =>
-      AttendanceSalesRoutePageMobileState();
+  State<AttendanceSalesmanPageDesktop> createState() =>
+      AttendanceSalesmanPageDesktopState();
 }
 
-class AttendanceSalesRoutePageMobileState
-    extends State<AttendanceSalesRoutePageMobile> {
+class AttendanceSalesmanPageDesktopState
+    extends State<AttendanceSalesmanPageDesktop> {
   @override
   void initState() {
     super.initState();
@@ -30,21 +30,11 @@ class AttendanceSalesRoutePageMobileState
           decoration: kBoxDecorationflexibleSpace,
         ),
         title: const Text("Sistema Consignação e Venda"),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            //Modular.to.pop();
-            //Navigator.of(context).pop();
-            Modular.to.navigate('/customer/mobile/');
-          },
-        ),
       ),
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child:
-            const Center(child: Text("Atendimento por Rota de Venda - Mobile")),
+        child: const Text("Atendimento por Vendedor - Desktop"),
       ),
     );
   }

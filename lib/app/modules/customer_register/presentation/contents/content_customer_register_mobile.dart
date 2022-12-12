@@ -55,7 +55,7 @@ class _ContentCustomerRegisterMobileState
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Modular.to.navigate('/customer/');
+        Modular.to.navigate('/customer/mobile/');
         return true;
       },
       child: BlocConsumer<CustomerRegisterBloc, CustomerRegisterState>(
@@ -75,7 +75,7 @@ class _ContentCustomerRegisterMobileState
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  Modular.to.navigate('/customer/');
+                  Modular.to.navigate('/customer/mobile/');
                 },
               ),
               title: Text(

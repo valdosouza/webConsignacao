@@ -8,10 +8,10 @@ class AttendanceSalesRouteModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute(
-      '/',
+      '/mobile/',
       child: (_, args) => const AttendanceSalesRoutePage(),
       children: [
-        ChildRoute('/content/',
+        ChildRoute('/customer_list_by_route/',
             child: (_, args) => const ContentAttendanceSalesRoute()),
       ],
     ),

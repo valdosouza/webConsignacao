@@ -1,6 +1,7 @@
 import 'package:appweb/app/modules/customer/presentation/pages/customer_page.dart';
+import 'package:appweb/app/modules/customer/presentation/pages/customer_page_mobile.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
-import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register_page.dart';
+import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register_page_mobile.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomerModule extends Module {
@@ -18,7 +19,14 @@ class CustomerModule extends Module {
     ),
     ChildRoute(
       '/mobile/',
-      child: (_, args) => const CustomerRegisterPage(),
+      child: (_, args) => const CustomerPageMobile(),
+      children: [
+        ModuleRoute('/customer-register/', module: CustomerRegisterModule()),
+      ],
+    ),
+    ChildRoute(
+      '/mobile/register/',
+      child: (_, args) => const CustomerRegisterPageMobile(),
       children: [
         ModuleRoute('/customer-register/', module: CustomerRegisterModule()),
       ],
