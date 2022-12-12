@@ -27,6 +27,7 @@ class OrderProductionRegisterBloc
   OrderProductionRegisterModel orderProduction = OrderProductionRegisterModel();
   List<ProductModel> products = [];
   List<StockListModel> stocks = [];
+  bool edit = false;
 
   OrderProductionRegisterBloc({
     required this.getOrderProduction,

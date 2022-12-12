@@ -85,6 +85,7 @@ class OrderProductionRegisterPageDesktopState
             icon: const Icon(Icons.person_add),
             onPressed: () {
               bloc.orderProduction = OrderProductionRegisterModel();
+              bloc.edit = false;
               bloc.add(OrderProductionRegisterDesktopEvent());
             },
           ),

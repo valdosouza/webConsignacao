@@ -1,3 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
@@ -7,10 +13,6 @@ import 'package:appweb/app/modules/order_production_register/presentation/bloc/o
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/widgets/order_production_register_custom_input_button_widget.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/widgets/order_production_register_situation_widget.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentOrderProductionRegisterDesktop extends StatefulWidget {
   final OrderProductionRegisterModel orderProduction;
@@ -83,7 +85,7 @@ class _ContentOrderProductionRegisterDesktopState
                   },
                 ),
                 title: Text(
-                  orderProduction.id != 0
+                  bloc.edit
                       ? "Editar Ordem de Produção"
                       : "Adicionar Ordem de Produção",
                   style: kHintTextStyle.copyWith(fontSize: 20.0),
@@ -95,7 +97,7 @@ class _ContentOrderProductionRegisterDesktopState
                       size: 30.0,
                     ),
                     onPressed: () {
-                      orderProduction.id != 0
+                      bloc.edit
                           ? bloc.add(OrderProductionRegisterPutEvent(
                               model: orderProduction))
                           : bloc.add(OrderProductionRegisterPostEvent(

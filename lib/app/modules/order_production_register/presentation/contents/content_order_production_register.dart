@@ -60,6 +60,7 @@ buildListView(OrderProductionRegisterBloc bloc,
             itemCount: orderProductions.length,
             itemBuilder: (context, index) => InkWell(
               onTap: () {
+                bloc.edit = true;
                 bloc.add(OrderProductionRegisterDesktopEvent(
                     model: orderProductions[index]));
               },
