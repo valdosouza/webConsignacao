@@ -46,7 +46,7 @@ Future<List<SalesRoute>> getSalesRoute() async {
     List<SalesRoute> salesroute = [];
     return salesroute;
   } else {
-    throw Exception('Failed to load post');
+    throw Exception('Failed ');
   }
 }
 // const baseUrl = "https://api.industriadechocolatesamor.com.br/doc ";
@@ -88,12 +88,33 @@ class AttendanceSalesRoutePageMobileState
         ),
       ),
       // Tela alteração
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child:
-            const Center(child: Text("Atendimento por Rota de Venda - Mobile")),
+      body: Center(
+        child: FutureBuilder<List<SalesRoute>>(
+            future: getSalesRoute(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        // title: Text(snapshot.data![index].tb_institution_id),
+                        subtitle: Text(snapshot.data![index].description),
+                        trailing: Text(snapshot.data![index].active),
+                      );
+                    });
+              } else if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              } else {
+                return const CircularProgressIndicator();
+              }
+            }),
       ),
     );
+    // SizedBox(
+    //   height: size.height,
+    //   width: size.width,
+    //   child:
+    //       const Center(child: Text("Atendimento por Rota de Venda - Mobile")),
+    // ),
   }
 }
