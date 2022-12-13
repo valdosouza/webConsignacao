@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/page_404.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
+import 'package:appweb/app/modules/attendance_register/attendance_register_module.dart';
 import 'package:appweb/app/modules/attendance_sales_route/attendance_sales_route_module.dart';
 import 'package:appweb/app/modules/attendance_salesman/attendance_salesman_module.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
@@ -45,6 +46,7 @@ class AppModule extends Module {
         ModuleRoute('/attendancesalesman', module: AttendanceSalesmanModule()),
         ModuleRoute('/orderproduction', module: OrderProductionModule()),
         ModuleRoute('/cashier', module: CashierModule()),
+        ModuleRoute('/attendance', module: AttendanceRegisterModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }

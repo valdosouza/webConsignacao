@@ -3,16 +3,16 @@ import 'package:appweb/app/modules/attendance_sales_route/attendance_sales_route
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AttendanceSalesmanPageDesktop extends StatefulWidget {
-  const AttendanceSalesmanPageDesktop({super.key});
+class AttendanceRegisterPageDesktop extends StatefulWidget {
+  const AttendanceRegisterPageDesktop({super.key});
 
   @override
-  State<AttendanceSalesmanPageDesktop> createState() =>
-      AttendanceSalesmanPageDesktopState();
+  State<AttendanceRegisterPageDesktop> createState() =>
+      AttendanceRegisterPageDesktopState();
 }
 
-class AttendanceSalesmanPageDesktopState
-    extends State<AttendanceSalesmanPageDesktop> {
+class AttendanceRegisterPageDesktopState
+    extends State<AttendanceRegisterPageDesktop> {
   @override
   void initState() {
     super.initState();
