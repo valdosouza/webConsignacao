@@ -40,7 +40,7 @@ class OrderProductionRegisterPageDesktopState
         OrderProductionRegisterState>(
       bloc: bloc,
       listener: (context, state) {
-        statesCustomer(state);
+        statesOrderProductions(state);
       },
       builder: (context, state) {
         if (state is OrderProductionRegisterLoadingState) {

@@ -89,7 +89,8 @@ class OrderProductionRegisterBloc
           .call(ParamsPostOrderProductionRegister(model: event.model));
 
       response.fold(
-          (l) => emit(OrderProductionRegisterPostErrorState(list: orderProductions)),
+          (l) => emit(
+              OrderProductionRegisterPostErrorState(list: orderProductions)),
           (r) {
         orderProductions.add(r);
         emit(OrderProductionRegisterPostSuccessState(list: orderProductions));
@@ -152,6 +153,8 @@ class OrderProductionRegisterBloc
           emit(OrderProductionRegisterInfoPageState(list: []));
         });
       } else {
+        orderProduction =
+            OrderProductionRegisterModel();
         emit(OrderProductionRegisterInfoPageState(list: []));
       }
     });

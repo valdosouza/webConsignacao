@@ -36,7 +36,6 @@ class _ContentOrderProductionRegisterDesktopState
 
   @override
   void initState() {
-    super.initState();
     bloc = Modular.get();
     orderProduction = widget.orderProduction;
     String initialValueDate = orderProduction.dtRecord == ""
@@ -48,8 +47,11 @@ class _ContentOrderProductionRegisterDesktopState
         MaskedTextController(mask: '00/00/0000', text: initialValueDate);
 
     orderProduction.id = orderProduction.id == 0
-        ? bloc.orderProductions.last.id + 1
+        ? bloc.orderProductions.isEmpty
+            ? 1
+            : bloc.orderProductions.last.id + 1
         : orderProduction.id;
+    super.initState();
   }
 
   @override

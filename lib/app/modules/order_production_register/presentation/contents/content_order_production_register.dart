@@ -7,7 +7,7 @@ import 'package:appweb/app/modules/order_production_register/presentation/bloc/o
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-statesCustomer(OrderProductionRegisterState state) {
+statesOrderProductions(OrderProductionRegisterState state) {
   if (state is OrderProductionRegisterErrorState) {
     CustomToast.showToast(
         "Erro ao buscar ordem de produção. Tente novamente mais tarde");
