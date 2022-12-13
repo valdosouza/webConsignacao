@@ -1,0 +1,31 @@
+{
+    "order": {
+        "id": 0,
+        "tb_institution_id": 0,
+        "tb_order_id": 0,
+        "tb_user_id": 0,
+        "tb_customer_id": 0,
+        "name_customer": "test_customer",
+        "tb_salesman_id": 0,
+        "name_salesman": "test_salesman",
+        "dt_record": "test_record",
+        "note": "test_note",
+        "status": "test_status",
+        "visited": "sim",
+        "charged": "sim",
+        "stage": "1",
+        "latitude": "test_latitude",
+        "longitude": "test_longitude"
+    },
+    "items": [
+        {
+            "tb_product_id": "0",
+            "name_product": "test_product",
+            "bonus": 0,
+            "leftover": 0,
+            "devoluttion": 0,
+            "new_consignment": 0,
+            "qtty_consigned": 0
+        }
+    ]
+}

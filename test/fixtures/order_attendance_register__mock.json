@@ -1,0 +1,38 @@
+[
+    {
+        "id": 0,
+        "tb_institution_id": 0,
+        "tb_order_id": 0,
+        "tb_user_id": 0,
+        "tb_customer_id": 0,
+        "name_customer": "test_customer_0",
+        "tb_salesman_id": 0,
+        "name_salesman": "test_salesman_0",
+        "dt_record": "test_record_0",
+        "note": "test_note_0",
+        "status": "test_status_0",
+        "visited": "sim",
+        "charged": "sim",
+        "stage": "1",
+        "latitude": "test_latitude_0",
+        "longitude": "test_longitude_0"
+    },
+    {
+        "id": 1,
+        "tb_institution_id": 1,
+        "tb_order_id": 1,
+        "tb_user_id": 1,
+        "tb_customer_id": 1,
+        "name_customer": "test_customer_1",
+        "tb_salesman_id": 1,
+        "name_salesman": "test_salesman_1",
+        "dt_record": "test_record_1",
+        "note": "test_note_1",
+        "status": "test_status_1",
+        "visited": "sim",
+        "charged": "sim",
+        "stage": "1",
+        "latitude": "test_latitude_1",
+        "longitude": "test_longitude_1"
+    }
+]
