@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/order_attendance_register/domain/entity/orde_consignment_supplying_items_entity.dart';
+import 'package:appweb/app/modules/order_attendance_register/domain/entity/order_consignment_supplying_items_entity.dart';
 
 class OrderConsignmentSupplyingEntity{
   int tbInstitutionId;
