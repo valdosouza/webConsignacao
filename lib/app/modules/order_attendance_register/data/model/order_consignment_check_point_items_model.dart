@@ -29,7 +29,7 @@ class OrderConsignmentCheckPointItemsModel
       qtyConsigned: json['qty_consigned'],
       leftover: json['leftover'],
       qtySold: json['qty_sold'],
-      unitValue: json['unit_value'],
+      unitValue: json['unit_value'] *1.0,
     );
   }
 

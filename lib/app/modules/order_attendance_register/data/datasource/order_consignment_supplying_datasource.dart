@@ -23,7 +23,8 @@ class OrderConsignmentSupplyingDataSourceImpl
   @override
   Future<List<OrderConsignmentSupplyingModel>>
       getOrderConsignmentSupplyingList() async {
-    final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying');
+    //final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying');
+    final uri = Uri.parse('https://6399f17416b0fdad774eea04.mockapi.io/supplyng');
     try {
       final response = await client.get(uri);
       if (response.statusCode == 200) {
@@ -43,7 +44,8 @@ class OrderConsignmentSupplyingDataSourceImpl
   @override
   Future<OrderConsignmentSupplyingModel> getOrderConsignmentSupplying(
       int id) async {
-    final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying/$id');
+    //final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying/$id');
+    final uri = Uri.parse('https://6399f17416b0fdad774eea04.mockapi.io/supplyng/$id');
     try {
       final response = await client.get(uri);
       if (response.statusCode == 200) {
@@ -61,7 +63,8 @@ class OrderConsignmentSupplyingDataSourceImpl
   @override
   Future<void> addOrderConsignmentSupplying(
       OrderConsignmentSupplyingModel orderConsignmentSupplying) async {
-    final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying');
+    //final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying');
+    final uri = Uri.parse('https://6399f17416b0fdad774eea04.mockapi.io/supplyng');
     try {
       final response = await client.post(
         uri,

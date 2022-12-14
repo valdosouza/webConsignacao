@@ -14,7 +14,7 @@ class OrderConsignmentCheckPointPaymentModel
       Map<String, dynamic> json) {
     return OrderConsignmentCheckPointPaymentModel(
       description: json['description'],
-      value: json['value'],
+      value: json['value'] * 1.0,
     );
   }
 

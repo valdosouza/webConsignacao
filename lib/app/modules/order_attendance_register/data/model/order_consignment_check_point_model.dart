@@ -28,12 +28,12 @@ class OrderConsignmentCheckPointModel extends OrderConsignmentCheckPointEntity {
       items: (json['items'] as List)
           .map((e) => OrderConsignmentCheckPointItemsModel.fromJson(e))
           .toList(),
-      totalValue: json['total_value'],
+      totalValue: json['total_value'] * 1.0,
       payments: (json['payments'] as List)
           .map((e) => OrderConsignmentCheckPointPaymentModel.fromJson(e))
           .toList(),
-      changeValue: json['change_value'],
-      debitBalance: json['debit_balance'],
+      changeValue: json['change_value'] *1.0,
+      debitBalance: json['debit_balance'] * 1.0,
     );
   }
 

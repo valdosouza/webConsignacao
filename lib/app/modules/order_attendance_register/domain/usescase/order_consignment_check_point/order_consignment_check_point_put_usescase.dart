@@ -6,10 +6,10 @@ import 'package:appweb/app/modules/order_attendance_register/domain/entity/order
 import 'package:appweb/app/modules/order_attendance_register/domain/repository/order_consignment_check_point_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class OrderConsignmentCheckPointPutUseCase implements UseCase<OrderConsignmentCheckPointEntity, OrderConsignmentCheckPointUpdateParams> {
+class OrderConsignmentCheckPointPutUsesCase implements UseCase<OrderConsignmentCheckPointEntity, OrderConsignmentCheckPointUpdateParams> {
   final OrderConsignmentCheckPointRepository repository;
 
-  OrderConsignmentCheckPointPutUseCase(this.repository);
+  OrderConsignmentCheckPointPutUsesCase(this.repository);
 
   @override
   Future<Either<Failure, OrderConsignmentCheckPointEntity>> call(OrderConsignmentCheckPointUpdateParams params) async {

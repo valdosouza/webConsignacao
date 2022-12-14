@@ -6,10 +6,10 @@ import 'package:appweb/app/modules/order_attendance_register/domain/entity/order
 import 'package:appweb/app/modules/order_attendance_register/domain/repository/order_attendance_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class OrderAttendancePutUseCase implements UseCase<OrderAttendanceEntity, OrderAttendanceUpdateParams> {
+class OrderAttendancePutUsesCase implements UseCase<OrderAttendanceEntity, OrderAttendanceUpdateParams> {
   final OrderAttendanceRepository repository;
 
-  OrderAttendancePutUseCase(this.repository);
+  OrderAttendancePutUsesCase(this.repository);
 
   @override
   Future<Either<Failure, OrderAttendanceEntity>> call(OrderAttendanceUpdateParams params) async {

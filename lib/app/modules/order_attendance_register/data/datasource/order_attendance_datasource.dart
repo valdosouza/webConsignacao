@@ -18,7 +18,8 @@ class OrderAttendanceDataSourceImpl implements OrderAttendanceDataSource {
 
   @override
   Future<List<OrderAttendanceModel>> getOrderAttendanceList() async {
-    final uri = Uri.parse('${baseApiUrl}orderattendance');
+    //final uri = Uri.parse('${baseApiUrl}orderattendance');
+    final uri = Uri.parse('https://6399e1c029930e2bb3e2d8f9.mockapi.io/attendance');
     try {
       final response = await client.get(uri);
       if (response.statusCode == 200) {
@@ -37,7 +38,8 @@ class OrderAttendanceDataSourceImpl implements OrderAttendanceDataSource {
 
   @override
   Future<OrderAttendanceModel> getOrderAttendance(int id) async {
-    final uri = Uri.parse('${baseApiUrl}orderattendance/$id');
+    //final uri = Uri.parse('${baseApiUrl}orderattendance/$id');
+    final uri = Uri.parse('https://mocki.io/v1/b1c6d9e5-18f0-4943-91c3-73b4ad5024fd');
     try {
       final response = await client.get(uri);
       if (response.statusCode == 200) {
@@ -53,7 +55,8 @@ class OrderAttendanceDataSourceImpl implements OrderAttendanceDataSource {
 
   @override
   Future<void> addOrderAttendance(OrderAttendanceModel orderAttendance) async {
-    final uri = Uri.parse('${baseApiUrl}orderattendance');
+    //final uri = Uri.parse('${baseApiUrl}orderattendance');
+    final uri = Uri.parse('https://6399e1c029930e2bb3e2d8f9.mockapi.io/attendance');
     try {
       final response = await client.post(
         uri,
@@ -62,7 +65,7 @@ class OrderAttendanceDataSourceImpl implements OrderAttendanceDataSource {
         },
         body: jsonEncode(orderAttendance.toJson()),
       );
-      if (response.statusCode != 200) {
+      if (response.statusCode != 201) {
         throw ServerException();
       }
     } catch (e) {
@@ -73,7 +76,8 @@ class OrderAttendanceDataSourceImpl implements OrderAttendanceDataSource {
   @override
   Future<void> updateOrderAttendance(
       OrderAttendanceModel orderAttendance) async {
-    final uri = Uri.parse('${baseApiUrl}orderattendance/${orderAttendance.id}');
+    //final uri = Uri.parse('${baseApiUrl}orderattendance/${orderAttendance.id}');
+    final uri = Uri.parse('https://mocki.io/v1/b1c6d9e5-18f0-4943-91c3-73b4ad5024fd');
     try {
       final response = await client.put(
         uri,
@@ -92,7 +96,8 @@ class OrderAttendanceDataSourceImpl implements OrderAttendanceDataSource {
 
   @override
   Future<void> deleteOrderAttendance(int id) async {
-    final uri = Uri.parse('${baseApiUrl}orderattendance/$id');
+    //final uri = Uri.parse('${baseApiUrl}orderattendance/$id');
+    final uri = Uri.parse('https://mocki.io/v1/b1c6d9e5-18f0-4943-91c3-73b4ad5024fd');
     try {
       final response = await client.delete(uri);
       if (response.statusCode != 200) {

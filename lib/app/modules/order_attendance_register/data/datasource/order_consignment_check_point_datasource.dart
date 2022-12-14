@@ -23,7 +23,8 @@ class OrderConsignmentCheckPointDataSourceImpl
   @override
   Future<List<OrderConsignmentCheckPointModel>>
       getOrderConsignmentCheckPointList() async {
-    final uri = Uri.parse('${baseApiUrl}orderconsignment/checkpoint');
+    //final uri = Uri.parse('${baseApiUrl}orderconsignment/checkpoint');
+    final uri = Uri.parse('https://6399f0ae16b0fdad774ece19.mockapi.io/checkpoint');
     try {
       final response = await client.get(uri);
       if (response.statusCode == 200) {
@@ -43,7 +44,8 @@ class OrderConsignmentCheckPointDataSourceImpl
   @override
   Future<OrderConsignmentCheckPointModel> getOrderConsignmentCheckPoint(
       int id) async {
-    final uri = Uri.parse('${baseApiUrl}orderconsignment/checkpoint/$id');
+    //final uri = Uri.parse('${baseApiUrl}orderconsignment/checkpoint/$id');
+    final uri = Uri.parse('https://6399f0ae16b0fdad774ece19.mockapi.io/checkpoint/$id'); 
     try {
       final response = await client.get(uri);
       if (response.statusCode == 200) {
@@ -61,7 +63,8 @@ class OrderConsignmentCheckPointDataSourceImpl
   @override
   Future<void> addOrderConsignmentCheckPoint(
       OrderConsignmentCheckPointModel orderConsignmentCheckPoint) async {
-    final uri = Uri.parse('${baseApiUrl}orderconsignment/checkpoint');
+    //final uri = Uri.parse('${baseApiUrl}orderconsignment/checkpoint');
+    final uri = Uri.parse('https://6399f0ae16b0fdad774ece19.mockapi.io/checkpoint');
     try {
       final response = await client.post(
         uri,
