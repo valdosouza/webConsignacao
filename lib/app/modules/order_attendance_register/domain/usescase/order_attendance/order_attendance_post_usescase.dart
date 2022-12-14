@@ -1,6 +1,7 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
+import 'package:appweb/app/modules/order_attendance_register/data/model/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_attendance_register/domain/entity/order_attendance_entity.dart';
 import 'package:appweb/app/modules/order_attendance_register/domain/repository/order_attendance_repository.dart';
 import 'package:dartz/dartz.dart';
@@ -21,6 +22,6 @@ class OrderAttendancePostUsesCase implements UseCase<OrderAttendanceEntity, Orde
 }
 
 class OrderAttendancePostParams {
-  final OrderAttendanceEntity attendance;
+  final OrderAttendanceModel attendance;
   OrderAttendancePostParams(this.attendance);
 }
