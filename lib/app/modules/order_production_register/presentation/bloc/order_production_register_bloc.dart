@@ -11,7 +11,6 @@ import 'package:appweb/app/modules/order_production_register/domain/usecase/stoc
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_event.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
 import 'package:bloc/bloc.dart';
-import 'package:http/http.dart';
 
 class OrderProductionRegisterBloc
     extends Bloc<OrderProductionRegisterEvent, OrderProductionRegisterState> {
@@ -153,8 +152,7 @@ class OrderProductionRegisterBloc
           emit(OrderProductionRegisterInfoPageState(list: []));
         });
       } else {
-        orderProduction =
-            OrderProductionRegisterModel();
+        orderProduction = OrderProductionRegisterModel();
         emit(OrderProductionRegisterInfoPageState(list: []));
       }
     });
@@ -239,20 +237,22 @@ class OrderProductionRegisterBloc
   searchEventOrderProduction() {
     on<OrderProductionRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var orderProductionsSearched = orderProductions.where((element) {
-          String name = element.nameMerchandise;
-          int id = element.id;
-          String date = element.dtRecord;
-          return (name
-                  .toLowerCase()
-                  .trim()
-                  .contains(event.search.toLowerCase().trim()) ||
-              date
-                  .toLowerCase()
-                  .trim()
-                  .contains(event.search.toLowerCase().trim()) ||
-              id.toString() == event.search);
-        }).toList();
+        var orderProductionsSearched = orderProductions.where(
+          (element) {
+            String name = element.nameMerchandise;
+            int id = element.id;
+            String date = element.dtRecord;
+            return (name
+                    .toLowerCase()
+                    .trim()
+                    .contains(event.search.toLowerCase().trim()) ||
+                date
+                    .toLowerCase()
+                    .trim()
+                    .contains(event.search.toLowerCase().trim()) ||
+                id.toString() == event.search);
+          },
+        ).toList();
         if (orderProductionsSearched.isNotEmpty) {
           emit(OrderProductionRegisterLoadedState(
               list: orderProductionsSearched));

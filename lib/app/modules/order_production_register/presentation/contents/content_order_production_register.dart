@@ -4,7 +4,6 @@ import 'package:appweb/app/modules/order_production_register/data/model/order_pr
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_bloc.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_event.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 statesOrderProductions(OrderProductionRegisterState state) {

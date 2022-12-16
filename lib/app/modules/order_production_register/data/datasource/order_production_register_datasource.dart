@@ -16,12 +16,12 @@ abstract class OrderProductionRegisterDataSource {
   Future<OrderProductionRegisterModel> put(
       {required OrderProductionRegisterModel model});
   Future<String> delete({required int id});
-  Future<List<ProductModel>> getListProducts(
-      {required int institutionId});
+  Future<List<ProductModel>> getListProducts({required int institutionId});
   Future<List<StockListModel>> getListStock({required int institutionId});
 }
 
-class OrderProductionRegisterDataSourceImpl extends OrderProductionRegisterDataSource {
+class OrderProductionRegisterDataSourceImpl
+    extends OrderProductionRegisterDataSource {
   final client = http.Client();
   List<OrderProductionRegisterModel> orderProduction = [];
   List<ProductModel> products = [];
@@ -50,18 +50,17 @@ class OrderProductionRegisterDataSourceImpl extends OrderProductionRegisterDataS
   }
 
   @override
-  Future<OrderProductionRegisterModel> post(
-      {required OrderProductionRegisterModel model}) async {
+  Future<OrderProductionRegisterModel> post({
+    required OrderProductionRegisterModel model,
+  }) async {
     try {
       final uri = Uri.parse('${baseApiUrl}orderproduction');
       final body = jsonEncode(model.toJson());
-      final response = await client.post(
-        uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: body
-      );
+      final response = await client.post(uri,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: body);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

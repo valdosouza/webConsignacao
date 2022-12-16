@@ -16,6 +16,5 @@ abstract class OrderProductionRegisterRepository {
   Future<Either<Failure, String>> delete({required int id});
   Future<Either<Failure, List<ProductModel>>> getListProducts(
       {required int id});
-      Future<Either<Failure, List<StockListModel>>> getListStock(
-      {required int id});
+  Future<Either<Failure, List<StockListModel>>> getListStock({required int id});
 }
