@@ -27,7 +27,7 @@ class EntityModel extends EntityEntity {
       tbLineBusinessId: json['tb_line_buiness_id'] as int? ?? 0,
       nameLinebusiness: json['name_linebusiness'] as String? ?? "",
       aniversary: json['aniversary'] as String? ?? "",
-      note: json['note'] as String? ?? "",
+      note: null,
     );
   }
   factory EntityModel.empty() {
