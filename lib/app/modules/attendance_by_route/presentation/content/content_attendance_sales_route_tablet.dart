@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ContentTabletAttendanceSalesRoute extends StatelessWidget {
-  const ContentTabletAttendanceSalesRoute({super.key});
+class ContentAttendanceSalesRouteTablet extends StatelessWidget {
+  const ContentAttendanceSalesRouteTablet({super.key});
 
   @override
   Widget build(BuildContext context) {

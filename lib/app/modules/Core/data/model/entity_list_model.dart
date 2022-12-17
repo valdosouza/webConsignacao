@@ -1,7 +1,7 @@
-import 'package:appweb/app/modules/Core/domain/entity/entity_entity.dart';
+import 'package:appweb/app/modules/Core/domain/entity/entity_list_entity.dart';
 
-class EntityModel extends EntityEntity {
-  EntityModel({
+class EntityListModel extends EntityListEntity {
+  EntityListModel({
     int? id,
     String? nameCompany,
     String? nickTrade,
@@ -19,8 +19,8 @@ class EntityModel extends EntityEntity {
           note: note ?? "",
         );
 
-  factory EntityModel.fromJson(Map<String, dynamic> json) {
-    return EntityModel(
+  factory EntityListModel.fromJson(Map<String, dynamic> json) {
+    return EntityListModel(
       id: json['id'] as int? ?? 0,
       nameCompany: json['name_company'] as String? ?? "",
       nickTrade: json['nick_trade'] as String? ?? "",
@@ -30,8 +30,8 @@ class EntityModel extends EntityEntity {
       note: json['note'] as String? ?? "",
     );
   }
-  factory EntityModel.empty() {
-    return EntityModel(
+  factory EntityListModel.empty() {
+    return EntityListModel(
       id: 0,
       nameCompany: "",
       nickTrade: "",

@@ -2,14 +2,14 @@ class CustomerListEntity {
   int id;
   String nameCompany;
   String nickTrade;
-  String docType;
-  String documento;
+  String docKind;
+  String docNumber;
 
   CustomerListEntity({
     this.id = 0,
     this.nameCompany = "",
     this.nickTrade = "",
-    this.docType = "",
-    this.documento = "",
+    this.docKind = "",
+    this.docNumber = "",
   });
 }

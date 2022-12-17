@@ -1,23 +1,23 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/attendance_sales_route/attendance_sales_route_module.dart';
+import 'package:appweb/app/modules/attendance_by_route/attendance_by_route_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AttendanceSalesRoutePageTablet extends StatefulWidget {
-  const AttendanceSalesRoutePageTablet({super.key});
+class AttendanceByRoutePageDesktop extends StatefulWidget {
+  const AttendanceByRoutePageDesktop({super.key});
 
   @override
-  State<AttendanceSalesRoutePageTablet> createState() =>
-      AttendanceSalesRoutePageTabletState();
+  State<AttendanceByRoutePageDesktop> createState() =>
+      AttendanceByRoutePageDesktopState();
 }
 
-class AttendanceSalesRoutePageTabletState
-    extends State<AttendanceSalesRoutePageTablet> {
+class AttendanceByRoutePageDesktopState
+    extends State<AttendanceByRoutePageDesktop> {
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceSalesRouteModule>();
+      await Modular.isModuleReady<AttendanceByRouteModule>();
     });
   }
 
@@ -34,7 +34,7 @@ class AttendanceSalesRoutePageTabletState
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: const Text("Atendimento por Rota de Venda - Tablet"),
+        child: const Text("Atendimento por Rota de Venda - Desktop"),
       ),
     );
   }

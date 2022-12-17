@@ -1,17 +1,17 @@
-class CollaboratorListEntity {
+class CollaboratorEntity {
   int id;
   String nameCompany;
   String nickTrade;
-  String docType;
-  String documento;
+  String docKind;
+  String docNumber;
   int tbLineBusinessId;
   String descLineBusiness;
-  CollaboratorListEntity({
+  CollaboratorEntity({
     required this.id,
     required this.nameCompany,
     required this.nickTrade,
-    required this.docType,
-    required this.documento,
+    required this.docKind,
+    required this.docNumber,
     required this.tbLineBusinessId,
     required this.descLineBusiness,
   });

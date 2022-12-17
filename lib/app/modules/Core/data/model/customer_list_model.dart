@@ -5,14 +5,20 @@ class CustomerListModel extends CustomerListEntity {
     int? id,
     String? nameCompany,
     String? nickTrade,
-    String? docType,
-    String? documento,
+    String? docKind,
+    String? docNumber,
+    int? tbSalesRouteIid,
+    String? nameSalesRoute,
+    int? sequence,
   }) : super(
           id: id ?? 0,
           nameCompany: nameCompany ?? "",
           nickTrade: nickTrade ?? "",
-          docType: docType ?? "",
-          documento: documento ?? "",
+          docKind: docKind ?? "",
+          docNumber: docNumber ?? "",
+          tbSalesRouteIid: tbSalesRouteIid ?? 0,
+          nameSalesRoute: nameSalesRoute ?? "",
+          sequence: sequence ?? 0,
         );
 
   factory CustomerListModel.fromJson(Map<String, dynamic> json) {
@@ -20,8 +26,11 @@ class CustomerListModel extends CustomerListEntity {
       id: json['id'] as int? ?? 0,
       nameCompany: json['name_company'] as String? ?? "",
       nickTrade: json['nick_trade'] as String? ?? "",
-      docType: json['docType'] as String? ?? "",
-      documento: json['documento'] as String? ?? "",
+      docKind: json['doc_kind'] as String? ?? "",
+      docNumber: json['doc_number'] as String? ?? "",
+      tbSalesRouteIid: json['tb_sales_route_id'] as int? ?? 0,
+      nameSalesRoute: json['name_sales_route'] as String? ?? "",
+      sequence: json['sequence'] as int? ?? 0,
     );
   }
 }

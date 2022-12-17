@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
-import 'package:appweb/app/modules/Core/data/model/collaborator_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
@@ -26,7 +26,7 @@ class CollaboratorRegisterBloc
   final CollaboratorRegisterPost postCollaborator;
   final LinebusinessRegisterGetlist getLinebusines;
 
-  List<CollaboratorListModel> modelList = [];
+  List<CollaboratorModel> modelList = [];
   CollaboratorMainModel collaborator = CollaboratorMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> cities = [];
@@ -101,10 +101,10 @@ class CollaboratorRegisterBloc
         if (event.model.collaborator.id != 0) {
           emit(CollaboratorRegisterPostEditSuccessState(modelList));
         } else {
-          modelList.add(CollaboratorListModel(
+          modelList.add(CollaboratorModel(
             id: r.collaborator.id,
-            docType: r.person != null ? "F" : "J",
-            documento: r.person != null ? r.person!.cpf : r.company!.cnpj,
+            docKind: r.person != null ? "F" : "J",
+            docNumber: r.person != null ? r.person!.cpf : r.company!.cnpj,
             nameCompany: r.entity.nameCompany,
             nickTrade: r.entity.nickTrade,
           ));
@@ -125,14 +125,14 @@ class CollaboratorRegisterBloc
               .contains(event.search.toLowerCase().trim());
         }).toList();
         var collaboratorSearchedCnpj = modelList.where((element) {
-          String email = element.documento;
+          String email = element.docNumber;
           return email
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
         var collaboratorSearchedCpf = modelList.where((element) {
-          String email = element.documento;
+          String email = element.docNumber;
           return email
               .toLowerCase()
               .trim()

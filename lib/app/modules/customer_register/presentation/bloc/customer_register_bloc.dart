@@ -106,8 +106,8 @@ class CustomerRegisterBloc
         } else {
           customers.add(CustomerListModel(
             id: r.customer.id,
-            docType: r.person != null ? "F" : "J",
-            documento: r.person != null ? r.person!.cpf : r.company!.cnpj,
+            docKind: r.person != null ? "F" : "J",
+            docNumber: r.person != null ? r.person!.cpf : r.company!.cnpj,
             nameCompany: r.entity.nameCompany,
             nickTrade: r.entity.nickTrade,
           ));
@@ -128,14 +128,14 @@ class CustomerRegisterBloc
               .contains(event.search.toLowerCase().trim());
         }).toList();
         var customersSearchedCnpj = customers.where((element) {
-          String email = element.documento;
+          String email = element.docNumber;
           return email
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
         var customersSearchedCpf = customers.where((element) {
-          String email = element.documento;
+          String email = element.docNumber;
           return email
               .toLowerCase()
               .trim()

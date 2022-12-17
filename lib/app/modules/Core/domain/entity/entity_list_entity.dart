@@ -1,4 +1,4 @@
-class EntityEntity {
+class EntityListEntity {
   int id;
   String nameCompany;
   String nickTrade;
@@ -7,7 +7,7 @@ class EntityEntity {
   String aniversary;
   String note;
 
-  EntityEntity({
+  EntityListEntity({
     this.id = 0,
     this.nameCompany = "",
     this.nickTrade = "",

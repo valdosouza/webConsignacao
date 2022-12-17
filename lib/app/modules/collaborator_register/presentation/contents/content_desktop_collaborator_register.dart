@@ -128,11 +128,11 @@ class _ContentDesktopCollaboratorRegisterState
                                     Text(
                                         "Nome: ${modelList[index].nameCompany}"),
                                     const SizedBox(height: 5.0),
-                                    modelList[index].docType == "J"
+                                    modelList[index].docKind == "J"
                                         ? Text(
-                                            "CNPJ: ${modelList[index].documento}")
+                                            "CNPJ: ${modelList[index].docNumber}")
                                         : Text(
-                                            "CPF: ${modelList[index].documento}"),
+                                            "CPF: ${modelList[index].docNumber}"),
                                     const SizedBox(height: 5.0),
                                     Text(
                                         "Cargo: ${modelList[index].descLineBusiness}"),
