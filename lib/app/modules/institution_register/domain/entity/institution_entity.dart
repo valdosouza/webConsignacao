@@ -28,9 +28,9 @@ class InstitutionEntity {
   int tbCountryId;
   String nameCountry;
   int tbStateId;
-  String nameState;
+  String stateName;
   int tbCityId;
-  String nameCity;
+  String cityName;
   String main;
   String longitude;
   String latitude;
@@ -67,9 +67,9 @@ class InstitutionEntity {
     this.tbCountryId = 0,
     this.nameCountry = "",
     this.tbStateId = 0,
-    this.nameState = "",
+    this.stateName = "",
     this.tbCityId = 0,
-    this.nameCity = "",
+    this.cityName = "",
     this.main = "",
     this.longitude = "",
     this.latitude = "",

@@ -207,18 +207,20 @@ class CustomerRegisterBloc
       response.fold((l) => emit(CustomerRegisterCnpjErrorState(customers, "")),
           (r) {
         customer.address.zipCode =
-            r.cep.replaceAll("-", "").replaceAll(".", "");
-        customer.entity.nickTrade = r.fantasia;
+            r.zipCode.replaceAll("-", "").replaceAll(".", "");
+        customer.entity.nickTrade = r.nickTtrade;
         customer.company?.cnpj = r.cnpj;
-        customer.entity.nameCompany = r.nome;
-        customer.address.nmbr = r.numero;
-        customer.address.street = r.logradouro;
-        customer.address.complement = r.complemento;
-        customer.address.neighborhood = r.bairro;
-        customer.address.latitude = r.municipio;
-        customer.address.region = r.uf;
+        customer.entity.nameCompany = r.nameCompany;
+        customer.address.nmbr = r.nmbr;
+        customer.address.street = r.street;
+        customer.address.complement = r.complement;
+        customer.address.neighborhood = r.neighborhood;
+        customer.address.cityName = r.cityName;
+        customer.address.tbCityId = r.tbCityId;
+        customer.address.stateName = r.stateName;
+        customer.address.tbStateId = r.tbStateId;
         emit(CustomerRegisterInfoPageState(
-            customers: customers, model: customer, tabIndex: 1));
+            customers: customers, model: customer, tabIndex: 0));
       });
     });
   }
@@ -236,7 +238,9 @@ class CustomerRegisterBloc
         customer.address.complement = r.complement;
         customer.address.neighborhood = r.neighborhood;
         customer.address.stateName = r.stateName;
+        customer.address.tbStateId = r.tbStateId;
         customer.address.cityName = r.cityName;
+        customer.address.tbCityId = r.tbCityId;
         emit(CustomerRegisterInfoPageState(
             customers: customers, model: customer, tabIndex: 1));
       });

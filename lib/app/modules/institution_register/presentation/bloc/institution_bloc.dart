@@ -102,41 +102,45 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
   }
 
   searchCEP() {
-    on<InstitutionCnpjEvent>((event, emit) async {
+    on<InstitutionCepEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
-      final response = await cnpj.call(ParamsCnpj(cnpj: event.cnpj));
+      final response = await cnpj.call(ParamsCnpj(cnpj: event.cep));
 
-      response.fold((l) => emit(const InstitutionCnpjErrorState("")), (r) {
-        institution.zipCode = r.cep.replaceAll("-", "").replaceAll(".", "");
-        institution.nickTrade = r.fantasia;
-        institution.cnpj = r.cnpj;
-        institution.nameCompany = r.nome;
-        institution.nmbr = r.numero;
-        institution.street = r.logradouro;
-        institution.complement = r.complemento;
-        institution.neighborhood = r.bairro;
-        institution.latitude = r.municipio;
-        institution.region = r.uf;
+      response.fold((l) => emit(const InstitutionCepErrorState("")), (r) {
+        institution.zipCode = r.zipCode.replaceAll("-", "").replaceAll(".", "");
+        institution.zipCode = r.zipCode.replaceAll("-", "");
+        institution.street = r.street;
+        institution.complement = r.complement;
+        institution.neighborhood = r.neighborhood;
+        institution.stateName = r.stateName;
+        institution.tbStateId = r.tbStateId;
+        institution.cityName = r.cityName;
+        institution.tbCityId = r.tbCityId;
         emit(InstitutionLoadedState());
       });
     });
   }
 
   searchCNPJ() {
-    on<InstitutionCepEvent>((event, emit) async {
+    on<InstitutionCnpjEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
-      final response = await cep.call(ParamsCep(cep: event.cep));
+      final response = await cnpj.call(ParamsCnpj(cnpj: event.cnpj));
 
-      response.fold((l) => emit(const InstitutionCepErrorState("")), (r) {
-        institution.zipCode = r.zipCode.replaceAll("-", "");
+      response.fold((l) => emit(const InstitutionCnpjErrorState("")), (r) {
+        institution.zipCode = r.zipCode.replaceAll("-", "").replaceAll(".", "");
+        institution.nickTrade = r.nickTtrade;
+        institution.cnpj = r.cnpj;
+        institution.nameCompany = r.nameCompany;
+        institution.nmbr = r.nmbr;
         institution.street = r.street;
         institution.complement = r.complement;
         institution.neighborhood = r.neighborhood;
-        institution.nameCity = r.cityName;
+        institution.cityName = r.cityName;
         institution.tbCityId = r.tbCityId;
-        institution.tbStateId = r.tbCountryId;
+        institution.stateName = r.stateName;
+        institution.tbStateId = r.tbStateId;
         emit(InstitutionLoadedState());
       });
     });

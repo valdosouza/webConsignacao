@@ -186,16 +186,18 @@ class CollaboratorRegisterBloc
       response.fold(
           (l) => emit(CollaboratorRegisterCnpjErrorState(modelList, "")), (r) {
         collaborator.address.zipCode =
-            r.cep.replaceAll("-", "").replaceAll(".", "");
-        collaborator.entity.nickTrade = r.fantasia;
+            r.zipCode.replaceAll("-", "").replaceAll(".", "");
+        collaborator.entity.nickTrade = r.nickTtrade;
         collaborator.company?.cnpj = r.cnpj;
-        collaborator.entity.nameCompany = r.nome;
-        collaborator.address.nmbr = r.numero;
-        collaborator.address.street = r.logradouro;
-        collaborator.address.complement = r.complemento;
-        collaborator.address.neighborhood = r.bairro;
-        collaborator.address.latitude = r.municipio;
-        collaborator.address.region = r.uf;
+        collaborator.entity.nameCompany = r.nameCompany;
+        collaborator.address.nmbr = r.nmbr;
+        collaborator.address.street = r.street;
+        collaborator.address.complement = r.complement;
+        collaborator.address.neighborhood = r.neighborhood;
+        collaborator.address.cityName = r.cityName;
+        collaborator.address.tbCityId = r.tbCityId;
+        collaborator.address.stateName = r.stateName;
+        collaborator.address.tbStateId = r.tbStateId;
         emit(CollaboratorRegisterInfoPageState(
             modelList: modelList, model: collaborator, tabIndex: 0));
       });
@@ -215,7 +217,9 @@ class CollaboratorRegisterBloc
         collaborator.address.complement = r.complement;
         collaborator.address.neighborhood = r.neighborhood;
         collaborator.address.stateName = r.stateName;
+        collaborator.address.tbStateId = r.tbStateId;
         collaborator.address.cityName = r.cityName;
+        collaborator.address.tbCityId = r.tbCityId;
         emit(CollaboratorRegisterInfoPageState(
             modelList: modelList, model: collaborator, tabIndex: 1));
       });

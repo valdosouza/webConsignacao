@@ -53,6 +53,7 @@ class _ContentCustomerRegisterMobileState
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         Modular.to.navigate('/customer/mobile/');
@@ -102,26 +103,32 @@ class _ContentCustomerRegisterMobileState
                 tabs: myTabs,
               ),
             ),
-            body: TabBarView(
-              controller: _tabController,
-              children: <Widget>[
-                CustomerRegisterIdentificationWidget(
-                  bloc: bloc,
-                  customer: customer,
+            body: SingleChildScrollView(
+              child: SizedBox(
+                height: size.height - 150,
+                width: size.width,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: <Widget>[
+                    CustomerRegisterIdentificationWidget(
+                      bloc: bloc,
+                      customer: customer,
+                    ),
+                    CustomerRegisterAddressWidget(
+                      bloc: bloc,
+                      customer: customer,
+                    ),
+                    CustomerRegisterPhoneWidget(
+                      bloc: bloc,
+                      customer: customer,
+                    ),
+                    CustomerRegisterOthersWidget(
+                      bloc: bloc,
+                      customer: customer,
+                    ),
+                  ],
                 ),
-                CustomerRegisterAddressWidget(
-                  bloc: bloc,
-                  customer: customer,
-                ),
-                CustomerRegisterPhoneWidget(
-                  bloc: bloc,
-                  customer: customer,
-                ),
-                CustomerRegisterOthersWidget(
-                  bloc: bloc,
-                  customer: customer,
-                ),
-              ],
+              ),
             ),
           );
         },
