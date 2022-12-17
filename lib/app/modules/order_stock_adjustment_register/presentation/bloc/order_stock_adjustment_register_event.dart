@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 
 abstract class OrderStockAdjustmentRegisterEvent {}
@@ -48,6 +49,12 @@ class OrderStockAdjustmentRegisterSearchEvent
   });
 }
 
+class OrderStockAdjustmentRegisterItemEvent
+    extends OrderStockAdjustmentRegisterEvent {
+  OrderStockAdjustmentRegisterItemsModel? item;
+  OrderStockAdjustmentRegisterItemEvent({this.item});
+}
+
 class OrderStockAdjustmentRegisterPutEvent
     extends OrderStockAdjustmentRegisterEvent {
   final OrderStockAdjustmentRegisterModel model;
@@ -83,5 +90,6 @@ class OrderStockAdjustmentRegisterMobileEvent
 
 class OrderStockAdjustmentRegisterReturnEvent
     extends OrderStockAdjustmentRegisterEvent {
-  OrderStockAdjustmentRegisterReturnEvent();
+  final int tabIndex;
+  OrderStockAdjustmentRegisterReturnEvent({this.tabIndex = 0});
 }

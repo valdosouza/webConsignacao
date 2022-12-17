@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
@@ -9,20 +8,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 
-class OrderStockAdjustmentRegisterItemsListWidget extends StatefulWidget {
+class OrderStockAdjustmentRegisterProductsListWidget extends StatefulWidget {
   final OrderStockAdjustmentRegisterModel orderStockAdjustment;
-  const OrderStockAdjustmentRegisterItemsListWidget({
+  const OrderStockAdjustmentRegisterProductsListWidget({
     Key? key,
     required this.orderStockAdjustment,
   }) : super(key: key);
 
   @override
-  State<OrderStockAdjustmentRegisterItemsListWidget> createState() =>
-      OrderStockAdjustmentRegisterItemsListWidgetState();
+  State<OrderStockAdjustmentRegisterProductsListWidget> createState() =>
+      OrderStockAdjustmentRegisterProductsListWidgetState();
 }
 
-class OrderStockAdjustmentRegisterItemsListWidgetState
-    extends State<OrderStockAdjustmentRegisterItemsListWidget> {
+class OrderStockAdjustmentRegisterProductsListWidgetState
+    extends State<OrderStockAdjustmentRegisterProductsListWidget> {
   late final OrderStockAdjustmentRegisterBloc bloc;
 
   @override
@@ -37,8 +36,8 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
         OrderStockAdjustmentRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        if (state is OrderStockAdjustmentRegisterStockSuccessState) {
-          return _orderStockAdjustmentItemsList();
+        if (state is OrderStockAdjustmentRegisterProductSuccessState) {
+          return _orderStockAdjustmentProductsList(state);
         } else {
           return Container();
         }
@@ -46,38 +45,74 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
     );
   }
 
-  _orderStockAdjustmentItemsList() {
-    return Expanded(
-      child: widget.orderStockAdjustment.items.isEmpty
-          ? const Center(
-              child: Text("Não encontramos nenhum registro em nossa base."))
-          : ListView.separated(
-              itemCount: widget.orderStockAdjustment.items.length,
-              itemBuilder: (context, index) => InkWell(
-                onTap: () {
-                  bloc.edit = true;
-                  // bloc.add(OrderStockAdjustmentRegisterDesktopEvent(
-                  //     model: widget.orderStockAdjustment.items[index]));
+  _orderStockAdjustmentProductsList(
+      OrderStockAdjustmentRegisterProductSuccessState state) {
+    return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
+        ),
+        title: const Text('Lista de produtos'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            bloc.add(OrderStockAdjustmentRegisterReturnEvent());
+          },
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              decoration: kBoxDecorationStyle,
+              child: TextFormField(
+                keyboardType: TextInputType.text,
+                autofocus: false,
+                onChanged: (value) {
+                  bloc.add(OrderStockAdjustmentRegisterSearchProductsEvent(
+                      search: value));
                 },
-                child: ListTile(
-                  leading: CircleAvatar(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Text((index + 1).toString()),
-                    ),
-                  ),                      
-                  title: Text(widget.orderStockAdjustment.items[index].nameProduct),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: () {
-                      CustomToast.showToast(
-                          "Funcionalidade em desenvolvimento.");
-                    },
-                  ),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'OpenSans',
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: 4.0),
+                  hintText: "Pesquise aqui",
+                  hintStyle: kHintTextStyle,
                 ),
               ),
-              separatorBuilder: (_, __) => const Divider(),
             ),
+            const SizedBox(height: 5.0),
+            Expanded(
+              child: widget.orderStockAdjustment.items.isEmpty
+                  ? const Center(
+                      child:
+                          Text("Não encontramos nenhum produto em nossa base."))
+                  : ListView.separated(
+                      itemCount: widget.orderStockAdjustment.items.length,
+                      itemBuilder: (context, index) => ListTile(
+                        leading: CircleAvatar(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Text((index+1).toString()),
+                          ),
+                        ),
+                        title: Text(widget
+                            .orderStockAdjustment.items[index].nameProduct),
+                        trailing: Text(widget
+                            .orderStockAdjustment.items[index].quantity
+                            .toString()),
+                      ),
+                      separatorBuilder: (_, __) => const Divider(),
+                    ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

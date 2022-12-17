@@ -1,4 +1,5 @@
 import 'package:appweb/app/modules/Core/data/model/entity_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/product_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/stock_list_model.dart';
@@ -11,17 +12,20 @@ abstract class OrderStockAdjustmentRegisterState {
   });
 }
 
-class OrderStockAdjustmentRegisterLoadingState extends OrderStockAdjustmentRegisterState {
+class OrderStockAdjustmentRegisterLoadingState
+    extends OrderStockAdjustmentRegisterState {
   OrderStockAdjustmentRegisterLoadingState() : super(list: []);
 }
 
-class OrderStockAdjustmentRegisterLoadedState extends OrderStockAdjustmentRegisterState {
+class OrderStockAdjustmentRegisterLoadedState
+    extends OrderStockAdjustmentRegisterState {
   OrderStockAdjustmentRegisterLoadedState(
       {required List<OrderStockAdjustmentRegisterModel> list})
       : super(list: list);
 }
 
-class OrderStockAdjustmentRegisterErrorState extends OrderStockAdjustmentRegisterState {
+class OrderStockAdjustmentRegisterErrorState
+    extends OrderStockAdjustmentRegisterState {
   OrderStockAdjustmentRegisterErrorState(
       {required List<OrderStockAdjustmentRegisterModel> list})
       : super(list: list);
@@ -30,8 +34,11 @@ class OrderStockAdjustmentRegisterErrorState extends OrderStockAdjustmentRegiste
 class OrderStockAdjustmentRegisterInfoPageState
     extends OrderStockAdjustmentRegisterState {
   final OrderStockAdjustmentRegisterModel? model;
+  final int tabIndex;
   OrderStockAdjustmentRegisterInfoPageState(
-      {required List<OrderStockAdjustmentRegisterModel> list, this.model})
+      {required this.tabIndex,
+      required List<OrderStockAdjustmentRegisterModel> list,
+      this.model})
       : super(list: list);
 }
 
@@ -118,4 +125,10 @@ class OrderStockAdjustmentRegisterStockSuccessState
 class OrderStockAdjustmentRegisterStockErrorState
     extends OrderStockAdjustmentRegisterState {
   OrderStockAdjustmentRegisterStockErrorState() : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterItemPage
+    extends OrderStockAdjustmentRegisterState {
+  final OrderStockAdjustmentRegisterItemsModel item;
+  OrderStockAdjustmentRegisterItemPage({required this.item}) : super(list: []);
 }

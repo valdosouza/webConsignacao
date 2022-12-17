@@ -6,8 +6,8 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/contents/content_order_stock_adjustment_desktop.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/contents/content_order_stock_adjustment_register.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_add_item.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_list_entities.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_list_products.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_list_stocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,14 +53,15 @@ class OrderStockAdjustmentRegisterPageDesktopState
         if (state is OrderStockAdjustmentRegisterInfoPageState) {
           return ContentOrderStockAdjustmentRegisterDesktop(
             orderStockAdjustment: bloc.orderStockAdjustment,
+            tabIndex: state.tabIndex,
           );
         }
 
-        if (state is OrderStockAdjustmentRegisterProductSuccessState) {
-          return OrderStockAdjustmentRegisterProductsListWidget(
-            orderStockAdjustment: bloc.orderStockAdjustment,
-          );
-        }
+        // if (state is OrderStockAdjustmentRegisterProductSuccessState) {
+        //   return OrderStockAdjustmentRegisterProductsListWidget(
+        //     orderStockAdjustment: bloc.orderStockAdjustment,
+        //   );
+        // }
 
         if (state is OrderStockAdjustmentRegisterStockSuccessState) {
           return OrderStockAdjustmentRegisterStocksListWidget(
@@ -71,6 +72,13 @@ class OrderStockAdjustmentRegisterPageDesktopState
         if (state is OrderStockAdjustmentRegisterEntitySuccessState) {
           return OrderStockAdjustmentRegisterEntitiesListWidget(
             orderStockAdjustment: bloc.orderStockAdjustment,
+          );
+        }
+
+        if (state is OrderStockAdjustmentRegisterItemPage) {
+          return OrderStockAdjustmentRegisterAddItem(
+            bloc: bloc,
+            item: state.item,
           );
         }
 

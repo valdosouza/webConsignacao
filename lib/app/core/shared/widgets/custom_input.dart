@@ -12,6 +12,7 @@ class CustomInput extends StatelessWidget {
   final Widget? sufixIcon;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final bool readOnly;
   final TextEditingController? controller;
   const CustomInput(
       {super.key,
@@ -25,6 +26,7 @@ class CustomInput extends StatelessWidget {
       this.sufixIcon,
       this.hint,
       this.obscureText = false,
+      this.readOnly = false,
       this.controller});
 
   @override
@@ -43,6 +45,7 @@ class CustomInput extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: TextFormField(
             initialValue: initialValue,
+            readOnly: readOnly,
             maxLines: maxLines,
             keyboardType: keyboardType,
             autofocus: false,

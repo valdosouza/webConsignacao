@@ -4,20 +4,23 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_custom_input_button_widget.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_data.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_direction_widget.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_list_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 
 class ContentOrderStockAdjustmentRegisterDesktop extends StatefulWidget {
   final OrderStockAdjustmentRegisterModel orderStockAdjustment;
+  final int tabIndex;
   const ContentOrderStockAdjustmentRegisterDesktop({
     Key? key,
     required this.orderStockAdjustment,
+    this.tabIndex = 0
   }) : super(key: key);
 
   @override
@@ -33,11 +36,6 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
 
   late final OrderStockAdjustmentRegisterBloc bloc;
   late MaskedTextController controllerDate;
-
-  final List<Tab> myTabs = <Tab>[
-    const Tab(text: 'Dados do Ajuste'),
-    const Tab(text: 'Itens para ajustar')
-  ];
 
   @override
   void initState() {
@@ -56,8 +54,8 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
             ? 1
             : bloc.orderStockAdjustments.last.id + 1
         : orderStockAdjustment.id;
-    _tabController = TabController(vsync: this, length: myTabs.length);
-
+    _tabController = TabController(vsync: this, length: 2);
+    _tabController.animateTo(widget.tabIndex);
     super.initState();
   }
 
@@ -118,86 +116,36 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                 controller: _tabController,
                 indicatorWeight: 2.0,
                 indicatorColor: Colors.black,
-                tabs: myTabs,
+                tabs: [
+                  const Tab(text: 'Dados do Ajuste'),
+                  Tab(
+                    child: ListTile(
+                      title: const Center(
+                          child: Text(
+                        'Itens para ajustar',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                      trailing: IconButton(
+                          onPressed: () {
+                            bloc.add(OrderStockAdjustmentRegisterItemEvent());
+                          },
+                          icon: const Icon(Icons.add, color: Colors.white)),
+                    ),
+                  )
+                ],
               ),
             ),
             body: TabBarView(controller: _tabController, children: [
-              content_register(
+              OrderStockAdjustmentRegisterData(
                   orderStockAdjustment: orderStockAdjustment,
                   bloc: bloc,
                   controllerDate: controllerDate),
-              content_register(
-                  orderStockAdjustment: orderStockAdjustment,
-                  bloc: bloc,
-                  controllerDate: controllerDate),
+              OrderStockAdjustmentRegisterProductsListWidget(
+                orderStockAdjustment: orderStockAdjustment,
+              ),
             ]),
           );
         },
-      ),
-    );
-  }
-}
-
-class content_register extends StatelessWidget {
-  const content_register({
-    Key? key,
-    required this.orderStockAdjustment,
-    required this.bloc,
-    required this.controllerDate,
-  }) : super(key: key);
-
-  final OrderStockAdjustmentRegisterModel orderStockAdjustment;
-  final OrderStockAdjustmentRegisterBloc bloc;
-  final MaskedTextController controllerDate;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomInput(
-              title: "Data",
-              controller: controllerDate,
-              keyboardType: TextInputType.datetime,
-              inputAction: TextInputAction.go,
-              onChanged: (value) => {orderStockAdjustment.dtRecord = value}),
-          const SizedBox(height: 10),
-          CustomInput(
-              title: "Número",
-              initialValue: orderStockAdjustment.number.toString(),
-              keyboardType: TextInputType.number,
-              inputAction: TextInputAction.go,
-              onChanged: (value) =>
-                  {orderStockAdjustment.number = int.parse(value)}),
-          const SizedBox(height: 10),
-          CustomInputButtonWidget(
-              bloc: bloc,
-              initialValue: orderStockAdjustment.nameEntity,
-              event: OrderStockAdjustmentRegisterGetEntityEvent(),
-              title: "Descrição da Entidade"),
-          const SizedBox(height: 10),
-          CustomInputButtonWidget(
-              bloc: bloc,
-              initialValue: bloc.sotck.description,
-              event: OrderStockAdjustmentRegisterGetStocksEvent(
-                  tbInstitutionId: 1),
-              title: "Descrição do estoque"),
-          const SizedBox(height: 10),
-          const Text("Direção da Operação", style: kLabelStyle),
-          const SizedBox(height: 10),
-          OrderStockAdjustmentRegisterDirectionWidget(
-              orderStockAdjustment: orderStockAdjustment),
-          const SizedBox(height: 10),
-          CustomInput(
-              title: "Observações",
-              maxLines: 10,
-              initialValue: orderStockAdjustment.note,
-              keyboardType: TextInputType.datetime,
-              inputAction: TextInputAction.go,
-              onChanged: (value) => {orderStockAdjustment.note = value})
-        ],
       ),
     );
   }
