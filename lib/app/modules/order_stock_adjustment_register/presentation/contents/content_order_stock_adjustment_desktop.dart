@@ -3,9 +3,7 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/or
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_custom_input_button_widget.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_data.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_direction_widget.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_list_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,7 +138,7 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                   orderStockAdjustment: orderStockAdjustment,
                   bloc: bloc,
                   controllerDate: controllerDate),
-              OrderStockAdjustmentRegisterProductsListWidget(
+              OrderStockAdjustmentRegisterItemsListWidget(
                 orderStockAdjustment: orderStockAdjustment,
               ),
             ]),

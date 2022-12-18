@@ -58,7 +58,7 @@ class OrderStockAdjustmentRegisterAddItem extends StatelessWidget {
             CustomInputButtonWidget(
                 bloc: bloc,
                 initialValue: item.nameProduct,
-                event: OrderStockAdjustmentRegisterGetEntityEvent(),
+                event: OrderStockAdjustmentRegisterGetProductsEvent(tbInstitutionId: 1),
                 title: "Descrição do item"),
             const SizedBox(height: 10),
             CustomInput(
