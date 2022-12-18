@@ -4,7 +4,6 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/or
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widgets/order_stock_adjustment_register_custom_input_button_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OrderStockAdjustmentRegisterAddItem extends StatelessWidget {
@@ -43,8 +42,7 @@ class OrderStockAdjustmentRegisterAddItem extends StatelessWidget {
                     size: 30.0,
                   ),
                   onPressed: () {
-                    
-                  
+                    bloc.add(OrderStockAdjustmentRegisterReturnEvent(tabIndex: 1, item: item));                
                   },
                 ),
               ],

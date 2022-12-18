@@ -36,69 +36,39 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
         OrderStockAdjustmentRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        if (state is OrderStockAdjustmentRegisterProductSuccessState) {
-          return _orderStockAdjustmentProductsList(state);
-        } else {
-          return Container();
-        }
+        return _orderStockAdjustmentProductsList();
       },
     );
   }
 
-  _orderStockAdjustmentProductsList(
-      OrderStockAdjustmentRegisterProductSuccessState state) {
+  _orderStockAdjustmentProductsList() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            decoration: kBoxDecorationStyle,
-            child: TextFormField(
-              keyboardType: TextInputType.text,
-              autofocus: false,
-              onChanged: (value) {
-                bloc.add(OrderStockAdjustmentRegisterSearchProductsEvent(
-                    search: value));
-              },
-              style: const TextStyle(
-                color: Colors.white,
-                fontFamily: 'OpenSans',
-              ),
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(left: 4.0),
-                hintText: "Pesquise aqui",
-                hintStyle: kHintTextStyle,
-              ),
-            ),
-          ),
-          const SizedBox(height: 5.0),
-          Expanded(
-            child: widget.orderStockAdjustment.items.isEmpty
-                ? const Center(
-                    child:
-                        Text("Não encontramos nenhum produto em nossa base."))
-                : ListView.separated(
-                    itemCount: widget.orderStockAdjustment.items.length,
-                    itemBuilder: (context, index) => ListTile(
-                      leading: CircleAvatar(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Text((index + 1).toString()),
-                        ),
-                      ),
-                      title: Text(
-                          widget.orderStockAdjustment.items[index].nameProduct),
-                      trailing: Text(widget
-                          .orderStockAdjustment.items[index].quantity
-                          .toString()),
+      child: widget.orderStockAdjustment.items.isEmpty
+          ? const Center(
+              child: Text("Não encontramos nenhum produto em nossa base."))
+          : ListView.separated(
+              itemCount: widget.orderStockAdjustment.items.length,
+              itemBuilder: (context, index) => InkWell(
+                onTap: () {
+                   bloc.add(OrderStockAdjustmentRegisterItemEvent(item: widget.orderStockAdjustment.items[index]));
+                },
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Text((index + 1).toString()),
                     ),
-                    separatorBuilder: (_, __) => const Divider(),
                   ),
-          ),
-        ],
-      ),
+                  title: Text(
+                      widget.orderStockAdjustment.items[index].nameProduct),
+                  trailing: Text(widget
+                      .orderStockAdjustment.items[index].quantity
+                      .toString()),
+                ),
+              ),
+              separatorBuilder: (_, __) => const Divider(),
+            ),
     );
   }
 }

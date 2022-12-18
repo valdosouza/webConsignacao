@@ -53,7 +53,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
 
     // goToOrderStockAdjustmentMobilePage();
     goToItemsPage();
-    
+
     postOrderStockAdjustmentAction();
 
     putOrderStockAdjustmentAction();
@@ -74,9 +74,14 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
 
     searchEventOrderStockAdjustment();
 
-    on<OrderStockAdjustmentRegisterReturnEvent>((event, emit) => emit(
-        OrderStockAdjustmentRegisterInfoPageState(
-            list: [], tabIndex: event.tabIndex)));
+    on<OrderStockAdjustmentRegisterReturnEvent>((event, emit) {
+      if (event.item != null) {
+        orderStockAdjustment.items.removeWhere((element) => element.tbProductId == event.item!.tbProductId);
+        orderStockAdjustment.items.add(event.item!);
+      }
+      emit(OrderStockAdjustmentRegisterInfoPageState(
+          list: [], tabIndex: event.tabIndex));
+    });
   }
 
   getList() {
@@ -178,7 +183,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     on<OrderStockAdjustmentRegisterItemEvent>((event, emit) async {
       if (event.item != null) {
         emit(OrderStockAdjustmentRegisterLoadingState());
-        item = event.item!;
+        item = event.item! as OrderStockAdjustmentRegisterItemsModel;
         emit(OrderStockAdjustmentRegisterItemPage(item: item));
       } else {
         item = OrderStockAdjustmentRegisterItemsModel.empty();

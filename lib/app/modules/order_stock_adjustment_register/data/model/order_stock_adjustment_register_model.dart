@@ -27,11 +27,11 @@ class OrderStockAdjustmentRegisterModel
           tbEntityid: tbEntityid ?? 0,
           nameEntity: nameEntity ?? "",
           number: number ?? 0,
-          dtRecord: dtRecord ?? "0",
+          dtRecord: dtRecord ?? "",
           direction: direction ?? "E",
-          note: note ?? "0",
+          note: note ?? "",
           status: status ?? "",
-          items: items ?? List<OrderStockAdjustmentRegisterItemsModel>.empty(),
+          items: items ?? List<OrderStockAdjustmentRegisterItemsModel>.empty(growable: true),
         );
 
   factory OrderStockAdjustmentRegisterModel.fromJson(
