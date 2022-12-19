@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/datasource/order_stock_transfer_register_datasource.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/repository/order_stock_transfer_register_repository.dart';
+import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
 import 'package:dartz/dartz.dart';
 
 class OrderStockTransferRegisterRepositoryImpl
@@ -69,25 +70,15 @@ class OrderStockTransferRegisterRepositoryImpl
     }
   }
 
-  // @override
-  // Future<Either<Failure, List<ProductModel>>> getListProducts({required int id}) async {
-  //   try {
-  //     final list = await datasource.getListProducts(institutionId: id);
+  @override
+  Future<Either<Failure, List<StockListModel>>> getListStock(
+      {required int institutionId}) async {
+    try {
+      final list = await datasource.getListStock(institutionId: institutionId);
 
-  //     return Right(list);
-  //   } on ServerException {
-  //     return Left(ServerFailure());
-  //   }
-  // }
-
-  // @override
-  // Future<Either<Failure, List<StockListModel>>> getListStock({required int id}) async {
-  //    try {
-  //     final list = await datasource.getListStock(institutionId: id);
-
-  //     return Right(list);
-  //   } on ServerException {
-  //     return Left(ServerFailure());
-  //   }
-  // }
+      return Right(list);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

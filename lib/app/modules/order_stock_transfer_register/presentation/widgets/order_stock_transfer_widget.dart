@@ -1,7 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_search_enum.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_filter_widget.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/search_widget.dart';
@@ -35,9 +34,7 @@ class _OrderStockTransferListState extends State<OrderStockTransferList> {
             icon: const Icon(Icons.person_add),
             onPressed: () {
               widget.bloc.add(
-                const OrderStockTransferRegisterSelectFromIndex(
-                  newIndex: -1,
-                ),
+                OrderStockTransferNewRegisterEvent(),
               );
             },
           ),

@@ -19,10 +19,12 @@ class OrderStockTransferSearchEvent extends OrderStockTransferRegisterEvent {
   // final OrderStockTransferRegisterSearch typeSearch;
 }
 
-class OrderStockTransferRegisterSelectFromIndex
-    extends OrderStockTransferRegisterEvent {
-  const OrderStockTransferRegisterSelectFromIndex({required this.newIndex});
-  final int newIndex;
+class OrderStockTransferNewRegisterEvent
+    extends OrderStockTransferRegisterEvent {}
+
+class OrderStockTransferGetStocksEvent extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferGetStocksEvent({required this.tbInstitutionId});
+  final int tbInstitutionId;
 }
 
 class OrderStockTransferRegisterGetEvent

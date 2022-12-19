@@ -24,8 +24,20 @@ class OrderStockTransferRegisterLoadedState
 class OrderStockTransferAddOrEditOrderState
     extends OrderStockTransferRegisterState {
   OrderStockTransferAddOrEditOrderState({required this.order});
-  final OrderStockTransferRegisterOrderModel order;
+  final OrderStockTransferRegisterOrderModel? order;
 }
 
 class OrderStockTransferRegisterErrorState
     extends OrderStockTransferRegisterState {}
+
+class OrderStockTransferRegisterEntityState
+    extends OrderStockTransferRegisterState {}
+
+class OrderStockTransferRegisterStockErrorState
+    extends OrderStockTransferRegisterState {}
+
+class OrderStockTransferRegisterStockSuccessState
+    extends OrderStockTransferRegisterState {
+  OrderStockTransferRegisterStockSuccessState({required this.stocks});
+  final List<StockListModel> stocks;
+}

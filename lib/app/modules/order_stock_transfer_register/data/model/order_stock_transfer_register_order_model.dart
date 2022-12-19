@@ -20,6 +20,10 @@ class OrderStockTransferRegisterOrderModel {
     required this.items,
   });
 
+  @override
+  String toString() =>
+      '${super.toString()} tbStockListIdOri: ${order.tbStockListIdOri} | tbStockListIdDes: ${order.tbStockListIdDes} | note: ${order.note} | nameEntity: ${order.nameEntity}';
+
   final Order order;
   final List<Item>? items;
 
@@ -52,7 +56,7 @@ class OrderStockTransferRegisterOrderModel {
             : null,
       };
 
-  static formatDate(String date, String typeFormat) {
+  static String formatDate(String date, String typeFormat) {
     try {
       initializeDateFormatting('pt_BR,', null);
       DateTime time = DateTime.parse(date);

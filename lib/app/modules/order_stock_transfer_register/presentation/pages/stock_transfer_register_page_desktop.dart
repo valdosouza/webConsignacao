@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_list_stocks.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_widget.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/stock_transfer_register.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
@@ -45,6 +46,11 @@ class OrderStockTransferRegisterPageDesktopState
         if (state is OrderStockTransferRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
+          );
+        }
+        if (state is OrderStockTransferRegisterStockSuccessState) {
+          return OrderStockTransferRegisterStockListWidget(
+            stocks: state.stocks,
           );
         }
         if (state is OrderStockTransferRegisterLoadedState) {

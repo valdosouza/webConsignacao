@@ -1,13 +1,12 @@
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_situation_widget.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_generic_suffix_field.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_custom_input_button_generic_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
+import 'package:intl/intl.dart';
 
 class OrderStockTransferRegisterDesktop extends StatefulWidget {
   const OrderStockTransferRegisterDesktop({
@@ -28,24 +27,29 @@ class _OrderStockTransferRegisterDesktopState
     with SingleTickerProviderStateMixin {
   OrderStockTransferRegisterOrderModel? orderStock;
 
-  late MaskedTextController controllerDate;
+  TextEditingController dateController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  TextEditingController entityController = TextEditingController();
+  TextEditingController stockOriController = TextEditingController();
+  TextEditingController stockDesController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
 
   @override
   void initState() {
     orderStock = widget.orderStock;
-    String initialValueDate = orderStock?.order.dtRecord == null
-        ? OrderStockTransferRegisterOrderModel.formatDate(
-            DateTime.now().toString(), "dd/MM/yyyy")
-        : orderStock!.order.dtRecord.toString();
-    orderStock?.order.copyWith(dtRecord: DateTime.tryParse(initialValueDate));
-    controllerDate =
-        MaskedTextController(mask: '00/00/0000', text: initialValueDate);
-
     orderStock?.order.copyWith(
       id: orderStock?.order.id == null
           ? widget.bloc.ordersStock.last.order.id + 1
           : orderStock!.order.id,
     );
+    String formattedDate = DateFormat('dd/MM/yyyy')
+        .format(orderStock?.order.dtRecord ?? DateTime.now());
+    dateController.text = formattedDate;
+    numberController.text = orderStock?.order.number.toString() ?? '';
+    entityController.text = orderStock?.order.nameEntity ?? '';
+    stockOriController.text = orderStock?.order.nameStockListOri ?? '';
+    stockDesController.text = orderStock?.order.nameStockListDes ?? '';
+    noteController.text = orderStock?.order.note ?? '';
     super.initState();
   }
 
@@ -60,11 +64,11 @@ class _OrderStockTransferRegisterDesktopState
           OrderStockTransferRegisterState>(
         bloc: widget.bloc,
         listener: (context, state) {
-          if (state is OrderProductionRegisterStockErrorState) {
+          if (state is OrderStockTransferRegisterStockErrorState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
           }
-          if (state is OrderProductionRegisterProductErrorState) {
+          if (state is OrderStockTransferRegisterEntityState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao buscar por produto. Tente novamente mais tarde.");
           }
@@ -99,71 +103,115 @@ class _OrderStockTransferRegisterDesktopState
                     //         model: orderStock))
                     //     : bloc.add(OrderProductionRegisterPostEvent(
                     //         model: orderProduction));
+                    final dateFormat = DateFormat(
+                      'dd/MM/yyyy',
+                    );
+                    final dtRecord = dateFormat.parse(
+                      dateController.text,
+                    );
+
+                    final order = OrderStockTransferRegisterOrderModel(
+                      order: Order(
+                        id: int.tryParse(numberController.text) ?? 0,
+                        tbInstitutionId: 1,
+                        tbUserId: orderStock?.order.tbUserId ?? 0,
+                        tbEntityId: 1,
+                        nameEntity: entityController.text,
+                        tbStockListIdOri: 1,
+                        nameStockListOri: stockOriController.text,
+                        tbStockListIdDes: 1,
+                        nameStockListDes: stockDesController.text,
+                        dtRecord: dtRecord,
+                        number: int.tryParse(numberController.text) ?? 0,
+                        status: 'A',
+                        note: noteController.text,
+                      ),
+                      items: null,
+                    );
+
+                    print(order.toString());
                   },
                 ),
               ],
             ),
             body: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomInput(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomInputButtonGenericWidget(
+                      title: "Data",
+                      controller: dateController,
+                      textInputType: TextInputType.datetime,
+                      textInputAction: TextInputAction.go,
+                    ),
+                    const SizedBox(height: 10),
+                    CustomInputButtonGenericWidget(
                       title: "Número",
-                      initialValue: orderStock?.order.id.toString(),
-                      keyboardType: TextInputType.number,
-                      inputAction: TextInputAction.go,
-                      onChanged: (value) =>
-                          {orderStock?.order.copyWith(id: int.parse(value))}),
-                  const SizedBox(height: 10),
-                  // CustomInputButtonWidget(
-                  //     bloc: bloc,
-                  //     initialValue: orderStock?.nameEntity ?? "",
-                  //     event: OrderProductionRegisterGetProductsEvent(
-                  //       tbInstitutionId: 1,
-                  //     ),
-                  // title: "Descrição do Produto"),
-                  const SizedBox(height: 10),
-                  // CustomInputButtonWidget(
-                  //     bloc: bloc,
-                  //     initialValue: orderStock.order.nameStockListDes,
-                  //     event: OrderProductionRegisterGetStocksEvent(
-                  //         tbInstitutionId: 1),
-                  //     title: "Descrição do estoque"),
-                  const SizedBox(height: 10),
-                  CustomInput(
-                    title: "Data",
-                    controller: controllerDate,
-                    keyboardType: TextInputType.datetime,
-                    inputAction: TextInputAction.go,
-                    onChanged: (value) => {
-                      orderStock?.order.copyWith(
-                        dtRecord:
-                            OrderStockTransferRegisterOrderModel.convertDate(
-                          value,
-                        ),
+                      controller: numberController,
+                      textInputType: TextInputType.number,
+                      textInputAction: TextInputAction.go,
+                    ),
+                    const SizedBox(height: 10),
+                    CustomInputButtonGenericWidget(
+                      controller: entityController,
+                      textInputType: TextInputType.text,
+                      textInputAction: TextInputAction.go,
+                      title: "Entidade",
+                      suffixIcon: OrderStockTransferRegisterGenericSuffixField(
+                        icon: Icons.search,
+                        onPressed: (() {
+                          print('Search Entity');
+                          widget.bloc.add(
+                            const OrderStockTransferGetStocksEvent(
+                              tbInstitutionId: 1,
+                            ),
+                          );
+                        }),
                       ),
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  const Text("Situação", style: kLabelStyle),
-                  const SizedBox(height: 10),
-                  //TODO: criar situacao generica
-                  OrderStockTransferRegisterSituationWidget(
-                    status: orderStock?.order.status ?? 'A',
-                  ),
-                  const SizedBox(height: 10),
-                  CustomInput(
-                    title: "Observações",
-                    maxLines: 10,
-                    initialValue: orderStock?.order.note,
-                    keyboardType: TextInputType.datetime,
-                    inputAction: TextInputAction.go,
-                    onChanged: (value) => {
-                      orderStock?.order.copyWith(note: value),
-                    },
-                  )
-                ],
+                    ),
+                    const SizedBox(height: 10),
+                    CustomInputButtonGenericWidget(
+                      controller: stockOriController,
+                      textInputType: TextInputType.text,
+                      textInputAction: TextInputAction.go,
+                      title: "Estoque de Origem",
+                      suffixIcon: OrderStockTransferRegisterGenericSuffixField(
+                        icon: Icons.search,
+                        onPressed: (() {
+                          print('Search Entity');
+                        }),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    CustomInputButtonGenericWidget(
+                      controller: stockDesController,
+                      textInputType: TextInputType.text,
+                      textInputAction: TextInputAction.go,
+                      title: "Estoque de Destino",
+                      suffixIcon: OrderStockTransferRegisterGenericSuffixField(
+                        icon: Icons.search,
+                        onPressed: (() {
+                          print('Search Entity');
+                          widget.bloc.add(
+                            const OrderStockTransferGetStocksEvent(
+                              tbInstitutionId: 1,
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    CustomInputButtonGenericWidget(
+                      controller: noteController,
+                      title: "Observações",
+                      maxLines: 10,
+                      textInputType: TextInputType.datetime,
+                      textInputAction: TextInputAction.go,
+                    )
+                  ],
+                ),
               ),
             ),
           );

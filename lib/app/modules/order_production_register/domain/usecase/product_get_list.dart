@@ -6,8 +6,7 @@ import 'package:appweb/app/modules/order_production_register/domain/repository/o
 import 'package:dartz/dartz.dart';
 
 class ProductGetlist
-    implements
-        UseCase<List<ProductModel>, ParamsGetlistProduct> {
+    implements UseCase<List<ProductModel>, ParamsGetlistProduct> {
   final OrderProductionRegisterRepository repository;
 
   ProductGetlist({required this.repository});
