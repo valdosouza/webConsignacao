@@ -27,6 +27,18 @@ class CompanyModel extends CompanyEntity {
       indIeDestinatario: json['ind_ie_destinatario'] as String? ?? "",
     );
   }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['cnpj'] =
+        cnpj.replaceAll(".", "").replaceAll("/", "").replaceAll("-", "");
+    data['ie'] = ie;
+    data['iest'] = iest;
+    data['dt_foundation'] = dtFoundation;
+    data['ind_ie_destinatario'] = indIeDestinatario;
+    return data;
+  }
+
   factory CompanyModel.empty() {
     return CompanyModel(
       id: 0,

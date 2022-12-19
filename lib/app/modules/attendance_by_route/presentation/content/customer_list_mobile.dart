@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
 import 'package:flutter/material.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 
@@ -7,7 +7,7 @@ class CustomerListMobile extends StatefulWidget {
     Key? key,
     required this.lista,
   }) : super(key: key);
-  final List<CustomerListModel> lista;
+  final List<CustomerListByRouteModel> lista;
   @override
   State<CustomerListMobile> createState() => SalesRoutListeMobileState();
 }

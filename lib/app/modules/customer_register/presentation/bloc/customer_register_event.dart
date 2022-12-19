@@ -80,3 +80,13 @@ class CustomerRegisterSearchSalesmanEvent extends CustomerRegisterEvent {
     required this.search,
   });
 }
+
+class CustomerRegisterGetSalesRouteEvent extends CustomerRegisterEvent {}
+
+class CustomerRegisterSearchSalesRouteEvent extends CustomerRegisterEvent {
+  String search;
+
+  CustomerRegisterSearchSalesRouteEvent({
+    required this.search,
+  });
+}

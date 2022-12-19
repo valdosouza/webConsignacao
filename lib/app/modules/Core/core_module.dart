@@ -1,17 +1,20 @@
 import 'package:appweb/app/modules/Core/data/datasource/get_cnpj_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_cep_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_cities_datasource.dart';
+import 'package:appweb/app/modules/Core/data/datasource/get_sales_route_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_salesman_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_states_datasource.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_cep_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_cities_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_cnpj_repository_impl.dart';
+import 'package:appweb/app/modules/Core/data/repository/get_sales_route_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_salesman_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_states_repository_impl.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
-import 'package:appweb/app/modules/Core/domain/usecase/get_salesmans.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_sales_route.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_salesman.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -99,8 +102,25 @@ class CoreModule extends Module {
           export: true,
         ),
         Bind.factory(
-          (i) => GetSalesmans(
+          (i) => GetSalesman(
             repository: i.get<GetSalesmanRepositoryImpl>(),
+          ),
+          export: true,
+        ),
+        //Get Sales Route
+        Bind.factory<GetSalesRouteDatasource>(
+          (i) => GetSalesRouteDataSourceImpl(),
+          export: true,
+        ),
+        Bind.factory(
+          (i) => GetSalesRouteRepositoryImpl(
+            datasource: i.get<GetSalesRouteDataSourceImpl>(),
+          ),
+          export: true,
+        ),
+        Bind.factory(
+          (i) => GetSalesRoute(
+            repository: i.get<GetSalesRouteRepositoryImpl>(),
           ),
           export: true,
         ),

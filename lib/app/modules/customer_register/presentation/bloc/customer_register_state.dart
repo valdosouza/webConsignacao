@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
@@ -137,5 +138,19 @@ class CustomerRegisterGetSalesmanSuccessState extends CustomerRegisterState {
 
 class CustomerRegisterGetSalesmanErrorState extends CustomerRegisterState {
   CustomerRegisterGetSalesmanErrorState(List<CustomerListModel> customers)
+      : super(customers: customers);
+}
+
+/*------------------------Getlist - Sales Route-------------------------------*/
+class CustomerRegisterGetSalesRouteSuccessState extends CustomerRegisterState {
+  final List<SalesRouteListModel> salesroute;
+
+  CustomerRegisterGetSalesRouteSuccessState(
+      List<CustomerListModel> customers, this.salesroute)
+      : super(customers: customers);
+}
+
+class CustomerRegisterGetSalesRouteErrorState extends CustomerRegisterState {
+  CustomerRegisterGetSalesRouteErrorState(List<CustomerListModel> customers)
       : super(customers: customers);
 }

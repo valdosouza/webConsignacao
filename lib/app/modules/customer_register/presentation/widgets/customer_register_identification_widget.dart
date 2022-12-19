@@ -158,6 +158,7 @@ class _CustomerRegisterIdentificationWidgetState
           ),
           validator: (value) => Validators.validateCNPJ(value),
           onChanged: (value) {
+            widget.customer?.person?.cpf = "";
             widget.customer?.company?.cnpj = value;
           },
         ),
@@ -204,6 +205,7 @@ class _CustomerRegisterIdentificationWidgetState
           keyboardType: TextInputType.number,
           inputAction: TextInputAction.next,
           onChanged: (value) {
+            widget.customer?.company?.cnpj = "";
             widget.customer?.person?.cpf = value;
           },
         ),

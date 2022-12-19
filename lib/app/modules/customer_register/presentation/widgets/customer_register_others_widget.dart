@@ -117,6 +117,52 @@ class _CustomerRegisterOthersWidgetState
                   )),
             ],
           ),
+          const SizedBox(height: 30.0),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Rota de Venda",
+                style: kLabelStyle,
+              ),
+              const SizedBox(height: 10.0),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: kBoxDecorationStyle,
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            widget.customer?.customer.salesRouteName ?? "",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'OpenSans',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          hoverColor: Colors.transparent,
+                          onPressed: () {
+                            widget.bloc
+                                .add(CustomerRegisterGetSalesRouteEvent());
+                          },
+                          icon: const Icon(
+                            Icons.search,
+                            size: 20.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+            ],
+          ),
         ],
       ),
     );

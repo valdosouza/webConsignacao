@@ -1,8 +1,8 @@
 import 'package:appweb/app/core/shared/page_404.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
 import 'package:appweb/app/modules/attendance_by_route/attendance_by_route_module.dart';
+import 'package:appweb/app/modules/attendance_by_salesman/attendance_by_salesman_module.dart';
 import 'package:appweb/app/modules/attendance_register/attendance_register_module.dart';
-import 'package:appweb/app/modules/attendance_salesman/attendance_salesman_module.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/cashier/cashier_module.dart';
 import 'package:appweb/app/modules/customer/customer_module.dart';
@@ -42,7 +42,8 @@ class AppModule extends Module {
         ModuleRoute('/resourcehuman', module: ResourceHumanModule()),
         ModuleRoute('/customerregister', module: CustomerRegisterModule()),
         ModuleRoute('/attendancesalesroute', module: AttendanceByRouteModule()),
-        ModuleRoute('/attendancesalesman', module: AttendanceSalesmanModule()),
+        ModuleRoute('/attendancesalesman',
+            module: AttendanceBySalesmanModule()),
         ModuleRoute('/orderproduction', module: OrderProductionModule()),
         ModuleRoute('/cashier', module: CashierModule()),
         ModuleRoute('/attendance', module: AttendanceRegisterModule()),

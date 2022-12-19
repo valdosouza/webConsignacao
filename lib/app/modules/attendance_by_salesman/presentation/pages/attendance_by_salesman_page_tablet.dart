@@ -1,23 +1,23 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/attendance_by_route/attendance_by_route_module.dart';
+import 'package:appweb/app/modules/attendance_by_salesman/attendance_by_salesman_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AttendanceSalesmanPageDesktop extends StatefulWidget {
-  const AttendanceSalesmanPageDesktop({super.key});
+class AttendanceBySalesmanPageTablet extends StatefulWidget {
+  const AttendanceBySalesmanPageTablet({super.key});
 
   @override
-  State<AttendanceSalesmanPageDesktop> createState() =>
-      AttendanceSalesmanPageDesktopState();
+  State<AttendanceBySalesmanPageTablet> createState() =>
+      AttendanceBySalesmanPageTabletState();
 }
 
-class AttendanceSalesmanPageDesktopState
-    extends State<AttendanceSalesmanPageDesktop> {
+class AttendanceBySalesmanPageTabletState
+    extends State<AttendanceBySalesmanPageTablet> {
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceByRouteModule>();
+      await Modular.isModuleReady<AttendanceBySalesmanModule>();
     });
   }
 
@@ -34,7 +34,7 @@ class AttendanceSalesmanPageDesktopState
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: const Text("Atendimento por Vendedor - Desktop"),
+        child: const Text("Atendimento por Vendedor - Tablet"),
       ),
     );
   }

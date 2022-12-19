@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 
 abstract class CustomerRegisterDataSource {
   Future<List<CustomerListModel>> getList({required int tbInstitutionId});
-  Future<CustomerMainModel> get({required int id});
+  Future<CustomerMainModel> get(
+      {required int tbInstitutionId, required int id});
   Future<CustomerMainModel> post({required CustomerMainModel customer});
 }
 
@@ -25,6 +26,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+
         items = (data as List).map((json) {
           return CustomerListModel.fromJson(json);
         }).toList();
@@ -39,9 +41,10 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   }
 
   @override
-  Future<CustomerMainModel> get({required int id}) async {
+  Future<CustomerMainModel> get(
+      {required int tbInstitutionId, required int id}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}customer/$id');
+      final uri = Uri.parse('${baseApiUrl}customer/get/$tbInstitutionId/$id');
 
       final response = await client.get(uri);
 

@@ -24,6 +24,7 @@ class CustomerRegisterAddressWidget extends StatefulWidget {
 class _CustomerRegisterAddressWidgetState
     extends State<CustomerRegisterAddressWidget> {
   var stateId = "";
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

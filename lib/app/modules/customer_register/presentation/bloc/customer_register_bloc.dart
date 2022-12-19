@@ -1,11 +1,13 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
-import 'package:appweb/app/modules/Core/domain/usecase/get_salesmans.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_sales_route.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_salesman.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get.dart';
@@ -24,13 +26,15 @@ class CustomerRegisterBloc
   final GetStates getStates;
   final CustomerRegisterGet getCustomer;
   final CustomerRegisterPost postCustomer;
-  final GetSalesmans getSalesmans;
+  final GetSalesman getSalesmans;
+  final GetSalesRoute getSalesRoute;
 
   List<CustomerListModel> customers = [];
   CustomerMainModel customer = CustomerMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> cities = [];
   List<SalesmanListModel> salesmans = [];
+  List<SalesRouteListModel> salesRoute = [];
 
   CustomerRegisterBloc({
     required this.getlist,
@@ -41,6 +45,7 @@ class CustomerRegisterBloc
     required this.getCustomer,
     required this.postCustomer,
     required this.getSalesmans,
+    required this.getSalesRoute,
   }) : super(CustomerRegisterLoadingState()) {
     getList();
 
@@ -67,6 +72,10 @@ class CustomerRegisterBloc
     getSalesmansAction();
 
     searchSalesmans();
+
+    getSalesRouteAction();
+
+    searchSalesRoute();
 
     on<CustomerRegisterReturnEvent>((event, emit) => emit(
         CustomerRegisterInfoPageState(
@@ -101,18 +110,7 @@ class CustomerRegisterBloc
           (l) => event.model.customer.id != 0
               ? emit(CustomerRegisterPostErrorState(customers, ""))
               : emit(CustomerRegisterPutErrorState(customers, "")), (r) {
-        if (event.model.customer.id != 0) {
-          emit(CustomerRegisterPostSuccessState(customers));
-        } else {
-          customers.add(CustomerListModel(
-            id: r.customer.id,
-            docKind: r.person != null ? "F" : "J",
-            docNumber: r.person != null ? r.person!.cpf : r.company!.cnpj,
-            nameCompany: r.entity.nameCompany,
-            nickTrade: r.entity.nickTrade,
-          ));
-          emit(CustomerRegisterPostSuccessState(customers));
-        }
+        emit(CustomerRegisterPostSuccessState(customers));
       });
     });
   }
@@ -159,8 +157,8 @@ class CustomerRegisterBloc
       if (event.id != null) {
         emit(CustomerRegisterLoadingState());
 
-        final response =
-            await getCustomer.call(ParamsGetCustomer(id: event.id!));
+        final response = await getCustomer
+            .call(ParamsGetCustomer(tbInstitutionId: 1, id: event.id!));
 
         response.fold(
             (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
@@ -181,8 +179,8 @@ class CustomerRegisterBloc
       if (event.id != null) {
         emit(CustomerRegisterLoadingState());
 
-        final response =
-            await getCustomer.call(ParamsGetCustomer(id: event.id!));
+        final response = await getCustomer
+            .call(ParamsGetCustomer(tbInstitutionId: 1, id: event.id!));
 
         response.fold(
             (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
@@ -204,8 +202,11 @@ class CustomerRegisterBloc
 
       final response = await getCnpj.call(ParamsCnpj(cnpj: event.cnpj));
 
-      response.fold((l) => emit(CustomerRegisterCnpjErrorState(customers, "")),
-          (r) {
+      response.fold((l) {
+        emit(CustomerRegisterCnpjErrorState(customers, ""));
+        emit(CustomerRegisterInfoPageState(
+            customers: customers, model: customer, tabIndex: 0));
+      }, (r) {
         customer.address.zipCode =
             r.zipCode.replaceAll("-", "").replaceAll(".", "");
         customer.entity.nickTrade = r.nickTtrade;
@@ -219,6 +220,7 @@ class CustomerRegisterBloc
         customer.address.tbCityId = r.tbCityId;
         customer.address.stateName = r.stateName;
         customer.address.tbStateId = r.tbStateId;
+        customer.address.kind = r.kind;
         emit(CustomerRegisterInfoPageState(
             customers: customers, model: customer, tabIndex: 0));
       });
@@ -231,8 +233,11 @@ class CustomerRegisterBloc
 
       final response = await getCep.call(ParamsCep(cep: event.cep));
 
-      response.fold((l) => emit(CustomerRegisterCepErrorState(customers, "")),
-          (r) {
+      response.fold((l) {
+        emit(CustomerRegisterCepErrorState(customers, ""));
+        emit(CustomerRegisterInfoPageState(
+            customers: customers, model: customer, tabIndex: 1));
+      }, (r) {
         customer.address.zipCode = r.zipCode.replaceAll("-", "");
         customer.address.street = r.street;
         customer.address.complement = r.complement;
@@ -241,6 +246,8 @@ class CustomerRegisterBloc
         customer.address.tbStateId = r.tbStateId;
         customer.address.cityName = r.cityName;
         customer.address.tbCityId = r.tbCityId;
+        customer.address.kind = "Comercial";
+        customer.address.tbCountryId = 1058;
         emit(CustomerRegisterInfoPageState(
             customers: customers, model: customer, tabIndex: 1));
       });
@@ -350,6 +357,40 @@ class CustomerRegisterBloc
             customers, salesmanSearched));
       } else {
         emit(CustomerRegisterGetSalesmanSuccessState(customers, salesmans));
+      }
+    });
+  }
+
+  getSalesRouteAction() {
+    on<CustomerRegisterGetSalesRouteEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
+
+      var response =
+          await getSalesRoute.call(ParamsSalesRouteListGet(tbInstitutionId: 1));
+
+      response.fold(
+          (l) => emit(CustomerRegisterGetSalesRouteErrorState(customers)), (r) {
+        salesRoute = r;
+        emit(CustomerRegisterGetSalesRouteSuccessState(customers, r));
+      });
+    });
+  }
+
+  searchSalesRoute() {
+    on<CustomerRegisterSearchSalesRouteEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var salesRouteSearched = salesRoute.where((element) {
+          String name = element.description;
+          return name
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim());
+        }).toList();
+        if (salesRouteSearched.isEmpty) {}
+        emit(CustomerRegisterGetSalesRouteSuccessState(
+            customers, salesRouteSearched));
+      } else {
+        emit(CustomerRegisterGetSalesRouteSuccessState(customers, salesRoute));
       }
     });
   }

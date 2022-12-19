@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
 import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
 
 abstract class AttendanceByRouteState {}
@@ -27,7 +27,7 @@ class SalesRouteListErrorState extends SalesRouteListState {
 
 /*----------------------------------------------------------------------------*/
 class CustomerListState extends AttendanceByRouteState {
-  List<CustomerListModel> customerList;
+  List<CustomerListByRouteModel> customerList;
   CustomerListState({
     required this.customerList,
   });
@@ -38,11 +38,12 @@ class CustomerListLoadingState extends CustomerListState {
 }
 
 class CustomerListLoadedState extends CustomerListState {
-  CustomerListLoadedState({required List<CustomerListModel> customerList})
+  CustomerListLoadedState(
+      {required List<CustomerListByRouteModel> customerList})
       : super(customerList: customerList);
 }
 
 class CustomerListErrorState extends CustomerListState {
-  CustomerListErrorState({required List<CustomerListModel> customerList})
+  CustomerListErrorState({required List<CustomerListByRouteModel> customerList})
       : super(customerList: customerList);
 }

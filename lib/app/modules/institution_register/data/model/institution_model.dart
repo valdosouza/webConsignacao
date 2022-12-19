@@ -187,7 +187,7 @@ class InstitutionModel extends InstitutionEntity {
       complement: "",
       neighborhood: "",
       region: "",
-      addressKind: "",
+      addressKind: "Comercial",
       zipCode: "",
       tbCountryId: 1058,
       nameCountry: "Brasil",
@@ -198,7 +198,7 @@ class InstitutionModel extends InstitutionEntity {
       main: "",
       longitude: "",
       latitude: "",
-      phoneKind: "",
+      phoneKind: "Comercial",
       phoneNumber: "",
     );
   }

@@ -4,9 +4,6 @@ class CustomerListEntity {
   String nickTrade;
   String docKind;
   String docNumber;
-  int tbSalesRouteIid;
-  String nameSalesRoute;
-  int sequence;
 
   CustomerListEntity({
     this.id = 0,
@@ -14,8 +11,5 @@ class CustomerListEntity {
     this.nickTrade = "",
     this.docKind = "",
     this.docNumber = "",
-    this.tbSalesRouteIid = 0,
-    this.nameSalesRoute = "",
-    this.sequence = 0,
   });
 }

@@ -16,6 +16,7 @@ class IdentificationCompanyEntity extends Equatable {
   String stateName;
   int tbCityId;
   String cityName;
+  String kind;
 
   IdentificationCompanyEntity({
     this.cnpj = "",
@@ -32,6 +33,7 @@ class IdentificationCompanyEntity extends Equatable {
     this.stateName = "",
     this.tbCityId = 0,
     this.cityName = "",
+    this.kind = "Comercial",
   });
 
   @override

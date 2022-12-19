@@ -17,6 +17,7 @@ class IdentificationCompanyModel extends IdentificationCompanyEntity {
     String? stateName,
     int? tbCityId,
     String? cityName,
+    String? kind,
   }) : super(
           cnpj: cnpj ?? "",
           nickTtrade: nickTrade ?? "",
@@ -32,6 +33,7 @@ class IdentificationCompanyModel extends IdentificationCompanyEntity {
           stateName: stateName ?? "",
           tbCityId: tbCityId ?? 0,
           cityName: cityName ?? "",
+          kind: "Comercial",
         );
 
   factory IdentificationCompanyModel.fromJson(Map<String, dynamic> json) {
@@ -50,6 +52,7 @@ class IdentificationCompanyModel extends IdentificationCompanyEntity {
       stateName: json['uf'] as String? ?? "",
       tbCityId: json['tb_city_id'] as int? ?? 0,
       cityName: json['municipio'] as String? ?? "",
+      kind: "Comercial",
     );
   }
 }

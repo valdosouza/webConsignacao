@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +13,7 @@ class AttendanceByRouteBloc
   final CustomerGetlist getlistCustomer;
 
   List<SalesRouteListModel> saleroutlist = [];
-  List<CustomerListModel> customerlist = [];
+  List<CustomerListByRouteModel> customerlist = [];
 
   AttendanceByRouteBloc({
     required this.getlistSalesRoute,

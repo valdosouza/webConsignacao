@@ -32,6 +32,19 @@ class PersonModel extends PersonEntity {
       tbProfessionId: json['tb_profession_id'] as int? ?? 0,
     );
   }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['cpf'] = cpf.replaceAll(".", "").replaceAll("-", "");
+    data['rg'] = rg;
+    data['rg_dt_emission'] = rgDtEmission;
+    data['rg_organ_issuer'] = rgOrganIssuer;
+    data['rg_state_issuer'] = 0;
+    data['birthday'] = birthday;
+    data['tb_profession_id'] = 0;
+    return data;
+  }
+
   factory PersonModel.empty() {
     return PersonModel(
       id: 0,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ContentTabletAttendanceSalesman extends StatelessWidget {
-  const ContentTabletAttendanceSalesman({super.key});
+class ContentAttendanceSalesmanTablet extends StatelessWidget {
+  const ContentAttendanceSalesmanTablet({super.key});
 
   @override
   Widget build(BuildContext context) {

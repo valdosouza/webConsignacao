@@ -93,6 +93,7 @@ class _ContentCustomerRegisterMobileState
                   ),
                   onPressed: () {
                     bloc.add(CustomerRegisterPostEvent(model: bloc.customer));
+                    Modular.to.navigate('/attendancesalesman/mobile/');
                   },
                 ),
               ],

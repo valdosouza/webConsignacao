@@ -1,5 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/attendance_salesman/attendance_salesman_module.dart';
+import 'package:appweb/app/modules/attendance_by_salesman/attendance_by_salesman_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -17,7 +17,7 @@ class AttendanceRegisterPageTabletState
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceSalesmanModule>();
+      await Modular.isModuleReady<AttendanceBySalesmanModule>();
     });
   }
 
