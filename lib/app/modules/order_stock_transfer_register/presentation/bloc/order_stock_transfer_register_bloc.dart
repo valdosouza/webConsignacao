@@ -22,11 +22,11 @@ class OrderStockTransferRegisterBloc extends Bloc<
   OrderStockTransferRegisterSearch typeSearch =
       OrderStockTransferRegisterSearch.date;
 
-  List<OrderStockTransferRegisterOrderModel> _ordersStock = [];
-  OrderStockTransferRegisterOrderModel? _orderStock;
   StockListModel? _oriStock;
   StockListModel? _desStock;
   CustomerListModel? _customer;
+  OrderStockTransferRegisterOrderModel? _orderStock;
+  List<OrderStockTransferRegisterOrderModel> _ordersStock = [];
   List<OrderStockTransferRegisterOrderModel> get ordersStock => _ordersStock;
   OrderStockTransferRegisterOrderModel? get orderStock => _orderStock;
   List<StockListModel> stockList = [];
@@ -46,7 +46,17 @@ class OrderStockTransferRegisterBloc extends Bloc<
     on<OrderStockTransferSearchEvent>(searchInOrders);
     on<OrderStockTransferRegisterStockOriEvent>(setStocksOri);
     on<OrderStockTransferRegisterStockDesEvent>(setStocksDes);
+    on<OrderStockTransferSelectedEntitiesEvent>(setEntity);
   }
+  void setEntity(
+    OrderStockTransferSelectedEntitiesEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) {
+    emit(OrderStockTransferRegisterLoadingState());
+    _customer = event.entity;
+    emit(OrderStockTransferRegisterEntitiesSuccessState(entity: event.entity));
+  }
+
   void getEntities(
     OrderStockTransferGetEntitiesEvent event,
     Emitter<OrderStockTransferRegisterState> emit,
@@ -59,7 +69,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     );
     response.fold((l) => emit(OrderStockTransferRegisterErrorState()), (r) {
       customerList = r;
-      emit(OrderStockTransferRegisterEntitiesSuccessState(entities: r));
+      emit(OrderStockTransferRegisterEntitiesState(entities: r));
     });
   }
 
@@ -114,6 +124,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     _oriStock = null;
     _desStock = null;
     _ordersStock = [];
+    _orderStock = null;
     _customer = null;
     var response = await getlistOrderStock
         .call(ParamsGetlistOrderStockTransferRegister(id: 1));
@@ -140,33 +151,27 @@ class OrderStockTransferRegisterBloc extends Bloc<
       (l) => emit(OrderStockTransferRegisterErrorState()),
       (r) {
         _orderStock = r;
-        _oriStock = event.stockOri ?? _oriStock;
-        _desStock = event.stockDes ?? _desStock;
-        _customer = event.entity ?? _customer;
-        emit(
-          OrderStockTransferAddOrEditOrderState(
-            order: OrderStockTransferRegisterOrderModel(
-              order: Order(
-                id: r.order.id,
-                tbInstitutionId: r.order.tbInstitutionId,
-                tbUserId: r.order.tbUserId,
-                tbEntityId: _customer?.id ?? r.order.tbEntityId,
-                nameEntity: _customer?.nameCompany ?? r.order.nameEntity,
-                tbStockListIdOri: _oriStock?.id ?? r.order.tbStockListIdOri,
-                nameStockListOri:
-                    _oriStock?.description ?? r.order.nameStockListOri,
-                tbStockListIdDes: _desStock?.id ?? r.order.tbStockListIdDes,
-                nameStockListDes:
-                    _desStock?.description ?? r.order.nameStockListDes,
-                dtRecord: r.order.dtRecord,
-                number: r.order.number,
-                status: r.order.status,
-                note: r.order.note,
-              ),
-              items: r.items,
-            ),
+        _orderStock = OrderStockTransferRegisterOrderModel(
+          order: Order(
+            id: r.order.id,
+            tbInstitutionId: r.order.tbInstitutionId,
+            tbUserId: r.order.tbUserId,
+            tbEntityId: _customer?.id ?? r.order.tbEntityId,
+            nameEntity: _customer?.nameCompany ?? r.order.nameEntity,
+            tbStockListIdOri: _oriStock?.id ?? r.order.tbStockListIdOri,
+            nameStockListOri:
+                _oriStock?.description ?? r.order.nameStockListOri,
+            tbStockListIdDes: _desStock?.id ?? r.order.tbStockListIdDes,
+            nameStockListDes:
+                _desStock?.description ?? r.order.nameStockListDes,
+            dtRecord: r.order.dtRecord,
+            number: r.order.number,
+            status: r.order.status,
+            note: r.order.note,
           ),
+          items: r.items,
         );
+        emit(OrderStockTransferAddOrEditOrderState(order: _orderStock));
       },
     );
   }
@@ -176,6 +181,12 @@ class OrderStockTransferRegisterBloc extends Bloc<
     Emitter<OrderStockTransferRegisterState> emit,
   ) async {
     emit(OrderStockTransferRegisterLoadingState());
+    // _oriStock = null;
+    // _desStock = null;
+    // _ordersStock = [];
+    // _orderStock = null;
+    // _customer = null;
+
     emit(OrderStockTransferAddOrEditOrderState(order: null));
   }
 
@@ -195,7 +206,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
       (r) {
         stockList = r;
         emit(
-          OrderStockTransferRegisterStockSuccessState(
+          OrderStockTransferRegisterStockState(
             stocks: r,
             type: event.type,
           ),
@@ -203,32 +214,32 @@ class OrderStockTransferRegisterBloc extends Bloc<
       },
     );
   }
-}
 
-void setStocksOri(
-  OrderStockTransferRegisterStockOriEvent event,
-  Emitter<OrderStockTransferRegisterState> emit,
-) async {
-  emit(OrderStockTransferRegisterLoadingState());
+  void setStocksOri(
+    OrderStockTransferRegisterStockOriEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    // emit(OrderStockTransferRegisterLoadingState());
+    _oriStock = event.stock;
+    emit(
+      OrderStockTransferRegisterStockSuccessState(
+        stock: event.stock,
+        // orderId: event.orderId,
+      ),
+    );
+  }
 
-  emit(
-    OrderStockTransferRegisterStockOriSuccessState(
-      stock: event.stock,
-      // orderId: event.orderId,
-    ),
-  );
-}
-
-void setStocksDes(
-  OrderStockTransferRegisterStockDesEvent event,
-  Emitter<OrderStockTransferRegisterState> emit,
-) async {
-  emit(OrderStockTransferRegisterLoadingState());
-
-  emit(
-    OrderStockTransferRegisterStockDesSuccessState(
-      stock: event.stock,
-      // orderId: event.orderId,
-    ),
-  );
+  void setStocksDes(
+    OrderStockTransferRegisterStockDesEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    emit(OrderStockTransferRegisterLoadingState());
+    _desStock = event.stock;
+    emit(
+      OrderStockTransferRegisterStockSuccessState(
+        stock: event.stock,
+        // orderId: event.orderId,
+      ),
+    );
+  }
 }

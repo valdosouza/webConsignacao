@@ -21,18 +21,32 @@ class OrderStockTransferRegisterOrderModel {
   });
 
   @override
-  String toString() =>
-      '${super.toString()} tbStockListIdOri: ${order.tbStockListIdOri} | tbStockListIdDes: ${order.tbStockListIdDes} | note: ${order.note} | nameEntity: ${order.nameEntity}';
+  String toString() => '''
+${super.toString()} 
+id:${order.id}
+tbInstitutionId:${order.tbInstitutionId}
+tbUserId:${order.tbUserId}
+tbEntityId:${order.tbEntityId}
+nameEntity:${order.nameEntity}
+tbStockListIdOri:${order.tbStockListIdOri}
+nameStockListOri:${order.nameStockListOri}
+tbStockListIdDes:${order.tbStockListIdDes}
+nameStockListDes:${order.nameStockListDes}
+dtRecord:${order.dtRecord}
+number:${order.number}
+status:${order.status}
+note:${order.note}
+''';
 
   final Order order;
   final List<Item>? items;
 
   OrderStockTransferRegisterOrderModel copyWith({
-    required Order order,
+    Order? order,
     List<Item>? items,
   }) =>
       OrderStockTransferRegisterOrderModel(
-        order: order,
+        order: order ?? this.order,
         items: items ?? this.items,
       );
 
@@ -141,19 +155,19 @@ class Order {
     required this.note,
   });
 
-  final int id;
-  final int tbInstitutionId;
-  final int tbUserId;
-  final int tbEntityId;
-  final String nameEntity;
-  final int tbStockListIdOri;
-  final String nameStockListOri;
-  final int tbStockListIdDes;
-  final String nameStockListDes;
-  final DateTime dtRecord;
-  final int number;
-  final String status;
-  final String note;
+  int id;
+  int tbInstitutionId;
+  int tbUserId;
+  int tbEntityId;
+  String nameEntity;
+  int tbStockListIdOri;
+  String nameStockListOri;
+  int tbStockListIdDes;
+  String nameStockListDes;
+  DateTime dtRecord;
+  int number;
+  String status;
+  String note;
 
   Order copyWith({
     int? id,

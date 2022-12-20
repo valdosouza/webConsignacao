@@ -4,7 +4,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bl
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_customer_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_list_stocks.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_widget.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/stock_transfer_register.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/stock_transfer_register_order.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +37,7 @@ class OrderStockTransferRegisterPageDesktopState
         OrderStockTransferRegisterState>(
       bloc: bloc,
       builder: (context, state) {
+        print(state);
         if (state is OrderStockTransferRegisterErrorState) {
           CustomToast.showToast(
               "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
@@ -48,37 +49,44 @@ class OrderStockTransferRegisterPageDesktopState
             child: CircularProgressIndicator(),
           );
         } else if (state is OrderStockTransferRegisterEntitiesSuccessState) {
+          bloc.add(
+            OrderStockTransferRegisterGetEvent(
+              id: bloc.orderStock!.order.id,
+            ),
+          );
+        } else if (state is OrderStockTransferRegisterEntitiesState) {
           return OrderStockCustomerList(
             customers: state.entities,
             onClickItem: (entitySelected) {
-              bloc.add(
-                OrderStockTransferRegisterGetEvent(
-                  id: bloc.orderStock!.order.id,
-                  entity: entitySelected,
-                ),
-              );
+              if (bloc.orderStock?.order.id != null) {
+                bloc.add(
+                  OrderStockTransferSelectedEntitiesEvent(
+                    entity: entitySelected,
+                  ),
+                );
+              } else {
+                bloc.add(
+                  OrderStockTransferNewRegisterEvent(),
+                );
+              }
             },
           );
-        } else if (state is OrderStockTransferRegisterStockOriSuccessState) {
-          bloc.add(
-            OrderStockTransferRegisterGetEvent(
-              id: bloc.orderStock!.order.id,
-              stockOri: state.stock,
-            ),
-          );
-          return const CircularProgressIndicator();
-        } else if (state is OrderStockTransferRegisterStockDesSuccessState) {
-          bloc.add(
-            OrderStockTransferRegisterGetEvent(
-              id: bloc.orderStock!.order.id,
-              stockDes: state.stock,
-            ),
-          );
-          return const CircularProgressIndicator();
         } else if (state is OrderStockTransferRegisterStockSuccessState) {
+          if (bloc.orderStock?.order.id != null) {
+            bloc.add(
+              OrderStockTransferRegisterGetEvent(
+                id: bloc.orderStock!.order.id,
+              ),
+            );
+          } else {
+            bloc.add(
+              OrderStockTransferNewRegisterEvent(),
+            );
+          }
+        } else if (state is OrderStockTransferRegisterStockState) {
           return OrderStockTransferRegisterStockListWidget(
-            stocks: state.stocks,
-            onClickItem: ((stockSelected) {
+            stocks: bloc.stockList,
+            onClickItem: (stockSelected) {
               bloc.add(
                 state.type == OrderStockTransferRegisterStockType.ori
                     ? OrderStockTransferRegisterStockOriEvent(
@@ -90,7 +98,7 @@ class OrderStockTransferRegisterPageDesktopState
                         // orderId: 1,
                       ),
               );
-            }),
+            },
             // searchFunction: (a) => bloc.add(
             //   OrderStockTransferRegisterGetListEvent(),
             // ),

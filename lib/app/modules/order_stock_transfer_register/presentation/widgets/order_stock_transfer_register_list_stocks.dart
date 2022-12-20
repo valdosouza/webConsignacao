@@ -39,9 +39,9 @@ class OrderStockTransferRegisterStockListWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SearchWidget(
-              onChange: (value) => searchFunction?.call(value),
-            ),
+            // SearchWidget(
+            //   onChange: (value) => searchFunction?.call(value),
+            // ),
             const SizedBox(height: 5.0),
             Expanded(
               child: stocks.isEmpty

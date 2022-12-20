@@ -26,14 +26,8 @@ class OrderStockTransferRegisterGetEvent
     extends OrderStockTransferRegisterEvent {
   const OrderStockTransferRegisterGetEvent({
     required this.id,
-    this.stockOri,
-    this.stockDes,
-    this.entity,
   });
   final int id;
-  final StockListModel? stockOri;
-  final StockListModel? stockDes;
-  final CustomerListModel? entity;
 }
 
 class OrderStockTransferGetStocksEvent extends OrderStockTransferRegisterEvent {

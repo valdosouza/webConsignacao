@@ -36,9 +36,9 @@ class OrderStockTransferRegisterEntityState
 class OrderStockTransferRegisterStockErrorState
     extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterStockSuccessState
+class OrderStockTransferRegisterStockState
     extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterStockSuccessState({
+  OrderStockTransferRegisterStockState({
     required this.stocks,
     required this.type,
   });
@@ -49,27 +49,25 @@ class OrderStockTransferRegisterStockSuccessState
 class OrderStockTransferRegisterEntitiesErrorState
     extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterEntitiesSuccessState
+class OrderStockTransferRegisterEntitiesState
     extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterEntitiesSuccessState({
+  OrderStockTransferRegisterEntitiesState({
     required this.entities,
   });
   final List<CustomerListModel> entities;
 }
 
-class OrderStockTransferRegisterStockOriSuccessState
+class OrderStockTransferRegisterEntitiesSuccessState
     extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterStockOriSuccessState({
-    required this.stock,
-    // required this.orderId,
+  OrderStockTransferRegisterEntitiesSuccessState({
+    required this.entity,
   });
-  final StockListModel stock;
-  // final int? orderId;
+  final CustomerListModel entity;
 }
 
-class OrderStockTransferRegisterStockDesSuccessState
+class OrderStockTransferRegisterStockSuccessState
     extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterStockDesSuccessState({
+  OrderStockTransferRegisterStockSuccessState({
     required this.stock,
     // required this.orderId,
   });

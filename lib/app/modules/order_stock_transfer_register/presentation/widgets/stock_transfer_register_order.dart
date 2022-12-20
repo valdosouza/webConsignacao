@@ -1,3 +1,5 @@
+import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
@@ -5,8 +7,6 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/wi
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_custom_input_button_generic_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:intl/intl.dart';
 
 class OrderStockTransferRegisterDesktop extends StatefulWidget {
@@ -26,8 +26,6 @@ class OrderStockTransferRegisterDesktop extends StatefulWidget {
 class _OrderStockTransferRegisterDesktopState
     extends State<OrderStockTransferRegisterDesktop>
     with SingleTickerProviderStateMixin {
-  OrderStockTransferRegisterOrderModel? orderStock;
-
   TextEditingController dateController = TextEditingController();
   TextEditingController numberController = TextEditingController();
   TextEditingController entityController = TextEditingController();
@@ -37,21 +35,20 @@ class _OrderStockTransferRegisterDesktopState
 
   @override
   void initState() {
-    orderStock = widget.orderStock;
-    orderStock?.order.copyWith(
-      id: orderStock?.order.id == null
+    super.initState();
+    widget.orderStock?.order.copyWith(
+      id: widget.orderStock?.order.id == null
           ? widget.bloc.ordersStock.last.order.id + 1
-          : orderStock!.order.id,
+          : widget.orderStock!.order.id,
     );
     String formattedDate = DateFormat('dd/MM/yyyy')
-        .format(orderStock?.order.dtRecord ?? DateTime.now());
+        .format(widget.orderStock?.order.dtRecord ?? DateTime.now());
     dateController.text = formattedDate;
-    numberController.text = orderStock?.order.number.toString() ?? '';
-    entityController.text = orderStock?.order.nameEntity ?? '';
-    stockOriController.text = orderStock?.order.nameStockListOri ?? '';
-    stockDesController.text = orderStock?.order.nameStockListDes ?? '';
-    noteController.text = orderStock?.order.note ?? '';
-    super.initState();
+    numberController.text = widget.orderStock?.order.number.toString() ?? '';
+    entityController.text = widget.orderStock?.order.nameEntity ?? '';
+    stockOriController.text = widget.orderStock?.order.nameStockListOri ?? '';
+    stockDesController.text = widget.orderStock?.order.nameStockListDes ?? '';
+    noteController.text = widget.orderStock?.order.note ?? '';
   }
 
   @override
@@ -84,7 +81,7 @@ class _OrderStockTransferRegisterDesktopState
               },
             ),
             title: Text(
-              orderStock == null
+              widget.orderStock == null
                   ? "Adicionar Ordem de Transferencia de Estoque"
                   : "Editar Ordem de Transferencia de Estoque",
               style: kHintTextStyle.copyWith(fontSize: 20.0),
@@ -108,26 +105,26 @@ class _OrderStockTransferRegisterDesktopState
                     dateController.text,
                   );
 
-                  if (orderStock != null) {
-                    final order = orderStock!.order;
-                    widget.bloc.orderStock!.copyWith(
+                  if (widget.orderStock != null) {
+                    final order = widget.orderStock!.order;
+                    final a = widget.bloc.orderStock!.copyWith(
                       order: Order(
                         id: order.id,
-                        tbInstitutionId: order.tbInstitutionId,
+                        tbInstitutionId: 1,
                         tbUserId: order.tbUserId,
                         tbEntityId: order.tbEntityId,
-                        nameEntity: order.nameEntity,
+                        nameEntity: entityController.text,
                         tbStockListIdOri: order.tbStockListIdOri,
-                        nameStockListOri: order.nameStockListOri,
+                        nameStockListOri: stockOriController.text,
                         tbStockListIdDes: order.tbStockListIdDes,
-                        nameStockListDes: order.nameStockListDes,
+                        nameStockListDes: stockDesController.text,
                         dtRecord: order.dtRecord,
-                        number: order.number,
+                        number: int.tryParse(numberController.text) ?? 0,
                         status: order.status,
-                        note: order.note,
+                        note: noteController.text,
                       ),
                     );
-                    print(order.toString());
+                    print(a.toString());
                   }
                 },
               ),
