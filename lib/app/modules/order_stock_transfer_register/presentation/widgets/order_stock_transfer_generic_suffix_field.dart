@@ -13,9 +13,7 @@ class OrderStockTransferRegisterGenericSuffixField extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       hoverColor: Colors.transparent,
-      onPressed: () {
-        onPressed?.call();
-      },
+      onPressed: () => onPressed?.call(),
       icon: Icon(
         icon,
         size: 20.0,

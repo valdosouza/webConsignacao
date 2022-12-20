@@ -22,13 +22,60 @@ class OrderStockTransferSearchEvent extends OrderStockTransferRegisterEvent {
 class OrderStockTransferNewRegisterEvent
     extends OrderStockTransferRegisterEvent {}
 
-class OrderStockTransferGetStocksEvent extends OrderStockTransferRegisterEvent {
-  const OrderStockTransferGetStocksEvent({required this.tbInstitutionId});
-  final int tbInstitutionId;
-}
-
 class OrderStockTransferRegisterGetEvent
     extends OrderStockTransferRegisterEvent {
-  const OrderStockTransferRegisterGetEvent({required this.newIndex});
-  final int newIndex;
+  const OrderStockTransferRegisterGetEvent({
+    required this.id,
+    this.stockOri,
+    this.stockDes,
+    this.entity,
+  });
+  final int id;
+  final StockListModel? stockOri;
+  final StockListModel? stockDes;
+  final CustomerListModel? entity;
+}
+
+class OrderStockTransferGetStocksEvent extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferGetStocksEvent({
+    required this.tbInstitutionId,
+    // required this.orderId,
+    required this.type,
+  });
+  final int tbInstitutionId;
+  // final int? orderId;
+  final OrderStockTransferRegisterStockType type;
+}
+
+class OrderStockTransferRegisterStockOriEvent
+    extends OrderStockTransferRegisterGetListEvent {
+  OrderStockTransferRegisterStockOriEvent({
+    required this.stock,
+    // required this.orderId,
+  });
+  final StockListModel stock;
+  // final int? orderId;
+}
+
+class OrderStockTransferGetEntitiesEvent
+    extends OrderStockTransferRegisterGetListEvent {
+  OrderStockTransferGetEntitiesEvent();
+}
+
+class OrderStockTransferSelectedEntitiesEvent
+    extends OrderStockTransferRegisterGetListEvent {
+  OrderStockTransferSelectedEntitiesEvent({
+    required this.entity,
+  });
+  final CustomerListModel entity;
+}
+
+class OrderStockTransferRegisterStockDesEvent
+    extends OrderStockTransferRegisterGetListEvent {
+  OrderStockTransferRegisterStockDesEvent({
+    required this.stock,
+    // required this.orderId,
+  });
+  final StockListModel stock;
+  // final int? orderId;
 }

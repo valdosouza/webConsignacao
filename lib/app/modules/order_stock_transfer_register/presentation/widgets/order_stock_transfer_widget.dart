@@ -61,7 +61,7 @@ class _OrderStockTransferListState extends State<OrderStockTransferList> {
                 onTap: () {
                   widget.bloc.add(
                     OrderStockTransferRegisterGetEvent(
-                      newIndex: widget.orderStock[index].order.id,
+                      id: widget.orderStock[index].order.id,
                     ),
                   );
                 },

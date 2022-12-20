@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
-
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
+
 import 'package:http/http.dart' as http;
 
 abstract class OrderStockTransferRegisterDataSource {
@@ -17,6 +18,7 @@ abstract class OrderStockTransferRegisterDataSource {
   //     {required OrderStockTransferRegisterOrderModel model});
   // Future<String> delete({required int id});
   Future<List<StockListModel>> getListStock({required int institutionId});
+  Future<List<CustomerListModel>> getListEntity({required int institutionId});
 }
 
 class OrderStockTransferRegisterDataSourceImpl
@@ -24,6 +26,7 @@ class OrderStockTransferRegisterDataSourceImpl
   final client = http.Client();
   List<OrderStockTransferRegisterOrderModel> orderStock = [];
   List<StockListModel> stock = [];
+  List<CustomerListModel> entities = [];
 
   @override
   Future<List<OrderStockTransferRegisterOrderModel>> getlist(
@@ -40,6 +43,30 @@ class OrderStockTransferRegisterDataSourceImpl
         }).toList();
 
         return orderStock;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<CustomerListModel>> getListEntity({
+    required int institutionId,
+  }) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}entity/');
+
+      final response = await client.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        entities = (data as List).map((json) {
+          return CustomerListModel.fromJson(json);
+        }).toList();
+
+        return entities;
       } else {
         throw ServerException();
       }

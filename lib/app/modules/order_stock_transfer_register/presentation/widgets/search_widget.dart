@@ -5,8 +5,12 @@ class SearchWidget extends StatelessWidget {
   const SearchWidget({
     Key? key,
     required this.onChange,
+    this.text,
   }) : super(key: key);
+
   final void Function(String) onChange;
+  final String? text;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,10 +27,10 @@ class SearchWidget extends StatelessWidget {
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(left: 10.0),
-              hintText: 'Pesquisar',
+              contentPadding: const EdgeInsets.only(left: 10.0),
+              hintText: text ?? 'Pesquisar',
               hintStyle: kHintTextStyle,
             ),
           ),

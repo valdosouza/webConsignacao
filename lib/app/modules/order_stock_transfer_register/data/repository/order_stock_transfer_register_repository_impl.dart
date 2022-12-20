@@ -1,9 +1,11 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/datasource/order_stock_transfer_register_datasource.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/repository/order_stock_transfer_register_repository.dart';
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
+
 import 'package:dartz/dartz.dart';
 
 class OrderStockTransferRegisterRepositoryImpl
@@ -75,6 +77,18 @@ class OrderStockTransferRegisterRepositoryImpl
       {required int institutionId}) async {
     try {
       final list = await datasource.getListStock(institutionId: institutionId);
+
+      return Right(list);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CustomerListModel>>> getListEntity(
+      {required int institutionId}) async {
+    try {
+      final list = await datasource.getListEntity(institutionId: institutionId);
 
       return Right(list);
     } on ServerException {

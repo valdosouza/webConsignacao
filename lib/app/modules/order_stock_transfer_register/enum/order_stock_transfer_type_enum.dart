@@ -1,0 +1,4 @@
+enum OrderStockTransferRegisterStockType {
+  ori,
+  des,
+}

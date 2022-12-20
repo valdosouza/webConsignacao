@@ -1,5 +1,7 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_customer_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_list_stocks.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_widget.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/stock_transfer_register.dart';
@@ -35,31 +37,70 @@ class OrderStockTransferRegisterPageDesktopState
         OrderStockTransferRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        print('State: $state');
         if (state is OrderStockTransferRegisterErrorState) {
           CustomToast.showToast(
               "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
           return Container(
             color: Colors.red,
           );
-        }
-        if (state is OrderStockTransferRegisterLoadingState) {
+        } else if (state is OrderStockTransferRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        }
-        if (state is OrderStockTransferRegisterStockSuccessState) {
+        } else if (state is OrderStockTransferRegisterEntitiesSuccessState) {
+          return OrderStockCustomerList(
+            customers: state.entities,
+            onClickItem: (entitySelected) {
+              bloc.add(
+                OrderStockTransferRegisterGetEvent(
+                  id: bloc.orderStock!.order.id,
+                  entity: entitySelected,
+                ),
+              );
+            },
+          );
+        } else if (state is OrderStockTransferRegisterStockOriSuccessState) {
+          bloc.add(
+            OrderStockTransferRegisterGetEvent(
+              id: bloc.orderStock!.order.id,
+              stockOri: state.stock,
+            ),
+          );
+          return const CircularProgressIndicator();
+        } else if (state is OrderStockTransferRegisterStockDesSuccessState) {
+          bloc.add(
+            OrderStockTransferRegisterGetEvent(
+              id: bloc.orderStock!.order.id,
+              stockDes: state.stock,
+            ),
+          );
+          return const CircularProgressIndicator();
+        } else if (state is OrderStockTransferRegisterStockSuccessState) {
           return OrderStockTransferRegisterStockListWidget(
             stocks: state.stocks,
+            onClickItem: ((stockSelected) {
+              bloc.add(
+                state.type == OrderStockTransferRegisterStockType.ori
+                    ? OrderStockTransferRegisterStockOriEvent(
+                        stock: stockSelected,
+                        // orderId: 1,
+                      )
+                    : OrderStockTransferRegisterStockDesEvent(
+                        stock: stockSelected,
+                        // orderId: 1,
+                      ),
+              );
+            }),
+            // searchFunction: (a) => bloc.add(
+            //   OrderStockTransferRegisterGetListEvent(),
+            // ),
           );
-        }
-        if (state is OrderStockTransferRegisterLoadedState) {
+        } else if (state is OrderStockTransferRegisterLoadedState) {
           return OrderStockTransferList(
             orderStock: state.list,
             bloc: bloc,
           );
-        }
-        if (state is OrderStockTransferAddOrEditOrderState) {
+        } else if (state is OrderStockTransferAddOrEditOrderState) {
           return OrderStockTransferRegisterDesktop(
             orderStock: state.order,
             bloc: bloc,
