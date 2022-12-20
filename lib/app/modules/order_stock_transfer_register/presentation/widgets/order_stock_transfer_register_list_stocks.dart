@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
-import 'package:flutter/material.dart';
-
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/search_widget.dart';
+import 'package:flutter/material.dart';
 
 class OrderStockTransferRegisterStockListWidget extends StatelessWidget {
   const OrderStockTransferRegisterStockListWidget({
@@ -39,9 +38,9 @@ class OrderStockTransferRegisterStockListWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // SearchWidget(
-            //   onChange: (value) => searchFunction?.call(value),
-            // ),
+            SearchWidget(
+              onChange: (value) => searchFunction?.call(value),
+            ),
             const SizedBox(height: 5.0),
             Expanded(
               child: stocks.isEmpty

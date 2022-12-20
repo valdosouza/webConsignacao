@@ -30,7 +30,7 @@ class OrderStockTransferAddOrEditOrderState
 class OrderStockTransferRegisterErrorState
     extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterEntityState
+class OrderStockTransferRegisterEntityErrorState
     extends OrderStockTransferRegisterState {}
 
 class OrderStockTransferRegisterStockErrorState

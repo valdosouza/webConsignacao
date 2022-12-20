@@ -30,6 +30,14 @@ class OrderStockTransferRegisterGetEvent
   final int id;
 }
 
+class OrderStockTransferRegisterEditEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferRegisterEditEvent({
+    required this.order,
+  });
+  final OrderStockTransferRegisterOrderModel order;
+}
+
 class OrderStockTransferGetStocksEvent extends OrderStockTransferRegisterEvent {
   const OrderStockTransferGetStocksEvent({
     required this.tbInstitutionId,
@@ -42,8 +50,8 @@ class OrderStockTransferGetStocksEvent extends OrderStockTransferRegisterEvent {
 }
 
 class OrderStockTransferRegisterStockOriEvent
-    extends OrderStockTransferRegisterGetListEvent {
-  OrderStockTransferRegisterStockOriEvent({
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferRegisterStockOriEvent({
     required this.stock,
     // required this.orderId,
   });
@@ -52,21 +60,21 @@ class OrderStockTransferRegisterStockOriEvent
 }
 
 class OrderStockTransferGetEntitiesEvent
-    extends OrderStockTransferRegisterGetListEvent {
-  OrderStockTransferGetEntitiesEvent();
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferGetEntitiesEvent();
 }
 
 class OrderStockTransferSelectedEntitiesEvent
-    extends OrderStockTransferRegisterGetListEvent {
-  OrderStockTransferSelectedEntitiesEvent({
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferSelectedEntitiesEvent({
     required this.entity,
   });
   final CustomerListModel entity;
 }
 
 class OrderStockTransferRegisterStockDesEvent
-    extends OrderStockTransferRegisterGetListEvent {
-  OrderStockTransferRegisterStockDesEvent({
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferRegisterStockDesEvent({
     required this.stock,
     // required this.orderId,
   });

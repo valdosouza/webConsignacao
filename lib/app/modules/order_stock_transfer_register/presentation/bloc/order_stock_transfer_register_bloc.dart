@@ -1,11 +1,11 @@
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/customer_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_search_enum.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -25,12 +25,13 @@ class OrderStockTransferRegisterBloc extends Bloc<
   StockListModel? _oriStock;
   StockListModel? _desStock;
   CustomerListModel? _customer;
-  OrderStockTransferRegisterOrderModel? _orderStock;
-  List<OrderStockTransferRegisterOrderModel> _ordersStock = [];
-  List<OrderStockTransferRegisterOrderModel> get ordersStock => _ordersStock;
-  OrderStockTransferRegisterOrderModel? get orderStock => _orderStock;
+
+  OrderStockTransferRegisterOrderModel? _order;
+  final List<OrderStockTransferRegisterOrderModel> _orders = [];
+  List<OrderStockTransferRegisterOrderModel> get orders => _orders;
+  OrderStockTransferRegisterOrderModel? get order => getCurrentOrder();
+
   List<StockListModel> stockList = [];
-  List<CustomerListModel> customerList = [];
 
   OrderStockTransferRegisterBloc({
     required this.getlistOrderStock,
@@ -40,7 +41,9 @@ class OrderStockTransferRegisterBloc extends Bloc<
   }) : super(OrderStockTransferRegisterLoadingState()) {
     on<OrderStockTransferRegisterGetListEvent>(getList);
     on<OrderStockTransferRegisterGetEvent>(get);
-    on<OrderStockTransferNewRegisterEvent>(goToOrderStockTransferRegisterPage);
+    on<OrderStockTransferNewRegisterEvent>(
+        goToOrderStockTransferRegisterNewPage);
+    on<OrderStockTransferRegisterEditEvent>(goToOrderStockTransferRegisterPage);
     on<OrderStockTransferGetStocksEvent>(getStocks);
     on<OrderStockTransferGetEntitiesEvent>(getEntities);
     on<OrderStockTransferSearchEvent>(searchInOrders);
@@ -68,7 +71,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
       ),
     );
     response.fold((l) => emit(OrderStockTransferRegisterErrorState()), (r) {
-      customerList = r;
+      // customerList = r;
       emit(OrderStockTransferRegisterEntitiesState(entities: r));
     });
   }
@@ -83,7 +86,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
 
     switch (typeSearch) {
       case OrderStockTransferRegisterSearch.date:
-        orderSearched = _ordersStock.where((element) {
+        orderSearched = _orders.where((element) {
           String dtRecord = OrderStockTransferRegisterOrderModel.formatDate(
               element.order.dtRecord.toString(), 'dd/MM/yyyy');
           return dtRecord
@@ -93,7 +96,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
         }).toList();
         break;
       case OrderStockTransferRegisterSearch.entity:
-        orderSearched = _ordersStock.where((element) {
+        orderSearched = _orders.where((element) {
           String nameEntity = element.order.nameEntity;
           return nameEntity
               .toLowerCase()
@@ -102,7 +105,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
         }).toList();
         break;
       case OrderStockTransferRegisterSearch.stock:
-        orderSearched = _ordersStock.where((element) {
+        orderSearched = _orders.where((element) {
           String nameStockListOri = element.order.nameStockListOri;
           return nameStockListOri
               .toLowerCase()
@@ -123,8 +126,8 @@ class OrderStockTransferRegisterBloc extends Bloc<
     emit(OrderStockTransferRegisterLoadingState());
     _oriStock = null;
     _desStock = null;
-    _ordersStock = [];
-    _orderStock = null;
+    // _orders = [];
+    // _order = null;
     _customer = null;
     var response = await getlistOrderStock
         .call(ParamsGetlistOrderStockTransferRegister(id: 1));
@@ -150,44 +153,36 @@ class OrderStockTransferRegisterBloc extends Bloc<
     response.fold(
       (l) => emit(OrderStockTransferRegisterErrorState()),
       (r) {
-        _orderStock = r;
-        _orderStock = OrderStockTransferRegisterOrderModel(
-          order: Order(
-            id: r.order.id,
-            tbInstitutionId: r.order.tbInstitutionId,
-            tbUserId: r.order.tbUserId,
-            tbEntityId: _customer?.id ?? r.order.tbEntityId,
-            nameEntity: _customer?.nameCompany ?? r.order.nameEntity,
-            tbStockListIdOri: _oriStock?.id ?? r.order.tbStockListIdOri,
-            nameStockListOri:
-                _oriStock?.description ?? r.order.nameStockListOri,
-            tbStockListIdDes: _desStock?.id ?? r.order.tbStockListIdDes,
-            nameStockListDes:
-                _desStock?.description ?? r.order.nameStockListDes,
-            dtRecord: r.order.dtRecord,
-            number: r.order.number,
-            status: r.order.status,
-            note: r.order.note,
-          ),
-          items: r.items,
-        );
-        emit(OrderStockTransferAddOrEditOrderState(order: _orderStock));
+        _order = r;
+        emit(OrderStockTransferAddOrEditOrderState(order: _order));
       },
     );
   }
 
-  void goToOrderStockTransferRegisterPage(
+  void goToOrderStockTransferRegisterNewPage(
     OrderStockTransferNewRegisterEvent event,
     Emitter<OrderStockTransferRegisterState> emit,
   ) async {
     emit(OrderStockTransferRegisterLoadingState());
     // _oriStock = null;
     // _desStock = null;
-    // _ordersStock = [];
-    // _orderStock = null;
+    // _orders = [];
+    // // _order= null;
     // _customer = null;
-
     emit(OrderStockTransferAddOrEditOrderState(order: null));
+  }
+
+  void goToOrderStockTransferRegisterPage(
+    OrderStockTransferRegisterEditEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    emit(OrderStockTransferRegisterLoadingState());
+    // _oriStock = null;
+    // _desStock = null;
+    // _orders = [];
+    // // _order= null;
+    // _customer = null;
+    emit(OrderStockTransferAddOrEditOrderState(order: event.order));
   }
 
   void getStocks(
@@ -219,12 +214,11 @@ class OrderStockTransferRegisterBloc extends Bloc<
     OrderStockTransferRegisterStockOriEvent event,
     Emitter<OrderStockTransferRegisterState> emit,
   ) async {
-    // emit(OrderStockTransferRegisterLoadingState());
+    emit(OrderStockTransferRegisterLoadingState());
     _oriStock = event.stock;
     emit(
       OrderStockTransferRegisterStockSuccessState(
         stock: event.stock,
-        // orderId: event.orderId,
       ),
     );
   }
@@ -241,5 +235,30 @@ class OrderStockTransferRegisterBloc extends Bloc<
         // orderId: event.orderId,
       ),
     );
+  }
+
+  OrderStockTransferRegisterOrderModel? getCurrentOrder() {
+    if (_order != null) {
+      final order = _order!.order;
+      return OrderStockTransferRegisterOrderModel(
+        order: Order(
+          id: order.id,
+          tbInstitutionId: order.tbInstitutionId,
+          tbUserId: order.tbUserId,
+          tbEntityId: _customer?.id ?? order.tbEntityId,
+          nameEntity: _customer?.nameCompany ?? order.nameEntity,
+          tbStockListIdOri: _oriStock?.id ?? order.tbStockListIdOri,
+          nameStockListOri: _oriStock?.description ?? order.nameStockListOri,
+          tbStockListIdDes: _desStock?.id ?? order.tbStockListIdDes,
+          nameStockListDes: _desStock?.description ?? order.nameStockListDes,
+          dtRecord: order.dtRecord,
+          number: order.number,
+          status: order.status,
+          note: order.note,
+        ),
+        items: _order?.items,
+      );
+    }
+    return null;
   }
 }

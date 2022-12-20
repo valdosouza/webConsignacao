@@ -38,27 +38,37 @@ class OrderStockTransferRegisterPageDesktopState
       bloc: bloc,
       builder: (context, state) {
         print(state);
+        if (state is OrderStockTransferRegisterStockErrorState) {
+          CustomToast.showToast(
+              "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
+        }
+        if (state is OrderStockTransferRegisterEntitiesErrorState) {
+          CustomToast.showToast(
+              "Ocorreu um erro ao buscar por produto. Tente novamente mais tarde.");
+        }
         if (state is OrderStockTransferRegisterErrorState) {
           CustomToast.showToast(
               "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
           return Container(
             color: Colors.red,
           );
-        } else if (state is OrderStockTransferRegisterLoadingState) {
+        }
+        if (state is OrderStockTransferRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is OrderStockTransferRegisterEntitiesSuccessState) {
+        }
+        if (state is OrderStockTransferRegisterEntitiesSuccessState) {
           bloc.add(
-            OrderStockTransferRegisterGetEvent(
-              id: bloc.orderStock!.order.id,
-            ),
+            OrderStockTransferRegisterEditEvent(order: bloc.order!),
           );
-        } else if (state is OrderStockTransferRegisterEntitiesState) {
+        }
+        if (state is OrderStockTransferRegisterEntitiesState) {
           return OrderStockCustomerList(
             customers: state.entities,
             onClickItem: (entitySelected) {
-              if (bloc.orderStock?.order.id != null) {
+              print('teste - onClickItem entity');
+              if (bloc.order?.order.id != null) {
                 bloc.add(
                   OrderStockTransferSelectedEntitiesEvent(
                     entity: entitySelected,
@@ -69,33 +79,36 @@ class OrderStockTransferRegisterPageDesktopState
                   OrderStockTransferNewRegisterEvent(),
                 );
               }
+              return const CircularProgressIndicator();
             },
           );
-        } else if (state is OrderStockTransferRegisterStockSuccessState) {
-          if (bloc.orderStock?.order.id != null) {
+        }
+        if (state is OrderStockTransferRegisterStockSuccessState) {
+          if (bloc.order?.order.id != null) {
             bloc.add(
-              OrderStockTransferRegisterGetEvent(
-                id: bloc.orderStock!.order.id,
-              ),
-            );
+                // OrderStockTransferRegisterGetEvent(
+                //   id: bloc.order!.order.id,
+                // ),
+                OrderStockTransferRegisterEditEvent(order: bloc.order!));
           } else {
             bloc.add(
               OrderStockTransferNewRegisterEvent(),
             );
           }
-        } else if (state is OrderStockTransferRegisterStockState) {
+          return const CircularProgressIndicator();
+        }
+        if (state is OrderStockTransferRegisterStockState) {
           return OrderStockTransferRegisterStockListWidget(
             stocks: bloc.stockList,
             onClickItem: (stockSelected) {
+              print('teste - onClickItem stock');
               bloc.add(
                 state.type == OrderStockTransferRegisterStockType.ori
                     ? OrderStockTransferRegisterStockOriEvent(
                         stock: stockSelected,
-                        // orderId: 1,
                       )
                     : OrderStockTransferRegisterStockDesEvent(
                         stock: stockSelected,
-                        // orderId: 1,
                       ),
               );
             },
@@ -103,12 +116,14 @@ class OrderStockTransferRegisterPageDesktopState
             //   OrderStockTransferRegisterGetListEvent(),
             // ),
           );
-        } else if (state is OrderStockTransferRegisterLoadedState) {
+        }
+        if (state is OrderStockTransferRegisterLoadedState) {
           return OrderStockTransferList(
             orderStock: state.list,
             bloc: bloc,
           );
-        } else if (state is OrderStockTransferAddOrEditOrderState) {
+        }
+        if (state is OrderStockTransferAddOrEditOrderState) {
           return OrderStockTransferRegisterDesktop(
             orderStock: state.order,
             bloc: bloc,
