@@ -8,24 +8,27 @@ class CustomInput extends StatelessWidget {
   final TextInputType keyboardType;
   final Function(String)? onChanged;
   final String? initialValue;
-  final int? maxLines;
   final Widget? sufixIcon;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final int minLines;
+  final int maxLines;
   final TextEditingController? controller;
-  const CustomInput(
-      {super.key,
-      required this.title,
-      required this.keyboardType,
-      required this.inputAction,
-      required this.onChanged,
-      this.validator,
-      this.initialValue,
-      this.maxLines,
-      this.sufixIcon,
-      this.hint,
-      this.obscureText = false,
-      this.controller});
+  const CustomInput({
+    super.key,
+    required this.title,
+    required this.keyboardType,
+    required this.inputAction,
+    required this.onChanged,
+    this.validator,
+    this.initialValue,
+    this.sufixIcon,
+    this.hint,
+    this.obscureText = false,
+    this.controller,
+    this.minLines = 1,
+    this.maxLines = 1,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,6 @@ class CustomInput extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: TextFormField(
             initialValue: initialValue,
-            maxLines: maxLines,
             keyboardType: keyboardType,
             autofocus: false,
             textInputAction: inputAction,
@@ -55,10 +57,12 @@ class CustomInput extends StatelessWidget {
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
+            minLines: minLines,
+            maxLines: maxLines,
             decoration: InputDecoration(
               border: InputBorder.none,
               suffix: sufixIcon,
-              contentPadding: const EdgeInsets.only(left: 10.0, top: 5),
+              contentPadding: const EdgeInsets.only(left: 10.0),
               hintText: hint ?? "",
               hintStyle: kHintTextStyle,
             ),

@@ -3,13 +3,13 @@ import 'package:appweb/app/modules/order_attendence_register/data/models/order_a
 import 'package:appweb/app/modules/order_attendence_register/domain/repository/order_attendance_repository.dart';
 import 'package:dartz/dartz.dart';
 
-
-class OrderAttendanceDeleteUsescases{
+class OrderAttendanceGetAll {
   final OrderAttendanceRepository repository;
 
-  OrderAttendanceDeleteUsescases({required this.repository});
+  OrderAttendanceGetAll({required this.repository});
 
-  Future<Either<Failure, OrderAttendanceModel>> call(int tbInstitutionId, int id) async {
-    return await repository.delete(tbInstitutionId, id);
+  Future<Either<Failure, List<OrderAttendanceModel>>> call(
+      int tbInstitutionId) async {
+    return await repository.getAll(tbInstitutionId);
   }
 }

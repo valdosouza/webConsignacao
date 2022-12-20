@@ -34,8 +34,9 @@ const kBoxDecorationflexibleSpace = BoxDecoration(
       ]),
 );
 
-const kPrimaryColor = Color(0xFF366CF6);
-const kSecondaryColor = Color(0xFFF5F6FC);
+const kPrimaryColor = Colors.red;
+const kButtonColor = Colors.black;
+const kSecondaryColor = Colors.white;
 const kBgLightColor = Color(0xFFF2F4FC);
 const kBgDarkColor = Color(0xFFEBEDFA);
 const kBadgeColor = Color(0xFFEE376E);

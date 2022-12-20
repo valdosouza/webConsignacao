@@ -1,4 +1,3 @@
-
 import 'package:appweb/app/modules/order_attendence_register/domain/entity/order_attendance_entity.dart';
 
 class OrderAttendanceModel extends OrderAttendanceEntity {
@@ -89,19 +88,19 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
 
   factory OrderAttendanceModel.isEmpty() {
     return OrderAttendanceModel(
-        id: 100,
+        id: 0,
         tbInstitutionId: 1,
         tbUserId: 2,
-        tbCustomerId: 51,
-        nameCustomer: "Aleatorio",
+        tbCustomerId: 0,
+        nameCustomer: "",
         tbSalesmanId: 51,
-        nameSalesman: "Aleatorio",
+        nameSalesman: "",
         dtRecord: "2022/12/16",
-        note: "Atendimento de Teste",
+        note: "",
         status: "A",
         visited: "N",
         charged: "N",
-        latitude: "1",
-        longitude: "1");
+        latitude: "",
+        longitude: "");
   }
 }

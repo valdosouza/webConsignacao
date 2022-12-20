@@ -2,7 +2,6 @@ import 'package:appweb/app/core/shared/page_404.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
 import 'package:appweb/app/modules/attendance_by_route/attendance_by_route_module.dart';
 import 'package:appweb/app/modules/attendance_by_salesman/attendance_by_salesman_module.dart';
-import 'package:appweb/app/modules/attendance_register/attendance_register_module.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/cashier/cashier_module.dart';
 import 'package:appweb/app/modules/customer/customer_module.dart';
@@ -11,6 +10,7 @@ import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:appweb/app/modules/home/home_module.dart';
+import 'package:appweb/app/modules/order_attendence_register/order_attendance_register_module.dart';
 import 'package:appweb/app/modules/order_production/order_production_module.dart';
 import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
@@ -46,7 +46,7 @@ class AppModule extends Module {
             module: AttendanceBySalesmanModule()),
         ModuleRoute('/orderproduction', module: OrderProductionModule()),
         ModuleRoute('/cashier', module: CashierModule()),
-        ModuleRoute('/attendance', module: AttendanceRegisterModule()),
+        ModuleRoute('/attendance', module: OrderAttendanceRegisterModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }

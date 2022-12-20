@@ -1,59 +1,51 @@
-import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
-import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_supplying_model.dart';
-import 'package:equatable/equatable.dart';
+import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 
-class OrderAttendanceRegisterState extends Equatable{
-  @override
-  List<Object?> get props => [];
+abstract class OrderAttendanceRegisterState {
+  List<PriceListModel> pricelist;
+
+  OrderAttendanceRegisterState({
+    required this.pricelist,
+  });
 }
 
-class OrderAttendanceRegisterLoadingState extends OrderAttendanceRegisterState{
-  @override
-  List<Object?> get props => [];
+class OrderAttendanceRegisterLoadingState extends OrderAttendanceRegisterState {
+  OrderAttendanceRegisterLoadingState() : super(pricelist: []);
 }
 
-
-class OrderAttendanceRegisterLoadedState extends OrderAttendanceRegisterState{
-  final OrderAttendanceModel orderAttendanceModel;
-
-  OrderAttendanceRegisterLoadedState(this.orderAttendanceModel);
-  @override
-  List<Object?> get props => [orderAttendanceModel];
+class OrderAttendanceRegisterInfoPageState
+    extends OrderAttendanceRegisterState {
+  late OrderAttendanceModel orderAttendance;
+  OrderAttendanceRegisterInfoPageState({required orderAttendance})
+      : super(pricelist: []);
 }
 
-
-class OrderAttendanceRegisterListLoadingState extends OrderAttendanceRegisterState{
-  final List<OrderAttendanceModel> orderAttendanceList;
-
-  OrderAttendanceRegisterListLoadingState(this.orderAttendanceList);
-  
-  @override
-  List<Object?> get props => [orderAttendanceList];
+/*------------------------POST - OrderAttendance-----------------------------*/
+class OrderAttendanceRegisterPostSuccessState
+    extends OrderAttendanceRegisterState {
+  late OrderAttendanceModel orderAttendance;
+  OrderAttendanceRegisterPostSuccessState({required orderAttendance})
+      : super(pricelist: []);
 }
 
-class OrderAttendanceRegisterSupplyingLoadedState extends OrderAttendanceRegisterState{
-  final OrderAttendanceSupplyingModel orderAttendanceSupplying;
+class OrderAttendanceRegisterPostErrorState
+    extends OrderAttendanceRegisterState {
+  final String error;
 
-  OrderAttendanceRegisterSupplyingLoadedState(this.orderAttendanceSupplying);
-  @override
-  List<Object?> get props => [orderAttendanceSupplying];
+  OrderAttendanceRegisterPostErrorState({required this.error})
+      : super(pricelist: []);
 }
 
-
-class OrderAttendanceErrorState extends OrderAttendanceRegisterState{
-  final String message;
-
-  OrderAttendanceErrorState(this.message);
-
-  @override
-  List<Object?> get props => [message];
+/*------------------------Getlist - PriceList----------------------------------*/
+class OrderAttendanceRegisterGetPriceListSuccessState
+    extends OrderAttendanceRegisterState {
+  OrderAttendanceRegisterGetPriceListSuccessState({required super.pricelist});
 }
 
-class OrderAttendanceRegisterCheckpointLoadedState extends OrderAttendanceRegisterState{
-  final OrderAttendanceCheckpointModel orderAttendanceCheckpointModel;
+class OrderAttendanceRegisterGetPriceListErrorState
+    extends OrderAttendanceRegisterState {
+  final String error;
 
-  OrderAttendanceRegisterCheckpointLoadedState(this.orderAttendanceCheckpointModel);
-  @override
-  List<Object?> get props => [];
+  OrderAttendanceRegisterGetPriceListErrorState({required this.error})
+      : super(pricelist: []);
 }

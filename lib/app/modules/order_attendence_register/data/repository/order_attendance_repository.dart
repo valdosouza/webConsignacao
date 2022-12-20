@@ -2,7 +2,7 @@ import 'package:appweb/app/modules/order_attendence_register/data/models/order_a
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../datasources/order_attendance_datasource.dart';
+import '../datasources/attendance_datasource.dart';
 import '../../domain/repository/order_attendance_repository.dart';
 
 class OrderAttendanceRepositoryImpl implements OrderAttendanceRepository {
@@ -44,8 +44,8 @@ class OrderAttendanceRepositoryImpl implements OrderAttendanceRepository {
 
   @override
   Future<Either<Failure, OrderAttendanceModel>> post(
-      OrderAttendanceModel model) async{
-    try{
+      OrderAttendanceModel model) async {
+    try {
       return Right(await orderAttendanceDatasource.post(model));
     } on ServerException {
       return Left(ServerFailure());
@@ -54,8 +54,8 @@ class OrderAttendanceRepositoryImpl implements OrderAttendanceRepository {
 
   @override
   Future<Either<Failure, OrderAttendanceModel>> put(
-      OrderAttendanceModel model) async{
-    try{
+      OrderAttendanceModel model) async {
+    try {
       return Right(await orderAttendanceDatasource.put(model));
     } on ServerException {
       return Left(ServerFailure());
