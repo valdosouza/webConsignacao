@@ -1,4 +1,6 @@
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/divida_anterior_widget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/divida_atual_widget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/payment_info_dinheiro_widget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/payment_info_pix_widget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/payment_info_troco_widget.dart';
@@ -34,6 +36,8 @@ Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
         paymentinfodinheiro(modelCheckpoint),
         paymentinfopix(modelCheckpoint),
         paymentinfotroco(modelCheckpoint),
+        dividaanterior(modelCheckpoint),
+        dividaatual(modelCheckpoint),
       ],
     ),
   );

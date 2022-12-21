@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 Widget headerPaymentInfo() {
   return Container(
-    height: 40,
+    height: 35,
     alignment: Alignment.center,
-    margin: const EdgeInsets.all(2.0),
+
+    //margin: const EdgeInsets.all(2.0),
     decoration: BoxDecoration(
       border: Border.all(color: Colors.black),
       color: Colors.black,

@@ -1,37 +1,18 @@
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/field_edit_widget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_field_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget paymentinfosaldodevedor(
-    OrderConsignmentCheckpointModel modelCheckpoint) {
+Widget dividaatual(OrderConsignmentCheckpointModel modelCheckpoint) {
   return Row(
     children: [
       Expanded(
         flex: 5,
-        child: Container(
-          height: 40,
-          alignment: Alignment.center,
-          margin: const EdgeInsets.only(
-              left: 3.0, top: 1.0, right: 3.0, bottom: 1.0),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-          ),
-          child: const Text(
-            "Saldo Devedor",
-            textAlign: TextAlign.center,
-          ),
-        ),
+        child: headerfield('Divida Atual'),
       ),
       Expanded(
-        flex: 3,
-        child: Container(
-          height: 40,
-          alignment: Alignment.center,
-          margin: const EdgeInsets.only(
-              left: 3.0, top: 1.0, right: 3.0, bottom: 1.0),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-          ),
-          child: Text(
+        flex: 4,
+        child: fieldedit(
             (modelCheckpoint.items
                             .map((e) =>
                                 ((e.qtyConsigned - e.leftover) * e.unitValue))
@@ -49,9 +30,7 @@ Widget paymentinfosaldodevedor(
                         modelCheckpoint.payments[1].value)
                     .toString()
                 : "0.00",
-            textAlign: TextAlign.center,
-          ),
-        ),
+            false),
       ),
     ],
   );

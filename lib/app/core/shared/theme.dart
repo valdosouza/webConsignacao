@@ -10,6 +10,12 @@ const kLabelStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
+const ktittleAppBarStyle = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'OpenSans',
+  fontSize: 22,
+);
 
 const kBoxDecorationStyle = BoxDecoration(
   color: Colors.black12,

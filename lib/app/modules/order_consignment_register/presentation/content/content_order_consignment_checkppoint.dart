@@ -1,18 +1,12 @@
-import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_event.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/footer_saldo_devedor_widget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_items_widget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/footer_divida_widget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_paymnet_info_widget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/list_field_item_widget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/payment_info_widget.dart';
+import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/custom_body_wiget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/custom_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
 
 class ContentConsignmentCheckpoint extends StatefulWidget {
   final OrderConsignmentCheckpointModel checkpointmodel;
@@ -63,132 +57,125 @@ class _ContentConsignmenteCheckpoineState
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
-          decoration: kBoxDecorationflexibleSpace,
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.bottomCenter,
+                height: 45,
+                child: const Text(
+                  "Mercado do Povo",
+                  style: ktittleAppBarStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const CustomHeader(),
+            ],
+          ),
         ),
-        title: const Text("Mercado do Povo"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
-            onPressed: () {
-              bloc.add(OrderConsignementRegisterCheckpointPostEvent(
-                  checkpointmodel: bloc.modelCheckpoint));
-            },
-          )
-        ],
       ),
-      body: Column(
-        children: [
-          _header(size),
-          _body(size),
-          _footter(size),
-        ],
+      body: SingleChildScrollView(
+        child: CustomBody(size: size, modelCheckpoint: bloc.modelCheckpoint),
       ),
-    );
-  }
-
-  Widget _header(Size size) {
-    return SizedBox(
-      height: 40,
-      width: size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 9,
-            child: headeritems(),
-          ),
-          Expanded(
-            flex: 3,
-            child: headerPaymentInfo(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _body(Size size) {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 9,
-            child: _buildListView(bloc.modelCheckpoint.items, size),
-          ),
-          Expanded(
-            flex: 3,
-            child: paymentinfo(bloc.modelCheckpoint),
-          ),
-        ],
-      ),
+      bottomSheet: _footter(size),
     );
   }
 
   Widget _footter(Size size) {
-    return SizedBox(
-      height: 40,
-      width: size.width,
-      child: Row(
-        children: [
-          Expanded(
-            flex: 9,
-            child: footterDivida(bloc.modelCheckpoint),
-          ),
-          Expanded(
-            flex: 3,
-            child: foottersaldodevedor(bloc.modelCheckpoint),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _buildListView(List<OrderConsignmentCheckpointItemsModel> items, Size size) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-      ),
-      margin: const EdgeInsets.only(left: 3.0, right: 2.0),
-      child: Column(
-        children: [
-          SizedBox(
-            height: size.height - 190,
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 200,
-                      child: listfielditems(items[index], 1, false),
+    return Expanded(
+      child: SizedBox(
+        height: 40,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.red,
+                      ),
                     ),
-                    Expanded(
-                      flex: 400,
-                      child: listfielditems(items[index], 2, false),
-                    ),
-                    Expanded(
-                      flex: 270,
-                      child: listfielditems(items[index], 3, false),
-                    ),
-                    Expanded(
-                      flex: 200,
-                      child: listfielditems(items[index], 4, true),
-                    ),
-                    Expanded(
-                      flex: 315,
-                      child: listfielditems(items[index], 5, false),
-                    ),
-                    Expanded(
-                      flex: 300,
-                      child: listfielditems(items[index], 6, false),
-                    ),
-                  ],
+                    child: const Text("Voltar"),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(
+                        left: 2.0, top: 0.0, right: 2.0, bottom: 0.0),
+                    height: 40,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.red,
+                      ),
+                    ),
+                    child: const Text("Limpar"),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(
+                        left: 2.0, top: 0.0, right: 2.0, bottom: 0.0),
+                    height: 40,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.red,
+                      ),
+                    ),
+                    child: const Text("Informações"),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(
+                        left: 2.0, top: 0.0, right: 2.0, bottom: 0.0),
+                    height: 40,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.red,
+                      ),
+                    ),
+                    child: const Text("Finalizar"),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

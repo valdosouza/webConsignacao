@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 Widget headeritems() {
   return Container(
     alignment: Alignment.center,
-    margin: const EdgeInsets.only(left: 1.0, top: 0.0, right: 1.0, bottom: 0.0),
     child: Row(
       children: [
         Expanded(
