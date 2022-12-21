@@ -17,6 +17,14 @@ class OrderStockTransferSearchEvent extends OrderStockTransferRegisterEvent {
   final String search;
 }
 
+class OrderStockTransferRegisterGoToItemsEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferRegisterGoToItemsEvent({
+    required this.items,
+  });
+  final List<Item> items;
+}
+
 class OrderStockTransferSearchStocksEvent
     extends OrderStockTransferRegisterEvent {
   const OrderStockTransferSearchStocksEvent({

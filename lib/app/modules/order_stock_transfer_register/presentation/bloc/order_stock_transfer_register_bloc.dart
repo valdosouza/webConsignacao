@@ -35,6 +35,8 @@ class OrderStockTransferRegisterBloc extends Bloc<
   List<CustomerListModel>? _entities;
   List<StockListModel> _stocks = [];
   OrderStockTransferRegisterOrderModel? _order;
+  List<Item>? _items;
+  List<Item>? get items => _items;
   List<OrderStockTransferRegisterOrderModel> _orders = [];
   List<StockListModel> get stocks => _stocks;
   List<OrderStockTransferRegisterOrderModel> get orders => _orders;
@@ -59,6 +61,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     on<OrderStockTransferGetStocksEvent>(getStocks);
     on<OrderStockTransferGetEntitiesEvent>(getEntities);
     on<OrderStockTransferSearchEvent>(searchInOrders);
+    on<OrderStockTransferRegisterGoToItemsEvent>(goToItemsPage);
     on<OrderStockTransferSearchStocksEvent>(searchInStocks);
     on<OrderStockTransferSearchEntitiesEvent>(searchInEntities);
     on<OrderStockTransferRegisterStockOriEvent>(setStocksOri);
@@ -67,6 +70,15 @@ class OrderStockTransferRegisterBloc extends Bloc<
     on<OrderStockTransferRegisterPostEvent>(postOrderStockTransferAction);
     on<OrderStockTransferRegisterPutEvent>(putOrderStockTransferAction);
     on<OrderStockTransferRegisterDeleteEvent>(deleteOrderStockTransferAction);
+  }
+
+  void goToItemsPage(
+    OrderStockTransferRegisterGoToItemsEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    emit(OrderStockTransferRegisterLoadingState());
+    _items = event.items;
+    emit(OrderStockTransferRegisterGoToItemsState());
   }
 
   void postOrderStockTransferAction(
@@ -346,8 +358,9 @@ class OrderStockTransferRegisterBloc extends Bloc<
     // _oriStock = null;
     // _desStock = null;
     // _orders = [];
-    // // _order= null;
+    // _order= null;
     // _customer = null;
+    // _items == null;
     emit(OrderStockTransferAddOrEditOrderState(order: event.order));
   }
 

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
@@ -25,6 +24,7 @@ class OrderStockTransferRegisterDesktop extends StatefulWidget {
 }
 
 int id = 0;
+bool showFloat = false;
 
 class _OrderStockTransferRegisterDesktopState
     extends State<OrderStockTransferRegisterDesktop>
@@ -82,6 +82,24 @@ class _OrderStockTransferRegisterDesktopState
         actions: [
           IconButton(
             icon: const Icon(
+              Icons.add,
+              size: 30.0,
+            ),
+            onPressed: widget.bloc.order?.items == null
+                ? null
+                : () {
+                    widget.bloc.add(
+                      OrderStockTransferRegisterGoToItemsEvent(
+                        items: widget.bloc.order!.items!,
+                      ),
+                    );
+                  },
+          ),
+          const SizedBox(
+            width: 30,
+          ),
+          IconButton(
+            icon: const Icon(
               Icons.check,
               size: 30.0,
             ),
@@ -123,151 +141,93 @@ class _OrderStockTransferRegisterDesktopState
             },
           ),
         ],
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorWeight: 2.0,
-          indicatorColor: Colors.black,
-          tabs: myTabs,
-        ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomInputButtonGenericWidget(
-                    title: "Data",
-                    controller: dateController,
-                    textInputType: TextInputType.datetime,
-                    textInputAction: TextInputAction.go,
-                  ),
-                  const SizedBox(height: 10),
-                  CustomInputButtonGenericWidget(
-                    title: "Número",
-                    controller: numberController,
-                    textInputType: TextInputType.number,
-                    textInputAction: TextInputAction.go,
-                  ),
-                  const SizedBox(height: 10),
-                  CustomInputButtonGenericWidget(
-                    controller: entityController,
-                    textInputType: TextInputType.text,
-                    textInputAction: TextInputAction.go,
-                    title: "Entidades",
-                    suffixIcon: OrderStockTransferRegisterGenericSuffixField(
-                      icon: Icons.search,
-                      onPressed: () {
-                        print('teste - onClickItem Entidades');
-                        widget.bloc.add(
-                          const OrderStockTransferGetEntitiesEvent(),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  CustomInputButtonGenericWidget(
-                    controller: stockOriController,
-                    textInputType: TextInputType.text,
-                    textInputAction: TextInputAction.go,
-                    title: "Estoque de Origem",
-                    suffixIcon: OrderStockTransferRegisterGenericSuffixField(
-                      icon: Icons.search,
-                      onPressed: (() {
-                        print('teste - onClickItem Estoque Ori');
-                        widget.bloc.add(
-                          const OrderStockTransferGetStocksEvent(
-                            tbInstitutionId: 1,
-                            // orderId: orderStock?.order.id,
-                            type: OrderStockTransferRegisterStockType.ori,
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  CustomInputButtonGenericWidget(
-                    controller: stockDesController,
-                    textInputType: TextInputType.text,
-                    textInputAction: TextInputAction.go,
-                    title: "Estoque de Destino",
-                    suffixIcon: OrderStockTransferRegisterGenericSuffixField(
-                      icon: Icons.search,
-                      onPressed: (() {
-                        print('teste - onClickItem Estoque Des');
-                        widget.bloc.add(
-                          const OrderStockTransferGetStocksEvent(
-                            tbInstitutionId: 1,
-                            // orderId: orderStock?.order.id,
-                            type: OrderStockTransferRegisterStockType.des,
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  CustomInputButtonGenericWidget(
-                    controller: noteController,
-                    title: "Observações",
-                    maxLines: 10,
-                    textInputType: TextInputType.datetime,
-                    textInputAction: TextInputAction.go,
-                  )
-                ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomInputButtonGenericWidget(
+                title: "Data",
+                controller: dateController,
+                textInputType: TextInputType.datetime,
+                textInputAction: TextInputAction.go,
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 5.0),
-                Expanded(
-                  child: widget.bloc.order?.items == null
-                      ? const Center(
-                          child: Text(
-                              "Não encontramos nenhum registro em nossa base."))
-                      : ListView.separated(
-                          itemCount: widget.bloc.order?.items?.length ?? 0,
-                          itemBuilder: (context, index) => InkWell(
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Text((index + 1).toString()),
-                                ),
-                              ),
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      "Nome: ${widget.bloc.order?.items?[index].id}"),
-                                  const SizedBox(height: 5.0),
-                                  Text(widget.bloc.order?.items?[index]
-                                          .description ??
-                                      ''),
-                                ],
-                              ),
-                              trailing: IconButton(
-                                icon: const Icon(Icons.remove),
-                                onPressed: () {
-                                  CustomToast.showToast(
-                                      "Funcionalidade em desenvolvimento.");
-                                },
-                              ),
-                            ),
-                          ),
-                          separatorBuilder: (_, __) => const Divider(),
-                        ),
+              const SizedBox(height: 10),
+              CustomInputButtonGenericWidget(
+                title: "Número",
+                controller: numberController,
+                textInputType: TextInputType.number,
+                textInputAction: TextInputAction.go,
+              ),
+              const SizedBox(height: 10),
+              CustomInputButtonGenericWidget(
+                controller: entityController,
+                textInputType: TextInputType.text,
+                textInputAction: TextInputAction.go,
+                title: "Entidades",
+                suffixIcon: OrderStockTransferRegisterGenericSuffixField(
+                  icon: Icons.search,
+                  onPressed: () {
+                    print('teste - onClickItem Entidades');
+                    widget.bloc.add(
+                      const OrderStockTransferGetEntitiesEvent(),
+                    );
+                  },
                 ),
-              ],
-            ),
-          )
-        ],
+              ),
+              const SizedBox(height: 10),
+              CustomInputButtonGenericWidget(
+                controller: stockOriController,
+                textInputType: TextInputType.text,
+                textInputAction: TextInputAction.go,
+                title: "Estoque de Origem",
+                suffixIcon: OrderStockTransferRegisterGenericSuffixField(
+                  icon: Icons.search,
+                  onPressed: (() {
+                    print('teste - onClickItem Estoque Ori');
+                    widget.bloc.add(
+                      const OrderStockTransferGetStocksEvent(
+                        tbInstitutionId: 1,
+                        // orderId: orderStock?.order.id,
+                        type: OrderStockTransferRegisterStockType.ori,
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              const SizedBox(height: 10),
+              CustomInputButtonGenericWidget(
+                controller: stockDesController,
+                textInputType: TextInputType.text,
+                textInputAction: TextInputAction.go,
+                title: "Estoque de Destino",
+                suffixIcon: OrderStockTransferRegisterGenericSuffixField(
+                  icon: Icons.search,
+                  onPressed: (() {
+                    print('teste - onClickItem Estoque Des');
+                    widget.bloc.add(
+                      const OrderStockTransferGetStocksEvent(
+                        tbInstitutionId: 1,
+                        // orderId: orderStock?.order.id,
+                        type: OrderStockTransferRegisterStockType.des,
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              const SizedBox(height: 10),
+              CustomInputButtonGenericWidget(
+                controller: noteController,
+                title: "Observações",
+                maxLines: 10,
+                textInputType: TextInputType.datetime,
+                textInputAction: TextInputAction.go,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

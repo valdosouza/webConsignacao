@@ -36,6 +36,9 @@ class OrderStockTransferRegisterEntityErrorState
 class OrderStockTransferRegisterStockErrorState
     extends OrderStockTransferRegisterState {}
 
+class OrderStockTransferRegisterGoToItemsState
+    extends OrderStockTransferRegisterState {}
+
 class OrderStockTransferRegisterStockState
     extends OrderStockTransferRegisterState {
   OrderStockTransferRegisterStockState({

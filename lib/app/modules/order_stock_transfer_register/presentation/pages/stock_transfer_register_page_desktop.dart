@@ -2,6 +2,7 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_customer_list.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_item_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_list_stocks.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_widget.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/stock_transfer_register_order.dart';
@@ -57,6 +58,9 @@ class OrderStockTransferRegisterPageDesktopState
           return const Center(
             child: CircularProgressIndicator(),
           );
+        }
+        if (state is OrderStockTransferRegisterGoToItemsState) {
+          return OrderStockTransferItemList(bloc: bloc);
         }
         if (state is OrderStockTransferRegisterEntitiesSuccessState) {
           bloc.add(
