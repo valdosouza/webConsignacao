@@ -1,5 +1,6 @@
 enum OrderStockTransferRegisterSearch {
   date,
   entity,
-  stock,
+  stockOri,
+  stockDes,
 }

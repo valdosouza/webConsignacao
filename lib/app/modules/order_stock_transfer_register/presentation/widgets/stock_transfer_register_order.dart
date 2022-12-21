@@ -21,6 +21,8 @@ class OrderStockTransferRegisterDesktop extends StatefulWidget {
       _OrderStockTransferRegisterDesktopState();
 }
 
+int id = 0;
+
 class _OrderStockTransferRegisterDesktopState
     extends State<OrderStockTransferRegisterDesktop>
     with SingleTickerProviderStateMixin {
@@ -34,15 +36,13 @@ class _OrderStockTransferRegisterDesktopState
   @override
   void initState() {
     super.initState();
-    widget.orderStock?.order.copyWith(
-      id: widget.orderStock?.order.id == null
-          ? widget.bloc.orders.last.order.id + 1
-          : widget.orderStock!.order.id,
-    );
+    id = widget.bloc.orders.last.order.id + 1;
     String formattedDate = DateFormat('dd/MM/yyyy')
         .format(widget.orderStock?.order.dtRecord ?? DateTime.now());
     dateController.text = formattedDate;
-    numberController.text = widget.orderStock?.order.number.toString() ?? '';
+    numberController.text = widget.orderStock == null
+        ? '0'
+        : widget.orderStock!.order.number.toString();
     entityController.text = widget.orderStock?.order.nameEntity ?? '';
     stockOriController.text = widget.orderStock?.order.nameStockListOri ?? '';
     stockDesController.text = widget.orderStock?.order.nameStockListDes ?? '';
@@ -65,7 +65,7 @@ class _OrderStockTransferRegisterDesktopState
           },
         ),
         title: Text(
-          widget.orderStock == null
+          widget.bloc.isEditing
               ? "Adicionar Ordem de Transferencia de Estoque"
               : "Editar Ordem de Transferencia de Estoque",
           style: kHintTextStyle.copyWith(fontSize: 20.0),
@@ -77,11 +77,6 @@ class _OrderStockTransferRegisterDesktopState
               size: 30.0,
             ),
             onPressed: () {
-              // bloc.edit
-              //     ? bloc.add(OrderProductionRegisterPutEvent(
-              //         model: orderStock))
-              //     : bloc.add(OrderProductionRegisterPostEvent(
-              //         model: orderProduction));
               final dateFormat = DateFormat(
                 'dd/MM/yyyy',
               );
@@ -93,7 +88,7 @@ class _OrderStockTransferRegisterDesktopState
                 final order = widget.orderStock!.order;
                 final a = widget.bloc.order!.copyWith(
                   order: Order(
-                    id: order.id,
+                    id: id,
                     tbInstitutionId: 1,
                     tbUserId: order.tbUserId,
                     tbEntityId: order.tbEntityId,
@@ -109,6 +104,11 @@ class _OrderStockTransferRegisterDesktopState
                   ),
                 );
                 print(a.toString());
+                // widget.bloc.isEditing
+                //     ? bloc.add(OrderProductionRegisterPutEvent(
+                //         model: orderStock))
+                //     : bloc.add(OrderProductionRegisterPostEvent(
+                //         model: orderProduction));
               }
             },
           ),
@@ -144,7 +144,7 @@ class _OrderStockTransferRegisterDesktopState
                   onPressed: () {
                     print('teste - onClickItem Entidades');
                     widget.bloc.add(
-                      OrderStockTransferGetEntitiesEvent(),
+                      const OrderStockTransferGetEntitiesEvent(),
                     );
                   },
                 ),

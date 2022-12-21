@@ -49,11 +49,24 @@ class _FilterWidgetState extends State<FilterWidget> {
           onChanged: (val) {
             setState(() {
               id = 2;
-              widget.bloc.typeSearch = OrderStockTransferRegisterSearch.stock;
+              widget.bloc.typeSearch =
+                  OrderStockTransferRegisterSearch.stockOri;
             });
           },
         ),
-        const Text('Estoque', style: defaultTextStyle),
+        const Text('Estoque Ori', style: defaultTextStyle),
+        Radio(
+          value: 3,
+          groupValue: id,
+          onChanged: (val) {
+            setState(() {
+              id = 3;
+              widget.bloc.typeSearch =
+                  OrderStockTransferRegisterSearch.stockDes;
+            });
+          },
+        ),
+        const Text('Estoque Des', style: defaultTextStyle),
       ],
     );
   }

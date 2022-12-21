@@ -13,10 +13,24 @@ class OrderStockTransferRegisterGetListEvent
 class OrderStockTransferSearchEvent extends OrderStockTransferRegisterEvent {
   const OrderStockTransferSearchEvent({
     required this.search,
-    // required this.typeSearch,
   });
   final String search;
-  // final OrderStockTransferRegisterSearch typeSearch;
+}
+
+class OrderStockTransferSearchStocksEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferSearchStocksEvent({
+    required this.search,
+  });
+  final String search;
+}
+
+class OrderStockTransferSearchEntitiesEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferSearchEntitiesEvent({
+    required this.search,
+  });
+  final String search;
 }
 
 class OrderStockTransferNewRegisterEvent
@@ -33,9 +47,9 @@ class OrderStockTransferRegisterGetEvent
 class OrderStockTransferRegisterEditEvent
     extends OrderStockTransferRegisterEvent {
   const OrderStockTransferRegisterEditEvent({
-    required this.order,
+    this.order,
   });
-  final OrderStockTransferRegisterOrderModel order;
+  final OrderStockTransferRegisterOrderModel? order;
 }
 
 class OrderStockTransferGetStocksEvent extends OrderStockTransferRegisterEvent {

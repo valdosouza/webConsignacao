@@ -60,7 +60,7 @@ class OrderStockTransferRegisterPageDesktopState
         }
         if (state is OrderStockTransferRegisterEntitiesSuccessState) {
           bloc.add(
-            OrderStockTransferRegisterEditEvent(order: bloc.order!),
+            OrderStockTransferRegisterEditEvent(order: bloc.order),
           );
         }
         if (state is OrderStockTransferRegisterEntitiesState) {
@@ -68,40 +68,39 @@ class OrderStockTransferRegisterPageDesktopState
             customers: state.entities,
             onClickItem: (entitySelected) {
               print('teste - onClickItem entity');
+              bloc.add(
+                OrderStockTransferSelectedEntitiesEvent(
+                  entity: entitySelected,
+                ),
+              );
+            },
+            searchFunction: (value) => bloc.add(
+              OrderStockTransferSearchEntitiesEvent(search: value),
+            ),
+            onClose: () {
               if (bloc.order?.order.id != null) {
                 bloc.add(
-                  OrderStockTransferSelectedEntitiesEvent(
-                    entity: entitySelected,
+                  OrderStockTransferRegisterEditEvent(
+                    order: bloc.order!,
                   ),
                 );
-              } else {
-                bloc.add(
-                  OrderStockTransferNewRegisterEvent(),
-                );
               }
-              return const CircularProgressIndicator();
             },
           );
         }
         if (state is OrderStockTransferRegisterStockSuccessState) {
           if (bloc.order?.order.id != null) {
-            bloc.add(
-                // OrderStockTransferRegisterGetEvent(
-                //   id: bloc.order!.order.id,
-                // ),
-                OrderStockTransferRegisterEditEvent(order: bloc.order!));
+            bloc.add(OrderStockTransferRegisterEditEvent(order: bloc.order!));
           } else {
             bloc.add(
               OrderStockTransferNewRegisterEvent(),
             );
           }
-          return const CircularProgressIndicator();
         }
         if (state is OrderStockTransferRegisterStockState) {
           return OrderStockTransferRegisterStockListWidget(
-            stocks: bloc.stockList,
+            stocks: state.stocks,
             onClickItem: (stockSelected) {
-              print('teste - onClickItem stock');
               bloc.add(
                 state.type == OrderStockTransferRegisterStockType.ori
                     ? OrderStockTransferRegisterStockOriEvent(
@@ -112,9 +111,9 @@ class OrderStockTransferRegisterPageDesktopState
                       ),
               );
             },
-            // searchFunction: (a) => bloc.add(
-            //   OrderStockTransferRegisterGetListEvent(),
-            // ),
+            searchFunction: (value) => bloc.add(
+              OrderStockTransferSearchStocksEvent(search: value),
+            ),
           );
         }
         if (state is OrderStockTransferRegisterLoadedState) {
