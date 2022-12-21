@@ -2,14 +2,16 @@
 class OrderStockAdjustmentRegisterItemsEntity {
   int tbStockListId;
   int tbProductId;
-  String nameProduct;
+  String description;
+  String nameStockList;
   int unitValue;
-  int quantity;
+  double quantity;
 
   OrderStockAdjustmentRegisterItemsEntity({
     required this.tbStockListId,
     required this.tbProductId,
-    required this.nameProduct,
+    required this.description,
+    required this.nameStockList,
     required this.unitValue,
     required this.quantity,
   });
@@ -18,7 +20,8 @@ class OrderStockAdjustmentRegisterItemsEntity {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['tb_stock_list_id'] = tbStockListId;
     data['tb_product_id'] = tbProductId;
-    data['name_product'] = nameProduct;
+    data['description'] = description;
+    data['name_stock_list'] = nameStockList;
     data['unit_value'] = unitValue;
     data['quantity'] = quantity;
 

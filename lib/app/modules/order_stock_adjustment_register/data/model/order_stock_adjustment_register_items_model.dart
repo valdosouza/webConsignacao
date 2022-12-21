@@ -5,13 +5,15 @@ class OrderStockAdjustmentRegisterItemsModel
   OrderStockAdjustmentRegisterItemsModel({
     int? tbStockListId,
     int? tbProductId,
-    String? nameProduct,
+    String? description,
+    String? nameStockList,
     int? unitValue,
-    int? quantity,
+    double? quantity,
   }) : super(
           tbStockListId: tbStockListId ?? 0,
           tbProductId: tbProductId ?? 0,
-          nameProduct: nameProduct ?? "",
+          description: description ?? "",
+          nameStockList: nameStockList ?? "",
           unitValue: unitValue ?? 0,
           quantity: quantity ?? 0,
         );
@@ -25,12 +27,13 @@ class OrderStockAdjustmentRegisterItemsModel
       tbProductId: json['tb_product_id'] is String
           ? int.parse(json['tb_product_id'])
           : json['tb_product_id'],
-          nameProduct: json['name_product'] as String? ?? "",
+          description: json['name_product'] as String? ?? "",
+          nameStockList: json['name_stock_list'] as String? ?? "",
       unitValue: json['unit_value'] is String
           ? int.parse(json['unit_value'])
           : json['unit_value'],
       quantity: json['quantity'] is String
-          ? int.parse(json['quantity'])
+          ? double.parse(json['quantity'])
           : json['quantity'],
     );
   }

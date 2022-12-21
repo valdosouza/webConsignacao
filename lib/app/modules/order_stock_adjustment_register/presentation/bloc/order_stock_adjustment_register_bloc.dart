@@ -32,7 +32,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
   List<ProductModel> products = [];
   List<StockListModel> stocks = [];
   List<EntityModel> entities = [];
-  StockListModel sotck = StockListModel();
+  StockListModel stock = StockListModel();
   OrderStockAdjustmentRegisterItemsModel item =
       OrderStockAdjustmentRegisterItemsModel.empty();
   bool edit = false;
@@ -77,11 +77,22 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     on<OrderStockAdjustmentRegisterReturnEvent>((event, emit) {
       if (event.item != null) {
         orderStockAdjustment.items.removeWhere((element) => element.tbProductId == event.item!.tbProductId);
+        stockIntoItems();
         orderStockAdjustment.items.add(event.item!);
       }
       emit(OrderStockAdjustmentRegisterInfoPageState(
           list: [], tabIndex: event.tabIndex));
     });
+  }
+
+  stockIntoItems(){
+    if(stock.id != 0){
+      orderStockAdjustment.items = orderStockAdjustment.items.map((e) {
+        e.tbStockListId = stock.id;
+        e.nameStockList = stock.description;
+        return e;
+      }).toList();
+    }
   }
 
   getList() {

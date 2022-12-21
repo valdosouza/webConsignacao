@@ -55,7 +55,7 @@ class OrderStockAdjustmentRegisterAddItem extends StatelessWidget {
           children: [
             CustomInputButtonWidget(
                 bloc: bloc,
-                initialValue: item.nameProduct,
+                initialValue: item.description,
                 event: OrderStockAdjustmentRegisterGetProductsEvent(tbInstitutionId: 1),
                 title: "Descrição do item"),
             const SizedBox(height: 10),
@@ -72,7 +72,7 @@ class OrderStockAdjustmentRegisterAddItem extends StatelessWidget {
                 initialValue: item.quantity.toString(),
                 keyboardType: TextInputType.number,
                 inputAction: TextInputAction.go,
-                onChanged: (value) => {item.quantity = int.parse(value)})
+                onChanged: (value) => {item.quantity = double.parse(value)})
           ],
         ),
       ),

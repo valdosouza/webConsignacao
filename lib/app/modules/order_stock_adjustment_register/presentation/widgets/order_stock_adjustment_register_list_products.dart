@@ -99,7 +99,7 @@ class OrderStockAdjustmentRegisterProductsListWidgetState
                         onTap: () {
                           widget.orderStockAdjustmentItem.tbProductId =
                               state.products[index].id;
-                          widget.orderStockAdjustmentItem.nameProduct =
+                          widget.orderStockAdjustmentItem.description =
                               state.products[index].description;
                           bloc.add(OrderStockAdjustmentRegisterItemEvent(
                               item: widget.orderStockAdjustmentItem));

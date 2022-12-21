@@ -132,7 +132,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl extends OrderStockAdjustmentReg
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = OrderStockAdjustmentRegisterModel.fromJson(data);
+        var model = OrderStockAdjustmentRegisterModel.fromListJson(data);
         return model;
       } else {
         throw ServerException();

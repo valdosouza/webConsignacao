@@ -61,7 +61,7 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
                     ),
                   ),
                   title: Text(
-                      widget.orderStockAdjustment.items[index].nameProduct),
+                      widget.orderStockAdjustment.items[index].description),
                   trailing: Text(widget
                       .orderStockAdjustment.items[index].quantity
                       .toString()),

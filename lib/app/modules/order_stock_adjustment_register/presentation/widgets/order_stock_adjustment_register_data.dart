@@ -50,7 +50,7 @@ class OrderStockAdjustmentRegisterData extends StatelessWidget {
           const SizedBox(height: 10),
           CustomInputButtonWidget(
               bloc: bloc,
-              initialValue: bloc.sotck.description,
+              initialValue: bloc.stock.description,
               event: OrderStockAdjustmentRegisterGetStocksEvent(
                   tbInstitutionId: 1),
               title: "Descrição do estoque"),

@@ -101,8 +101,8 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
                       itemCount: state.stock.length,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
-                          bloc.sotck.id = state.stock[index].id;
-                          bloc.sotck.description =
+                          bloc.stock.id = state.stock[index].id;
+                          bloc.stock.description =
                               state.stock[index].description;
                           bloc.add(OrderStockAdjustmentRegisterReturnEvent());
                         },

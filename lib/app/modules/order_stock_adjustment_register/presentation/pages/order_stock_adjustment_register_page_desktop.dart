@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
@@ -101,7 +102,8 @@ class OrderStockAdjustmentRegisterPageDesktopState
           IconButton(
             icon: const Icon(Icons.person_add),
             onPressed: () {
-              bloc.orderStockAdjustment = OrderStockAdjustmentRegisterModel();
+              bloc.orderStockAdjustment = OrderStockAdjustmentRegisterModel.empty();
+              bloc.stock = StockListModel();
               bloc.edit = false;
               bloc.add(OrderStockAdjustmentRegisterDesktopEvent());
             },
