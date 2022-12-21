@@ -5,6 +5,10 @@ import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
 import 'package:appweb/app/modules/customer_register/presentation/contents/content_customer_register.dart';
 import 'package:appweb/app/modules/customer_register/presentation/contents/content_customer_register_mobile.dart';
+import 'package:appweb/app/modules/customer_register/presentation/widgets/customer_register_city_list_widget.dart';
+import 'package:appweb/app/modules/customer_register/presentation/widgets/customer_register_sales_route_list_widget.dart';
+import 'package:appweb/app/modules/customer_register/presentation/widgets/customer_register_salesman_list_widget.dart';
+import 'package:appweb/app/modules/customer_register/presentation/widgets/customer_register_state_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -46,6 +50,22 @@ class _CustomerRegisterPageMobileState
             child: CircularProgressIndicator(),
           );
         }
+        if (state is CustomerRegisterGetStatesSuccessState) {
+          return const CustomerRegisterStateListWidget();
+        }
+
+        if (state is CustomerRegisterGetCitySuccessState) {
+          return const CustomerRegisterCityListWidget();
+        }
+
+        if (state is CustomerRegisterGetSalesmanSuccessState) {
+          return const CustomerRegisterSalesmanListWidget();
+        }
+
+        if (state is CustomerRegisterGetSalesRouteSuccessState) {
+          return const CustomerRegisterSalesRouteListWidget();
+        }
+
         if (state is CustomerRegisterInfoPageState) {
           return ContentCustomerRegisterMobile(
             customer: state.model,

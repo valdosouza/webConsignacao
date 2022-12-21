@@ -68,7 +68,7 @@ class AddressModel extends AddressEntity {
       neighborhood: json['bairro'] as String? ?? "",
       region: "",
       complement: json['complemento'] as String? ?? "",
-      kind: "",
+      kind: "Comercial",
       zipCode: json['cep'] as String? ?? "",
       tbCountryId: 1058,
       countryName: "Brasil",
@@ -96,7 +96,7 @@ class AddressModel extends AddressEntity {
     data['name_state'] = stateName;
     data['tb_city_id'] = tbCityId;
     data['name_city'] = cityName;
-    data['zip_code'] = zipCode;
+    data['zip_code'] = zipCode.replaceAll("-", "").replaceAll(".", "");
     data['main'] = main;
     data['longitude'] = longitude;
     data['latitude'] = latitude;
@@ -106,22 +106,22 @@ class AddressModel extends AddressEntity {
   factory AddressModel.empty() {
     return AddressModel(
       id: 0,
-      kind: "",
+      kind: "Comercial",
       zipCode: "",
       cityName: "",
       complement: "",
       countryName: "",
       latitude: "",
       longitude: "",
-      main: "N",
+      main: "S",
       neighborhood: "",
       nmbr: "",
       region: "",
       stateName: "",
       street: "",
-      tbCityId: 1,
-      tbCountryId: 1,
-      tbStateId: 1,
+      tbCityId: 4004,
+      tbCountryId: 1058,
+      tbStateId: 41,
     );
   }
 }

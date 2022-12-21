@@ -14,9 +14,11 @@ class CustomerRegisterRepositoryImpl implements CustomerRegisterRepository {
   });
 
   @override
-  Future<Either<Failure, CustomerMainModel>> get({required int id}) async {
+  Future<Either<Failure, CustomerMainModel>> get(
+      {required int tbInstitutionId, required int id}) async {
     try {
-      final customer = await datasource.get(id: id);
+      final customer =
+          await datasource.get(tbInstitutionId: tbInstitutionId, id: id);
       return Right(customer);
     } on ServerException {
       return Left(ServerFailure());

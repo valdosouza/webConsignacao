@@ -22,7 +22,6 @@ class _OrderProductionRegisterSituationWidgetState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     selectRadio = widget.orderProduction.status == 'A' ? true : false;
   }

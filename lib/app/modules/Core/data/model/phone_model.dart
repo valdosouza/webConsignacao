@@ -24,11 +24,25 @@ class PhoneModel extends PhoneEntity {
       addressKind: json['address_kind'] as String? ?? "",
     );
   }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['kind'] = kind;
+    data['contact'] = contact;
+    data['number'] = number
+        .replaceAll("(", "")
+        .replaceAll(")", "")
+        .replaceAll("-", "")
+        .replaceAll(" ", "");
+    data['address_kind'] = addressKind;
+    return data;
+  }
+
   factory PhoneModel.empty() {
     return PhoneModel(
       id: 0,
-      kind: "",
-      addressKind: "",
+      kind: "Comercial",
+      addressKind: "Comercial",
       contact: "",
       number: "",
     );

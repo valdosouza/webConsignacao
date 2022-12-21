@@ -2,7 +2,8 @@ import 'package:appweb/app/modules/Core/core_module.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
-import 'package:appweb/app/modules/Core/domain/usecase/get_salesmans.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_sales_route.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_salesman.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:appweb/app/modules/customer_register/data/datasource/customer_register_datasource.dart';
 import 'package:appweb/app/modules/customer_register/data/repository/customer_register_repository_impl.dart';
@@ -48,7 +49,8 @@ class CustomerRegisterModule extends Module {
               getStates: i.get<GetStates>(),
               getCustomer: i.get<CustomerRegisterGet>(),
               postCustomer: i.get<CustomerRegisterPost>(),
-              getSalesmans: i.get<GetSalesmans>(),
+              getSalesmans: i.get<GetSalesman>(),
+              getSalesRoute: i.get<GetSalesRoute>(),
             )),
       ];
   @override

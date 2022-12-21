@@ -75,9 +75,9 @@ buildListView(CustomerRegisterBloc bloc, List<CustomerListModel> customers) {
                   children: [
                     Text("Nome: ${customers[index].nameCompany}"),
                     const SizedBox(height: 5.0),
-                    customers[index].docType == "J"
-                        ? Text("CNPJ: ${customers[index].documento}")
-                        : Text("CPF: ${customers[index].documento}"),
+                    customers[index].docKind == "J"
+                        ? Text("CNPJ: ${customers[index].docNumber}")
+                        : Text("CPF: ${customers[index].docNumber}"),
                   ],
                 ),
                 trailing: IconButton(

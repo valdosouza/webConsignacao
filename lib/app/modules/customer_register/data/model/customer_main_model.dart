@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/Core/data/model/address_model.dart';
 import 'package:appweb/app/modules/Core/data/model/company_model.dart';
-import 'package:appweb/app/modules/Core/data/model/entity_model.dart';
+import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/person_model.dart';
 import 'package:appweb/app/modules/Core/data/model/phone_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_model.dart';
@@ -9,7 +9,7 @@ import 'package:appweb/app/modules/customer_register/domain/entity/customer_main
 class CustomerMainModel extends CustomerMainEntity {
   CustomerMainModel({
     required CustomerModel customer,
-    required EntityModel entity,
+    required EntityListModel entity,
     CompanyModel? company,
     PersonModel? person,
     required AddressModel address,
@@ -25,7 +25,7 @@ class CustomerMainModel extends CustomerMainEntity {
 
   factory CustomerMainModel.fromJson(Map<String, dynamic> json) {
     CustomerModel retcustomer = CustomerModel.fromJson(json['customer']);
-    EntityModel retentity = EntityModel.fromJson(json['entity']);
+    EntityListModel retentity = EntityListModel.fromJson(json['entity']);
     return CustomerMainModel(
       customer: retcustomer,
       entity: retentity,
@@ -53,7 +53,7 @@ class CustomerMainModel extends CustomerMainEntity {
   factory CustomerMainModel.empty() {
     return CustomerMainModel(
         customer: CustomerModel.empty(),
-        entity: EntityModel.empty(),
+        entity: EntityListModel.empty(),
         company: CompanyModel.empty(),
         person: PersonModel.empty(),
         address: AddressModel.empty(),

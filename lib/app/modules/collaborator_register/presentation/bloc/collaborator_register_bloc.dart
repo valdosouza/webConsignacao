@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
-import 'package:appweb/app/modules/Core/data/model/collaborator_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
@@ -26,7 +26,7 @@ class CollaboratorRegisterBloc
   final CollaboratorRegisterPost postCollaborator;
   final LinebusinessRegisterGetlist getLinebusines;
 
-  List<CollaboratorListModel> modelList = [];
+  List<CollaboratorModel> modelList = [];
   CollaboratorMainModel collaborator = CollaboratorMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> cities = [];
@@ -101,10 +101,10 @@ class CollaboratorRegisterBloc
         if (event.model.collaborator.id != 0) {
           emit(CollaboratorRegisterPostEditSuccessState(modelList));
         } else {
-          modelList.add(CollaboratorListModel(
+          modelList.add(CollaboratorModel(
             id: r.collaborator.id,
-            docType: r.person != null ? "F" : "J",
-            documento: r.person != null ? r.person!.cpf : r.company!.cnpj,
+            docKind: r.person != null ? "F" : "J",
+            docNumber: r.person != null ? r.person!.cpf : r.company!.cnpj,
             nameCompany: r.entity.nameCompany,
             nickTrade: r.entity.nickTrade,
           ));
@@ -125,14 +125,14 @@ class CollaboratorRegisterBloc
               .contains(event.search.toLowerCase().trim());
         }).toList();
         var collaboratorSearchedCnpj = modelList.where((element) {
-          String email = element.documento;
+          String email = element.docNumber;
           return email
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
         var collaboratorSearchedCpf = modelList.where((element) {
-          String email = element.documento;
+          String email = element.docNumber;
           return email
               .toLowerCase()
               .trim()
@@ -186,16 +186,18 @@ class CollaboratorRegisterBloc
       response.fold(
           (l) => emit(CollaboratorRegisterCnpjErrorState(modelList, "")), (r) {
         collaborator.address.zipCode =
-            r.cep.replaceAll("-", "").replaceAll(".", "");
-        collaborator.entity.nickTrade = r.fantasia;
+            r.zipCode.replaceAll("-", "").replaceAll(".", "");
+        collaborator.entity.nickTrade = r.nickTtrade;
         collaborator.company?.cnpj = r.cnpj;
-        collaborator.entity.nameCompany = r.nome;
-        collaborator.address.nmbr = r.numero;
-        collaborator.address.street = r.logradouro;
-        collaborator.address.complement = r.complemento;
-        collaborator.address.neighborhood = r.bairro;
-        collaborator.address.latitude = r.municipio;
-        collaborator.address.region = r.uf;
+        collaborator.entity.nameCompany = r.nameCompany;
+        collaborator.address.nmbr = r.nmbr;
+        collaborator.address.street = r.street;
+        collaborator.address.complement = r.complement;
+        collaborator.address.neighborhood = r.neighborhood;
+        collaborator.address.cityName = r.cityName;
+        collaborator.address.tbCityId = r.tbCityId;
+        collaborator.address.stateName = r.stateName;
+        collaborator.address.tbStateId = r.tbStateId;
         emit(CollaboratorRegisterInfoPageState(
             modelList: modelList, model: collaborator, tabIndex: 0));
       });
@@ -215,7 +217,9 @@ class CollaboratorRegisterBloc
         collaborator.address.complement = r.complement;
         collaborator.address.neighborhood = r.neighborhood;
         collaborator.address.stateName = r.stateName;
+        collaborator.address.tbStateId = r.tbStateId;
         collaborator.address.cityName = r.cityName;
+        collaborator.address.tbCityId = r.tbCityId;
         emit(CollaboratorRegisterInfoPageState(
             modelList: modelList, model: collaborator, tabIndex: 1));
       });

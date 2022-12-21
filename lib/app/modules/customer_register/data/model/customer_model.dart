@@ -57,9 +57,9 @@ class CustomerModel extends CustomerEntity {
       creditStatus: "",
       creditValue: 0,
       wallet: "",
-      consumer: "",
+      consumer: "N",
       multiplier: 0,
-      active: "N",
+      active: "S",
     );
   }
 }

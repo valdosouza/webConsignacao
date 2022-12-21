@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class GetSalesmanDatasource {
-  Future<List<SalesmanListModel>> getSalesmans({required int id});
+  Future<List<SalesmanListModel>> getSalesman({required int tbInstitutionId});
 }
 
 class GetSalesmanDataSourceImpl extends GetSalesmanDatasource {
@@ -13,9 +13,11 @@ class GetSalesmanDataSourceImpl extends GetSalesmanDatasource {
   List<SalesmanListModel> list = [];
 
   @override
-  Future<List<SalesmanListModel>> getSalesmans({required int id}) async {
+  Future<List<SalesmanListModel>> getSalesman(
+      {required int tbInstitutionId}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}collaborator/getlist/$id');
+      final uri =
+          Uri.parse('${baseApiUrl}collaborator/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 

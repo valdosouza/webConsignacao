@@ -86,7 +86,7 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                                           widget.bloc.institution.tbStateId,
                                       orElse: () => StateModel(
                                           name: widget
-                                              .bloc.institution.nameState),
+                                              .bloc.institution.stateName),
                                     )
                                     .name,
                                 style: const TextStyle(
@@ -140,7 +140,7 @@ class _InstituitionAddressWidgetState extends State<InstituitionAddressWidget> {
                                           widget.bloc.institution.tbCityId,
                                       orElse: () => CityModel(
                                           name:
-                                              widget.bloc.institution.nameCity),
+                                              widget.bloc.institution.cityName),
                                     )
                                     .name,
                                 style: const TextStyle(
