@@ -37,6 +37,7 @@ dtRecord:${order.dtRecord}
 number:${order.number}
 status:${order.status}
 note:${order.note}
+Items:${items.toString()}
 ''';
 
   final Order order;
@@ -96,12 +97,23 @@ class Item {
     required this.quantity,
   });
 
+  @override
+  String toString() => '''
+${super.toString()} 
+id:$id
+tbInstitutionId:$tbInstitutionId
+tbOrderId:$tbOrderId
+tbProductId:$tbProductId
+description:$description
+quantity:$quantity
+''';
+
   final int id;
   final int tbInstitutionId;
-  final int tbOrderId;
+  final int? tbOrderId;
   final int tbProductId;
   final String description;
-  final String quantity;
+  final String? quantity;
 
   Item copyWith({
     int? id,

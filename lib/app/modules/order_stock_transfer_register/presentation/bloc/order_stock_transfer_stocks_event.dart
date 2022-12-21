@@ -18,7 +18,7 @@ class OrderStockTransferGetStocksEvent extends OrderStockTransferStocksEvent {
 
 class OrderStockTransferRegisterStockOriEvent
     extends OrderStockTransferStocksEvent {
-  OrderStockTransferRegisterStockOriEvent({
+  const OrderStockTransferRegisterStockOriEvent({
     required this.stock,
   });
   final StockListModel stock;
@@ -27,7 +27,7 @@ class OrderStockTransferRegisterStockOriEvent
 
 class OrderStockTransferRegisterStockDesEvent
     extends OrderStockTransferStocksEvent {
-  OrderStockTransferRegisterStockDesEvent({
+  const OrderStockTransferRegisterStockDesEvent({
     required this.stock,
   });
   final StockListModel stock;

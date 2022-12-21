@@ -12,6 +12,12 @@ abstract class OrderStockTransferRegisterState extends Equatable {
 class OrderStockTransferRegisterLoadingState
     extends OrderStockTransferRegisterState {}
 
+class OrderStockTransferRegisterEditedItemPageState
+    extends OrderStockTransferRegisterState {
+  OrderStockTransferRegisterEditedItemPageState({this.item});
+  final Item? item;
+}
+
 class OrderStockTransferRegisterLoadedState
     extends OrderStockTransferRegisterState {
   OrderStockTransferRegisterLoadedState({
@@ -37,6 +43,16 @@ class OrderStockTransferRegisterStockErrorState
     extends OrderStockTransferRegisterState {}
 
 class OrderStockTransferRegisterGoToItemsState
+    extends OrderStockTransferRegisterState {}
+
+class OrderStockTransferRegisterShowSelectProductsPageState
+    extends OrderStockTransferRegisterState {
+  OrderStockTransferRegisterShowSelectProductsPageState(
+      {required this.products});
+  final List<ProductModel> products;
+}
+
+class OrderStockTransferRegisterShowSelectProductsPageErrorState
     extends OrderStockTransferRegisterState {}
 
 class OrderStockTransferRegisterStockState

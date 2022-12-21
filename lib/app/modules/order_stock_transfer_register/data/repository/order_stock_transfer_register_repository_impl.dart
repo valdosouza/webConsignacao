@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
+import 'package:appweb/app/modules/Core/domain/entity/product_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
@@ -89,6 +90,18 @@ class OrderStockTransferRegisterRepositoryImpl
     try {
       final list = await datasource.getListEntity(institutionId: institutionId);
 
+      return Right(list);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ProductModel>>> getListProduct(
+      {required int institutionId}) async {
+    try {
+      final list =
+          await datasource.getListProduct(institutionId: institutionId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

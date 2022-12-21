@@ -45,7 +45,9 @@ class _OrderStockTransferRegisterDesktopState
     super.initState();
     _tabController = TabController(vsync: this, length: myTabs.length);
 
-    id = widget.bloc.orders.last.order.id + 1;
+    id = widget.bloc.isEditing
+        ? widget.bloc.orders.last.order.id
+        : widget.bloc.orders.last.order.id + 1;
     String formattedDate = DateFormat('dd/MM/yyyy')
         .format(widget.orderStock?.order.dtRecord ?? DateTime.now());
     dateController.text = formattedDate;
@@ -75,8 +77,8 @@ class _OrderStockTransferRegisterDesktopState
         ),
         title: Text(
           widget.bloc.isEditing
-              ? "Adicionar Ordem de Transferencia de Estoque"
-              : "Editar Ordem de Transferencia de Estoque",
+              ? "Editar Ordem de Transferencia de Estoque"
+              : "Adicionar Ordem de Transferencia de Estoque",
           style: kHintTextStyle.copyWith(fontSize: 20.0),
         ),
         actions: [

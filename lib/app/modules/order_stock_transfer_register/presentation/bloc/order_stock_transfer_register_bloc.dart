@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/Core/domain/entity/product_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
@@ -7,6 +8,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_tranfer_register_put.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get_list.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/product_get_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_search_enum.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
@@ -25,6 +27,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
   final OrderStockTransferRegisterPost postOrderStock;
   final OrderStockTransferRegisterPut putOrderStock;
   final OrderStockTransferRegisterDelete deleteOrderStock;
+  final ProductGetlist productGetlist;
   OrderStockTransferRegisterSearch typeSearch =
       OrderStockTransferRegisterSearch.date;
 
@@ -36,6 +39,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
   List<StockListModel> _stocks = [];
   OrderStockTransferRegisterOrderModel? _order;
   List<Item>? _items;
+  List<ProductModel> _products = [];
   List<Item>? get items => _items;
   List<OrderStockTransferRegisterOrderModel> _orders = [];
   List<StockListModel> get stocks => _stocks;
@@ -51,6 +55,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     required this.postOrderStock,
     required this.putOrderStock,
     required this.deleteOrderStock,
+    required this.productGetlist,
   }) : super(OrderStockTransferRegisterLoadingState()) {
     on<OrderStockTransferRegisterGetListEvent>(getList);
     on<OrderStockTransferRegisterGetEvent>(get);
@@ -66,10 +71,45 @@ class OrderStockTransferRegisterBloc extends Bloc<
     on<OrderStockTransferSearchEntitiesEvent>(searchInEntities);
     on<OrderStockTransferRegisterStockOriEvent>(setStocksOri);
     on<OrderStockTransferRegisterStockDesEvent>(setStocksDes);
+    on<OrderStockTransferRegisterAddMoreItemsEvent>(addMoreItems);
+    on<OrderStockTransferRegisterEditItemPageEvent>(editItemsInOrder);
+    on<OrderStockTransferRegisterShowSelectProductsPageEvent>(
+      showSelectProductsPage,
+    );
     on<OrderStockTransferSelectedEntitiesEvent>(setEntity);
     on<OrderStockTransferRegisterPostEvent>(postOrderStockTransferAction);
     on<OrderStockTransferRegisterPutEvent>(putOrderStockTransferAction);
     on<OrderStockTransferRegisterDeleteEvent>(deleteOrderStockTransferAction);
+  }
+  //TODO: TESTAR TODOS OS EVENTOS DE ERROS
+
+  void editItemsInOrder(
+    OrderStockTransferRegisterEditItemPageEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) {
+    emit(OrderStockTransferRegisterLoadingState());
+    print(event.item);
+    emit(OrderStockTransferRegisterEditedItemPageState(item: event.item));
+  }
+
+  void showSelectProductsPage(
+    OrderStockTransferRegisterShowSelectProductsPageEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    emit(OrderStockTransferRegisterLoadingState());
+    final response =
+        await productGetlist.call(ParamsGetlistProduct(institutionId: 1));
+    response.fold(
+        (l) => emit(
+              OrderStockTransferRegisterShowSelectProductsPageErrorState(),
+            ), (r) {
+      _products = r;
+      emit(
+        OrderStockTransferRegisterShowSelectProductsPageState(
+          products: _products,
+        ),
+      );
+    });
   }
 
   void goToItemsPage(
@@ -78,6 +118,15 @@ class OrderStockTransferRegisterBloc extends Bloc<
   ) async {
     emit(OrderStockTransferRegisterLoadingState());
     _items = event.items;
+    emit(OrderStockTransferRegisterGoToItemsState());
+  }
+
+  void addMoreItems(
+    OrderStockTransferRegisterAddMoreItemsEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    emit(OrderStockTransferRegisterLoadingState());
+
     emit(OrderStockTransferRegisterGoToItemsState());
   }
 
@@ -414,6 +463,11 @@ class OrderStockTransferRegisterBloc extends Bloc<
         // orderId: event.orderId,
       ),
     );
+  }
+
+  void addItemInCurrentItems({required Item newItem}) {
+    _items?.removeWhere((e) => e.id == newItem.id);
+    _items?.add(newItem);
   }
 
   OrderStockTransferRegisterOrderModel? getCurrentOrder() {

@@ -1,8 +1,11 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_customer_list.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_edit_item_widget.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_item_list.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_product_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_list_stocks.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_widget.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/stock_transfer_register_order.dart';
@@ -62,6 +65,65 @@ class OrderStockTransferRegisterPageDesktopState
         if (state is OrderStockTransferRegisterGoToItemsState) {
           return OrderStockTransferItemList(bloc: bloc);
         }
+        if (state is OrderStockTransferRegisterEditedItemPageState) {
+          return OrderStockTransferRegisterEditItemWidget(
+            item: state.item,
+            searchFunction: (_) => bloc.add(
+              OrderStockTransferRegisterShowSelectProductsPageEvent(),
+            ),
+            onSave: (item) {
+              bloc.addItemInCurrentItems(newItem: item);
+              bloc.add(
+                OrderStockTransferRegisterGoToItemsEvent(
+                  items: bloc.order!.items!,
+                ),
+              );
+            },
+            onClose: () {
+              if (bloc.order?.order.id != null) {
+                bloc.add(
+                  OrderStockTransferRegisterGoToItemsEvent(
+                    items: bloc.order!.items!,
+                  ),
+                );
+              }
+            },
+          );
+        }
+        if (state is OrderProductionRegisterPostSuccessState ||
+            state is OrderProductionRegisterPutSuccessState) {
+          CustomToast.showToast(
+              "Ordem de Transferencia de Estoque salva com sucesso!");
+          bloc.add(OrderStockTransferRegisterGetListEvent());
+        }
+        if (state is OrderStockTransferRegisterShowSelectProductsPageState) {
+          return OrderStockTransferRegisterProductsListWidget(
+            products: state.products,
+            onClose: () {
+              if (bloc.order?.order.id != null) {
+                bloc.add(
+                  OrderStockTransferRegisterGoToItemsEvent(
+                    items: bloc.order!.items!,
+                  ),
+                );
+              }
+            },
+            onClickItem: (item) {
+              bloc.add(
+                OrderStockTransferRegisterEditItemPageEvent(
+                  item: Item(
+                    id: item.id,
+                    tbInstitutionId: item.tbInstitutionId,
+                    tbOrderId: bloc.order?.order.id,
+                    tbProductId: item.id,
+                    description: item.description,
+                    quantity: '0',
+                  ),
+                ),
+              );
+            },
+          );
+        }
         if (state is OrderStockTransferRegisterEntitiesSuccessState) {
           bloc.add(
             OrderStockTransferRegisterEditEvent(order: bloc.order),
@@ -71,7 +133,6 @@ class OrderStockTransferRegisterPageDesktopState
           return OrderStockCustomerList(
             customers: state.entities,
             onClickItem: (entitySelected) {
-              print('teste - onClickItem entity');
               bloc.add(
                 OrderStockTransferSelectedEntitiesEvent(
                   entity: entitySelected,

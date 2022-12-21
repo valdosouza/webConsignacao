@@ -7,6 +7,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_tranfer_register_put.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get_list.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/product_get_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/pages/stock_transfer_register_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -55,6 +56,10 @@ class OrderStockTransferRegisterModule extends Module {
           (i) => OrderStockTransferRegisterDelete(
               repository: i.get<OrderStockTransferRegisterRepositoryImpl>()),
         ),
+        Bind.factory(
+          (i) => ProductGetlist(
+              repository: i.get<OrderStockTransferRegisterRepositoryImpl>()),
+        ),
         Bind.singleton(
           (i) => OrderStockTransferRegisterBloc(
             getlistOrderStock: i.get<OrderStockTransferRegisterGetList>(),
@@ -64,6 +69,7 @@ class OrderStockTransferRegisterModule extends Module {
             deleteOrderStock: i.get<OrderStockTransferRegisterDelete>(),
             putOrderStock: i.get<OrderStockTransferRegisterPut>(),
             postOrderStock: i.get<OrderStockTransferRegisterPost>(),
+            productGetlist: i.get<ProductGetlist>(),
           ),
         ),
       ];

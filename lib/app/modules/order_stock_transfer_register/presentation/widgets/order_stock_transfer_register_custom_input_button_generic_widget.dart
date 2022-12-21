@@ -7,6 +7,8 @@ class CustomInputButtonGenericWidget extends StatelessWidget {
     this.onChanged,
     this.maxLines = 1,
     this.suffixIcon,
+    this.enabled = true,
+    this.width,
     required this.title,
     required this.textInputType,
     required this.textInputAction,
@@ -14,6 +16,8 @@ class CustomInputButtonGenericWidget extends StatelessWidget {
   });
 
   final String title;
+  final bool enabled;
+  final double? width;
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final TextEditingController controller;
@@ -38,24 +42,28 @@ class CustomInputButtonGenericWidget extends StatelessWidget {
           style: kLabelStyle,
         ),
         const SizedBox(height: 10.0),
-        TextFormField(
-          maxLines: maxLines,
-          controller: controller,
-          keyboardType: textInputType,
-          textInputAction: textInputAction,
-          // initialValue: initialValue,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.grey.withOpacity(0.6),
-            border: outlineInputBorder,
-            focusedBorder: outlineInputBorder,
-            enabledBorder: outlineInputBorder,
-            focusColor: Colors.grey.withOpacity(0.6),
-            focusedErrorBorder: outlineInputBorder,
-            suffixIcon: suffixIcon,
+        SizedBox(
+          width: width,
+          child: TextFormField(
+            enabled: enabled,
+            maxLines: maxLines,
+            controller: controller,
+            keyboardType: textInputType,
+            textInputAction: textInputAction,
+            // initialValue: initialValue,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.grey.withOpacity(0.6),
+              border: outlineInputBorder,
+              focusedBorder: outlineInputBorder,
+              enabledBorder: outlineInputBorder,
+              focusColor: Colors.grey.withOpacity(0.6),
+              focusedErrorBorder: outlineInputBorder,
+              suffixIcon: suffixIcon,
+            ),
+            onChanged: onChanged,
           ),
-          onChanged: onChanged,
-        )
+        ),
         // const SizedBox(height: 10.0),
         // Container(
         //     alignment: Alignment.centerLeft,

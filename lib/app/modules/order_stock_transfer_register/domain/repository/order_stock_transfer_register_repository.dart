@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/error/failures.dart';
+import 'package:appweb/app/modules/Core/domain/entity/product_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
@@ -7,6 +8,9 @@ import 'package:dartz/dartz.dart';
 abstract class OrderStockTransferRegisterRepository {
   Future<Either<Failure, List<OrderStockTransferRegisterOrderModel>>> getList({
     required int id,
+  });
+  Future<Either<Failure, List<ProductModel>>> getListProduct({
+    required int institutionId,
   });
 
   Future<Either<Failure, OrderStockTransferRegisterOrderModel>> get({

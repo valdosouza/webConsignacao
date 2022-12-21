@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
+import 'package:appweb/app/modules/Core/domain/entity/product_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
@@ -18,6 +19,7 @@ abstract class OrderStockTransferRegisterDataSource {
   Future<String> delete({required int id});
   Future<List<StockListModel>> getListStock({required int institutionId});
   Future<List<CustomerListModel>> getListEntity({required int institutionId});
+  Future<List<ProductModel>> getListProduct({required int institutionId});
 }
 
 class OrderStockTransferRegisterDataSourceImpl
@@ -26,6 +28,7 @@ class OrderStockTransferRegisterDataSourceImpl
   List<OrderStockTransferRegisterOrderModel> orderStock = [];
   List<StockListModel> stock = [];
   List<CustomerListModel> entities = [];
+  List<ProductModel> products = [];
 
   @override
   Future<List<OrderStockTransferRegisterOrderModel>> getlist(
@@ -66,6 +69,30 @@ class OrderStockTransferRegisterDataSourceImpl
         }).toList();
 
         return entities;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<ProductModel>> getListProduct({
+    required int institutionId,
+  }) async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}product/getlist/$institutionId');
+
+      final response = await client.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        products = (data as List).map((json) {
+          return ProductModel.fromJson(json);
+        }).toList();
+
+        return products;
       } else {
         throw ServerException();
       }

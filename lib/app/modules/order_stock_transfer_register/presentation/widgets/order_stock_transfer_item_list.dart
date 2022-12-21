@@ -1,5 +1,4 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -31,8 +30,8 @@ class OrderStockTransferItemList extends StatelessWidget {
         ),
         title: Text(
           bloc.isEditing
-              ? "Adicionar Ordem de Transferencia de Estoque"
-              : "Editar Ordem de Transferencia de Estoque",
+              ? "Adicionar Item de Estoque"
+              : "Editar Item de Estoque",
           style: kHintTextStyle.copyWith(fontSize: 20.0),
         ),
         actions: [
@@ -42,7 +41,11 @@ class OrderStockTransferItemList extends StatelessWidget {
               size: 30.0,
             ),
             onPressed: () {
-              print('ADD ITEM');
+              bloc.add(
+                const OrderStockTransferRegisterEditItemPageEvent(
+                  item: null,
+                ),
+              );
             },
           ),
           const SizedBox(
@@ -53,60 +56,89 @@ class OrderStockTransferItemList extends StatelessWidget {
               Icons.check,
               size: 30.0,
             ),
-            onPressed: () {},
+            onPressed: () {
+              if (bloc.order != null) {
+                bloc.isEditing
+                    ? bloc.add(
+                        OrderStockTransferRegisterPutEvent(
+                          model: bloc.order!,
+                        ),
+                      )
+                    : bloc.add(
+                        OrderStockTransferRegisterPostEvent(
+                          model: bloc.order!,
+                        ),
+                      );
+              }
+            },
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: const [
-                Text('CODIGO'),
-                Text('DESCRIÇÃO'),
-                Text('QTDE'),
-              ],
+      body: DataTable(
+        columns: const [
+          DataColumn(
+            label: Expanded(
+              child: Text(
+                'Código',
+                style: kLabelStyle,
+              ),
             ),
-            const SizedBox(height: 5.0),
-            Expanded(
-              child: bloc.order?.items == null
-                  ? const Center(
-                      child: Text(
-                          "Não encontramos nenhum registro em nossa base."))
-                  : ListView.separated(
-                      itemCount: bloc.order?.items?.length ?? 0,
-                      itemBuilder: (context, index) => InkWell(
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Text((index + 1).toString()),
-                            ),
-                          ),
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Nome: ${bloc.order?.items?[index].id}"),
-                              const SizedBox(height: 5.0),
-                              Text(bloc.order?.items?[index].description ?? ''),
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.remove),
-                            onPressed: () {
-                              CustomToast.showToast(
-                                  "Funcionalidade em desenvolvimento.");
-                            },
-                          ),
-                        ),
+          ),
+          DataColumn(
+            label: Expanded(
+              child: Text(
+                'Descrição',
+                style: kLabelStyle,
+              ),
+            ),
+          ),
+          DataColumn(
+            numeric: true,
+            label: Expanded(
+              child: Text(
+                'Qtde',
+                style: kLabelStyle,
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Expanded(
+              child: Text(
+                '',
+              ),
+            ),
+          ),
+        ],
+        rows: bloc.order!.items!.map(
+          (e) {
+            final index = bloc.order!.items!.indexOf(e);
+            return DataRow(
+              cells: [
+                DataCell(
+                  Text(
+                    bloc.order!.items![index].id.toString(),
+                  ),
+                ),
+                DataCell(
+                  Text(bloc.order!.items![index].description),
+                ),
+                DataCell(
+                  Text(bloc.order!.items![index].quantity ?? '0'),
+                ),
+                DataCell(
+                  const Icon(Icons.edit),
+                  onTap: () {
+                    bloc.add(
+                      OrderStockTransferRegisterEditItemPageEvent(
+                        item: bloc.order!.items![index],
                       ),
-                      separatorBuilder: (_, __) => const Divider(),
-                    ),
-            ),
-          ],
-        ),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        ).toList(),
       ),
     );
   }

@@ -11,8 +11,8 @@ class CustomerListModel extends CustomerListEntity {
           id: id ?? 0,
           nameCompany: nameCompany ?? "",
           nickTrade: nickTrade ?? "",
-          docType: docType ?? "",
-          documento: documento ?? "",
+          docKind: docType ?? "",
+          docNumber: documento ?? "",
         );
 
   factory CustomerListModel.fromJson(Map<String, dynamic> json) {

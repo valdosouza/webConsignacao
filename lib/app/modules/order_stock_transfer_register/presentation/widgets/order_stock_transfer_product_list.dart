@@ -1,21 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/domain/entity/product_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 
-class OrderStockCustomerList extends StatelessWidget {
-  const OrderStockCustomerList({
+class OrderStockTransferRegisterProductsListWidget extends StatelessWidget {
+  const OrderStockTransferRegisterProductsListWidget({
     Key? key,
-    required this.customers,
+    required this.products,
     this.searchFunction,
-    this.onClose,
     this.onClickItem,
+    this.onClose,
+    this.orderId,
   }) : super(key: key);
-  final List<CustomerListModel> customers;
-  final Function(CustomerListModel)? onClickItem;
+
+  final List<ProductModel> products;
+  final int? orderId;
   final Function(String)? searchFunction;
+  final Function(ProductModel)? onClickItem;
   final Function()? onClose;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +27,7 @@ class OrderStockCustomerList extends StatelessWidget {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de estoques'),
+        title: const Text('Lista de Produtos'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => onClose?.call(),
@@ -39,37 +43,28 @@ class OrderStockCustomerList extends StatelessWidget {
             ),
             const SizedBox(height: 5.0),
             Expanded(
-              child: customers.isEmpty
+              child: products.isEmpty
                   ? const Center(
-                      child: Text(
-                          "Não encontramos nenhum registro em nossa base."))
+                      child:
+                          Text("Não encontramos nenhum estoque em nossa base."))
                   : ListView.separated(
-                      itemCount: customers.length,
+                      itemCount: products.length,
                       itemBuilder: (context, index) => InkWell(
-                        onTap: () => onClickItem?.call(customers[index]),
+                        onTap: () {
+                          onClickItem?.call(products[index]);
+                        },
                         child: ListTile(
                           leading: CircleAvatar(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text((index + 1).toString()),
+                              child: Text(products[index].id.toString()),
                             ),
                           ),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Nome: ${customers[index].nameCompany}"),
-                              const SizedBox(height: 5.0),
-                              customers[index].docKind == "J"
-                                  ? Text("CNPJ: ${customers[index].docNumber}")
-                                  : Text("CPF: ${customers[index].docNumber}"),
+                              Text(products[index].description),
                             ],
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.remove),
-                            onPressed: () {
-                              CustomToast.showToast(
-                                  "Funcionalidade em desenvolvimento.");
-                            },
                           ),
                         ),
                       ),

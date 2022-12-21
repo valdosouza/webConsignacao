@@ -25,6 +25,18 @@ class OrderStockTransferRegisterGoToItemsEvent
   final List<Item> items;
 }
 
+class OrderStockTransferRegisterAddMoreItemsEvent
+    extends OrderStockTransferRegisterEvent {}
+
+class OrderStockTransferRegisterShowSelectProductsPageEvent
+    extends OrderStockTransferRegisterEvent {}
+
+class OrderStockTransferRegisterEditItemPageEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferRegisterEditItemPageEvent({required this.item});
+  final Item? item;
+}
+
 class OrderStockTransferSearchStocksEvent
     extends OrderStockTransferRegisterEvent {
   const OrderStockTransferSearchStocksEvent({
