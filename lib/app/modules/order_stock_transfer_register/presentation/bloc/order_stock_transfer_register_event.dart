@@ -95,3 +95,21 @@ class OrderStockTransferRegisterStockDesEvent
   final StockListModel stock;
   // final int? orderId;
 }
+
+class OrderStockTransferRegisterPostEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferRegisterPostEvent({required this.model});
+  final OrderStockTransferRegisterOrderModel model;
+}
+
+class OrderStockTransferRegisterPutEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferRegisterPutEvent({required this.model});
+  final OrderStockTransferRegisterOrderModel model;
+}
+
+class OrderStockTransferRegisterDeleteEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferRegisterDeleteEvent({required this.id});
+  final int id;
+}

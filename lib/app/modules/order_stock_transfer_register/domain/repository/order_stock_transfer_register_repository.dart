@@ -13,11 +13,11 @@ abstract class OrderStockTransferRegisterRepository {
     required int intitutionId,
     required int orderStockId,
   });
-  // Future<Either<Failure, OrderProductionRegisterModel>> post(
-  //     {required OrderProductionRegisterModel model});
-  // Future<Either<Failure, OrderProductionRegisterModel>> put(
-  //     {required OrderProductionRegisterModel model});
-  // Future<Either<Failure, String>> delete({required int id});
+  Future<Either<Failure, OrderStockTransferRegisterOrderModel>> post(
+      {required OrderStockTransferRegisterOrderModel model});
+  Future<Either<Failure, OrderStockTransferRegisterOrderModel>> put(
+      {required OrderStockTransferRegisterOrderModel model});
+  Future<Either<Failure, String>> delete({required int id});
   Future<Either<Failure, List<StockListModel>>> getListStock(
       {required int institutionId});
   Future<Either<Failure, List<CustomerListModel>>> getListEntity(

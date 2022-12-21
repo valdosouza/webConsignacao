@@ -2,6 +2,9 @@ import 'package:appweb/app/modules/order_stock_transfer_register/data/model/enti
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/customer_list_getlist.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_tranfer_register_delete.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_tranfer_register_post.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_tranfer_register_put.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/stock_list_getlist.dart';
@@ -19,6 +22,9 @@ class OrderStockTransferRegisterBloc extends Bloc<
   final OrderStockTransferRegisterGet getOrderStock;
   final StockListGetlist getStockList;
   final EntityListGetlist getEntityList;
+  final OrderStockTransferRegisterPost postOrderStock;
+  final OrderStockTransferRegisterPut putOrderStock;
+  final OrderStockTransferRegisterDelete deleteOrderStock;
   OrderStockTransferRegisterSearch typeSearch =
       OrderStockTransferRegisterSearch.date;
 
@@ -39,6 +45,9 @@ class OrderStockTransferRegisterBloc extends Bloc<
     required this.getOrderStock,
     required this.getStockList,
     required this.getEntityList,
+    required this.postOrderStock,
+    required this.putOrderStock,
+    required this.deleteOrderStock,
   }) : super(OrderStockTransferRegisterLoadingState()) {
     on<OrderStockTransferRegisterGetListEvent>(getList);
     on<OrderStockTransferRegisterGetEvent>(get);
@@ -54,7 +63,78 @@ class OrderStockTransferRegisterBloc extends Bloc<
     on<OrderStockTransferRegisterStockOriEvent>(setStocksOri);
     on<OrderStockTransferRegisterStockDesEvent>(setStocksDes);
     on<OrderStockTransferSelectedEntitiesEvent>(setEntity);
+    on<OrderStockTransferRegisterPostEvent>(postOrderStockTransferAction);
+    on<OrderStockTransferRegisterPutEvent>(putOrderStockTransferAction);
+    on<OrderStockTransferRegisterDeleteEvent>(deleteOrderStockTransferAction);
   }
+
+  void postOrderStockTransferAction(
+    OrderStockTransferRegisterPostEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    emit(OrderStockTransferRegisterLoadingState());
+    final response = await postOrderStock
+        .call(ParamOrderStockTransferRegisterPost(order: event.model));
+    response.fold(
+        (l) => emit(
+              OrderProductionRegisterPostErrorState(
+                list: _orders,
+              ),
+            ), (r) {
+      _orders.add(r);
+      emit(
+        OrderProductionRegisterPostSuccessState(
+          list: _orders,
+        ),
+      );
+    });
+  }
+
+  void putOrderStockTransferAction(
+    OrderStockTransferRegisterPutEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    emit(OrderStockTransferRegisterLoadingState());
+    final response = await putOrderStock
+        .call(ParamOrderStockTransferRegisterPut(order: event.model));
+    response.fold(
+        (l) => emit(
+              OrderProductionRegisterPutErrorState(
+                list: _orders,
+              ),
+            ), (r) {
+      _orders.removeWhere((element) => element.order.id == r.order.id);
+      _orders.add(r);
+      emit(
+        OrderProductionRegisterPutSuccessState(
+          list: _orders,
+        ),
+      );
+    });
+  }
+
+  void deleteOrderStockTransferAction(
+    OrderStockTransferRegisterDeleteEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    emit(OrderStockTransferRegisterLoadingState());
+    final response = await deleteOrderStock
+        .call(ParamOrderStockTransferRegisterDelete(id: event.id));
+    response.fold(
+        (l) => emit(
+              OrderProductionRegisterDeleteSuccessState(
+                list: _orders,
+              ),
+            ), (r) {
+      _orders.removeWhere((element) => element.order.id == event.id);
+      emit(
+        OrderProductionRegisterDeleteErrorState(
+          list: _orders,
+        ),
+      );
+    });
+  }
+
   void setEntity(
     OrderStockTransferSelectedEntitiesEvent event,
     Emitter<OrderStockTransferRegisterState> emit,

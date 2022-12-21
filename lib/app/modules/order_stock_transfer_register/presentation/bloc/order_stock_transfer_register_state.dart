@@ -74,3 +74,39 @@ class OrderStockTransferRegisterStockSuccessState
   final StockListModel stock;
   // final int? orderId;
 }
+
+class OrderProductionRegisterPostSuccessState
+    extends OrderStockTransferRegisterState {
+  OrderProductionRegisterPostSuccessState({required this.list});
+  final List<OrderStockTransferRegisterOrderModel> list;
+}
+
+class OrderProductionRegisterPostErrorState
+    extends OrderStockTransferRegisterState {
+  OrderProductionRegisterPostErrorState({required this.list});
+  final List<OrderStockTransferRegisterOrderModel> list;
+}
+
+class OrderProductionRegisterPutSuccessState
+    extends OrderStockTransferRegisterState {
+  OrderProductionRegisterPutSuccessState({required this.list});
+  final List<OrderStockTransferRegisterOrderModel> list;
+}
+
+class OrderProductionRegisterPutErrorState
+    extends OrderStockTransferRegisterState {
+  OrderProductionRegisterPutErrorState({required this.list});
+  final List<OrderStockTransferRegisterOrderModel> list;
+}
+
+class OrderProductionRegisterDeleteSuccessState
+    extends OrderStockTransferRegisterState {
+  OrderProductionRegisterDeleteSuccessState({required this.list});
+  final List<OrderStockTransferRegisterOrderModel> list;
+}
+
+class OrderProductionRegisterDeleteErrorState
+    extends OrderStockTransferRegisterState {
+  OrderProductionRegisterDeleteErrorState({required this.list});
+  final List<OrderStockTransferRegisterOrderModel> list;
+}
