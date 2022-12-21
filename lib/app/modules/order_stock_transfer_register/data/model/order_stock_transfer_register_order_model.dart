@@ -18,7 +18,7 @@ String orderStockTransferRegisterOrderModelToJson(
 class OrderStockTransferRegisterOrderModel {
   OrderStockTransferRegisterOrderModel({
     required this.order,
-    required this.items,
+    this.items,
   });
 
   @override

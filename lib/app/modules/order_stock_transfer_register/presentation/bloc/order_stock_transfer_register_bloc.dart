@@ -30,6 +30,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
 
   StockListModel? _oriStock;
   StockListModel? _desStock;
+  bool _isEditing = false;
   CustomerListModel? _customer;
   List<CustomerListModel>? _entities;
   List<StockListModel> _stocks = [];
@@ -38,7 +39,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
   List<StockListModel> get stocks => _stocks;
   List<OrderStockTransferRegisterOrderModel> get orders => _orders;
   OrderStockTransferRegisterOrderModel? get order => getCurrentOrder();
-  bool get isEditing => order?.order.id == 0;
+  bool get isEditing => _isEditing;
 
   OrderStockTransferRegisterBloc({
     required this.getlistOrderStock,
@@ -294,6 +295,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
       (l) => emit(OrderStockTransferRegisterErrorState()),
       (r) {
         _order = r;
+        _isEditing = true;
         emit(OrderStockTransferAddOrEditOrderState(order: _order));
       },
     );
@@ -332,6 +334,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     //   ),
     //   ),
     // );
+    _isEditing = false;
     emit(OrderStockTransferAddOrEditOrderState(order: null));
   }
 
@@ -428,7 +431,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
       order: Order(
         id: 0,
         tbInstitutionId: 0,
-        tbUserId: 0,
+        tbUserId: 2,
         tbEntityId: _customer?.id ?? 0,
         nameEntity: _customer?.nameCompany ?? '',
         tbStockListIdOri: _oriStock?.id ?? 0,
@@ -440,7 +443,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
         status: 'A',
         note: '',
       ),
-      items: null,
+      // items: null,
     );
   }
 }

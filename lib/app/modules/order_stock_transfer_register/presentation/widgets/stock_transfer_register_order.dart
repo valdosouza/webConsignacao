@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
@@ -77,13 +79,6 @@ class _OrderStockTransferRegisterDesktopState
               size: 30.0,
             ),
             onPressed: () {
-              final dateFormat = DateFormat(
-                'dd/MM/yyyy',
-              );
-              final dtRecord = dateFormat.parse(
-                dateController.text,
-              );
-
               if (widget.orderStock != null) {
                 final order = widget.orderStock!.order;
                 final a = widget.bloc.order!.copyWith(
@@ -103,12 +98,20 @@ class _OrderStockTransferRegisterDesktopState
                     note: noteController.text,
                   ),
                 );
-                print(a.toString());
-                // widget.bloc.isEditing
-                //     ? bloc.add(OrderProductionRegisterPutEvent(
-                //         model: orderStock))
-                //     : bloc.add(OrderProductionRegisterPostEvent(
-                //         model: orderProduction));
+                final b = a.toJson();
+
+                print(jsonEncode(b));
+                widget.bloc.isEditing
+                    ? widget.bloc.add(
+                        OrderStockTransferRegisterPutEvent(
+                          model: a,
+                        ),
+                      )
+                    : widget.bloc.add(
+                        OrderStockTransferRegisterPostEvent(
+                          model: a,
+                        ),
+                      );
               }
             },
           ),
