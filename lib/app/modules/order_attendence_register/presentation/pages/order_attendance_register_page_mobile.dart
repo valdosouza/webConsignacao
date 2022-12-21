@@ -1,10 +1,10 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/order_attendence_register/order_attendance_register_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_bloc.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_event.dart';
@@ -31,7 +31,7 @@ class OrderAttendancerRegisterPageMobileState
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<CustomerRegisterModule>();
+      await Modular.isModuleReady<OrderAttendanceRegisterModule>();
     });
 
     bloc = Modular.get<OrderAttendanceRegisterBloc>();

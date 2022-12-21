@@ -82,11 +82,7 @@ class _ContentOrderAttendanceRegisterMobileState
                         bloc.orderAttendance.note = editcontrol.text;
                         bloc.add(OrderAttendanceRegisterPostEvent(
                             bloc.orderAttendance));
-                        if (index == 0) {
-                          Modular.to.navigate('/cashier/content/');
-                        } else {
-                          Modular.to.navigate('/customer/mobile/');
-                        }
+                        Modular.to.navigate('/consignment/');
                       },
                     ),
                   ),

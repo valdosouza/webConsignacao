@@ -11,6 +11,7 @@ import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:appweb/app/modules/home/home_module.dart';
 import 'package:appweb/app/modules/order_attendence_register/order_attendance_register_module.dart';
+import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
 import 'package:appweb/app/modules/order_production/order_production_module.dart';
 import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
@@ -47,6 +48,7 @@ class AppModule extends Module {
         ModuleRoute('/orderproduction', module: OrderProductionModule()),
         ModuleRoute('/cashier', module: CashierModule()),
         ModuleRoute('/attendance', module: OrderAttendanceRegisterModule()),
+        ModuleRoute('/consignment', module: OrderConsignmentRegisterModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }
