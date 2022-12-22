@@ -263,7 +263,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
       emit(
         OrderStockTransferRegisterStockState(
           stocks: stocksSearched,
-          type: OrderStockTransferRegisterStockType.none,
+          type: event.type,
         ),
       );
     }

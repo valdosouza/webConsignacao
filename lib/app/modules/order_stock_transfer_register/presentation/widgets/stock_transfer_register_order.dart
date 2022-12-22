@@ -48,7 +48,11 @@ class _OrderStockTransferRegisterDesktopState
         (widget.bloc.date != '' && formattedDate != widget.bloc.date)
             ? widget.bloc.date
             : formattedDate;
-    numberController.text = widget.orderStock == null ? '' : widget.bloc.number;
+    numberController.text = (widget.orderStock?.order.number == null ||
+            widget.orderStock!.order.number == 0)
+        ? widget.bloc.number
+        : widget.orderStock!.order.number.toString();
+    widget.orderStock == null ? '' : widget.bloc.number;
     entityController.text = widget.orderStock?.order.nameEntity ?? '';
     stockOriController.text = widget.orderStock?.order.nameStockListOri ?? '';
     stockDesController.text = widget.orderStock?.order.nameStockListDes ?? '';

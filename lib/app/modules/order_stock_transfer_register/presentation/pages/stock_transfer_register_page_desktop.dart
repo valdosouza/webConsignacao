@@ -185,8 +185,20 @@ class OrderStockTransferRegisterPageDesktopState
                       ),
               );
             },
+            onClose: () {
+              if (bloc.order?.order.id != null) {
+                bloc.add(
+                  OrderStockTransferRegisterEditEvent(
+                    order: bloc.order!,
+                  ),
+                );
+              }
+            },
             searchFunction: (value) => bloc.add(
-              OrderStockTransferSearchStocksEvent(search: value),
+              OrderStockTransferSearchStocksEvent(
+                search: value,
+                type: state.type,
+              ),
             ),
           );
         }

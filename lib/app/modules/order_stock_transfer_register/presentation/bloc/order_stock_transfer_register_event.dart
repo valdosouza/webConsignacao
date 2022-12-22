@@ -41,8 +41,10 @@ class OrderStockTransferSearchStocksEvent
     extends OrderStockTransferRegisterEvent {
   const OrderStockTransferSearchStocksEvent({
     required this.search,
+    required this.type,
   });
   final String search;
+  final OrderStockTransferRegisterStockType type;
 }
 
 class OrderStockTransferSearchEntitiesEvent
