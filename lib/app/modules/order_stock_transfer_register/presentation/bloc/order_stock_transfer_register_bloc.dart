@@ -395,34 +395,6 @@ class OrderStockTransferRegisterBloc extends Bloc<
     Emitter<OrderStockTransferRegisterState> emit,
   ) async {
     emit(OrderStockTransferRegisterLoadingState());
-    // _oriStock = null;
-    // _desStock = null;
-    // _orders = [];
-    // // _order= null;
-    // _customer = null;
-    // final mainStock = _stocks.firstWhere((e) => e.main == 'S');
-    // emit(
-    // OrderStockTransferAddOrEditOrderState(
-    //   order: OrderStockTransferRegisterOrderModel(
-    //     order: Order(
-    //       id: id,
-    //       tbInstitutionId: tbInstitutionId,
-    //       tbUserId: tbUserId,
-    //       tbEntityId: _customer?.id ?? 0,
-    //       nameEntity: _customer.nameCompany,
-    //       tbStockListIdOri:mainStock.id
-    //       nameStockListOri: mainStock.description,
-    //       tbStockListIdDes: mainStock.id,
-    //       nameStockListDes: mainStock.description,
-    //       dtRecord: DateTime.now(),
-    //       number: number,
-    //       status: status,
-    //       note: note,
-    //     ),
-    //     items: null,
-    //   ),
-    //   ),
-    // );
     _isEditing = false;
     emit(OrderStockTransferAddOrEditOrderState(order: null));
   }
@@ -432,12 +404,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     Emitter<OrderStockTransferRegisterState> emit,
   ) async {
     emit(OrderStockTransferRegisterLoadingState());
-    // _oriStock = null;
-    // _desStock = null;
-    // _orders = [];
-    // _order= null;
-    // _customer = null;
-    // _items == null;
+
     emit(OrderStockTransferAddOrEditOrderState(order: event.order));
   }
 

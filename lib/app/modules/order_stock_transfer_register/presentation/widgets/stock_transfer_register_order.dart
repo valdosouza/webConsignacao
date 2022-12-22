@@ -141,7 +141,6 @@ class _OrderStockTransferRegisterDesktopState
                 suffixIcon: OrderStockTransferRegisterGenericSuffixField(
                   icon: Icons.search,
                   onPressed: () {
-                    print('teste - onClickItem Entidades');
                     widget.bloc.add(
                       const OrderStockTransferGetEntitiesEvent(),
                     );
@@ -157,7 +156,6 @@ class _OrderStockTransferRegisterDesktopState
                 suffixIcon: OrderStockTransferRegisterGenericSuffixField(
                   icon: Icons.search,
                   onPressed: (() {
-                    print('teste - onClickItem Estoque Ori');
                     widget.bloc.add(
                       const OrderStockTransferGetStocksEvent(
                         tbInstitutionId: 1,
@@ -177,7 +175,6 @@ class _OrderStockTransferRegisterDesktopState
                 suffixIcon: OrderStockTransferRegisterGenericSuffixField(
                   icon: Icons.search,
                   onPressed: (() {
-                    print('teste - onClickItem Estoque Des');
                     widget.bloc.add(
                       const OrderStockTransferGetStocksEvent(
                         tbInstitutionId: 1,

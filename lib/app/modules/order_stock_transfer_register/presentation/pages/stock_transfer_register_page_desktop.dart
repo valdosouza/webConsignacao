@@ -41,12 +41,12 @@ class OrderStockTransferRegisterPageDesktopState
         OrderStockTransferRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        print(state);
         if (state is OrderStockTransferRegisterStockErrorState) {
           CustomToast.showToast(
               "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
         }
-        if (state is OrderStockTransferRegisterEntitiesErrorState) {
+        if (state
+            is OrderStockTransferRegisterShowSelectProductsPageErrorState) {
           CustomToast.showToast(
               "Ocorreu um erro ao buscar por produto. Tente novamente mais tarde.");
         }

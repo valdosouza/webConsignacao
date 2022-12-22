@@ -36,9 +36,6 @@ class OrderStockTransferAddOrEditOrderState
 class OrderStockTransferRegisterErrorState
     extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterEntityErrorState
-    extends OrderStockTransferRegisterState {}
-
 class OrderStockTransferRegisterStockErrorState
     extends OrderStockTransferRegisterState {}
 
@@ -64,9 +61,6 @@ class OrderStockTransferRegisterStockState
   final List<StockListModel> stocks;
   final OrderStockTransferRegisterStockType type;
 }
-
-class OrderStockTransferRegisterEntitiesErrorState
-    extends OrderStockTransferRegisterState {}
 
 class OrderStockTransferRegisterEntitiesState
     extends OrderStockTransferRegisterState {
