@@ -3,12 +3,37 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bl
 import 'package:flutter/material.dart';
 
 class OrderStockTransferItemList extends StatelessWidget {
-  const OrderStockTransferItemList({
+  OrderStockTransferItemList({
     Key? key,
     required this.bloc,
   }) : super(key: key);
   final OrderStockTransferRegisterBloc bloc;
-
+  final emptyTable = [
+    const DataRow(
+      cells: [
+        DataCell(
+          Text(
+            'Sem Items',
+          ),
+        ),
+        DataCell(
+          Text(
+            '',
+          ),
+        ),
+        DataCell(
+          Text(
+            '',
+          ),
+        ),
+        DataCell(
+          Text(
+            '',
+          ),
+        ),
+      ],
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,11 +44,15 @@ class OrderStockTransferItemList extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            if (bloc.order?.order.id != null) {
+            if (bloc.order?.order.id != null && bloc.order!.order.id > 0) {
               bloc.add(
                 OrderStockTransferRegisterGetEvent(
                   id: bloc.order!.order.id,
                 ),
+              );
+            } else {
+              bloc.add(
+                OrderStockTransferRegisterGetListEvent(),
               );
             }
           },
@@ -109,36 +138,38 @@ class OrderStockTransferItemList extends StatelessWidget {
             ),
           ),
         ],
-        rows: bloc.order!.items!.map(
-          (e) {
-            final index = bloc.order!.items!.indexOf(e);
-            return DataRow(
-              cells: [
-                DataCell(
-                  Text(
-                    bloc.order!.items![index].id.toString(),
-                  ),
-                ),
-                DataCell(
-                  Text(bloc.order!.items![index].description),
-                ),
-                DataCell(
-                  Text(bloc.order!.items![index].quantity ?? '0'),
-                ),
-                DataCell(
-                  const Icon(Icons.edit),
-                  onTap: () {
-                    bloc.add(
-                      OrderStockTransferRegisterEditItemPageEvent(
-                        item: bloc.order!.items![index],
+        rows: bloc.order?.items == null
+            ? emptyTable
+            : bloc.order!.items!.map(
+                (e) {
+                  final index = bloc.order!.items!.indexOf(e);
+                  return DataRow(
+                    cells: [
+                      DataCell(
+                        Text(
+                          bloc.order!.items![index].id.toString(),
+                        ),
                       ),
-                    );
-                  },
-                ),
-              ],
-            );
-          },
-        ).toList(),
+                      DataCell(
+                        Text(bloc.order!.items![index].description),
+                      ),
+                      DataCell(
+                        Text(bloc.order!.items![index].quantity ?? '0'),
+                      ),
+                      DataCell(
+                        const Icon(Icons.edit),
+                        onTap: () {
+                          bloc.add(
+                            OrderStockTransferRegisterEditItemPageEvent(
+                              item: bloc.order!.items![index],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ).toList(),
       ),
     );
   }

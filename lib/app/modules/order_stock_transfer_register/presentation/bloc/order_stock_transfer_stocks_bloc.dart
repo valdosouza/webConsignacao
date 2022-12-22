@@ -9,9 +9,6 @@ part 'order_stock_transfer_stocks_state.dart';
 
 class OrderStockTransferStocksBloc
     extends Bloc<OrderStockTransferStocksEvent, OrderStockTransferStocksState> {
-  List<StockListModel> _stocklist = [];
-  StockListModel? _oriStock;
-  StockListModel? _desStock;
   OrderStockTransferStocksBloc({
     required this.getStockList,
   }) : super(OrderStockTransferRegisterStocksLoadingState()) {
@@ -34,7 +31,6 @@ class OrderStockTransferStocksBloc
     response.fold(
       (l) => emit(OrderStockTransferRegisterStockErrorState()),
       (r) {
-        _stocklist = r;
         emit(
           OrderStockTransferRegisterReturnedStocksState(
             stocks: r,
@@ -50,7 +46,6 @@ class OrderStockTransferStocksBloc
     Emitter<OrderStockTransferStocksState> emit,
   ) async {
     emit(OrderStockTransferRegisterStocksLoadingState());
-    _oriStock = event.stock;
     emit(
       OrderStockTransferRegisterStockSuccessState(
         stock: event.stock,
@@ -64,7 +59,6 @@ class OrderStockTransferStocksBloc
     Emitter<OrderStockTransferStocksState> emit,
   ) async {
     emit(OrderStockTransferRegisterStocksLoadingState());
-    _desStock = event.stock;
     emit(
       OrderStockTransferRegisterStockSuccessState(
         stock: event.stock,

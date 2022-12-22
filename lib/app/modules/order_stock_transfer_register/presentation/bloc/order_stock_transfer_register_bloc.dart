@@ -45,6 +45,11 @@ class OrderStockTransferRegisterBloc extends Bloc<
   List<StockListModel> get stocks => _stocks;
   List<OrderStockTransferRegisterOrderModel> get orders => _orders;
   OrderStockTransferRegisterOrderModel? get order => getCurrentOrder();
+
+  set saveOrder(OrderStockTransferRegisterOrderModel order) {
+    _order = order;
+  }
+
   bool get isEditing => _isEditing;
 
   OrderStockTransferRegisterBloc({
@@ -69,6 +74,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     on<OrderStockTransferRegisterGoToItemsEvent>(goToItemsPage);
     on<OrderStockTransferSearchStocksEvent>(searchInStocks);
     on<OrderStockTransferSearchEntitiesEvent>(searchInEntities);
+    on<OrderStockTransferSearchProductsEvent>(searchInProducts);
     on<OrderStockTransferRegisterStockOriEvent>(setStocksOri);
     on<OrderStockTransferRegisterStockDesEvent>(setStocksDes);
     on<OrderStockTransferRegisterAddMoreItemsEvent>(addMoreItems);
@@ -81,14 +87,12 @@ class OrderStockTransferRegisterBloc extends Bloc<
     on<OrderStockTransferRegisterPutEvent>(putOrderStockTransferAction);
     on<OrderStockTransferRegisterDeleteEvent>(deleteOrderStockTransferAction);
   }
-  //TODO: TESTAR TODOS OS EVENTOS DE ERROS
 
   void editItemsInOrder(
     OrderStockTransferRegisterEditItemPageEvent event,
     Emitter<OrderStockTransferRegisterState> emit,
   ) {
     emit(OrderStockTransferRegisterLoadingState());
-    print(event.item);
     emit(OrderStockTransferRegisterEditedItemPageState(item: event.item));
   }
 
@@ -320,6 +324,29 @@ class OrderStockTransferRegisterBloc extends Bloc<
     }
   }
 
+  void searchInProducts(
+    OrderStockTransferSearchProductsEvent event,
+    Emitter<OrderStockTransferRegisterState> emit,
+  ) async {
+    late List<ProductModel> productsSearched;
+
+    if (_products.isNotEmpty) {
+      emit(OrderStockTransferRegisterLoadingState());
+      productsSearched = _products.where((element) {
+        String description = element.description;
+        return description
+            .toLowerCase()
+            .trim()
+            .contains(event.search.toLowerCase().trim());
+      }).toList();
+      emit(
+        OrderStockTransferRegisterShowSelectProductsPageState(
+          products: productsSearched,
+        ),
+      );
+    }
+  }
+
   void getList(
     OrderStockTransferRegisterGetListEvent event,
     Emitter<OrderStockTransferRegisterState> emit,
@@ -328,6 +355,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     _oriStock = null;
     _desStock = null;
     // _orders = [];
+    _items = null;
     _order = null;
     _customer = null;
     var response = await getlistOrderStock
@@ -460,14 +488,13 @@ class OrderStockTransferRegisterBloc extends Bloc<
     emit(
       OrderStockTransferRegisterStockSuccessState(
         stock: event.stock,
-        // orderId: event.orderId,
       ),
     );
   }
 
   void addItemInCurrentItems({required Item newItem}) {
     _items?.removeWhere((e) => e.id == newItem.id);
-    _items?.add(newItem);
+    _items == null ? _items = [newItem] : _items?.add(newItem);
   }
 
   OrderStockTransferRegisterOrderModel? getCurrentOrder() {
@@ -489,10 +516,9 @@ class OrderStockTransferRegisterBloc extends Bloc<
           status: order.status,
           note: order.note,
         ),
-        items: _order?.items,
+        items: _order?.items ?? _items,
       );
     }
-    // final mainStock = _stocks.firstWhere((e) => e.main == 'S');
 
     return OrderStockTransferRegisterOrderModel(
       order: Order(

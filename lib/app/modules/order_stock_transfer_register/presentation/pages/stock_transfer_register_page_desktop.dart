@@ -57,6 +57,11 @@ class OrderStockTransferRegisterPageDesktopState
             color: Colors.red,
           );
         }
+        if (state is OrderProductionRegisterPostErrorState) {
+          CustomToast.showToast(
+              "Ocorreu um erro ao salvar a ordem. Tente novamente mais tarde.");
+          bloc.add(OrderStockTransferRegisterGetListEvent());
+        }
         if (state is OrderStockTransferRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -68,6 +73,7 @@ class OrderStockTransferRegisterPageDesktopState
         if (state is OrderStockTransferRegisterEditedItemPageState) {
           return OrderStockTransferRegisterEditItemWidget(
             item: state.item,
+            orderId: bloc.order?.order.id,
             searchFunction: (_) => bloc.add(
               OrderStockTransferRegisterShowSelectProductsPageEvent(),
             ),
@@ -75,7 +81,7 @@ class OrderStockTransferRegisterPageDesktopState
               bloc.addItemInCurrentItems(newItem: item);
               bloc.add(
                 OrderStockTransferRegisterGoToItemsEvent(
-                  items: bloc.order!.items!,
+                  items: bloc.order?.items,
                 ),
               );
             },
@@ -122,6 +128,9 @@ class OrderStockTransferRegisterPageDesktopState
                 ),
               );
             },
+            searchFunction: (value) => bloc.add(
+              OrderStockTransferSearchProductsEvent(search: value),
+            ),
           );
         }
         if (state is OrderStockTransferRegisterEntitiesSuccessState) {

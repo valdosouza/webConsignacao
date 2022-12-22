@@ -64,7 +64,7 @@ class _OrderStockTransferRegisterEditItemWidgetState
               Item(
                 id: widget.item?.id ?? 0,
                 tbInstitutionId: 1,
-                tbOrderId: widget.item?.tbOrderId,
+                tbOrderId: widget.orderId,
                 tbProductId: widget.item?.id ?? 0,
                 description: descriptionController.text,
                 quantity: quantityController.text,

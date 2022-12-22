@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
@@ -24,7 +22,6 @@ class OrderStockTransferRegisterDesktop extends StatefulWidget {
 }
 
 int id = 0;
-bool showFloat = false;
 
 class _OrderStockTransferRegisterDesktopState
     extends State<OrderStockTransferRegisterDesktop>
@@ -35,15 +32,10 @@ class _OrderStockTransferRegisterDesktopState
   TextEditingController stockOriController = TextEditingController();
   TextEditingController stockDesController = TextEditingController();
   TextEditingController noteController = TextEditingController();
-  late TabController _tabController;
-  final List<Tab> myTabs = <Tab>[
-    const Tab(text: 'Ordens'),
-    const Tab(text: 'Itens'),
-  ];
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: myTabs.length);
 
     id = widget.bloc.isEditing
         ? widget.bloc.orders.last.order.id
@@ -52,7 +44,7 @@ class _OrderStockTransferRegisterDesktopState
         .format(widget.orderStock?.order.dtRecord ?? DateTime.now());
     dateController.text = formattedDate;
     numberController.text = widget.orderStock == null
-        ? '0'
+        ? ''
         : widget.orderStock!.order.number.toString();
     entityController.text = widget.orderStock?.order.nameEntity ?? '';
     stockOriController.text = widget.orderStock?.order.nameStockListOri ?? '';
@@ -87,15 +79,14 @@ class _OrderStockTransferRegisterDesktopState
               Icons.add,
               size: 30.0,
             ),
-            onPressed: widget.bloc.order?.items == null
-                ? null
-                : () {
-                    widget.bloc.add(
-                      OrderStockTransferRegisterGoToItemsEvent(
-                        items: widget.bloc.order!.items!,
-                      ),
-                    );
-                  },
+            onPressed: () {
+              save();
+              widget.bloc.add(
+                OrderStockTransferRegisterGoToItemsEvent(
+                  items: widget.bloc.order?.items,
+                ),
+              );
+            },
           ),
           const SizedBox(
             width: 30,
@@ -106,40 +97,18 @@ class _OrderStockTransferRegisterDesktopState
               size: 30.0,
             ),
             onPressed: () {
-              if (widget.orderStock != null) {
-                final order = widget.orderStock!.order;
-                final a = widget.bloc.order!.copyWith(
-                  order: Order(
-                    id: id,
-                    tbInstitutionId: 1,
-                    tbUserId: order.tbUserId,
-                    tbEntityId: order.tbEntityId,
-                    nameEntity: entityController.text,
-                    tbStockListIdOri: order.tbStockListIdOri,
-                    nameStockListOri: stockOriController.text,
-                    tbStockListIdDes: order.tbStockListIdDes,
-                    nameStockListDes: stockDesController.text,
-                    dtRecord: order.dtRecord,
-                    number: int.tryParse(numberController.text) ?? 0,
-                    status: order.status,
-                    note: noteController.text,
-                  ),
-                );
-                final b = a.toJson();
-
-                print(jsonEncode(b));
-                widget.bloc.isEditing
-                    ? widget.bloc.add(
-                        OrderStockTransferRegisterPutEvent(
-                          model: a,
-                        ),
-                      )
-                    : widget.bloc.add(
-                        OrderStockTransferRegisterPostEvent(
-                          model: a,
-                        ),
-                      );
-              }
+              save();
+              widget.bloc.isEditing
+                  ? widget.bloc.add(
+                      OrderStockTransferRegisterPutEvent(
+                        model: widget.bloc.order!,
+                      ),
+                    )
+                  : widget.bloc.add(
+                      OrderStockTransferRegisterPostEvent(
+                        model: widget.bloc.order!,
+                      ),
+                    );
             },
           ),
         ],
@@ -232,5 +201,31 @@ class _OrderStockTransferRegisterDesktopState
         ),
       ),
     );
+  }
+
+  void save() {
+    if (widget.orderStock != null) {
+      final order = widget.orderStock!.order;
+      final dateFormat = DateFormat('dd/MM/yyyy');
+      final a = dateFormat.parse(dateController.text);
+      final model = widget.bloc.order!.copyWith(
+        order: Order(
+          id: id,
+          tbInstitutionId: 1,
+          tbUserId: order.tbUserId,
+          tbEntityId: order.tbEntityId,
+          nameEntity: entityController.text,
+          tbStockListIdOri: order.tbStockListIdOri,
+          nameStockListOri: stockOriController.text,
+          tbStockListIdDes: order.tbStockListIdDes,
+          nameStockListDes: stockDesController.text,
+          dtRecord: a,
+          number: int.tryParse(numberController.text) ?? 0,
+          status: order.status,
+          note: noteController.text,
+        ),
+      );
+      widget.bloc.saveOrder = model;
+    }
   }
 }

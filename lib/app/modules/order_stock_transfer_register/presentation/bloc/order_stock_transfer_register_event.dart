@@ -20,9 +20,9 @@ class OrderStockTransferSearchEvent extends OrderStockTransferRegisterEvent {
 class OrderStockTransferRegisterGoToItemsEvent
     extends OrderStockTransferRegisterEvent {
   const OrderStockTransferRegisterGoToItemsEvent({
-    required this.items,
+    this.items,
   });
-  final List<Item> items;
+  final List<Item>? items;
 }
 
 class OrderStockTransferRegisterAddMoreItemsEvent
@@ -53,6 +53,14 @@ class OrderStockTransferSearchEntitiesEvent
   final String search;
 }
 
+class OrderStockTransferSearchProductsEvent
+    extends OrderStockTransferRegisterEvent {
+  const OrderStockTransferSearchProductsEvent({
+    required this.search,
+  });
+  final String search;
+}
+
 class OrderStockTransferNewRegisterEvent
     extends OrderStockTransferRegisterEvent {}
 
@@ -75,11 +83,9 @@ class OrderStockTransferRegisterEditEvent
 class OrderStockTransferGetStocksEvent extends OrderStockTransferRegisterEvent {
   const OrderStockTransferGetStocksEvent({
     required this.tbInstitutionId,
-    // required this.orderId,
     required this.type,
   });
   final int tbInstitutionId;
-  // final int? orderId;
   final OrderStockTransferRegisterStockType type;
 }
 
@@ -87,10 +93,8 @@ class OrderStockTransferRegisterStockOriEvent
     extends OrderStockTransferRegisterEvent {
   const OrderStockTransferRegisterStockOriEvent({
     required this.stock,
-    // required this.orderId,
   });
   final StockListModel stock;
-  // final int? orderId;
 }
 
 class OrderStockTransferGetEntitiesEvent
@@ -110,10 +114,8 @@ class OrderStockTransferRegisterStockDesEvent
     extends OrderStockTransferRegisterEvent {
   const OrderStockTransferRegisterStockDesEvent({
     required this.stock,
-    // required this.orderId,
   });
   final StockListModel stock;
-  // final int? orderId;
 }
 
 class OrderStockTransferRegisterPostEvent
