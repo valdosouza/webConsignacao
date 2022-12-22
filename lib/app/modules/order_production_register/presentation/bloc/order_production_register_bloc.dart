@@ -237,20 +237,22 @@ class OrderProductionRegisterBloc
   searchEventOrderProduction() {
     on<OrderProductionRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var orderProductionsSearched = orderProductions.where((element) {
-          String name = element.nameMerchandise;
-          int id = element.id;
-          String date = element.dtRecord;
-          return (name
-                  .toLowerCase()
-                  .trim()
-                  .contains(event.search.toLowerCase().trim()) ||
-              date
-                  .toLowerCase()
-                  .trim()
-                  .contains(event.search.toLowerCase().trim()) ||
-              id.toString() == event.search);
-        }).toList();
+        var orderProductionsSearched = orderProductions.where(
+          (element) {
+            String name = element.nameMerchandise;
+            int id = element.id;
+            String date = element.dtRecord;
+            return (name
+                    .toLowerCase()
+                    .trim()
+                    .contains(event.search.toLowerCase().trim()) ||
+                date
+                    .toLowerCase()
+                    .trim()
+                    .contains(event.search.toLowerCase().trim()) ||
+                id.toString() == event.search);
+          },
+        ).toList();
         if (orderProductionsSearched.isNotEmpty) {
           emit(OrderProductionRegisterLoadedState(
               list: orderProductionsSearched));

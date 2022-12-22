@@ -7,7 +7,8 @@ import 'package:dartz/dartz.dart';
 
 class OrderProductionRegisterGetlist
     implements
-        UseCase<List<OrderProductionRegisterModel>, ParamsGetlistOrderProductionRegister> {
+        UseCase<List<OrderProductionRegisterModel>,
+            ParamsGetlistOrderProductionRegister> {
   final OrderProductionRegisterRepository repository;
 
   OrderProductionRegisterGetlist({required this.repository});
