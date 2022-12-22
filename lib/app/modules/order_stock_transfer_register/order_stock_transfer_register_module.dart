@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/Core/core_module.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/repository/order_stock_transfer_register_repository_impl.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/datasource/order_stock_transfer_register_datasource.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/datasource/order_stock_transfer_register_datasource.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/customer_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_tranfer_register_delete.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_tranfer_register_post.dart';
