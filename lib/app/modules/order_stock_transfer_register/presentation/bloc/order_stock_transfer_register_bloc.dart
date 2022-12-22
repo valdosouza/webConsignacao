@@ -45,9 +45,28 @@ class OrderStockTransferRegisterBloc extends Bloc<
   List<StockListModel> get stocks => _stocks;
   List<OrderStockTransferRegisterOrderModel> get orders => _orders;
   OrderStockTransferRegisterOrderModel? get order => getCurrentOrder();
+  String _number = '';
+  String _date = '';
+  String _note = '';
+
+  String get number => _number;
+  String get date => _date;
+  String get note => _note;
 
   set saveOrder(OrderStockTransferRegisterOrderModel order) {
     _order = order;
+  }
+
+  set saveNumber(String value) {
+    _number = value;
+  }
+
+  set saveDate(String value) {
+    _date = value;
+  }
+
+  set saveNote(String value) {
+    _note = value;
   }
 
   bool get isEditing => _isEditing;
@@ -358,6 +377,9 @@ class OrderStockTransferRegisterBloc extends Bloc<
     _items = null;
     _order = null;
     _customer = null;
+    _number = '';
+    _date = '';
+    _note = '';
     var response = await getlistOrderStock
         .call(ParamsGetlistOrderStockTransferRegister(id: 1));
 

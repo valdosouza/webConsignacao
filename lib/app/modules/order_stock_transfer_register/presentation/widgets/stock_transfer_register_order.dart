@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/enum/order_stock_transfer_type_enum.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
@@ -42,14 +43,19 @@ class _OrderStockTransferRegisterDesktopState
         : widget.bloc.orders.last.order.id + 1;
     String formattedDate = DateFormat('dd/MM/yyyy')
         .format(widget.orderStock?.order.dtRecord ?? DateTime.now());
-    dateController.text = formattedDate;
-    numberController.text = widget.orderStock == null
-        ? ''
-        : widget.orderStock!.order.number.toString();
+
+    dateController.text =
+        (widget.bloc.date != '' && formattedDate != widget.bloc.date)
+            ? widget.bloc.date
+            : formattedDate;
+    numberController.text = widget.orderStock == null ? '' : widget.bloc.number;
     entityController.text = widget.orderStock?.order.nameEntity ?? '';
     stockOriController.text = widget.orderStock?.order.nameStockListOri ?? '';
     stockDesController.text = widget.orderStock?.order.nameStockListDes ?? '';
-    noteController.text = widget.orderStock?.order.note ?? '';
+    noteController.text = (widget.orderStock?.order.note == null ||
+            widget.orderStock!.order.note == '')
+        ? widget.bloc.note
+        : widget.orderStock!.order.note;
   }
 
   @override
@@ -97,6 +103,11 @@ class _OrderStockTransferRegisterDesktopState
               size: 30.0,
             ),
             onPressed: () {
+              if (widget.bloc.items == null || widget.bloc.items!.isEmpty) {
+                CustomToast.showToast(
+                    "Não é possível salvar uma ordem de transferência sem items.");
+                return;
+              }
               save();
               widget.bloc.isEditing
                   ? widget.bloc.add(
@@ -124,6 +135,9 @@ class _OrderStockTransferRegisterDesktopState
                 controller: dateController,
                 textInputType: TextInputType.datetime,
                 textInputAction: TextInputAction.go,
+                onChanged: (value) {
+                  widget.bloc.saveDate = value;
+                },
               ),
               const SizedBox(height: 10),
               CustomInputButtonGenericWidget(
@@ -131,6 +145,9 @@ class _OrderStockTransferRegisterDesktopState
                 controller: numberController,
                 textInputType: TextInputType.number,
                 textInputAction: TextInputAction.go,
+                onChanged: (value) {
+                  widget.bloc.saveNumber = value;
+                },
               ),
               const SizedBox(height: 10),
               CustomInputButtonGenericWidget(
@@ -146,6 +163,9 @@ class _OrderStockTransferRegisterDesktopState
                     );
                   },
                 ),
+                onChanged: (value) {
+                  widget.bloc.saveNumber = value;
+                },
               ),
               const SizedBox(height: 10),
               CustomInputButtonGenericWidget(
@@ -192,6 +212,9 @@ class _OrderStockTransferRegisterDesktopState
                 maxLines: 10,
                 textInputType: TextInputType.datetime,
                 textInputAction: TextInputAction.go,
+                onChanged: (value) {
+                  widget.bloc.saveNote = value;
+                },
               )
             ],
           ),
