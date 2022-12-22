@@ -25,3 +25,6 @@ class OrderConsignementRegisterSupplyngPostEvent
 
   OrderConsignementRegisterSupplyngPostEvent({required this.suplyingmode});
 }
+
+class OrderConsignmentRegisterClearLefoverEvent
+    extends OrderConsignmentRegisterEvent {}

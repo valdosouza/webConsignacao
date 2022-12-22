@@ -1,9 +1,13 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_event.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_state.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/custom_body_wiget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/custom_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
@@ -53,7 +57,23 @@ class _ContentConsignmenteCheckpoineState
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<OrderConsignmentRegisterBloc,
+        OrderConsignmentRegisterState>(
+      bloc: bloc,
+      listener: (context, state) {
+        if (state is OrderConsigngmentGetLastErrorState) {
+          CustomToast.showToast("Erro . Tente novamente mais tarde");
+        }
+      },
+      builder: (context, state) {
+        return buildBody(context);
+      },
+    );
+  }
+
+  Widget buildBody(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -63,8 +83,8 @@ class _ContentConsignmenteCheckpoineState
               Container(
                 alignment: Alignment.bottomCenter,
                 height: 45,
-                child: const Text(
-                  "Mercado do Povo",
+                child: Text(
+                  bloc.modelCheckpoint.order.nameCustomer,
                   style: ktittleAppBarStyle,
                   textAlign: TextAlign.center,
                 ),
@@ -77,104 +97,66 @@ class _ContentConsignmenteCheckpoineState
       body: SingleChildScrollView(
         child: CustomBody(size: size, modelCheckpoint: bloc.modelCheckpoint),
       ),
-      bottomSheet: _footter(size),
+      bottomSheet: (keyboardHide) ? _footer() : null,
     );
   }
 
-  Widget _footter(Size size) {
-    return Expanded(
-      child: SizedBox(
-        height: 40,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.red,
-                      ),
-                    ),
-                    child: const Text("Voltar"),
-                  ),
-                ),
-              ),
+  _footer() {
+    return SizedBox(
+      height: 40,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 1,
+            child: _custombutton(
+                "Voltar", (() => Modular.to.navigate('/attendance/'))),
+          ),
+          Expanded(
+            flex: 1,
+            child: _custombutton("Limpar",
+                () => bloc.add(OrderConsignmentRegisterClearLefoverEvent())),
+          ),
+          Expanded(
+            flex: 1,
+            child: _custombutton(
+                "Informações",
+                (() =>
+                    {CustomToast.showToast("Em desenvolvimento. Aguarde..")})),
+          ),
+          Expanded(
+            flex: 1,
+            child: _custombutton(
+                "Finalizar",
+                (() => {
+                      bloc.add(OrderConsignementRegisterCheckpointPostEvent(
+                          checkpointmodel: bloc.modelCheckpoint))
+                    })),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _custombutton(String buttonName, Function() function) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
+      child: ElevatedButton(
+        onPressed: () {
+          function();
+          setState(() {});
+        },
+        child: Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(
+              left: 2.0, top: 0.0, right: 2.0, bottom: 0.0),
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.red,
             ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                        left: 2.0, top: 0.0, right: 2.0, bottom: 0.0),
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.red,
-                      ),
-                    ),
-                    child: const Text("Limpar"),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                        left: 2.0, top: 0.0, right: 2.0, bottom: 0.0),
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.red,
-                      ),
-                    ),
-                    child: const Text("Informações"),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(
-                        left: 2.0, top: 0.0, right: 2.0, bottom: 0.0),
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.red,
-                      ),
-                    ),
-                    child: const Text("Finalizar"),
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
+          child: Text(buttonName),
         ),
       ),
     );

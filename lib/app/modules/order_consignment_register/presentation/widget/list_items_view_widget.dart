@@ -28,7 +28,7 @@ Widget listitemsview(
           ),
           Expanded(
             flex: 315,
-            child: listfielditems(items[index], 5, false, 2, TextAlign.right),
+            child: listfielditems(items[index], 5, false, 2, TextAlign.center),
           ),
           Expanded(
             flex: 300,

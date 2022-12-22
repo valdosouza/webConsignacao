@@ -14,7 +14,8 @@ class OrderConsignmentCheckpointOrderEntity {
     String? nameCustomer,
     double? totalValue,
     double? changeValue,
-    double? debitBalance,
+    double? previousDebiBalance,
+    double? currentDebitBalance,
   });
 }
 

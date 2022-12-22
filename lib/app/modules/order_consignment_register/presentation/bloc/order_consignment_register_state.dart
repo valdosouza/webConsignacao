@@ -37,6 +37,9 @@ class OrderConsignmentRegisterCheckpointPostSucessState
       {required this.supplyingmode});
 }
 
+class OrderConsignmentRegisterCalcDoneState
+    extends OrderConsignmentRegisterState {}
+
 class OrderConsignmentRegisterSupplyingPostErrorState
     extends OrderConsignmentRegisterState {
   final String error;

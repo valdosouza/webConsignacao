@@ -3,17 +3,22 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/payment_info_widget.dart';
 import 'package:flutter/material.dart';
 
-class CustomBody extends StatelessWidget {
+class CustomBody extends StatefulWidget {
   final Size size;
   final OrderConsignmentCheckpointModel modelCheckpoint;
   const CustomBody(
       {super.key, required this.size, required this.modelCheckpoint});
 
   @override
+  State<CustomBody> createState() => _CustomBodyState();
+}
+
+class _CustomBodyState extends State<CustomBody> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: size.height - 127,
-      width: size.width,
+      height: widget.size.height - 127,
+      width: widget.size.width,
       child: Center(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -21,11 +26,11 @@ class CustomBody extends StatelessWidget {
           children: [
             Expanded(
               flex: 9,
-              child: listitemsview(modelCheckpoint.items, size),
+              child: listitemsview(widget.modelCheckpoint.items, widget.size),
             ),
             Expanded(
               flex: 3,
-              child: paymentinfo(modelCheckpoint),
+              child: paymentinfo(widget.modelCheckpoint),
             ),
           ],
         ),

@@ -36,13 +36,15 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
   factory OrderConsignmentCheckpointModel.isEmpty() {
     return OrderConsignmentCheckpointModel(
       order: OrderConsignmentCheckpointOrderModel(
-          id: 0,
-          tbInstitutionId: 1,
-          tbCustomerId: 0,
-          nameCustomer: "",
-          totalValue: 0,
-          changeValue: 0,
-          debitBalance: 0),
+        id: 0,
+        tbInstitutionId: 1,
+        tbCustomerId: 0,
+        nameCustomer: "",
+        totalValue: 0,
+        changeValue: 0,
+        previousDebiBalance: 0,
+        currentDebitBalance: 0,
+      ),
       items: [],
       payments: [],
     );
@@ -51,13 +53,15 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
   factory OrderConsignmentCheckpointModel.fromSupplying(
       OrderConsignmentSupplyingModel supplying) {
     var order = OrderConsignmentCheckpointOrderModel(
-        id: supplying.order.id,
-        tbInstitutionId: supplying.order.tbInstitutionId,
-        tbCustomerId: supplying.order.tbCustomerId,
-        nameCustomer: supplying.order.nameCustomer,
-        totalValue: 0,
-        changeValue: 0,
-        debitBalance: 0);
+      id: supplying.order.id,
+      tbInstitutionId: supplying.order.tbInstitutionId,
+      tbCustomerId: supplying.order.tbCustomerId,
+      nameCustomer: supplying.order.nameCustomer,
+      totalValue: 0,
+      changeValue: 0,
+      previousDebiBalance: supplying.order.currentDebitBalance,
+      currentDebitBalance: 0,
+    );
 
     List<OrderConsignmentCheckpointItemsModel> listItems = [];
     for (OrderConsignmentSupplyingItemsModel item in supplying.items) {
@@ -68,7 +72,7 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
         leftover: 0.0,
         qtyConsigned: item.qtyConsigned,
         qtySold: 0,
-        unitValue: 0,
+        unitValue: item.unitValue,
         subtotal: 0,
       ));
     }
@@ -100,24 +104,26 @@ class OrderConsignmentCheckpointOrderModel
   String nameCustomer;
   double totalValue;
   double changeValue;
-  double debitBalance;
-
-  OrderConsignmentCheckpointOrderModel({
-    required this.id,
-    required this.tbInstitutionId,
-    required this.tbCustomerId,
-    required this.nameCustomer,
-    required this.totalValue,
-    required this.changeValue,
-    required this.debitBalance,
-  }) : super(
+  double previousDebiBalance;
+  double currentDebitBalance;
+  OrderConsignmentCheckpointOrderModel(
+      {required this.id,
+      required this.tbInstitutionId,
+      required this.tbCustomerId,
+      required this.nameCustomer,
+      required this.totalValue,
+      required this.changeValue,
+      required this.previousDebiBalance,
+      required this.currentDebitBalance})
+      : super(
           id: id,
           tbInstitutionId: tbInstitutionId,
           tbCustomerId: tbCustomerId,
           nameCustomer: nameCustomer,
           totalValue: totalValue,
           changeValue: changeValue,
-          debitBalance: debitBalance,
+          previousDebiBalance: previousDebiBalance,
+          currentDebitBalance: currentDebitBalance,
         );
 
   factory OrderConsignmentCheckpointOrderModel.fromJson(
@@ -129,7 +135,8 @@ class OrderConsignmentCheckpointOrderModel
       nameCustomer: json['name_customer'] as String? ?? "",
       totalValue: double.parse(json['total_value']),
       changeValue: double.parse(json['change_value']),
-      debitBalance: double.parse(json['debit_balance']),
+      previousDebiBalance: double.parse(json['previous_debit_balance']),
+      currentDebitBalance: double.parse(json['current_debit_balance']),
     );
   }
 
@@ -141,7 +148,8 @@ class OrderConsignmentCheckpointOrderModel
       'name_customer': nameCustomer,
       'total_value': totalValue,
       'change_value': changeValue,
-      'debit_balance': debitBalance,
+      'previous_debit_balance': previousDebiBalance,
+      'current_debit_balance': currentDebitBalance,
     };
   }
 }

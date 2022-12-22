@@ -20,16 +20,17 @@ class OrderConsignmentCheckpointDatasourceImpl
       OrderConsignmentCheckpointModel model) async {
     try {
       final uri = Uri.parse('${baseApiUrl}orderconsignment/checkpoint');
+      var bodyConsignment = jsonEncode(model.toJson());
+
       final response = await client.post(
         uri,
-        body: jsonEncode(model.toJson()),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
+        body: bodyConsignment,
       );
       if (response.statusCode == 200) {
-        return OrderConsignmentCheckpointModel.fromJson(
-            json.decode(response.body));
+        return model;
       } else {
         throw ServerException();
       }

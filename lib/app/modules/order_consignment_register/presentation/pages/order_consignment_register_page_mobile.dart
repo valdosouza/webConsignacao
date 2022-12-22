@@ -58,6 +58,14 @@ class OrderAttendancerRegisterPageMobileState
         }
       },
       builder: (context, state) {
+        if (state is OrderConsignmentRegisterCheckpointPostSucessState) {
+          return ContentConsignmentSupplying(
+              supplyingmodel: bloc.modelSupplying);
+        }
+        if (state is OrderConsignmentRegisterCheckpointPostErrorState) {
+          return ContentConsignmentCheckpoint(
+              checkpointmodel: bloc.modelCheckpoint);
+        }
         if (state is OrderConsignmentRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),

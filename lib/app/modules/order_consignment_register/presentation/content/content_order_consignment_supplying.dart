@@ -205,12 +205,12 @@ class _ContentConsignmentSupplyingState
         children: [
           Expanded(
             flex: 5,
-            child: _headerField('Divida Anterior'),
+            child: _headerField('Dívida Anterior'),
           ),
           Expanded(
             flex: 2,
             child: _listField(
-                bloc.modelCheckpoint.order.debitBalance.toString(),
+                bloc.modelSupplying.order.currentDebitBalance.toString(),
                 false,
                 0,
                 0),

@@ -11,6 +11,7 @@ class OrderConsignmentSupplyingOrderEntity {
     int? tbInstitutionId,
     int? tbCustomerId,
     String? nameCustomer,
+    double? currentDebitBalance,
   });
 }
 
@@ -23,5 +24,6 @@ class OrderConsignmentSupplyingItemsEntity {
     double? devolution,
     double? newConsignment,
     double? qtyConsigned,
+    double? unitValue,
   });
 }

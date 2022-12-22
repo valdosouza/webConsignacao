@@ -35,13 +35,38 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
           id: 1,
           tbInstitutionId: 1,
           tbCustomerId: 51,
-          nameCustomer: "Aleatorio"),
+          nameCustomer: "",
+          currentDebitBalance: 0),
       items: [],
     );
   }
   factory OrderConsignmentSupplyingModel.fromCheckpoint(
-      OrderConsignmentCheckpointModel checkpointmodel) {
-    return OrderConsignmentSupplyingModel.isEmpty();
+      OrderConsignmentCheckpointModel checkpoint) {
+    var order = OrderConsignmentSupplyingOrderModel(
+      id: checkpoint.order.id,
+      tbInstitutionId: checkpoint.order.tbInstitutionId,
+      tbCustomerId: checkpoint.order.tbCustomerId,
+      nameCustomer: checkpoint.order.nameCustomer,
+      currentDebitBalance: checkpoint.order.currentDebitBalance,
+    );
+    List<OrderConsignmentSupplyingItemsModel> listItems = [];
+    for (OrderConsignmentCheckpointItemsModel item in checkpoint.items) {
+      listItems.add(OrderConsignmentSupplyingItemsModel(
+        tbProductId: item.tbProductId,
+        bonus: item.bonus,
+        nameProduct: item.nameProduct,
+        leftover: item.leftover,
+        devolution: 0,
+        newConsignment: 0,
+        qtyConsigned: item.leftover,
+        unitValue: item.unitValue,
+      ));
+    }
+
+    return OrderConsignmentSupplyingModel(
+      order: order,
+      items: listItems,
+    );
   }
 }
 
@@ -51,17 +76,20 @@ class OrderConsignmentSupplyingOrderModel
   int tbInstitutionId;
   int tbCustomerId;
   String nameCustomer;
+  double currentDebitBalance;
 
   OrderConsignmentSupplyingOrderModel({
     required this.id,
     required this.tbInstitutionId,
     required this.tbCustomerId,
     required this.nameCustomer,
+    required this.currentDebitBalance,
   }) : super(
           id: id,
           tbInstitutionId: tbInstitutionId,
           tbCustomerId: tbCustomerId,
           nameCustomer: nameCustomer,
+          currentDebitBalance: currentDebitBalance,
         );
 
   factory OrderConsignmentSupplyingOrderModel.fromJson(
@@ -71,6 +99,7 @@ class OrderConsignmentSupplyingOrderModel
       tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
       tbCustomerId: json['tb_customer_id'] as int? ?? 0,
       nameCustomer: json['name_customer'] as String? ?? "",
+      currentDebitBalance: double.parse(json['current_debit_balance']),
     );
   }
 
@@ -80,6 +109,7 @@ class OrderConsignmentSupplyingOrderModel
       'tb_institution_id': tbInstitutionId,
       'tb_customer_id': tbCustomerId,
       'name_customer': nameCustomer,
+      'current_debit_balance': currentDebitBalance,
     };
   }
 }
@@ -93,6 +123,7 @@ class OrderConsignmentSupplyingItemsModel
   double devolution;
   double newConsignment;
   double qtyConsigned;
+  double unitValue;
 
   OrderConsignmentSupplyingItemsModel({
     required this.tbProductId,
@@ -102,6 +133,7 @@ class OrderConsignmentSupplyingItemsModel
     required this.devolution,
     required this.newConsignment,
     required this.qtyConsigned,
+    required this.unitValue,
   }) : super(
           tbProductId: tbProductId,
           nameProduct: nameProduct,
@@ -110,6 +142,7 @@ class OrderConsignmentSupplyingItemsModel
           devolution: devolution,
           newConsignment: newConsignment,
           qtyConsigned: qtyConsigned,
+          unitValue: unitValue,
         );
 
   factory OrderConsignmentSupplyingItemsModel.fromJson(
@@ -122,6 +155,7 @@ class OrderConsignmentSupplyingItemsModel
       devolution: double.parse(json['devolution']),
       newConsignment: double.parse(json['new_consignment']),
       qtyConsigned: double.parse(json['qty_consigned']),
+      unitValue: double.parse(json['unit_value']),
     );
   }
 

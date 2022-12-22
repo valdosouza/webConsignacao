@@ -19,25 +19,27 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black),
           ),
-          child: Text(
-            (modelCheckpoint.items
-                            .map((e) =>
-                                ((e.qtyConsigned - e.leftover) * e.unitValue))
-                            .reduce((value, element) => value + element) +
-                        modelCheckpoint.order.debitBalance -
-                        modelCheckpoint.payments[0].value -
-                        modelCheckpoint.payments[1].value) <
-                    0
-                ? (modelCheckpoint.items
-                            .map((e) =>
-                                ((e.qtyConsigned - e.leftover) * e.unitValue))
-                            .reduce((value, element) => value + element) +
-                        modelCheckpoint.order.debitBalance -
-                        modelCheckpoint.payments[0].value -
-                        modelCheckpoint.payments[1].value)
-                    .toStringAsFixed(2)
-                : "0.00",
-            textAlign: TextAlign.center,
+          child: TextField(
+            enabled: false,
+            controller: TextEditingController(
+                text: (modelCheckpoint.items
+                                .map((e) => ((e.qtyConsigned - e.leftover) *
+                                    e.unitValue))
+                                .reduce((value, element) => value + element) +
+                            modelCheckpoint.order.previousDebiBalance -
+                            modelCheckpoint.payments[0].value -
+                            modelCheckpoint.payments[1].value) <
+                        0
+                    ? (modelCheckpoint.items
+                                .map((e) => ((e.qtyConsigned - e.leftover) *
+                                    e.unitValue))
+                                .reduce((value, element) => value + element) +
+                            modelCheckpoint.order.previousDebiBalance -
+                            modelCheckpoint.payments[0].value -
+                            modelCheckpoint.payments[1].value)
+                        .toStringAsFixed(2)
+                    : "0.00"),
+            textAlign: TextAlign.right,
           ),
         ),
       ),

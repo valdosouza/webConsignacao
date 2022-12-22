@@ -26,6 +26,7 @@ class OrderConsignmentRegisterBloc
     supplyingGetlast();
     checkpointPost();
     supplyingPost();
+    clearLeftOver();
   }
 
   supplyingGetlast() {
@@ -80,6 +81,23 @@ class OrderConsignmentRegisterBloc
       }, (r) {
         emit(OrderConsignmentRegisterSupplyingPostSucessState());
       });
+    });
+  }
+
+  clearLeftOver() {
+    on<OrderConsignmentRegisterClearLefoverEvent>((event, emit) async {
+      for (OrderConsignmentCheckpointItemsModel item in modelCheckpoint.items) {
+        item.leftover = 0;
+        item.qtySold = 0;
+        item.subtotal = 0;
+      }
+      modelCheckpoint.order.totalValue = 0;
+      modelCheckpoint.order.changeValue = 0;
+      modelCheckpoint.order.currentDebitBalance = 0;
+      for (OrderConsignmentCheckpointPaymentModel item
+          in modelCheckpoint.payments) {
+        item.value = 0;
+      }
     });
   }
 }

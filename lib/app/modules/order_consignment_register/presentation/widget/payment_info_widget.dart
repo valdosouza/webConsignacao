@@ -7,6 +7,25 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:flutter/material.dart';
 
 Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
+  String calcInfoPayment() {
+    modelCheckpoint.order.totalValue = 0;
+    for (OrderConsignmentCheckpointItemsModel item in modelCheckpoint.items) {
+      if (item.leftover > 0) {
+        modelCheckpoint.order.totalValue +=
+            ((item.qtyConsigned - item.leftover) * item.unitValue);
+      }
+    }
+    modelCheckpoint.order.totalValue +=
+        modelCheckpoint.order.previousDebiBalance;
+    modelCheckpoint.order.currentDebitBalance =
+        modelCheckpoint.order.totalValue;
+    for (OrderConsignmentCheckpointPaymentModel item
+        in modelCheckpoint.payments) {
+      modelCheckpoint.order.currentDebitBalance -= item.value;
+    }
+    return modelCheckpoint.order.totalValue.toStringAsFixed(2);
+  }
+
   return Container(
     alignment: Alignment.topCenter,
     decoration: BoxDecoration(
@@ -23,13 +42,9 @@ Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black),
           ),
-          child: Text(
-            (modelCheckpoint.items
-                        .map((e) =>
-                            ((e.qtyConsigned - e.leftover) * e.unitValue))
-                        .reduce((value, element) => value + element) +
-                    modelCheckpoint.order.debitBalance)
-                .toString(),
+          child: TextField(
+            enabled: false,
+            controller: TextEditingController(text: calcInfoPayment()),
             textAlign: TextAlign.center,
           ),
         ),

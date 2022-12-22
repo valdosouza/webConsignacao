@@ -15,7 +15,8 @@ Widget dividaanterior(OrderConsignmentCheckpointModel checkpointmodel) {
         Expanded(
           flex: 4,
           child: fieldedit(
-              checkpointmodel.order.debitBalance.toStringAsFixed(2), false),
+              checkpointmodel.order.previousDebiBalance.toStringAsFixed(2),
+              false),
         ),
       ],
     ),
