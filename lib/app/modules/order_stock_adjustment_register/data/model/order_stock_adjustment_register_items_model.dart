@@ -3,6 +3,9 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/domain/entity
 class OrderStockAdjustmentRegisterItemsModel
     extends OrderStockAdjustmentRegisterItemsEntity {
   OrderStockAdjustmentRegisterItemsModel({
+    int? id,
+    int? tbInstitutionId,
+    int? tbOrderId,
     int? tbStockListId,
     int? tbProductId,
     String? description,
@@ -10,6 +13,9 @@ class OrderStockAdjustmentRegisterItemsModel
     int? unitValue,
     double? quantity,
   }) : super(
+          id: id ?? 0,
+          tbInstitutionId: tbInstitutionId ?? 1,
+          tbOrderId: tbOrderId ?? 0,
           tbStockListId: tbStockListId ?? 0,
           tbProductId: tbProductId ?? 0,
           description: description ?? "",
@@ -27,7 +33,7 @@ class OrderStockAdjustmentRegisterItemsModel
       tbProductId: json['tb_product_id'] is String
           ? int.parse(json['tb_product_id'])
           : json['tb_product_id'],
-          description: json['name_product'] as String? ?? "",
+          description: json['description'] as String? ?? "",
           nameStockList: json['name_stock_list'] as String? ?? "",
       unitValue: json['unit_value'] is String
           ? int.parse(json['unit_value'])

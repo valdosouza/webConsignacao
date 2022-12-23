@@ -74,10 +74,12 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
 
     searchEventOrderStockAdjustment();
 
+    changeDirection();
+
     on<OrderStockAdjustmentRegisterReturnEvent>((event, emit) {
       if (event.item != null) {
-        orderStockAdjustment.items.removeWhere((element) => element.tbProductId == event.item!.tbProductId);
-        stockIntoItems();
+        orderStockAdjustment.items.removeWhere(
+            (element) => element.tbProductId == event.item!.tbProductId);
         orderStockAdjustment.items.add(event.item!);
       }
       emit(OrderStockAdjustmentRegisterInfoPageState(
@@ -85,9 +87,13 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  stockIntoItems(){
-    if(stock.id != 0){
+  formatItems() {
+    if (stock.id != 0) {
+      int index = 1;
+      int orderId = orderStockAdjustment.id;
       orderStockAdjustment.items = orderStockAdjustment.items.map((e) {
+        e.id = index++;
+        e.tbOrderId = orderId;
         e.tbStockListId = stock.id;
         e.nameStockList = stock.description;
         return e;
@@ -114,7 +120,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
   postOrderStockAdjustmentAction() {
     on<OrderStockAdjustmentRegisterPostEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
-
+      formatItems();
       var response = await postOrderStockAdjustment
           .call(ParamsPostOrderStockAdjustmentRegister(model: event.model));
 
@@ -131,7 +137,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
   putOrderStockAdjustmentAction() {
     on<OrderStockAdjustmentRegisterPutEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
-
+      formatItems();
       var response = await putOrderStockAdjustment
           .call(ParamsPutOrderStockAdjustmentRegister(model: event.model));
 
@@ -141,8 +147,13 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
                   list: orderStockAdjustments))
               : emit(OrderStockAdjustmentRegisterPutErrorState(
                   list: orderStockAdjustments)), (r) {
-        orderStockAdjustments.removeWhere((element) => element.id == r.id);
-        orderStockAdjustments.add(r);
+        orderStockAdjustments = orderStockAdjustments.map((element) {
+          if (element.id == r.id) {
+            element = r;
+          }
+          return element;
+        }).toList();
+
         emit(OrderStockAdjustmentRegisterPutSuccessState(
             list: orderStockAdjustments));
       });
@@ -180,6 +191,10 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
             (l) => emit(OrderStockAdjustmentRegisterGetErrorState(
                 list: orderStockAdjustments)), (r) {
           orderStockAdjustment = r;
+          if (r.items.isNotEmpty) {
+            stock.description = r.items.first.description;
+            stock.id = r.items.first.tbStockListId;
+          }
           emit(
               OrderStockAdjustmentRegisterInfoPageState(list: [], tabIndex: 0));
         });
@@ -349,5 +364,10 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
             list: orderStockAdjustments));
       }
     });
+  }
+
+  changeDirection() {
+    on<OrderStockAdjustmentRegisterChangeDirectionEvent>(
+        (event, emit) async {});
   }
 }

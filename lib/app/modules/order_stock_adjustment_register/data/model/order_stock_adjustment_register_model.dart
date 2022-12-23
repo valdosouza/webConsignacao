@@ -23,7 +23,7 @@ class OrderStockAdjustmentRegisterModel
           id: id ?? 0,
           tbInstitutionId: tbInstitutionId ?? 1,
           tbOrderid: tbOrderid ?? 0,
-          tbUserId: tbUserId ?? 0,
+          tbUserId: tbUserId ?? 2,
           tbEntityid: tbEntityid ?? 0,
           nameEntity: nameEntity ?? "",
           number: number ?? 0,
@@ -31,7 +31,9 @@ class OrderStockAdjustmentRegisterModel
           direction: direction ?? "E",
           note: note ?? "",
           status: status ?? "",
-          items: items ?? List<OrderStockAdjustmentRegisterItemsModel>.empty(growable: true),
+          items: items ??
+              List<OrderStockAdjustmentRegisterItemsModel>.empty(
+                  growable: true),
         );
 
   factory OrderStockAdjustmentRegisterModel.fromJson(
@@ -58,15 +60,19 @@ class OrderStockAdjustmentRegisterModel
         direction: json['direction'] as String? ?? "",
         note: json['note'] as String? ?? "",
         status: json['status'] as String? ?? "",
-        items: json['items'] == null ? null : (json['items'] as List)
-            .map((e) => OrderStockAdjustmentRegisterItemsModel.fromJson(e))
-            .toList());
+        items: json['items'] == null
+            ? null
+            : (json['items'] as List)
+                .map((e) => OrderStockAdjustmentRegisterItemsModel.fromJson(e))
+                .toList());
   }
 
   factory OrderStockAdjustmentRegisterModel.fromListJson(
       Map<String, dynamic> json) {
     return OrderStockAdjustmentRegisterModel(
-        id: json['Order']['id'] is String ? int.parse(json['Order']['id']) : json['Order']['id'],
+        id: json['Order']['id'] is String
+            ? int.parse(json['Order']['id'])
+            : json['Order']['id'],
         tbInstitutionId: json['Order']['tb_institution_id'] is String
             ? int.parse(json['Order']['tb_institution_id'])
             : json['Order']['tb_institution_id'],
@@ -87,9 +93,11 @@ class OrderStockAdjustmentRegisterModel
         direction: json['Order']['direction'] as String? ?? "",
         note: json['Order']['note'] as String? ?? "",
         status: json['Order']['status'] as String? ?? "",
-        items: json['Items'] == null ? null : (json['Items'] as List)
-            .map((e) => OrderStockAdjustmentRegisterItemsModel.fromJson(e))
-            .toList());
+        items: json['Items'] == null
+            ? null
+            : (json['Items'] as List)
+                .map((e) => OrderStockAdjustmentRegisterItemsModel.fromJson(e))
+                .toList());
   }
 
   Map<String, dynamic> toJson() {
@@ -105,15 +113,14 @@ class OrderStockAdjustmentRegisterModel
     data['direction'] = direction;
     data['note'] = note;
     data['status'] = status;
-    data['items'] = items.map((e) => e.toJson()).toList();
-    return data;
+    return {"Order": data, "Items": items.map((e) => e.toJson()).toList()};
   }
 
   factory OrderStockAdjustmentRegisterModel.empty() {
     return OrderStockAdjustmentRegisterModel();
   }
 
-    static formatDate(String date, String typeFormat) {
+  static formatDate(String date, String typeFormat) {
     try {
       initializeDateFormatting('pt_BR,', null);
       DateTime time = DateTime.parse(date);

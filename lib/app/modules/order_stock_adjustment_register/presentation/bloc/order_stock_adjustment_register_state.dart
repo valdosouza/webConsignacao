@@ -132,3 +132,13 @@ class OrderStockAdjustmentRegisterItemPage
   final OrderStockAdjustmentRegisterItemsModel item;
   OrderStockAdjustmentRegisterItemPage({required this.item}) : super(list: []);
 }
+
+class OrderStockAdjustmentRegisterChangeDirectionErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterChangeDirectionErrorState() : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterChangeDirectionkSuccessState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterChangeDirectionkSuccessState() : super(list: []);
+}

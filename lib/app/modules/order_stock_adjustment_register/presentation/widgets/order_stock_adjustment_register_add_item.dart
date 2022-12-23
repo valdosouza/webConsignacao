@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
@@ -20,34 +21,36 @@ class OrderStockAdjustmentRegisterAddItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-              flexibleSpace: Container(
-                decoration: kBoxDecorationflexibleSpace,
-              ),
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  bloc.add(OrderStockAdjustmentRegisterReturnEvent(tabIndex: 1));
-                },
-              ),
-              title: Text(
-                item.tbProductId == 0
-                    ? "Editar Item"
-                    : "Adicionar Item",
-                style: kHintTextStyle.copyWith(fontSize: 20.0),
-              ),
-              actions: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.check,
-                    size: 30.0,
-                  ),
-                  onPressed: () {
-                    bloc.add(OrderStockAdjustmentRegisterReturnEvent(tabIndex: 1, item: item));                
-                  },
-                ),
-              ],
-
+        flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            bloc.add(OrderStockAdjustmentRegisterReturnEvent(tabIndex: 1));
+          },
+        ),
+        title: Text(
+          item.tbProductId == 0 ? "Adicionar Item" : "Editar Item",
+          style: kHintTextStyle.copyWith(fontSize: 20.0),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.check,
+              size: 30.0,
             ),
+            onPressed: () {
+              if (item.quantity == 0) {
+                CustomToast.showToast("A quantidade não pode ser zero.");
+              } else {
+                bloc.add(OrderStockAdjustmentRegisterReturnEvent(
+                    tabIndex: 1, item: item));
+              }
+            },
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -56,7 +59,8 @@ class OrderStockAdjustmentRegisterAddItem extends StatelessWidget {
             CustomInputButtonWidget(
                 bloc: bloc,
                 initialValue: item.description,
-                event: OrderStockAdjustmentRegisterGetProductsEvent(tbInstitutionId: 1),
+                event: OrderStockAdjustmentRegisterGetProductsEvent(
+                    tbInstitutionId: 1),
                 title: "Descrição do item"),
             const SizedBox(height: 10),
             CustomInput(

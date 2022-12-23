@@ -95,3 +95,7 @@ class OrderStockAdjustmentRegisterReturnEvent
   final OrderStockAdjustmentRegisterItemsModel? item;
   OrderStockAdjustmentRegisterReturnEvent({this.tabIndex = 0, this.item});
 }
+class OrderStockAdjustmentRegisterChangeDirectionEvent
+    extends OrderStockAdjustmentRegisterEvent {
+  OrderStockAdjustmentRegisterChangeDirectionEvent();
+}

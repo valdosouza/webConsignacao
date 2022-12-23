@@ -18,6 +18,7 @@ class OrderStockAdjustmentRegisterDirectionWidget extends StatefulWidget {
 class _OrderStockAdjustmentRegisterDirectionWidgetState
     extends State<OrderStockAdjustmentRegisterDirectionWidget> {
   late bool selectRadio;
+  late bool active;
 
   @override
   void initState() {
@@ -28,22 +29,24 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
 
   @override
   Widget build(BuildContext context) {
+    active = widget.orderStockAdjustment.direction == 'E' ? true : false;
     return Row(
       children: [
         Row(
           children: [
             Radio(
-                value: true,
-                groupValue: selectRadio,
-                activeColor: Colors.red,
-                onChanged: selectRadio
-                            ? (value) {}
-                            : (value) {
-                                setState(() {
-                                  selectRadio = true;
-                                });
-                                widget.orderStockAdjustment.direction = "S";
-                              },),
+              value: true,
+              groupValue: selectRadio,
+              activeColor: Colors.red,
+              onChanged: selectRadio
+                  ? (value) {}
+                  : (value) {
+                      setState(() {
+                        selectRadio = true;
+                        widget.orderStockAdjustment.direction = "E";
+                      });
+                    },
+            ),
             const SizedBox(width: 5.0),
             const Text("Entrada", style: kLabelStyle),
           ],
@@ -56,13 +59,13 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
                 groupValue: selectRadio,
                 activeColor: Colors.red,
                 onChanged: selectRadio
-                              ? (value) {
-                                  setState(() {
-                                    selectRadio = false;
-                                  });
-                                  widget.orderStockAdjustment.direction = "E";
-                                }
-                              : (value) {}),
+                    ? (value) {
+                        setState(() {
+                          selectRadio = false;
+                          widget.orderStockAdjustment.direction = "S";
+                        });
+                      }
+                    : (value) {}),
             const SizedBox(width: 5.0),
             const Text("Saída", style: kLabelStyle),
           ],

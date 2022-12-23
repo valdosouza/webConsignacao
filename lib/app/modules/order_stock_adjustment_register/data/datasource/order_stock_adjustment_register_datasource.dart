@@ -21,6 +21,8 @@ abstract class OrderStockAdjustmentRegisterDataSource {
       {required int institutionId});
   Future<List<StockListModel>> getListStock({required int institutionId});
   Future<List<EntityModel>> getListEtities();
+  Future<void> close({required OrderStockAdjustmentRegisterModel model});
+  Future<void> reopen({required OrderStockAdjustmentRegisterModel model});
 }
 
 class OrderStockAdjustmentRegisterDataSourceImpl extends OrderStockAdjustmentRegisterDataSource {
@@ -68,7 +70,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl extends OrderStockAdjustmentReg
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = OrderStockAdjustmentRegisterModel.fromJson(data);
+        var model = OrderStockAdjustmentRegisterModel.fromListJson(data);
         return model;
       } else {
         throw ServerException();
@@ -94,7 +96,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl extends OrderStockAdjustmentReg
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = OrderStockAdjustmentRegisterModel.fromJson(data);
+        var model = OrderStockAdjustmentRegisterModel.fromListJson(data);
         return model;
       } else {
         throw ServerException();
@@ -209,4 +211,17 @@ class OrderStockAdjustmentRegisterDataSourceImpl extends OrderStockAdjustmentReg
       throw ServerException();
     }
   }
+  
+  @override
+  Future<void> close({required OrderStockAdjustmentRegisterModel model}) {
+    // TODO: implement close
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> reopen({required OrderStockAdjustmentRegisterModel model}) {
+    // TODO: implement reopen
+    throw UnimplementedError();
+  }
+
 }
