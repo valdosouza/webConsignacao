@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_supplying_model.dart';
 
 import '../../domain/entity/order_consignment_checkpoint_entity.dart';
@@ -40,6 +41,8 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
         tbInstitutionId: 1,
         tbCustomerId: 0,
         nameCustomer: "",
+        dtRecord:
+            CustomDate.formatDate(DateTime.now().toString(), "dd/MM/yyyy"),
         totalValue: 0,
         changeValue: 0,
         previousDebiBalance: 0,
@@ -57,6 +60,7 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
       tbInstitutionId: supplying.order.tbInstitutionId,
       tbCustomerId: supplying.order.tbCustomerId,
       nameCustomer: supplying.order.nameCustomer,
+      dtRecord: CustomDate.formatDate(CustomDate.newDate(), "dd/MM/yyyy"),
       totalValue: 0,
       changeValue: 0,
       previousDebiBalance: supplying.order.currentDebitBalance,
@@ -102,6 +106,7 @@ class OrderConsignmentCheckpointOrderModel
   int tbInstitutionId;
   int tbCustomerId;
   String nameCustomer;
+  String dtRecord;
   double totalValue;
   double changeValue;
   double previousDebiBalance;
@@ -111,6 +116,7 @@ class OrderConsignmentCheckpointOrderModel
       required this.tbInstitutionId,
       required this.tbCustomerId,
       required this.nameCustomer,
+      required this.dtRecord,
       required this.totalValue,
       required this.changeValue,
       required this.previousDebiBalance,
@@ -120,6 +126,7 @@ class OrderConsignmentCheckpointOrderModel
           tbInstitutionId: tbInstitutionId,
           tbCustomerId: tbCustomerId,
           nameCustomer: nameCustomer,
+          dtRecord: dtRecord,
           totalValue: totalValue,
           changeValue: changeValue,
           previousDebiBalance: previousDebiBalance,
@@ -133,6 +140,9 @@ class OrderConsignmentCheckpointOrderModel
       tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
       tbCustomerId: json['tb_customer_id'] as int? ?? 0,
       nameCustomer: json['name_customer'] as String? ?? "",
+      dtRecord:
+          CustomDate.formatDate(json['dt_record'], "dd/MM/yyyy") as String? ??
+              "",
       totalValue: double.parse(json['total_value']),
       changeValue: double.parse(json['change_value']),
       previousDebiBalance: double.parse(json['previous_debit_balance']),
@@ -146,6 +156,7 @@ class OrderConsignmentCheckpointOrderModel
       'tb_institution_id': tbInstitutionId,
       'tb_customer_id': tbCustomerId,
       'name_customer': nameCustomer,
+      'dt_record': CustomDate.convertDate(dtRecord),
       'total_value': totalValue,
       'change_value': changeValue,
       'previous_debit_balance': previousDebiBalance,

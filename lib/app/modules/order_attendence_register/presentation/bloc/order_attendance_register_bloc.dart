@@ -12,7 +12,7 @@ class OrderAttendanceRegisterBloc
   final OrderAttendancePost postOrderAttendance;
 
   OrderAttendanceModel orderAttendance = OrderAttendanceModel.isEmpty();
-  List<PriceListModel> prices = [];
+  List<PriceListModel> pricelist = [];
 
   OrderAttendanceRegisterBloc({
     required this.getPriceList,
@@ -28,7 +28,7 @@ class OrderAttendanceRegisterBloc
 
       var result = response.fold(
           (l) => OrderAttendanceRegisterGetPriceListErrorState(error: ""), (r) {
-        prices = r;
+        pricelist = r;
         return OrderAttendanceRegisterGetPriceListSuccessState(pricelist: r);
       });
 
@@ -39,14 +39,15 @@ class OrderAttendanceRegisterBloc
   attendancePost() {
     on<OrderAttendanceRegisterPostEvent>((event, emit) async {
       emit(OrderAttendanceRegisterLoadingState());
-      final response = await postOrderAttendance(event.orderAttendance);
+      final response = await postOrderAttendance.call(orderAttendance);
 
       response.fold((l) {
         emit(OrderAttendanceRegisterPostErrorState(error: ""));
       }, (r) {
+        orderAttendance = r;
         emit(
           OrderAttendanceRegisterPostSuccessState(
-              orderAttendance: event.orderAttendance),
+              orderAttendance: orderAttendance),
         );
       });
     });

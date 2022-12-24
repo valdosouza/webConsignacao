@@ -3,7 +3,8 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/field_edit_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget dividaanterior(OrderConsignmentCheckpointModel checkpointmodel) {
+Widget dividaanteriorcheckpoint(
+    OrderConsignmentCheckpointModel checkpointmodel) {
   return Container(
     alignment: Alignment.center,
     child: Row(

@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/order_attendence_register/data/datasources/attendance_datasource.dart';
+import 'package:appweb/app/modules/order_attendence_register/data/datasources/order_attendance_datasource.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/repository/order_attendance_repository.dart';
 import 'package:appweb/app/modules/order_attendence_register/domain/usescases/order_attendance_post.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_bloc.dart';
@@ -38,6 +38,6 @@ class OrderAttendanceRegisterModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/',
-            child: (_, args) => const OrderAttendanceRegisterPage()),
+            child: (_, args) => OrderAttendanceRegisterPage(model: args.data)),
       ];
 }

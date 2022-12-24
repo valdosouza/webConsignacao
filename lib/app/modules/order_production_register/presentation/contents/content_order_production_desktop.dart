@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -39,8 +40,7 @@ class _ContentOrderProductionRegisterDesktopState
     bloc = Modular.get();
     orderProduction = widget.orderProduction;
     String initialValueDate = orderProduction.dtRecord == ""
-        ? OrderProductionRegisterModel.formatDate(
-            DateTime.now().toString(), "dd/MM/yyyy")
+        ? CustomDate.formatDate(DateTime.now().toString(), "dd/MM/yyyy")
         : orderProduction.dtRecord;
     orderProduction.dtRecord = initialValueDate;
     controllerDate =

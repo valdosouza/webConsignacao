@@ -1,9 +1,9 @@
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_field_widget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_items_widget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/supplying/header_items_supplying_widget.dart';
 import 'package:flutter/material.dart';
 
-class CustomHeader extends StatelessWidget {
-  const CustomHeader({super.key});
+class CustomHeaderSupplying extends StatelessWidget {
+  const CustomHeaderSupplying({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,11 @@ class CustomHeader extends StatelessWidget {
         children: [
           Expanded(
             flex: 9,
-            child: headeritems(),
+            child: headeritemssupplying(),
           ),
           Expanded(
             flex: 3,
-            child: headerfield('Total a Pagar'),
+            child: headerfield('Observações'),
           ),
         ],
       ),

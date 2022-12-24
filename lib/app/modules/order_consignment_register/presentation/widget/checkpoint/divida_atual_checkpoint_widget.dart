@@ -3,18 +3,7 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_field_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget dividaatual(OrderConsignmentCheckpointModel modelCheckpoint) {
-  // String setCalc() {
-  //   double subtotal = (modelCheckpoint.order.totalValue +
-  //       modelCheckpoint.order.currentDebitBalance);
-  //   if (subtotal > 0) {
-  //     return modelCheckpoint.order.currentDebitBalance.toStringAsFixed(2);
-  //     //return subtotal.toStringAsFixed(2);
-  //   } else {
-  //     return "0.00";
-  //   }
-  // }
-
+Widget dividaatualcheckpoint(OrderConsignmentCheckpointModel modelCheckpoint) {
   return Row(
     children: [
       Expanded(

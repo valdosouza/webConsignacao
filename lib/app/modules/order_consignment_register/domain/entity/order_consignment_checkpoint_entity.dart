@@ -12,6 +12,7 @@ class OrderConsignmentCheckpointOrderEntity {
     int? tbInstitutionId,
     int? tbCustomerId,
     String? nameCustomer,
+    String? dtRecord,
     double? totalValue,
     double? changeValue,
     double? previousDebiBalance,

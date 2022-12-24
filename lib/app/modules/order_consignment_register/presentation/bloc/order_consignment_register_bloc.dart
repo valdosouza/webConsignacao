@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_supplying_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usescases/order_consignment_checkpoint_post.dart';
@@ -13,6 +14,7 @@ class OrderConsignmentRegisterBloc
   final OrderConsignmentCheckpointPost postCheckpoint;
   final OrderConsignmentSupplyingPost postSupplying;
 
+  late OrderAttendanceModel modelAttendance;
   OrderConsignmentCheckpointModel modelCheckpoint =
       OrderConsignmentCheckpointModel.isEmpty();
   OrderConsignmentSupplyingModel modelSupplying =
@@ -26,7 +28,8 @@ class OrderConsignmentRegisterBloc
     supplyingGetlast();
     checkpointPost();
     supplyingPost();
-    clearLeftOver();
+    clearCheckout();
+    clearSupplying();
   }
 
   supplyingGetlast() {
@@ -42,8 +45,8 @@ class OrderConsignmentRegisterBloc
 
       var result = response
           .fold((l) => OrderConsigngmentGetLastErrorState(l.toString()), (r) {
-        if (r.order.id > 0) {
-          modelSupplying = r;
+        modelSupplying = r;
+        if (modelSupplying.order.id > 0) {
           modelCheckpoint =
               OrderConsignmentCheckpointModel.fromSupplying(modelSupplying);
         }
@@ -57,6 +60,10 @@ class OrderConsignmentRegisterBloc
   checkpointPost() {
     on<OrderConsignementRegisterCheckpointPostEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
+      event.checkpointmodel.order.id = modelAttendance.id;
+      event.checkpointmodel.order.tbInstitutionId =
+          modelAttendance.tbInstitutionId;
+      event.checkpointmodel.order.dtRecord = modelAttendance.dtRecord;
       final response = await postCheckpoint(event.checkpointmodel);
       var result = response.fold(
           (l) => OrderConsignmentRegisterCheckpointPostErrorState(
@@ -74,7 +81,12 @@ class OrderConsignmentRegisterBloc
   supplyingPost() {
     on<OrderConsignementRegisterSupplyngPostEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
-      final response = await postSupplying(event.suplyingmode);
+      event.suplyingmodel.order.id = modelAttendance.id;
+      event.suplyingmodel.order.tbInstitutionId =
+          modelAttendance.tbInstitutionId;
+      event.suplyingmodel.order.dtRecord = modelAttendance.dtRecord;
+
+      final response = await postSupplying(event.suplyingmodel);
       response.fold((l) {
         emit(OrderConsignmentRegisterSupplyingPostErrorState(
             error: l.toString()));
@@ -84,8 +96,8 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  clearLeftOver() {
-    on<OrderConsignmentRegisterClearLefoverEvent>((event, emit) async {
+  clearCheckout() {
+    on<OrderConsignmentRegisterClearCheckoutEvent>((event, emit) async {
       for (OrderConsignmentCheckpointItemsModel item in modelCheckpoint.items) {
         item.leftover = 0;
         item.qtySold = 0;
@@ -97,6 +109,16 @@ class OrderConsignmentRegisterBloc
       for (OrderConsignmentCheckpointPaymentModel item
           in modelCheckpoint.payments) {
         item.value = 0;
+      }
+    });
+  }
+
+  clearSupplying() {
+    on<OrderConsignmentRegisterClearSupplyingEvent>((event, emit) async {
+      for (OrderConsignmentSupplyingItemsModel item in modelSupplying.items) {
+        item.bonus = 0;
+        item.devolution = 0;
+        item.newConsignment = 0;
       }
     });
   }

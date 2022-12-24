@@ -1,34 +1,34 @@
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_field_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget headeritems() {
+Widget headeritemssupplying() {
   return Container(
     alignment: Alignment.center,
     child: Row(
       children: [
         Expanded(
-          flex: 200,
+          flex: 190,
           child: headerfield('Bonus'),
         ),
         Expanded(
-          flex: 400,
+          flex: 380,
           child: headerfield('Descrição'),
+        ),
+        Expanded(
+          flex: 190,
+          child: headerfield('Sobra'),
+        ),
+        Expanded(
+          flex: 240,
+          child: headerfield('Devolução'),
+        ),
+        Expanded(
+          flex: 315,
+          child: headerfield('Nova Consignação'),
         ),
         Expanded(
           flex: 270,
           child: headerfield('Quantidade Consignada'),
-        ),
-        Expanded(
-          flex: 200,
-          child: headerfield('Sobra'),
-        ),
-        Expanded(
-          flex: 315,
-          child: headerfield('Quantidade Vendida'),
-        ),
-        Expanded(
-          flex: 300,
-          child: headerfield('Valor por Produto'),
         ),
       ],
     ),

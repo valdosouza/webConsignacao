@@ -1,8 +1,8 @@
+import 'package:appweb/app/modules/order_attendence_register/data/datasources/order_attendance_datasource.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../datasources/attendance_datasource.dart';
 import '../../domain/repository/order_attendance_repository.dart';
 
 class OrderAttendanceRepositoryImpl implements OrderAttendanceRepository {

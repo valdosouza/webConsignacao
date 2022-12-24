@@ -12,10 +12,10 @@ import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/o
 import 'package:appweb/app/modules/order_attendence_register/presentation/content/content_order_attendance_register_mobile.dart';
 
 class OrderAttendanceRegisterPageMobile extends StatefulWidget {
-  final int tbCustomerId;
+  final OrderAttendanceModel model;
   const OrderAttendanceRegisterPageMobile({
     Key? key,
-    required this.tbCustomerId,
+    required this.model,
   }) : super(key: key);
 
   @override
@@ -35,8 +35,14 @@ class OrderAttendancerRegisterPageMobileState
     });
 
     bloc = Modular.get<OrderAttendanceRegisterBloc>();
-    bloc.orderAttendance = OrderAttendanceModel.isEmpty();
+    bloc.orderAttendance = widget.model;
     bloc.add(OrderAttendanceGetPriceListEvent());
+  }
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
   }
 
   @override
@@ -61,13 +67,14 @@ class OrderAttendancerRegisterPageMobileState
             child: CircularProgressIndicator(),
           );
         }
-        if (state is OrderAttendanceRegisterGetPriceListSuccessState) {
+        if ((state is OrderAttendanceRegisterGetPriceListSuccessState) ||
+            (state is OrderAttendanceRegisterPostErrorState)) {
           return Scaffold(
             appBar: AppBar(
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
-              title: const Text('Mercado do Povo'),
+              title: Text(bloc.orderAttendance.nameCustomer),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
@@ -75,13 +82,13 @@ class OrderAttendancerRegisterPageMobileState
                 },
               ),
             ),
-            body: ContentOrderAttendanceRegisterMobile(
-              tbCustomerId: 51,
-              pricelist: state.pricelist,
-            ),
+            body: const ContentOrderAttendanceRegisterMobile(),
           );
         }
-
+        if (state is OrderAttendanceRegisterPostSuccessState) {
+          Modular.to
+              .navigate('/consignment/', arguments: state.orderAttendance);
+        }
         return Container();
       },
     );

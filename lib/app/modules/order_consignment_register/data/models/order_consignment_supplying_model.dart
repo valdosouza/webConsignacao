@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/entity/order_consignment_supplying_entity.dart';
 
@@ -32,28 +33,34 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
   factory OrderConsignmentSupplyingModel.isEmpty() {
     return OrderConsignmentSupplyingModel(
       order: OrderConsignmentSupplyingOrderModel(
-          id: 1,
-          tbInstitutionId: 1,
-          tbCustomerId: 51,
-          nameCustomer: "",
-          currentDebitBalance: 0),
+        id: 1,
+        tbInstitutionId: 1,
+        tbCustomerId: 51,
+        nameCustomer: "",
+        dtRecord:
+            CustomDate.formatDate(DateTime.now().toString(), "dd/MM/yyyy"),
+        currentDebitBalance: 0,
+        note: "",
+      ),
       items: [],
     );
   }
   factory OrderConsignmentSupplyingModel.fromCheckpoint(
       OrderConsignmentCheckpointModel checkpoint) {
     var order = OrderConsignmentSupplyingOrderModel(
-      id: checkpoint.order.id,
+      id: 0,
       tbInstitutionId: checkpoint.order.tbInstitutionId,
       tbCustomerId: checkpoint.order.tbCustomerId,
       nameCustomer: checkpoint.order.nameCustomer,
+      dtRecord: "",
       currentDebitBalance: checkpoint.order.currentDebitBalance,
+      note: "",
     );
     List<OrderConsignmentSupplyingItemsModel> listItems = [];
     for (OrderConsignmentCheckpointItemsModel item in checkpoint.items) {
       listItems.add(OrderConsignmentSupplyingItemsModel(
         tbProductId: item.tbProductId,
-        bonus: item.bonus,
+        bonus: 0,
         nameProduct: item.nameProduct,
         leftover: item.leftover,
         devolution: 0,
@@ -76,20 +83,26 @@ class OrderConsignmentSupplyingOrderModel
   int tbInstitutionId;
   int tbCustomerId;
   String nameCustomer;
+  String dtRecord;
   double currentDebitBalance;
+  String note;
 
   OrderConsignmentSupplyingOrderModel({
     required this.id,
     required this.tbInstitutionId,
     required this.tbCustomerId,
     required this.nameCustomer,
+    required this.dtRecord,
     required this.currentDebitBalance,
+    required this.note,
   }) : super(
           id: id,
           tbInstitutionId: tbInstitutionId,
           tbCustomerId: tbCustomerId,
           nameCustomer: nameCustomer,
+          dtRecord: dtRecord,
           currentDebitBalance: currentDebitBalance,
+          note: note,
         );
 
   factory OrderConsignmentSupplyingOrderModel.fromJson(
@@ -99,7 +112,9 @@ class OrderConsignmentSupplyingOrderModel
       tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
       tbCustomerId: json['tb_customer_id'] as int? ?? 0,
       nameCustomer: json['name_customer'] as String? ?? "",
+      dtRecord: CustomDate.newDate(),
       currentDebitBalance: double.parse(json['current_debit_balance']),
+      note: json['note'] as String? ?? "",
     );
   }
 
@@ -109,7 +124,9 @@ class OrderConsignmentSupplyingOrderModel
       'tb_institution_id': tbInstitutionId,
       'tb_customer_id': tbCustomerId,
       'name_customer': nameCustomer,
+      'dt_record': CustomDate.convertDate(dtRecord),
       'current_debit_balance': currentDebitBalance,
+      'note': note,
     };
   }
 }
@@ -168,6 +185,7 @@ class OrderConsignmentSupplyingItemsModel
       'devolution': devolution,
       'new_consignment': newConsignment,
       'qty_consigned': qtyConsigned,
+      'unit_value': unitValue,
     };
   }
 }

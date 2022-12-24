@@ -13,18 +13,11 @@ class OrderAttendanceRegisterLoadingState extends OrderAttendanceRegisterState {
   OrderAttendanceRegisterLoadingState() : super(pricelist: []);
 }
 
-class OrderAttendanceRegisterInfoPageState
-    extends OrderAttendanceRegisterState {
-  late OrderAttendanceModel orderAttendance;
-  OrderAttendanceRegisterInfoPageState({required orderAttendance})
-      : super(pricelist: []);
-}
-
 /*------------------------POST - OrderAttendance-----------------------------*/
 class OrderAttendanceRegisterPostSuccessState
     extends OrderAttendanceRegisterState {
-  late OrderAttendanceModel orderAttendance;
-  OrderAttendanceRegisterPostSuccessState({required orderAttendance})
+  final OrderAttendanceModel orderAttendance;
+  OrderAttendanceRegisterPostSuccessState({required this.orderAttendance})
       : super(pricelist: []);
 }
 

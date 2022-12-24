@@ -1,19 +1,19 @@
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/list_items_view_widget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/payment_info_widget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/list_items_checkpoint_widget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/payment_info_widget.dart';
 import 'package:flutter/material.dart';
 
-class CustomBody extends StatefulWidget {
+class CustomBodyCheckpoint extends StatefulWidget {
   final Size size;
   final OrderConsignmentCheckpointModel modelCheckpoint;
-  const CustomBody(
+  const CustomBodyCheckpoint(
       {super.key, required this.size, required this.modelCheckpoint});
 
   @override
-  State<CustomBody> createState() => _CustomBodyState();
+  State<CustomBodyCheckpoint> createState() => _CustomBodyCheckpointState();
 }
 
-class _CustomBodyState extends State<CustomBody> {
+class _CustomBodyCheckpointState extends State<CustomBodyCheckpoint> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -26,7 +26,8 @@ class _CustomBodyState extends State<CustomBody> {
           children: [
             Expanded(
               flex: 9,
-              child: listitemsview(widget.modelCheckpoint.items, widget.size),
+              child: listitemscheckpoint(
+                  widget.modelCheckpoint.items, widget.size),
             ),
             Expanded(
               flex: 3,

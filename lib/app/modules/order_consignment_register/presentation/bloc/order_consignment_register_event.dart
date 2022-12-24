@@ -21,10 +21,13 @@ class OrderConsignementRegisterCheckpointPostEvent
 
 class OrderConsignementRegisterSupplyngPostEvent
     extends OrderConsignmentRegisterEvent {
-  final OrderConsignmentSupplyingModel suplyingmode;
+  final OrderConsignmentSupplyingModel suplyingmodel;
 
-  OrderConsignementRegisterSupplyngPostEvent({required this.suplyingmode});
+  OrderConsignementRegisterSupplyngPostEvent({required this.suplyingmodel});
 }
 
-class OrderConsignmentRegisterClearLefoverEvent
+class OrderConsignmentRegisterClearCheckoutEvent
+    extends OrderConsignmentRegisterEvent {}
+
+class OrderConsignmentRegisterClearSupplyingEvent
     extends OrderConsignmentRegisterEvent {}

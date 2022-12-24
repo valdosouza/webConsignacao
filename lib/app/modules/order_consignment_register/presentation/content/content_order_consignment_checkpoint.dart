@@ -2,12 +2,11 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_event.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_state.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/custom_body_wiget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/custom_header_widget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/custom_body_checkpoint_wiget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/custom_header_checkpoint_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
@@ -21,10 +20,10 @@ class ContentConsignmentCheckpoint extends StatefulWidget {
 
   @override
   State<ContentConsignmentCheckpoint> createState() =>
-      _ContentConsignmenteCheckpoineState();
+      _ContentConsignmenteCheckpointState();
 }
 
-class _ContentConsignmenteCheckpoineState
+class _ContentConsignmenteCheckpointState
     extends State<ContentConsignmentCheckpoint> {
   late TextEditingController editcontrol;
   late final OrderConsignmentRegisterBloc bloc;
@@ -51,27 +50,11 @@ class _ContentConsignmenteCheckpoineState
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    bloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<OrderConsignmentRegisterBloc,
-        OrderConsignmentRegisterState>(
-      bloc: bloc,
-      listener: (context, state) {
-        if (state is OrderConsigngmentGetLastErrorState) {
-          CustomToast.showToast("Erro . Tente novamente mais tarde");
-        }
-      },
-      builder: (context, state) {
-        return buildBody(context);
-      },
-    );
-  }
-
-  Widget buildBody(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
     return Scaffold(
@@ -89,13 +72,14 @@ class _ContentConsignmenteCheckpoineState
                   textAlign: TextAlign.center,
                 ),
               ),
-              const CustomHeader(),
+              const CustomHeaderCheckpoint(),
             ],
           ),
         ),
       ),
       body: SingleChildScrollView(
-        child: CustomBody(size: size, modelCheckpoint: bloc.modelCheckpoint),
+        child: CustomBodyCheckpoint(
+            size: size, modelCheckpoint: bloc.modelCheckpoint),
       ),
       bottomSheet: (keyboardHide) ? _footer() : null,
     );
@@ -110,12 +94,12 @@ class _ContentConsignmenteCheckpoineState
           Expanded(
             flex: 1,
             child: _custombutton(
-                "Voltar", (() => Modular.to.navigate('/attendance/'))),
+                "Voltar", (() => Modular.to.navigate('/customer/mobile/'))),
           ),
           Expanded(
             flex: 1,
             child: _custombutton("Limpar",
-                () => bloc.add(OrderConsignmentRegisterClearLefoverEvent())),
+                () => bloc.add(OrderConsignmentRegisterClearCheckoutEvent())),
           ),
           Expanded(
             flex: 1,

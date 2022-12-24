@@ -11,7 +11,9 @@ class OrderConsignmentSupplyingOrderEntity {
     int? tbInstitutionId,
     int? tbCustomerId,
     String? nameCustomer,
+    String? dtRecord,
     double? currentDebitBalance,
+    String? note,
   });
 }
 

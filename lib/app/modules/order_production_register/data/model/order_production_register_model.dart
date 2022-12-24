@@ -1,6 +1,5 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/order_production_register/domain/entity/order_production_register_entity.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
   OrderProductionRegisterModel(
@@ -39,7 +38,9 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
       tbUserId: json['tb_user_id'] is String
           ? int.parse(json['tb_user_id'])
           : json['tb_user_id'],
-      dtRecord: formatDate(json['dt_record'], "dd/MM/yyyy") as String? ?? "",
+      dtRecord:
+          CustomDate.formatDate(json['dt_record'], "dd/MM/yyyy") as String? ??
+              "",
       number:
           json['number'] is String ? int.parse(json['number']) : json['number'],
       status: json['status'] as String? ?? "",
@@ -63,7 +64,7 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
     data["id"] = id;
     data["tb_institution_id"] = tbInstitutionId;
     data["tb_user_id"] = tbUserId;
-    data["dt_record"] = convertDate(dtRecord);
+    data["dt_record"] = CustomDate.convertDate(dtRecord);
     data["number"] = number;
     data["status"] = status;
     data["tb_merchandise_id"] = tbMerchandiseId;
@@ -73,19 +74,5 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
     data["name_stock_list_des"] = nameStockListDes;
     data["note"] = note;
     return data;
-  }
-
-  static formatDate(String date, String typeFormat) {
-    try {
-      initializeDateFormatting('pt_BR,', null);
-      DateTime time = DateTime.parse(date);
-      return (DateFormat(typeFormat).format(time));
-    } catch (e) {
-      return "";
-    }
-  }
-
-  convertDate(String date) {
-    return date.split("/").reversed.join("-");
   }
 }

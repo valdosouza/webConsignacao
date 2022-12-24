@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appweb/app/core/shared/helpers/responsive.dart';
@@ -6,16 +7,18 @@ import 'package:appweb/app/modules/order_attendence_register/presentation/pages/
 import 'package:appweb/app/modules/order_attendence_register/presentation/pages/order_attendance_register_page_tablet.dart';
 
 class OrderAttendanceRegisterPage extends StatelessWidget {
+  final OrderAttendanceModel model;
   const OrderAttendanceRegisterPage({
     Key? key,
+    required this.model,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Responsive(
-      mobile: OrderAttendanceRegisterPageMobile(tbCustomerId: 51),
-      tablet: OrderAttendanceRegisterPageTablet(),
-      desktop: OrderAttendanceRegisterPageDesktop(),
+    return Responsive(
+      mobile: OrderAttendanceRegisterPageMobile(model: model),
+      tablet: const OrderAttendanceRegisterPageTablet(),
+      desktop: const OrderAttendanceRegisterPageDesktop(),
     );
   }
 }

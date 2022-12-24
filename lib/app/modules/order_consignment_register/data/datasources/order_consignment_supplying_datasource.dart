@@ -42,16 +42,16 @@ class OrderConsignmentSupplyingDatasourceImpl
       OrderConsignmentSupplyingModel model) async {
     try {
       final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying');
+      var bodyConsignment = jsonEncode(model.toJson());
       final response = await client.post(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(model.toJson()),
+        body: bodyConsignment,
       );
       if (response.statusCode == 200) {
-        return OrderConsignmentSupplyingModel.fromJson(
-            json.decode(response.body));
+        return model;
       } else {
         throw ServerException();
       }

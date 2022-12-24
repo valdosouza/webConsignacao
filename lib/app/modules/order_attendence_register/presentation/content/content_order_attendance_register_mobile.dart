@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -5,15 +6,10 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_bloc.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_event.dart';
-import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 
 class ContentOrderAttendanceRegisterMobile extends StatefulWidget {
-  final List<PriceListModel> pricelist;
-  final int tbCustomerId;
   const ContentOrderAttendanceRegisterMobile({
     Key? key,
-    required this.tbCustomerId,
-    required this.pricelist,
   }) : super(key: key);
 
   @override
@@ -36,7 +32,6 @@ class _ContentOrderAttendanceRegisterMobileState
 
   @override
   void dispose() {
-    bloc.close();
     super.dispose();
   }
 
@@ -50,8 +45,7 @@ class _ContentOrderAttendanceRegisterMobileState
           children: [
             CustomInput(
               title: 'Data',
-              initialValue:
-                  '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+              initialValue: CustomDate.newDate(),
               keyboardType: TextInputType.datetime,
               inputAction: TextInputAction.next,
               onChanged: (value) {},
@@ -60,7 +54,7 @@ class _ContentOrderAttendanceRegisterMobileState
             SizedBox(
               height: 200,
               child: ListView.separated(
-                itemCount: widget.pricelist.length,
+                itemCount: bloc.pricelist.length,
                 itemBuilder: (context, index) => InkWell(
                   child: ListTile(
                     leading: CircleAvatar(
@@ -72,7 +66,7 @@ class _ContentOrderAttendanceRegisterMobileState
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.pricelist[index].description),
+                        Text(bloc.pricelist[index].description),
                       ],
                     ),
                     trailing: IconButton(
@@ -80,9 +74,7 @@ class _ContentOrderAttendanceRegisterMobileState
                       onPressed: () async {
                         bloc.orderAttendance.visited = 'S';
                         bloc.orderAttendance.note = editcontrol.text;
-                        bloc.add(OrderAttendanceRegisterPostEvent(
-                            bloc.orderAttendance));
-                        Modular.to.navigate('/consignment/');
+                        bloc.add(OrderAttendanceRegisterPostEvent());
                       },
                     ),
                   ),
@@ -101,8 +93,7 @@ class _ContentOrderAttendanceRegisterMobileState
                   ),
                   onPressed: () {
                     bloc.orderAttendance.note = editcontrol.text;
-                    bloc.add(
-                        OrderAttendanceRegisterPostEvent(bloc.orderAttendance));
+                    bloc.add(OrderAttendanceRegisterPostEvent());
                     editcontrol.clear();
                     Modular.to.navigate('/customer/mobile/');
                   },
