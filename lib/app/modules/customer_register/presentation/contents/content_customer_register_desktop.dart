@@ -91,7 +91,8 @@ class _ContentCustomerRegisterDesktopState
                     size: 30.0,
                   ),
                   onPressed: () {
-                    bloc.add(CustomerRegisterPostEvent(model: bloc.customer));
+                    bloc.add(CustomerRegisterPostByDesktopEvent(
+                        model: bloc.customer));
                   },
                 ),
               ],

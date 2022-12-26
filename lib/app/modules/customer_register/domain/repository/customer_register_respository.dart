@@ -6,8 +6,10 @@ import 'package:dartz/dartz.dart';
 abstract class CustomerRegisterRepository {
   Future<Either<Failure, List<CustomerListModel>>> getList(
       {required int tbInstitutionId});
+
   Future<Either<Failure, CustomerMainModel>> get(
       {required int tbInstitutionId, required int id});
-  Future<Either<Failure, CustomerMainModel>> post(
+
+  Future<Either<Failure, CustomerListModel>> post(
       {required CustomerMainModel customer});
 }

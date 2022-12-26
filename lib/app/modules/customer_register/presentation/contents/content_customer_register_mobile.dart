@@ -92,8 +92,8 @@ class _ContentCustomerRegisterMobileState
                     size: 30.0,
                   ),
                   onPressed: () {
-                    bloc.add(CustomerRegisterPostEvent(model: bloc.customer));
-                    Modular.to.navigate('/attendancesalesman/mobile/');
+                    bloc.add(CustomerRegisterPostByMobileEvent(
+                        model: bloc.customer));
                   },
                 ),
               ],

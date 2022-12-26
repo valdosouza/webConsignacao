@@ -13,7 +13,8 @@ statesCustomer(CustomerRegisterState state) {
   } else if (state is CustomerRegisterCnpjErrorState) {
     CustomToast.showToast(
         "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
-  } else if (state is CustomerRegisterPostSuccessState) {
+  } else if ((state is CustomerRegisterPostByDesktopSuccessState) ||
+      (state is CustomerRegisterPostByMobileEvent)) {
     CustomToast.showToast("Cliente adicionado com sucesso.");
   } else if (state is CustomerRegisterPutSuccessState) {
     CustomToast.showToast("Cliente editado com sucesso.");

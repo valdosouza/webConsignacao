@@ -26,7 +26,7 @@ class CustomerRegisterRepositoryImpl implements CustomerRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, CustomerMainModel>> post(
+  Future<Either<Failure, CustomerListModel>> post(
       {required CustomerMainModel customer}) async {
     try {
       final response = await datasource.post(customer: customer);

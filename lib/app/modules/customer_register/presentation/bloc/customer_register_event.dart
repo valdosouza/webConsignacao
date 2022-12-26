@@ -63,10 +63,18 @@ class CustomerRegisterSearchCityEvent extends CustomerRegisterEvent {
   });
 }
 
-class CustomerRegisterPostEvent extends CustomerRegisterEvent {
+class CustomerRegisterPostByDesktopEvent extends CustomerRegisterEvent {
   CustomerMainModel model;
 
-  CustomerRegisterPostEvent({
+  CustomerRegisterPostByDesktopEvent({
+    required this.model,
+  });
+}
+
+class CustomerRegisterPostByMobileEvent extends CustomerRegisterEvent {
+  CustomerMainModel model;
+
+  CustomerRegisterPostByMobileEvent({
     required this.model,
   });
 }

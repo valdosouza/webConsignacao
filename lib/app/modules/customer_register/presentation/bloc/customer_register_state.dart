@@ -49,9 +49,17 @@ class CustomerRegisterCnpjErrorState extends CustomerRegisterState {
 }
 
 /*------------------------POST - Customer----------------------------------*/
-class CustomerRegisterPostSuccessState extends CustomerRegisterState {
-  CustomerRegisterPostSuccessState(List<CustomerListModel> customers)
+class CustomerRegisterPostByDesktopSuccessState extends CustomerRegisterState {
+  CustomerRegisterPostByDesktopSuccessState(List<CustomerListModel> customers)
       : super(customers: customers);
+}
+
+class CustomerRegisterPostByMobileSuccessState extends CustomerRegisterState {
+  final CustomerListModel customer;
+  CustomerRegisterPostByMobileSuccessState({
+    required this.customer,
+    required List<CustomerListModel> customers,
+  }) : super(customers: customers);
 }
 
 class CustomerRegisterPostErrorState extends CustomerRegisterState {

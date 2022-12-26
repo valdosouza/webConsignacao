@@ -22,3 +22,10 @@ class AuthChangeEvent extends AuthEvent {
 
   AuthChangeEvent({required this.model});
 }
+
+class AuthVerifyAuthorizationEvent extends AuthEvent {
+  final String token;
+  AuthVerifyAuthorizationEvent({
+    required this.token,
+  });
+}

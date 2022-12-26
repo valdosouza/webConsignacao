@@ -67,7 +67,9 @@ class CustomerRegisterBloc
 
     searchEventCitys();
 
-    postCustomerAction();
+    postCustomerByMobile();
+
+    postCustomerByDesktop();
 
     getSalesmansAction();
 
@@ -99,8 +101,29 @@ class CustomerRegisterBloc
     });
   }
 
-  postCustomerAction() {
-    on<CustomerRegisterPostEvent>((event, emit) async {
+  postCustomerByMobile() async {
+    on<CustomerRegisterPostByMobileEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
+
+      var response =
+          await postCustomer.call(ParamsPostCustomer(customer: event.model));
+
+      response.fold((l) {
+        if (event.model.customer.id != 0) {
+          emit(CustomerRegisterPostErrorState(customers, ""));
+        } else {
+          emit(CustomerRegisterPutErrorState(customers, ""));
+        }
+      }, (r) {
+        customers.add(r);
+        emit(CustomerRegisterPostByMobileSuccessState(
+            customer: r, customers: customers));
+      });
+    });
+  }
+
+  postCustomerByDesktop() {
+    on<CustomerRegisterPostByDesktopEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
       var response =
@@ -110,7 +133,7 @@ class CustomerRegisterBloc
           (l) => event.model.customer.id != 0
               ? emit(CustomerRegisterPostErrorState(customers, ""))
               : emit(CustomerRegisterPutErrorState(customers, "")), (r) {
-        emit(CustomerRegisterPostSuccessState(customers));
+        emit(CustomerRegisterPostByDesktopSuccessState(customers));
       });
     });
   }

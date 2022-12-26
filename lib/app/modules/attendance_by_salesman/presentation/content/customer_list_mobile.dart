@@ -1,6 +1,8 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
 import 'package:flutter/material.dart';
-import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomerListMobile extends StatefulWidget {
   const CustomerListMobile({
@@ -45,7 +47,28 @@ class CustomerListeMobileState extends State<CustomerListMobile> {
                     trailing: IconButton(
                       icon: const Icon(Icons.arrow_forward_ios_outlined),
                       onPressed: () {
-                        CustomToast.showToast("Vai para a Tela de Atendimento");
+                        OrderAttendanceModel orderAttemdance =
+                            OrderAttendanceModel(
+                          id: 0,
+                          tbInstitutionId: 1,
+                          tbUserId: 2,
+                          dtRecord:
+                              CustomDate.convertDate(CustomDate.newDate()),
+                          tbCustomerId: widget.lista[index].id,
+                          nameCustomer: widget.lista[index].nameCompany,
+                          tbSalesmanId: 2,
+                          nameSalesman: "",
+                          note: "",
+                          status: "A",
+                          visited: "S",
+                          charged: "N",
+                          longitude: "",
+                          latitude: "",
+                        );
+                        Modular.to.navigate(
+                          '/attendance/',
+                          arguments: orderAttemdance,
+                        );
                       },
                     ),
                   ),

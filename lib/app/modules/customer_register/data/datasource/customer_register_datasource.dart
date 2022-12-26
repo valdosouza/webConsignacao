@@ -9,7 +9,8 @@ abstract class CustomerRegisterDataSource {
   Future<List<CustomerListModel>> getList({required int tbInstitutionId});
   Future<CustomerMainModel> get(
       {required int tbInstitutionId, required int id});
-  Future<CustomerMainModel> post({required CustomerMainModel customer});
+
+  Future<CustomerListModel> post({required CustomerMainModel customer});
 }
 
 class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
@@ -61,7 +62,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   }
 
   @override
-  Future<CustomerMainModel> post({required CustomerMainModel customer}) async {
+  Future<CustomerListModel> post({required CustomerMainModel customer}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}customer');
 
@@ -76,7 +77,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = CustomerMainModel.fromJson(data);
+        var model = CustomerListModel.fromJson(data);
         return model;
       } else {
         throw ServerException();
