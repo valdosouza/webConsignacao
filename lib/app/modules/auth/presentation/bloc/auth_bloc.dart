@@ -25,7 +25,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     logout();
     recoveryPassword();
     changePassword();
-    verifyAuthorization();
   }
 
   login() async {
@@ -85,18 +84,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       var result = response.fold(
           (l) => AuthChangeErrorState(), (r) => AuthChangeSuccessState());
       emit(result);
-    });
-  }
-
-  verifyAuthorization() async {
-    on<AuthVerifyAuthorizationEvent>((event, emit) async {
-      emit(AuthLoadingState());
-
-      //final response = await change.call(ParamsChange(model: event.model));
-
-      //var result = response.fold(
-      //    (l) => AuthChangeErrorState(), (r) => AuthChangeSuccessState());
-      emit(AuthSuccessState());
     });
   }
 }

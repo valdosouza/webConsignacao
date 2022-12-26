@@ -7,7 +7,7 @@ import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_recovery_password_model.dart';
 import 'package:http/http.dart' as http;
 
-/// Calls the https://www.api.gestaosetes.com.br/user/authenticate/ endpoint.
+/// Calls the https://www.api.gestaosetes.com.br/auth/authenticate/ endpoint.
 ///
 /// Throws a [ServerException] for all error codes.
 abstract class AuthDatasource {
@@ -23,7 +23,7 @@ class AuthDatasourceImpl implements AuthDatasource {
   @override
   Future<AuthModel> getAuthentication(
       {required String username, required String password}) async {
-    final uri = Uri.parse('${_baseUrl}user/authenticate/');
+    final uri = Uri.parse('${_baseUrl}auth/authenticate/');
     final response = await client.post(
       uri,
       headers: <String, String>{
@@ -48,7 +48,7 @@ class AuthDatasourceImpl implements AuthDatasource {
   Future<String> changePassword(
       {required AuthChangePasswordModel model}) async {
     try {
-      final uri = Uri.parse('${_baseUrl}user/changepassword');
+      final uri = Uri.parse('${_baseUrl}auth/changepassword');
       final response = await client.post(
         uri,
         headers: <String, String>{
@@ -70,7 +70,7 @@ class AuthDatasourceImpl implements AuthDatasource {
   Future<AuthRecoveryPasswordModel> recoveryPassword(
       {required String email}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}user/recoverypassword');
+      final uri = Uri.parse('${baseApiUrl}auth/recoverypassword');
       final response = await client.post(
         uri,
         body: {
