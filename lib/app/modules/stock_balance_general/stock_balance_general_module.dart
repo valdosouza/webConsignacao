@@ -4,7 +4,7 @@ import 'package:appweb/app/modules/stock_balance_general/data/repository/stock_b
 import 'package:appweb/app/modules/stock_balance_general/domain/repository/stock_balance_general_respository.dart';
 import 'package:appweb/app/modules/stock_balance_general/domain/usecase/stock_balance_general_getlist.dart';
 import 'package:appweb/app/modules/stock_balance_general/presentation/bloc/stock_balance_general_bloc.dart';
-import 'package:appweb/app/modules/stock_balance_general/presentation/pages/order_production_register_page.dart';
+import 'package:appweb/app/modules/stock_balance_general/presentation/pages/stock_balance_general_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class StockBalanceGeneralModule extends Module {
