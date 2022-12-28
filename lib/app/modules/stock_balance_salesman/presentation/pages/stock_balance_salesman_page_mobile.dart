@@ -3,16 +3,16 @@ import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class StockBalanceCustomerPageMobile extends StatefulWidget {
-  const StockBalanceCustomerPageMobile({super.key});
+class StockBalanceSalesmanPageMobile extends StatefulWidget {
+  const StockBalanceSalesmanPageMobile({super.key});
 
   @override
-  State<StockBalanceCustomerPageMobile> createState() =>
-      StockBalanceCustomerPageMobileState();
+  State<StockBalanceSalesmanPageMobile> createState() =>
+      StockBalanceSalesmanPageMobileState();
 }
 
-class StockBalanceCustomerPageMobileState
-    extends State<StockBalanceCustomerPageMobile> {
+class StockBalanceSalesmanPageMobileState
+    extends State<StockBalanceSalesmanPageMobile> {
   @override
   void initState() {
     super.initState();

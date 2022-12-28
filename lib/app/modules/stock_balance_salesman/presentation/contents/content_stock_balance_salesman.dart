@@ -1,11 +1,11 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
-import 'package:appweb/app/modules/stock_balance_customer/presentation/bloc/stock_balance_customer_state.dart';
+import 'package:appweb/app/modules/stock_balance_salesman/presentation/bloc/stock_balance_salesman_state.dart';
 
 import 'package:flutter/material.dart';
 
-statesStockBalance(StockBalanceCustomerState state) {
-  if (state is StockBalanceCustomerErrorState) {
+statesStockBalance(StockBalanceSalesmanState state) {
+  if (state is StockBalanceSalesmanErrorState) {
     CustomToast.showToast(
         "Erro ao buscar balanço geral de estoque. Tente novamente mais tarde");
   }
