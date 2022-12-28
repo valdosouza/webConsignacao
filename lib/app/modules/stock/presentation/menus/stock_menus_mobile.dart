@@ -18,17 +18,20 @@ class StockMenusMobile extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Cliente',
-            () async => Modular.to.navigate('/stock/content/stockcustomer/'),
+            () async =>
+                Modular.to.navigate('/stockbalance/mobile/stockcustomer/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Vendedor',
-            () async => Modular.to.navigate('/stock/content/stocksalesman/'),
+            () async =>
+                Modular.to.navigate('/stockbalance/mobile/stocksalesman/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Estoque Geral',
-            () async => Modular.to.navigate('/stock/content/stockgeneral/'),
+            () async =>
+                Modular.to.navigate('/stockbalance/mobile/stockgeneral/'),
           ),
         ],
       ),

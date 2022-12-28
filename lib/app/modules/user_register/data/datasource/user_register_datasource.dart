@@ -79,7 +79,14 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
     try {
       final uri = Uri.parse('${baseApiUrl}user/getlist/$id');
 
-      final response = await client.get(uri);
+      final response = await client.get(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoyLCJpbnN0aXR1dGlvbiI6MSwiZW1haWwiOiJ2YWxkb0BzZXRlcy5jb20uYnIifSwiaWF0IjoxNjcxOTk4OTMyLCJleHAiOjE2NzMyOTQ5MzJ9.d4eQCYM3w3buLAed_GV1gQ-G2iIGEjRPiTLLQWBJXTk',
+        },
+      );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

@@ -24,7 +24,12 @@ class CollaboratorRegisterDatasourceImpl
   Future<CollaboratorMainModel> get({required int id}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}collaborator/$id');
-      final response = await client.get(uri);
+      final response = await client.get(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         return CollaboratorMainModel.fromJson(data);

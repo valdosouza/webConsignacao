@@ -13,18 +13,18 @@ class CashierMenusMobile extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Saldo',
-            () async => Modular.to.navigate('/cashier/content/cashierbalance/'),
+            () async => Modular.to.navigate('/cashier/mobile/cashierbalance/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Extrato',
             () async =>
-                Modular.to.navigate('/cashier/content/cashierstatement/'),
+                Modular.to.navigate('/cashier/mobile/cashierstatement/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Fechamento',
-            () async => Modular.to.navigate('/cashier/content/cashierclosure/'),
+            () async => Modular.to.navigate('/cashier/cashier/cashierclosure/'),
           ),
         ],
       ),

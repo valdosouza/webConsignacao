@@ -3,16 +3,16 @@ import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class OrderStockAdjustmentRegisterPageMobile extends StatefulWidget {
-  const OrderStockAdjustmentRegisterPageMobile({super.key});
+class OrderStockAdjustmentRegisterPageTablet extends StatefulWidget {
+  const OrderStockAdjustmentRegisterPageTablet({super.key});
 
   @override
-  State<OrderStockAdjustmentRegisterPageMobile> createState() =>
-      OrderStockAdjustmentRegisterPageMobileState();
+  State<OrderStockAdjustmentRegisterPageTablet> createState() =>
+      _OrderStockAdjustmentRegisterPageTabletState();
 }
 
-class OrderStockAdjustmentRegisterPageMobileState
-    extends State<OrderStockAdjustmentRegisterPageMobile> {
+class _OrderStockAdjustmentRegisterPageTabletState
+    extends State<OrderStockAdjustmentRegisterPageTablet> {
   @override
   void initState() {
     super.initState();
@@ -28,7 +28,7 @@ class OrderStockAdjustmentRegisterPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Ordem de Ajuste de Estoque"),
+        title: const Text("Ordem de ajuste de estoque"),
       ),
     );
   }
