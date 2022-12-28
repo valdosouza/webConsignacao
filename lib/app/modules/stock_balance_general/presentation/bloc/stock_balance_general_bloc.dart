@@ -8,12 +8,13 @@ class StockBalanceGeneralBloc
     extends Bloc<StockBalanceGeneralEvent, StockBalanceGeneralState> {
   final StockBalanceGeneralGetlist getlist;
 
-  List<StockBalanceModel> sotckBalance = [];
+  List<StockBalanceModel> stockBalance = [];
 
   StockBalanceGeneralBloc({
     required this.getlist,
   }) : super(StockBalanceGeneralLoadingState()) {
     getList();
+    searchEvent();
   }
 
   getList() {
@@ -24,10 +25,32 @@ class StockBalanceGeneralBloc
           await getlist.call(const ParamsGetListStockBalance(institutionId: 1, salesmanId: 1));
 
       response.fold(
-          (l) => emit(StockBalanceGeneralErrorState(list: sotckBalance)), (r) {
-        sotckBalance = r;
+          (l) => emit(StockBalanceGeneralErrorState(list: stockBalance)), (r) {
+        stockBalance = r;
         emit(StockBalanceGeneralLoadedState(list: r));
       });
+    });
+  }
+  searchEvent() {
+    on<StockBalanceGeneralSearchEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var stockBalanceSearched = stockBalance.where((element) {
+          String name = element.nameProduct;
+          return (name
+                  .toLowerCase()
+                  .trim()
+                  .contains(event.search.toLowerCase().trim())
+             );
+        }).toList();
+        if (stockBalanceSearched.isNotEmpty) {
+          emit(StockBalanceGeneralLoadedState(
+              list: stockBalanceSearched));
+        } else {
+          emit(StockBalanceGeneralLoadedState(list: []));
+        }
+      } else {
+        emit(StockBalanceGeneralLoadedState(list: stockBalance));
+      }
     });
   }
 }

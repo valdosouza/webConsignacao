@@ -5,3 +5,9 @@ class StockBalanceSalesmanGetListEvent
   final int tbInstitutionId;
   StockBalanceSalesmanGetListEvent({required this.tbInstitutionId});
 }
+
+class StockBalanceSalesmanSearchEvent
+    extends StockBalanceSalesmanEvent {
+  final String search;
+  StockBalanceSalesmanSearchEvent({required this.search});
+}

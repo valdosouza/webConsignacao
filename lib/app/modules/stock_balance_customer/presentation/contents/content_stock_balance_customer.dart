@@ -1,5 +1,8 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
+import 'package:appweb/app/modules/stock_balance_customer/presentation/bloc/stock_balance_customer_bloc.dart';
+import 'package:appweb/app/modules/stock_balance_customer/presentation/bloc/stock_balance_customer_event.dart';
 import 'package:appweb/app/modules/stock_balance_customer/presentation/bloc/stock_balance_customer_state.dart';
 
 import 'package:flutter/material.dart';
@@ -9,6 +12,29 @@ statesStockBalance(StockBalanceCustomerState state) {
     CustomToast.showToast(
         "Erro ao buscar balanço cliente de estoque. Tente novamente mais tarde");
   }
+}
+
+buildSearchInput(StockBalanceCustomerBloc bloc) {
+  return Container(
+    decoration: kBoxDecorationStyle,
+    child: TextFormField(
+      keyboardType: TextInputType.text,
+      autofocus: true,
+      onChanged: (value) {
+        bloc.add(StockBalanceCustomerSearchEvent(search: value));
+      },
+      style: const TextStyle(
+        color: Colors.white,
+        fontFamily: 'OpenSans',
+      ),
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.only(left: 10.0),
+        hintText: "Pesquisar balanço de estoque por nome do produto",
+        hintStyle: kHintTextStyle,
+      ),
+    ),
+  );
 }
 
 buildListView(List<StockBalanceModel> stockBalance) {
@@ -25,8 +51,9 @@ buildListView(List<StockBalanceModel> stockBalance) {
                   child: Text((index + 1).toString()),
                 ),
               ),
-              title: Column(
+              title: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(stockBalance[index].nameProduct),
                   const SizedBox(height: 5.0),

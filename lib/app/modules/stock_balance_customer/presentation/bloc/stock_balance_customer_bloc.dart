@@ -8,12 +8,13 @@ class StockBalanceCustomerBloc
     extends Bloc<StockBalanceCustomerEvent, StockBalanceCustomerState> {
   final StockBalanceCustomerGetlist getlist;
 
-  List<StockBalanceModel> sotckBalance = [];
+  List<StockBalanceModel> stockBalance = [];
 
   StockBalanceCustomerBloc({
     required this.getlist,
   }) : super(StockBalanceCustomerLoadingState()) {
     getList();
+    searchEvent();
   }
 
   getList() {
@@ -24,10 +25,33 @@ class StockBalanceCustomerBloc
           await getlist.call(const ParamsGetListStockBalance(institutionId: 1, salesmanId: 1));
 
       response.fold(
-          (l) => emit(StockBalanceCustomerErrorState(list: sotckBalance)), (r) {
-        sotckBalance = r;
+          (l) => emit(StockBalanceCustomerErrorState(list: stockBalance)), (r) {
+        stockBalance = r;
         emit(StockBalanceCustomerLoadedState(list: r));
       });
+    });
+  }
+
+  searchEvent() {
+    on<StockBalanceCustomerSearchEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        var stockBalanceSearched = stockBalance.where((element) {
+          String name = element.nameProduct;
+          return (name
+                  .toLowerCase()
+                  .trim()
+                  .contains(event.search.toLowerCase().trim())
+             );
+        }).toList();
+        if (stockBalanceSearched.isNotEmpty) {
+          emit(StockBalanceCustomerLoadedState(
+              list: stockBalanceSearched));
+        } else {
+          emit(StockBalanceCustomerLoadedState(list: []));
+        }
+      } else {
+        emit(StockBalanceCustomerLoadedState(list: stockBalance));
+      }
     });
   }
 }

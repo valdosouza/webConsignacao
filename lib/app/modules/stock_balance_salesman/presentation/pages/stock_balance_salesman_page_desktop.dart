@@ -33,8 +33,7 @@ class StockBalanceSalesmanPageDesktopState
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<StockBalanceSalesmanBloc,
-        StockBalanceSalesmanState>(
+    return BlocConsumer<StockBalanceSalesmanBloc, StockBalanceSalesmanState>(
       bloc: bloc,
       listener: (context, state) {
         statesStockBalance(state);
@@ -62,9 +61,14 @@ class StockBalanceSalesmanPageDesktopState
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: buildListView(bloc.sotckBalance),
-        ),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              children: [
+                buildSearchInput(bloc),
+                const SizedBox(height: 15),
+                buildListView(bloc.stockBalance),
+              ],
+            )),
       ),
     );
   }
