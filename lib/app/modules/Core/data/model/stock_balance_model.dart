@@ -9,8 +9,8 @@ class StockBalanceModel extends StockBalanceEntity {
 
   factory StockBalanceModel.fromJson(Map<String, dynamic> json) {
     return StockBalanceModel(
-      tbProductId: json['tbProductId'],
-      nameProduct: json['nameProduct'],
+      tbProductId: json['tb_product_id'],
+      nameProduct: json['name_product'],
       quantity: json['quantity'],
     );
   }
