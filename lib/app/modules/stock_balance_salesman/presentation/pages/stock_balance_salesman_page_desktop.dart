@@ -57,7 +57,7 @@ class StockBalanceSalesmanPageDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Balanço de Estoque Geral'),
+        title: const Text('Lista de Balanço de Estoque Vendedor'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 statesStockBalance(StockBalanceSalesmanState state) {
   if (state is StockBalanceSalesmanErrorState) {
     CustomToast.showToast(
-        "Erro ao buscar balanço geral de estoque. Tente novamente mais tarde");
+        "Erro ao buscar balanço vendedor de estoque. Tente novamente mais tarde");
   }
 }
 
