@@ -1,3 +1,5 @@
+import 'package:appweb/app/core/shared/helpers/local_storage.dart';
+import 'package:appweb/app/core/shared/local_storage_key.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_recovery_password_model.dart';
 import 'package:appweb/app/modules/auth/domain/usecase/change_password.dart';
@@ -6,7 +8,6 @@ import 'package:appweb/app/modules/auth/domain/usecase/recovery_password.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'auth_state.dart';
 
@@ -14,6 +15,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginEmail loginEmail;
   final RecoveryPassword recovery;
   final ChangePassword change;
+
+  bool _keepConnected = false;
+
+  set setKeepConnected(bool value) {
+    _keepConnected = value;
+  }
+
+  bool get keepConnected => _keepConnected;
 
   AuthRecoveryPasswordModel recoveryModel = AuthRecoveryPasswordModel.empty();
   AuthBloc({
@@ -25,6 +34,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     logout();
     recoveryPassword();
     changePassword();
+    on<AuthCheckKeepConnectedEvent>(checkKeepConnected);
+  }
+
+  void checkKeepConnected(
+    AuthCheckKeepConnectedEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoadingState());
+
+    final token = await LocalStorageService.instance
+        .get(key: LocalStorageKey.token, defaultValue: '');
+    if (token == '') {
+      emit(AuthCheckKeepConnectedSuccessState());
+    }
   }
 
   login() async {
@@ -33,15 +56,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final result = await loginEmail(
           Params(username: event.login, password: event.password));
-      final SharedPreferences sp = await SharedPreferences.getInstance();
 
       var response = result
           .fold((l) => const AuthErrorState('Erro ao realizar Login'),
-              (authResponse) {
+              (AuthModel authResponse) {
         final AuthModel authModel = authResponse;
         final bool auth = authModel.auth;
-        sp.setString('token', authModel.jwt);
-        sp.setString('institution', authModel.institution.toString());
+        LocalStorageService.instance
+            .saveItem(key: LocalStorageKey.token, value: authModel.jwt);
+        LocalStorageService.instance.saveItem(
+            key: LocalStorageKey.institution,
+            value: authModel.institution.toString());
         if (auth) {
           return AuthSuccessState();
         } else {
@@ -54,8 +79,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   logout() async {
     on<AuthLogoutEvent>((event, emit) async {
-      final SharedPreferences sp = await SharedPreferences.getInstance();
-      await sp.setString('token', '');
+      LocalStorageService.instance.saveItem(
+        key: LocalStorageKey.token,
+        value: '',
+      );
+      await LocalStorageService.instance
+          .saveItem(key: LocalStorageKey.keepConnected, value: false);
       await Modular.to.popAndPushNamed('/');
       emit(AuthLogoutSucessState());
     });
