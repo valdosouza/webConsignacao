@@ -35,7 +35,7 @@ class _StockPageMobileState extends State<StockPageMobile> {
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: const Expanded(child: StockMenusMobile()),
+        child: const StockMenusMobile(),
       ),
     );
   }

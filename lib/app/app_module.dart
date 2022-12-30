@@ -17,6 +17,9 @@ import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
 import 'package:appweb/app/modules/splash/splash_module.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
+import 'package:appweb/app/modules/stock_balance_customer/stock_balance_customer_module.dart';
+import 'package:appweb/app/modules/stock_balance_general/stock_balance_general_module.dart';
+import 'package:appweb/app/modules/stock_balance_salesman/stock_balance_salesman_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -49,6 +52,9 @@ class AppModule extends Module {
         ModuleRoute('/cashier', module: CashierModule()),
         ModuleRoute('/attendance', module: OrderAttendanceRegisterModule()),
         ModuleRoute('/consignment', module: OrderConsignmentRegisterModule()),
+        ModuleRoute('/stockgeneral/', module: StockBalanceGeneralModule()),
+        ModuleRoute('/stocksalesman/', module: StockBalanceSalesmanModule()),
+        ModuleRoute('/stockcustomer/', module: StockBalanceCustomerModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }
