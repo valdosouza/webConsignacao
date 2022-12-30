@@ -7,16 +7,16 @@ import 'package:bloc/bloc.dart';
 class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
   DrawerBloc() : super(DrawerInitState()) {
     on<DrawerLogoutEvent>((event, emit) async {
-      final bool result = await LocalStorageService.instance
-              .get(key: LocalStorageKey.token, defaultValue: '') !=
-          '';
-      if (result) {
-        await LocalStorageService.instance
-            .saveItem(key: LocalStorageKey.token, value: '');
-        await LocalStorageService.instance
-            .saveItem(key: LocalStorageKey.keepConnected, value: false);
-        emit(DrawerLogoutState(logged: result));
-      }
+      // final bool result = await LocalStorageService.instance
+      //         .get(key: LocalStorageKey.token, defaultValue: '') !=
+      //     '';
+      // if (result) {
+      await LocalStorageService.instance
+          .saveItem(key: LocalStorageKey.token, value: '');
+      await LocalStorageService.instance
+          .saveItem(key: LocalStorageKey.keepConnected, value: false);
+      emit(DrawerLogoutState(logged: false));
+      // }
     });
   }
 }
