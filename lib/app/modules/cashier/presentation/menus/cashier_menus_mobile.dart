@@ -13,7 +13,7 @@ class CashierMenusMobile extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Saldo',
-            () async => Modular.to.navigate('/cashier/mobile/cashierbalance/'),
+            () async => Modular.to.navigate('/cashierbalance/'),
           ),
           itemMenuDraw(
             Icons.home,

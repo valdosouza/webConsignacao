@@ -7,6 +7,7 @@ class CustomInput extends StatelessWidget {
   final TextInputAction inputAction;
   final TextInputType keyboardType;
   final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
   final String? initialValue;
   final Widget? sufixIcon;
   final String? Function(String?)? validator;
@@ -21,6 +22,7 @@ class CustomInput extends StatelessWidget {
       required this.keyboardType,
       required this.inputAction,
       required this.onChanged,
+      this.onFieldSubmitted,
       this.validator,
       this.initialValue,
       this.minLines,
@@ -52,6 +54,7 @@ class CustomInput extends StatelessWidget {
             autofocus: false,
             textInputAction: inputAction,
             validator: validator,
+            onFieldSubmitted: onFieldSubmitted,
             onChanged: onChanged,
             obscureText: obscureText,
             controller: controller,

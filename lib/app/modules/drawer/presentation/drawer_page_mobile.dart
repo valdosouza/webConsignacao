@@ -73,7 +73,7 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
               itemMenuDraw(Icons.home, 'Clientes',
                   () => Modular.to.navigate('/customer/mobile/')),
               itemMenuDraw(Icons.home, 'Caixa',
-                  () => Modular.to.navigate('/cashier/content/')),
+                  () => Modular.to.navigate('/cashier/mobile/')),
               itemMenuDraw(Icons.home, 'Produtos',
                   () => Modular.to.navigate('/product/content/')),
               itemMenuDraw(Icons.home, 'Estoque',
