@@ -13,25 +13,22 @@ class StockMenusMobile extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Carregamento',
-            () async => Modular.to.navigate('/stock/content/stockload/'),
+            () async => Modular.to.navigate('/stockbalance/mobile/stockload/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Cliente',
-            () async =>
-                Modular.to.navigate('/stockbalance/mobile/stockcustomer/'),
+            () async => Modular.to.navigate('/stockbalance/customer/all/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Vendedor',
-            () async =>
-                Modular.to.navigate('/stockbalance/mobile/stocksalesman/'),
+            () async => Modular.to.navigate('/stockbalance/salesman/get/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Estoque Geral',
-            () async =>
-                Modular.to.navigate('/stockbalance/mobile/stockgeneral/'),
+            () async => Modular.to.navigate('/stockbalance/general/get/'),
           ),
         ],
       ),

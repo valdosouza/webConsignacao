@@ -142,7 +142,7 @@ class OrderProductionRegisterBloc
 
         final response = await getOrderProduction.call(
             ParamsGetOrderProductionRegister(
-                id: event.model!.id, intitutionId: 1));
+                id: event.model!.id, tbInstitutionId: 1));
 
         response.fold(
             (l) => emit(

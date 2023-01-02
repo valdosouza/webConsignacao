@@ -58,10 +58,10 @@ class OrderStockAdjustmentRegisterRepositoryImpl
 
   @override
   Future<Either<Failure, OrderStockAdjustmentRegisterModel>> get(
-      {required int intitutionId, required int productId}) async {
+      {required int tbInstitutionId, required int productId}) async {
     try {
       final list = await datasource.get(
-          institutionId: intitutionId, orderStockAdjustmentId: productId);
+          institutionId: tbInstitutionId, orderStockAdjustmentId: productId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

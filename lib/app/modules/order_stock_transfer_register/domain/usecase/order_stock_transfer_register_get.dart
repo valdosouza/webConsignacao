@@ -20,7 +20,7 @@ class OrderStockTransferRegisterGet
     try {
       final list = await repository.get(
         orderStockId: params.id,
-        intitutionId: params.intitutionId,
+        tbInstitutionId: params.tbInstitutionId,
       );
       // Either<Failure, OrderStockTransferRegisterOrderModel>
       return list;
@@ -33,8 +33,8 @@ class OrderStockTransferRegisterGet
 class ParamsGetOrderStockTransferRegister {
   ParamsGetOrderStockTransferRegister({
     required this.id,
-    required this.intitutionId,
+    required this.tbInstitutionId,
   });
   int id;
-  int intitutionId;
+  int tbInstitutionId;
 }

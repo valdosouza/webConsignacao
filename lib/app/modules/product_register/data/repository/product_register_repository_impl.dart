@@ -55,10 +55,10 @@ class ProductRegisterRepositoryImpl implements ProductRegisterRepository {
 
   @override
   Future<Either<Failure, ProductRegisterMainModel>> get(
-      {required int intitutionId, required int productId}) async {
+      {required int tbInstitutionId, required int productId}) async {
     try {
       final list = await datasource.get(
-          intitutionId: intitutionId, productId: productId);
+          tbInstitutionId: tbInstitutionId, productId: productId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

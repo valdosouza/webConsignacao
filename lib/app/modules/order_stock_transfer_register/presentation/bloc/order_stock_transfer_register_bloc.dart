@@ -398,7 +398,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     var response = await getOrderStock.call(
       ParamsGetOrderStockTransferRegister(
         id: event.id,
-        intitutionId: 1,
+        tbInstitutionId: 1,
       ),
     );
 

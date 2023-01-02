@@ -185,7 +185,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
 
         final response = await getOrderStockAdjustment.call(
             ParamsGetOrderStockAdjustmentRegister(
-                id: event.model!.id, intitutionId: 1));
+                id: event.model!.id, tbInstitutionId: 1));
 
         response.fold(
             (l) => emit(OrderStockAdjustmentRegisterGetErrorState(

@@ -14,7 +14,7 @@ abstract class OrderStockTransferRegisterRepository {
   });
 
   Future<Either<Failure, OrderStockTransferRegisterOrderModel>> get({
-    required int intitutionId,
+    required int tbInstitutionId,
     required int orderStockId,
   });
   Future<Either<Failure, OrderStockTransferRegisterOrderModel>> post(

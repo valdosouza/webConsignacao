@@ -9,7 +9,7 @@ abstract class OrderStockAdjustmentRegisterRepository {
   Future<Either<Failure, List<OrderStockAdjustmentRegisterModel>>> getList(
       {required int id});
   Future<Either<Failure, OrderStockAdjustmentRegisterModel>> get(
-      {required int intitutionId, required int productId});
+      {required int tbInstitutionId, required int productId});
   Future<Either<Failure, OrderStockAdjustmentRegisterModel>> post(
       {required OrderStockAdjustmentRegisterModel model});
   Future<Either<Failure, OrderStockAdjustmentRegisterModel>> put(

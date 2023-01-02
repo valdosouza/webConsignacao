@@ -7,7 +7,7 @@ abstract class ProductRegisterRepository {
   Future<Either<Failure, List<ProductRegisterModel>>> getList(
       {required int id});
   Future<Either<Failure, ProductRegisterMainModel>> get(
-      {required int intitutionId, required int productId});
+      {required int tbInstitutionId, required int productId});
   Future<Either<Failure, ProductRegisterMainModel>> post(
       {required ProductRegisterMainModel model});
   Future<Either<Failure, ProductRegisterMainModel>> put(

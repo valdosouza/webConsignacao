@@ -16,7 +16,7 @@ class ProductRegisterGet
       ParamsProductRegisterGet params) async {
     try {
       final list = await repository.get(
-          intitutionId: params.intitutionId, productId: params.productId);
+          tbInstitutionId: params.tbInstitutionId, productId: params.productId);
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,10 +25,10 @@ class ProductRegisterGet
 }
 
 class ParamsProductRegisterGet {
-  int intitutionId;
+  int tbInstitutionId;
   int productId;
   ParamsProductRegisterGet({
-    required this.intitutionId,
+    required this.tbInstitutionId,
     required this.productId,
   });
 }

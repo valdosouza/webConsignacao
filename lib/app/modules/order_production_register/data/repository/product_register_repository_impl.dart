@@ -7,7 +7,8 @@ import 'package:appweb/app/modules/order_production_register/data/model/product_
 import 'package:appweb/app/modules/order_production_register/domain/repository/order_production_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
-class OrderProductionRegisterRepositoryImpl implements OrderProductionRegisterRepository {
+class OrderProductionRegisterRepositoryImpl
+    implements OrderProductionRegisterRepository {
   final OrderProductionRegisterDataSource datasource;
 
   OrderProductionRegisterRepositoryImpl({required this.datasource});
@@ -56,10 +57,10 @@ class OrderProductionRegisterRepositoryImpl implements OrderProductionRegisterRe
 
   @override
   Future<Either<Failure, OrderProductionRegisterModel>> get(
-      {required int intitutionId, required int productId}) async {
+      {required int tbInstitutionId, required int productId}) async {
     try {
       final list = await datasource.get(
-          institutionId: intitutionId, orderProductionId: productId);
+          institutionId: tbInstitutionId, orderProductionId: productId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());
@@ -67,7 +68,8 @@ class OrderProductionRegisterRepositoryImpl implements OrderProductionRegisterRe
   }
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getListProducts({required int id}) async {
+  Future<Either<Failure, List<ProductModel>>> getListProducts(
+      {required int id}) async {
     try {
       final list = await datasource.getListProducts(institutionId: id);
 
@@ -78,8 +80,9 @@ class OrderProductionRegisterRepositoryImpl implements OrderProductionRegisterRe
   }
 
   @override
-  Future<Either<Failure, List<StockListModel>>> getListStock({required int id}) async {
-     try {
+  Future<Either<Failure, List<StockListModel>>> getListStock(
+      {required int id}) async {
+    try {
       final list = await datasource.getListStock(institutionId: id);
 
       return Right(list);

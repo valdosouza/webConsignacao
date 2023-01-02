@@ -13,37 +13,17 @@ class StockMenusMain extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Cadastro de Estoques',
-            () async => Modular.to.navigate('/stock/content/stocklist/'),
+            () async => Modular.to.navigate('/stock/desktop/stocklist/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Ajustes de Estoque',
-            () async => Modular.to.navigate('/stock/content/stockadjustement/'),
+            () async => Modular.to.navigate('/stock/desktop/stockadjustement/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Transferência de Estoques',
-            () async => Modular.to.navigate('/stock/content/stocktransfer/'),
-          ),
-          itemMenuDraw(
-            Icons.home,
-            'Estoque de Clientes',
-            () async => Modular.to.navigate('/stock/content/stockcustomer/'),
-          ),
-          itemMenuDraw(
-            Icons.home,
-            'Estoque de Vendedores',
-            () async => Modular.to.navigate('/stock/content/stocksalesman/'),
-          ),
-          itemMenuDraw(
-            Icons.home,
-            'Estoque de Principal',
-            () async => Modular.to.navigate('/stock/content/stockmain/'),
-          ),
-          itemMenuDraw(
-            Icons.home,
-            'Estoque Geral',
-            () async => Modular.to.navigate('/stock/content/stockgeneral/'),
+            () async => Modular.to.navigate('/stock/desktop/stocktransfer/'),
           ),
         ],
       ),

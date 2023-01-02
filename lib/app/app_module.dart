@@ -17,6 +17,7 @@ import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
 import 'package:appweb/app/modules/splash/splash_module.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
+import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,12 +37,13 @@ class AppModule extends Module {
         ModuleRoute('/auth', module: AuthModule()),
         ModuleRoute('/home', module: HomeModule()),
         ModuleRoute('/stock', module: StockModule()),
+        ModuleRoute('/stockbalance', module: StockBalanceModule()),
         ModuleRoute('/admin', module: AdminModule()),
         ModuleRoute('/product', module: ProductModule()),
         ModuleRoute('/customer', module: CustomerModule()),
+        ModuleRoute('/customerregister', module: CustomerRegisterModule()),
         ModuleRoute('/financial', module: FinancialModule()),
         ModuleRoute('/resourcehuman', module: ResourceHumanModule()),
-        ModuleRoute('/customerregister', module: CustomerRegisterModule()),
         ModuleRoute('/attendancesalesroute', module: AttendanceByRouteModule()),
         ModuleRoute('/attendancesalesman',
             module: AttendanceBySalesmanModule()),

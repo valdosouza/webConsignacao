@@ -7,7 +7,8 @@ import 'package:dartz/dartz.dart';
 
 class OrderStockAdjustmentRegisterGet
     implements
-        UseCase<OrderStockAdjustmentRegisterModel, ParamsGetOrderStockAdjustmentRegister> {
+        UseCase<OrderStockAdjustmentRegisterModel,
+            ParamsGetOrderStockAdjustmentRegister> {
   final OrderStockAdjustmentRegisterRepository repository;
 
   OrderStockAdjustmentRegisterGet({required this.repository});
@@ -16,7 +17,8 @@ class OrderStockAdjustmentRegisterGet
   Future<Either<Failure, OrderStockAdjustmentRegisterModel>> call(
       ParamsGetOrderStockAdjustmentRegister params) async {
     try {
-      final list = await repository.get(intitutionId: params.intitutionId, productId: params.id);
+      final list = await repository.get(
+          tbInstitutionId: params.tbInstitutionId, productId: params.id);
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -26,6 +28,7 @@ class OrderStockAdjustmentRegisterGet
 
 class ParamsGetOrderStockAdjustmentRegister {
   int id;
-  int intitutionId;
-  ParamsGetOrderStockAdjustmentRegister({required this.id, required this.intitutionId});
+  int tbInstitutionId;
+  ParamsGetOrderStockAdjustmentRegister(
+      {required this.id, required this.tbInstitutionId});
 }

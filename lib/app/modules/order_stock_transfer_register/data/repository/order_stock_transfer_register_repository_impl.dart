@@ -58,12 +58,12 @@ class OrderStockTransferRegisterRepositoryImpl
 
   @override
   Future<Either<Failure, OrderStockTransferRegisterOrderModel>> get({
-    required int intitutionId,
+    required int tbInstitutionId,
     required int orderStockId,
   }) async {
     try {
       final list = await datasource.get(
-        institutionId: intitutionId,
+        institutionId: tbInstitutionId,
         orderStockId: orderStockId,
       );
       return Right(list);

@@ -74,7 +74,7 @@ class ProductRegisterBloc
       emit(ProductRegisterLoadingState());
 
       var response = await get.call(ParamsProductRegisterGet(
-          intitutionId: 1,
+          tbInstitutionId: 1,
           productId: event.model != null ? event.model!.id : 0));
 
       var result = response.fold(
