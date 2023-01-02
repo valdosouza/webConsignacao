@@ -55,7 +55,7 @@ buildListView(List<StockBalanceModel> stockBalance) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(stockBalance[index].nameProduct),
+                  Text(stockBalance[index].nameMerchandise),
                   const SizedBox(height: 5.0),
                   Text(stockBalance[index].quantity.toString())
                 ],

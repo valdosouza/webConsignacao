@@ -16,7 +16,7 @@ class StockBalanceGeneralDataSourceImpl
   @override
   Future<List<StockBalanceModel>> getlist({required int id, required int salesmanId}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}stockbalnce/getlist/general/$id/1');
+      final uri = Uri.parse('${baseApiUrl}stockbalance/getlist/general/$id/1');
 
       final response = await client.get(uri);
 

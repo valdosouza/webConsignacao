@@ -1,10 +1,10 @@
 class StockBalanceEntity {
-  final int tbProductId;
-  final String nameProduct;
+  final int tbMerchandiseId;
+  final String nameMerchandise;
   final int quantity;
 
   StockBalanceEntity(
-      {required this.tbProductId,
-      required this.nameProduct,
+      {required this.tbMerchandiseId,
+      required this.nameMerchandise,
       required this.quantity});
 }

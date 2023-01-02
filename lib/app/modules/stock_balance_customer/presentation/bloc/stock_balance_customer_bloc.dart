@@ -21,8 +21,8 @@ class StockBalanceCustomerBloc
     on<StockBalanceCustomerGetListEvent>((event, emit) async {
       emit(StockBalanceCustomerLoadingState());
 
-      var response =
-          await getlist.call(const ParamsGetListStockBalance(institutionId: 1, salesmanId: 1));
+      var response = await getlist.call(
+          const ParamsGetListStockBalance(institutionId: 1, salesmanId: 1));
 
       response.fold(
           (l) => emit(StockBalanceCustomerErrorState(list: stockBalance)), (r) {
@@ -36,16 +36,14 @@ class StockBalanceCustomerBloc
     on<StockBalanceCustomerSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var stockBalanceSearched = stockBalance.where((element) {
-          String name = element.nameProduct;
+          String name = element.nameMerchandise;
           return (name
-                  .toLowerCase()
-                  .trim()
-                  .contains(event.search.toLowerCase().trim())
-             );
+              .toLowerCase()
+              .trim()
+              .contains(event.search.toLowerCase().trim()));
         }).toList();
         if (stockBalanceSearched.isNotEmpty) {
-          emit(StockBalanceCustomerLoadedState(
-              list: stockBalanceSearched));
+          emit(StockBalanceCustomerLoadedState(list: stockBalanceSearched));
         } else {
           emit(StockBalanceCustomerLoadedState(list: []));
         }

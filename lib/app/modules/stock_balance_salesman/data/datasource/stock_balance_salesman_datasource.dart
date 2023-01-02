@@ -5,7 +5,8 @@ import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class StockBalanceSalesmanDataSource {
-  Future<List<StockBalanceModel>> getlist({required int id, required int salesmanId});
+  Future<List<StockBalanceModel>> getlist(
+      {required int id, required int salesmanId});
 }
 
 class StockBalanceSalesmanDataSourceImpl
@@ -14,9 +15,10 @@ class StockBalanceSalesmanDataSourceImpl
   List<StockBalanceModel> stockBalanceSalesman = [];
 
   @override
-  Future<List<StockBalanceModel>> getlist({required int id, required int salesmanId}) async {
+  Future<List<StockBalanceModel>> getlist(
+      {required int id, required int salesmanId}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}stockbalnce/getlist/salesman/$id/1');
+      final uri = Uri.parse('${baseApiUrl}stockbalance/getlist/salesman/$id/1');
 
       final response = await client.get(uri);
 
