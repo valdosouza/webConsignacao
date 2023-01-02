@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/attendance_by_route/attendance_by_route_modul
 import 'package:appweb/app/modules/attendance_by_salesman/attendance_by_salesman_module.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/cashier/cashier_module.dart';
+import 'package:appweb/app/modules/cashier_balance/cashier_balance_module.dart';
 import 'package:appweb/app/modules/customer/customer_module.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
 import 'package:appweb/app/modules/drawer/drawer_module.dart';
@@ -51,6 +52,8 @@ class AppModule extends Module {
         ModuleRoute('/cashier', module: CashierModule()),
         ModuleRoute('/attendance', module: OrderAttendanceRegisterModule()),
         ModuleRoute('/consignment', module: OrderConsignmentRegisterModule()),
+    ModuleRoute('/cashierbalance/', module: CashierBalanceModule()),
+
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }
