@@ -161,18 +161,20 @@ class OrderStockTransferRegisterBloc extends Bloc<
     final response = await postOrderStock
         .call(ParamOrderStockTransferRegisterPost(order: event.model));
     response.fold(
-        (l) => emit(
-              OrderProductionRegisterPostErrorState(
-                list: _orders,
-              ),
-            ), (r) {
-      _orders.add(r);
-      emit(
-        OrderProductionRegisterPostSuccessState(
+      (l) => emit(
+        OrderProductionRegisterPostErrorState(
           list: _orders,
         ),
-      );
-    });
+      ),
+      (r) {
+        _orders.add(r);
+        emit(
+          OrderProductionRegisterPostSuccessState(
+            list: _orders,
+          ),
+        );
+      },
+    );
   }
 
   void putOrderStockTransferAction(
@@ -183,19 +185,21 @@ class OrderStockTransferRegisterBloc extends Bloc<
     final response = await putOrderStock
         .call(ParamOrderStockTransferRegisterPut(order: event.model));
     response.fold(
-        (l) => emit(
-              OrderProductionRegisterPutErrorState(
-                list: _orders,
-              ),
-            ), (r) {
-      _orders.removeWhere((element) => element.order.id == r.order.id);
-      _orders.add(r);
-      emit(
-        OrderProductionRegisterPutSuccessState(
+      (l) => emit(
+        OrderProductionRegisterPutErrorState(
           list: _orders,
         ),
-      );
-    });
+      ),
+      (r) {
+        _orders.removeWhere((element) => element.order.id == r.order.id);
+        _orders.add(r);
+        emit(
+          OrderProductionRegisterPutSuccessState(
+            list: _orders,
+          ),
+        );
+      },
+    );
   }
 
   void deleteOrderStockTransferAction(
@@ -407,6 +411,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
       (r) {
         _order = r;
         _isEditing = true;
+        _items = r.items;
         emit(OrderStockTransferAddOrEditOrderState(order: _order));
       },
     );

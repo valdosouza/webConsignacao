@@ -52,4 +52,9 @@ class LocalStorageService implements LocalStorage {
       await _storage?.setString(key, value.toString());
     }
   }
+
+  @override
+  bool hasKey({required String key}) {
+    return _storage?.containsKey(key) ?? false;
+  }
 }

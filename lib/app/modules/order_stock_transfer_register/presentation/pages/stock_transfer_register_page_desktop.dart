@@ -53,9 +53,11 @@ class OrderStockTransferRegisterPageDesktopState
         if (state is OrderStockTransferRegisterErrorState) {
           CustomToast.showToast(
               "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
-          return Container(
-            color: Colors.red,
-          );
+        }
+        if (state is OrderProductionRegisterPutErrorState) {
+          CustomToast.showToast(
+              "Ocorreu um erro ao atualizar a ordem. Tente novamente mais tarde.");
+          bloc.add(OrderStockTransferRegisterGetListEvent());
         }
         if (state is OrderProductionRegisterPostErrorState) {
           CustomToast.showToast(

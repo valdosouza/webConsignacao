@@ -67,6 +67,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         LocalStorageService.instance.saveItem(
             key: LocalStorageKey.institution,
             value: authModel.institution.toString());
+        LocalStorageService.instance
+            .saveItem(key: LocalStorageKey.institution, value: authModel.id);
         if (auth) {
           return AuthSuccessState();
         } else {
