@@ -12,7 +12,7 @@ class StockModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(
       '/desktop/',
-      child: (_, args) => const StockPageDesktop(),
+      child: (_, args) => const StocPageDesktop(),
       children: [
         ModuleRoute('/stocklist/', module: StockListRegisterModule()),
         ModuleRoute('/stockadjustement/',
@@ -27,7 +27,7 @@ class StockModule extends Module {
     ),
     ChildRoute(
       '/mobile/',
-      child: (_, args) => const StockPageMobile(),
+      child: (_, args) => const StocPageMobile(),
       children: [
         ModuleRoute('/', module: StockBalanceModule()),
       ],

@@ -5,14 +5,14 @@ import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class StockPageMobile extends StatefulWidget {
-  const StockPageMobile({super.key});
+class StocPageMobile extends StatefulWidget {
+  const StocPageMobile({super.key});
 
   @override
-  State<StockPageMobile> createState() => _StockPageMobileState();
+  State<StocPageMobile> createState() => _StocPageMobileState();
 }
 
-class _StockPageMobileState extends State<StockPageMobile> {
+class _StocPageMobileState extends State<StocPageMobile> {
   @override
   void initState() {
     super.initState();

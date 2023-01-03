@@ -1,23 +1,25 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/cashier/cashier_module.dart';
+import 'package:appweb/app/modules/cashier/presentation/menus/cashier_menus_main.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
-import 'package:appweb/app/modules/stock/presentation/menus/stock_menus_main.dart';
-import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class StocPageDesktop extends StatefulWidget {
-  const StocPageDesktop({super.key});
+class CashierStatementPageDesktop extends StatefulWidget {
+  const CashierStatementPageDesktop({super.key});
 
   @override
-  State<StocPageDesktop> createState() => StocPageDesktopState();
+  State<CashierStatementPageDesktop> createState() =>
+      CashierStatementPageDesktopState();
 }
 
-class StocPageDesktopState extends State<StocPageDesktop> {
+class CashierStatementPageDesktopState
+    extends State<CashierStatementPageDesktop> {
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<StockModule>();
+      await Modular.isModuleReady<CashierModule>();
     });
   }
 
@@ -37,7 +39,7 @@ class StocPageDesktopState extends State<StocPageDesktop> {
         child: Row(
           children: const [
             DrawerPageMain(),
-            StockMenusMain(),
+            CashierMenusMain(),
             Expanded(
               child: RouterOutlet(),
             ),

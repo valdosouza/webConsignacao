@@ -5,15 +5,15 @@ import 'package:appweb/app/modules/stock/presentation/pages/stock_page_tablet.da
 
 import 'package:flutter/material.dart';
 
-class StockPage extends StatelessWidget {
-  const StockPage({super.key});
+class StocPage extends StatelessWidget {
+  const StocPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Responsive(
-      mobile: StockPageMobile(),
-      tablet: StockPageTablet(),
-      desktop: StockPageDesktop(),
+      mobile: StocPageMobile(),
+      tablet: StocPageTablet(),
+      desktop: StocPageDesktop(),
     );
   }
 }

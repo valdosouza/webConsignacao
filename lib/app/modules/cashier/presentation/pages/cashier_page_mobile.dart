@@ -9,10 +9,10 @@ class CashierPageMobile extends StatefulWidget {
   const CashierPageMobile({super.key});
 
   @override
-  State<CashierPageMobile> createState() => CashierkPageMobileState();
+  State<CashierPageMobile> createState() => CashierPageMobileState();
 }
 
-class CashierkPageMobileState extends State<CashierPageMobile> {
+class CashierPageMobileState extends State<CashierPageMobile> {
   @override
   void initState() {
     super.initState();

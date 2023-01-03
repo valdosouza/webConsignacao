@@ -9,10 +9,10 @@ class CashierPageTablet extends StatefulWidget {
   const CashierPageTablet({super.key});
 
   @override
-  State<CashierPageTablet> createState() => CashierkPageTabletState();
+  State<CashierPageTablet> createState() => CashierPageTabletState();
 }
 
-class CashierkPageTabletState extends State<CashierPageTablet> {
+class CashierPageTabletState extends State<CashierPageTablet> {
   @override
   void initState() {
     super.initState();

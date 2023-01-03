@@ -91,8 +91,6 @@ class SalesRoutetRegisterInterationPageState
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {
-                //Modular.to.pop();
-                //Navigator.of(context).pop();
                 Modular.to.navigate('/customer/mobile/');
               },
             ),

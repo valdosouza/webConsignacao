@@ -1,23 +1,25 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/cashier/cashier_module.dart';
+import 'package:appweb/app/modules/cashier/presentation/menus/cashier_menus_mobile.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_mobile.dart';
-import 'package:appweb/app/modules/stock/presentation/menus/stock_menus_mobile.dart';
-import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class StocPageTablet extends StatefulWidget {
-  const StocPageTablet({super.key});
+class CashierStatementPageTablet extends StatefulWidget {
+  const CashierStatementPageTablet({super.key});
 
   @override
-  State<StocPageTablet> createState() => _StocPageTabletState();
+  State<CashierStatementPageTablet> createState() =>
+      CashierStatementPageTabletState();
 }
 
-class _StocPageTabletState extends State<StocPageTablet> {
+class CashierStatementPageTabletState
+    extends State<CashierStatementPageTablet> {
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<StockModule>();
+      await Modular.isModuleReady<CashierModule>();
     });
   }
 
@@ -35,7 +37,7 @@ class _StocPageTabletState extends State<StocPageTablet> {
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: const Expanded(child: StockMenusMobile()),
+        child: const Expanded(child: CashierMenusMobile()),
       ),
     );
   }

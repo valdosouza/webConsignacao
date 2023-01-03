@@ -2,8 +2,8 @@ import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CashierMenusMobile extends StatelessWidget {
-  const CashierMenusMobile({super.key});
+class CashierStatementMenusMobile extends StatelessWidget {
+  const CashierStatementMenusMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +12,20 @@ class CashierMenusMobile extends StatelessWidget {
         children: <Widget>[
           itemMenuDraw(
             Icons.home,
-            'Saldo',
-            () async => Modular.to.navigate('/cashierbalance/'),
+            'Do Dia',
+            () async => Modular.to.navigate('/cashierstatement/mobile/byday/'),
           ),
           itemMenuDraw(
             Icons.home,
-            'Extrato',
-            () async => Modular.to.navigate('/cashierstatement/mobile/'),
+            'Do Mês',
+            () async =>
+                Modular.to.navigate('/cashierstatement/mobile/bymonth/'),
           ),
           itemMenuDraw(
             Icons.home,
-            'Fechamento',
-            () async => Modular.to.navigate('/cashier/cashier/cashierclosure/'),
+            'Clientes Cobrados',
+            () async => Modular.to
+                .navigate('/cashierstatement/mobile/customercharged/'),
           ),
         ],
       ),
