@@ -1,8 +1,17 @@
-import 'package:dartz/dartz.dart';
-
 class CashierBalanceEntity {
-  String date;
-  List<Tuple2<String, double>> items;
+  String dtRecord;
+  List<CashierBalanceItemsEntity> items;
+  CashierBalanceEntity({
+    required this.dtRecord,
+    required this.items,
+  });
+}
 
-  CashierBalanceEntity({required this.date, required this.items});
+class CashierBalanceItemsEntity {
+  String namePaymentType;
+  double balanceValue;
+  CashierBalanceItemsEntity({
+    required this.namePaymentType,
+    required this.balanceValue,
+  });
 }

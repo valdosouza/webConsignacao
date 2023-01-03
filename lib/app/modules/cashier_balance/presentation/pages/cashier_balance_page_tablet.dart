@@ -2,7 +2,6 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/content/cashier_balance_mobile.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_mobile.dart';
-import 'package:appweb/app/modules/product/presentation/content/content_mobile_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -10,7 +9,8 @@ class CashierBalancePageTablet extends StatefulWidget {
   const CashierBalancePageTablet({super.key});
 
   @override
-  State<CashierBalancePageTablet> createState() => _CashierBalancePageTabletState();
+  State<CashierBalancePageTablet> createState() =>
+      _CashierBalancePageTabletState();
 }
 
 class _CashierBalancePageTabletState extends State<CashierBalancePageTablet> {

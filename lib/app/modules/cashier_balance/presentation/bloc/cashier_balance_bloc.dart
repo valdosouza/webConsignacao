@@ -1,26 +1,30 @@
 import 'package:appweb/app/modules/cashier_balance/data/model/cashier_balance_model.dart';
 import 'package:bloc/bloc.dart';
-import '../../domain/entity/cashier_balance_entity.dart';
-import '../../domain/usecase/cashier_balance_getlist.dart';
+
+import '../../domain/usecase/cashier_balance_get.dart';
 import 'cashier_balance_event.dart';
 import 'cashier_balance_state.dart';
 
-class CashierBalanceBloc extends Bloc<CashierBalanceEvent, CashierBalanceState> {
-  final Getlist getlist;
+class CashierBalanceBloc
+    extends Bloc<CashierBalanceEvent, CashierBalanceState> {
+  final CashierBalanceGet cashierbalance;
 
-  CashierBalanceEntity cashierBalance = CashierBalanceModel.empty();
-  CashierBalanceBloc({required this.getlist}) : super(CashierBalanceLoadingState()) {
-    getlistMobile();
+  CashierBalanceModel cashierBalance = CashierBalanceModel.empty();
+  CashierBalanceBloc({required this.cashierbalance})
+      : super(CashierBalanceLoadingState()) {
+    cashierBalanceGet();
   }
 
-  getlistMobile() {
+  cashierBalanceGet() {
     on<CashierBalanceMobileEvent>((event, emit) async {
       emit(CashierBalanceLoadingState());
 
-      var response = await getlist.call(ParamsGetlist(id: 1, date: event.date, userId: event.userId));
+      var response = await cashierbalance.call(ParamsCashierBalance(
+          tbInstitutionId: event.tbInstitutionId,
+          date: event.date,
+          tbUserId: event.tbUserId));
 
-      var result =
-          response.fold((l) => CashierBalanceMobileErrorState(model: null), (r) {
+      var result = response.fold((l) => CashierBalanceMobileErrorState(), (r) {
         cashierBalance = r;
         return CashierBalanceMobileSuccessState(model: cashierBalance);
       });

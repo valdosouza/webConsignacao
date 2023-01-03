@@ -1,10 +1,10 @@
 import 'package:appweb/app/core/error/failures.dart';
-
+import 'package:appweb/app/modules/cashier_balance/data/model/cashier_balance_model.dart';
 import 'package:dartz/dartz.dart';
 
-import '../entity/cashier_balance_entity.dart';
-
 abstract class CashierBalanceRepository {
-  Future<Either<Failure, CashierBalanceEntity>> getCashierBalance(
-      {required int id, required String date, required int userId});
+  Future<Either<Failure, CashierBalanceModel>> cashierBalanceGet(
+      {required int tbInstitutionId,
+      required String date,
+      required int tbUserId});
 }

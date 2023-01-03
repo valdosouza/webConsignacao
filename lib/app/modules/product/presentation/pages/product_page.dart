@@ -11,7 +11,7 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Responsive(
-      mobile: ProductPAgeMobile(),
+      mobile: ProductPageMobile(),
       tablet: ProductPageTablet(),
       desktop: ProductPageDesktop(),
     );

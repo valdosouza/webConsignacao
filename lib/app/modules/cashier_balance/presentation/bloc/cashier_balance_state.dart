@@ -1,26 +1,18 @@
-import '../../domain/entity/cashier_balance_entity.dart';
+import 'package:appweb/app/modules/cashier_balance/data/model/cashier_balance_model.dart';
 
-abstract class CashierBalanceState {
-  CashierBalanceEntity? model;
+abstract class CashierBalanceState {}
 
-  CashierBalanceState({
+class CashierBalanceLoadingState extends CashierBalanceState {
+  CashierBalanceLoadingState();
+}
+
+class CashierBalanceMobileSuccessState extends CashierBalanceState {
+  final CashierBalanceModel model;
+  CashierBalanceMobileSuccessState({
     required this.model,
   });
 }
 
-class CashierBalanceLoadingState extends CashierBalanceState {
-  CashierBalanceLoadingState()
-      : super(model: null);
-}
-
-class CashierBalanceMobileSuccessState extends CashierBalanceState {
-  CashierBalanceMobileSuccessState(
-      {required CashierBalanceEntity model})
-      : super(model: model);
-}
-
 class CashierBalanceMobileErrorState extends CashierBalanceState {
-  CashierBalanceMobileErrorState(
-      {required CashierBalanceEntity? model})
-      : super(model: model);
+  CashierBalanceMobileErrorState();
 }

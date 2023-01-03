@@ -5,14 +5,14 @@ import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ProductPAgeMobile extends StatefulWidget {
-  const ProductPAgeMobile({super.key});
+class ProductPageMobile extends StatefulWidget {
+  const ProductPageMobile({super.key});
 
   @override
-  State<ProductPAgeMobile> createState() => _ProductMobiletState();
+  State<ProductPageMobile> createState() => _ProductMobiletState();
 }
 
-class _ProductMobiletState extends State<ProductPAgeMobile> {
+class _ProductMobiletState extends State<ProductPageMobile> {
   @override
   void initState() {
     super.initState();

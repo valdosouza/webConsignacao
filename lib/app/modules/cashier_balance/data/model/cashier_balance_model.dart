@@ -1,36 +1,50 @@
-import 'package:dartz/dartz.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
-
 import '../../domain/entity/cashier_balance_entity.dart';
 
 class CashierBalanceModel extends CashierBalanceEntity {
-  CashierBalanceModel({String? date, List<Tuple2<String, double>>? items})
-      : super(date: date ?? "", items: items ?? List.empty());
+  CashierBalanceModel({
+    required String dtRecord,
+    required List<CashierBalanceItemsEntity> items,
+  }) : super(
+          dtRecord: dtRecord,
+          items: items,
+        );
 
-  factory CashierBalanceModel.fromJson(Map<String?, dynamic> json) {
+  factory CashierBalanceModel.fromJson(Map<String, dynamic> json) {
     return CashierBalanceModel(
-        date: json['date'],
-        items: (json['items'] as List).map((e) {
-          return Tuple2<String, double>(e['description'], double.parse(e['tag_value']));
-        }).toList());
+      dtRecord: json['dt_record'],
+      items: (json['items'] as List)
+          .map((e) => CashierBalanceItemsModel.fromJson(e))
+          .toList(),
+    );
   }
 
   factory CashierBalanceModel.empty() {
-    return CashierBalanceModel();
+    return CashierBalanceModel(dtRecord: '', items: []);
+  }
+}
+
+class CashierBalanceItemsModel extends CashierBalanceItemsEntity {
+  CashierBalanceItemsModel({
+    required String? namePaymentType,
+    required double? balanceValue,
+  }) : super(
+          namePaymentType: namePaymentType ?? "",
+          balanceValue: balanceValue ?? 0.0,
+        );
+
+  factory CashierBalanceItemsModel.fromJson(Map<String?, dynamic> json) {
+    return CashierBalanceItemsModel(
+      namePaymentType: json['name_payment_type'],
+      balanceValue: json['balance_value'] is String
+          ? double.parse(json['balance_value'])
+          : json['balance_value'],
+    );
   }
 
-    static formatDate(String date, String typeFormat) {
-    try {
-      initializeDateFormatting('pt_BR,', null);
-      DateTime time = DateTime.parse(date);
-      return (DateFormat(typeFormat).format(time));
-    } catch (e) {
-      return "";
-    }
-  }
-
-   static convertDate(String date) {
-    return date.split("/").reversed.join("-");
+  factory CashierBalanceItemsModel.empty() {
+    return CashierBalanceItemsModel(
+      namePaymentType: "",
+      balanceValue: 0,
+    );
   }
 }

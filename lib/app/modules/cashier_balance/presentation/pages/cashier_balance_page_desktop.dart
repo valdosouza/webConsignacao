@@ -7,7 +7,8 @@ class CashierBalancePageDesktop extends StatefulWidget {
   const CashierBalancePageDesktop({super.key});
 
   @override
-  State<CashierBalancePageDesktop> createState() => _CashierBalancePageDesktopState();
+  State<CashierBalancePageDesktop> createState() =>
+      _CashierBalancePageDesktopState();
 }
 
 class _CashierBalancePageDesktopState extends State<CashierBalancePageDesktop> {
@@ -21,7 +22,6 @@ class _CashierBalancePageDesktopState extends State<CashierBalancePageDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -29,7 +29,7 @@ class _CashierBalancePageDesktopState extends State<CashierBalancePageDesktop> {
         ),
         title: const Text("Sistema Consignação e Venda"),
       ),
-      body:Text("Sistema Consignação e Venda"),
+      body: const Text("Sistema Consignação e Venda"),
     );
   }
 }

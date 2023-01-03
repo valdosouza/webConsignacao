@@ -11,7 +11,7 @@ class CashierBalancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Responsive(
-      mobile: CashierBalancePAgeMobile(),
+      mobile: CashierBalancePageMobile(),
       tablet: CashierBalancePageTablet(),
       desktop: CashierBalancePageDesktop(),
     );

@@ -1,5 +1,3 @@
-import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_event.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/widgets/cashier_balance_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +20,6 @@ class _ContentMobileCashierBalanceState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 0)).then((_) async {
       await Modular.isModuleReady<CashierBalanceModule>();
@@ -35,8 +32,7 @@ class _ContentMobileCashierBalanceState
     return BlocBuilder<CashierBalanceBloc, CashierBalanceState>(
       bloc: bloc,
       builder: (context, state) {
-        return CashierBalanceWidget(
-            date: state.model!.date, cashier: state.model!.items);
+        return const CashierBalanceWidget();
       },
     );
   }
