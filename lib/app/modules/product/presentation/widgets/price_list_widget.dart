@@ -5,7 +5,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 class PriceListWidget extends StatelessWidget {
   final String title;
-  final List<Tuple2<String, double>> prices;
+  final List<Tuple3<int, String, double>> prices;
   const PriceListWidget({
     Key? key,
     required this.title,
@@ -29,13 +29,13 @@ class PriceListWidget extends StatelessWidget {
         delegate: SliverChildBuilderDelegate(
           (context, index) => ListTile(
             leading: CircleAvatar(
-              child: Text((index + 1).toString()),
+              child: Text(prices[index].value1.toString()),
             ),
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(prices[index].value1),
-                  Text(prices[index].value2.toString())
+                  Text(prices[index].value2),
+                  Text(prices[index].value3.toStringAsFixed(2))
                 ]),
           ),
           childCount: prices.length,

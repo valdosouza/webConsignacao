@@ -8,7 +8,8 @@ import 'package:appweb/app/modules/product/domain/entity/produtcs_price_list_pro
 import 'package:http/http.dart' as http;
 
 abstract class ProductDataSource {
-  Future<List<ProductsPriceListProductsEntity>> getPriceList({required int id});
+  Future<List<ProductsPriceListProductsEntity>> getPriceList(
+      {required int tbInstitutionId});
 }
 
 class ProductDataSourceImpl extends ProductDataSource {
@@ -16,9 +17,10 @@ class ProductDataSourceImpl extends ProductDataSource {
 
   @override
   Future<List<ProductsPriceListProductsEntity>> getPriceList(
-      {required int id}) async {
+      {required int tbInstitutionId}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}product/pricelist/getall/$id');
+      final uri =
+          Uri.parse('${baseApiUrl}product/pricelist/getall/$tbInstitutionId');
 
       final response = await client.get(uri);
 

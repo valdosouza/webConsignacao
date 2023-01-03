@@ -4,7 +4,6 @@ import 'package:appweb/app/modules/product/domain/usecase/product_getlist_prices
 import 'package:appweb/app/modules/product/presentation/bloc/product_event.dart';
 import 'package:appweb/app/modules/product/presentation/bloc/product_state.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final PricesListGet getPriceList;
@@ -38,10 +37,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         String search = event.search.toLowerCase().trim();
         var pricesSearch = prices.map((e) {
           var result = e.products.where((element) {
-            return element.value1.toLowerCase().trim().contains(search);
+            return element.value2.toLowerCase().trim().contains(search);
           }).toList();
           return ProductsPriceListProductsModel(
-              namePriceList: e.namePriceList, products: result);
+            tbPriceListId: e.tbPriceListId,
+            namePriceList: e.namePriceList,
+            products: result,
+          );
         }).toList();
         emit(ProductPriceListMobileSuccessState(list: pricesSearch));
       } else {

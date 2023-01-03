@@ -21,7 +21,6 @@ class _ContentMobileProductState extends State<ContentMobileProduct> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(milliseconds: 0)).then((_) async {
       await Modular.isModuleReady<ProductModule>();
@@ -45,7 +44,7 @@ class _ContentMobileProductState extends State<ContentMobileProduct> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-                Container(
+              Container(
                 decoration: kBoxDecorationStyle,
                 child: TextFormField(
                   keyboardType: TextInputType.text,
@@ -60,8 +59,7 @@ class _ContentMobileProductState extends State<ContentMobileProduct> {
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.only(left: 10.0),
-                    hintText:
-                        "Pesquise produto por nome",
+                    hintText: "Pesquise produto por nome",
                     hintStyle: kHintTextStyle,
                   ),
                 ),
@@ -71,7 +69,9 @@ class _ContentMobileProductState extends State<ContentMobileProduct> {
                 child: CustomScrollView(
                   slivers: state.list
                       .map((e) => PriceListWidget(
-                          title: e.namePriceList, prices: e.products))
+                            title: e.namePriceList,
+                            prices: e.products,
+                          ))
                       .toList(),
                 ),
               ),
