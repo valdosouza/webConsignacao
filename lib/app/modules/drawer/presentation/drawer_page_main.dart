@@ -28,7 +28,7 @@ class _DrawerPageMainState extends State<DrawerPageMain> {
       bloc: bloc,
       listener: (context, state) {
         if (state is DrawerLogoutState) {
-          Modular.to.popAndPushNamed('/auth/');
+          Modular.to.pushReplacementNamed('/auth/');
         }
       },
       builder: (context, state) {

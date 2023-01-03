@@ -1,8 +1,9 @@
+import 'package:appweb/app/core/shared/helpers/local_storage.dart';
+import 'package:appweb/app/core/shared/local_storage_key.dart';
 import 'package:appweb/app/modules/home/domain/usecase/get_financial_closed_usecase.dart';
 import 'package:appweb/app/modules/home/presentation/bloc/home_event.dart';
 import 'package:appweb/app/modules/home/presentation/bloc/home_state.dart';
 import 'package:bloc/bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetFinancialClosedUseCase getFinancialClosedUseCase;
@@ -22,8 +23,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 
     on<HomeLogoutEvent>((event, emit) async {
-      final SharedPreferences sp = await SharedPreferences.getInstance();
-      await sp.setString('token', '');
+      await LocalStorageService.instance
+          .saveItem(key: LocalStorageKey.token, value: '');
       emit(HomeLogoutState());
     });
   }

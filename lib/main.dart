@@ -9,8 +9,10 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   main_file.doSomething();
 
-  runApp(ModularApp(
-    module: AppModule(),
-    child: const AppWidget(),
-  ));
+  runApp(
+    ModularApp(
+      module: AppModule(),
+      child: const AppWidget(),
+    ),
+  );
 }

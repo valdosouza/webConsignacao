@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
+import 'package:appweb/app/core/shared/helpers/local_storage.dart';
+import 'package:appweb/app/core/shared/local_storage_key.dart';
 import 'package:appweb/app/modules/home/data/model/home_sales_payment_type_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// Calls the https://www.api.gestaosetes.com.br/financial/getClosed/ endpoint.
 ///
@@ -24,8 +25,8 @@ class HomeDatasourceImpl implements HomeDatasource {
       {required String initialDate,
       required String finalDate,
       required String terminal}) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final institution = sp.getString('institution') ?? 1223;
+    final institution = await LocalStorageService.instance
+        .get(key: LocalStorageKey.institution, defaultValue: 1223);
 
     final response = await client.post(
       Uri.parse(_baseUrl),

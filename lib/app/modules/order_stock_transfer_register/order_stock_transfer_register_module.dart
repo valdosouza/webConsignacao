@@ -13,6 +13,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/pa
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'presentation/bloc/order_stock_transfer_register_bloc.dart';
+import 'package:http/http.dart' as http;
 
 class OrderStockTransferRegisterModule extends Module {
   @override
@@ -22,7 +23,9 @@ class OrderStockTransferRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<OrderStockTransferRegisterDataSource>(
-          (i) => OrderStockTransferRegisterDataSourceImpl(),
+          (i) => OrderStockTransferRegisterDataSourceImpl(
+            httpClient: http.Client(),
+          ),
         ),
         Bind.factory(
           (i) => OrderStockTransferRegisterRepositoryImpl(
