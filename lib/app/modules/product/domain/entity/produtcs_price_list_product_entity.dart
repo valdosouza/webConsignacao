@@ -1,13 +1,25 @@
-import 'package:dartz/dartz.dart';
+import 'package:appweb/app/modules/product/data/model/products_price_list_products_model.dart';
 
-class ProductsPriceListProductsEntity {
+class ProductsPriceListEntity {
   final int tbPriceListId;
   final String namePriceList;
-  final List<Tuple3<int, String, double>> products;
+  final List<ProductsPriceListItemsModel> productPrice;
 
-  ProductsPriceListProductsEntity({
+  ProductsPriceListEntity({
     required this.tbPriceListId,
     required this.namePriceList,
-    required this.products,
+    required this.productPrice,
+  });
+}
+
+class ProductsPriceListItemsEntity {
+  final int id;
+  final String nameProduct;
+  final double priceTag;
+
+  ProductsPriceListItemsEntity({
+    required this.id,
+    required this.nameProduct,
+    required this.priceTag,
   });
 }

@@ -8,7 +8,7 @@ import 'package:appweb/app/modules/product/domain/entity/produtcs_price_list_pro
 import 'package:http/http.dart' as http;
 
 abstract class ProductDataSource {
-  Future<List<ProductsPriceListProductsEntity>> getPriceList(
+  Future<List<ProductsPriceListEntity>> getPriceList(
       {required int tbInstitutionId});
 }
 
@@ -16,7 +16,7 @@ class ProductDataSourceImpl extends ProductDataSource {
   final client = http.Client();
 
   @override
-  Future<List<ProductsPriceListProductsEntity>> getPriceList(
+  Future<List<ProductsPriceListEntity>> getPriceList(
       {required int tbInstitutionId}) async {
     try {
       final uri =
@@ -27,7 +27,7 @@ class ProductDataSourceImpl extends ProductDataSource {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         var model = (data as List).map((e) {
-          return ProductsPriceListProductsModel.fromJson(e);
+          return ProductsPriceListModel.fromJson(e);
         }).toList();
         return model;
       } else {

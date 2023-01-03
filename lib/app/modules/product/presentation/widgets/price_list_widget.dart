@@ -1,11 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:dartz/dartz.dart';
+import 'package:appweb/app/modules/product/data/model/products_price_list_products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 class PriceListWidget extends StatelessWidget {
   final String title;
-  final List<Tuple3<int, String, double>> prices;
+  final List<ProductsPriceListItemsModel> prices;
   const PriceListWidget({
     Key? key,
     required this.title,
@@ -29,13 +28,13 @@ class PriceListWidget extends StatelessWidget {
         delegate: SliverChildBuilderDelegate(
           (context, index) => ListTile(
             leading: CircleAvatar(
-              child: Text(prices[index].value1.toString()),
+              child: Text(prices[index].id.toString()),
             ),
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(prices[index].value2),
-                  Text(prices[index].value3.toStringAsFixed(2))
+                  Text(prices[index].nameProduct),
+                  Text(prices[index].priceTag.toStringAsFixed(2))
                 ]),
           ),
           childCount: prices.length,

@@ -8,7 +8,7 @@ import 'package:bloc/bloc.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final PricesListGet getPriceList;
 
-  List<ProductsPriceListProductsEntity> prices = [];
+  List<ProductsPriceListEntity> prices = [];
   ProductBloc({required this.getPriceList}) : super(ProductLoadingState()) {
     getPriceListMobile();
 
@@ -36,13 +36,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       if (event.search.isNotEmpty) {
         String search = event.search.toLowerCase().trim();
         var pricesSearch = prices.map((e) {
-          var result = e.products.where((element) {
-            return element.value2.toLowerCase().trim().contains(search);
+          var result = e.productPrice.where((element) {
+            return element.nameProduct.toLowerCase().trim().contains(search);
           }).toList();
-          return ProductsPriceListProductsModel(
+          return ProductsPriceListModel(
             tbPriceListId: e.tbPriceListId,
             namePriceList: e.namePriceList,
-            products: result,
+            productPrice: result,
           );
         }).toList();
         emit(ProductPriceListMobileSuccessState(list: pricesSearch));

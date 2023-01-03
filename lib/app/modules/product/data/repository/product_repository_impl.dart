@@ -11,7 +11,7 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl({required this.datasource});
 
   @override
-  Future<Either<Failure, List<ProductsPriceListProductsEntity>>> getPriceList(
+  Future<Either<Failure, List<ProductsPriceListEntity>>> getPriceList(
       {required int id}) async {
     try {
       final list = await datasource.getPriceList(tbInstitutionId: id);

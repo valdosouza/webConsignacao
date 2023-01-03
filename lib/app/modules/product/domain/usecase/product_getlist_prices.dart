@@ -6,13 +6,13 @@ import 'package:appweb/app/modules/product/domain/repository/product_respository
 import 'package:dartz/dartz.dart';
 
 class PricesListGet
-    implements UseCase<List<ProductsPriceListProductsEntity>, ParamsPricesListGet> {
+    implements UseCase<List<ProductsPriceListEntity>, ParamsPricesListGet> {
   final ProductRepository repository;
 
   PricesListGet({required this.repository});
 
   @override
-  Future<Either<Failure, List<ProductsPriceListProductsEntity>>> call(
+  Future<Either<Failure, List<ProductsPriceListEntity>>> call(
       ParamsPricesListGet params) async {
     try {
       final list = await repository.getPriceList(id: params.id);

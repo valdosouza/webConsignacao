@@ -70,7 +70,7 @@ class _ContentMobileProductState extends State<ContentMobileProduct> {
                   slivers: state.list
                       .map((e) => PriceListWidget(
                             title: e.namePriceList,
-                            prices: e.products,
+                            prices: e.productPrice,
                           ))
                       .toList(),
                 ),
