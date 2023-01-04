@@ -6,12 +6,13 @@ import 'package:appweb/app/modules/product/presentation/bloc/product_bloc.dart';
 import 'package:appweb/app/modules/product/presentation/pages/product_page.dart';
 import 'package:appweb/app/modules/product_register/product_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:http/http.dart' as http;
 
 class ProductModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<ProductDataSource>(
-          (i) => ProductDataSourceImpl(),
+          (i) => ProductDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => ProductRepositoryImpl(datasource: i.get<ProductDataSource>()),
