@@ -5,12 +5,13 @@ import 'package:appweb/app/modules/home/presentation/bloc/home_bloc.dart';
 import 'package:appweb/app/modules/home/presentation/pages/home_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class HomeModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory(
-          (i) => HomeDatasourceImpl(),
+          (i) => HomeDatasourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => HomeRepositoryImpl(datasource: i.get<HomeDatasourceImpl>()),

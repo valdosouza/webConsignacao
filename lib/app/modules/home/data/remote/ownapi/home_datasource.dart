@@ -1,61 +1,64 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
-import 'package:appweb/app/core/shared/constants.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/helpers/local_storage.dart';
 import 'package:appweb/app/core/shared/local_storage_key.dart';
 import 'package:appweb/app/modules/home/data/model/home_sales_payment_type_model.dart';
-import 'package:http/http.dart' as http;
 
 /// Calls the https://www.api.gestaosetes.com.br/financial/getClosed/ endpoint.
 ///
 /// Throws a [ServerException] for all error codes.
-abstract class HomeDatasource {
-  Future<List<HomeSalesPaymentTypeModel>> getFinancialClosed(
-      {required String initialDate,
-      required String finalDate,
-      required String terminal});
+abstract class HomeDatasource extends Gateway {
+  HomeDatasource({required super.httpClient});
+
+  Future<List<HomeSalesPaymentTypeModel>> getFinancialClosed({
+    required String initialDate,
+    required String finalDate,
+    required String terminal,
+  });
 }
 
-class HomeDatasourceImpl implements HomeDatasource {
-  final _baseUrl = '${baseApiUrl}financial/getClosed/';
-  final client = http.Client();
+class HomeDatasourceImpl extends HomeDatasource {
+  HomeDatasourceImpl({required super.httpClient});
   //List<HomeSalesPaymentTypeModel> homeSalesPaymentTypesModel = [];
   @override
-  Future<List<HomeSalesPaymentTypeModel>> getFinancialClosed(
-      {required String initialDate,
-      required String finalDate,
-      required String terminal}) async {
-    final institution = await LocalStorageService.instance
-        .get(key: LocalStorageKey.institution, defaultValue: 1223);
-
-    final response = await client.post(
-      Uri.parse(_baseUrl),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+  Future<List<HomeSalesPaymentTypeModel>> getFinancialClosed({
+    required String initialDate,
+    required String finalDate,
+    required String terminal,
+  }) async {
+    final institution = await LocalStorageService.instance.get(
+      key: LocalStorageKey.institution,
+      defaultValue: 1223,
+    );
+    final body = jsonEncode(
+      <String, String>{
+        'initialDate': initialDate,
+        'finalDate': finalDate,
+        'institution': institution.toString(),
+        'terminal': terminal,
       },
-      body: jsonEncode(
-        <String, String>{
-          'initialDate': initialDate,
-          'finalDate': finalDate,
-          'institution': institution.toString(),
-          'terminal': terminal,
-        },
-      ),
     );
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final List<HomeSalesPaymentTypeModel> homeSalesPaymentTypesModel =
-          (data as List).map((json) {
-        return HomeSalesPaymentTypeModel(
-          paymentType: json['paymentType'].toString(),
-          totalQtty: int.parse(json['totalQtty'].toString()),
-          totalValue: double.parse(json['totalValue'].toString()),
-        );
-      }).toList();
-      return homeSalesPaymentTypesModel;
-    } else {
-      throw ServerException();
-    }
+    return await request(
+      'financial/getClosed/',
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        final data = jsonDecode(payload);
+        final List<HomeSalesPaymentTypeModel> homeSalesPaymentTypesModel =
+            (data as List).map((json) {
+          return HomeSalesPaymentTypeModel(
+            paymentType: json['paymentType'].toString(),
+            totalQtty: int.parse(json['totalQtty'].toString()),
+            totalValue: double.parse(json['totalValue'].toString()),
+          );
+        }).toList();
+        return homeSalesPaymentTypesModel;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 }
