@@ -4,12 +4,13 @@ import 'package:appweb/app/modules/cashier_balance/domain/usecase/cashier_balanc
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_bloc.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/pages/cashier_balance_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:http/http.dart' as http;
 
 class CashierBalanceModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<CashierBalanceDataSource>(
-          (i) => CashierBalanceDataSourceImpl(),
+          (i) => CashierBalanceDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => CashierBalanceRepositoryImpl(
