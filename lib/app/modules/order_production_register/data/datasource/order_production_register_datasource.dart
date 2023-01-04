@@ -77,9 +77,10 @@ class OrderProductionRegisterDataSourceImpl
   Future<OrderProductionRegisterModel> put({
     required OrderProductionRegisterModel model,
   }) async {
+    final body = jsonEncode(model.toJson());
     return request(
       'orderproduction',
-      data: jsonEncode(model.toJson()),
+      data: body,
       method: HTTPMethod.put,
       (payload) {
         final data = json.decode(payload);
