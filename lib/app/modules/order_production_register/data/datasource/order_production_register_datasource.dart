@@ -60,8 +60,8 @@ class OrderProductionRegisterDataSourceImpl
 
     return request(
       'orderproduction',
-      data: body,
       method: HTTPMethod.post,
+      data: body,
       (payload) {
         final data = json.decode(payload);
         var model = OrderProductionRegisterModel.fromJson(data);

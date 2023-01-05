@@ -16,6 +16,7 @@ import 'package:appweb/app/modules/line_business_register/domain/usecase/linebus
 import 'package:appweb/app/modules/line_business_register/linebusiness_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class CollaboratorRegisterModule extends Module {
   @override
@@ -26,7 +27,7 @@ class CollaboratorRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<CollaboratorRegisterDatasource>(
-          (i) => CollaboratorRegisterDatasourceImpl(),
+          (i) => CollaboratorRegisterDatasourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => CollaboratorRegisterRepositoryImpl(
