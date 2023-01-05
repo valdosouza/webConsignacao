@@ -12,6 +12,7 @@ import 'package:appweb/app/modules/institution_register/presentation/bloc/instit
 import 'package:appweb/app/modules/institution_register/presentation/pages/institution_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class InstitutionRegisterModule extends Module {
   @override
@@ -21,7 +22,7 @@ class InstitutionRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<InstitutionRegisterDatasource>(
-          (i) => InstitutionRegisterDatasourceImpl(),
+          (i) => InstitutionRegisterDatasourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => InstitutionRegisterRespositoryImpl(
