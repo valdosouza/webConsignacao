@@ -16,6 +16,7 @@ class Gateway {
     return await LocalStorageService.instance.get(key: LocalStorageKey.token);
   }
 
+  var statusCode = 0;
   final http.Client httpClient;
   final baseApiUrl = 'https://api.industriadechocolatesamor.com.br/';
   final timeout = const Duration(milliseconds: 5000);
@@ -55,9 +56,11 @@ class Gateway {
           response = await _delete(url, data);
           break;
       }
+      statusCode = response.statusCode;
       return fromJson(response.body);
     } on Exception catch (e) {
-      debugPrint('Failed fetching $url from API -> ${e.toString()}');
+      debugPrint(
+          'Failed fetching $url from API => HTTP CODE: $statusCode -> ${e.toString()}');
 
       if (onError != null) {
         return onError(e);

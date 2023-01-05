@@ -1,93 +1,85 @@
 import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
-import 'package:appweb/app/core/shared/constants.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_change_password_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_recovery_password_model.dart';
-import 'package:http/http.dart' as http;
 
 /// Calls the https://www.api.gestaosetes.com.br/auth/authenticate/ endpoint.
 ///
 /// Throws a [ServerException] for all error codes.
-abstract class AuthDatasource {
+abstract class AuthDatasource extends Gateway {
+  AuthDatasource({required super.httpClient});
+
   Future<AuthModel> getAuthentication(
       {required String username, required String password});
   Future<String> changePassword({required AuthChangePasswordModel model});
   Future<AuthRecoveryPasswordModel> recoveryPassword({required String email});
 }
 
-class AuthDatasourceImpl implements AuthDatasource {
-  final _baseUrl = baseApiUrl;
-  final client = http.Client();
+class AuthDatasourceImpl extends AuthDatasource {
+  AuthDatasourceImpl({required super.httpClient});
   @override
   Future<AuthModel> getAuthentication(
       {required String username, required String password}) async {
-    final uri = Uri.parse('${_baseUrl}auth/authenticate/');
-    final response = await client.post(
-      uri,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(
+    return await request(
+      'auth/authenticate/',
+      method: HTTPMethod.post,
+      data: jsonEncode(
         <String, String>{
           'email': username,
           'password': password.toUpperCase(),
         },
       ),
+      (payload) {
+        final jsonMap = json.decode(payload) as Map<String, dynamic>;
+        return AuthModel.fromJson(jsonMap);
+      },
+      onError: (error) {
+        return ServerException;
+      },
     );
-    if (response.statusCode == 200) {
-      final jsonMap = json.decode(response.body) as Map<String, dynamic>;
-      return AuthModel.fromJson(jsonMap);
-    } else {
-      throw ServerException();
-    }
   }
 
   @override
-  Future<String> changePassword(
-      {required AuthChangePasswordModel model}) async {
-    try {
-      final uri = Uri.parse('${_baseUrl}auth/changepassword');
-      final response = await client.post(
-        uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(model.toJson()),
-      );
-      if (response.statusCode == 200) {
-        return response.body;
-      } else {
-        throw ServerException();
-      }
-    } catch (e) {
-      throw ServerException();
-    }
+  Future<String> changePassword({
+    required AuthChangePasswordModel model,
+  }) async {
+    final body = jsonEncode(model.toJson());
+    return await request(
+      '/auth/changepassword',
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        return payload;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 
   @override
-  Future<AuthRecoveryPasswordModel> recoveryPassword(
-      {required String email}) async {
-    try {
-      final uri = Uri.parse('${baseApiUrl}auth/recoverypassword');
-      final response = await client.post(
-        uri,
-        body: {
-          'email': email,
-        },
-      );
-      response.body;
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
+  Future<AuthRecoveryPasswordModel> recoveryPassword({
+    required String email,
+  }) async {
+    final body = {
+      'email': email,
+    };
+    return await request(
+      'auth/recoverypassword',
+      data: body,
+      method: HTTPMethod.post,
+      (payload) {
+        final data = json.decode(payload);
         AuthRecoveryPasswordModel result =
             AuthRecoveryPasswordModel.fromJson(data);
         return result;
-      } else {
-        throw ServerException();
-      }
-    } catch (e) {
-      throw ServerException();
-    }
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 }
