@@ -14,6 +14,7 @@ import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_
 import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class CustomerRegisterModule extends Module {
   @override
@@ -23,7 +24,7 @@ class CustomerRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<CustomerRegisterDataSource>(
-          (i) => CustomerRegisterDataSourceImpl(),
+          (i) => CustomerRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => CustomerRegisterRepositoryImpl(
