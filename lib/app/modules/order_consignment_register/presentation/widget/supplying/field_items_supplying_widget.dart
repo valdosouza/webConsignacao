@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_supplying_model.dart';
 import 'package:flutter/material.dart';
 
-Widget fielditemssupplying(OrderConsignmentSupplyingItemsModel item,
+Widget fielditemssupplying(OrderConsignmentSupplyingCardModel item,
     int position, bool enabled, int decimal, TextAlign textAlign) {
   String setTextController() {
     switch (position) {

@@ -8,6 +8,7 @@ class OrderAttendanceEntity {
     String? nameCustomer,
     int? tbSalesmanId,
     String? nameSalesman,
+    int? tbPriceListId,
     String? note,
     String? status,
     String? visited,

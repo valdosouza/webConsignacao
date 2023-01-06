@@ -16,6 +16,7 @@ import 'package:appweb/app/modules/home/home_module.dart';
 import 'package:appweb/app/modules/order_attendence_register/order_attendance_register_module.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
 import 'package:appweb/app/modules/order_production/order_production_module.dart';
+import 'package:appweb/app/modules/order_sale_register/order_sale_register_module.dart';
 import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
 import 'package:appweb/app/modules/splash/splash_module.dart';
@@ -57,6 +58,7 @@ class AppModule extends Module {
         ModuleRoute('/cashierclosure', module: CashierClosureModule()),
         ModuleRoute('/attendance', module: OrderAttendanceRegisterModule()),
         ModuleRoute('/consignment', module: OrderConsignmentRegisterModule()),
+        ModuleRoute('/ordersale', module: OrderSaleRegisterModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }

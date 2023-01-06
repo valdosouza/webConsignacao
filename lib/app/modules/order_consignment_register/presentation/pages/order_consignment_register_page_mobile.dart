@@ -19,10 +19,10 @@ class OrderConsginmentRegisterPageMobile extends StatefulWidget {
 
   @override
   State<OrderConsginmentRegisterPageMobile> createState() =>
-      OrderAttendancerRegisterPageMobileState();
+      OrderConsginmentRegisterPageMobileState();
 }
 
-class OrderAttendancerRegisterPageMobileState
+class OrderConsginmentRegisterPageMobileState
     extends State<OrderConsginmentRegisterPageMobile> {
   late final OrderConsignmentRegisterBloc bloc;
 
@@ -49,7 +49,7 @@ class OrderAttendancerRegisterPageMobileState
       listener: (context, state) {
         if (state is OrderConsigngmentGetLastErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar buscar último operação. Tente novamente mais tarde");
+              "Erro ao buscar último operação. Tente novamente mais tarde");
           Modular.to.navigate('/attendance/');
         } else if (state is OrderConsignmentRegisterCheckpointPostErrorState) {
           CustomToast.showToast(

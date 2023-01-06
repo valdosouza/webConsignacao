@@ -1,12 +1,13 @@
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
+import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_supplying_model.dart';
 
 import '../../domain/entity/order_consignment_checkpoint_entity.dart';
 
 class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
   OrderConsignmentCheckpointOrderModel order;
-  List<OrderConsignmentCheckpointItemsModel> items;
-  List<OrderConsignmentCheckpointPaymentModel> payments;
+  List<OrderConsignmentCheckpointCardModel> items;
+  List<OrderPaidModel> payments;
 
   OrderConsignmentCheckpointModel({
     required this.order,
@@ -18,10 +19,10 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
     return OrderConsignmentCheckpointModel(
       order: OrderConsignmentCheckpointOrderModel.fromJson(json['order']),
       items: (json['Items'] as List)
-          .map((e) => OrderConsignmentCheckpointItemsModel.fromJson(e))
+          .map((e) => OrderConsignmentCheckpointCardModel.fromJson(e))
           .toList(),
       payments: (json['Payments'] as List)
-          .map((e) => OrderConsignmentCheckpointPaymentModel.fromJson(e))
+          .map((e) => OrderPaidModel.fromJson(e))
           .toList(),
     );
   }
@@ -67,9 +68,9 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
       currentDebitBalance: 0,
     );
 
-    List<OrderConsignmentCheckpointItemsModel> listItems = [];
-    for (OrderConsignmentSupplyingItemsModel item in supplying.items) {
-      listItems.add(OrderConsignmentCheckpointItemsModel(
+    List<OrderConsignmentCheckpointCardModel> listItems = [];
+    for (OrderConsignmentSupplyingCardModel item in supplying.items) {
+      listItems.add(OrderConsignmentCheckpointCardModel(
         tbProductId: item.tbProductId,
         nameProduct: item.nameProduct,
         bonus: item.bonus,
@@ -80,15 +81,17 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
         subtotal: 0,
       ));
     }
-    List<OrderConsignmentCheckpointPaymentModel> listpayment = [];
-    listpayment.add(OrderConsignmentCheckpointPaymentModel(
+    List<OrderPaidModel> listpayment = [];
+    listpayment.add(OrderPaidModel(
       tbPaymentTypeId: 1,
       namePaymentType: 'DINHEIRO',
+      dtExpiration: "",
       value: 0,
     ));
-    listpayment.add(OrderConsignmentCheckpointPaymentModel(
+    listpayment.add(OrderPaidModel(
       tbPaymentTypeId: 2,
       namePaymentType: 'PIX',
+      dtExpiration: "",
       value: 0,
     ));
 
@@ -165,8 +168,8 @@ class OrderConsignmentCheckpointOrderModel
   }
 }
 
-class OrderConsignmentCheckpointItemsModel
-    extends OrderConsignmentCheckpointItemsEntity {
+class OrderConsignmentCheckpointCardModel
+    extends OrderConsignmentCheckpointCardEntity {
   int tbProductId;
   String nameProduct;
   double bonus;
@@ -175,7 +178,7 @@ class OrderConsignmentCheckpointItemsModel
   double qtySold;
   double unitValue;
   double subtotal;
-  OrderConsignmentCheckpointItemsModel({
+  OrderConsignmentCheckpointCardModel({
     required this.tbProductId,
     required this.nameProduct,
     required this.bonus,
@@ -195,9 +198,9 @@ class OrderConsignmentCheckpointItemsModel
           subtotal: subtotal,
         );
 
-  factory OrderConsignmentCheckpointItemsModel.fromJson(
+  factory OrderConsignmentCheckpointCardModel.fromJson(
       Map<String?, dynamic> json) {
-    return OrderConsignmentCheckpointItemsModel(
+    return OrderConsignmentCheckpointCardModel(
       tbProductId: json['tb_product_id'] as int? ?? 0,
       nameProduct: json['name_product'] as String? ?? "",
       bonus: double.parse(json['bonus']),
@@ -219,40 +222,6 @@ class OrderConsignmentCheckpointItemsModel
       'leftover': leftover,
       'qty_sold': qtySold,
       'unit_value': unitValue,
-    };
-  }
-}
-
-class OrderConsignmentCheckpointPaymentModel
-    extends OrderConsignmentCheckpointPaymentEntity {
-  int tbPaymentTypeId;
-  String namePaymentType;
-  double value;
-
-  OrderConsignmentCheckpointPaymentModel({
-    required this.tbPaymentTypeId,
-    required this.namePaymentType,
-    required this.value,
-  }) : super(
-          tbPaymentTypeId: tbPaymentTypeId,
-          namePaymentType: namePaymentType,
-          value: value,
-        );
-
-  factory OrderConsignmentCheckpointPaymentModel.fromJson(
-      Map<String, dynamic> json) {
-    return OrderConsignmentCheckpointPaymentModel(
-      tbPaymentTypeId: int.parse(json['tb_payment_type_id'].toString()),
-      namePaymentType: json['name_payment_type'].toString(),
-      value: double.parse(json['value'].toString()),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'tb_payment_type_id': tbPaymentTypeId,
-      'name_payment_type': namePaymentType,
-      'value': value,
     };
   }
 }

@@ -7,10 +7,10 @@ class OrderConsginmentRegisterPageTablet extends StatefulWidget {
 
   @override
   State<OrderConsginmentRegisterPageTablet> createState() =>
-      OrderAttendancerRegisterPageMobileState();
+      OrderConsginmentRegisterPageMobileState();
 }
 
-class OrderAttendancerRegisterPageMobileState
+class OrderConsginmentRegisterPageMobileState
     extends State<OrderConsginmentRegisterPageTablet> {
   late final CustomerRegisterBloc bloc;
 

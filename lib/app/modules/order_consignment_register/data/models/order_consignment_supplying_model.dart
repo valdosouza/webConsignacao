@@ -4,7 +4,7 @@ import 'package:appweb/app/modules/order_consignment_register/domain/entity/orde
 
 class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
   OrderConsignmentSupplyingOrderModel order;
-  List<OrderConsignmentSupplyingItemsModel> items;
+  List<OrderConsignmentSupplyingCardModel> items;
 
   OrderConsignmentSupplyingModel({
     required this.order,
@@ -18,7 +18,7 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
     return OrderConsignmentSupplyingModel(
       order: OrderConsignmentSupplyingOrderModel.fromJson(json['Order']),
       items: (json['Items'] as List).map((e) {
-        return OrderConsignmentSupplyingItemsModel.fromJson(e);
+        return OrderConsignmentSupplyingCardModel.fromJson(e);
       }).toList(),
     );
   }
@@ -56,9 +56,9 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
       currentDebitBalance: checkpoint.order.currentDebitBalance,
       note: "",
     );
-    List<OrderConsignmentSupplyingItemsModel> listItems = [];
-    for (OrderConsignmentCheckpointItemsModel item in checkpoint.items) {
-      listItems.add(OrderConsignmentSupplyingItemsModel(
+    List<OrderConsignmentSupplyingCardModel> listItems = [];
+    for (OrderConsignmentCheckpointCardModel item in checkpoint.items) {
+      listItems.add(OrderConsignmentSupplyingCardModel(
         tbProductId: item.tbProductId,
         bonus: 0,
         nameProduct: item.nameProduct,
@@ -131,8 +131,8 @@ class OrderConsignmentSupplyingOrderModel
   }
 }
 
-class OrderConsignmentSupplyingItemsModel
-    extends OrderConsignmentSupplyingItemsEntity {
+class OrderConsignmentSupplyingCardModel
+    extends OrderConsignmentSupplyingCardEntity {
   int tbProductId;
   String nameProduct;
   double bonus;
@@ -142,7 +142,7 @@ class OrderConsignmentSupplyingItemsModel
   double qtyConsigned;
   double unitValue;
 
-  OrderConsignmentSupplyingItemsModel({
+  OrderConsignmentSupplyingCardModel({
     required this.tbProductId,
     required this.nameProduct,
     required this.bonus,
@@ -162,9 +162,9 @@ class OrderConsignmentSupplyingItemsModel
           unitValue: unitValue,
         );
 
-  factory OrderConsignmentSupplyingItemsModel.fromJson(
+  factory OrderConsignmentSupplyingCardModel.fromJson(
       Map<String?, dynamic> json) {
-    return OrderConsignmentSupplyingItemsModel(
+    return OrderConsignmentSupplyingCardModel(
       tbProductId: json['tb_product_id'] as int? ?? 0,
       nameProduct: json['name_product'] as String? ?? "",
       bonus: double.parse(json['bonus']),

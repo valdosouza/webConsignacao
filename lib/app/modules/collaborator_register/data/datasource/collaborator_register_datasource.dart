@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
-import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';

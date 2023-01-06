@@ -77,6 +77,7 @@ class _CustomerRegisterPageMobileState
             nameCustomer: state.customer.nameCompany,
             tbSalesmanId: 2,
             nameSalesman: "",
+            tbPriceListId: 0,
             note: "",
             status: "A",
             visited: "S",

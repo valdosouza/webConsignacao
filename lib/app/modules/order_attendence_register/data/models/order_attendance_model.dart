@@ -9,6 +9,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
   String nameCustomer;
   int tbSalesmanId;
   String nameSalesman;
+  int tbPriceListId;
   String note;
   String status;
   String visited;
@@ -25,6 +26,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     required this.nameCustomer,
     required this.tbSalesmanId,
     required this.nameSalesman,
+    required this.tbPriceListId,
     required this.note,
     required this.status,
     required this.visited,
@@ -40,6 +42,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
           nameCustomer: nameCustomer,
           tbSalesmanId: tbSalesmanId,
           nameSalesman: nameSalesman,
+          tbPriceListId: tbPriceListId,
           note: note,
           status: status,
           visited: visited,
@@ -58,6 +61,9 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
       nameCustomer: json['name_customer'],
       tbSalesmanId: int.parse(json['tb_salesman_id'].toString()),
       nameSalesman: json['name_salesman'],
+      tbPriceListId: json['tb_price_list_id'] is String
+          ? int.parse(json['tb_price_list_id'])
+          : json['tb_price_list_id'],
       note: json['note'],
       status: json['status'],
       visited: json['visited'],
@@ -77,6 +83,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     data["name_customer"] = nameCustomer;
     data["tb_salesman_id"] = tbSalesmanId.toString();
     data["name_salesman"] = nameSalesman;
+    data['tb_price_list_id'] = tbPriceListId;
     data["note"] = note;
     data["status"] = status;
     data["visited"] = visited;
@@ -95,6 +102,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
         nameCustomer: "",
         tbSalesmanId: 51,
         nameSalesman: "",
+        tbPriceListId: 0,
         dtRecord: "2022/12/16",
         note: "",
         status: "A",

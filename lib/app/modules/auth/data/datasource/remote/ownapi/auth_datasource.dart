@@ -64,9 +64,9 @@ class AuthDatasourceImpl extends AuthDatasource {
   Future<AuthRecoveryPasswordModel> recoveryPassword({
     required String email,
   }) async {
-    final body = {
+    final body = jsonEncode({
       'email': email,
-    };
+    });
     return await request(
       'auth/recoverypassword',
       data: body,

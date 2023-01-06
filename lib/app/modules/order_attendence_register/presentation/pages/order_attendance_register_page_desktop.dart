@@ -7,10 +7,10 @@ class OrderAttendanceRegisterPageDesktop extends StatefulWidget {
 
   @override
   State<OrderAttendanceRegisterPageDesktop> createState() =>
-      OrderAttendancerRegisterPageMobileState();
+      OrderAttendanceRegisterPageMobileState();
 }
 
-class OrderAttendancerRegisterPageMobileState
+class OrderAttendanceRegisterPageMobileState
     extends State<OrderAttendanceRegisterPageDesktop> {
   late final CustomerRegisterBloc bloc;
 

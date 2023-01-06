@@ -1,10 +1,10 @@
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
 import 'package:flutter/material.dart';
 
-Widget fielditemscheckpoint(OrderConsignmentCheckpointItemsModel item,
+Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
     int position, bool enabled, int decimal, TextAlign textAlign) {
   String setTextController(
-      OrderConsignmentCheckpointItemsModel item, int position) {
+      OrderConsignmentCheckpointCardModel item, int position) {
     switch (position) {
       case 1:
         return item.bonus.toStringAsFixed(0);

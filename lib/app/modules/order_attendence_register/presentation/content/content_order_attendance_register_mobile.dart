@@ -60,7 +60,7 @@ class _ContentOrderAttendanceRegisterMobileState
                     leading: CircleAvatar(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: Text((index + 1).toString()),
+                        child: Text(bloc.pricelist[index].id.toString()),
                       ),
                     ),
                     title: Column(
@@ -74,6 +74,8 @@ class _ContentOrderAttendanceRegisterMobileState
                       onPressed: () async {
                         bloc.orderAttendance.visited = 'S';
                         bloc.orderAttendance.note = editcontrol.text;
+                        bloc.orderAttendance.tbPriceListId =
+                            bloc.pricelist[index].id;
                         bloc.add(OrderAttendanceRegisterPostEvent());
                       },
                     ),

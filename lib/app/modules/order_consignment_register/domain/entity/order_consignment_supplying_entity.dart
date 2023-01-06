@@ -1,7 +1,7 @@
 class OrderConsignmentSupplyingEntity {
   OrderConsignmentSupplyingEntity({
     OrderConsignmentSupplyingOrderEntity? order,
-    List<OrderConsignmentSupplyingItemsEntity>? items,
+    List<OrderConsignmentSupplyingCardEntity>? items,
   });
 }
 
@@ -17,8 +17,8 @@ class OrderConsignmentSupplyingOrderEntity {
   });
 }
 
-class OrderConsignmentSupplyingItemsEntity {
-  OrderConsignmentSupplyingItemsEntity({
+class OrderConsignmentSupplyingCardEntity {
+  OrderConsignmentSupplyingCardEntity({
     int? tbProductId,
     String? nameProduct,
     double? bonus,

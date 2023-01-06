@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_supplying_model.dart';
@@ -98,7 +99,7 @@ class OrderConsignmentRegisterBloc
 
   clearCheckout() {
     on<OrderConsignmentRegisterClearCheckoutEvent>((event, emit) async {
-      for (OrderConsignmentCheckpointItemsModel item in modelCheckpoint.items) {
+      for (OrderConsignmentCheckpointCardModel item in modelCheckpoint.items) {
         item.leftover = 0;
         item.qtySold = 0;
         item.subtotal = 0;
@@ -106,8 +107,7 @@ class OrderConsignmentRegisterBloc
       modelCheckpoint.order.totalValue = 0;
       modelCheckpoint.order.changeValue = 0;
       modelCheckpoint.order.currentDebitBalance = 0;
-      for (OrderConsignmentCheckpointPaymentModel item
-          in modelCheckpoint.payments) {
+      for (OrderPaidModel item in modelCheckpoint.payments) {
         item.value = 0;
       }
     });
@@ -115,7 +115,7 @@ class OrderConsignmentRegisterBloc
 
   clearSupplying() {
     on<OrderConsignmentRegisterClearSupplyingEvent>((event, emit) async {
-      for (OrderConsignmentSupplyingItemsModel item in modelSupplying.items) {
+      for (OrderConsignmentSupplyingCardModel item in modelSupplying.items) {
         item.bonus = 0;
         item.devolution = 0;
         item.newConsignment = 0;

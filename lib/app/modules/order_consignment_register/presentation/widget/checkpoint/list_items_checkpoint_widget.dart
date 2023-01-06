@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:flutter/material.dart';
 
 Widget listitemscheckpoint(
-    List<OrderConsignmentCheckpointItemsModel> items, Size size) {
+    List<OrderConsignmentCheckpointCardModel> items, Size size) {
   return ListView.builder(
     itemCount: items.length,
     itemBuilder: (context, index) => Padding(

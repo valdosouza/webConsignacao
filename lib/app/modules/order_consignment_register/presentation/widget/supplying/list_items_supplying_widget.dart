@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:flutter/material.dart';
 
 Widget listitemssupplying(
-    List<OrderConsignmentSupplyingItemsModel> items, Size size) {
+    List<OrderConsignmentSupplyingCardModel> items, Size size) {
   return ListView.builder(
     itemCount: items.length,
     itemBuilder: (context, index) => Padding(

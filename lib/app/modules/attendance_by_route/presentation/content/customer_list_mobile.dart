@@ -60,6 +60,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                           nameCustomer: widget.lista[index].nameCompany,
                           tbSalesmanId: 2,
                           nameSalesman: "",
+                          tbPriceListId: 0,
                           note: "",
                           status: "A",
                           visited: "S",

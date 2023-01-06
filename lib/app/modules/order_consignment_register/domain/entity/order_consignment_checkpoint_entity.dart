@@ -1,8 +1,10 @@
+import 'package:appweb/app/modules/Core/domain/entity/order_paid_entity.dart';
+
 class OrderConsignmentCheckpointEntity {
   OrderConsignmentCheckpointEntity({
     OrderConsignmentCheckpointOrderEntity? order,
-    List<OrderConsignmentCheckpointItemsEntity>? items,
-    List<OrderConsignmentCheckpointPaymentEntity>? payments,
+    List<OrderConsignmentCheckpointCardEntity>? items,
+    List<OrderPaidEntity>? payments,
   });
 }
 
@@ -20,8 +22,8 @@ class OrderConsignmentCheckpointOrderEntity {
   });
 }
 
-class OrderConsignmentCheckpointItemsEntity {
-  OrderConsignmentCheckpointItemsEntity({
+class OrderConsignmentCheckpointCardEntity {
+  OrderConsignmentCheckpointCardEntity({
     int? tbProductId,
     String? nameProduct,
     double? bonus,
@@ -30,13 +32,5 @@ class OrderConsignmentCheckpointItemsEntity {
     double? qtySold,
     double? unitValue,
     double? subtotal,
-  });
-}
-
-class OrderConsignmentCheckpointPaymentEntity {
-  OrderConsignmentCheckpointPaymentEntity({
-    int? tbPaymentTypeId,
-    String? namePaymentType,
-    double? value,
   });
 }

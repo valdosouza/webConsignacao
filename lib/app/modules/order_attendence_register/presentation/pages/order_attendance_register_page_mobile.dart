@@ -20,10 +20,10 @@ class OrderAttendanceRegisterPageMobile extends StatefulWidget {
 
   @override
   State<OrderAttendanceRegisterPageMobile> createState() =>
-      OrderAttendancerRegisterPageMobileState();
+      OrderAttendanceRegisterPageMobileState();
 }
 
-class OrderAttendancerRegisterPageMobileState
+class OrderAttendanceRegisterPageMobileState
     extends State<OrderAttendanceRegisterPageMobile> {
   late final OrderAttendanceRegisterBloc bloc;
 
@@ -86,8 +86,20 @@ class OrderAttendancerRegisterPageMobileState
           );
         }
         if (state is OrderAttendanceRegisterPostSuccessState) {
-          Modular.to
-              .navigate('/consignment/', arguments: state.orderAttendance);
+          switch (state.orderAttendance.tbPriceListId) {
+            case 1:
+              Modular.to
+                  .navigate('/consignment/', arguments: state.orderAttendance);
+              break;
+            case 2:
+              Modular.to
+                  .navigate('/ordersale/', arguments: state.orderAttendance);
+              break;
+            case 3:
+              Modular.to
+                  .navigate('/ordersale/', arguments: state.orderAttendance);
+              break;
+          }
         }
         return Container();
       },

@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/payment_info_dinheiro_widget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/payment_info_pix_widget.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
   String calcInfoPayment() {
     modelCheckpoint.order.totalValue = 0;
-    for (OrderConsignmentCheckpointItemsModel item in modelCheckpoint.items) {
+    for (OrderConsignmentCheckpointCardModel item in modelCheckpoint.items) {
       if (item.leftover > 0) {
         modelCheckpoint.order.totalValue +=
             ((item.qtyConsigned - item.leftover) * item.unitValue);
@@ -19,8 +20,7 @@ Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
         modelCheckpoint.order.previousDebiBalance;
     modelCheckpoint.order.currentDebitBalance =
         modelCheckpoint.order.totalValue;
-    for (OrderConsignmentCheckpointPaymentModel item
-        in modelCheckpoint.payments) {
+    for (OrderPaidModel item in modelCheckpoint.payments) {
       modelCheckpoint.order.currentDebitBalance -= item.value;
     }
     return modelCheckpoint.order.totalValue.toStringAsFixed(2);
