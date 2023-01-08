@@ -9,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CashierStatementByMonthPageMobile extends StatefulWidget {
-  const CashierStatementByMonthPageMobile({super.key});
+class CashierStatementByCustomerPageMobile extends StatefulWidget {
+  const CashierStatementByCustomerPageMobile({super.key});
 
   @override
-  State<CashierStatementByMonthPageMobile> createState() =>
-      CashierStatementByMonthPageMobileState();
+  State<CashierStatementByCustomerPageMobile> createState() =>
+      CashierStatementByCustomerPageMobileState();
 }
 
-class CashierStatementByMonthPageMobileState
-    extends State<CashierStatementByMonthPageMobile> {
+class CashierStatementByCustomerPageMobileState
+    extends State<CashierStatementByCustomerPageMobile> {
   late MaskedTextController controller;
   late CashierStatementBloc bloc;
   @override
@@ -46,7 +46,7 @@ class CashierStatementByMonthPageMobileState
           flexibleSpace: Container(
             decoration: kBoxDecorationflexibleSpace,
           ),
-          title: const Text("Extarto do mês"),
+          title: const Text("Extarto do Cliente"),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -54,25 +54,6 @@ class CashierStatementByMonthPageMobileState
             },
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              CustomInput(
-                title: "Data",
-                keyboardType: TextInputType.datetime,
-                inputAction: TextInputAction.done,
-                onChanged: (value) {},
-                onFieldSubmitted: (value) {
-                  bloc.add(CashierStatementGetByMonthMobileEvent(
-                      params: CashierStatementParams(
-                          tbInstitutionId: 1, date: value, tbUserId: 2)));
-                },
-                controller: controller,
-              ),
-              const Expanded(child: ContentCashierStatement())
-            ],
-          ),
-        ));
+        body: const ContentCashierStatement());
   }
 }
