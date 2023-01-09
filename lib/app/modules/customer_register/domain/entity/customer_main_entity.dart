@@ -3,10 +3,10 @@ import 'package:appweb/app/modules/Core/data/model/company_model.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/person_model.dart';
 import 'package:appweb/app/modules/Core/data/model/phone_model.dart';
-import 'package:appweb/app/modules/customer_register/domain/entity/customer_entity.dart';
+import 'package:appweb/app/modules/customer_register/data/model/customer_model.dart';
 
 class CustomerMainEntity {
-  CustomerEntity customer;
+  CustomerModel customer;
   EntityListModel entity;
   CompanyModel? company;
   PersonModel? person;

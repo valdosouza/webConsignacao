@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/customer_register/presentation/contents/content_customer_register_desktop.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widgets/customer_register_city_list_widget.dart';
+import 'package:appweb/app/modules/customer_register/presentation/widgets/customer_register_sales_route_list_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widgets/customer_register_state_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,8 +66,8 @@ class _CustomerRegisterPageDesktopState
           return const CustomerRegisterSalesmanListWidget();
         }
 
-        if (state is CustomerRegisterGetSalesmanSuccessState) {
-          return const CustomerRegisterSalesmanListWidget();
+        if (state is CustomerRegisterGetSalesRouteSuccessState) {
+          return const CustomerRegisterSalesRouteListWidget();
         }
 
         if (state is CustomerRegisterInfoPageState) {
