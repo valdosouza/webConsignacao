@@ -1,7 +1,12 @@
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
+import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_bloc.dart';
+import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
+import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_state.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_filter_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomerListMobile extends StatefulWidget {
@@ -15,6 +20,15 @@ class CustomerListMobile extends StatefulWidget {
 }
 
 class SalesRoutListeMobileState extends State<CustomerListMobile> {
+  late AttendanceByRouteBloc bloc;
+  int idSequenceCustomer = -1;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = Modular.get<AttendanceByRouteBloc>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,35 +60,59 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                         Text(widget.lista[index].nameCompany),
                       ],
                     ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.arrow_forward_ios_outlined),
-                      onPressed: () {
-                        OrderAttendanceModel orderAttemdance =
-                            OrderAttendanceModel(
-                          id: 0,
-                          tbInstitutionId: 1,
-                          tbUserId: 2,
-                          dtRecord:
-                              CustomDate.convertDate(CustomDate.newDate()),
-                          tbCustomerId: widget.lista[index].id,
-                          nameCustomer: widget.lista[index].nameCompany,
-                          tbSalesmanId: 2,
-                          nameSalesman: "",
-                          tbPriceListId: 0,
-                          note: "",
-                          status: "A",
-                          visited: "S",
-                          charged: "N",
-                          longitude: "",
-                          latitude: "",
-                        );
-                        Modular.to.navigate(
-                          '/attendance/',
-                          arguments: orderAttemdance,
+                    trailing: BlocBuilder<AttendanceByRouteBloc,
+                        AttendanceByRouteState>(
+                      bloc: bloc,
+                      builder: (context, state) {
+                        if (state is CustomerListOrderState) {
+                          return Checkbox(
+                              value:
+                                  widget.lista[index].id == idSequenceCustomer,
+                              onChanged: (value) {
+                                setState(() {
+                                  if (value!) {
+                                    idSequenceCustomer = widget.lista[index].id;
+                                  } else {
+                                    idSequenceCustomer = -1;
+                                  }
+                                });
+                              });
+                        }
+                        return IconButton(
+                          icon: const Icon(Icons.arrow_forward_ios_outlined),
+                          onPressed: () {
+                            OrderAttendanceModel orderAttemdance =
+                                OrderAttendanceModel(
+                              id: 0,
+                              tbInstitutionId: 1,
+                              tbUserId: 2,
+                              dtRecord:
+                                  CustomDate.convertDate(CustomDate.newDate()),
+                              tbCustomerId: widget.lista[index].id,
+                              nameCustomer: widget.lista[index].nameCompany,
+                              tbSalesmanId: 2,
+                              nameSalesman: "",
+                              tbPriceListId: 0,
+                              note: "",
+                              status: "A",
+                              visited: "S",
+                              charged: "N",
+                              longitude: "",
+                              latitude: "",
+                            );
+                            Modular.to.navigate(
+                              '/attendance/',
+                              arguments: orderAttemdance,
+                            );
+                          },
                         );
                       },
                     ),
                   ),
+                  onLongPress: () {
+                    bloc.add(CustomerOrderModeEvent(
+                        tbCustomerId: widget.lista[index].id));
+                  },
                 ),
                 separatorBuilder: (_, __) => const Divider(),
               ),

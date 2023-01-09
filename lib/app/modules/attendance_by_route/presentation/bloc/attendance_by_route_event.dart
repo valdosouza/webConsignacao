@@ -33,3 +33,19 @@ class GotoOrderAttendanceRegisterEvent extends AttendanceByRouteEvent {
     required this.orderAttendance,
   });
 }
+
+class CustomerOrderModeEvent extends AttendanceByRouteEvent {
+  final int tbCustomerId;
+  CustomerOrderModeEvent({
+    required this.tbCustomerId,
+  });
+}
+
+class CustomerOrderedModeEvent extends AttendanceByRouteEvent {
+  final int tbCustomerId;
+  CustomerOrderedModeEvent({
+    required this.tbCustomerId,
+  });
+}
+
+class CustomerCancelOrderModeEvent extends AttendanceByRouteEvent {}
