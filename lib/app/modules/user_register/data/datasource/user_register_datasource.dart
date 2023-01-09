@@ -1,14 +1,15 @@
 import 'dart:convert';
-
 import 'package:appweb/app/core/error/exceptions.dart';
-import 'package:appweb/app/core/shared/constants.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
 import 'package:http/http.dart' as http;
 
-abstract class UserRegisterDataSource {
+abstract class UserRegisterDataSource extends Gateway {
+  UserRegisterDataSource({required super.httpClient});
+
   Future<List<UserRegisterModel>> getlist({required int id});
-  Future<UserRegisterModel> post({required UserRegisterModel user});
-  Future<String> put({required int id});
+  Future<UserRegisterModel> post({required UserRegisterModel model});
+  Future<UserRegisterModel> put({required UserRegisterModel model});
   Future<String> delete({required int id});
 }
 
@@ -16,90 +17,70 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
   final client = http.Client();
   List<UserRegisterModel> items = [];
 
-  @override
-  Future<UserRegisterModel> post({required UserRegisterModel user}) async {
-    try {
-      final uri = Uri.parse('${baseApiUrl}user');
-      final response = await client.post(
-        uri,
-        //headers: <String, String>{
-        //  'Content-Type': 'application/json; charset=UTF-8',
-        //},
-        body: jsonEncode(user.toJson()),
-      );
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
+  UserRegisterDataSourceImpl({required super.httpClient});
 
-        UserRegisterModel result = UserRegisterModel.fromJson(data);
-        return result;
-      } else {
-        throw ServerException();
-      }
-    } catch (e) {
-      throw ServerException();
-    }
+  @override
+  Future<UserRegisterModel> post({required UserRegisterModel model}) async {
+    final bodyEnvio = json.encode(model.toJson());
+    return await request(
+      'user',
+      data: bodyEnvio,
+      method: HTTPMethod.post,
+      (payload) {
+        final data = json.decode(payload);
+        return UserRegisterModel.fromJson(data);
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 
   @override
   Future<String> delete({required int id}) async {
-    try {
-      final uri = Uri.parse('${baseApiUrl}User/$id');
-
-      final response = await client.delete(uri);
-
-      if (response.statusCode == 200) {
+    return await request(
+      'user/$id',
+      method: HTTPMethod.delete,
+      (payload) {
         return "";
-      } else {
-        throw ServerException();
-      }
-    } catch (e) {
-      throw ServerException();
-    }
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 
   @override
-  Future<String> put({required int id}) async {
-    try {
-      final uri = Uri.parse('${baseApiUrl}user/$id');
-
-      final response = await client.put(uri);
-
-      if (response.statusCode == 200) {
-        return "";
-      } else {
-        throw ServerException();
-      }
-    } catch (e) {
-      throw ServerException();
-    }
+  Future<UserRegisterModel> put({required UserRegisterModel model}) async {
+    final bodyEnvio = json.encode(model.toJson());
+    return await request(
+      'user',
+      data: bodyEnvio,
+      method: HTTPMethod.put,
+      (payload) {
+        final data = json.decode(payload);
+        return UserRegisterModel.fromJson(data);
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 
   @override
   Future<List<UserRegisterModel>> getlist({required int id}) async {
-    try {
-      final uri = Uri.parse('${baseApiUrl}user/getlist/$id');
-
-      final response = await client.get(
-        uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoyLCJpbnN0aXR1dGlvbiI6MSwiZW1haWwiOiJ2YWxkb0BzZXRlcy5jb20uYnIifSwiaWF0IjoxNjcxOTk4OTMyLCJleHAiOjE2NzMyOTQ5MzJ9.d4eQCYM3w3buLAed_GV1gQ-G2iIGEjRPiTLLQWBJXTk',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-
-        items = (data as List).map((json) {
+    return await request(
+      'user/getlist/$id',
+      (payload) {
+        final obj = json.decode(payload);
+        List<UserRegisterModel> result = (obj as List).map((json) {
           return UserRegisterModel.fromJson(json);
         }).toList();
-        return items;
-      } else {
-        throw ServerException();
-      }
-    } catch (e) {
-      throw ServerException();
-    }
+        return result;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 }

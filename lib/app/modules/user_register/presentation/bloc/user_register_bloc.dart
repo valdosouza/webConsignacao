@@ -8,36 +8,33 @@ import 'package:appweb/app/modules/user_register/presentation/bloc/user_register
 import 'package:bloc/bloc.dart';
 
 class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
-  final UserRegisterGetlist getlist;
-  final UserRegisterAdd addUser;
-  final UserRegisterEdit edit;
-  final UserRegisterDelete delete;
+  final UserRegisterGetlist getlistUser;
+  final UserRegisterPost postUser;
+  final UserRegisterPut putUser;
+  final UserRegisterDelete deleteUser;
 
   List<UserRegisterModel> users = [];
+  UserRegisterModel user = UserRegisterModel.isEmpty();
 
   UserRegisterBloc({
-    required this.getlist,
-    required this.addUser,
-    required this.edit,
-    required this.delete,
+    required this.getlistUser,
+    required this.postUser,
+    required this.putUser,
+    required this.deleteUser,
   }) : super(UserRegisterLoadingState()) {
     getList();
-
     searchUser();
-
     goToUserInfoPage();
-
-    addUserFunction();
-
-    editUser();
-
-    deleteUser();
+    post();
+    put();
+    delete();
+    addUser();
   }
 
   getList() async {
     on<UserRegisterGetListEvent>((event, emit) async {
       UserRegisterLoadingState();
-      var response = await getlist.call(ParamsGetUser(id: 1));
+      var response = await getlistUser.call(ParamsGetUser(id: 1));
       var result = response.fold(
         (l) => UserRegisterErrorState(),
         (r) {
@@ -77,16 +74,24 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     });
   }
 
-  goToUserInfoPage() {
-    on<UserRegisterInfoEvent>((event, emit) async {
-      emit(UserRegisterInfoPageState(users: users, model: event.model));
+  addUser() {
+    on<UserRegisterAddEvent>((event, emit) async {
+      user = UserRegisterModel.isEmpty();
+      emit(UserRegisterInfoPageState(users: users));
     });
   }
 
-  addUserFunction() {
-    on<UserRegisterAddEvent>((event, emit) async {
+  goToUserInfoPage() {
+    on<UserRegisterInfoEvent>((event, emit) async {
+      user = event.model;
+      emit(UserRegisterInfoPageState(users: users));
+    });
+  }
+
+  post() {
+    on<UserRegisterPostEvent>((event, emit) async {
       UserRegisterLoadingState();
-      var response = await addUser.call(ParamsAddUser(user: event.model));
+      var response = await postUser.call(ParamsAddUser(user: event.model));
 
       var result = response.fold(
         (l) => UserRegisterAddErrorState(users: users),
@@ -99,10 +104,10 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     });
   }
 
-  editUser() {
-    on<UserRegisterEditEvent>((event, emit) async {
+  put() {
+    on<UserRegisterPutEvent>((event, emit) async {
       UserRegisterLoadingState();
-      var response = await edit.call(ParamsEditUser(id: event.id));
+      var response = await putUser.call(ParamsEditUser(model: event.model));
       var result = response.fold(
         (l) => UserRegisterEditErrorState(users: users),
         (r) {
@@ -113,10 +118,10 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     });
   }
 
-  deleteUser() {
+  delete() {
     on<UserRegisterDeleteEvent>((event, emit) async {
       UserRegisterLoadingState();
-      var response = await delete.call(ParamsDeleteUser(id: event.id));
+      var response = await deleteUser.call(ParamsDeleteUser(id: event.id));
       var result = response.fold(
         (l) => UserRegisterDeleteErrorState(users: users),
         (r) {

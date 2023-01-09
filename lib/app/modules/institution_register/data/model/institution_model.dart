@@ -85,7 +85,7 @@ class InstitutionModel extends InstitutionEntity {
       id: json['id'],
       nameCompany: json['name_company'],
       nickTrade: json['nick_trade'],
-      tbLineBuinessId: json['tb_line_buiness_id'],
+      tbLineBuinessId: json['tb_linebusiness_id'],
       note: json['note'],
       active: json['active'],
       cnpj: json['cnpj'],
@@ -127,7 +127,7 @@ class InstitutionModel extends InstitutionEntity {
     data['id'] = id;
     data['name_company'] = nameCompany;
     data['nick_trade'] = nickTrade;
-    data['tb_line_buiness_id'] = tbLineBuinessId;
+    data['tb_linebuiness_id'] = tbLineBuinessId;
     data['note'] = note;
     data['active'] = active;
     data['cnpj'] = cnpj;

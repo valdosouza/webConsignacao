@@ -1,20 +1,15 @@
-import 'dart:convert';
-
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
-import 'package:crypto/crypto.dart';
+import 'package:appweb/app/modules/user_register/user_register_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class UserInteractionPage extends StatefulWidget {
-  final UserRegisterModel? user;
   const UserInteractionPage({
     super.key,
-    this.user,
   });
 
   @override
@@ -23,25 +18,20 @@ class UserInteractionPage extends StatefulWidget {
 
 class _UserInteractionPageState extends State<UserInteractionPage> {
   late final UserRegisterBloc bloc;
-  UserRegisterModel? user;
+
   final _formKey = GlobalKey<FormState>();
 
   bool selectRadio = false;
-
-  String nick = "";
-  String email = "";
-  String password = "";
-  String kind = "";
-  String active = "S";
 
   @override
   void initState() {
     super.initState();
     bloc = Modular.get<UserRegisterBloc>();
-    user = widget.user;
-    if (user != null) {
-      selectRadio = user!.active == "S";
-    }
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<UserRegisterModule>();
+    });
+    bloc.user.tbInstitutionId = 1;
+    selectRadio = (bloc.user.active == "S");
   }
 
   @override
@@ -56,9 +46,9 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
           flexibleSpace: Container(
             decoration: kBoxDecorationflexibleSpace,
           ),
-          title: user == null
+          title: bloc.user.id == 0
               ? const Text('Adicionar usuário')
-              : Text('Editar ${user!.nick}'),
+              : Text('Editar ${bloc.user.nick}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -72,20 +62,9 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
                 icon: const Icon(Icons.check),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    user != null
-                        ? bloc.add(UserRegisterEditEvent(id: user!.id))
-                        : bloc.add(UserRegisterAddEvent(
-                            model: UserRegisterModel(
-                            id: 0,
-                            tbInstitutionId: 1,
-                            tbDeviceId: 0,
-                            nick: nick,
-                            email: email,
-                            password:
-                                md5.convert(utf8.encode(password)).toString(),
-                            kind: "sistema",
-                            active: active,
-                          )));
+                    (bloc.user.id > 0)
+                        ? bloc.add(UserRegisterPutEvent(model: bloc.user))
+                        : bloc.add(UserRegisterPostEvent(model: bloc.user));
                   }
                 },
               ),
@@ -101,39 +80,37 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
               children: [
                 CustomInput(
                   title: 'Nome',
-                  initialValue: user?.nick ?? "",
+                  initialValue: bloc.user.nick,
                   validator: (value) => Validators.validateRequired(value),
                   keyboardType: TextInputType.text,
                   inputAction: TextInputAction.next,
                   onChanged: (value) {
-                    user?.nick = value;
-                    nick = value;
+                    bloc.user.nick = value;
                   },
                 ),
                 const SizedBox(height: 30.0),
                 CustomInput(
                   title: 'Email',
                   validator: (value) => Validators.validateRequired(value),
-                  initialValue: user?.email ?? "",
+                  initialValue: bloc.user.email,
                   keyboardType: TextInputType.text,
                   inputAction: TextInputAction.next,
                   onChanged: (value) {
-                    user?.email = value;
-                    email = value;
+                    bloc.user.email = value;
                   },
                 ),
-                if (user == null) const SizedBox(height: 30.0),
-                if (user == null)
+                if (bloc.user.id == 0) const SizedBox(height: 30.0),
+                if (bloc.user.id == 0)
                   CustomInput(
                     title: 'Senha',
                     validator: (value) => Validators.validateRequired(value),
-                    initialValue: user?.password ?? "",
+                    initialValue: bloc.user.password,
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.done,
+                    maxLines: 1,
                     obscureText: true,
                     onChanged: (value) {
-                      user?.password = value;
-                      password = value;
+                      bloc.user.password = value;
                     },
                   ),
                 const SizedBox(height: 30.0),
@@ -153,8 +130,7 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
                                   setState(() {
                                     selectRadio = true;
                                   });
-                                  user?.active = "S";
-                                  active = "S";
+                                  bloc.user.active = "S";
                                 },
                         ),
                         const SizedBox(width: 5.0),
@@ -173,8 +149,7 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
                                     setState(() {
                                       selectRadio = false;
                                     });
-                                    user?.active = "N";
-                                    active = "N";
+                                    bloc.user.active = "N";
                                   }
                                 : (value) {}),
                         const SizedBox(width: 5.0),

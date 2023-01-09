@@ -11,20 +11,24 @@ class UserRegisterSearchEvent extends UserRegisterEvent {
 }
 
 class UserRegisterInfoEvent extends UserRegisterEvent {
-  final UserRegisterModel? model;
-  UserRegisterInfoEvent({this.model});
+  final UserRegisterModel model;
+  UserRegisterInfoEvent({
+    required this.model,
+  });
 }
 
-class UserRegisterAddEvent extends UserRegisterEvent {
+class UserRegisterAddEvent extends UserRegisterEvent {}
+
+class UserRegisterPostEvent extends UserRegisterEvent {
   final UserRegisterModel model;
 
-  UserRegisterAddEvent({required this.model});
+  UserRegisterPostEvent({required this.model});
 }
 
-class UserRegisterEditEvent extends UserRegisterEvent {
-  final int id;
+class UserRegisterPutEvent extends UserRegisterEvent {
+  final UserRegisterModel model;
 
-  UserRegisterEditEvent({required this.id});
+  UserRegisterPutEvent({required this.model});
 }
 
 class UserRegisterDeleteEvent extends UserRegisterEvent {

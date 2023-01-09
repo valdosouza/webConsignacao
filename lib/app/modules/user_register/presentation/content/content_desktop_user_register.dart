@@ -58,9 +58,7 @@ class _ContentDesktopUserRegisterState
             child: CircularProgressIndicator(),
           );
         } else if (state is UserRegisterInfoPageState) {
-          return UserInteractionPage(
-            user: state.model,
-          );
+          return const UserInteractionPage();
         }
         final users = state.users;
         return Scaffold(
@@ -73,7 +71,7 @@ class _ContentDesktopUserRegisterState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(UserRegisterInfoEvent());
+                  bloc.add(UserRegisterAddEvent());
                 },
               ),
             ],

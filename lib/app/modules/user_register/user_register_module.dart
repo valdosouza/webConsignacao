@@ -8,12 +8,13 @@ import 'package:appweb/app/modules/user_register/presentation/bloc/user_register
 import 'package:appweb/app/modules/user_register/presentation/pages/user_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class UserRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<UserRegisterDataSource>(
-          (i) => UserRegisterDataSourceImpl(),
+          (i) => UserRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => UserRegisterRepositoryImpl(
@@ -25,21 +26,21 @@ class UserRegisterModule extends Module {
         ),
         Bind.factory(
           (i) =>
-              UserRegisterAdd(repository: i.get<UserRegisterRepositoryImpl>()),
+              UserRegisterPost(repository: i.get<UserRegisterRepositoryImpl>()),
         ),
         Bind.factory(
           (i) =>
-              UserRegisterEdit(repository: i.get<UserRegisterRepositoryImpl>()),
+              UserRegisterPut(repository: i.get<UserRegisterRepositoryImpl>()),
         ),
         Bind.factory(
           (i) => UserRegisterDelete(
               repository: i.get<UserRegisterRepositoryImpl>()),
         ),
         BlocBind.singleton((i) => UserRegisterBloc(
-              getlist: i.get<UserRegisterGetlist>(),
-              addUser: i.get<UserRegisterAdd>(),
-              edit: i.get<UserRegisterEdit>(),
-              delete: i.get<UserRegisterDelete>(),
+              getlistUser: i.get<UserRegisterGetlist>(),
+              postUser: i.get<UserRegisterPost>(),
+              putUser: i.get<UserRegisterPut>(),
+              deleteUser: i.get<UserRegisterDelete>(),
             )),
       ];
   @override

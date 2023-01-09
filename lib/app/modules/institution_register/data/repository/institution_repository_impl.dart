@@ -35,9 +35,10 @@ class InstitutionRegisterRespositoryImpl
   }
 
   @override
-  Future<Either<Failure, String>> put({required InstitutionModel model}) async {
+  Future<Either<Failure, InstitutionModel>> put(
+      {required InstitutionModel model}) async {
     try {
-      String response = await datasource.put(model: model);
+      InstitutionModel response = await datasource.put(model: model);
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

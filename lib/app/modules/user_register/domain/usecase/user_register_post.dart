@@ -5,10 +5,10 @@ import 'package:appweb/app/modules/user_register/data/model/user_register_model.
 import 'package:appweb/app/modules/user_register/domain/repository/user_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
-class UserRegisterAdd implements UseCase<UserRegisterModel, ParamsAddUser> {
+class UserRegisterPost implements UseCase<UserRegisterModel, ParamsAddUser> {
   final UserRegisterRepository repository;
 
-  UserRegisterAdd({required this.repository});
+  UserRegisterPost({required this.repository});
 
   @override
   Future<Either<Failure, UserRegisterModel>> call(ParamsAddUser params) async {

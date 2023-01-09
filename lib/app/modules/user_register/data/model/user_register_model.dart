@@ -24,10 +24,8 @@ class UserRegisterModel extends UserRegisterEntity {
 
   factory UserRegisterModel.fromJson(Map<String, dynamic> json) {
     return UserRegisterModel(
-      tbInstitutionId: json['tb_institution_id'] is String
-          ? int.parse(json['tb_institution_id'])
-          : json['tb_institution_id'],
-      id: json['id'] is String ? int.parse(json['id']) : json['id'],
+      tbInstitutionId: json['tb_institution_id'],
+      id: json['id'],
       nick: json['nick'] as String,
       email: json['email'] as String,
       password: "",
@@ -36,11 +34,23 @@ class UserRegisterModel extends UserRegisterEntity {
       active: json['active'] as String? ?? "N",
     );
   }
+  factory UserRegisterModel.isEmpty() {
+    return UserRegisterModel(
+      tbInstitutionId: 0,
+      id: 0,
+      nick: "",
+      email: "",
+      password: "",
+      kind: "",
+      tbDeviceId: 0,
+      active: "N",
+    );
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id.toString();
-    data['tb_institution_id'] = tbInstitutionId.toString();
+    data['id'] = id;
+    data['tb_institution_id'] = tbInstitutionId;
     data['password'] = password;
     data['kind'] = kind;
     data['tb_device_id'] = 0;

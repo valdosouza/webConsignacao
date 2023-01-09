@@ -1,18 +1,19 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
+import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
 import 'package:appweb/app/modules/user_register/domain/repository/user_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
-class UserRegisterEdit implements UseCase<String, ParamsEditUser> {
+class UserRegisterPut implements UseCase<UserRegisterModel, ParamsEditUser> {
   final UserRegisterRepository repository;
 
-  UserRegisterEdit({required this.repository});
+  UserRegisterPut({required this.repository});
 
   @override
-  Future<Either<Failure, String>> call(ParamsEditUser params) async {
+  Future<Either<Failure, UserRegisterModel>> call(ParamsEditUser params) async {
     try {
-      final user = await repository.put(userId: params.id);
+      final user = await repository.put(model: params.model);
       return user;
     } on ServerException {
       return Left(ServerFailure());
@@ -21,6 +22,6 @@ class UserRegisterEdit implements UseCase<String, ParamsEditUser> {
 }
 
 class ParamsEditUser {
-  final int id;
-  const ParamsEditUser({required this.id});
+  final UserRegisterModel model;
+  const ParamsEditUser({required this.model});
 }

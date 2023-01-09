@@ -27,7 +27,7 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
   Future<Either<Failure, UserRegisterModel>> post(
       {required UserRegisterModel model}) async {
     try {
-      final result = await datasource.post(user: model);
+      final result = await datasource.post(model: model);
       return Right(result);
     } on ServerException {
       return Left(ServerFailure());
@@ -45,9 +45,10 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, String>> put({required int userId}) async {
+  Future<Either<Failure, UserRegisterModel>> put(
+      {required UserRegisterModel model}) async {
     try {
-      final result = await datasource.put(id: userId);
+      final result = await datasource.put(model: model);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());

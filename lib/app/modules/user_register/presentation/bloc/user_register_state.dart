@@ -51,9 +51,7 @@ class UserRegisterEditSuccessState extends UserRegisterState {
 }
 
 class UserRegisterInfoPageState extends UserRegisterState {
-  final UserRegisterModel? model;
-  UserRegisterInfoPageState(
-      {required List<UserRegisterModel> users, this.model})
+  UserRegisterInfoPageState({required List<UserRegisterModel> users})
       : super(users: users);
 }
 

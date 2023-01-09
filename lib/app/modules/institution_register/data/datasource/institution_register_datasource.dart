@@ -8,7 +8,7 @@ abstract class InstitutionRegisterDatasource extends Gateway {
 
   Future<InstitutionModel> get({required int id});
   Future<InstitutionModel> post({required InstitutionModel model});
-  Future<String> put({required InstitutionModel model});
+  Future<InstitutionModel> put({required InstitutionModel model});
   Future<String> delete({required int id});
 }
 
@@ -45,7 +45,7 @@ class InstitutionRegisterDatasourceImpl extends InstitutionRegisterDatasource {
   }
 
   @override
-  Future<String> put({required InstitutionModel model}) async {
+  Future<InstitutionModel> put({required InstitutionModel model}) async {
     final int id = model.id;
 
     return request(
@@ -53,7 +53,8 @@ class InstitutionRegisterDatasourceImpl extends InstitutionRegisterDatasource {
       method: HTTPMethod.put,
       data: jsonEncode(model.toJson()),
       (payload) {
-        return '';
+        final data = json.decode(payload);
+        return InstitutionModel.fromJson(data);
       },
       onError: (error) {
         return ServerException;

@@ -1,6 +1,7 @@
 // ignore_for_file: implementation_imports
 
 import 'dart:io';
+import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/core/shared/helpers/local_storage.dart';
 import 'package:appweb/app/core/shared/local_storage_key.dart';
 import 'package:flutter/foundation.dart';
@@ -18,7 +19,8 @@ class Gateway {
 
   var statusCode = 0;
   final http.Client httpClient;
-  final baseApiUrl = 'https://api.industriadechocolatesamor.com.br/';
+
+  //final baseApiUrl = base 'https://api.industriadechocolatesamor.com.br/';
   final timeout = const Duration(milliseconds: 5000);
   Future<Map<String, String>> requestOptions() async {
     final token = await getToken();
@@ -72,7 +74,7 @@ class Gateway {
   Future<Response> _get(String url) async {
     final response = await httpClient
         .get(
-          Uri.parse('$baseApiUrl/$url'),
+          Uri.parse('$baseApiUrl$url'),
           headers: await requestOptions(),
         )
         .timeout(timeout);
@@ -85,7 +87,7 @@ class Gateway {
   ) async {
     final response = await httpClient
         .post(
-          Uri.parse('$baseApiUrl/$url'),
+          Uri.parse('$baseApiUrl$url'),
           headers: await requestOptions(),
           body: data,
         )
@@ -99,7 +101,7 @@ class Gateway {
   ) async {
     final response = await httpClient
         .put(
-          Uri.parse('$baseApiUrl/$url'),
+          Uri.parse('$baseApiUrl$url'),
           headers: await requestOptions(),
           body: data,
         )
@@ -113,7 +115,7 @@ class Gateway {
   ) async {
     final response = await httpClient
         .delete(
-          Uri.parse('$baseApiUrl/$url'),
+          Uri.parse('$baseApiUrl$url'),
           headers: await requestOptions(),
           body: data,
         )
