@@ -13,6 +13,9 @@ Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
       case 3:
         return item.qtyConsigned.toStringAsFixed(0);
       case 4:
+        if (item.leftover == item.qtyConsigned) {
+          return item.leftover.toStringAsFixed(0);
+        }
         return (item.qtySold > 0) ? item.leftover.toStringAsFixed(0) : "";
       case 5:
         return (item.qtySold > 0) ? item.qtySold.toStringAsFixed(0) : "";

@@ -35,7 +35,7 @@ class OrderSaleRegisterPageMobileState
       Modular.isModuleReady<OrderSaleRegisterModule>;
     });
     bloc.modelAttendance = widget.orderAttendance;
-    bloc.add(OrderSaleRegisterGetItemsPreSaleEvent(
+    bloc.add(OrderSaleRegisterGetCardEvent(
       tbInstitutionId: widget.orderAttendance.tbInstitutionId,
       tbPriceListId: widget.orderAttendance.tbPriceListId,
     ));
@@ -46,19 +46,19 @@ class OrderSaleRegisterPageMobileState
     return BlocConsumer<OrderSaleRegisterBloc, OrderSaleRegisterState>(
       bloc: bloc,
       listener: (context, state) {
-        if (state is OrderSaleRegisterGetItemsErrorState) {
+        if (state is OrderSaleGetNewCardListErrorState) {
           CustomToast.showToast(
               "Erro ao buscar os itens para venda. Tente novamente mais tarde");
           Modular.to.navigate('/attendance/');
-        } else if (state is OrderSaleRegisterPostErrorState) {
+        } else if (state is OrderSaleCardPostErrorState) {
           CustomToast.showToast("Erro ao gravar a venda.Tente novamente");
         }
       },
       builder: (context, state) {
-        if (state is OrderSaleRegisterPostSucessState) {
+        if (state is OrderSaleCardPostSucessState) {
           Modular.to.navigate('/customer/mobile/');
         }
-        if (state is OrderSaleRegisterPostErrorState) {
+        if (state is OrderSaleCardPostErrorState) {
           return ContentOrderSaleRegister(orderSale: bloc.modelOrderSale);
         }
 
@@ -67,8 +67,11 @@ class OrderSaleRegisterPageMobileState
             child: CircularProgressIndicator(),
           );
         }
-        if (state is OrderSaleRegisterGetItemsPreSaleLoadedState) {
+        if (state is OrderSaleGetNewCardListLoadedState) {
           return ContentOrderSaleRegister(orderSale: state.model);
+        }
+        if (state is OrderSaleCardPostSucessState) {
+          Modular.to.navigate('/customer/mobile/');
         }
         return Container();
       },

@@ -30,8 +30,8 @@ class OrderSaleMainCardModel extends OrderSaleMainCardEntity {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['Order'] = order.toJson();
-    data['Items'] = items.map((v) => v.toJson()).toList();
-    data['Payments'] = payments.map((v) => v.toJson()).toList();
+    data['Items'] = items.map((i) => i.toJson()).toList();
+    data['Payments'] = payments.map((p) => p.toJson()).toList();
     return data;
   }
 

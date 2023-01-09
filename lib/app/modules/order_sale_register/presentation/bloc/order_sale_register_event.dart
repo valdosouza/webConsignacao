@@ -2,19 +2,19 @@ import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_ma
 
 abstract class OrderSaleRegisterEvent {}
 
-class OrderSaleRegisterGetItemsPreSaleEvent extends OrderSaleRegisterEvent {
+class OrderSaleRegisterGetCardEvent extends OrderSaleRegisterEvent {
   int tbInstitutionId;
   int tbPriceListId;
-  OrderSaleRegisterGetItemsPreSaleEvent({
+  OrderSaleRegisterGetCardEvent({
     required this.tbInstitutionId,
     required this.tbPriceListId,
   });
 }
 
-class OrderSaleRegisterPostEvent extends OrderSaleRegisterEvent {
+class OrderSaleCardPostEvent extends OrderSaleRegisterEvent {
   final OrderSaleMainCardModel model;
 
-  OrderSaleRegisterPostEvent({required this.model});
+  OrderSaleCardPostEvent({required this.model});
 }
 
 class OrderSaleRegisterClearEvent extends OrderSaleRegisterEvent {}

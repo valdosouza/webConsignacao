@@ -139,17 +139,23 @@ class OrderConsignmentCheckpointOrderModel
   factory OrderConsignmentCheckpointOrderModel.fromJson(
       Map<String?, dynamic> json) {
     return OrderConsignmentCheckpointOrderModel(
-      id: json['id'] as int? ?? 0,
-      tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
-      tbCustomerId: json['tb_customer_id'] as int? ?? 0,
+      id: json['id'],
+      tbInstitutionId: json['tb_institution_id'],
+      tbCustomerId: json['tb_customer_id'],
       nameCustomer: json['name_customer'] as String? ?? "",
       dtRecord:
           CustomDate.formatDate(json['dt_record'], "dd/MM/yyyy") as String? ??
               "",
-      totalValue: double.parse(json['total_value']),
-      changeValue: double.parse(json['change_value']),
-      previousDebiBalance: double.parse(json['previous_debit_balance']),
-      currentDebitBalance: double.parse(json['current_debit_balance']),
+      totalValue: json['total_value'],
+      changeValue: json['change_value'] is int
+          ? json['change_value'].toDouble()
+          : json['change_value'],
+      previousDebiBalance: json['previous_debit_balance'] is int
+          ? json['previous_debit_balance'].toDouble()
+          : json['previous_debit_balance'],
+      currentDebitBalance: json['current_debit_balance'] is int
+          ? json['current_debit_balance'].toDouble()
+          : json['current_debit_balance'],
     );
   }
 
@@ -201,15 +207,22 @@ class OrderConsignmentCheckpointCardModel
   factory OrderConsignmentCheckpointCardModel.fromJson(
       Map<String?, dynamic> json) {
     return OrderConsignmentCheckpointCardModel(
-      tbProductId: json['tb_product_id'] as int? ?? 0,
+      tbProductId: json['tb_product_id'],
       nameProduct: json['name_product'] as String? ?? "",
-      bonus: double.parse(json['bonus']),
-      qtyConsigned: double.parse(json['qty_consigned']),
-      leftover: double.parse(json['leftover']),
-      qtySold: double.parse(json['qty_sold']),
-      unitValue: double.parse(json['unit_value']),
-      subtotal: ((double.parse(json['qty_sold'])) *
-          (double.parse(json['unit_value']))),
+      bonus: json['bonus'] is int ? json['bonus'].toDouble() : json['bonus'],
+      qtyConsigned: json['qty_consigned'] is int
+          ? json['qty_consigned'].toDouble()
+          : json['qty_consigned'],
+      leftover: json['leftover'] is int
+          ? json['leftover'].toDouble()
+          : json['leftover'],
+      qtySold: json['qty_sold'] is int
+          ? json['qty_sold'].toDouble()
+          : json['qty_sold'],
+      unitValue: json['unit_value'] is int
+          ? json['unit_value'].toDouble()
+          : json['unit_value'],
+      subtotal: ((json['qty_sold']) * (json['unit_value'])),
     );
   }
 

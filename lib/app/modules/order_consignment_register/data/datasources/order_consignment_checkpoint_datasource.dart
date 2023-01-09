@@ -19,11 +19,13 @@ class OrderConsignmentCheckpointDatasourceImpl
       OrderConsignmentCheckpointModel model) async {
     var bodyConsignment = jsonEncode(model.toJson());
     return await request(
-      '/orderconsignment/checkpoint',
+      'orderconsignment/checkpoint',
       data: bodyConsignment,
       method: HTTPMethod.post,
       (payload) {
-        return payload;
+        //final data = json.decode(payload);
+        return model;
+        //return OrderConsignmentCheckpointModel.fromJson(data);
       },
       onError: (error) {
         return ServerException;

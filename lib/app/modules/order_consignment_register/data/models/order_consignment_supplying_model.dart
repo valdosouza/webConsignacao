@@ -62,7 +62,7 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
         tbProductId: item.tbProductId,
         bonus: 0,
         nameProduct: item.nameProduct,
-        leftover: item.leftover,
+        leftover: item.qtyConsigned - item.qtySold,
         devolution: 0,
         newConsignment: 0,
         qtyConsigned: item.leftover,

@@ -19,15 +19,15 @@ class OrderSaleRegisterBloc
     required this.getNewOrderSaleCard,
     required this.postOrderSale,
   }) : super(OrderSaleRegisterLoadingState()) {
-    ordersaleGetItem();
-    ordersalePost();
+    ordersaleGetCard();
+    ordersaleCardPos();
   }
 
-  ordersaleGetItem() {
-    on<OrderSaleRegisterGetItemsPreSaleEvent>((event, emit) async {
+  ordersaleGetCard() {
+    on<OrderSaleRegisterGetCardEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
 
-      modelOrderSale.items = [];
+      modelOrderSale.items.clear();
 
       final response = await getNewOrderSaleCard(
         tbInstitutionId: event.tbInstitutionId,
@@ -35,8 +35,9 @@ class OrderSaleRegisterBloc
       );
 
       var result = response
-          .fold((l) => OrderSaleRegisterGetItemsErrorState(l.toString()), (r) {
+          .fold((l) => OrderSaleGetNewCardListErrorState(l.toString()), (r) {
         modelOrderSale.items = r;
+        modelOrderSale.payments.clear();
         if (modelAttendance.tbPriceListId == 2) {
           modelOrderSale.payments.add(
             OrderPaidModel(
@@ -60,24 +61,32 @@ class OrderSaleRegisterBloc
             value: 0,
           ));
         }
-        return OrderSaleRegisterGetItemsPreSaleLoadedState(
-            model: modelOrderSale);
+        return OrderSaleGetNewCardListLoadedState(model: modelOrderSale);
       });
       emit(result);
     });
   }
 
-  ordersalePost() {
-    on<OrderSaleRegisterPostEvent>((event, emit) async {
+  ordersaleCardPos() {
+    on<OrderSaleCardPostEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
       event.model.order.id = modelAttendance.id;
       event.model.order.tbInstitutionId = modelAttendance.tbInstitutionId;
+      event.model.order.tbCustomerId = modelAttendance.tbCustomerId;
+      event.model.order.nameCustomer = modelAttendance.nameCustomer;
+
+      event.model.order.tbSalesmanId = modelAttendance.tbSalesmanId;
+      event.model.order.nameSalesman = modelAttendance.nameSalesman;
+
+      event.model.order.tbUserIid = modelAttendance.tbUserId;
+
       event.model.order.dtRecord = modelAttendance.dtRecord;
+
       final response = await postOrderSale(event.model);
-      var result = response.fold(
-          (l) => OrderSaleRegisterPostErrorState(error: l.toString()), (r) {
-        modelOrderSale = r;
-        return OrderSaleRegisterPostSucessState(ordermodel: modelOrderSale);
+      var result = response
+          .fold((l) => OrderSaleCardPostErrorState(error: l.toString()), (r) {
+        modelOrderSale.order = r;
+        return OrderSaleCardPostSucessState(ordermodel: modelOrderSale.order);
       });
       emit(result);
     });

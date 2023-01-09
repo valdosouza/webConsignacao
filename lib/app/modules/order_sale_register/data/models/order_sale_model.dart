@@ -48,9 +48,9 @@ class OrderSaleModel extends OrderSaleEntity {
 
   factory OrderSaleModel.fromJson(Map<String?, dynamic> json) {
     return OrderSaleModel(
-      id: json['id'] as int? ?? 0,
-      tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
-      tbCustomerId: json['tb_customer_id'] as int? ?? 0,
+      id: json['id'],
+      tbInstitutionId: json['tb_institution_id'],
+      tbCustomerId: json['tb_customer_id'],
       nameCustomer: json['name_customer'] as String? ?? "",
       tbUserIid: json['tb_user_id'],
       number: json['number'],
@@ -59,8 +59,12 @@ class OrderSaleModel extends OrderSaleEntity {
       dtRecord:
           CustomDate.formatDate(json['dt_record'], "dd/MM/yyyy") as String? ??
               "",
-      totalValue: double.parse(json['total_value']),
-      changeValue: double.parse(json['change_value']),
+      totalValue: json['total_value'] is int
+          ? json['total_value'].toDouble()
+          : json['total_value'],
+      changeValue: json['change_value'] is int
+          ? json['change_value'].toDouble()
+          : json['change_value'],
       note: json['note'],
       status: json['status'],
     );

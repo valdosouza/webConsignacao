@@ -112,8 +112,8 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
             child: _custombutton(
                 "Finalizar",
                 (() => {
-                      bloc.add(OrderSaleRegisterPostEvent(
-                          model: bloc.modelOrderSale))
+                      bloc.add(
+                          OrderSaleCardPostEvent(model: bloc.modelOrderSale))
                     })),
           ),
         ],

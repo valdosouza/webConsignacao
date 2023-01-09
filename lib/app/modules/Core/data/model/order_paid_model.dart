@@ -1,9 +1,10 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/domain/entity/order_paid_entity.dart';
 
 class OrderPaidModel extends OrderPaidEntity {
   int tbPaymentTypeId;
   String namePaymentType;
-  String? dtExpiration;
+  String dtExpiration;
   double value;
 
   OrderPaidModel(
@@ -19,10 +20,12 @@ class OrderPaidModel extends OrderPaidEntity {
 
   factory OrderPaidModel.fromJson(Map<String, dynamic> json) {
     return OrderPaidModel(
-      tbPaymentTypeId: int.parse(json['tb_payment_type_id'].toString()),
+      tbPaymentTypeId: json['tb_payment_type_id'],
       namePaymentType: json['name_payment_type'].toString(),
-      dtExpiration: json['name_payment_type'].toString(),
-      value: double.parse(json['value'].toString()),
+      dtExpiration: (json['dt_expiration'] == "")
+          ? ""
+          : CustomDate.formatDate(json['dt_expiration'], "dd/MM/yyyy"),
+      value: json['value'] is int ? json['value'].toDouble() : json['value'],
     );
   }
 
@@ -30,7 +33,8 @@ class OrderPaidModel extends OrderPaidEntity {
     return {
       'tb_payment_type_id': tbPaymentTypeId,
       'name_payment_type': namePaymentType,
-      'dt_expiration': dtExpiration,
+      'dt_expiration':
+          (dtExpiration != "") ? CustomDate.convertDate(dtExpiration) : "",
       'value': value,
     };
   }

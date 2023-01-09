@@ -1,35 +1,35 @@
 import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_main_card_model.dart';
+import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_model.dart';
 
 abstract class OrderSaleRegisterState {}
 
 class OrderSaleRegisterLoadingState extends OrderSaleRegisterState {}
 
-class OrderSaleRegisterGetItemsErrorState extends OrderSaleRegisterState {
+class OrderSaleGetNewCardListErrorState extends OrderSaleRegisterState {
   final String error;
 
-  OrderSaleRegisterGetItemsErrorState(this.error);
+  OrderSaleGetNewCardListErrorState(this.error);
 }
 
-class OrderSaleRegisterGetItemsPreSaleLoadedState
-    extends OrderSaleRegisterState {
+class OrderSaleGetNewCardListLoadedState extends OrderSaleRegisterState {
   OrderSaleMainCardModel model;
 
-  OrderSaleRegisterGetItemsPreSaleLoadedState({
+  OrderSaleGetNewCardListLoadedState({
     required this.model,
   });
 }
 
-class OrderSaleRegisterPostErrorState extends OrderSaleRegisterState {
+class OrderSaleCardPostErrorState extends OrderSaleRegisterState {
   final String error;
-  OrderSaleRegisterPostErrorState({
+  OrderSaleCardPostErrorState({
     required this.error,
   });
 }
 
-class OrderSaleRegisterPostSucessState extends OrderSaleRegisterState {
-  final OrderSaleMainCardModel ordermodel;
+class OrderSaleCardPostSucessState extends OrderSaleRegisterState {
+  final OrderSaleModel ordermodel;
 
-  OrderSaleRegisterPostSucessState({required this.ordermodel});
+  OrderSaleCardPostSucessState({required this.ordermodel});
 }
 
 class OrderSaleRegisterCalcDoneState extends OrderSaleRegisterState {}

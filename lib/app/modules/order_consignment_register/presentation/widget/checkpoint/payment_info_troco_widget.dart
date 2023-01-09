@@ -3,6 +3,29 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:flutter/material.dart';
 
 Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
+  String calcChange() {
+    double totalpayment = 0;
+    double totalcash = 0;
+    for (var item in modelCheckpoint.payments) {
+      totalpayment += item.value;
+      if (item.namePaymentType == "DINHEIRO") totalcash += item.value;
+    }
+    if (modelCheckpoint.order.totalValue > 0) {
+      if (totalpayment > modelCheckpoint.order.totalValue) {
+        if (totalcash > 0) {
+          modelCheckpoint.order.changeValue = 0;
+
+          modelCheckpoint.order.changeValue =
+              totalpayment - modelCheckpoint.order.totalValue;
+          if (totalcash > modelCheckpoint.order.changeValue) {
+            return modelCheckpoint.order.changeValue.toStringAsFixed(2);
+          }
+        }
+      }
+    }
+    return "0,00";
+  }
+
   return Row(
     children: [
       Expanded(
@@ -22,23 +45,8 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
           child: TextField(
             enabled: false,
             controller: TextEditingController(
-                text: (modelCheckpoint.items
-                                .map((e) => ((e.qtyConsigned - e.leftover) *
-                                    e.unitValue))
-                                .reduce((value, element) => value + element) +
-                            modelCheckpoint.order.previousDebiBalance -
-                            modelCheckpoint.payments[0].value -
-                            modelCheckpoint.payments[1].value) <
-                        0
-                    ? (modelCheckpoint.items
-                                .map((e) => ((e.qtyConsigned - e.leftover) *
-                                    e.unitValue))
-                                .reduce((value, element) => value + element) +
-                            modelCheckpoint.order.previousDebiBalance -
-                            modelCheckpoint.payments[0].value -
-                            modelCheckpoint.payments[1].value)
-                        .toStringAsFixed(2)
-                    : "0.00"),
+              text: calcChange(),
+            ),
             textAlign: TextAlign.right,
           ),
         ),

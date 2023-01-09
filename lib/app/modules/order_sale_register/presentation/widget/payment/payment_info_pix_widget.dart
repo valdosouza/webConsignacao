@@ -1,8 +1,8 @@
-import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_main_card_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/header_field_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget paymentinfopix(OrderSaleMainCardModel modelOrderSale) {
+Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
   return Row(
     children: [
       Expanded(
@@ -21,11 +21,11 @@ Widget paymentinfopix(OrderSaleMainCardModel modelOrderSale) {
           ),
           child: TextField(
             controller: TextEditingController(
-                text: modelOrderSale.payments[1].value.toStringAsFixed(2)),
+                text: modelOrderPaid[1].value.toStringAsFixed(2)),
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
             onSubmitted: (value) {
-              modelOrderSale.payments[1].value = double.parse(value);
+              modelOrderPaid[1].value = double.parse(value);
             },
           ),
         ),

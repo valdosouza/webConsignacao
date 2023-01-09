@@ -11,10 +11,7 @@ Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
   String calcInfoPayment() {
     modelCheckpoint.order.totalValue = 0;
     for (OrderConsignmentCheckpointCardModel item in modelCheckpoint.items) {
-      if (item.leftover > 0) {
-        modelCheckpoint.order.totalValue +=
-            ((item.qtyConsigned - item.leftover) * item.unitValue);
-      }
+      modelCheckpoint.order.totalValue += item.subtotal;
     }
     modelCheckpoint.order.totalValue +=
         modelCheckpoint.order.previousDebiBalance;
@@ -22,6 +19,10 @@ Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
         modelCheckpoint.order.totalValue;
     for (OrderPaidModel item in modelCheckpoint.payments) {
       modelCheckpoint.order.currentDebitBalance -= item.value;
+      if (modelCheckpoint.order.currentDebitBalance < 0) {
+        modelCheckpoint.order.currentDebitBalance = 0;
+        break;
+      }
     }
     return modelCheckpoint.order.totalValue.toStringAsFixed(2);
   }

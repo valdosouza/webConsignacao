@@ -3,6 +3,28 @@ import 'package:appweb/app/modules/order_sale_register/presentation/widget/order
 import 'package:flutter/material.dart';
 
 Widget paymentinfotroco(OrderSaleMainCardModel modelOrderSale) {
+  String calcChange() {
+    double totalpayment = 0;
+    double totalcash = 0;
+    for (var item in modelOrderSale.payments) {
+      totalpayment += item.value;
+      if (item.namePaymentType == "DINHEIRO") totalcash += item.value;
+    }
+    if (modelOrderSale.order.totalValue > 0) {
+      if (totalpayment > modelOrderSale.order.totalValue) {
+        if (totalcash > 0) {
+          modelOrderSale.order.changeValue = 0;
+          modelOrderSale.order.changeValue =
+              totalpayment - modelOrderSale.order.totalValue;
+          if (totalcash > modelOrderSale.order.changeValue) {
+            return modelOrderSale.order.changeValue.toStringAsFixed(2);
+          }
+        }
+      }
+    }
+    return "0,00";
+  }
+
   return Row(
     children: [
       Expanded(
@@ -22,17 +44,8 @@ Widget paymentinfotroco(OrderSaleMainCardModel modelOrderSale) {
           child: TextField(
             enabled: false,
             controller: TextEditingController(
-                text: (modelOrderSale.items
-                                .map((e) => (e.sale * e.unitValue))
-                                .reduce((value, element) => value + element) +
-                            modelOrderSale.payments[0].value) <
-                        0
-                    ? (modelOrderSale.items
-                                .map((e) => (e.sale * e.unitValue))
-                                .reduce((value, element) => value + element) +
-                            modelOrderSale.payments[0].value)
-                        .toStringAsFixed(2)
-                    : "0.00"),
+              text: calcChange(),
+            ),
             textAlign: TextAlign.right,
           ),
         ),
