@@ -70,10 +70,10 @@ class SalesRoutetRegisterInterationPageState
             body: SalesRouteListMobile(lista: state.salesRouteList),
           );
         }
-        state = state as CustomerListState;
         if (state is CustomerListLoadedState ||
             state is CustomerListOrderState ||
             state is CustomerListOrderErrorState) {
+          state = state as CustomerListState;
           return Scaffold(
             appBar: (state is CustomerListOrderState)
                 ? AppBar(
