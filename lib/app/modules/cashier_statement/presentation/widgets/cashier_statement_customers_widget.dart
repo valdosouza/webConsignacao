@@ -62,7 +62,7 @@ class _CashierStatementCustomerWidgetState
             itemBuilder: (context, index) {
               return InkWell(
                   onTap: () {
-                    bloc.add(CashierStatementGetCustomersMobileEvent(
+                    bloc.add(CashierStatementGetByCustomerMobileEvent(
                         params: CashierStatementParams(
                             tbInstitutionId: 1,
                             date: widget.date,

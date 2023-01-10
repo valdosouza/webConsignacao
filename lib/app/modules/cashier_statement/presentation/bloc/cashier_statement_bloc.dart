@@ -30,6 +30,7 @@ class CashierStatementBloc
     cashierStatementGetByDay();
     cashierStatementGetByMonth();
     cashierStatementGetByCustomer();
+    cashierStatementGetCustomers();
   }
 
   cashierStatementGetByDay() {
@@ -88,6 +89,7 @@ class CashierStatementBloc
 
       var result =
           response.fold((l) => CashierStatementCustomerMobileErrorState(), (r) {
+        customers = r;
         return CashierStatementCustomerMobileSuccessState();
       });
 

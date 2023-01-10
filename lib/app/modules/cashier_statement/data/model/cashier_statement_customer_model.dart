@@ -17,7 +17,9 @@ class CashierStatementCustomerModel extends CashierStatementCustomerEntity {
       id: json['id'],
       nameCustomer: json['name_customer'],
       timeAttendace: json['time_attendace'],
-      valuerCharged: json['value_charged'],
+      valuerCharged: json['value_charged'] is String
+          ? double.parse(json['value_charged'])
+          : json['value_charged'],
     );
   }
 

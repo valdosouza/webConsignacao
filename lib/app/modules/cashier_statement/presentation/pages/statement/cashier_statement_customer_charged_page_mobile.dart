@@ -3,7 +3,9 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_state.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/contents/content_cashier_statement.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/widgets/cashier_statement_customers_widget.dart';
@@ -93,7 +95,11 @@ class CashierStatementCustomerChargedPageMobileState
                     title: "Data",
                     keyboardType: TextInputType.datetime,
                     inputAction: TextInputAction.done,
-                    onChanged: (value) {
+                    onChanged: (p0) {},
+                    onFieldSubmitted: (value) {
+                      bloc.add(CashierStatementGetCustomersMobileEvent(
+                      params: CashierStatementParams(
+                          tbInstitutionId: 1, date: value, tbUserId: 2)));
                       date = value;
                     },
                     controller: controller,
