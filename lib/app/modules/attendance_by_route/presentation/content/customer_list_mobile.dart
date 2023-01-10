@@ -21,7 +21,6 @@ class CustomerListMobile extends StatefulWidget {
 
 class SalesRoutListeMobileState extends State<CustomerListMobile> {
   late AttendanceByRouteBloc bloc;
-  int idSequenceCustomer = -1;
 
   @override
   void initState() {
@@ -65,17 +64,16 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                       bloc: bloc,
                       builder: (context, state) {
                         if (state is CustomerListOrderState) {
-                          return Checkbox(
-                              value:
-                                  widget.lista[index].id == idSequenceCustomer,
-                              onChanged: (value) {
-                                setState(() {
-                                  if (value!) {
-                                    idSequenceCustomer = widget.lista[index].id;
-                                  } else {
-                                    idSequenceCustomer = -1;
-                                  }
-                                });
+                          return IconButton(
+                              icon: const Icon(Icons.check),
+                              onPressed: () {
+                                bloc.add(CustomerOrderedModeEvent(
+                                    tbInstitutionId: 1,
+                                    tbCustomerId: bloc.idSequenceCustomer,
+                                    tbSalesRouteId:
+                                        widget.lista[index].tbSalesRouteIid,
+                                    sequence:
+                                        widget.lista[index].sequence + 1));
                               });
                         }
                         return IconButton(

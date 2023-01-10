@@ -26,4 +26,22 @@ class CustomerRepositoryImpl implements CustomerRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> sequence(
+      {required int tbInstitutionId,
+      required int tbSalesRouteId,
+      required int tbCustomerId,
+      required int sequence}) async {
+    try {
+      final list = await datasource.sequence(
+          tbInstitutionId: tbInstitutionId,
+          tbSalesRouteId: tbSalesRouteId,
+          tbCustomerId: tbCustomerId,
+          sequence: sequence);
+      return Right(list);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

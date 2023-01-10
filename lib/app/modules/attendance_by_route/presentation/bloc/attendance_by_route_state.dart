@@ -52,3 +52,8 @@ class CustomerListOrderState extends CustomerListState {
   CustomerListOrderState({required List<CustomerListByRouteModel> customerList})
       : super(customerList: customerList);
 }
+
+class CustomerListOrderErrorState extends CustomerListState {
+  CustomerListOrderErrorState({required List<CustomerListByRouteModel> customerList})
+      : super(customerList: customerList);
+}

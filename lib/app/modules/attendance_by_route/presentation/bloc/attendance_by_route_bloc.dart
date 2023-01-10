@@ -1,5 +1,6 @@
 import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
+import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_sequence.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,17 +13,22 @@ class AttendanceByRouteBloc
     extends Bloc<AttendanceByRouteEvent, AttendanceByRouteState> {
   final SalesRouteGetlist getlistSalesRoute;
   final CustomerGetlist getlistCustomer;
+  final CustomerSequence sequence;
+  int idSequenceCustomer = -1;
 
   List<SalesRouteListModel> saleroutlist = [];
   List<CustomerListByRouteModel> customerlist = [];
 
-  AttendanceByRouteBloc({
-    required this.getlistSalesRoute,
-    required this.getlistCustomer,
-  }) : super(SalesRouteListLoadingState()) {
+  AttendanceByRouteBloc(
+      {required this.getlistSalesRoute,
+      required this.getlistCustomer,
+      required this.sequence})
+      : super(SalesRouteListLoadingState()) {
     getListRouteSales();
     getListCustomer();
     orderMode();
+    ordererMode();
+    cancelOrderMode();
     //searchRouteSales();
   }
 
@@ -79,7 +85,32 @@ class AttendanceByRouteBloc
 
   orderMode() {
     on<CustomerOrderModeEvent>((event, emit) async {
+      idSequenceCustomer = event.tbCustomerId;
       emit(CustomerListOrderState(customerList: customerlist));
+    });
+  }
+
+  ordererMode() {
+    on<CustomerOrderedModeEvent>((event, emit) async {
+      idSequenceCustomer = -1;
+
+      var response = await sequence.call(ParamsSequenceCustomer(
+          tbInstitutionId: event.tbInstitutionId,
+          tbCustomerId: event.tbCustomerId,
+          tbSalesRouteId: event.tbSalesRouteId,
+          sequence: event.sequence));
+      response.fold((l) {
+        emit(CustomerListOrderErrorState(customerList: customerlist));
+      }, (r) {
+        add(CustomerGetListEvent(tbSalesRouteId: event.tbSalesRouteId));
+      });
+    });
+  }
+
+  cancelOrderMode() {
+    on<CustomerCancelOrderModeEvent>((event, emit) async {
+      idSequenceCustomer = -1;
+      emit(CustomerListLoadedState(customerList: customerlist));
     });
   }
 }

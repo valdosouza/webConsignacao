@@ -42,9 +42,15 @@ class CustomerOrderModeEvent extends AttendanceByRouteEvent {
 }
 
 class CustomerOrderedModeEvent extends AttendanceByRouteEvent {
+  final int tbInstitutionId;
   final int tbCustomerId;
+  final int tbSalesRouteId;
+  final int sequence;
   CustomerOrderedModeEvent({
+    required this.tbInstitutionId,
     required this.tbCustomerId,
+    required this.tbSalesRouteId,
+    required this.sequence,
   });
 }
 
