@@ -13,7 +13,7 @@ class CustomerMainModel extends CustomerMainEntity {
     CompanyModel? company,
     PersonModel? person,
     required AddressModel address,
-    required PhoneModel phone,
+    required PhoneModel? phone,
   }) : super(
           customer: customer,
           entity: entity,
@@ -35,7 +35,8 @@ class CustomerMainModel extends CustomerMainEntity {
       person:
           json['person'] != null ? PersonModel.fromJson(json['person']) : null,
       address: AddressModel.fromJson(json['address']),
-      phone: PhoneModel.fromJson(json['phone']),
+      phone:
+          json['phone'].length > 0 ? PhoneModel.fromJson(json['phone']) : null,
     );
   }
 
@@ -46,7 +47,7 @@ class CustomerMainModel extends CustomerMainEntity {
     data['company'] = company?.toJson();
     data['person'] = person?.toJson();
     data['address'] = address.toJson();
-    data['phone'] = phone.toJson();
+    data['phone'] = phone?.toJson();
     return data;
   }
 

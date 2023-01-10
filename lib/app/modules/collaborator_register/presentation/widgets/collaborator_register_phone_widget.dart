@@ -21,11 +21,11 @@ class CollaboratorRegisterPhoneWidget extends StatelessWidget {
         children: [
           CustomInput(
             title: 'Telefone',
-            initialValue: collaborator?.phone.number,
+            initialValue: collaborator?.phone?.number,
             keyboardType: TextInputType.number,
             inputAction: TextInputAction.next,
             onChanged: (value) {
-              collaborator?.phone.number = value;
+              collaborator?.phone?.number = value;
             },
           ),
         ],

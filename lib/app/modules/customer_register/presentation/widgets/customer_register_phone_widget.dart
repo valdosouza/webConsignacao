@@ -21,11 +21,11 @@ class CustomerRegisterPhoneWidget extends StatelessWidget {
         children: [
           CustomInput(
             title: 'Telefone',
-            initialValue: customer?.phone.number,
+            initialValue: customer?.phone?.number,
             keyboardType: TextInputType.number,
             inputAction: TextInputAction.next,
             onChanged: (value) {
-              customer?.phone.number = value;
+              customer?.phone?.number = value;
             },
           ),
         ],

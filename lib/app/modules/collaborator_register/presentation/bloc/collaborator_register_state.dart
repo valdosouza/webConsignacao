@@ -1,11 +1,11 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
-import 'package:appweb/app/modules/Core/data/model/collaborator_model.dart';
+import 'package:appweb/app/modules/Core/data/model/collaborator_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 import 'package:appweb/app/modules/line_business_register/data/model/linebusiness_model.dart';
 
 abstract class CollaboratorRegisterState {
-  List<CollaboratorModel> modelList;
+  List<CollaboratorListModel> modelList;
 
   CollaboratorRegisterState({
     required this.modelList,
@@ -14,7 +14,7 @@ abstract class CollaboratorRegisterState {
 
 class CollaboratorRegisterReturnedState extends CollaboratorRegisterState {
   CollaboratorRegisterReturnedState(
-      {required List<CollaboratorModel> modelList})
+      {required List<CollaboratorListModel> modelList})
       : super(modelList: modelList);
 }
 
@@ -24,19 +24,19 @@ class CollaboratorRegisterLoadingState extends CollaboratorRegisterState {
 
 class CollaboratorRegisterLoadedState extends CollaboratorRegisterState {
   CollaboratorRegisterLoadedState({
-    required List<CollaboratorModel> modelList,
+    required List<CollaboratorListModel> modelList,
   }) : super(modelList: modelList);
 }
 
 class CollaboratorRegisterErrorState extends CollaboratorRegisterState {
   CollaboratorRegisterErrorState({
-    required List<CollaboratorModel> modelList,
+    required List<CollaboratorListModel> modelList,
   }) : super(modelList: modelList);
 }
 
 class CollaboratorRegisterGetErrorState extends CollaboratorRegisterState {
   CollaboratorRegisterGetErrorState({
-    required List<CollaboratorModel> modelList,
+    required List<CollaboratorListModel> modelList,
   }) : super(modelList: modelList);
 }
 
@@ -44,7 +44,7 @@ class CollaboratorRegisterInfoPageState extends CollaboratorRegisterState {
   final CollaboratorMainModel model;
   final int tabIndex;
   CollaboratorRegisterInfoPageState({
-    required List<CollaboratorModel> modelList,
+    required List<CollaboratorListModel> modelList,
     required this.model,
     required this.tabIndex,
   }) : super(modelList: modelList);
@@ -54,7 +54,7 @@ class CollaboratorRegisterCepErrorState extends CollaboratorRegisterState {
   final String error;
 
   CollaboratorRegisterCepErrorState(
-      List<CollaboratorModel> modelList, this.error)
+      List<CollaboratorListModel> modelList, this.error)
       : super(modelList: modelList);
 }
 
@@ -62,7 +62,7 @@ class CollaboratorRegisterCnpjErrorState extends CollaboratorRegisterState {
   final String error;
 
   CollaboratorRegisterCnpjErrorState(
-      List<CollaboratorModel> modelList, this.error)
+      List<CollaboratorListModel> modelList, this.error)
       : super(modelList: modelList);
 }
 
@@ -71,7 +71,7 @@ class CollaboratorRegisterGetStatesSuccessState
   final List<StateModel> states;
 
   CollaboratorRegisterGetStatesSuccessState(
-      {required List<CollaboratorModel> modelList, required this.states})
+      {required List<CollaboratorListModel> modelList, required this.states})
       : super(modelList: modelList);
 }
 
@@ -80,7 +80,7 @@ class CollaboratorRegisterGetStatesErrorState
   final String error;
 
   CollaboratorRegisterGetStatesErrorState(
-      List<CollaboratorModel> modelList, this.error)
+      List<CollaboratorListModel> modelList, this.error)
       : super(modelList: modelList);
 }
 
@@ -89,7 +89,7 @@ class CollaboratorRegisterGetCitySuccessState
   final List<CityModel> cities;
 
   CollaboratorRegisterGetCitySuccessState(
-      {required List<CollaboratorModel> modelList, required this.cities})
+      {required List<CollaboratorListModel> modelList, required this.cities})
       : super(modelList: modelList);
 }
 
@@ -97,19 +97,20 @@ class CollaboratorRegisterGetCityErrorState extends CollaboratorRegisterState {
   final String error;
 
   CollaboratorRegisterGetCityErrorState(
-      List<CollaboratorModel> modelList, this.error)
+      List<CollaboratorListModel> modelList, this.error)
       : super(modelList: modelList);
 }
 
 class CollaboratorRegisterPostAddSuccessState
     extends CollaboratorRegisterState {
-  CollaboratorRegisterPostAddSuccessState(List<CollaboratorModel> modelList)
+  CollaboratorRegisterPostAddSuccessState(List<CollaboratorListModel> modelList)
       : super(modelList: modelList);
 }
 
 class CollaboratorRegisterPostEditSuccessState
     extends CollaboratorRegisterState {
-  CollaboratorRegisterPostEditSuccessState(List<CollaboratorModel> modelList)
+  CollaboratorRegisterPostEditSuccessState(
+      List<CollaboratorListModel> modelList)
       : super(modelList: modelList);
 }
 
@@ -117,7 +118,7 @@ class CollaboratorRegisterPostAddErrorState extends CollaboratorRegisterState {
   final String error;
 
   CollaboratorRegisterPostAddErrorState(
-      List<CollaboratorModel> modelList, this.error)
+      List<CollaboratorListModel> modelList, this.error)
       : super(modelList: modelList);
 }
 
@@ -125,7 +126,7 @@ class CollaboratorRegisterPostEditErrorState extends CollaboratorRegisterState {
   final String error;
 
   CollaboratorRegisterPostEditErrorState(
-      List<CollaboratorModel> modelList, this.error)
+      List<CollaboratorListModel> modelList, this.error)
       : super(modelList: modelList);
 }
 
@@ -134,13 +135,14 @@ class CollaboratorRegisterGetLinebusinessSuccessState
   final List<LinebusinessModel> linebusiness;
 
   CollaboratorRegisterGetLinebusinessSuccessState(
-      {required List<CollaboratorModel> modellist, required this.linebusiness})
+      {required List<CollaboratorListModel> modellist,
+      required this.linebusiness})
       : super(modelList: modellist);
 }
 
 class CollaboratorRegisterGetLinebusinessErrorState
     extends CollaboratorRegisterState {
   CollaboratorRegisterGetLinebusinessErrorState(
-      {required List<CollaboratorModel> modelList})
+      {required List<CollaboratorListModel> modelList})
       : super(modelList: modelList);
 }

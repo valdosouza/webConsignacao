@@ -23,7 +23,8 @@ class OrderProductionRegisterBloc
   final StockListGetlist stockListGetlist;
 
   List<OrderProductionRegisterModel> orderProductions = [];
-  OrderProductionRegisterModel orderProduction = OrderProductionRegisterModel();
+  OrderProductionRegisterModel orderProduction =
+      OrderProductionRegisterModel.isEmpty();
   List<ProductModel> products = [];
   List<StockListModel> stocks = [];
   bool edit = false;
@@ -111,8 +112,8 @@ class OrderProductionRegisterBloc
               : emit(
                   OrderProductionRegisterPutErrorState(list: orderProductions)),
           (r) {
-        orderProductions.removeWhere((element) => element.id == r.id);
-        orderProductions.add(r);
+        orderProductions[
+            orderProductions.indexWhere((element) => element.id == r.id)] = r;
         emit(OrderProductionRegisterPutSuccessState(list: orderProductions));
       });
     });
@@ -137,24 +138,10 @@ class OrderProductionRegisterBloc
 
   goToOrderProductionDesktopPage() {
     on<OrderProductionRegisterDesktopEvent>((event, emit) async {
-      if (event.model != null) {
-        emit(OrderProductionRegisterLoadingState());
+      emit(OrderProductionRegisterLoadingState());
 
-        final response = await getOrderProduction.call(
-            ParamsGetOrderProductionRegister(
-                id: event.model!.id, tbInstitutionId: 1));
-
-        response.fold(
-            (l) => emit(
-                OrderProductionRegisterGetErrorState(list: orderProductions)),
-            (r) {
-          orderProduction = r;
-          emit(OrderProductionRegisterInfoPageState(list: []));
-        });
-      } else {
-        orderProduction = OrderProductionRegisterModel();
-        emit(OrderProductionRegisterInfoPageState(list: []));
-      }
+      orderProduction = OrderProductionRegisterModel.isEmpty();
+      emit(OrderProductionRegisterInfoPageState(list: []));
     });
   }
 

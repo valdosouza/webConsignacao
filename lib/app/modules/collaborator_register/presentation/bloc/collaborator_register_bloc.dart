@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
-import 'package:appweb/app/modules/Core/data/model/collaborator_model.dart';
+import 'package:appweb/app/modules/Core/data/model/collaborator_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
@@ -26,7 +26,7 @@ class CollaboratorRegisterBloc
   final CollaboratorRegisterPost postCollaborator;
   final LinebusinessRegisterGetlist getLinebusines;
 
-  List<CollaboratorModel> modelList = [];
+  List<CollaboratorListModel> modelList = [];
   CollaboratorMainModel collaborator = CollaboratorMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> cities = [];
@@ -99,17 +99,19 @@ class CollaboratorRegisterBloc
               : emit(CollaboratorRegisterPostAddErrorState(modelList, "")),
           (r) {
         if (event.model.collaborator.id != 0) {
-          emit(CollaboratorRegisterPostEditSuccessState(modelList));
+          modelList[modelList.indexWhere((element) => element.id == r.id)] = r;
         } else {
-          modelList.add(CollaboratorModel(
-            id: r.collaborator.id,
-            docKind: r.person != null ? "F" : "J",
-            docNumber: r.person != null ? r.person!.cpf : r.company!.cnpj,
-            nameCompany: r.entity.nameCompany,
-            nickTrade: r.entity.nickTrade,
+          modelList.add(CollaboratorListModel(
+            id: r.id,
+            docKind: r.docKind,
+            docNumber: r.docNumber,
+            nameCompany: r.nameCompany,
+            nickTrade: r.nickTrade,
+            tbLineBusinessId: r.tbLineBusinessId,
+            nameLineBusiness: r.nameLineBusiness,
           ));
-          emit(CollaboratorRegisterPostAddSuccessState(modelList));
         }
+        emit(CollaboratorRegisterPostEditSuccessState(modelList));
       });
     });
   }
@@ -159,8 +161,8 @@ class CollaboratorRegisterBloc
       if (event.id != null) {
         emit(CollaboratorRegisterLoadingState());
 
-        final response =
-            await getCollaborator.call(ParamsGetCollaborator(id: event.id!));
+        final response = await getCollaborator
+            .call(ParamsGetCollaborator(tbInstitutionId: 1, id: event.id!));
 
         response.fold(
             (l) =>

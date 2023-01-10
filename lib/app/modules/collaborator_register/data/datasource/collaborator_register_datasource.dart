@@ -2,17 +2,18 @@ import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
-import 'package:appweb/app/modules/Core/data/model/collaborator_model.dart';
+import 'package:appweb/app/modules/Core/data/model/collaborator_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 
 abstract class CollaboratorRegisterDatasource extends Gateway {
   CollaboratorRegisterDatasource({required super.httpClient});
 
-  Future<CollaboratorMainModel> get({required int id});
-  Future<CollaboratorMainModel> post({required CollaboratorMainModel model});
+  Future<CollaboratorMainModel> get(
+      {required int tbInstitutionId, required int id});
+  Future<CollaboratorListModel> post({required CollaboratorMainModel model});
   Future<String> delete({required int id});
-  Future<List<CollaboratorModel>> getlist({required int tbInstitutionId});
+  Future<List<CollaboratorListModel>> getlist({required int tbInstitutionId});
 }
 
 class CollaboratorRegisterDatasourceImpl
@@ -22,9 +23,10 @@ class CollaboratorRegisterDatasourceImpl
 
   CollaboratorRegisterDatasourceImpl({required super.httpClient});
   @override
-  Future<CollaboratorMainModel> get({required int id}) async {
+  Future<CollaboratorMainModel> get(
+      {required int tbInstitutionId, required int id}) async {
     return await request(
-      'collaborator/$id',
+      'collaborator/$tbInstitutionId/$id',
       (payload) {
         final data = json.decode(payload);
         return CollaboratorMainModel.fromJson(data);
@@ -36,7 +38,7 @@ class CollaboratorRegisterDatasourceImpl
   }
 
   @override
-  Future<CollaboratorMainModel> post({
+  Future<CollaboratorListModel> post({
     required CollaboratorMainModel model,
   }) async {
     final bodyEnvio = json.encode(model.toJson());
@@ -47,7 +49,7 @@ class CollaboratorRegisterDatasourceImpl
       method: HTTPMethod.post,
       (payload) {
         final data = json.decode(payload);
-        return CollaboratorMainModel.fromJson(data);
+        return CollaboratorListModel.fromJson(data);
       },
       onError: (error) {
         return ServerException;
@@ -70,15 +72,15 @@ class CollaboratorRegisterDatasourceImpl
   }
 
   @override
-  Future<List<CollaboratorModel>> getlist({
+  Future<List<CollaboratorListModel>> getlist({
     required int tbInstitutionId,
   }) async {
     return await request(
       'collaborator/getlist/$tbInstitutionId',
       (payload) {
         final obj = json.decode(payload);
-        List<CollaboratorModel> collaborators = (obj as List).map((json) {
-          return CollaboratorModel.fromJson(json);
+        List<CollaboratorListModel> collaborators = (obj as List).map((json) {
+          return CollaboratorListModel.fromJson(json);
         }).toList();
         return collaborators;
       },

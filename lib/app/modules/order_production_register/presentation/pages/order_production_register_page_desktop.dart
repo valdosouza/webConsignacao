@@ -50,9 +50,7 @@ class OrderProductionRegisterPageDesktopState
         }
 
         if (state is OrderProductionRegisterInfoPageState) {
-          return ContentOrderProductionRegisterDesktop(
-            orderProduction: bloc.orderProduction,
-          );
+          return const ContentOrderProductionRegisterDesktop();
         }
 
         if (state is OrderProductionRegisterProductSuccessState) {
@@ -67,8 +65,7 @@ class OrderProductionRegisterPageDesktopState
           );
         }
 
-        final orderProductions = state.list;
-        return _listaOrderProductions(orderProductions);
+        return _listaOrderProductions(state.list);
       },
     );
   }

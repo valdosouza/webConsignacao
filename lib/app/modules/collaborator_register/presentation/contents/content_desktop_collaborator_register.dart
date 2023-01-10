@@ -135,7 +135,7 @@ class _ContentDesktopCollaboratorRegisterState
                                             "CPF: ${modelList[index].docNumber}"),
                                     const SizedBox(height: 5.0),
                                     Text(
-                                        "Cargo: ${modelList[index].descLineBusiness}"),
+                                        "Cargo: ${modelList[index].nameLineBusiness}"),
                                   ],
                                 ),
                                 trailing: IconButton(

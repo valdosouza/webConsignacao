@@ -8,7 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
+
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_bloc.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_event.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_state.dart';
@@ -16,10 +16,8 @@ import 'package:appweb/app/modules/order_production_register/presentation/widget
 import 'package:appweb/app/modules/order_production_register/presentation/widgets/order_production_register_situation_widget.dart';
 
 class ContentOrderProductionRegisterDesktop extends StatefulWidget {
-  final OrderProductionRegisterModel orderProduction;
   const ContentOrderProductionRegisterDesktop({
     Key? key,
-    required this.orderProduction,
   }) : super(key: key);
 
   @override
@@ -30,28 +28,21 @@ class ContentOrderProductionRegisterDesktop extends StatefulWidget {
 class _ContentOrderProductionRegisterDesktopState
     extends State<ContentOrderProductionRegisterDesktop>
     with SingleTickerProviderStateMixin {
-  late OrderProductionRegisterModel orderProduction;
-
   late final OrderProductionRegisterBloc bloc;
   late MaskedTextController controllerDate;
 
   @override
   void initState() {
-    bloc = Modular.get();
-    orderProduction = widget.orderProduction;
-    String initialValueDate = orderProduction.dtRecord == ""
-        ? CustomDate.formatDate(DateTime.now().toString(), "dd/MM/yyyy")
-        : orderProduction.dtRecord;
-    orderProduction.dtRecord = initialValueDate;
+    super.initState();
+    bloc = Modular.get<OrderProductionRegisterBloc>();
+    bloc.orderProduction.tbInstitutionId = 1;
+    bloc.orderProduction.tbUserId = 2;
+    String initialValueDate = bloc.orderProduction.dtRecord == ""
+        ? CustomDate.newDate()
+        : bloc.orderProduction.dtRecord;
+    bloc.orderProduction.dtRecord = initialValueDate;
     controllerDate =
         MaskedTextController(mask: '00/00/0000', text: initialValueDate);
-
-    orderProduction.id = orderProduction.id == 0
-        ? bloc.orderProductions.isEmpty
-            ? 1
-            : bloc.orderProductions.last.id + 1
-        : orderProduction.id;
-    super.initState();
   }
 
   @override
@@ -101,9 +92,9 @@ class _ContentOrderProductionRegisterDesktopState
                     onPressed: () {
                       bloc.edit
                           ? bloc.add(OrderProductionRegisterPutEvent(
-                              model: orderProduction))
+                              model: bloc.orderProduction))
                           : bloc.add(OrderProductionRegisterPostEvent(
-                              model: orderProduction));
+                              model: bloc.orderProduction));
                     },
                   ),
                 ],
@@ -114,47 +105,58 @@ class _ContentOrderProductionRegisterDesktopState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomInput(
+                        title: "Data",
+                        controller: controllerDate,
+                        keyboardType: TextInputType.datetime,
+                        inputAction: TextInputAction.go,
+                        onChanged: (value) =>
+                            {bloc.orderProduction.dtRecord = value}),
+                    CustomInput(
                         title: "Número",
-                        initialValue: orderProduction.id.toString(),
+                        initialValue: bloc.orderProduction.number.toString(),
                         keyboardType: TextInputType.number,
                         inputAction: TextInputAction.go,
                         onChanged: (value) =>
-                            {orderProduction.id = int.parse(value)}),
+                            {bloc.orderProduction.number = int.parse(value)}),
                     const SizedBox(height: 10),
                     CustomInputButtonWidget(
                         bloc: bloc,
-                        initialValue: orderProduction.nameMerchandise,
+                        initialValue: bloc.orderProduction.nameMerchandise,
                         event: OrderProductionRegisterGetProductsEvent(
                             tbInstitutionId: 1),
                         title: "Descrição do Produto"),
                     const SizedBox(height: 10),
                     CustomInputButtonWidget(
                         bloc: bloc,
-                        initialValue: orderProduction.nameStockListDes,
+                        initialValue: bloc.orderProduction.nameStockListDes,
                         event: OrderProductionRegisterGetStocksEvent(
                             tbInstitutionId: 1),
                         title: "Descrição do estoque"),
                     const SizedBox(height: 10),
                     CustomInput(
-                        title: "Data",
-                        controller: controllerDate,
-                        keyboardType: TextInputType.datetime,
+                        title: "Quantidade",
+                        initialValue:
+                            bloc.orderProduction.qttyForecast.toString(),
+                        keyboardType: TextInputType.number,
                         inputAction: TextInputAction.go,
-                        onChanged: (value) =>
-                            {orderProduction.dtRecord = value}),
+                        onChanged: (value) => {
+                              bloc.orderProduction.qttyForecast =
+                                  int.parse(value)
+                            }),
                     const SizedBox(height: 10),
                     const Text("Situação", style: kLabelStyle),
                     const SizedBox(height: 10),
                     OrderProductionRegisterSituationWidget(
-                        orderProduction: orderProduction),
+                        orderProduction: bloc.orderProduction),
                     const SizedBox(height: 10),
                     CustomInput(
                         title: "Observações",
                         maxLines: 10,
-                        initialValue: orderProduction.note,
+                        initialValue: bloc.orderProduction.note,
                         keyboardType: TextInputType.datetime,
                         inputAction: TextInputAction.go,
-                        onChanged: (value) => {orderProduction.note = value})
+                        onChanged: (value) =>
+                            {bloc.orderProduction.note = value})
                   ],
                 ),
               ));

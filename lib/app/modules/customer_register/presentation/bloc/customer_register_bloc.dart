@@ -133,6 +133,17 @@ class CustomerRegisterBloc
           (l) => event.model.customer.id != 0
               ? emit(CustomerRegisterPostErrorState(customers, ""))
               : emit(CustomerRegisterPutErrorState(customers, "")), (r) {
+        if (event.model.entity.id != 0) {
+          customers[customers.indexWhere((element) => element.id == r.id)] = r;
+        } else {
+          customers.add(CustomerListModel(
+            id: r.id,
+            docKind: r.docKind,
+            docNumber: r.docNumber,
+            nameCompany: r.nameCompany,
+            nickTrade: r.nickTrade,
+          ));
+        }
         emit(CustomerRegisterPostByDesktopSuccessState(customers));
       });
     });

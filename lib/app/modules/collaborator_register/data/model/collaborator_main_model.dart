@@ -13,7 +13,7 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
     CompanyModel? company,
     PersonModel? person,
     required AddressModel address,
-    required PhoneModel phone,
+    required PhoneModel? phone,
   }) : super(
           collaborator: collaborator,
           entity: entity,
@@ -33,7 +33,8 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
       person:
           json['person'] != null ? PersonModel.fromJson(json['person']) : null,
       address: AddressModel.fromJson(json['address']),
-      phone: PhoneModel.fromJson(json['phone']),
+      phone:
+          json['phone'].length > 0 ? PhoneModel.fromJson(json['phone']) : null,
     );
   }
 
@@ -44,7 +45,7 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
     data['company'] = company?.toJson();
     data['person'] = person?.toJson();
     data['address'] = address.toJson();
-    data['phone'] = phone.toJson();
+    data['phone'] = phone?.toJson();
     return data;
   }
 

@@ -11,7 +11,7 @@ class CollaboratorMainEntity {
   CompanyModel? company;
   PersonModel? person;
   AddressModel address;
-  PhoneModel phone;
+  PhoneModel? phone;
   CollaboratorMainEntity({
     required this.collaborator,
     required this.entity,

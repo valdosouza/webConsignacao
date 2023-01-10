@@ -11,7 +11,7 @@ class CustomerMainEntity {
   CompanyModel? company;
   PersonModel? person;
   AddressModel address;
-  PhoneModel phone;
+  PhoneModel? phone;
   CustomerMainEntity({
     required this.customer,
     required this.entity,

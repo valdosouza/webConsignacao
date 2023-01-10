@@ -15,7 +15,8 @@ class CollaboratorRegisterGet
   Future<Either<Failure, CollaboratorMainModel>> call(
       ParamsGetCollaborator params) async {
     try {
-      final model = await repository.get(id: params.id);
+      final model = await repository.get(
+          tbInstitutionId: params.tbInstitutionId, id: params.id);
       return model;
     } on ServerException {
       return Left(ServerFailure());
@@ -24,6 +25,10 @@ class CollaboratorRegisterGet
 }
 
 class ParamsGetCollaborator {
+  int tbInstitutionId;
   int id;
-  ParamsGetCollaborator({required this.id});
+  ParamsGetCollaborator({
+    required this.tbInstitutionId,
+    required this.id,
+  });
 }

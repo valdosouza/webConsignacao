@@ -75,4 +75,21 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
     data["note"] = note;
     return data;
   }
+
+  factory OrderProductionRegisterModel.isEmpty() {
+    return OrderProductionRegisterModel(
+      id: 0,
+      tbInstitutionId: 0,
+      tbUserId: 0,
+      dtRecord: CustomDate.newDate(),
+      number: 0,
+      status: "A",
+      tbMerchandiseId: 0,
+      nameMerchandise: "",
+      qttyForecast: 0,
+      tbStockListIdDes: 0,
+      nameStockListDes: "",
+      note: "",
+    );
+  }
 }

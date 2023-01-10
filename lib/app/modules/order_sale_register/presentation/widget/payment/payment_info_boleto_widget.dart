@@ -1,6 +1,7 @@
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_field_widget.dart';
 import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_main_card_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 Widget paymentBoleto(OrderSaleMainCardModel modelOrdersale) {
   return Column(
@@ -17,7 +18,8 @@ Widget paymentBoleto(OrderSaleMainCardModel modelOrdersale) {
         ),
         child: TextField(
           enabled: true,
-          controller: TextEditingController(
+          controller: MaskedTextController(
+              mask: '00/00/0000',
               text: modelOrdersale.payments[0].dtExpiration),
           textAlign: TextAlign.center,
           onSubmitted: (value) {

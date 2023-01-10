@@ -3,13 +3,13 @@ class SalesmanListEntity {
   String nameCompany;
   String nickTrade;
   int tbLineBusinessId;
-  String descLineBusiness;
+  String nameLineBusiness;
 
   SalesmanListEntity({
     this.id = 0,
     this.nameCompany = "",
     this.nickTrade = "",
     this.tbLineBusinessId = 0,
-    this.descLineBusiness = "",
+    this.nameLineBusiness = "",
   });
 }
