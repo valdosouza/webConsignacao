@@ -42,63 +42,84 @@ class SalesRoutetRegisterInterationPageState
           CustomToast.showToast(
               "Erro ao buscar a lista. Tente novamente mais tarde.");
         }
+        if (state is CustomerListOrderErrorState) {
+          CustomToast.showToast(
+              "Erro ao ordenar a lista. Tente novamente mais tarde.");
+        }
       },
       builder: (context, state) {
         if (state is SalesRouteListLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else {
-          if (state is SalesRouteListLoadedState) {
-            return Scaffold(
-              appBar: AppBar(
-                flexibleSpace: Container(
-                  decoration: kBoxDecorationflexibleSpace,
-                ),
-                title: const Text('Lista de Rotas'),
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    Modular.to.navigate('/customer/mobile/');
-                  },
-                ),
-              ),
-              body: SalesRouteListMobile(lista: state.salesRouteList),
-            );
-          }
-          if (state is CustomerListLoadedState) {
-            return Scaffold(
-              appBar: AppBar(
-                flexibleSpace: Container(
-                  decoration: kBoxDecorationflexibleSpace,
-                ),
-                title: const Text('Lista de Clientes'),
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    bloc.add(SalesRouteGetListEvent());
-                  },
-                ),
-              ),
-              body: CustomerListMobile(lista: state.customerList),
-            );
-          }
+        }
+        if (state is SalesRouteListLoadedState) {
           return Scaffold(
             appBar: AppBar(
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
+              title: const Text('Lista de Rotas'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
                   Modular.to.navigate('/customer/mobile/');
                 },
               ),
-              title: const Text('Erro'),
             ),
-            body: const Center(child: Text("Estado não encontrado")),
+            body: SalesRouteListMobile(lista: state.salesRouteList),
           );
         }
+        if (state is CustomerListLoadedState ||
+            state is CustomerListOrderState ||
+            state is CustomerListOrderErrorState) {
+          state = state as CustomerListState;
+          return Scaffold(
+            appBar: (state is CustomerListOrderState)
+                ? AppBar(
+                    flexibleSpace: Container(
+                      decoration: kBoxDecorationflexibleSpace,
+                    ),
+                    title: const Text('Ordenar Lista de Clientes'),
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          bloc.add(CustomerCancelOrderModeEvent());
+                        },
+                      )
+                    ],
+                  )
+                : AppBar(
+                    flexibleSpace: Container(
+                      decoration: kBoxDecorationflexibleSpace,
+                    ),
+                    title: const Text('Lista de Clientes'),
+                    leading: IconButton(
+                      icon: const Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        bloc.add(SalesRouteGetListEvent());
+                      },
+                    ),
+                  ),
+            body: CustomerListMobile(lista: state.customerList),
+          );
+        }
+        return Scaffold(
+          appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Modular.to.navigate('/customer/mobile/');
+              },
+            ),
+            title: const Text('Erro'),
+          ),
+          body: const Center(child: Text("Estado não encontrado")),
+        );
       },
     );
   }
