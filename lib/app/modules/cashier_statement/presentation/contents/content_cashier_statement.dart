@@ -2,7 +2,6 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/widgets/cashier_statement_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,7 +19,6 @@ class _ContentCashierStatementState extends State<ContentCashierStatement> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     bloc = Modular.get<CashierStatementBloc>();
   }

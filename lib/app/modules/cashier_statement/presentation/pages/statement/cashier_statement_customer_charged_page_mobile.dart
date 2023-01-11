@@ -40,7 +40,6 @@ class CashierStatementCustomerChargedPageMobileState
 
   @override
   void dispose() {
-    // TODO: implement dispose
     bloc.cashierStatement.clear();
     bloc.customers.clear();
     super.dispose();
@@ -48,7 +47,6 @@ class CashierStatementCustomerChargedPageMobileState
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
@@ -98,8 +96,8 @@ class CashierStatementCustomerChargedPageMobileState
                     onChanged: (p0) {},
                     onFieldSubmitted: (value) {
                       bloc.add(CashierStatementGetCustomersMobileEvent(
-                      params: CashierStatementParams(
-                          tbInstitutionId: 1, date: value, tbUserId: 2)));
+                          params: CashierStatementParams(
+                              tbInstitutionId: 1, date: value, tbUserId: 2)));
                       date = value;
                     },
                     controller: controller,

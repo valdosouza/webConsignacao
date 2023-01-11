@@ -2,7 +2,6 @@ import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_sequence.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';

@@ -1,9 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
-import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/contents/content_cashier_statement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -33,14 +30,12 @@ class CashierStatementByCustomerPageMobileState
 
   @override
   void dispose() {
-    // TODO: implement dispose
     bloc.cashierStatement.clear();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(

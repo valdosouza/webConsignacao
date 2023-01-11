@@ -1,6 +1,4 @@
 import 'dart:collection';
-
-import 'package:appweb/app/modules/cashier_balance/data/model/cashier_balance_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_customer_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_model.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_customer.dart';
@@ -99,7 +97,7 @@ class CashierStatementBloc
 
   formatByKind(List<CashierStatementModel> data) {
     cashierStatement.clear();
-    data.forEach((element) {
+    for (var element in data) {
       if (cashierStatement.containsKey(element.kind)) {
         cashierStatement[element.kind]!.add(element);
       } else {
@@ -107,6 +105,6 @@ class CashierStatementBloc
             List<CashierStatementModel>.empty(growable: true);
         cashierStatement[element.kind]!.add(element);
       }
-    });
+    }
   }
 }

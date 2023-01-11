@@ -33,14 +33,12 @@ class CashierStatementByMonthPageMobileState
 
   @override
   void dispose() {
-    // TODO: implement dispose
     bloc.cashierStatement.clear();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
