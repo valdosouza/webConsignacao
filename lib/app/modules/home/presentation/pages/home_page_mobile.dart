@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_mobile.dart';
-import 'package:appweb/app/modules/home/presentation/content/content_mobile_home.dart';
+import 'package:appweb/app/modules/home/presentation/contents/content_mobile_home.dart';
 import 'package:flutter/material.dart';
 
 class HomePageMobile extends StatelessWidget {

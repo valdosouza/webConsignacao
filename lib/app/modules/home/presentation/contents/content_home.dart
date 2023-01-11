@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/helpers/responsive.dart';
-import 'package:appweb/app/modules/home/presentation/content/content_desktop_home.dart';
-import 'package:appweb/app/modules/home/presentation/content/content_mobile_home.dart';
-import 'package:appweb/app/modules/home/presentation/content/content_tablet_home.dart';
+import 'package:appweb/app/modules/home/presentation/contents/content_desktop_home.dart';
+import 'package:appweb/app/modules/home/presentation/contents/content_mobile_home.dart';
+import 'package:appweb/app/modules/home/presentation/contents/content_tablet_home.dart';
 
 import 'package:flutter/material.dart';
 

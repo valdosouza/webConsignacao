@@ -37,10 +37,10 @@ class OrderStockTransferRegisterPageDesktopState
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrderStockTransferRegisterBloc,
+    return BlocConsumer<OrderStockTransferRegisterBloc,
         OrderStockTransferRegisterState>(
       bloc: bloc,
-      builder: (context, state) {
+      listener: (context, state) {
         if (state is OrderStockTransferRegisterStockErrorState) {
           CustomToast.showToast(
               "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
@@ -64,6 +64,8 @@ class OrderStockTransferRegisterPageDesktopState
               "Ocorreu um erro ao salvar a ordem. Tente novamente mais tarde.");
           bloc.add(OrderStockTransferRegisterGetListEvent());
         }
+      },
+      builder: (context, state) {
         if (state is OrderStockTransferRegisterLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),

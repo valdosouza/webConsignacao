@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
-import 'package:appweb/app/modules/cashier_balance/presentation/content/cashier_balance_mobile.dart';
+import 'package:appweb/app/modules/cashier_balance/presentation/contents/cashier_balance_mobile.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';

@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/order_sale_register/order_sale_register_modul
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_bloc.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_event.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_state.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/content/content_order_sale_register.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/contents/content_order_sale_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';

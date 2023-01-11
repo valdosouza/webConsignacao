@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/presentation/content/customer_list_mobile.dart';
+import 'package:appweb/app/modules/attendance_by_salesman/presentation/contents/customer_list_mobile.dart';
 import 'package:appweb/app/modules/attendance_by_salesman/attendance_by_salesman_module.dart';
 import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/attendance_by_salesman_bloc.dart';
 import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/attendance_by_salesman_event.dart';

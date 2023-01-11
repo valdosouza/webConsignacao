@@ -3,8 +3,8 @@ import 'package:appweb/app/modules/order_consignment_register/order_consignment_
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_event.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_state.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/content/content_order_consignment_checkpoint.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/content/content_order_consignment_supplying.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/contents/content_order_consignment_checkpoint.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/contents/content_order_consignment_supplying.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';

@@ -9,7 +9,7 @@ import 'package:appweb/app/modules/order_attendence_register/data/models/order_a
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_bloc.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_event.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_state.dart';
-import 'package:appweb/app/modules/order_attendence_register/presentation/content/content_order_attendance_register_mobile.dart';
+import 'package:appweb/app/modules/order_attendence_register/presentation/contents/content_order_attendance_register_mobile.dart';
 
 class OrderAttendanceRegisterPageMobile extends StatefulWidget {
   final OrderAttendanceModel model;

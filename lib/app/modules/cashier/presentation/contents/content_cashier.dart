@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/helpers/responsive.dart';
-import 'package:appweb/app/modules/cashier/presentation/content/content_desktop_cashier.dart';
-import 'package:appweb/app/modules/cashier/presentation/content/content_mobile_cashier.dart';
-import 'package:appweb/app/modules/cashier/presentation/content/content_tablet_cashier.dart';
+import 'package:appweb/app/modules/cashier/presentation/contents/content_desktop_cashier.dart';
+import 'package:appweb/app/modules/cashier/presentation/contents/content_mobile_cashier.dart';
+import 'package:appweb/app/modules/cashier/presentation/contents/content_tablet_cashier.dart';
 
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/helpers/responsive.dart';
-import 'package:appweb/app/modules/line_business_register/presentation/content/content_desktop_linebusiness.dart';
-import 'package:appweb/app/modules/line_business_register/presentation/content/content_mobile_linebusiness.dart';
-import 'package:appweb/app/modules/line_business_register/presentation/content/content_tablet_linebusiness.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/contents/content_desktop_linebusiness.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/contents/content_mobile_linebusiness.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/contents/content_tablet_linebusiness.dart';
 import 'package:flutter/cupertino.dart';
 
 class LinebusinessRegister extends StatefulWidget {

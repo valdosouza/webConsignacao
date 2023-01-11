@@ -4,7 +4,7 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_bloc.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_event.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_state.dart';
-import 'package:appweb/app/modules/cashier_balance/presentation/content/cashier_balance_mobile.dart';
+import 'package:appweb/app/modules/cashier_balance/presentation/contents/cashier_balance_mobile.dart';
 import 'package:appweb/app/modules/cashier_balance/cashier_balance_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_mobile.dart';
 import 'package:flutter/material.dart';
