@@ -8,18 +8,18 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bl
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class OrderStockTransferRegisterEditItemPage extends StatefulWidget {
-  const OrderStockTransferRegisterEditItemPage({
+class ContentOrderStockTransferRegisterEditItem extends StatefulWidget {
+  const ContentOrderStockTransferRegisterEditItem({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<OrderStockTransferRegisterEditItemPage> createState() =>
-      _OrderStockTransferRegisterEditItemPageState();
+  State<ContentOrderStockTransferRegisterEditItem> createState() =>
+      _ContentOrderStockTransferRegisterEditItemState();
 }
 
-class _OrderStockTransferRegisterEditItemPageState
-    extends State<OrderStockTransferRegisterEditItemPage> {
+class _ContentOrderStockTransferRegisterEditItemState
+    extends State<ContentOrderStockTransferRegisterEditItem> {
   late final OrderStockTransferRegisterBloc bloc;
   @override
   void initState() {

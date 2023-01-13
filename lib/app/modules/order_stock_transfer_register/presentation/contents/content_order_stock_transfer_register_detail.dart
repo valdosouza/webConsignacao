@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_transfer_register_module.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_event.dart';
@@ -40,16 +41,18 @@ class ContentOrderStockTransferRegisterDetailState
   }
 
   _orderStockTransferProductsList() {
+    List<OrderStockTransferRegisterItemsModel> orderItemsFiltered =
+        bloc.orderMain.items.where((i) => i.updateStatus != "D").toList();
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: bloc.orderMain.items.isEmpty
+      child: orderItemsFiltered.isEmpty
           ? const Center(
               child: Text("Não encontramos nenhum produto em nossa base."))
           : ListView.separated(
-              itemCount: bloc.orderMain.items.length,
+              itemCount: orderItemsFiltered.length,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  bloc.orderItem = bloc.orderMain.items[index];
+                  bloc.orderItem = orderItemsFiltered[index];
                   bloc.add(OrderItemEditEvent());
                 },
                 child: ListTile(
@@ -59,9 +62,28 @@ class ContentOrderStockTransferRegisterDetailState
                       child: Text((index + 1).toString()),
                     ),
                   ),
-                  title: Text(bloc.orderMain.items[index].nameProduct),
-                  trailing:
-                      Text(bloc.orderMain.items[index].quantity.toString()),
+                  title: Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Text(orderItemsFiltered[index].nameProduct),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child:
+                            Text(orderItemsFiltered[index].quantity.toString()),
+                      ),
+                    ],
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      bloc.orderItem = orderItemsFiltered[index];
+                      bloc.add(OrderItemDeleteEvent());
+                    },
+                    icon: const Icon(
+                      Icons.remove,
+                    ),
+                  ),
                 ),
               ),
               separatorBuilder: (_, __) => const Divider(),

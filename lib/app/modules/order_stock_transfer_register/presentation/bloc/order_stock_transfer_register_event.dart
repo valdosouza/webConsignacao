@@ -37,11 +37,15 @@ class EntitySearchEvent extends OrderStockTransferRegisterEvent {}
 class EntityChosenEvent extends OrderStockTransferRegisterEvent {}
 
 //======================Detail============================
+class OrderItemFilterActiveEvent extends OrderStockTransferRegisterEvent {}
+
 class OrderItemNewEvent extends OrderStockTransferRegisterEvent {}
 
 class OrderItemEditEvent extends OrderStockTransferRegisterEvent {}
 
 class OrderItemUpdateEvent extends OrderStockTransferRegisterEvent {}
+
+class OrderItemDeleteEvent extends OrderStockTransferRegisterEvent {}
 
 //======================Detail - Auxiliar=========================
 class ProductsGetEvent extends OrderStockTransferRegisterEvent {}

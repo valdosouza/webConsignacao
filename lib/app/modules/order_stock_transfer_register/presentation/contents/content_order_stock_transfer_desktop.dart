@@ -106,10 +106,11 @@ class _ContentOrderStockTransferRegisterDesktopState
                         style: TextStyle(color: Colors.white),
                       )),
                       trailing: IconButton(
-                          onPressed: () {
-                            bloc.add(OrderItemNewEvent());
-                          },
-                          icon: const Icon(Icons.add, color: Colors.white)),
+                        onPressed: () {
+                          bloc.add(OrderItemNewEvent());
+                        },
+                        icon: const Icon(Icons.add, color: Colors.white),
+                      ),
                     ),
                   )
                 ],

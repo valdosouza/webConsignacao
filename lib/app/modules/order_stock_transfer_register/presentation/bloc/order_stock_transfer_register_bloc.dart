@@ -62,6 +62,8 @@ class OrderStockTransferRegisterBloc extends Bloc<
 
     itemsEdit();
 
+    itemDelete();
+
     productChosen();
 
     itemsUpdate();
@@ -188,6 +190,21 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
+  itemDelete() {
+    on<OrderItemDeleteEvent>((event, emit) async {
+      if (orderItem.id > 0) {
+        orderItem.updateStatus = "D";
+        orderMain.items[orderMain.items
+            .indexWhere((element) => element.id == orderItem.id)] = orderItem;
+      } else {
+        orderMain.items.removeWhere((item) => item == orderItem);
+      }
+      tabIndex = 1;
+
+      emit(OrderItemUpdateSuccessState());
+    });
+  }
+
   productChosen() {
     on<ProductChosenEvent>((event, emit) {
       emit(ProductChosenSucessState());
@@ -201,14 +218,8 @@ class OrderStockTransferRegisterBloc extends Bloc<
         orderMain.items[orderMain.items
             .indexWhere((element) => element.id == orderItem.id)] = orderItem;
       } else {
-        var newItemId = 0;
-        if (orderMain.items.isEmpty) {
-          newItemId = 1;
-        } else {
-          newItemId = orderMain.items.last.id + 1;
-        }
         orderMain.items.add(OrderStockTransferRegisterItemsModel(
-          id: newItemId,
+          id: 0,
           tbProductId: orderItem.tbProductId,
           nameProduct: orderItem.nameProduct,
           quantity: orderItem.quantity,

@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bl
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_state.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/contents/content_order_stock_transfer_desktop.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/contents/content_order_stock_transfer_register.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_edit_item_page.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/contents/content_order_stock_transfer_register_edit_item.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_list_entities.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_list_products.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/order_stock_transfer_register_list_stocks.dart';
@@ -73,7 +73,7 @@ class OrderStockTransferRegisterPageDesktopState
 
         if ((state is OrderItemPageEditState) ||
             (state is ProductChosenSucessState)) {
-          return const OrderStockTransferRegisterEditItemPage();
+          return const ContentOrderStockTransferRegisterEditItem();
         }
 
         if (state is OrderItemUpdateSuccessState) {
