@@ -15,6 +15,8 @@ class OrderDeleteEvent extends OrderStockTransferRegisterEvent {}
 
 class OrderSearchEvent extends OrderStockTransferRegisterEvent {}
 
+class OrderReturnMasterEvent extends OrderStockTransferRegisterEvent {}
+
 //======================Master - Auxiliar============================
 class StocksGetEvent extends OrderStockTransferRegisterEvent {
   final String type;
@@ -40,8 +42,6 @@ class OrderItemNewEvent extends OrderStockTransferRegisterEvent {}
 class OrderItemEditEvent extends OrderStockTransferRegisterEvent {}
 
 class OrderItemUpdateEvent extends OrderStockTransferRegisterEvent {}
-
-class OrderItemReturnEvent extends OrderStockTransferRegisterEvent {}
 
 //======================Detail - Auxiliar=========================
 class ProductsGetEvent extends OrderStockTransferRegisterEvent {}

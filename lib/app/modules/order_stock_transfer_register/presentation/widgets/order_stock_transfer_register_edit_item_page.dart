@@ -41,7 +41,7 @@ class _OrderStockTransferRegisterEditItemPageState
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             bloc.tabIndex = 1;
-            bloc.add(OrderItemReturnEvent());
+            bloc.add(OrderReturnMasterEvent());
           },
         ),
         title: Text(

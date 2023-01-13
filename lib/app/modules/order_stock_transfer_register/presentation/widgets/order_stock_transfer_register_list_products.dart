@@ -56,7 +56,8 @@ class OrderStockTransferRegisterProductsListWidgetState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            bloc.add(OrderItemReturnEvent());
+            bloc.tabIndex = 1;
+            bloc.add(OrderReturnMasterEvent());
           },
         ),
       ),

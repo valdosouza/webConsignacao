@@ -51,7 +51,8 @@ class OrderStockTransferRegisterEntitiesListWidgetState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            bloc.add(OrderItemReturnEvent());
+            bloc.tabIndex = 0;
+            bloc.add(OrderReturnMasterEvent());
           },
         ),
       ),
@@ -95,7 +96,8 @@ class OrderStockTransferRegisterEntitiesListWidgetState
                               bloc.entities[index].nameCompany;
                           bloc.orderMain.order.tbEntityId =
                               bloc.entities[index].id;
-                          bloc.add(OrderItemReturnEvent());
+                          bloc.tabIndex = 0;
+                          bloc.add(OrderReturnMasterEvent());
                         },
                         child: ListTile(
                           leading: CircleAvatar(

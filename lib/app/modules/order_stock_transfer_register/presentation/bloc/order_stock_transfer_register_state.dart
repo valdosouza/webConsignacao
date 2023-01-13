@@ -9,6 +9,8 @@ class OrderNewLoadedState extends OrderStockTransferRegisterState {}
 
 class OrderGetLoadedState extends OrderStockTransferRegisterState {}
 
+class OrderReturnMasterState extends OrderStockTransferRegisterState {}
+
 class OrderPostSuccessState extends OrderStockTransferRegisterState {}
 
 class OrderPutSuccessState extends OrderStockTransferRegisterState {}

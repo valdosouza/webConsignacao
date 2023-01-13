@@ -55,7 +55,8 @@ class OrderStockTransferRegisterStocksListWidgetState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            bloc.add(OrderItemReturnEvent());
+            bloc.tabIndex = 0;
+            bloc.add(OrderReturnMasterEvent());
           },
         ),
       ),
@@ -106,7 +107,8 @@ class OrderStockTransferRegisterStocksListWidgetState
                             bloc.orderMain.order.nameStockListDes =
                                 bloc.stocks[index].description;
                           }
-                          bloc.add(OrderItemReturnEvent());
+                          bloc.tabIndex = 0;
+                          bloc.add(OrderReturnMasterEvent());
                         },
                         child: ListTile(
                           leading: CircleAvatar(

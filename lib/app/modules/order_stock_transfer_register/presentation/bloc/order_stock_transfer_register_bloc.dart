@@ -56,6 +56,10 @@ class OrderStockTransferRegisterBloc extends Bloc<
 
     orderGet();
 
+    orderReturnMaster();
+
+    itemsNews();
+
     itemsEdit();
 
     productChosen();
@@ -164,10 +168,22 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  itemsEdit() {
+  orderReturnMaster() {
+    on<OrderReturnMasterEvent>((event, emit) async {
+      emit(OrderReturnMasterState());
+    });
+  }
+
+  itemsNews() {
     on<OrderItemNewEvent>((event, emit) async {
       emit(OrderLoadingState());
       orderItem = OrderStockTransferRegisterItemsModel.empty();
+      emit(OrderItemPageEditState());
+    });
+  }
+
+  itemsEdit() {
+    on<OrderItemEditEvent>((event, emit) async {
       emit(OrderItemPageEditState());
     });
   }
