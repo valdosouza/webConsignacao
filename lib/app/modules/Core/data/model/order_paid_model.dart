@@ -24,7 +24,7 @@ class OrderPaidModel extends OrderPaidEntity {
       namePaymentType: json['name_payment_type'].toString(),
       dtExpiration: (json['dt_expiration'] == "")
           ? ""
-          : CustomDate.formatDate(json['dt_expiration'], "dd/MM/yyyy"),
+          : CustomDate.formatDateIn(json['dt_expiration']),
       value: json['value'] is int ? json['value'].toDouble() : json['value'],
     );
   }
@@ -33,8 +33,7 @@ class OrderPaidModel extends OrderPaidEntity {
     return {
       'tb_payment_type_id': tbPaymentTypeId,
       'name_payment_type': namePaymentType,
-      'dt_expiration':
-          (dtExpiration != "") ? CustomDate.convertDate(dtExpiration) : "",
+      'dt_expiration': CustomDate.formatDateOut(dtExpiration),
       'value': value,
     };
   }

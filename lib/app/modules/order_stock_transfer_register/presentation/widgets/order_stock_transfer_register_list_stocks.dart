@@ -1,27 +1,51 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widgets/search_widget.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_transfer_register_module.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_event.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:appweb/app/core/shared/theme.dart';
 
-class OrderStockTransferRegisterStockListWidget extends StatelessWidget {
-  const OrderStockTransferRegisterStockListWidget({
+class OrderStockTransferRegisterStocksListWidget extends StatefulWidget {
+  const OrderStockTransferRegisterStocksListWidget({
     Key? key,
-    required this.stocks,
-    this.searchFunction,
-    this.onClickItem,
-    this.onClose,
-    this.orderId,
   }) : super(key: key);
 
-  final List<StockListModel> stocks;
-  final int? orderId;
-  final Function(String)? searchFunction;
-  final Function(StockListModel)? onClickItem;
-  final Function()? onClose;
+  @override
+  State<OrderStockTransferRegisterStocksListWidget> createState() =>
+      OrderStockTransferRegisterStocksListWidgetState();
+}
+
+class OrderStockTransferRegisterStocksListWidgetState
+    extends State<OrderStockTransferRegisterStocksListWidget> {
+  late final OrderStockTransferRegisterBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = Modular.get<OrderStockTransferRegisterBloc>();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<OrderStockTransferRegisterModule>();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<OrderStockTransferRegisterBloc,
+        OrderStockTransferRegisterState>(
+      bloc: bloc,
+      builder: (context, state) {
+        if (state is StocksLoadSuccessState) {
+          return _orderStockTransferStocksList(state);
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+
+  _orderStockTransferStocksList(StocksLoadSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -30,7 +54,9 @@ class OrderStockTransferRegisterStockListWidget extends StatelessWidget {
         title: const Text('Lista de estoques'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => onClose?.call(),
+          onPressed: () {
+            bloc.add(OrderItemReturnEvent());
+          },
         ),
       ),
       body: Padding(
@@ -38,32 +64,61 @@ class OrderStockTransferRegisterStockListWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SearchWidget(
-              onChange: (value) => searchFunction?.call(value),
+            Container(
+              decoration: kBoxDecorationStyle,
+              child: TextFormField(
+                keyboardType: TextInputType.text,
+                autofocus: false,
+                onChanged: (value) {
+                  bloc.search = value;
+                  bloc.add(StockSearchEvent(type: ""));
+                },
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'OpenSans',
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: 4.0),
+                  hintText: "Pesquise aqui",
+                  hintStyle: kHintTextStyle,
+                ),
+              ),
             ),
             const SizedBox(height: 5.0),
             Expanded(
-              child: stocks.isEmpty
+              child: bloc.stocks.isEmpty
                   ? const Center(
                       child:
                           Text("Não encontramos nenhum estoque em nossa base."))
                   : ListView.separated(
-                      itemCount: stocks.length,
+                      itemCount: bloc.stocks.length,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
-                          onClickItem?.call(stocks[index]);
+                          if (state.type == "Origem") {
+                            bloc.orderMain.order.tbStockListIdOri =
+                                bloc.stocks[index].id;
+                            bloc.orderMain.order.nameStockListOri =
+                                bloc.stocks[index].description;
+                          } else {
+                            bloc.orderMain.order.tbStockListIdDes =
+                                bloc.stocks[index].id;
+                            bloc.orderMain.order.nameStockListDes =
+                                bloc.stocks[index].description;
+                          }
+                          bloc.add(OrderItemReturnEvent());
                         },
                         child: ListTile(
                           leading: CircleAvatar(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text(stocks[index].id.toString()),
+                              child: Text(bloc.stocks[index].id.toString()),
                             ),
                           ),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(stocks[index].description),
+                              Text(bloc.stocks[index].description),
                             ],
                           ),
                         ),

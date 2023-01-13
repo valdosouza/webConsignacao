@@ -2,14 +2,34 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class CustomDate {
-  static formatDate(String date, String typeFormat) {
-    try {
-      initializeDateFormatting('pt_BR,', null);
-      DateTime time = DateTime.parse(date);
-      return (DateFormat(typeFormat).format(time));
-    } catch (e) {
-      return "";
+  static formatDateOut(String date) {
+    if (date != "") {
+      try {
+        //12/01/2023
+        var result =
+            "${date.substring(6, 10)}-${date.substring(3, 5)}-${date.substring(0, 2)}";
+
+        return result;
+      } catch (e) {
+        return "";
+      }
     }
+    return "";
+  }
+
+  static formatDateIn(String date) {
+    if (date != "") {
+      try {
+        //2023-01-12
+        var result =
+            "${date.substring(8, 10)}/${date.substring(5, 7)}/${date.substring(0, 4)}";
+
+        return result;
+      } catch (e) {
+        return "";
+      }
+    }
+    return "";
   }
 
   static newDate() {
@@ -20,9 +40,5 @@ class CustomDate {
     } catch (e) {
       return "";
     }
-  }
-
-  static convertDate(String date) {
-    return date.split("/").reversed.join("-");
   }
 }

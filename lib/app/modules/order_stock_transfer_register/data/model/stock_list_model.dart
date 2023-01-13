@@ -1,19 +1,18 @@
 import 'package:appweb/app/modules/stock_list_register/domain/entity/stock_list_entity.dart';
 
-// ignore: must_be_immutable
 class StockListModel extends StockListEntity {
   StockListModel({
-    required int id,
-    required int institution,
-    required String description,
-    required String main,
-    required String active,
+    int? id,
+    int? institution,
+    String? description,
+    String? main,
+    String? active,
   }) : super(
-            id: id,
-            institution: institution,
-            description: description,
-            main: main,
-            active: active);
+            id: id ?? 0,
+            institution: institution ?? 1,
+            description: description ?? "",
+            main: main ?? "",
+            active: active ?? "S");
 
   factory StockListModel.fromJson(Map<String, dynamic> json) {
     return StockListModel(

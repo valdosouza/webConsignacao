@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import '../model/cashier_balance_model.dart';
 
 abstract class CashierBalanceDataSource extends Gateway {
@@ -22,8 +23,7 @@ class CashierBalanceDataSourceImpl extends CashierBalanceDataSource {
       {required int tbInstitutionId,
       required String date,
       required int tbUserId}) async {
-    //var newDate = CashierBalanceModel.convertDate(date);
-    var newDate = "2022-12-29";
+    var newDate = CustomDate.newDate();
 
     return await request(
       'cashier/balance/get/$tbInstitutionId/$tbUserId/$newDate',

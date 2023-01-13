@@ -38,9 +38,7 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
       tbUserId: json['tb_user_id'] is String
           ? int.parse(json['tb_user_id'])
           : json['tb_user_id'],
-      dtRecord:
-          CustomDate.formatDate(json['dt_record'], "dd/MM/yyyy") as String? ??
-              "",
+      dtRecord: CustomDate.formatDateIn(json['dt_record']) as String? ?? "",
       number:
           json['number'] is String ? int.parse(json['number']) : json['number'],
       status: json['status'] as String? ?? "",
@@ -64,7 +62,7 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
     data["id"] = id;
     data["tb_institution_id"] = tbInstitutionId;
     data["tb_user_id"] = tbUserId;
-    data["dt_record"] = CustomDate.convertDate(dtRecord);
+    data["dt_record"] = CustomDate.formatDateOut(dtRecord);
     data["number"] = number;
     data["status"] = status;
     data["tb_merchandise_id"] = tbMerchandiseId;

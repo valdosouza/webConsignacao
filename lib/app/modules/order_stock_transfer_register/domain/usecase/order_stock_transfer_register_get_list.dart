@@ -1,23 +1,23 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/domain/repository/order_stock_transfer_register_repository.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/repository/order_stock_transfer_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
-class OrderStockTransferRegisterGetList
+class OrderStockTransferRegisterGetlist
     implements
-        UseCase<List<OrderStockTransferRegisterOrderModel>,
+        UseCase<List<OrderStockTransferListModel>,
             ParamsGetlistOrderStockTransferRegister> {
   final OrderStockTransferRegisterRepository repository;
 
-  OrderStockTransferRegisterGetList({required this.repository});
+  OrderStockTransferRegisterGetlist({required this.repository});
 
   @override
-  Future<Either<Failure, List<OrderStockTransferRegisterOrderModel>>> call(
+  Future<Either<Failure, List<OrderStockTransferListModel>>> call(
       ParamsGetlistOrderStockTransferRegister params) async {
     try {
-      final list = await repository.getList(id: params.id);
+      final list = await repository.getList();
       return list;
     } on ServerException {
       return Left(ServerFailure());

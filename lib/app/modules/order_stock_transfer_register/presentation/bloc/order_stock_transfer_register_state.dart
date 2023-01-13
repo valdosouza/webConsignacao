@@ -1,125 +1,69 @@
-// part of 'order_stock_transfer_register_bloc.dart';
+abstract class OrderStockTransferRegisterState {}
 
-//   OrderStockTransferRegisterOrderModel list;
+//======================MASTER============================
+class OrderLoadingState extends OrderStockTransferRegisterState {}
 
-part of 'order_stock_transfer_register_bloc.dart';
+class OrderLoadedSucessState extends OrderStockTransferRegisterState {}
 
-abstract class OrderStockTransferRegisterState extends Equatable {
-  @override
-  List<Object> get props => [];
+class OrderNewLoadedState extends OrderStockTransferRegisterState {}
+
+class OrderGetLoadedState extends OrderStockTransferRegisterState {}
+
+class OrderPostSuccessState extends OrderStockTransferRegisterState {}
+
+class OrderPutSuccessState extends OrderStockTransferRegisterState {}
+
+class OrderDeleteSuccessState extends OrderStockTransferRegisterState {}
+
+class EntitiesLoadSuccessState extends OrderStockTransferRegisterState {}
+
+class EntityChosenSuccessState extends OrderStockTransferRegisterState {}
+
+class StocksLoadSuccessState extends OrderStockTransferRegisterState {
+  final String type;
+
+  StocksLoadSuccessState({required this.type});
 }
 
-class OrderStockTransferRegisterLoadingState
-    extends OrderStockTransferRegisterState {}
+//======================MASTER - Errors============================
+class OrderGetErrorState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterEditedItemPageState
-    extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterEditedItemPageState({this.item});
-  final Item? item;
-}
+class OrderLoadedErrorState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterLoadedState
-    extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterLoadedState({
-    required this.list,
-  });
+class OrderPostErrorState extends OrderStockTransferRegisterState {}
 
-  final List<OrderStockTransferRegisterOrderModel> list;
-}
+class OrderPutErrorState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferAddOrEditOrderState
-    extends OrderStockTransferRegisterState {
-  OrderStockTransferAddOrEditOrderState({required this.order});
-  final OrderStockTransferRegisterOrderModel? order;
-}
+class OrderDeleteErrorState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterErrorState
-    extends OrderStockTransferRegisterState {}
+class EntityLoadErrorState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterStockErrorState
-    extends OrderStockTransferRegisterState {}
+class StocksLoadErrorState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterGoToItemsState
-    extends OrderStockTransferRegisterState {}
+//======================Detail============================
+class OrderItemUpdateSuccessState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterShowSelectProductsPageState
-    extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterShowSelectProductsPageState(
-      {required this.products});
-  final List<ProductModel> products;
-}
+class OrderItemPageEditState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterShowSelectProductsPageErrorState
-    extends OrderStockTransferRegisterState {}
+class ProductGetSucessState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterStockState
-    extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterStockState({
-    required this.stocks,
-    required this.type,
-  });
-  final List<StockListModel> stocks;
-  final OrderStockTransferRegisterStockType type;
-}
+class ProductSearchSucessState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterEntitiesState
-    extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterEntitiesState({
-    required this.entities,
-  });
-  final List<CustomerListModel> entities;
-}
+class ProductChosenSucessState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterEntitiesSuccessState
-    extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterEntitiesSuccessState({
-    required this.entity,
-  });
-  final CustomerListModel entity;
-}
+class StockSearchSucessState extends OrderStockTransferRegisterState {}
 
-class OrderStockTransferRegisterStockSuccessState
-    extends OrderStockTransferRegisterState {
-  OrderStockTransferRegisterStockSuccessState({
-    required this.stock,
-    // required this.orderId,
-  });
-  final StockListModel stock;
-  // final int? orderId;
-}
+class EntitySearchSucessState extends OrderStockTransferRegisterState {}
 
-class OrderProductionRegisterPostSuccessState
-    extends OrderStockTransferRegisterState {
-  OrderProductionRegisterPostSuccessState({required this.list});
-  final List<OrderStockTransferRegisterOrderModel> list;
-}
+//======================Detail - Errors============================
+class OrderItemUpdateErrorState extends OrderStockTransferRegisterState {}
 
-class OrderProductionRegisterPostErrorState
-    extends OrderStockTransferRegisterState {
-  OrderProductionRegisterPostErrorState({required this.list});
-  final List<OrderStockTransferRegisterOrderModel> list;
-}
+class ProductGetErrorState extends OrderStockTransferRegisterState {}
 
-class OrderProductionRegisterPutSuccessState
-    extends OrderStockTransferRegisterState {
-  OrderProductionRegisterPutSuccessState({required this.list});
-  final List<OrderStockTransferRegisterOrderModel> list;
-}
+class ProductSearchErrorState extends OrderStockTransferRegisterState {}
 
-class OrderProductionRegisterPutErrorState
-    extends OrderStockTransferRegisterState {
-  OrderProductionRegisterPutErrorState({required this.list});
-  final List<OrderStockTransferRegisterOrderModel> list;
-}
+class StockSearchErrorState extends OrderStockTransferRegisterState {}
 
-class OrderProductionRegisterDeleteSuccessState
-    extends OrderStockTransferRegisterState {
-  OrderProductionRegisterDeleteSuccessState({required this.list});
-  final List<OrderStockTransferRegisterOrderModel> list;
-}
+class EntitySearchErrorState extends OrderStockTransferRegisterState {}
+//=================================================================
 
-class OrderProductionRegisterDeleteErrorState
-    extends OrderStockTransferRegisterState {
-  OrderProductionRegisterDeleteErrorState({required this.list});
-  final List<OrderStockTransferRegisterOrderModel> list;
-}

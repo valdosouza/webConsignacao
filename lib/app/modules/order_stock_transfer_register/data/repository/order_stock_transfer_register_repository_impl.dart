@@ -1,11 +1,12 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/modules/Core/domain/entity/product_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/entity_list_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_order_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/datasource/order_stock_transfer_register_datasource.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/domain/repository/order_stock_transfer_register_repository.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/repository/order_stock_transfer_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
 class OrderStockTransferRegisterRepositoryImpl
@@ -24,8 +25,8 @@ class OrderStockTransferRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, OrderStockTransferRegisterOrderModel>> put(
-      {required OrderStockTransferRegisterOrderModel model}) async {
+  Future<Either<Failure, OrderStockTransferListModel>> put(
+      {required OrderStockTransferMainModel model}) async {
     try {
       final list = await datasource.put(model: model);
       return Right(list);
@@ -35,10 +36,9 @@ class OrderStockTransferRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<OrderStockTransferRegisterOrderModel>>> getList(
-      {required int id}) async {
+  Future<Either<Failure, List<OrderStockTransferListModel>>> getList() async {
     try {
-      final list = await datasource.getlist(id: id);
+      final list = await datasource.getlist();
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());
@@ -46,8 +46,8 @@ class OrderStockTransferRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, OrderStockTransferRegisterOrderModel>> post(
-      {required OrderStockTransferRegisterOrderModel model}) async {
+  Future<Either<Failure, OrderStockTransferListModel>> post(
+      {required OrderStockTransferMainModel model}) async {
     try {
       final list = await datasource.post(model: model);
       return Right(list);
@@ -57,26 +57,9 @@ class OrderStockTransferRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, OrderStockTransferRegisterOrderModel>> get({
-    required int tbInstitutionId,
-    required int orderStockId,
-  }) async {
+  Future<Either<Failure, List<ProductListModel>>> getListProducts() async {
     try {
-      final list = await datasource.get(
-        institutionId: tbInstitutionId,
-        orderStockId: orderStockId,
-      );
-      return Right(list);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<StockListModel>>> getListStock(
-      {required int institutionId}) async {
-    try {
-      final list = await datasource.getListStock(institutionId: institutionId);
+      final list = await datasource.getListProduct();
 
       return Right(list);
     } on ServerException {
@@ -85,10 +68,9 @@ class OrderStockTransferRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<CustomerListModel>>> getListEntity(
-      {required int institutionId}) async {
+  Future<Either<Failure, List<StockListModel>>> getListStock() async {
     try {
-      final list = await datasource.getListEntity(institutionId: institutionId);
+      final list = await datasource.getListStock();
 
       return Right(list);
     } on ServerException {
@@ -97,11 +79,21 @@ class OrderStockTransferRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getListProduct(
-      {required int institutionId}) async {
+  Future<Either<Failure, List<EntityListModel>>> getListEntities() async {
     try {
-      final list =
-          await datasource.getListProduct(institutionId: institutionId);
+      final list = await datasource.getListEntity();
+
+      return Right(list);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, OrderStockTransferMainModel>> get(
+      {required int orderId}) async {
+    try {
+      final list = await datasource.get(orderStockId: orderId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

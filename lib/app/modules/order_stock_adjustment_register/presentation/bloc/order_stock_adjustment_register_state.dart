@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/product_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/stock_list_model.dart';
 
 abstract class OrderStockAdjustmentRegisterState {
@@ -93,7 +93,7 @@ class OrderStockAdjustmentRegisterDeleteErrorState
 
 class OrderStockAdjustmentRegisterProductSuccessState
     extends OrderStockAdjustmentRegisterState {
-  final List<ProductModel> products;
+  final List<ProductListModel> products;
   OrderStockAdjustmentRegisterProductSuccessState({required this.products})
       : super(list: []);
 }

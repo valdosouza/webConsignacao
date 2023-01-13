@@ -9,13 +9,12 @@ class CustomInputButtonWidget extends StatelessWidget {
   final String initialValue;
   final String title;
 
-  const CustomInputButtonWidget({
-    super.key,
-    required this.bloc,
-    required this.event,
-    required this.title,
-    required this.initialValue
-  });
+  const CustomInputButtonWidget(
+      {super.key,
+      required this.bloc,
+      required this.event,
+      required this.title,
+      required this.initialValue});
 
   @override
   Widget build(BuildContext context) {
@@ -28,39 +27,40 @@ class CustomInputButtonWidget extends StatelessWidget {
         ),
         const SizedBox(height: 10.0),
         Container(
-            alignment: Alignment.centerLeft,
-            decoration: kBoxDecorationStyle,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      initialValue,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'OpenSans',
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    hoverColor: Colors.transparent,
-                    onPressed: () {
-                      bloc.add(event);
-                    },
-                    icon: const Icon(
-                      Icons.search,
-                      size: 20.0,
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    initialValue,
+                    style: const TextStyle(
                       color: Colors.white,
+                      fontFamily: 'OpenSans',
                     ),
                   ),
                 ),
-              ],
-            )),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  hoverColor: Colors.transparent,
+                  onPressed: () {
+                    bloc.add(event);
+                  },
+                  icon: const Icon(
+                    Icons.search,
+                    size: 20.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

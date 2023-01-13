@@ -72,7 +72,7 @@ class _CustomerRegisterPageMobileState
             id: 0,
             tbInstitutionId: 1,
             tbUserId: 2,
-            dtRecord: CustomDate.convertDate(CustomDate.newDate()),
+            dtRecord: CustomDate.newDate(),
             tbCustomerId: state.customer.id,
             nameCustomer: state.customer.nameCompany,
             tbSalesmanId: 2,

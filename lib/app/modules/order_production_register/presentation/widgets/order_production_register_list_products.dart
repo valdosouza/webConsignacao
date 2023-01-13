@@ -91,8 +91,8 @@ class OrderProductionRegisterProductsListWidgetState
             Expanded(
               child: state.products.isEmpty
                   ? const Center(
-                      child: Text(
-                          "Não encontramos nenhum produto em nossa base."))
+                      child:
+                          Text("Não encontramos nenhum produto em nossa base."))
                   : ListView.separated(
                       itemCount: state.products.length,
                       itemBuilder: (context, index) => InkWell(
@@ -107,8 +107,7 @@ class OrderProductionRegisterProductsListWidgetState
                           leading: CircleAvatar(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child:
-                                  Text(state.products[index].id.toString()),
+                              child: Text(state.products[index].id.toString()),
                             ),
                           ),
                           title: Column(

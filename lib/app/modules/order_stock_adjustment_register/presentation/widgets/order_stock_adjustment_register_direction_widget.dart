@@ -4,10 +4,10 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/or
 import 'package:flutter/material.dart';
 
 class OrderStockAdjustmentRegisterDirectionWidget extends StatefulWidget {
-  final OrderStockAdjustmentRegisterModel orderStockAdjustment;
+  final OrderStockAdjustmentRegisterModel orderStockTransfer;
   const OrderStockAdjustmentRegisterDirectionWidget({
     Key? key,
-    required this.orderStockAdjustment,
+    required this.orderStockTransfer,
   }) : super(key: key);
 
   @override
@@ -23,12 +23,12 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
   @override
   void initState() {
     super.initState();
-    selectRadio = widget.orderStockAdjustment.direction == 'E' ? true : false;
+    selectRadio = widget.orderStockTransfer.direction == 'E' ? true : false;
   }
 
   @override
   Widget build(BuildContext context) {
-    active = widget.orderStockAdjustment.direction == 'E' ? true : false;
+    active = widget.orderStockTransfer.direction == 'E' ? true : false;
     return Row(
       children: [
         Row(
@@ -42,7 +42,7 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
                   : (value) {
                       setState(() {
                         selectRadio = true;
-                        widget.orderStockAdjustment.direction = "E";
+                        widget.orderStockTransfer.direction = "E";
                       });
                     },
             ),
@@ -61,7 +61,7 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
                     ? (value) {
                         setState(() {
                           selectRadio = false;
-                          widget.orderStockAdjustment.direction = "S";
+                          widget.orderStockTransfer.direction = "S";
                         });
                       }
                     : (value) {}),

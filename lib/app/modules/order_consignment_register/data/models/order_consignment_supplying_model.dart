@@ -37,8 +37,7 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
         tbInstitutionId: 1,
         tbCustomerId: 51,
         nameCustomer: "",
-        dtRecord:
-            CustomDate.formatDate(DateTime.now().toString(), "dd/MM/yyyy"),
+        dtRecord: CustomDate.newDate(),
         currentDebitBalance: 0,
         note: "",
       ),
@@ -124,7 +123,7 @@ class OrderConsignmentSupplyingOrderModel
       'tb_institution_id': tbInstitutionId,
       'tb_customer_id': tbCustomerId,
       'name_customer': nameCustomer,
-      'dt_record': CustomDate.convertDate(dtRecord),
+      'dt_record': CustomDate.formatDateOut(dtRecord),
       'current_debit_balance': currentDebitBalance,
       'note': note,
     };

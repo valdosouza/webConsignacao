@@ -42,7 +42,8 @@ buildSearchInput(OrderStockAdjustmentRegisterBloc bloc) {
       decoration: const InputDecoration(
         border: InputBorder.none,
         contentPadding: EdgeInsets.only(left: 10.0),
-        hintText: "Pesquise a Ordem de ajuste de produção por Nome do Produto, data ou estoque",
+        hintText:
+            "Pesquise a Ordem de ajuste de estoque por Nome do Produto, data ou estoque",
         hintStyle: kHintTextStyle,
       ),
     ),

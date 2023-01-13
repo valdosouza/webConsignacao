@@ -11,12 +11,12 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 class OrderStockAdjustmentRegisterData extends StatelessWidget {
   const OrderStockAdjustmentRegisterData({
     Key? key,
-    required this.orderStockAdjustment,
+    required this.orderStockTransfer,
     required this.bloc,
     required this.controllerDate,
   }) : super(key: key);
 
-  final OrderStockAdjustmentRegisterModel orderStockAdjustment;
+  final OrderStockAdjustmentRegisterModel orderStockTransfer;
   final OrderStockAdjustmentRegisterBloc bloc;
   final MaskedTextController controllerDate;
 
@@ -32,19 +32,19 @@ class OrderStockAdjustmentRegisterData extends StatelessWidget {
               controller: controllerDate,
               keyboardType: TextInputType.datetime,
               inputAction: TextInputAction.go,
-              onChanged: (value) => {orderStockAdjustment.dtRecord = value}),
+              onChanged: (value) => {orderStockTransfer.dtRecord = value}),
           const SizedBox(height: 10),
           CustomInput(
               title: "Número",
-              initialValue: orderStockAdjustment.number.toString(),
+              initialValue: orderStockTransfer.number.toString(),
               keyboardType: TextInputType.number,
               inputAction: TextInputAction.go,
               onChanged: (value) =>
-                  {orderStockAdjustment.number = int.parse(value)}),
+                  {orderStockTransfer.number = int.parse(value)}),
           const SizedBox(height: 10),
           CustomInputButtonWidget(
               bloc: bloc,
-              initialValue: orderStockAdjustment.nameEntity,
+              initialValue: orderStockTransfer.nameEntity,
               event: OrderStockAdjustmentRegisterGetEntityEvent(),
               title: "Descrição da Entidade"),
           const SizedBox(height: 10),
@@ -58,15 +58,15 @@ class OrderStockAdjustmentRegisterData extends StatelessWidget {
           const Text("Direção da Operação", style: kLabelStyle),
           const SizedBox(height: 10),
           OrderStockAdjustmentRegisterDirectionWidget(
-              orderStockAdjustment: orderStockAdjustment),
+              orderStockTransfer: orderStockTransfer),
           const SizedBox(height: 10),
           CustomInput(
               title: "Observações",
               maxLines: 10,
-              initialValue: orderStockAdjustment.note,
+              initialValue: orderStockTransfer.note,
               keyboardType: TextInputType.datetime,
               inputAction: TextInputAction.go,
-              onChanged: (value) => {orderStockAdjustment.note = value})
+              onChanged: (value) => {orderStockTransfer.note = value})
         ],
       ),
     );

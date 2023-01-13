@@ -46,8 +46,7 @@ class OrderSaleMainCardModel extends OrderSaleMainCardEntity {
         number: 0,
         tbSalesmanId: 0,
         nameSalesman: "",
-        dtRecord:
-            CustomDate.formatDate(DateTime.now().toString(), "dd/MM/yyyy"),
+        dtRecord: CustomDate.newDate(),
         totalValue: 0,
         changeValue: 0,
         note: "",

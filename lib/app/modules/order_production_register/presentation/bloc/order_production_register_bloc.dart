@@ -1,5 +1,5 @@
+import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/product_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_delete.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get.dart';
@@ -25,7 +25,7 @@ class OrderProductionRegisterBloc
   List<OrderProductionRegisterModel> orderProductions = [];
   OrderProductionRegisterModel orderProduction =
       OrderProductionRegisterModel.isEmpty();
-  List<ProductModel> products = [];
+  List<ProductListModel> products = [];
   List<StockListModel> stocks = [];
   bool edit = false;
 

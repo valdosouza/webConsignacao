@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
+import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/product_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,7 +18,7 @@ abstract class OrderProductionRegisterDataSource extends Gateway {
   Future<OrderProductionRegisterModel> put(
       {required OrderProductionRegisterModel model});
   Future<String> delete({required int id});
-  Future<List<ProductModel>> getListProducts({required int institutionId});
+  Future<List<ProductListModel>> getListProducts({required int institutionId});
   Future<List<StockListModel>> getListStock({required int institutionId});
 }
 
@@ -26,7 +26,7 @@ class OrderProductionRegisterDataSourceImpl
     extends OrderProductionRegisterDataSource {
   final client = http.Client();
   List<OrderProductionRegisterModel> orderProduction = [];
-  List<ProductModel> products = [];
+  List<ProductListModel> products = [];
   List<StockListModel> stock = [];
 
   OrderProductionRegisterDataSourceImpl({required super.httpClient});
@@ -128,14 +128,14 @@ class OrderProductionRegisterDataSourceImpl
   }
 
   @override
-  Future<List<ProductModel>> getListProducts(
+  Future<List<ProductListModel>> getListProducts(
       {required int institutionId}) async {
     return request(
       'product/getlist/$institutionId',
       (payload) {
         final data = json.decode(payload);
         products = (data as List).map((json) {
-          return ProductModel.fromJson(json);
+          return ProductListModel.fromJson(json);
         }).toList();
 
         return products;

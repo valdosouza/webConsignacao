@@ -83,8 +83,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                               id: 0,
                               tbInstitutionId: 1,
                               tbUserId: 2,
-                              dtRecord:
-                                  CustomDate.convertDate(CustomDate.newDate()),
+                              dtRecord: CustomDate.newDate(),
                               tbCustomerId: widget.lista[index].id,
                               nameCustomer: widget.lista[index].nameCompany,
                               tbSalesmanId: 2,

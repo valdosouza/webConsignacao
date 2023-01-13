@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/product_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/stock_list_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,7 +16,7 @@ abstract class OrderStockAdjustmentRegisterDataSource {
   Future<OrderStockAdjustmentRegisterModel> put(
       {required OrderStockAdjustmentRegisterModel model});
   Future<String> delete({required int id});
-  Future<List<ProductModel>> getListProducts({required int institutionId});
+  Future<List<ProductListModel>> getListProducts({required int institutionId});
   Future<List<StockListModel>> getListStock({required int institutionId});
   Future<List<EntityListModel>> getListEtities();
   Future<void> close({required OrderStockAdjustmentRegisterModel model});
@@ -28,7 +27,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
     extends OrderStockAdjustmentRegisterDataSource {
   final client = http.Client();
   List<OrderStockAdjustmentRegisterModel> orderStockAdjustment = [];
-  List<ProductModel> products = [];
+  List<ProductListModel> products = [];
   List<StockListModel> stock = [];
   List<EntityListModel> entity = [];
 
@@ -144,7 +143,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   }
 
   @override
-  Future<List<ProductModel>> getListProducts(
+  Future<List<ProductListModel>> getListProducts(
       {required int institutionId}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}product/getlist/$institutionId');
@@ -154,7 +153,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         products = (data as List).map((json) {
-          return ProductModel.fromJson(json);
+          return ProductListModel.fromJson(json);
         }).toList();
 
         return products;

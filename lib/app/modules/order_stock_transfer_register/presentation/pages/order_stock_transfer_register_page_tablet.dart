@@ -28,7 +28,7 @@ class _OrderStockTransferRegisterPageTabletState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Ordem de Transferência de Estoque"),
+        title: const Text("Ordem de Transferência de estoque"),
       ),
     );
   }

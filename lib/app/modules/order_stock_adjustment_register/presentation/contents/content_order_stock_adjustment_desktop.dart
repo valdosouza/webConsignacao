@@ -15,11 +15,9 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 class ContentOrderStockAdjustmentRegisterDesktop extends StatefulWidget {
   final OrderStockAdjustmentRegisterModel orderStockAdjustment;
   final int tabIndex;
-  const ContentOrderStockAdjustmentRegisterDesktop({
-    Key? key,
-    required this.orderStockAdjustment,
-    this.tabIndex = 0
-  }) : super(key: key);
+  const ContentOrderStockAdjustmentRegisterDesktop(
+      {Key? key, required this.orderStockAdjustment, this.tabIndex = 0})
+      : super(key: key);
 
   @override
   State<ContentOrderStockAdjustmentRegisterDesktop> createState() =>
@@ -135,11 +133,11 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
             ),
             body: TabBarView(controller: _tabController, children: [
               OrderStockAdjustmentRegisterData(
-                  orderStockAdjustment: orderStockAdjustment,
+                  orderStockTransfer: orderStockAdjustment,
                   bloc: bloc,
                   controllerDate: controllerDate),
               OrderStockAdjustmentRegisterItemsListWidget(
-                orderStockAdjustment: orderStockAdjustment,
+                orderStockTransfer: orderStockAdjustment,
               ),
             ]),
           );

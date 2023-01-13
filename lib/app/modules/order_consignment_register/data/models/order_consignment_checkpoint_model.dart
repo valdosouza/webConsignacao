@@ -42,8 +42,7 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
         tbInstitutionId: 1,
         tbCustomerId: 0,
         nameCustomer: "",
-        dtRecord:
-            CustomDate.formatDate(DateTime.now().toString(), "dd/MM/yyyy"),
+        dtRecord: CustomDate.newDate(),
         totalValue: 0,
         changeValue: 0,
         previousDebiBalance: 0,
@@ -61,7 +60,7 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
       tbInstitutionId: supplying.order.tbInstitutionId,
       tbCustomerId: supplying.order.tbCustomerId,
       nameCustomer: supplying.order.nameCustomer,
-      dtRecord: CustomDate.formatDate(CustomDate.newDate(), "dd/MM/yyyy"),
+      dtRecord: CustomDate.newDate(),
       totalValue: 0,
       changeValue: 0,
       previousDebiBalance: supplying.order.currentDebitBalance,
@@ -143,9 +142,7 @@ class OrderConsignmentCheckpointOrderModel
       tbInstitutionId: json['tb_institution_id'],
       tbCustomerId: json['tb_customer_id'],
       nameCustomer: json['name_customer'] as String? ?? "",
-      dtRecord:
-          CustomDate.formatDate(json['dt_record'], "dd/MM/yyyy") as String? ??
-              "",
+      dtRecord: CustomDate.formatDateIn(json['dt_record']) as String? ?? "",
       totalValue: json['total_value'],
       changeValue: json['change_value'] is int
           ? json['change_value'].toDouble()
@@ -165,7 +162,7 @@ class OrderConsignmentCheckpointOrderModel
       'tb_institution_id': tbInstitutionId,
       'tb_customer_id': tbCustomerId,
       'name_customer': nameCustomer,
-      'dt_record': CustomDate.convertDate(dtRecord),
+      'dt_record': CustomDate.formatDateOut(dtRecord),
       'total_value': totalValue,
       'change_value': changeValue,
       'previous_debit_balance': previousDebiBalance,

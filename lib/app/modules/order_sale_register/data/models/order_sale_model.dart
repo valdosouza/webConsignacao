@@ -56,9 +56,7 @@ class OrderSaleModel extends OrderSaleEntity {
       number: json['number'],
       tbSalesmanId: json['tb_salesman_id'],
       nameSalesman: json['name_salesman'],
-      dtRecord:
-          CustomDate.formatDate(json['dt_record'], "dd/MM/yyyy") as String? ??
-              "",
+      dtRecord: CustomDate.formatDateIn(json['dt_record']) as String? ?? "",
       totalValue: json['total_value'] is int
           ? json['total_value'].toDouble()
           : json['total_value'],
@@ -80,7 +78,7 @@ class OrderSaleModel extends OrderSaleEntity {
       'number': number,
       'tb_salesman_id': tbSalesmanId,
       'name_salesman': nameSalesman,
-      'dt_record': CustomDate.convertDate(dtRecord),
+      'dt_record': CustomDate.newDate(),
       'total_value': totalValue,
       'change_value': changeValue,
       'note': note,

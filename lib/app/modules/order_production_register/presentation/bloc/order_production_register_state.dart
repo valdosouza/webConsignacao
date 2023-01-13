@@ -1,5 +1,5 @@
+import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/product_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
 
 abstract class OrderProductionRegisterState {
@@ -85,7 +85,7 @@ class OrderProductionRegisterDeleteErrorState
 
 class OrderProductionRegisterProductSuccessState
     extends OrderProductionRegisterState {
-  final List<ProductModel> products;
+  final List<ProductListModel> products;
   OrderProductionRegisterProductSuccessState({required this.products})
       : super(list: []);
 }

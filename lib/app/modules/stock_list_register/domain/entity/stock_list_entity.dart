@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-// ignore: must_be_immutable
-class StockListEntity extends Equatable {
+class StockListEntity {
   int id;
   int institution;
   String description;
@@ -14,7 +11,4 @@ class StockListEntity extends Equatable {
       required this.description,
       required this.main,
       required this.active});
-
-  @override
-  List<Object?> get props => [id, institution, description, main, active];
 }
