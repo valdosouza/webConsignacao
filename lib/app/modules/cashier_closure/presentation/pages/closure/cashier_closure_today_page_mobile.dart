@@ -1,4 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/cashier/presentation/content/content_mobile_cashier.dart';
+import 'package:appweb/app/modules/cashier_closure/presentation/bloc/cashier_closure_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -23,7 +25,6 @@ class CashierClosureTodayPageMobileState
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -37,15 +38,11 @@ class CashierClosureTodayPageMobileState
           },
         ),
       ),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: SizedBox(
-          height: size.height,
-          width: size.width,
-          child: const Center(
-            child: Text("Fechamento de Hoje"),
-          ),
+      body: ContentMobileCashier(
+        event: CashierClosureGetClosureEvent(
+          institutionId: 1,
+          userId: 2,
+          date: DateTime.now(),
         ),
       ),
     );

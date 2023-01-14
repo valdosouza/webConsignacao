@@ -6,10 +6,14 @@ class SearchWidget extends StatelessWidget {
     Key? key,
     required this.onChange,
     this.text,
+    this.keyboardType,
+    this.controller,
   }) : super(key: key);
 
   final void Function(String) onChange;
   final String? text;
+  final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,8 @@ class SearchWidget extends StatelessWidget {
         Container(
           decoration: kBoxDecorationStyle,
           child: TextFormField(
-            keyboardType: TextInputType.text,
+            controller: controller,
+            keyboardType: keyboardType ?? TextInputType.text,
             autofocus: true,
             onChanged: (value) {
               onChange(value);
