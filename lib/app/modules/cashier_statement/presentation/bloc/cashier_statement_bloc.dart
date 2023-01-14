@@ -18,6 +18,7 @@ class CashierStatementBloc
 
   HashMap<String, List<CashierStatementModel>> cashierStatement = HashMap();
   List<CashierStatementCustomerModel> customers = List.empty();
+  int customerIndex = 0;
 
   CashierStatementBloc({
     required this.day,
@@ -72,7 +73,7 @@ class CashierStatementBloc
       var result =
           response.fold((l) => CashierStatementMobileErrorState(), (r) {
         formatByKind(r);
-        return CashierStatementMobileSuccessState();
+        return CashierStatementByCustomerState();
       });
 
       emit(result);

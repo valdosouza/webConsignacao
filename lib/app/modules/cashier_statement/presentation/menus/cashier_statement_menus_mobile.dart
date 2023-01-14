@@ -25,7 +25,7 @@ class CashierStatementMenusMobile extends StatelessWidget {
             Icons.home,
             'Clientes Cobrados',
             () async => Modular.to
-                .navigate('/cashierstatement/mobile/customercharged/'),
+                .navigate('/cashierstatement/mobile/customerscharged/'),
           ),
         ],
       ),

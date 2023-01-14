@@ -12,6 +12,10 @@ class CashierStatementMobileSuccessState extends CashierStatementState {
   CashierStatementMobileSuccessState();
 }
 
+class CashierStatementByCustomerState extends CashierStatementState {
+  CashierStatementByCustomerState();
+}
+
 class CashierStatementMobileErrorState extends CashierStatementState {
   CashierStatementMobileErrorState();
 }

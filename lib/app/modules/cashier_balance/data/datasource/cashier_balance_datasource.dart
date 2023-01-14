@@ -16,12 +16,13 @@ class CashierBalanceDataSourceImpl extends CashierBalanceDataSource {
   var tbInstitutionId = 1;
   @override
   Future<CashierBalanceModel> cashierBalanceGet({required String date}) async {
-    var newDate = CustomDate.newDate();
+    var newDate = CustomDate.formatDateOut(date);
 
     return await request(
       'cashier/balance/get/$tbInstitutionId/2/$newDate',
       (payload) {
         final data = json.decode(payload);
+
         var model = CashierBalanceModel.fromJson(data);
         return model;
       },

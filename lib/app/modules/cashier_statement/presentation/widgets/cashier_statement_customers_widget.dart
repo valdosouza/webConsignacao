@@ -62,10 +62,16 @@ class _CashierStatementCustomerWidgetState
             itemBuilder: (context, index) {
               return InkWell(
                   onTap: () {
-                    bloc.add(CashierStatementGetByCustomerMobileEvent(
+                    bloc.customerIndex = index;
+                    bloc.add(
+                      CashierStatementGetByCustomerMobileEvent(
                         params: CashierStatementParams(
-                            date: widget.date,
-                            tbCustomerId: bloc.customers[index].id)));
+                          date: widget.date,
+                          tbCustomerId: bloc.customers[index].id,
+                        ),
+                      ),
+                    );
+                    Modular.to.navigate('/cashierstatement/mobile/bycustomer/');
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),

@@ -24,31 +24,67 @@ class CashierStatementByCustomerPageMobileState
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<CashierStatementModule>();
     });
-    controller = MaskedTextController(mask: '00/00/0000');
     bloc = Modular.get<CashierStatementBloc>();
   }
 
-  @override
-  void dispose() {
-    bloc.cashierStatement.clear();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   bloc.cashierStatement.clear();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: kBoxDecorationflexibleSpace,
-          ),
-          title: const Text("Extarto do Cliente"),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Modular.to.navigate('/cashierstatement/mobile/');
-            },
-          ),
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
         ),
-        body: const ContentCashierStatement());
+        title: const Text("Extrato do Cliente"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Modular.to.navigate('/cashierstatement/mobile/customerscharged/');
+          },
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Container(
+              color: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text("Cliente",
+                        style: TextStyle(fontSize: 16, color: Colors.white)),
+                    Text("Horário",
+                        style: TextStyle(fontSize: 16, color: Colors.white)),
+                    Text("Valor",
+                        style: TextStyle(fontSize: 16, color: Colors.white))
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(bloc.customers[bloc.customerIndex].nameCustomer),
+                  Text(bloc.customers[bloc.customerIndex].timeAttendace),
+                  Text(bloc.customers[bloc.customerIndex].valuerCharged
+                      .toStringAsFixed(2)),
+                ],
+              ),
+            ),
+            const Expanded(child: ContentCashierStatement())
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/order_attendence_register/domain/entity/order_attendance_entity.dart';
 
 class OrderAttendanceModel extends OrderAttendanceEntity {
@@ -78,7 +79,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     data["id"] = id.toString();
     data["tb_institution_id"] = tbInstitutionId.toString();
     data["tb_user_id"] = tbUserId.toString();
-    data["dt_record"] = dtRecord;
+    data["dt_record"] = CustomDate.formatDateOut(dtRecord);
     data["tb_customer_id"] = tbCustomerId.toString();
     data["name_customer"] = nameCustomer;
     data["tb_salesman_id"] = tbSalesmanId.toString();

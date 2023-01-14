@@ -1,29 +1,29 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_state.dart';
+
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/contents/content_cashier_statement.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/widgets/cashier_statement_customers_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CashierStatementCustomerChargedPageMobile extends StatefulWidget {
-  const CashierStatementCustomerChargedPageMobile({super.key});
+class CashierStatementCustomersChargedPageMobile extends StatefulWidget {
+  const CashierStatementCustomersChargedPageMobile({super.key});
 
   @override
-  State<CashierStatementCustomerChargedPageMobile> createState() =>
-      CashierStatementCustomerChargedPageMobileState();
+  State<CashierStatementCustomersChargedPageMobile> createState() =>
+      CashierStatementCustomersChargedPageMobileState();
 }
 
-class CashierStatementCustomerChargedPageMobileState
-    extends State<CashierStatementCustomerChargedPageMobile> {
+class CashierStatementCustomersChargedPageMobileState
+    extends State<CashierStatementCustomersChargedPageMobile> {
   late MaskedTextController controller;
   late CashierStatementBloc bloc;
   String title = "Clientes Cobrados";
@@ -34,16 +34,29 @@ class CashierStatementCustomerChargedPageMobileState
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<CashierStatementModule>();
     });
-    controller = MaskedTextController(mask: '00/00/0000');
+    var initialDate = CustomDate.newDate();
+    controller = MaskedTextController(
+      mask: '00/00/0000',
+      text: initialDate,
+    );
     bloc = Modular.get<CashierStatementBloc>();
+    if (bloc.cashierStatement.isEmpty) {
+      bloc.add(
+        CashierStatementGetCustomersMobileEvent(
+          params: CashierStatementParams(
+            date: initialDate,
+          ),
+        ),
+      );
+    }
   }
 
-  @override
-  void dispose() {
-    bloc.cashierStatement.clear();
-    bloc.customers.clear();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   bloc.cashierStatement.clear();
+  //   bloc.customers.clear();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,15 +89,7 @@ class CashierStatementCustomerChargedPageMobileState
             if (state is CashierStatementLoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (state is CashierBalanceMobileSuccessState) {
-              setState(() {
-                title = "Extrato Cliente";
-              });
-              return const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: ContentCashierStatement(),
-              );
-            }
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -95,9 +100,13 @@ class CashierStatementCustomerChargedPageMobileState
                     inputAction: TextInputAction.done,
                     onChanged: (p0) {},
                     onFieldSubmitted: (value) {
-                      bloc.add(CashierStatementGetCustomersMobileEvent(
-                        params: CashierStatementParams(date: value),
-                      ));
+                      bloc.add(
+                        CashierStatementGetCustomersMobileEvent(
+                          params: CashierStatementParams(
+                            date: value,
+                          ),
+                        ),
+                      );
                       date = value;
                     },
                     controller: controller,

@@ -21,7 +21,7 @@ class LinebusinessRegisterDataSourceImpl
   Future<List<LinebusinessModel>> getlist() async {
     try {
       final uri =
-          Uri.parse('${baseApiUrl}linebusiness/getlist/tbInstitutionId');
+          Uri.parse('${baseApiUrl}linebusiness/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 

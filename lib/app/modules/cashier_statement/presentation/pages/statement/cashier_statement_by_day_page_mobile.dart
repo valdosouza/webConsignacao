@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
@@ -29,8 +30,19 @@ class CashierStatementByDayPageMobileState
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<CashierStatementModule>();
     });
-    controller = MaskedTextController(mask: '00/00/0000');
+    var initialDate = CustomDate.newDate();
+    controller = MaskedTextController(
+      mask: '00/00/0000',
+      text: initialDate,
+    );
     bloc = Modular.get<CashierStatementBloc>();
+    bloc.add(
+      CashierStatementGetByDayMobileEvent(
+        params: CashierStatementParams(
+          date: initialDate,
+        ),
+      ),
+    );
   }
 
   @override
@@ -67,10 +79,13 @@ class CashierStatementByDayPageMobileState
                     inputAction: TextInputAction.done,
                     onChanged: (value) {},
                     onFieldSubmitted: (value) {
-                      bloc.add(CashierStatementGetByDayMobileEvent(
+                      bloc.add(
+                        CashierStatementGetByDayMobileEvent(
                           params: CashierStatementParams(
-                        date: value,
-                      )));
+                            date: value,
+                          ),
+                        ),
+                      );
                     },
                     controller: controller,
                   ),

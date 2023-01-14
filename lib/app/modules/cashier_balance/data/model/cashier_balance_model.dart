@@ -1,3 +1,5 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
+
 import '../../domain/entity/cashier_balance_entity.dart';
 
 class CashierBalanceModel extends CashierBalanceEntity {
@@ -11,7 +13,9 @@ class CashierBalanceModel extends CashierBalanceEntity {
 
   factory CashierBalanceModel.fromJson(Map<String, dynamic> json) {
     return CashierBalanceModel(
-      dtRecord: json['dt_record'],
+      dtRecord: (json['dt_record'] != null)
+          ? CustomDate.formatDateIn(json['dt_record'])
+          : "",
       items: (json['items'] as List)
           .map((e) => CashierBalanceItemsModel.fromJson(e))
           .toList(),

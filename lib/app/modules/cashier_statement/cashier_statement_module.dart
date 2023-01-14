@@ -5,10 +5,11 @@ import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_stat
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_month.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_customer.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/pages/statement/cashier_statement_by_customer_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/pages/statement/cashier_statement_by_day_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/pages/cashier_statement_page.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/pages/statement/cashier_statement_by_month_page_mobile.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/pages/statement/cashier_statement_customer_charged_page_mobile.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/pages/statement/cashier_statement_customers_charged_page_mobile.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -56,8 +57,12 @@ class CashierStatementModule extends Module {
       child: (_, args) => const CashierStatementByMonthPageMobile(),
     ),
     ChildRoute(
-      '/mobile/customercharged/',
-      child: (_, args) => const CashierStatementCustomerChargedPageMobile(),
+      '/mobile/customerscharged/',
+      child: (_, args) => const CashierStatementCustomersChargedPageMobile(),
+    ),
+    ChildRoute(
+      '/mobile/bycustomer/',
+      child: (_, args) => const CashierStatementByCustomerPageMobile(),
     )
   ];
 }
