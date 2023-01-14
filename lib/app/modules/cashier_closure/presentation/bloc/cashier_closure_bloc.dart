@@ -1,8 +1,8 @@
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/cashier_closure_previously_model.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
-import 'package:appweb/app/modules/cashier_closure/domain/respository/usecase/cashier_closure_get_previously.dart';
-import 'package:appweb/app/modules/cashier_closure/domain/respository/usecase/cashier_closure_get_today.dart';
+import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_previously.dart';
+import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_today.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

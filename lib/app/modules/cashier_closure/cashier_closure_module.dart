@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/cashier_closure/data/datasource/cashier_closure_datasource.dart';
 import 'package:appweb/app/modules/cashier_closure/data/repository/cashier_closure_repository_impl.dart';
-import 'package:appweb/app/modules/cashier_closure/domain/respository/usecase/cashier_closure_get_previously.dart';
-import 'package:appweb/app/modules/cashier_closure/domain/respository/usecase/cashier_closure_get_today.dart';
+import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_previously.dart';
+import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_today.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/pages/cashier_closure_page.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/pages/closure/cashier_closure_previously_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/pages/closure/cashier_closure_today_page_mobile.dart';
