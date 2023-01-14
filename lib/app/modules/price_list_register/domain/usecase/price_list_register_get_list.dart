@@ -15,7 +15,7 @@ class PriceListRegisterGetlist
   Future<Either<Failure, List<PriceListModel>>> call(
       ParamsPriceListGet params) async {
     try {
-      final list = await repository.getList(id: params.id);
+      final list = await repository.getList();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -24,6 +24,5 @@ class PriceListRegisterGetlist
 }
 
 class ParamsPriceListGet {
-  int id;
-  ParamsPriceListGet({required this.id});
+  ParamsPriceListGet();
 }

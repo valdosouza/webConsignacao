@@ -15,8 +15,7 @@ class CustomerRegisterGet
   Future<Either<Failure, CustomerMainModel>> call(
       ParamsGetCustomer params) async {
     try {
-      final model = await repository.get(
-          tbInstitutionId: params.tbInstitutionId, id: params.id);
+      final model = await repository.get(id: params.id);
       return model;
     } on ServerException {
       return Left(ServerFailure());
@@ -26,6 +25,6 @@ class CustomerRegisterGet
 
 class ParamsGetCustomer {
   int id;
-  int tbInstitutionId;
-  ParamsGetCustomer({required this.tbInstitutionId, required this.id});
+
+  ParamsGetCustomer({required this.id});
 }

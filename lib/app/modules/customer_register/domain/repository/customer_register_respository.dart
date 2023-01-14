@@ -4,11 +4,9 @@ import 'package:appweb/app/modules/customer_register/data/model/customer_main_mo
 import 'package:dartz/dartz.dart';
 
 abstract class CustomerRegisterRepository {
-  Future<Either<Failure, List<CustomerListModel>>> getList(
-      {required int tbInstitutionId});
+  Future<Either<Failure, List<CustomerListModel>>> getList();
 
-  Future<Either<Failure, CustomerMainModel>> get(
-      {required int tbInstitutionId, required int id});
+  Future<Either<Failure, CustomerMainModel>> get({required int id});
 
   Future<Either<Failure, CustomerListModel>> post(
       {required CustomerMainModel customer});

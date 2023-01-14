@@ -15,8 +15,7 @@ class CollaboratorRegisterGetlist
   Future<Either<Failure, List<CollaboratorListModel>>> call(
       ParamsGetListCollaborator params) async {
     try {
-      final list =
-          await repository.getlist(tbInstitutionId: params.tbInstitutionId);
+      final list = await repository.getlist();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,6 +24,5 @@ class CollaboratorRegisterGetlist
 }
 
 class ParamsGetListCollaborator {
-  int tbInstitutionId;
-  ParamsGetListCollaborator({required this.tbInstitutionId});
+  ParamsGetListCollaborator();
 }

@@ -96,8 +96,8 @@ class CashierStatementCustomerChargedPageMobileState
                     onChanged: (p0) {},
                     onFieldSubmitted: (value) {
                       bloc.add(CashierStatementGetCustomersMobileEvent(
-                          params: CashierStatementParams(
-                              tbInstitutionId: 1, date: value, tbUserId: 2)));
+                        params: CashierStatementParams(date: value),
+                      ));
                       date = value;
                     },
                     controller: controller,

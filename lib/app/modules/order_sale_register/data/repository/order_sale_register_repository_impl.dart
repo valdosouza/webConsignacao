@@ -12,13 +12,11 @@ class OrderSaleRegisterRepositoryImpl implements OrderSaleRegisterRepository {
   OrderSaleRegisterRepositoryImpl({required this.orderSaleDatasource});
 
   @override
-  Future<Either<Failure, List<OrderSaleCardModel>>> getNewOrderSaleCard({
-    required int tbInstitutionId,
-    required int tbPriceListId,
-  }) async {
+  Future<Either<Failure, List<OrderSaleCardModel>>> getNewOrderSaleCard(
+      {required int tbPriceListId}) async {
     try {
       return Right(await orderSaleDatasource.getNewOrderSaleCard(
-          tbInstitutionId: tbInstitutionId, tbPriceListId: tbPriceListId));
+          tbPriceListId: tbPriceListId));
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -5,12 +5,10 @@ import 'package:dartz/dartz.dart';
 
 abstract class CollaboratorRegisterRepository {
   Future<Either<Failure, CollaboratorMainModel>> get({
-    required int tbInstitutionId,
     required int id,
   });
   Future<Either<Failure, CollaboratorListModel>> post(
       {required CollaboratorMainModel model});
   Future<Either<Failure, String>> delete({required int id});
-  Future<Either<Failure, List<CollaboratorListModel>>> getlist(
-      {required int tbInstitutionId});
+  Future<Either<Failure, List<CollaboratorListModel>>> getlist();
 }

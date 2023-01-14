@@ -9,12 +9,12 @@ abstract class OrderSaleRegisterDatasource extends Gateway {
 
   Future<OrderSaleModel> post({required OrderSaleMainCardModel model});
   Future<List<OrderSaleCardModel>> getNewOrderSaleCard(
-      {required int tbInstitutionId, required int tbPriceListId});
+      {required int tbPriceListId});
 }
 
 class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
   OrderSaleRegisterDatasourceImpl({required super.httpClient});
-
+  var tbInstitutionId = 1;
   @override
   Future<OrderSaleModel> post({
     required OrderSaleMainCardModel model,
@@ -37,7 +37,7 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
 
   @override
   Future<List<OrderSaleCardModel>> getNewOrderSaleCard(
-      {required int tbInstitutionId, required int tbPriceListId}) async {
+      {required int tbPriceListId}) async {
     return request(
       'ordersale/card/newlist/$tbInstitutionId/$tbPriceListId',
       (payload) {

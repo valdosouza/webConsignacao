@@ -19,7 +19,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<ProductPriceListMobileEvent>((event, emit) async {
       emit(ProductLoadingState());
 
-      var response = await getPriceList.call(ParamsPricesListGet(id: 1));
+      var response = await getPriceList.call(ParamsPricesListGet());
 
       var result =
           response.fold((l) => ProductPriceListMobileErrorState(list: []), (r) {

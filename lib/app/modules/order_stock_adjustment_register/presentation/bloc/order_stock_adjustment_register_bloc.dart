@@ -106,7 +106,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
       emit(OrderStockAdjustmentRegisterLoadingState());
 
       var response = await getlistOrderStockAdjustment
-          .call(ParamsGetlistOrderStockAdjustmentRegister(id: 1));
+          .call(ParamsGetlistOrderStockAdjustmentRegister());
 
       response.fold(
           (l) => emit(OrderStockAdjustmentRegisterErrorState(
@@ -183,9 +183,8 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
       if (event.model != null) {
         emit(OrderStockAdjustmentRegisterLoadingState());
 
-        final response = await getOrderStockAdjustment.call(
-            ParamsGetOrderStockAdjustmentRegister(
-                id: event.model!.id, tbInstitutionId: 1));
+        final response = await getOrderStockAdjustment
+            .call(ParamsGetOrderStockAdjustmentRegister(id: event.model!.id));
 
         response.fold(
             (l) => emit(OrderStockAdjustmentRegisterGetErrorState(
@@ -222,8 +221,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     on<OrderStockAdjustmentRegisterGetProductsEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
 
-      final response = await productGetlist
-          .call(ParamsGetlistProduct(id: event.tbInstitutionId));
+      final response = await productGetlist.call(ParamsGetlistProduct());
 
       response.fold(
           (l) => emit(OrderStockAdjustmentRegisterProductErrorState()), (r) {
@@ -237,8 +235,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     on<OrderStockAdjustmentRegisterGetStocksEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
 
-      final response = await stockListGetlist
-          .call(ParamsGetListStock(institutionId: event.tbInstitutionId));
+      final response = await stockListGetlist.call(const ParamsGetListStock());
 
       response.fold((l) => emit(OrderStockAdjustmentRegisterStockErrorState()),
           (r) {

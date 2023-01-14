@@ -15,10 +15,9 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
   @override
   Future<Either<Failure, List<CustomerListByRouteModel>>> getList(
-      {required int tbInstitutionId, required int tbSalesRouteId}) async {
+      {required int tbSalesRouteId}) async {
     try {
       final list = await datasource.getList(
-        tbInstitutionId: tbInstitutionId,
         tbSalesRouteId: tbSalesRouteId,
       );
       return Right(list);
@@ -29,13 +28,11 @@ class CustomerRepositoryImpl implements CustomerRepository {
 
   @override
   Future<Either<Failure, void>> sequence(
-      {required int tbInstitutionId,
-      required int tbSalesRouteId,
+      {required int tbSalesRouteId,
       required int tbCustomerId,
       required int sequence}) async {
     try {
       final list = await datasource.sequence(
-          tbInstitutionId: tbInstitutionId,
           tbSalesRouteId: tbSalesRouteId,
           tbCustomerId: tbCustomerId,
           sequence: sequence);

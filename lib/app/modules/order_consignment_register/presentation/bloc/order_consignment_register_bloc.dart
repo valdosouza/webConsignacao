@@ -41,8 +41,7 @@ class OrderConsignmentRegisterBloc
 
       modelSupplying = OrderConsignmentSupplyingModel.isEmpty();
 
-      final response =
-          await getlastSupplying(event.tbInstitutionId, event.tbCustomerId);
+      final response = await getlastSupplying(event.tbCustomerId);
 
       var result = response
           .fold((l) => OrderConsigngmentGetLastErrorState(l.toString()), (r) {

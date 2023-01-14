@@ -4,10 +4,9 @@ import 'package:dartz/dartz.dart';
 
 abstract class CustomerRepository {
   Future<Either<Failure, List<CustomerListByRouteModel>>> getList(
-      {required int tbInstitutionId, required int tbSalesRouteId});
+      {required int tbSalesRouteId});
   Future<Either<Failure, void>> sequence(
-      {required int tbInstitutionId,
-      required int tbSalesRouteId,
+      {required int tbSalesRouteId,
       required int tbCustomerId,
       required int sequence});
 }

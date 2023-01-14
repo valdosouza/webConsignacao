@@ -15,29 +15,32 @@ import 'stock_list_getlist_test.mocks.dart';
 void main() {
   late StockListRegisterGetlist usecase;
   late MockStockListRepository mockStockListRepository;
-  late Params tParams;
+  late ParamsStockListRegister tParams;
 
   setUp(() {
     mockStockListRepository = MockStockListRepository();
     usecase = StockListRegisterGetlist(repository: mockStockListRepository);
   });
 
-  const tInstitution = 1;
   final StockListModel item = StockListModel(
-      id: 1, institution: 1, description: 'Principal', main: 'S', active: 'S');
+      id: 1,
+      tbInstitutionId: 1,
+      description: 'Principal',
+      main: 'S',
+      active: 'S');
   final List<StockListModel> tListStock = [item, item];
-  tParams = const Params(institutionId: tInstitution);
+  tParams = const ParamsStockListRegister();
   test(
     'should show de list of stocks from the repository',
     () async {
       //arrange
-      when(mockStockListRepository.getList(institutionId: tInstitution))
+      when(mockStockListRepository.getList())
           .thenAnswer((_) async => Right(tListStock));
       //act
       final result = await usecase(tParams);
       //assert
       expect(result, Right(tListStock));
-      verify(mockStockListRepository.getList(institutionId: tInstitution));
+      verify(mockStockListRepository.getList());
       verifyNoMoreInteractions(mockStockListRepository);
     },
   );

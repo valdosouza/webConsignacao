@@ -5,18 +5,17 @@ import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class SalesRouteDataSource {
-  Future<List<SalesRouteListModel>> getlist({required int institutionId});
+  Future<List<SalesRouteListModel>> getlist();
 }
 
 class SalesRouteDataSourceImpl extends SalesRouteDataSource {
   final client = http.Client();
   List<SalesRouteListModel> salesroutes = [];
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<SalesRouteListModel>> getlist(
-      {required int institutionId}) async {
+  Future<List<SalesRouteListModel>> getlist() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}salesroute/getlist/$institutionId');
+      final uri = Uri.parse('${baseApiUrl}salesroute/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 

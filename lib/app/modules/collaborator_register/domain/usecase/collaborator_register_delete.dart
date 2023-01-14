@@ -3,7 +3,6 @@ import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/repository/collaborator_register_respository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 
 class CollaboratorregisterDelete implements UseCase<String, ParamsDelete> {
   final CollaboratorRegisterRepository repository;
@@ -21,13 +20,7 @@ class CollaboratorregisterDelete implements UseCase<String, ParamsDelete> {
   }
 }
 
-class ParamsDelete extends Equatable {
+class ParamsDelete {
   final int id;
-
-  const ParamsDelete({
-    required this.id,
-  });
-
-  @override
-  List<Object?> get props => [id];
+  const ParamsDelete({required this.id});
 }

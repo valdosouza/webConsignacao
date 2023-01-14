@@ -62,9 +62,10 @@ class CashierStatementByMonthPageMobileState
                 inputAction: TextInputAction.done,
                 onChanged: (value) {},
                 onFieldSubmitted: (value) {
-                  bloc.add(CashierStatementGetByMonthMobileEvent(
-                      params: CashierStatementParams(
-                          tbInstitutionId: 1, date: value, tbUserId: 2)));
+                  bloc.add(
+                    CashierStatementGetByMonthMobileEvent(
+                        params: CashierStatementParams(date: value)),
+                  );
                 },
                 controller: controller,
               ),

@@ -6,20 +6,20 @@ import '../../../../core/shared/constants.dart';
 import '../models/order_attendance_model.dart';
 
 abstract class OrderAttendanceDatasource {
-  Future<List<OrderAttendanceModel>> getAll(int tbInstitutionId);
-  Future<OrderAttendanceModel> get(int tbInstitutionId, int id);
-  Future<OrderAttendanceModel> post(OrderAttendanceModel model);
-  Future<OrderAttendanceModel> put(OrderAttendanceModel model);
-  Future<OrderAttendanceModel> delete(int tbInstitutionId, int id);
+  Future<List<OrderAttendanceModel>> getAll();
+  Future<OrderAttendanceModel> get({required int id});
+  Future<OrderAttendanceModel> post({required OrderAttendanceModel model});
+  Future<OrderAttendanceModel> put({required OrderAttendanceModel model});
+  Future<OrderAttendanceModel> delete({required int id});
 }
 
 class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   final client = http.Client();
 
   OrderAttendanceDatasourceImpl();
-
+  var tbInstitutionId = 1;
   @override
-  Future<OrderAttendanceModel> delete(int tbInstitutionId, int id) async {
+  Future<OrderAttendanceModel> delete({required int id}) async {
     try {
       final uri =
           Uri.parse('${baseApiUrl}orderattendance/$tbInstitutionId/$id');
@@ -35,7 +35,7 @@ class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   }
 
   @override
-  Future<OrderAttendanceModel> get(int tbInstitutionId, int id) async {
+  Future<OrderAttendanceModel> get({required int id}) async {
     try {
       final uri =
           Uri.parse('$baseApiUrl/orderattendance/get/$tbInstitutionId/$id');
@@ -52,7 +52,7 @@ class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   }
 
   @override
-  Future<List<OrderAttendanceModel>> getAll(int tbInstitutionId) async {
+  Future<List<OrderAttendanceModel>> getAll() async {
     try {
       final uri =
           Uri.parse('$baseApiUrl/orderattendance/getlist/$tbInstitutionId');
@@ -73,7 +73,8 @@ class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   }
 
   @override
-  Future<OrderAttendanceModel> post(OrderAttendanceModel model) async {
+  Future<OrderAttendanceModel> post(
+      {required OrderAttendanceModel model}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}orderattendance');
       final bodyorder = jsonEncode(model.toJson());
@@ -96,7 +97,8 @@ class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   }
 
   @override
-  Future<OrderAttendanceModel> put(OrderAttendanceModel model) async {
+  Future<OrderAttendanceModel> put(
+      {required OrderAttendanceModel model}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}orderattendance');
       final response = await client.put(

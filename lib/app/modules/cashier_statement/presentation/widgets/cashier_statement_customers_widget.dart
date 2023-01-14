@@ -64,9 +64,7 @@ class _CashierStatementCustomerWidgetState
                   onTap: () {
                     bloc.add(CashierStatementGetByCustomerMobileEvent(
                         params: CashierStatementParams(
-                            tbInstitutionId: 1,
                             date: widget.date,
-                            tbUserId: 2,
                             tbCustomerId: bloc.customers[index].id)));
                   },
                   child: Padding(

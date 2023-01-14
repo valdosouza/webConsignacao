@@ -29,10 +29,8 @@ class OrderSaleRegisterBloc
 
       modelOrderSale.items.clear();
 
-      final response = await getNewOrderSaleCard(
-        tbInstitutionId: event.tbInstitutionId,
-        tbPriceListId: event.tbPriceListId,
-      );
+      final response =
+          await getNewOrderSaleCard(tbPriceListId: event.tbPriceListId);
 
       var result = response
           .fold((l) => OrderSaleGetNewCardListErrorState(l.toString()), (r) {

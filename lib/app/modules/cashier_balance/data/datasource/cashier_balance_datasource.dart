@@ -8,25 +8,18 @@ import '../model/cashier_balance_model.dart';
 abstract class CashierBalanceDataSource extends Gateway {
   CashierBalanceDataSource({required super.httpClient});
 
-  Future<CashierBalanceModel> cashierBalanceGet({
-    required int tbInstitutionId,
-    required String date,
-    required int tbUserId,
-  });
+  Future<CashierBalanceModel> cashierBalanceGet({required String date});
 }
 
 class CashierBalanceDataSourceImpl extends CashierBalanceDataSource {
   CashierBalanceDataSourceImpl({required super.httpClient});
-
+  var tbInstitutionId = 1;
   @override
-  Future<CashierBalanceModel> cashierBalanceGet(
-      {required int tbInstitutionId,
-      required String date,
-      required int tbUserId}) async {
+  Future<CashierBalanceModel> cashierBalanceGet({required String date}) async {
     var newDate = CustomDate.newDate();
 
     return await request(
-      'cashier/balance/get/$tbInstitutionId/$tbUserId/$newDate',
+      'cashier/balance/get/$tbInstitutionId/2/$newDate',
       (payload) {
         final data = json.decode(payload);
         var model = CashierBalanceModel.fromJson(data);

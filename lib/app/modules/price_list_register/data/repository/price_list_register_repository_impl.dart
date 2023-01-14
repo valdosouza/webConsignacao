@@ -31,10 +31,9 @@ class PriceListRegisterRepositoryImpl implements PriceListRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, List<PriceListModel>>> getList(
-      {required int id}) async {
+  Future<Either<Failure, List<PriceListModel>>> getList() async {
     try {
-      final list = await datasource.getlist(id: id);
+      final list = await datasource.getlist();
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

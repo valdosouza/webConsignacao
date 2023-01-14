@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/line_business_register/data/model/linebusines
 import 'package:http/http.dart' as http;
 
 abstract class LinebusinessRegisterDataSource {
-  Future<List<LinebusinessModel>> getlist({required int institutionId});
+  Future<List<LinebusinessModel>> getlist();
   Future<LinebusinessModel> post({required LinebusinessModel model});
   Future<LinebusinessModel> put({required LinebusinessModel model});
   Future<String> delete({required int id});
@@ -16,11 +16,12 @@ class LinebusinessRegisterDataSourceImpl
     extends LinebusinessRegisterDataSource {
   final client = http.Client();
   List<LinebusinessModel> prices = [];
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<LinebusinessModel>> getlist({required int institutionId}) async {
+  Future<List<LinebusinessModel>> getlist() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}linebusiness/getlist/$institutionId');
+      final uri =
+          Uri.parse('${baseApiUrl}linebusiness/getlist/tbInstitutionId');
 
       final response = await client.get(uri);
 

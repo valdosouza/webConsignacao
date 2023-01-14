@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/price_list_register/data/model/price_list_mod
 import 'package:http/http.dart' as http;
 
 abstract class PriceListRegisterDataSource {
-  Future<List<PriceListModel>> getlist({required int id});
+  Future<List<PriceListModel>> getlist();
   Future<PriceListModel> post({required PriceListModel model});
   Future<PriceListModel> put({required PriceListModel model});
   Future<String> delete({required int id});
@@ -15,11 +15,11 @@ abstract class PriceListRegisterDataSource {
 class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   final client = http.Client();
   List<PriceListModel> prices = [];
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<PriceListModel>> getlist({required int id}) async {
+  Future<List<PriceListModel>> getlist() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}pricelist/getlist/$id');
+      final uri = Uri.parse('${baseApiUrl}pricelist/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 

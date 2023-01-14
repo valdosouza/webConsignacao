@@ -73,8 +73,7 @@ class CollaboratorRegisterBloc
     on<CollaboratorRegisterGetListEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState());
 
-      var response =
-          await getlist.call(ParamsGetListCollaborator(tbInstitutionId: 1));
+      var response = await getlist.call(ParamsGetListCollaborator());
 
       var result = response.fold(
           (l) => CollaboratorRegisterErrorState(modelList: modelList), (r) {
@@ -161,8 +160,8 @@ class CollaboratorRegisterBloc
       if (event.id != null) {
         emit(CollaboratorRegisterLoadingState());
 
-        final response = await getCollaborator
-            .call(ParamsGetCollaborator(tbInstitutionId: 1, id: event.id!));
+        final response =
+            await getCollaborator.call(ParamsGetCollaborator(id: event.id!));
 
         response.fold(
             (l) =>
@@ -307,8 +306,7 @@ class CollaboratorRegisterBloc
     on<CollaboratorRegisterGetLineBusinessEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState());
 
-      var response = await getLinebusines
-          .call(ParamsLinebusinessRegisterGet(tbInstitutionId: 1));
+      var response = await getLinebusines.call(ParamsLinebusinessRegisterGet());
 
       response.fold(
           (l) => emit(CollaboratorRegisterGetLinebusinessErrorState(

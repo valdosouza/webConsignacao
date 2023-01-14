@@ -10,15 +10,12 @@ class LinebusinessRegisterRepositoryImpl
   final LinebusinessRegisterDataSource datasource;
 
   //final NetworkInfo networkinfo;
-  LinebusinessRegisterRepositoryImpl({
-    required this.datasource,
-  });
+  LinebusinessRegisterRepositoryImpl({required this.datasource});
 
   @override
-  Future<Either<Failure, List<LinebusinessModel>>> getList(
-      {required int institutionId}) async {
+  Future<Either<Failure, List<LinebusinessModel>>> getList() async {
     try {
-      final list = await datasource.getlist(institutionId: institutionId);
+      final list = await datasource.getlist();
 
       return Right(list);
     } on ServerException {

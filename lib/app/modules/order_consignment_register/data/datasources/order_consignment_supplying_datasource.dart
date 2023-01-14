@@ -5,8 +5,7 @@ import 'package:appweb/app/modules/order_consignment_register/data/models/order_
 import 'package:http/http.dart' as http;
 
 abstract class OrderConsignmentSupplyingDatasource {
-  Future<OrderConsignmentSupplyingModel> getlast(
-      int tbInstitutionId, int tbCustomerId);
+  Future<OrderConsignmentSupplyingModel> getlast({required int tbCustomerId});
   Future<OrderConsignmentSupplyingModel> post(
       OrderConsignmentSupplyingModel model);
 }
@@ -14,12 +13,12 @@ abstract class OrderConsignmentSupplyingDatasource {
 class OrderConsignmentSupplyingDatasourceImpl
     implements OrderConsignmentSupplyingDatasource {
   final client = http.Client();
-
+  var tbInstitutionId = 1;
   OrderConsignmentSupplyingDatasourceImpl();
 
   @override
   Future<OrderConsignmentSupplyingModel> getlast(
-      int tbInstitutionId, int tbCustomerId) async {
+      {required int tbCustomerId}) async {
     try {
       final uri = Uri.parse(
           '${baseApiUrl}orderconsignment/getlast/$tbInstitutionId/$tbCustomerId');

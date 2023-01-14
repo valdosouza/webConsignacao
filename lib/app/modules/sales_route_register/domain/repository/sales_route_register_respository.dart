@@ -3,8 +3,7 @@ import 'package:appweb/app/modules/sales_route_register/data/model/sales_route_m
 import 'package:dartz/dartz.dart';
 
 abstract class SalesRouteRegisterRepository {
-  Future<Either<Failure, List<SalesRouteRegisterModel>>> getList(
-      {required int institutionId});
+  Future<Either<Failure, List<SalesRouteRegisterModel>>> getList();
   Future<Either<Failure, SalesRouteRegisterModel>> post(
       {required SalesRouteRegisterModel model});
   Future<Either<Failure, SalesRouteRegisterModel>> put(

@@ -19,10 +19,8 @@ class CashierBalanceBloc
     on<CashierBalanceMobileEvent>((event, emit) async {
       emit(CashierBalanceLoadingState());
 
-      var response = await cashierbalance.call(ParamsCashierBalance(
-          tbInstitutionId: event.tbInstitutionId,
-          date: event.date,
-          tbUserId: event.tbUserId));
+      var response =
+          await cashierbalance.call(ParamsCashierBalance(date: event.date));
 
       var result = response.fold((l) => CashierBalanceMobileErrorState(), (r) {
         cashierBalance = r;

@@ -8,16 +8,14 @@ import 'package:appweb/app/modules/product/domain/entity/produtcs_price_list_pro
 abstract class ProductDataSource extends Gateway {
   ProductDataSource({required super.httpClient});
 
-  Future<List<ProductsPriceListEntity>> getPriceList(
-      {required int tbInstitutionId});
+  Future<List<ProductsPriceListEntity>> getPriceList();
 }
 
 class ProductDataSourceImpl extends ProductDataSource {
   ProductDataSourceImpl({required super.httpClient});
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<ProductsPriceListEntity>> getPriceList(
-      {required int tbInstitutionId}) async {
+  Future<List<ProductsPriceListEntity>> getPriceList() async {
     return request(
       'product/pricelist/getall/$tbInstitutionId',
       (payload) {

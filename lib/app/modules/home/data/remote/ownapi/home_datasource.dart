@@ -1,12 +1,8 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
-import 'package:appweb/app/core/shared/helpers/local_storage.dart';
-import 'package:appweb/app/core/shared/local_storage_key.dart';
 import 'package:appweb/app/modules/home/data/model/home_sales_payment_type_model.dart';
 
-/// Calls the https://www.api.gestaosetes.com.br/financial/getClosed/ endpoint.
-///
 /// Throws a [ServerException] for all error codes.
 abstract class HomeDatasource extends Gateway {
   HomeDatasource({required super.httpClient});
@@ -27,15 +23,11 @@ class HomeDatasourceImpl extends HomeDatasource {
     required String finalDate,
     required String terminal,
   }) async {
-    final institution = await LocalStorageService.instance.get(
-      key: LocalStorageKey.institution,
-      defaultValue: 1223,
-    );
     final body = jsonEncode(
       <String, String>{
         'initialDate': initialDate,
         'finalDate': finalDate,
-        'institution': institution.toString(),
+        'tb_institution_id': "1",
         'terminal': terminal,
       },
     );

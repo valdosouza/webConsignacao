@@ -15,7 +15,7 @@ class UserRegisterGetlist
   Future<Either<Failure, List<UserRegisterModel>>> call(
       ParamsGetUser params) async {
     try {
-      final list = await repository.getList(id: params.id);
+      final list = await repository.getList();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -24,6 +24,5 @@ class UserRegisterGetlist
 }
 
 class ParamsGetUser {
-  int id;
-  ParamsGetUser({required this.id});
+  ParamsGetUser();
 }

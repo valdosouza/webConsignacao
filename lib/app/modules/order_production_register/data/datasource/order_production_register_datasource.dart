@@ -10,16 +10,15 @@ import 'package:http/http.dart' as http;
 abstract class OrderProductionRegisterDataSource extends Gateway {
   OrderProductionRegisterDataSource({required super.httpClient});
 
-  Future<List<OrderProductionRegisterModel>> getlist({required int id});
-  Future<OrderProductionRegisterModel> get(
-      {required int institutionId, required int orderProductionId});
+  Future<List<OrderProductionRegisterModel>> getlist();
+  Future<OrderProductionRegisterModel> get({required int orderProductionId});
   Future<OrderProductionRegisterModel> post(
       {required OrderProductionRegisterModel model});
   Future<OrderProductionRegisterModel> put(
       {required OrderProductionRegisterModel model});
   Future<String> delete({required int id});
-  Future<List<ProductListModel>> getListProducts({required int institutionId});
-  Future<List<StockListModel>> getListStock({required int institutionId});
+  Future<List<ProductListModel>> getListProducts();
+  Future<List<StockListModel>> getListStock();
 }
 
 class OrderProductionRegisterDataSourceImpl
@@ -30,13 +29,11 @@ class OrderProductionRegisterDataSourceImpl
   List<StockListModel> stock = [];
 
   OrderProductionRegisterDataSourceImpl({required super.httpClient});
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<OrderProductionRegisterModel>> getlist({
-    required int id,
-  }) async {
+  Future<List<OrderProductionRegisterModel>> getlist() async {
     return request(
-      'orderproduction/getlist/$id',
+      'orderproduction/getlist/$tbInstitutionId',
       (payload) {
         final data = json.decode(payload);
         orderProduction = (data as List).map(
@@ -110,12 +107,10 @@ class OrderProductionRegisterDataSourceImpl
   }
 
   @override
-  Future<OrderProductionRegisterModel> get({
-    required int institutionId,
-    required int orderProductionId,
-  }) async {
+  Future<OrderProductionRegisterModel> get(
+      {required int orderProductionId}) async {
     return request(
-      'orderproduction/get/$institutionId/$orderProductionId',
+      'orderproduction/get/$tbInstitutionId/$orderProductionId',
       (payload) {
         final data = json.decode(payload);
         var model = OrderProductionRegisterModel.fromJson(data);
@@ -128,10 +123,9 @@ class OrderProductionRegisterDataSourceImpl
   }
 
   @override
-  Future<List<ProductListModel>> getListProducts(
-      {required int institutionId}) async {
+  Future<List<ProductListModel>> getListProducts() async {
     return request(
-      'product/getlist/$institutionId',
+      'product/getlist/$tbInstitutionId',
       (payload) {
         final data = json.decode(payload);
         products = (data as List).map((json) {
@@ -147,11 +141,9 @@ class OrderProductionRegisterDataSourceImpl
   }
 
   @override
-  Future<List<StockListModel>> getListStock({
-    required int institutionId,
-  }) async {
+  Future<List<StockListModel>> getListStock() async {
     return request(
-      'stocklist/getlist/$institutionId',
+      'stocklist/getlist/$tbInstitutionId',
       (payload) {
         final data = json.decode(payload);
         stock = (data as List).map((json) {

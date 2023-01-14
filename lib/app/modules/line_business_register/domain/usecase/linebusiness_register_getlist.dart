@@ -15,8 +15,7 @@ class LinebusinessRegisterGetlist
   Future<Either<Failure, List<LinebusinessModel>>> call(
       ParamsLinebusinessRegisterGet params) async {
     try {
-      final list =
-          await repository.getList(institutionId: params.tbInstitutionId);
+      final list = await repository.getList();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,6 +24,5 @@ class LinebusinessRegisterGetlist
 }
 
 class ParamsLinebusinessRegisterGet {
-  int tbInstitutionId;
-  ParamsLinebusinessRegisterGet({required this.tbInstitutionId});
+  ParamsLinebusinessRegisterGet();
 }

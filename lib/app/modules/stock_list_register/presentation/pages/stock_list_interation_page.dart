@@ -77,8 +77,8 @@ class _StockListInterationPageState extends State<StockListInterationPage> {
                       AddStockListEvent(
                         stock: StockListModel(
                           id: (widget.bloc.state.stocklist.last.id + 1),
-                          institution:
-                              widget.bloc.state.stocklist.last.institution,
+                          tbInstitutionId:
+                              widget.bloc.state.stocklist.last.tbInstitutionId,
                           description: descripton,
                           active: active,
                           main: "N",

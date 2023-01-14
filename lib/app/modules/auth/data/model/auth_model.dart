@@ -4,14 +4,14 @@ class AuthModel extends AuthEntity {
   const AuthModel({
     required bool auth,
     required int id,
-    required int institution,
+    required int tbInstitutionId,
     required String username,
     required String password,
     required String jwt,
   }) : super(
           auth: auth,
           id: id,
-          institution: institution,
+          tbInstitutionId: tbInstitutionId,
           username: username,
           password: password,
           jwt: jwt,
@@ -21,7 +21,7 @@ class AuthModel extends AuthEntity {
     return AuthModel(
       auth: json['auth'] as bool,
       id: int.parse(json['id'].toString()),
-      institution: int.parse(json['institution'].toString()),
+      tbInstitutionId: int.parse(json['tb_institution_id'].toString()),
       username: json['username'] as String,
       password: json['password'] as String,
       jwt: json['jwt'] as String,

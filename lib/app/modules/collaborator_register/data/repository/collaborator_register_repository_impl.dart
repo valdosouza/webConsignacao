@@ -20,11 +20,9 @@ class CollaboratorRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, CollaboratorMainModel>> get(
-      {required int tbInstitutionId, required int id}) async {
+  Future<Either<Failure, CollaboratorMainModel>> get({required int id}) async {
     try {
-      final collaborator =
-          await datasource.get(tbInstitutionId: tbInstitutionId, id: id);
+      final collaborator = await datasource.get(id: id);
       return Right(collaborator);
     } on ServerException {
       return Left(ServerFailure());
@@ -32,10 +30,9 @@ class CollaboratorRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<CollaboratorListModel>>> getlist(
-      {required int tbInstitutionId}) async {
+  Future<Either<Failure, List<CollaboratorListModel>>> getlist() async {
     try {
-      final list = await datasource.getlist(tbInstitutionId: tbInstitutionId);
+      final list = await datasource.getlist();
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

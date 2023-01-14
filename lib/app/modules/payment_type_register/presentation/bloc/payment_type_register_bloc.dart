@@ -37,8 +37,7 @@ class PaymentTypeRegisterBloc
     on<PaymentTypeRegisterGetListEvent>((event, emit) async {
       emit(PaymentTypeRegisterLoadingState());
 
-      var response =
-          await getlist.call(ParamsPaymentTypeRegisterGet(institutionId: 1));
+      var response = await getlist.call(ParamsPaymentTypeRegisterGet());
 
       var result = response
           .fold((l) => PaymentTypeRegisterErrorState(list: prices), (r) {

@@ -7,9 +7,8 @@ import 'package:appweb/app/modules/product_register/data/model/product_register_
 import 'package:http/http.dart' as http;
 
 abstract class ProductRegisterDataSource {
-  Future<List<ProductRegisterModel>> getlist({required int id});
-  Future<ProductRegisterMainModel> get(
-      {required int tbInstitutionId, required int productId});
+  Future<List<ProductRegisterModel>> getlist();
+  Future<ProductRegisterMainModel> get({required int productId});
   Future<ProductRegisterMainModel> post(
       {required ProductRegisterMainModel model});
   Future<ProductRegisterMainModel> put(
@@ -20,11 +19,11 @@ abstract class ProductRegisterDataSource {
 class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   final client = http.Client();
   List<ProductRegisterModel> products = [];
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<ProductRegisterModel>> getlist({required int id}) async {
+  Future<List<ProductRegisterModel>> getlist() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}product/getlist/$id');
+      final uri = Uri.parse('${baseApiUrl}product/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 
@@ -113,8 +112,7 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   }
 
   @override
-  Future<ProductRegisterMainModel> get(
-      {required int tbInstitutionId, required int productId}) async {
+  Future<ProductRegisterMainModel> get({required int productId}) async {
     try {
       final uri =
           Uri.parse('${baseApiUrl}product/get/$tbInstitutionId/$productId');

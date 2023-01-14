@@ -15,9 +15,8 @@ class CashierBalanceGet
       ParamsCashierBalance params) async {
     try {
       final model = await repository.cashierBalanceGet(
-          tbInstitutionId: params.tbInstitutionId,
-          date: params.date,
-          tbUserId: params.tbUserId);
+        date: params.date,
+      );
       return model;
     } on ServerException {
       return Left(ServerFailure());
@@ -26,11 +25,7 @@ class CashierBalanceGet
 }
 
 class ParamsCashierBalance {
-  int tbInstitutionId;
   String date;
-  int tbUserId;
-  ParamsCashierBalance(
-      {required this.tbInstitutionId,
-      required this.date,
-      required this.tbUserId});
+
+  ParamsCashierBalance({required this.date});
 }

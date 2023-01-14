@@ -7,16 +7,15 @@ import 'package:dartz/dartz.dart';
 
 class StockListRepositoryImpl implements StockListRepository {
   final StockListDatasource datasource;
-  //final NetworkInfo networkinfo;
+
   StockListRepositoryImpl({
     required this.datasource,
   });
 
   @override
-  Future<Either<Failure, List<StockListModel>>> getList(
-      {required int institutionId}) async {
+  Future<Either<Failure, List<StockListModel>>> getList() async {
     try {
-      final list = await datasource.getlist(institutionId: institutionId);
+      final list = await datasource.getlist();
 
       return Right(list);
     } on ServerException {

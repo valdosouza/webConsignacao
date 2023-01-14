@@ -6,11 +6,9 @@ import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.
 import 'package:http/http.dart' as http;
 
 abstract class CustomerDataSource {
-  Future<List<CustomerListByRouteModel>> getList(
-      {required int tbInstitutionId, required int tbSalesRouteId});
+  Future<List<CustomerListByRouteModel>> getList({required int tbSalesRouteId});
   Future<void> sequence(
-      {required int tbInstitutionId,
-      required int tbSalesRouteId,
+      {required int tbSalesRouteId,
       required int tbCustomerId,
       required int sequence});
 }
@@ -18,10 +16,10 @@ abstract class CustomerDataSource {
 class CustomerDataSourceImpl extends CustomerDataSource {
   final client = http.Client();
   List<CustomerListByRouteModel> items = [];
-
+  var tbInstitutionId = 1;
   @override
   Future<List<CustomerListByRouteModel>> getList(
-      {required int tbInstitutionId, required int tbSalesRouteId}) async {
+      {required int tbSalesRouteId}) async {
     try {
       final uri = Uri.parse(
           '${baseApiUrl}customer/salesroute/getlist/$tbInstitutionId/$tbSalesRouteId');
@@ -45,14 +43,13 @@ class CustomerDataSourceImpl extends CustomerDataSource {
 
   @override
   Future<void> sequence(
-      {required int tbInstitutionId,
-      required int tbSalesRouteId,
+      {required int tbSalesRouteId,
       required int tbCustomerId,
       required int sequence}) async {
     try {
       final uri = Uri.parse('${baseApiUrl}salesroute/sequence/');
       var body = {
-        "tb_institution_id": tbInstitutionId,
+        "tb_institution_id": 1,
         "tb_sales_route_id": tbSalesRouteId,
         "tb_customer_id": tbCustomerId,
         "sequence": sequence

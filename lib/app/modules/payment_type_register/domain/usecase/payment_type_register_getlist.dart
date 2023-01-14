@@ -15,8 +15,7 @@ class PaymentTypeRegisterGetlist
   Future<Either<Failure, List<PaymentTypeModel>>> call(
       ParamsPaymentTypeRegisterGet params) async {
     try {
-      final list =
-          await repository.getList(institutionId: params.institutionId);
+      final list = await repository.getList();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,6 +24,5 @@ class PaymentTypeRegisterGetlist
 }
 
 class ParamsPaymentTypeRegisterGet {
-  int institutionId;
-  ParamsPaymentTypeRegisterGet({required this.institutionId});
+  ParamsPaymentTypeRegisterGet();
 }

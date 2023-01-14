@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/user_register/data/model/user_register_model.
 import 'package:dartz/dartz.dart';
 
 abstract class UserRegisterRepository {
-  Future<Either<Failure, List<UserRegisterModel>>> getList({required int id});
+  Future<Either<Failure, List<UserRegisterModel>>> getList();
   Future<Either<Failure, UserRegisterModel>> post(
       {required UserRegisterModel model});
   Future<Either<Failure, String>> delete({required int userId});

@@ -7,13 +7,8 @@ import 'package:appweb/app/modules/customer_register/data/model/customer_main_mo
 abstract class CustomerRegisterDataSource extends Gateway {
   CustomerRegisterDataSource({required super.httpClient});
 
-  Future<List<CustomerListModel>> getList({
-    required int tbInstitutionId,
-  });
-  Future<CustomerMainModel> get({
-    required int tbInstitutionId,
-    required int id,
-  });
+  Future<List<CustomerListModel>> getList();
+  Future<CustomerMainModel> get({required int id});
 
   Future<CustomerListModel> post({required CustomerMainModel customer});
 }
@@ -22,11 +17,9 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   List<CustomerListModel> items = [];
 
   CustomerRegisterDataSourceImpl({required super.httpClient});
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<CustomerListModel>> getList({
-    required int tbInstitutionId,
-  }) async {
+  Future<List<CustomerListModel>> getList() async {
     return await request(
       'customer/getlist/$tbInstitutionId',
       (payload) {
@@ -45,10 +38,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   }
 
   @override
-  Future<CustomerMainModel> get({
-    required int tbInstitutionId,
-    required int id,
-  }) async {
+  Future<CustomerMainModel> get({required int id}) async {
     return await request(
       'customer/get/$tbInstitutionId/$id',
       (payload) {

@@ -25,9 +25,9 @@ class OrderConsignmentSupplyingRepositoryImpl
 
   @override
   Future<Either<Failure, OrderConsignmentSupplyingModel>> getlast(
-      int tbInstitutionId, int tbCustomerId) async {
+      int tbCustomerId) async {
     try {
-      return Right(await orderSupplying.getlast(tbInstitutionId, tbCustomerId));
+      return Right(await orderSupplying.getlast(tbCustomerId: tbCustomerId));
     } on ServerException {
       return Left(ServerFailure());
     }

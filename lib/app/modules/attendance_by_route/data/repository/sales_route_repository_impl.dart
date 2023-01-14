@@ -10,10 +10,9 @@ class SalesRouteRepositoryImpl implements SalesRouteRepository {
 
   SalesRouteRepositoryImpl({required this.datasource});
   @override
-  Future<Either<Failure, List<SalesRouteListModel>>> getList(
-      {required int institutionId}) async {
+  Future<Either<Failure, List<SalesRouteListModel>>> getList() async {
     try {
-      final list = await datasource.getlist(institutionId: institutionId);
+      final list = await datasource.getlist();
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

@@ -15,7 +15,7 @@ class ProductGetlist
   Future<Either<Failure, List<ProductListModel>>> call(
       ParamsGetlistProduct params) async {
     try {
-      final list = await repository.getListProducts(id: params.id);
+      final list = await repository.getListProducts();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -24,6 +24,5 @@ class ProductGetlist
 }
 
 class ParamsGetlistProduct {
-  int id;
-  ParamsGetlistProduct({required this.id});
+  ParamsGetlistProduct();
 }

@@ -15,7 +15,7 @@ class PricesListGet
   Future<Either<Failure, List<ProductsPriceListEntity>>> call(
       ParamsPricesListGet params) async {
     try {
-      final list = await repository.getPriceList(id: params.id);
+      final list = await repository.getPriceList();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -24,6 +24,5 @@ class PricesListGet
 }
 
 class ParamsPricesListGet {
-  int id;
-  ParamsPricesListGet({required this.id});
+  ParamsPricesListGet();
 }

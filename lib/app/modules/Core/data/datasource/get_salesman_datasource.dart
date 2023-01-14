@@ -5,16 +5,15 @@ import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class GetSalesmanDatasource {
-  Future<List<SalesmanListModel>> getSalesman({required int tbInstitutionId});
+  Future<List<SalesmanListModel>> getSalesman();
 }
 
 class GetSalesmanDataSourceImpl extends GetSalesmanDatasource {
   final client = http.Client();
   List<SalesmanListModel> list = [];
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<SalesmanListModel>> getSalesman(
-      {required int tbInstitutionId}) async {
+  Future<List<SalesmanListModel>> getSalesman() async {
     try {
       final uri =
           Uri.parse('${baseApiUrl}collaborator/getlist/$tbInstitutionId');

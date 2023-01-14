@@ -13,10 +13,9 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
   });
 
   @override
-  Future<Either<Failure, List<UserRegisterModel>>> getList(
-      {required int id}) async {
+  Future<Either<Failure, List<UserRegisterModel>>> getList() async {
     try {
-      final list = await datasource.getlist(id: id);
+      final list = await datasource.getlist();
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

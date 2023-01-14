@@ -16,7 +16,7 @@ class ProductRegisterGetlist
   Future<Either<Failure, List<ProductRegisterModel>>> call(
       ParamsProductRegisterGetlist params) async {
     try {
-      final list = await repository.getList(id: params.id);
+      final list = await repository.getList();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,6 +25,5 @@ class ProductRegisterGetlist
 }
 
 class ParamsProductRegisterGetlist {
-  int id;
-  ParamsProductRegisterGetlist({required this.id});
+  ParamsProductRegisterGetlist();
 }

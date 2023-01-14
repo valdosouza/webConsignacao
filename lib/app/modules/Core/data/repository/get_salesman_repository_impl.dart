@@ -13,11 +13,9 @@ class GetSalesmanRepositoryImpl implements GetSalesmanRepository {
   });
 
   @override
-  Future<Either<Failure, List<SalesmanListModel>>> getSalesman(
-      {required int tbInstitutionId}) async {
+  Future<Either<Failure, List<SalesmanListModel>>> getSalesman() async {
     try {
-      final response =
-          await datasource.getSalesman(tbInstitutionId: tbInstitutionId);
+      final response = await datasource.getSalesman();
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

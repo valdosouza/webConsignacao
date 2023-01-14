@@ -8,16 +8,16 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/st
 import 'package:http/http.dart' as http;
 
 abstract class OrderStockAdjustmentRegisterDataSource {
-  Future<List<OrderStockAdjustmentRegisterModel>> getlist({required int id});
+  Future<List<OrderStockAdjustmentRegisterModel>> getlist();
   Future<OrderStockAdjustmentRegisterModel> get(
-      {required int institutionId, required int orderStockAdjustmentId});
+      {required int orderStockAdjustmentId});
   Future<OrderStockAdjustmentRegisterModel> post(
       {required OrderStockAdjustmentRegisterModel model});
   Future<OrderStockAdjustmentRegisterModel> put(
       {required OrderStockAdjustmentRegisterModel model});
   Future<String> delete({required int id});
-  Future<List<ProductListModel>> getListProducts({required int institutionId});
-  Future<List<StockListModel>> getListStock({required int institutionId});
+  Future<List<ProductListModel>> getListProducts();
+  Future<List<StockListModel>> getListStock();
   Future<List<EntityListModel>> getListEtities();
   Future<void> close({required OrderStockAdjustmentRegisterModel model});
   Future<void> reopen({required OrderStockAdjustmentRegisterModel model});
@@ -30,12 +30,12 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   List<ProductListModel> products = [];
   List<StockListModel> stock = [];
   List<EntityListModel> entity = [];
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<OrderStockAdjustmentRegisterModel>> getlist(
-      {required int id}) async {
+  Future<List<OrderStockAdjustmentRegisterModel>> getlist() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}orderstockadjust/getlist/$id');
+      final uri =
+          Uri.parse('${baseApiUrl}orderstockadjust/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 
@@ -123,10 +123,10 @@ class OrderStockAdjustmentRegisterDataSourceImpl
 
   @override
   Future<OrderStockAdjustmentRegisterModel> get(
-      {required int institutionId, required int orderStockAdjustmentId}) async {
+      {required int orderStockAdjustmentId}) async {
     try {
       final uri = Uri.parse(
-          '${baseApiUrl}orderstockadjust/get/$institutionId/$orderStockAdjustmentId');
+          '${baseApiUrl}orderstockadjust/get/$tbInstitutionId/$orderStockAdjustmentId');
 
       final response = await client.get(uri);
 
@@ -143,10 +143,9 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   }
 
   @override
-  Future<List<ProductListModel>> getListProducts(
-      {required int institutionId}) async {
+  Future<List<ProductListModel>> getListProducts() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}product/getlist/$institutionId');
+      final uri = Uri.parse('${baseApiUrl}product/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 
@@ -166,10 +165,9 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   }
 
   @override
-  Future<List<StockListModel>> getListStock(
-      {required int institutionId}) async {
+  Future<List<StockListModel>> getListStock() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$institutionId');
+      final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 

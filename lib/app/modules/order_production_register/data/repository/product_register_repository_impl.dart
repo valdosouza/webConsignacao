@@ -34,10 +34,9 @@ class OrderProductionRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<OrderProductionRegisterModel>>> getList(
-      {required int id}) async {
+  Future<Either<Failure, List<OrderProductionRegisterModel>>> getList() async {
     try {
-      final list = await datasource.getlist(id: id);
+      final list = await datasource.getlist();
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());
@@ -57,10 +56,9 @@ class OrderProductionRegisterRepositoryImpl
 
   @override
   Future<Either<Failure, OrderProductionRegisterModel>> get(
-      {required int tbInstitutionId, required int productId}) async {
+      {required int productId}) async {
     try {
-      final list = await datasource.get(
-          institutionId: tbInstitutionId, orderProductionId: productId);
+      final list = await datasource.get(orderProductionId: productId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());
@@ -68,10 +66,9 @@ class OrderProductionRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<ProductListModel>>> getListProducts(
-      {required int id}) async {
+  Future<Either<Failure, List<ProductListModel>>> getListProducts() async {
     try {
-      final list = await datasource.getListProducts(institutionId: id);
+      final list = await datasource.getListProducts();
 
       return Right(list);
     } on ServerException {
@@ -80,10 +77,9 @@ class OrderProductionRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<StockListModel>>> getListStock(
-      {required int id}) async {
+  Future<Either<Failure, List<StockListModel>>> getListStock() async {
     try {
-      final list = await datasource.getListStock(institutionId: id);
+      final list = await datasource.getListStock();
 
       return Right(list);
     } on ServerException {

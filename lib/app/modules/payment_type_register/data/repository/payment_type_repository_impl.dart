@@ -15,10 +15,9 @@ class PaymentTypeRegisterRepositoryImpl
   });
 
   @override
-  Future<Either<Failure, List<PaymentTypeModel>>> getList(
-      {required int institutionId}) async {
+  Future<Either<Failure, List<PaymentTypeModel>>> getList() async {
     try {
-      final list = await datasource.getlist(institutionId: institutionId);
+      final list = await datasource.getlist();
 
       return Right(list);
     } on ServerException {

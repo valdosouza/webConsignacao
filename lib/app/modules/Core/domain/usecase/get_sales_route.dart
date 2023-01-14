@@ -15,8 +15,7 @@ class GetSalesRoute
   Future<Either<Failure, List<SalesRouteListModel>>> call(
       ParamsSalesRouteListGet params) async {
     try {
-      final list = await repository.getSalesRoute(
-          tbInstitutionId: params.tbInstitutionId);
+      final list = await repository.getSalesRoute();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,6 +24,5 @@ class GetSalesRoute
 }
 
 class ParamsSalesRouteListGet {
-  int tbInstitutionId;
-  ParamsSalesRouteListGet({required this.tbInstitutionId});
+  ParamsSalesRouteListGet();
 }

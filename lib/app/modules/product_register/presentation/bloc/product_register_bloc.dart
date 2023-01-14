@@ -40,7 +40,7 @@ class ProductRegisterBloc
     on<ProductRegisterGetListEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
 
-      var response = await getlist.call(ParamsProductRegisterGetlist(id: 1));
+      var response = await getlist.call(ParamsProductRegisterGetlist());
 
       var result =
           response.fold((l) => ProductRegisterErrorState(list: products), (r) {
@@ -74,7 +74,6 @@ class ProductRegisterBloc
       emit(ProductRegisterLoadingState());
 
       var response = await get.call(ParamsProductRegisterGet(
-          tbInstitutionId: 1,
           productId: event.model != null ? event.model!.id : 0));
 
       var result = response.fold(

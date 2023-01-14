@@ -25,15 +25,17 @@ abstract class CashierStatementDataSource extends Gateway {
 
 class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   CashierStatementDataSourceImpl({required super.httpClient});
-
+  var tbInstitutionId = 1;
   @override
   Future<List<CashierStatementModel>> cashierStatementGetByCustomer(
       {required CashierStatementParams params}) async {
     return await request(
-      'financial/statement/getbycustomer/${params.tbInstitutionId}/${params.tbUserId}/${params.tbCustomerId}/${params.date}',
+      'financial/statement/getbycustomer/$tbInstitutionId/2/${params.tbCustomerId}/${params.date}',
       (payload) {
         final data = json.decode(payload);
-        var model = (data as List).map((e) => CashierStatementModel.fromJson(e)).toList();
+        var model = (data as List)
+            .map((e) => CashierStatementModel.fromJson(e))
+            .toList();
         return model;
       },
       onError: (error) {
@@ -46,10 +48,12 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   Future<List<CashierStatementModel>> cashierStatementGetByDay(
       {required CashierStatementParams params}) async {
     return await request(
-      'financial/statement/getbyday/${params.tbInstitutionId}/${params.tbUserId}/${params.date}',
+      'financial/statement/getbyday/$tbInstitutionId/2/${params.date}',
       (payload) {
         final data = json.decode(payload);
-        var model = (data as List).map((e) => CashierStatementModel.fromJson(e)).toList();
+        var model = (data as List)
+            .map((e) => CashierStatementModel.fromJson(e))
+            .toList();
         return model;
       },
       onError: (error) {
@@ -62,10 +66,12 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   Future<List<CashierStatementModel>> cashierStatementGetByMonth(
       {required CashierStatementParams params}) async {
     return await request(
-      'financial/statement/getbymonth/${params.tbInstitutionId}/${params.tbUserId}/${params.date}',
+      'financial/statement/getbymonth/$tbInstitutionId/2/${params.date}',
       (payload) {
         final data = json.decode(payload);
-        var model = (data as List).map((e) => CashierStatementModel.fromJson(e)).toList();
+        var model = (data as List)
+            .map((e) => CashierStatementModel.fromJson(e))
+            .toList();
         return model;
       },
       onError: (error) {
@@ -78,10 +84,12 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   Future<List<CashierStatementCustomerModel>> cashierStatementGetCustomers(
       {required CashierStatementParams params}) async {
     return await request(
-      'financial/customer/charged/getlist/${params.tbInstitutionId}/${params.tbUserId}/${params.date}',
+      'financial/customer/charged/getlist/$tbInstitutionId/2/${params.date}',
       (payload) {
         final data = json.decode(payload);
-        var model = (data as List).map((e) => CashierStatementCustomerModel.fromJson(e)).toList();
+        var model = (data as List)
+            .map((e) => CashierStatementCustomerModel.fromJson(e))
+            .toList();
         return model;
       },
       onError: (error) {

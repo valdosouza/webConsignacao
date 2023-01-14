@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 /// Throws a [ServerException] for all error codes.
 abstract class StockListDatasource {
-  Future<List<StockListModel>> getlist({required int institutionId});
+  Future<List<StockListModel>> getlist();
   Future<StockListModel> post({required StockListModel model});
   Future<String> put({required StockListModel model});
   Future<String> delete({required int id});
@@ -16,10 +16,11 @@ abstract class StockListDatasource {
 class StockListDatasourceImpl implements StockListDatasource {
   final client = http.Client();
   List<StockListModel> items = [];
+  var tbInstitutionId = 1;
   @override
-  Future<List<StockListModel>> getlist({required int institutionId}) async {
+  Future<List<StockListModel>> getlist() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$institutionId');
+      final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 

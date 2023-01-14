@@ -6,17 +6,15 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/st
 import 'package:dartz/dartz.dart';
 
 abstract class OrderStockAdjustmentRegisterRepository {
-  Future<Either<Failure, List<OrderStockAdjustmentRegisterModel>>> getList(
-      {required int id});
+  Future<Either<Failure, List<OrderStockAdjustmentRegisterModel>>> getList();
   Future<Either<Failure, OrderStockAdjustmentRegisterModel>> get(
-      {required int tbInstitutionId, required int productId});
+      {required int productId});
   Future<Either<Failure, OrderStockAdjustmentRegisterModel>> post(
       {required OrderStockAdjustmentRegisterModel model});
   Future<Either<Failure, OrderStockAdjustmentRegisterModel>> put(
       {required OrderStockAdjustmentRegisterModel model});
   Future<Either<Failure, String>> delete({required int id});
-  Future<Either<Failure, List<ProductListModel>>> getListProducts(
-      {required int id});
-  Future<Either<Failure, List<StockListModel>>> getListStock({required int id});
+  Future<Either<Failure, List<ProductListModel>>> getListProducts();
+  Future<Either<Failure, List<StockListModel>>> getListStock();
   Future<Either<Failure, List<EntityListModel>>> getListEntities();
 }

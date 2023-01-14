@@ -88,8 +88,7 @@ class CustomerRegisterBloc
     on<CustomerRegisterGetListEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
-      var response =
-          await getlist.call(ParamsGetListCustomer(tbInstitutionId: 1));
+      var response = await getlist.call(ParamsGetListCustomer());
 
       var result = response
           .fold((l) => CustomerRegisterErrorState(customers: customers), (r) {
@@ -191,8 +190,8 @@ class CustomerRegisterBloc
       if (event.id != null) {
         emit(CustomerRegisterLoadingState());
 
-        final response = await getCustomer
-            .call(ParamsGetCustomer(tbInstitutionId: 1, id: event.id!));
+        final response =
+            await getCustomer.call(ParamsGetCustomer(id: event.id!));
 
         response.fold(
             (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
@@ -213,8 +212,8 @@ class CustomerRegisterBloc
       if (event.id != null) {
         emit(CustomerRegisterLoadingState());
 
-        final response = await getCustomer
-            .call(ParamsGetCustomer(tbInstitutionId: 1, id: event.id!));
+        final response =
+            await getCustomer.call(ParamsGetCustomer(id: event.id!));
 
         response.fold(
             (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
@@ -365,8 +364,7 @@ class CustomerRegisterBloc
     on<CustomerRegisterGetSalesmanEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
-      var response =
-          await getSalesmans.call(ParamsSalesmanListGet(tbInstitutionId: 1));
+      var response = await getSalesmans.call(ParamsSalesmanListGet());
 
       response.fold(
           (l) => emit(CustomerRegisterGetSalesmanErrorState(customers)), (r) {
@@ -399,8 +397,7 @@ class CustomerRegisterBloc
     on<CustomerRegisterGetSalesRouteEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
-      var response =
-          await getSalesRoute.call(ParamsSalesRouteListGet(tbInstitutionId: 1));
+      var response = await getSalesRoute.call(ParamsSalesRouteListGet());
 
       response.fold(
           (l) => emit(CustomerRegisterGetSalesRouteErrorState(customers)), (r) {

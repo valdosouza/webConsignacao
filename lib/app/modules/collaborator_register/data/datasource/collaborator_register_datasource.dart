@@ -9,22 +9,20 @@ import 'package:appweb/app/modules/collaborator_register/data/model/collaborator
 abstract class CollaboratorRegisterDatasource extends Gateway {
   CollaboratorRegisterDatasource({required super.httpClient});
 
-  Future<CollaboratorMainModel> get(
-      {required int tbInstitutionId, required int id});
+  Future<CollaboratorMainModel> get({required int id});
   Future<CollaboratorListModel> post({required CollaboratorMainModel model});
   Future<String> delete({required int id});
-  Future<List<CollaboratorListModel>> getlist({required int tbInstitutionId});
+  Future<List<CollaboratorListModel>> getlist();
 }
 
 class CollaboratorRegisterDatasourceImpl
     extends CollaboratorRegisterDatasource {
   List<StateModel> states = [];
   List<CityModel> citys = [];
-
+  var tbInstitutionId = 1;
   CollaboratorRegisterDatasourceImpl({required super.httpClient});
   @override
-  Future<CollaboratorMainModel> get(
-      {required int tbInstitutionId, required int id}) async {
+  Future<CollaboratorMainModel> get({required int id}) async {
     return await request(
       'collaborator/$tbInstitutionId/$id',
       (payload) {
@@ -72,9 +70,7 @@ class CollaboratorRegisterDatasourceImpl
   }
 
   @override
-  Future<List<CollaboratorListModel>> getlist({
-    required int tbInstitutionId,
-  }) async {
+  Future<List<CollaboratorListModel>> getlist() async {
     return await request(
       'collaborator/getlist/$tbInstitutionId',
       (payload) {

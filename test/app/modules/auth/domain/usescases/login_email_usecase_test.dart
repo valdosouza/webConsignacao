@@ -21,7 +21,7 @@ void main() {
   const tAuthModel = AuthModel(
     auth: true,
     id: 0,
-    institution: 0,
+    tbInstitutionId: 0,
     username: 'testEmail@Email',
     password: '123',
     jwt: 'StringJWT',

@@ -20,8 +20,7 @@ class AttendanceBySalesmanBloc
     on<CustomerGetListEvent>((event, emit) async {
       emit(CustomerListLoadingState());
 
-      var response = await getlistCustomer
-          .call(ParamsGetListCustomer(tbInstitutionId: 1, tbSalesmanId: 62));
+      var response = await getlistCustomer.call(ParamsGetListCustomer());
 
       var result = response
           .fold((l) => CustomerListErrorState(customerList: customerlist), (r) {

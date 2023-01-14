@@ -29,9 +29,8 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     on<StockBalanceCustomerGetListEvent>((event, emit) async {
       emit(StockBalanceCustomerLoadingState());
 
-      var response = await customergetlist.call(
-          const ParamsGetListStockBalanceCustomer(
-              institutionId: 1, tbSalesmanId: 2));
+      var response =
+          await customergetlist.call(const ParamsGetListStockBalanceCustomer());
 
       response.fold(
           (l) => emit(StockBalanceCustomerErrorState(list: stockBalance)), (r) {
@@ -66,9 +65,8 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     on<StockBalanceSalesmanGetListEvent>((event, emit) async {
       emit(StockBalanceSalesmanLoadingState());
 
-      var response = await salesmangetlist.call(
-          const ParamsGetListStockBalanceSalesman(
-              institutionId: 1, tbSalesmanId: 2));
+      var response =
+          await salesmangetlist.call(const ParamsGetListStockBalanceSalesman());
 
       response.fold(
           (l) => emit(StockBalanceSalesmanErrorState(list: stockBalance)), (r) {
@@ -103,9 +101,8 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     on<StockBalanceGeneralGetListEvent>((event, emit) async {
       emit(StockBalanceGeneralLoadingState());
 
-      var response = await generalgetlist.call(
-          const ParamsGetListStockBalanceGeneral(
-              institutionId: 1, tbSalesmanId: 2));
+      var response =
+          await generalgetlist.call(const ParamsGetListStockBalanceGeneral());
 
       response.fold(
           (l) => emit(StockBalanceGeneralErrorState(list: stockBalance)), (r) {

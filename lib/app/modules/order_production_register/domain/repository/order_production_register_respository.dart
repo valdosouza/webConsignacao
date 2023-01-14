@@ -5,16 +5,14 @@ import 'package:appweb/app/modules/order_production_register/data/model/stock_li
 import 'package:dartz/dartz.dart';
 
 abstract class OrderProductionRegisterRepository {
-  Future<Either<Failure, List<OrderProductionRegisterModel>>> getList(
-      {required int id});
+  Future<Either<Failure, List<OrderProductionRegisterModel>>> getList();
   Future<Either<Failure, OrderProductionRegisterModel>> get(
-      {required int tbInstitutionId, required int productId});
+      {required int productId});
   Future<Either<Failure, OrderProductionRegisterModel>> post(
       {required OrderProductionRegisterModel model});
   Future<Either<Failure, OrderProductionRegisterModel>> put(
       {required OrderProductionRegisterModel model});
   Future<Either<Failure, String>> delete({required int id});
-  Future<Either<Failure, List<ProductListModel>>> getListProducts(
-      {required int id});
-  Future<Either<Failure, List<StockListModel>>> getListStock({required int id});
+  Future<Either<Failure, List<ProductListModel>>> getListProducts();
+  Future<Either<Failure, List<StockListModel>>> getListStock();
 }

@@ -35,8 +35,7 @@ class AttendanceByRouteBloc
     on<SalesRouteGetListEvent>((event, emit) async {
       emit(SalesRouteListLoadingState());
 
-      var response =
-          await getlistSalesRoute.call(ParamsSalesRouteGet(institutionId: 1));
+      var response = await getlistSalesRoute.call(ParamsSalesRouteGet());
 
       var result = response.fold(
           (l) => SalesRouteListErrorState(salesRouteList: saleroutlist), (r) {
@@ -52,8 +51,8 @@ class AttendanceByRouteBloc
     on<CustomerGetListEvent>((event, emit) async {
       emit(CustomerListLoadingState());
 
-      var response = await getlistCustomer.call(ParamsGetListCustomer(
-          tbInstitutionId: 1, tbSalesRouteId: event.tbSalesRouteId!));
+      var response = await getlistCustomer
+          .call(ParamsGetListCustomer(tbSalesRouteId: event.tbSalesRouteId!));
 
       var result = response
           .fold((l) => CustomerListErrorState(customerList: customerlist), (r) {
@@ -94,7 +93,6 @@ class AttendanceByRouteBloc
       idSequenceCustomer = -1;
 
       var response = await sequence.call(ParamsSequenceCustomer(
-          tbInstitutionId: event.tbInstitutionId,
           tbCustomerId: event.tbCustomerId,
           tbSalesRouteId: event.tbSalesRouteId,
           sequence: event.sequence));

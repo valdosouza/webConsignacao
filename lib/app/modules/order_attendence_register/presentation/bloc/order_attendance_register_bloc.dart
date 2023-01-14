@@ -24,7 +24,7 @@ class OrderAttendanceRegisterBloc
 
   attendanceGetPriceList() {
     on<OrderAttendanceGetPriceListEvent>((event, emit) async {
-      var response = await getPriceList.call(ParamsPriceListGet(id: 1));
+      var response = await getPriceList.call(ParamsPriceListGet());
 
       var result = response.fold(
           (l) => OrderAttendanceRegisterGetPriceListErrorState(error: ""), (r) {

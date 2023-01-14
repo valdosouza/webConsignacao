@@ -4,7 +4,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class CashierBalanceRepository {
   Future<Either<Failure, CashierBalanceModel>> cashierBalanceGet(
-      {required int tbInstitutionId,
-      required String date,
-      required int tbUserId});
+      {required String date});
 }

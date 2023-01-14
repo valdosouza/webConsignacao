@@ -6,20 +6,18 @@ import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class CustomerDataSource {
-  Future<List<CustomerListModel>> getList(
-      {required int tbInstitutionId, required int tbSalesmanId});
+  Future<List<CustomerListModel>> getList();
 }
 
 class CustomerDataSourceImpl extends CustomerDataSource {
   final client = http.Client();
   List<CustomerListModel> items = [];
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<CustomerListModel>> getList(
-      {required int tbInstitutionId, required int tbSalesmanId}) async {
+  Future<List<CustomerListModel>> getList() async {
     try {
       final uri = Uri.parse(
-          '${baseApiUrl}customer/salesman/getlist/$tbInstitutionId/$tbSalesmanId');
+          '${baseApiUrl}customer/salesman/getlist/$tbInstitutionId/2');
 
       final response = await client.get(uri);
 

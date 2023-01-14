@@ -14,13 +14,9 @@ class CustomerRepositoryImpl implements CustomerRepository {
   });
 
   @override
-  Future<Either<Failure, List<CustomerListModel>>> getList(
-      {required int tbInstitutionId, required int tbSalesmanId}) async {
+  Future<Either<Failure, List<CustomerListModel>>> getList() async {
     try {
-      final list = await datasource.getList(
-        tbInstitutionId: tbInstitutionId,
-        tbSalesmanId: tbSalesmanId,
-      );
+      final list = await datasource.getList();
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

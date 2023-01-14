@@ -37,8 +37,7 @@ class LinebusinessRegisterBloc
     on<LinebusinessRegisterGetListEvent>((event, emit) async {
       emit(LinebusinessRegisterLoadingState());
 
-      var response =
-          await getlist.call(ParamsLinebusinessRegisterGet(tbInstitutionId: 1));
+      var response = await getlist.call(ParamsLinebusinessRegisterGet());
 
       var result = response
           .fold((l) => LinebusinessRegisterErrorState(list: model), (r) {

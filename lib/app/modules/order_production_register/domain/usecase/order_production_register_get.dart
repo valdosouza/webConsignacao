@@ -17,8 +17,7 @@ class OrderProductionRegisterGet
   Future<Either<Failure, OrderProductionRegisterModel>> call(
       ParamsGetOrderProductionRegister params) async {
     try {
-      final list = await repository.get(
-          tbInstitutionId: params.tbInstitutionId, productId: params.id);
+      final list = await repository.get(productId: params.id);
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -28,7 +27,5 @@ class OrderProductionRegisterGet
 
 class ParamsGetOrderProductionRegister {
   int id;
-  int tbInstitutionId;
-  ParamsGetOrderProductionRegister(
-      {required this.id, required this.tbInstitutionId});
+  ParamsGetOrderProductionRegister({required this.id});
 }

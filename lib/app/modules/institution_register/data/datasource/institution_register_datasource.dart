@@ -31,7 +31,7 @@ class InstitutionRegisterDatasourceImpl extends InstitutionRegisterDatasource {
   @override
   Future<InstitutionModel> post({required InstitutionModel model}) async {
     return request(
-      'Institution/',
+      'institution/',
       method: HTTPMethod.post,
       data: jsonEncode(model.toJson()),
       (payload) {
@@ -49,7 +49,7 @@ class InstitutionRegisterDatasourceImpl extends InstitutionRegisterDatasource {
     final int id = model.id;
 
     return request(
-      'Institution/$id',
+      'institution/$id',
       method: HTTPMethod.put,
       data: jsonEncode(model.toJson()),
       (payload) {
@@ -65,7 +65,7 @@ class InstitutionRegisterDatasourceImpl extends InstitutionRegisterDatasource {
   @override
   Future<String> delete({required int id}) async {
     return request(
-      'Institution/$id',
+      'institution/$id',
       method: HTTPMethod.delete,
       (payload) {
         return '';

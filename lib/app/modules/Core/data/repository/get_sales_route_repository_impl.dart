@@ -13,11 +13,9 @@ class GetSalesRouteRepositoryImpl implements GetSalesRouteRepository {
   });
 
   @override
-  Future<Either<Failure, List<SalesRouteListModel>>> getSalesRoute(
-      {required int tbInstitutionId}) async {
+  Future<Either<Failure, List<SalesRouteListModel>>> getSalesRoute() async {
     try {
-      final response =
-          await datasource.getSalesRoute(tbInstitutionId: tbInstitutionId);
+      final response = await datasource.getSalesRoute();
       return Right(response);
     } on ServerException {
       return Left(ServerFailure());

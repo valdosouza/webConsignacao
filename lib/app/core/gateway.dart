@@ -1,5 +1,3 @@
-// ignore_for_file: implementation_imports
-
 import 'dart:io';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/core/shared/helpers/local_storage.dart';
@@ -17,10 +15,18 @@ class Gateway {
     return await LocalStorageService.instance.get(key: LocalStorageKey.token);
   }
 
+  Future<String> getInstitutionId() async {
+    return await LocalStorageService.instance
+        .get(key: LocalStorageKey.institutionId);
+  }
+
+  Future<String> getUserId() async {
+    return await LocalStorageService.instance.get(key: LocalStorageKey.userId);
+  }
+
   var statusCode = 0;
   final http.Client httpClient;
 
-  //final baseApiUrl = base 'https://api.industriadechocolatesamor.com.br/';
   final timeout = const Duration(milliseconds: 5000);
   Future<Map<String, String>> requestOptions() async {
     final token = await getToken();

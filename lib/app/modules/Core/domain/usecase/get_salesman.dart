@@ -15,8 +15,7 @@ class GetSalesman
   Future<Either<Failure, List<SalesmanListModel>>> call(
       ParamsSalesmanListGet params) async {
     try {
-      final list =
-          await repository.getSalesman(tbInstitutionId: params.tbInstitutionId);
+      final list = await repository.getSalesman();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,6 +24,5 @@ class GetSalesman
 }
 
 class ParamsSalesmanListGet {
-  int tbInstitutionId;
-  ParamsSalesmanListGet({required this.tbInstitutionId});
+  ParamsSalesmanListGet();
 }

@@ -8,7 +8,7 @@ class OrderConsignmentSupplyingGetlast {
 
   OrderConsignmentSupplyingGetlast({required this.repository});
   Future<Either<Failure, OrderConsignmentSupplyingModel>> call(
-      int tbInstitutionId, int tbCustomerId) async {
-    return await repository.getlast(tbInstitutionId, tbCustomerId);
+      int tbCustomerId) async {
+    return await repository.getlast(tbCustomerId);
   }
 }

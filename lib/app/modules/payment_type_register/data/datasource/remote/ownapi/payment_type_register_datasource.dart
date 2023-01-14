@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/payment_type_register/data/model/payment_type
 import 'package:http/http.dart' as http;
 
 abstract class PaymentTypeRegisterDataSource {
-  Future<List<PaymentTypeModel>> getlist({required int institutionId});
+  Future<List<PaymentTypeModel>> getlist();
   Future<PaymentTypeModel> post({required PaymentTypeModel model});
   Future<PaymentTypeModel> put({required PaymentTypeModel model});
   Future<String> delete({required int id});
@@ -15,11 +15,12 @@ abstract class PaymentTypeRegisterDataSource {
 class PaymentTypeRegisterDataSourceImpl extends PaymentTypeRegisterDataSource {
   final client = http.Client();
   List<PaymentTypeModel> prices = [];
-
+  var tbInstitutionId = 1;
   @override
-  Future<List<PaymentTypeModel>> getlist({required int institutionId}) async {
+  Future<List<PaymentTypeModel>> getlist() async {
     try {
-      final uri = Uri.parse('${baseApiUrl}paymenttype/getlist/$institutionId');
+      final uri =
+          Uri.parse('${baseApiUrl}paymenttype/getlist/$tbInstitutionId');
 
       final response = await client.get(uri);
 

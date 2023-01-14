@@ -69,7 +69,7 @@ class OrderProductionRegisterBloc
       emit(OrderProductionRegisterLoadingState());
 
       var response = await getlistOrderProduction
-          .call(ParamsGetlistOrderProductionRegister(id: 1));
+          .call(ParamsGetlistOrderProductionRegister());
 
       response.fold(
           (l) =>
@@ -149,8 +149,7 @@ class OrderProductionRegisterBloc
     on<OrderProductionRegisterGetProductsEvent>((event, emit) async {
       emit(OrderProductionRegisterLoadingState());
 
-      final response = await productGetlist
-          .call(ParamsGetlistProduct(id: event.tbInstitutionId));
+      final response = await productGetlist.call(ParamsGetlistProduct());
 
       response.fold((l) => emit(OrderProductionRegisterProductErrorState()),
           (r) {
@@ -164,8 +163,7 @@ class OrderProductionRegisterBloc
     on<OrderProductionRegisterGetStocksEvent>((event, emit) async {
       emit(OrderProductionRegisterLoadingState());
 
-      final response = await stockListGetlist
-          .call(ParamsGetListStock(institutionId: event.tbInstitutionId));
+      final response = await stockListGetlist.call(const ParamsGetListStock());
 
       response.fold((l) => emit(OrderProductionRegisterStockErrorState()), (r) {
         stocks = r;

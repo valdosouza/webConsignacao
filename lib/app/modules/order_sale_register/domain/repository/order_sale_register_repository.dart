@@ -8,5 +8,5 @@ abstract class OrderSaleRegisterRepository {
       {required OrderSaleMainCardModel model});
 
   Future<Either<Failure, List<OrderSaleCardModel>>> getNewOrderSaleCard(
-      {required int tbInstitutionId, required int tbPriceListId});
+      {required int tbPriceListId});
 }

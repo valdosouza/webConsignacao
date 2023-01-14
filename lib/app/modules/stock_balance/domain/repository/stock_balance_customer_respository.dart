@@ -3,6 +3,5 @@ import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class StockBalanceCustomerRepository {
-  Future<Either<Failure, List<StockBalanceModel>>> getList(
-      {required int tbInstitutionId, required int tbSalesmanId});
+  Future<Either<Failure, List<StockBalanceModel>>> getList();
 }

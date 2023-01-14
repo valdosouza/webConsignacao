@@ -69,7 +69,8 @@ class CashierStatementByDayPageMobileState
                     onFieldSubmitted: (value) {
                       bloc.add(CashierStatementGetByDayMobileEvent(
                           params: CashierStatementParams(
-                              tbInstitutionId: 1, date: value, tbUserId: 2)));
+                        date: value,
+                      )));
                     },
                     controller: controller,
                   ),

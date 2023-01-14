@@ -12,12 +12,9 @@ class CashierBalanceRepositoryImpl implements CashierBalanceRepository {
 
   @override
   Future<Either<Failure, CashierBalanceModel>> cashierBalanceGet(
-      {required int tbInstitutionId,
-      required String date,
-      required int tbUserId}) async {
+      {required String date}) async {
     try {
-      final model = await datasource.cashierBalanceGet(
-          tbInstitutionId: tbInstitutionId, date: date, tbUserId: tbUserId);
+      final model = await datasource.cashierBalanceGet(date: date);
       return Right(model);
     } on ServerException {
       return Left(ServerFailure());

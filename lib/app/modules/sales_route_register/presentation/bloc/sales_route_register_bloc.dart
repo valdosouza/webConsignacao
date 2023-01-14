@@ -37,7 +37,7 @@ class SalesRouteRegisterBloc
     on<SalesRouteRegisterGetListEvent>((event, emit) async {
       emit(SalesRouteRegisterLoadingState());
 
-      var response = await getlist.call(ParamsSalesRouteGet(institutionId: 1));
+      var response = await getlist.call(ParamsSalesRouteGet());
 
       var result =
           response.fold((l) => SalesRouteRegisterErrorState(list: list), (r) {

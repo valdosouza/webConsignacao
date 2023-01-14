@@ -10,6 +10,6 @@ class OrderAttendanceDelete {
 
   Future<Either<Failure, OrderAttendanceModel>> call(
       int tbInstitutionId, int id) async {
-    return await repository.delete(tbInstitutionId, id);
+    return await repository.delete(id);
   }
 }

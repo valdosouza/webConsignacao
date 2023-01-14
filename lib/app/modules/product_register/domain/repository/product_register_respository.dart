@@ -4,10 +4,9 @@ import 'package:appweb/app/modules/product_register/data/model/product_register_
 import 'package:dartz/dartz.dart';
 
 abstract class ProductRegisterRepository {
-  Future<Either<Failure, List<ProductRegisterModel>>> getList(
-      {required int id});
+  Future<Either<Failure, List<ProductRegisterModel>>> getList();
   Future<Either<Failure, ProductRegisterMainModel>> get(
-      {required int tbInstitutionId, required int productId});
+      {required int productId});
   Future<Either<Failure, ProductRegisterMainModel>> post(
       {required ProductRegisterMainModel model});
   Future<Either<Failure, ProductRegisterMainModel>> put(

@@ -23,7 +23,7 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
   }) : super(StockListInitialState()) {
     on<LoadStockListEvent>((event, emit) async {
       StockListInitialState();
-      var response = await getlist.call(const Params(institutionId: 1));
+      var response = await getlist.call(const ParamsStockListRegister());
       var result = response.fold(
         (l) => StockListErrorState(),
         (r) {

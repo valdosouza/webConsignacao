@@ -34,7 +34,7 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
   getList() async {
     on<UserRegisterGetListEvent>((event, emit) async {
       UserRegisterLoadingState();
-      var response = await getlistUser.call(ParamsGetUser(id: 1));
+      var response = await getlistUser.call(ParamsGetUser());
       var result = response.fold(
         (l) => UserRegisterErrorState(),
         (r) {

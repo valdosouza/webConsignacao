@@ -37,7 +37,7 @@ class PriceListRegisterBloc
     on<PriceListRegisterGetListEvent>((event, emit) async {
       emit(PriceListRegisterLoadingState());
 
-      var response = await getlist.call(ParamsPriceListGet(id: 1));
+      var response = await getlist.call(ParamsPriceListGet());
 
       var result =
           response.fold((l) => PriceListRegisterErrorState(list: prices), (r) {

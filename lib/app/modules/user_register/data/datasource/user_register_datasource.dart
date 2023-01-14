@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 abstract class UserRegisterDataSource extends Gateway {
   UserRegisterDataSource({required super.httpClient});
 
-  Future<List<UserRegisterModel>> getlist({required int id});
+  Future<List<UserRegisterModel>> getlist();
   Future<UserRegisterModel> post({required UserRegisterModel model});
   Future<UserRegisterModel> put({required UserRegisterModel model});
   Future<String> delete({required int id});
@@ -18,7 +18,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
   List<UserRegisterModel> items = [];
 
   UserRegisterDataSourceImpl({required super.httpClient});
-
+  var tbInstitutionId = 1;
   @override
   Future<UserRegisterModel> post({required UserRegisterModel model}) async {
     final bodyEnvio = json.encode(model.toJson());
@@ -68,9 +68,9 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
   }
 
   @override
-  Future<List<UserRegisterModel>> getlist({required int id}) async {
+  Future<List<UserRegisterModel>> getlist() async {
     return await request(
-      'user/getlist/$id',
+      'user/getlist/$tbInstitutionId',
       (payload) {
         final obj = json.decode(payload);
         List<UserRegisterModel> result = (obj as List).map((json) {

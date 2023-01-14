@@ -15,8 +15,7 @@ class CustomerRegisterGetlist
   Future<Either<Failure, List<CustomerListModel>>> call(
       ParamsGetListCustomer params) async {
     try {
-      final list =
-          await repository.getList(tbInstitutionId: params.tbInstitutionId);
+      final list = await repository.getList();
       return list;
     } on ServerException {
       return Left(ServerFailure());
@@ -25,6 +24,5 @@ class CustomerRegisterGetlist
 }
 
 class ParamsGetListCustomer {
-  int tbInstitutionId;
-  ParamsGetListCustomer({required this.tbInstitutionId});
+  ParamsGetListCustomer();
 }

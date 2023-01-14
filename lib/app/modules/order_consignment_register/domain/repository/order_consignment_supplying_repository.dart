@@ -7,5 +7,5 @@ abstract class OrderConsignmentSupplyingRepository {
   Future<Either<Failure, OrderConsignmentSupplyingEntity>> post(
       OrderConsignmentSupplyingModel orderAttendanceSupplyingModel);
   Future<Either<Failure, OrderConsignmentSupplyingModel>> getlast(
-      int tbInstitutionId, int tbCustomerId);
+      int tbCustomerId);
 }

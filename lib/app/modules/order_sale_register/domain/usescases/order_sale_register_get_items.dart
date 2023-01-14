@@ -8,10 +8,7 @@ class GetNewOrderSaleCard {
 
   GetNewOrderSaleCard({required this.repository});
   Future<Either<Failure, List<OrderSaleCardModel>>> call(
-      {required int tbInstitutionId, required int tbPriceListId}) async {
-    return await repository.getNewOrderSaleCard(
-      tbInstitutionId: tbInstitutionId,
-      tbPriceListId: tbPriceListId,
-    );
+      {required int tbPriceListId}) async {
+    return await repository.getNewOrderSaleCard(tbPriceListId: tbPriceListId);
   }
 }

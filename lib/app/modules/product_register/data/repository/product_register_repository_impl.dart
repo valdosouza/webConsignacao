@@ -32,10 +32,9 @@ class ProductRegisterRepositoryImpl implements ProductRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, List<ProductRegisterModel>>> getList(
-      {required int id}) async {
+  Future<Either<Failure, List<ProductRegisterModel>>> getList() async {
     try {
-      final list = await datasource.getlist(id: id);
+      final list = await datasource.getlist();
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());
@@ -55,10 +54,9 @@ class ProductRegisterRepositoryImpl implements ProductRegisterRepository {
 
   @override
   Future<Either<Failure, ProductRegisterMainModel>> get(
-      {required int tbInstitutionId, required int productId}) async {
+      {required int productId}) async {
     try {
-      final list = await datasource.get(
-          tbInstitutionId: tbInstitutionId, productId: productId);
+      final list = await datasource.get(productId: productId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

@@ -44,13 +44,12 @@ class MockStockListRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.StockListModel>>> getList(
-          {required int? institutionId}) =>
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.StockListModel>>> getList() =>
       (super.noSuchMethod(
         Invocation.method(
           #getList,
           [],
-          {#institutionId: institutionId},
+          {},
         ),
         returnValue:
             _i4.Future<_i2.Either<_i5.Failure, List<_i6.StockListModel>>>.value(
@@ -59,7 +58,7 @@ class MockStockListRepository extends _i1.Mock
           Invocation.method(
             #getList,
             [],
-            {#institutionId: institutionId},
+            {},
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.StockListModel>>>);

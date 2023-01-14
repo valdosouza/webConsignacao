@@ -11,11 +11,10 @@ class OrderAttendanceRepositoryImpl implements OrderAttendanceRepository {
   OrderAttendanceRepositoryImpl({required this.orderAttendanceDatasource});
 
   @override
-  Future<Either<Failure, List<OrderAttendanceModel>>> getAll(
-      int tbInstitutionId) async {
+  Future<Either<Failure, List<OrderAttendanceModel>>> getAll() async {
     try {
       final List<OrderAttendanceModel> orderAttendance =
-          await orderAttendanceDatasource.getAll(tbInstitutionId);
+          await orderAttendanceDatasource.getAll();
       return Right(orderAttendance);
     } on ServerException {
       return Left(ServerFailure());
@@ -23,20 +22,18 @@ class OrderAttendanceRepositoryImpl implements OrderAttendanceRepository {
   }
 
   @override
-  Future<Either<Failure, OrderAttendanceModel>> delete(
-      int tbInstitutionId, int id) async {
+  Future<Either<Failure, OrderAttendanceModel>> delete(int id) async {
     try {
-      return Right(await orderAttendanceDatasource.delete(tbInstitutionId, id));
+      return Right(await orderAttendanceDatasource.delete(id: id));
     } on ServerException {
       return Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, OrderAttendanceModel>> get(
-      int tbInstitutionId, int id) async {
+  Future<Either<Failure, OrderAttendanceModel>> get(int id) async {
     try {
-      return Right(await orderAttendanceDatasource.get(tbInstitutionId, id));
+      return Right(await orderAttendanceDatasource.get(id: id));
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -46,7 +43,7 @@ class OrderAttendanceRepositoryImpl implements OrderAttendanceRepository {
   Future<Either<Failure, OrderAttendanceModel>> post(
       OrderAttendanceModel model) async {
     try {
-      return Right(await orderAttendanceDatasource.post(model));
+      return Right(await orderAttendanceDatasource.post(model: model));
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -56,7 +53,7 @@ class OrderAttendanceRepositoryImpl implements OrderAttendanceRepository {
   Future<Either<Failure, OrderAttendanceModel>> put(
       OrderAttendanceModel model) async {
     try {
-      return Right(await orderAttendanceDatasource.put(model));
+      return Right(await orderAttendanceDatasource.put(model: model));
     } on ServerException {
       return Left(ServerFailure());
     }

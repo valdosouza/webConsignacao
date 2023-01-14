@@ -28,13 +28,13 @@ class OrderStockTransferRegisterDataSourceImpl
   List<StockListModel> stock = [];
   List<EntityListModel> entities = [];
   List<ProductListModel> products = [];
-
+  var tbInstitutionId = 1;
   OrderStockTransferRegisterDataSourceImpl({required super.httpClient});
 
   @override
   Future<List<OrderStockTransferListModel>> getlist() async {
     return await request(
-      'orderstocktransfer/getlist/1',
+      'orderstocktransfer/getlist/$tbInstitutionId',
       (payload) {
         final data = json.decode(payload);
         orderStock.clear();
@@ -72,7 +72,7 @@ class OrderStockTransferRegisterDataSourceImpl
   @override
   Future<List<ProductListModel>> getListProduct() async {
     return await request(
-      'product/getlist/1',
+      'product/getlist/$tbInstitutionId',
       (payload) {
         final data = json.decode(payload);
         products = (data as List).map((json) {
@@ -137,7 +137,7 @@ class OrderStockTransferRegisterDataSourceImpl
   @override
   Future<String> delete({required int id}) async {
     return request(
-      'orderstocktransfer/1/$id',
+      'orderstocktransfer/$tbInstitutionId/$id',
       method: HTTPMethod.delete,
       (payload) {
         return "";
@@ -153,7 +153,7 @@ class OrderStockTransferRegisterDataSourceImpl
     required int orderStockId,
   }) async {
     return request(
-      'orderstocktransfer/get/1/$orderStockId',
+      'orderstocktransfer/get/$tbInstitutionId/$orderStockId',
       (payload) {
         final data = json.decode(payload);
         var model = OrderStockTransferMainModel.fromJson(data);
@@ -168,7 +168,7 @@ class OrderStockTransferRegisterDataSourceImpl
   @override
   Future<List<StockListModel>> getListStock() async {
     return request(
-      'stocklist/getlist/1',
+      'stocklist/getlist/$tbInstitutionId',
       (payload) {
         final data = json.decode(payload);
         stock = (data as List).map((json) {

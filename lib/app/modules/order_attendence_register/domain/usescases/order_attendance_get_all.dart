@@ -10,6 +10,6 @@ class OrderAttendanceGetAll {
 
   Future<Either<Failure, List<OrderAttendanceModel>>> call(
       int tbInstitutionId) async {
-    return await repository.getAll(tbInstitutionId);
+    return await repository.getAll();
   }
 }
