@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
+import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 
 abstract class OrderAttendanceRegisterState {

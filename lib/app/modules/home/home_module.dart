@@ -1,8 +1,8 @@
-import 'package:appweb/app/modules/home/data/remote/ownapi/home_datasource.dart';
+import 'package:appweb/app/modules/home/data/datassource/home_datasource.dart';
 import 'package:appweb/app/modules/home/data/repository/home_repository_impl.dart';
 import 'package:appweb/app/modules/home/domain/usecase/get_financial_closed_usecase.dart';
 import 'package:appweb/app/modules/home/presentation/bloc/home_bloc.dart';
-import 'package:appweb/app/modules/home/presentation/pages/home_page.dart';
+import 'package:appweb/app/modules/home/presentation/page/home_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 import 'package:http/http.dart' as http;

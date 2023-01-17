@@ -10,7 +10,7 @@ class StockListModel extends StockListEntity {
     String? active,
   }) : super(
             id: id ?? 0,
-            tbInstitutionId: tbInstitutionId ?? 1,
+            tbInstitutionId: tbInstitutionId ?? 0,
             description: description ?? "",
             main: main ?? "",
             active: active ?? "S");

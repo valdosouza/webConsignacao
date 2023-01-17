@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/home/data/model/home_sales_payment_type_model.dart';
-import 'package:appweb/app/modules/home/data/remote/ownapi/home_datasource.dart';
+import 'package:appweb/app/modules/home/data/datassource/home_datasource.dart';
 import 'package:appweb/app/modules/home/domain/repository/home_repository.dart';
 import 'package:dartz/dartz.dart';
 

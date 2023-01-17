@@ -1,8 +1,7 @@
 abstract class StockBalanceEvent {}
 
 class StockBalanceCustomerGetListEvent extends StockBalanceEvent {
-  final int tbInstitutionId;
-  StockBalanceCustomerGetListEvent({required this.tbInstitutionId});
+  StockBalanceCustomerGetListEvent();
 }
 
 class StockBalanceCustomerSearchEvent extends StockBalanceEvent {
@@ -11,8 +10,7 @@ class StockBalanceCustomerSearchEvent extends StockBalanceEvent {
 }
 
 class StockBalanceGeneralGetListEvent extends StockBalanceEvent {
-  final int tbInstitutionId;
-  StockBalanceGeneralGetListEvent({required this.tbInstitutionId});
+  StockBalanceGeneralGetListEvent();
 }
 
 class StockBalanceGeneralSearchEvent extends StockBalanceEvent {
@@ -21,8 +19,7 @@ class StockBalanceGeneralSearchEvent extends StockBalanceEvent {
 }
 
 class StockBalanceSalesmanGetListEvent extends StockBalanceEvent {
-  final int tbInstitutionId;
-  StockBalanceSalesmanGetListEvent({required this.tbInstitutionId});
+  StockBalanceSalesmanGetListEvent();
 }
 
 class StockBalanceSalesmanSearchEvent extends StockBalanceEvent {

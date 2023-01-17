@@ -1,8 +1,8 @@
 import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
-import 'package:appweb/app/modules/order_attendence_register/data/models/order_attendance_model.dart';
-import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/domain/usescases/order_sale_register_get_items.dart';
-import 'package:appweb/app/modules/order_sale_register/domain/usescases/order_sale_register_post.dart';
+import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
+import 'package:appweb/app/modules/order_sale_register/domain/usecase/order_sale_register_get_items.dart';
+import 'package:appweb/app/modules/order_sale_register/domain/usecase/order_sale_register_post.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_event.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_state.dart';
 import 'package:bloc/bloc.dart';
@@ -39,7 +39,7 @@ class OrderSaleRegisterBloc
         if (modelAttendance.tbPriceListId == 2) {
           modelOrderSale.payments.add(
             OrderPaidModel(
-              tbPaymentTypeId: 2,
+              tbPaymentTypeId: 3,
               namePaymentType: "BOLETO",
               dtExpiration: "",
               value: 0,

@@ -57,9 +57,9 @@ class CustomerModel extends CustomerEntity {
   factory CustomerModel.empty() {
     return CustomerModel(
       id: 0,
-      tbInstitutionId: 1,
-      tbSalesmanId: 1,
-      tbCarrierId: 1,
+      tbInstitutionId: 0,
+      tbSalesmanId: 0,
+      tbCarrierId: 0,
       creditStatus: "",
       creditValue: 0,
       wallet: "",

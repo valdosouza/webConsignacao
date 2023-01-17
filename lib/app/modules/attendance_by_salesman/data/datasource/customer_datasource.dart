@@ -13,11 +13,12 @@ class CustomerDataSourceImpl extends CustomerDataSource {
   final client = http.Client();
   List<CustomerListModel> items = [];
   var tbInstitutionId = 1;
+  var tbUserid = 2;
   @override
   Future<List<CustomerListModel>> getList() async {
     try {
       final uri = Uri.parse(
-          '${baseApiUrl}customer/salesman/getlist/$tbInstitutionId/2');
+          '${baseApiUrl}customer/salesman/getlist/$tbInstitutionId/$tbUserid');
 
       final response = await client.get(uri);
 

@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/line_business_register/domain/usecase/linebus
 import 'package:appweb/app/modules/line_business_register/domain/usecase/linebusiness_register_post.dart';
 import 'package:appweb/app/modules/line_business_register/domain/usecase/linebusiness_register_put.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_bloc.dart';
-import 'package:appweb/app/modules/line_business_register/presentation/pages/linebusiness_register.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/page/linebusiness_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 

@@ -1,8 +1,8 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/modules/order_sale_register/data/datasources/order_sale_register_datasource.dart';
-import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_model.dart';
+import 'package:appweb/app/modules/order_sale_register/data/datasource/order_sale_register_datasource.dart';
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_model.dart';
 import 'package:appweb/app/modules/order_sale_register/domain/repository/order_sale_register_repository.dart';
 import 'package:dartz/dartz.dart';
 

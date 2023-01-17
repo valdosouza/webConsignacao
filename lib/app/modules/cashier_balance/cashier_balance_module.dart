@@ -2,7 +2,7 @@ import 'package:appweb/app/modules/cashier_balance/data/datasource/cashier_balan
 import 'package:appweb/app/modules/cashier_balance/data/repository/cashier_balance_repository_impl.dart';
 import 'package:appweb/app/modules/cashier_balance/domain/usecase/cashier_balance_get.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_bloc.dart';
-import 'package:appweb/app/modules/cashier_balance/presentation/pages/cashier_balance_page.dart';
+import 'package:appweb/app/modules/cashier_balance/presentation/page/cashier_balance_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 

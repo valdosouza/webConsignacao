@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/product/data/datasource/product_datasource.da
 import 'package:appweb/app/modules/product/data/repository/product_repository_impl.dart';
 import 'package:appweb/app/modules/product/domain/usecase/product_getlist_prices.dart';
 import 'package:appweb/app/modules/product/presentation/bloc/product_bloc.dart';
-import 'package:appweb/app/modules/product/presentation/pages/product_page.dart';
+import 'package:appweb/app/modules/product/presentation/page/product_page.dart';
 import 'package:appweb/app/modules/product_register/product_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;

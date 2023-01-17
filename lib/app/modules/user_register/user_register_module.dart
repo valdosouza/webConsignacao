@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/user_register/domain/usecase/user_register_de
 import 'package:appweb/app/modules/user_register/domain/usecase/user_register_put.dart';
 import 'package:appweb/app/modules/user_register/domain/usecase/user_register_getlist.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
-import 'package:appweb/app/modules/user_register/presentation/pages/user_register.dart';
+import 'package:appweb/app/modules/user_register/presentation/page/user_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 import 'package:http/http.dart' as http;

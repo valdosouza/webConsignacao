@@ -18,7 +18,7 @@ class CollaboratorModel extends CollaboratorEntity {
     String? militaryCertificate,
   }) : super(
           id: id ?? 0,
-          tbInstitutionId: tbInstitutionId ?? 1,
+          tbInstitutionId: tbInstitutionId ?? 0,
           dtAdmission: dtAdmission ?? "",
           dtResignation: dtResignation ?? "",
           active: active ?? "S",
@@ -87,7 +87,7 @@ class CollaboratorModel extends CollaboratorEntity {
       fathersName: "",
       mothersName: "",
       active: "S",
-      tbInstitutionId: 1,
+      tbInstitutionId: 0,
       militaryCertificate: "",
       pis: "",
       salary: "",

@@ -26,11 +26,12 @@ abstract class CashierStatementDataSource extends Gateway {
 class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   CashierStatementDataSourceImpl({required super.httpClient});
   var tbInstitutionId = 1;
+  var tbUserid = 2;
   @override
   Future<List<CashierStatementModel>> cashierStatementGetByCustomer(
       {required CashierStatementParams params}) async {
     return await request(
-      'financial/statement/getbycustomer/$tbInstitutionId/2/${params.tbCustomerId}/${params.date}',
+      'financial/statement/getbycustomer/$tbInstitutionId/$tbUserid/${params.tbCustomerId}/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)
@@ -48,7 +49,7 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   Future<List<CashierStatementModel>> cashierStatementGetByDay(
       {required CashierStatementParams params}) async {
     return await request(
-      'financial/statement/getbyday/$tbInstitutionId/2/${params.date}',
+      'financial/statement/getbyday/$tbInstitutionId/$tbUserid/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)
@@ -66,7 +67,7 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   Future<List<CashierStatementModel>> cashierStatementGetByMonth(
       {required CashierStatementParams params}) async {
     return await request(
-      'financial/statement/getbymonth/$tbInstitutionId/2/${params.date}',
+      'financial/statement/getbymonth/$tbInstitutionId/$tbUserid/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)
@@ -84,7 +85,7 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   Future<List<CashierStatementCustomerModel>> cashierStatementGetCustomers(
       {required CashierStatementParams params}) async {
     return await request(
-      'financial/customer/charged/getlist/$tbInstitutionId/2/${params.date}',
+      'financial/customer/charged/getlist/$tbInstitutionId/$tbUserid/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)

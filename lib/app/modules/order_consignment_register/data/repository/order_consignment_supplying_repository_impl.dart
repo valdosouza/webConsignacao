@@ -1,11 +1,11 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/modules/order_consignment_register/data/datasources/order_consignment_supplying_datasource.dart';
+import 'package:appweb/app/modules/order_consignment_register/data/datasource/order_consignment_supplying_datasource.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/entity/order_consignment_supplying_entity.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/repository/order_consignment_supplying_repository.dart';
 import 'package:dartz/dartz.dart';
 
-import '../models/order_consignment_supplying_model.dart';
+import '../model/order_consignment_supplying_model.dart';
 
 class OrderConsignmentSupplyingRepositoryImpl
     implements OrderConsignmentSupplyingRepository {

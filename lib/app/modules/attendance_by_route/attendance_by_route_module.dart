@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_g
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_sequence.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/sales_route_get_list.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_bloc.dart';
-import 'package:appweb/app/modules/attendance_by_route/presentation/pages/attendance_sales_route_page.dart';
+import 'package:appweb/app/modules/attendance_by_route/presentation/page/attendance_sales_route_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 

@@ -9,8 +9,8 @@ import '../../../../../fixtures/fixture_reader.dart';
 void main() {
   const tAuthModel = AuthModel(
       auth: true,
-      id: 1,
-      tbInstitutionId: 2,
+      id: 2,
+      tbInstitutionId: 1,
       username: 'valdo@setes.com.br',
       password: '827CCB0EEA8A706C4C34A16891F84E7B',
       jwt: "StringJWT");

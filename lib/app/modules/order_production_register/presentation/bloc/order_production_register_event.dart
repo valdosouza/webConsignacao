@@ -7,14 +7,12 @@ class OrderProductionRegisterGetListEvent extends OrderProductionRegisterEvent {
 
 class OrderProductionRegisterGetProductsEvent
     extends OrderProductionRegisterEvent {
-  final int tbInstitutionId;
-  OrderProductionRegisterGetProductsEvent({required this.tbInstitutionId});
+  OrderProductionRegisterGetProductsEvent();
 }
 
 class OrderProductionRegisterGetStocksEvent
     extends OrderProductionRegisterEvent {
-  final int tbInstitutionId;
-  OrderProductionRegisterGetStocksEvent({required this.tbInstitutionId});
+  OrderProductionRegisterGetStocksEvent();
 }
 
 class OrderProductionRegisterSearchProductsEvent

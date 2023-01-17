@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/product_register/domain/usecase/product_regis
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_post.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_put.dart';
 import 'package:appweb/app/modules/product_register/presentation/bloc/product_register_bloc.dart';
-import 'package:appweb/app/modules/product_register/presentation/pages/product_register.dart';
+import 'package:appweb/app/modules/product_register/presentation/page/product_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 

@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_supplying_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/supplying/extra_info_widget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/supplying/list_items_supplying_widget.dart';
 import 'package:flutter/material.dart';

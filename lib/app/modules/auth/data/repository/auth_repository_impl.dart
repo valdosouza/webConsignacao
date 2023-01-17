@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
-import 'package:appweb/app/modules/auth/data/datasource/remote/ownapi/auth_datasource.dart';
+import 'package:appweb/app/modules/auth/data/datasource/remote/auth_datasource.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_change_password_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_recovery_password_model.dart';

@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
-import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/payment_info_dinheiro_widget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/payment_info_pix_widget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/payment_info_troco_widget.dart';

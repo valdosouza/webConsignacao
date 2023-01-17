@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list
 import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_getlist.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_put.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_bloc.dart';
-import 'package:appweb/app/modules/stock_list_register/presentation/pages/stock_list_register.dart';
+import 'package:appweb/app/modules/stock_list_register/presentation/page/stock_list_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 

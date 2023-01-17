@@ -1,5 +1,5 @@
-import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_checkpoint_model.dart';
-import 'package:appweb/app/modules/order_consignment_register/data/models/order_consignment_supplying_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
 
 abstract class OrderConsignmentRegisterState {}
 

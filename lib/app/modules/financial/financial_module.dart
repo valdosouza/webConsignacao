@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/financial/presentation/pages/financial_page.dart';
+import 'package:appweb/app/modules/financial/presentation/page/financial_page.dart';
 import 'package:appweb/app/modules/payment_type_register/payment_type_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

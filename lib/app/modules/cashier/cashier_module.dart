@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/cashier/presentation/pages/cashier_page.dart';
+import 'package:appweb/app/modules/cashier/presentation/page/cashier_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

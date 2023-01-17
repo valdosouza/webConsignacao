@@ -9,7 +9,7 @@ import 'package:appweb/app/modules/institution_register/domain/usecase/instituti
 import 'package:appweb/app/modules/institution_register/domain/usecase/institution_register_put.dart';
 import 'package:appweb/app/modules/institution_register/domain/usecase/institution_register_post.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_bloc.dart';
-import 'package:appweb/app/modules/institution_register/presentation/pages/institution_register.dart';
+import 'package:appweb/app/modules/institution_register/presentation/page/institution_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 import 'package:http/http.dart' as http;

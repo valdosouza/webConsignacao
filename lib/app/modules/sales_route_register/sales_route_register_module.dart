@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/sales_route_register/domain/usecase/sales_rou
 import 'package:appweb/app/modules/sales_route_register/domain/usecase/sales_route_register_post.dart';
 import 'package:appweb/app/modules/sales_route_register/domain/usecase/sales_route_register_put.dart';
 import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_route_register_bloc.dart';
-import 'package:appweb/app/modules/sales_route_register/presentation/pages/sales_route_register.dart';
+import 'package:appweb/app/modules/sales_route_register/presentation/page/sales_route_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 

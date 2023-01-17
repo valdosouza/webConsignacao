@@ -9,14 +9,12 @@ class OrderStockAdjustmentRegisterGetListEvent
 
 class OrderStockAdjustmentRegisterGetStocksEvent
     extends OrderStockAdjustmentRegisterEvent {
-  final int tbInstitutionId;
-  OrderStockAdjustmentRegisterGetStocksEvent({required this.tbInstitutionId});
+  OrderStockAdjustmentRegisterGetStocksEvent();
 }
 
 class OrderStockAdjustmentRegisterGetProductsEvent
     extends OrderStockAdjustmentRegisterEvent {
-  final int tbInstitutionId;
-  OrderStockAdjustmentRegisterGetProductsEvent({required this.tbInstitutionId});
+  OrderStockAdjustmentRegisterGetProductsEvent();
 }
 
 class OrderStockAdjustmentRegisterSearchProductsEvent
@@ -95,6 +93,7 @@ class OrderStockAdjustmentRegisterReturnEvent
   final OrderStockAdjustmentRegisterItemsModel? item;
   OrderStockAdjustmentRegisterReturnEvent({this.tabIndex = 0, this.item});
 }
+
 class OrderStockAdjustmentRegisterChangeDirectionEvent
     extends OrderStockAdjustmentRegisterEvent {
   OrderStockAdjustmentRegisterChangeDirectionEvent();

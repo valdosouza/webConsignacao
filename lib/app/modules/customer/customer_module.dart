@@ -1,7 +1,7 @@
-import 'package:appweb/app/modules/customer/presentation/pages/customer_page.dart';
-import 'package:appweb/app/modules/customer/presentation/pages/customer_page_mobile.dart';
+import 'package:appweb/app/modules/customer/presentation/page/customer_page.dart';
+import 'package:appweb/app/modules/customer/presentation/page/customer_page_mobile.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
-import 'package:appweb/app/modules/customer_register/presentation/pages/customer_register_page_mobile.dart';
+import 'package:appweb/app/modules/customer_register/presentation/page/customer_register_page_mobile.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomerModule extends Module {

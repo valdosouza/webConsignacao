@@ -17,8 +17,8 @@ class OrderProductionRegisterModel extends OrderProductionRegisterEntity {
       String? note})
       : super(
             id: id ?? 0,
-            tbInstitutionId: tbInstitutionId ?? 1,
-            tbUserId: tbUserId ?? 2,
+            tbInstitutionId: tbInstitutionId ?? 0,
+            tbUserId: tbUserId ?? 0,
             dtRecord: dtRecord ?? "",
             number: number ?? 0,
             status: status ?? "A",

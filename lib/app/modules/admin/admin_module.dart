@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/admin/presentation/pages/admin_page.dart';
+import 'package:appweb/app/modules/admin/presentation/page/admin_page.dart';
 import 'package:appweb/app/modules/institution_register/institution_register_module.dart';
 import 'package:appweb/app/modules/sales_route_register/sales_route_register_module.dart';
 import 'package:appweb/app/modules/user_register/user_register_module.dart';

@@ -43,8 +43,9 @@ class LinebusinessRegisterDataSourceImpl
   @override
   Future<LinebusinessModel> post({required LinebusinessModel model}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}linebusiness');
+      model.tbInstitutionId = tbInstitutionId;
 
+      final uri = Uri.parse('${baseApiUrl}linebusiness');
       final response = await client.post(
         uri,
         headers: <String, String>{
@@ -68,8 +69,9 @@ class LinebusinessRegisterDataSourceImpl
   @override
   Future<LinebusinessModel> put({required LinebusinessModel model}) async {
     try {
-      final uri = Uri.parse('${baseApiUrl}linebusiness');
+      model.tbInstitutionId = tbInstitutionId;
 
+      final uri = Uri.parse('${baseApiUrl}linebusiness');
       final response = await client.put(
         uri,
         headers: <String, String>{

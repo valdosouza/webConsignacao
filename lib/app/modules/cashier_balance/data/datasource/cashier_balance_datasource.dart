@@ -14,12 +14,13 @@ abstract class CashierBalanceDataSource extends Gateway {
 class CashierBalanceDataSourceImpl extends CashierBalanceDataSource {
   CashierBalanceDataSourceImpl({required super.httpClient});
   var tbInstitutionId = 1;
+  var tbUserid = 2;
   @override
   Future<CashierBalanceModel> cashierBalanceGet({required String date}) async {
     var newDate = CustomDate.formatDateOut(date);
 
     return await request(
-      'cashier/balance/get/$tbInstitutionId/2/$newDate',
+      'cashier/balance/get/$tbInstitutionId/$tbUserid/$newDate',
       (payload) {
         final data = json.decode(payload);
 

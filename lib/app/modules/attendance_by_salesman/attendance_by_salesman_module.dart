@@ -2,7 +2,7 @@ import 'package:appweb/app/modules/attendance_by_salesman/data/repository/custom
 import 'package:appweb/app/modules/attendance_by_salesman/data/datasource/customer_datasource.dart';
 import 'package:appweb/app/modules/attendance_by_salesman/domain/usecase/customer_get_list.dart';
 import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/attendance_by_salesman_bloc.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/presentation/pages/attendance_salesman_page.dart';
+import 'package:appweb/app/modules/attendance_by_salesman/presentation/page/attendance_salesman_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
 

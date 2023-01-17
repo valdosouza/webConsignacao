@@ -10,7 +10,7 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecas
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/product_get_list.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/pages/order_stock_adjustment_register_page.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/page/order_stock_adjustment_register_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class OrderStockAdjustmentRegisterModule extends Module {

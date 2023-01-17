@@ -1,5 +1,5 @@
-import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_model.dart';
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_model.dart';
 
 abstract class OrderSaleRegisterState {}
 

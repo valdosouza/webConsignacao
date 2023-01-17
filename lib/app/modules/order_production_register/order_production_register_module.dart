@@ -9,7 +9,7 @@ import 'package:appweb/app/modules/order_production_register/domain/usecase/orde
 import 'package:appweb/app/modules/order_production_register/domain/usecase/product_get_list.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_bloc.dart';
-import 'package:appweb/app/modules/order_production_register/presentation/pages/order_production_register_page.dart';
+import 'package:appweb/app/modules/order_production_register/presentation/page/order_production_register_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 

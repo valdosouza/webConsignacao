@@ -20,9 +20,9 @@ class OrderStockAdjustmentRegisterModel
     List<OrderStockAdjustmentRegisterItemsModel>? items,
   }) : super(
           id: id ?? 0,
-          tbInstitutionId: tbInstitutionId ?? 1,
+          tbInstitutionId: tbInstitutionId ?? 0,
           tbOrderid: tbOrderid ?? 0,
-          tbUserId: tbUserId ?? 2,
+          tbUserId: tbUserId ?? 0,
           tbEntityid: tbEntityid ?? 0,
           nameEntity: nameEntity ?? "",
           number: number ?? 0,

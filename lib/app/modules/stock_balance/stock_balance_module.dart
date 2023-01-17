@@ -12,9 +12,9 @@ import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_balance_cu
 import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_balance_general_getlist.dart';
 import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_balance_salesman_getlist.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_bloc.dart';
-import 'package:appweb/app/modules/stock_balance/presentation/pages/stock_balance_customer_page.dart';
-import 'package:appweb/app/modules/stock_balance/presentation/pages/stock_balance_general_page.dart';
-import 'package:appweb/app/modules/stock_balance/presentation/pages/stock_balance_salesman_page.dart';
+import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_customer_page.dart';
+import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_general_page.dart';
+import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_salesman_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class StockBalanceModule extends Module {

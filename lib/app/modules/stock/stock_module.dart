@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_transfer_register_module.dart';
-import 'package:appweb/app/modules/stock/presentation/pages/stock_page_desktop.dart';
-import 'package:appweb/app/modules/stock/presentation/pages/stock_page_mobile.dart';
+import 'package:appweb/app/modules/stock/presentation/page/stock_page_desktop.dart';
+import 'package:appweb/app/modules/stock/presentation/page/stock_page_mobile.dart';
 import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
 import 'package:appweb/app/modules/stock_list_register/stock_list_register_module.dart';
 import 'package:flutter/material.dart';

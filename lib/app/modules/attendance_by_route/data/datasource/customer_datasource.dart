@@ -49,7 +49,7 @@ class CustomerDataSourceImpl extends CustomerDataSource {
     try {
       final uri = Uri.parse('${baseApiUrl}salesroute/sequence/');
       var body = {
-        "tb_institution_id": 1,
+        "tb_institution_id": tbInstitutionId,
         "tb_sales_route_id": tbSalesRouteId,
         "tb_customer_id": tbCustomerId,
         "sequence": sequence

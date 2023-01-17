@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/order_sale_register/data/models/order_sale_main_card_model.dart';
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/payment/payment_info_a_vista_widget.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/payment/payment_info_boleto_widget.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/payment/payment_info_price_list_widget.dart';

@@ -35,7 +35,7 @@ class EntityListModel extends EntityListEntity {
       id: 0,
       nameCompany: "",
       nickTrade: "",
-      tbLineBusinessId: 1,
+      tbLineBusinessId: 0,
       nameLinebusiness: '',
       aniversary: "",
       note: "",
