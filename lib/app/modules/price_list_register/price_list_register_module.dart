@@ -8,12 +8,13 @@ import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_l
 import 'package:appweb/app/modules/price_list_register/presentation/page/price_list_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class PriceListRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<PriceListRegisterDataSource>(
-          (i) => PriceListRegisterDataSourceImpl(),
+          (i) => PriceListRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => PriceListRegisterRepositoryImpl(

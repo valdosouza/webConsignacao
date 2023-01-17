@@ -18,6 +18,7 @@ import 'package:appweb/app/modules/Core/domain/usecase/get_salesman.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:http/http.dart' as http;
 
 class CoreModule extends Module {
   @override
@@ -92,7 +93,7 @@ class CoreModule extends Module {
         ),
         //Get vendedor
         Bind.factory<GetSalesmanDatasource>(
-          (i) => GetSalesmanDataSourceImpl(),
+          (i) => GetSalesmanDataSourceImpl(httpClient: http.Client()),
           export: true,
         ),
         Bind.factory(
@@ -109,7 +110,7 @@ class CoreModule extends Module {
         ),
         //Get Sales Route
         Bind.factory<GetSalesRouteDatasource>(
-          (i) => GetSalesRouteDataSourceImpl(),
+          (i) => GetSalesRouteDataSourceImpl(httpClient: http.Client()),
           export: true,
         ),
         Bind.factory(

@@ -17,9 +17,10 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   List<CustomerListModel> items = [];
 
   CustomerRegisterDataSourceImpl({required super.httpClient});
-  var tbInstitutionId = 1;
+
   @override
   Future<List<CustomerListModel>> getList() async {
+    var tbInstitutionId = getInstitutionId;
     return await request(
       'customer/getlist/$tbInstitutionId',
       (payload) {
@@ -39,6 +40,7 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
 
   @override
   Future<CustomerMainModel> get({required int id}) async {
+    var tbInstitutionId = getInstitutionId;
     return await request(
       'customer/get/$tbInstitutionId/$id',
       (payload) {
@@ -56,6 +58,8 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   Future<CustomerListModel> post({
     required CustomerMainModel customer,
   }) async {
+    var tbInstitutionId = getInstitutionId();
+    customer.customer.tbInstitutionId = tbInstitutionId as int;
     var bodyCustomer = jsonEncode(customer.toJson());
 
     return await request(

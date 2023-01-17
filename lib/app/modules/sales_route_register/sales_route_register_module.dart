@@ -8,12 +8,13 @@ import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_
 import 'package:appweb/app/modules/sales_route_register/presentation/page/sales_route_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class SalesRouteRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<SalesRouteRegisterDataSource>(
-          (i) => SalesRouteRegisterDataSourceImpl(),
+          (i) => SalesRouteRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => SalesRouteRegisterRepositoryImpl(

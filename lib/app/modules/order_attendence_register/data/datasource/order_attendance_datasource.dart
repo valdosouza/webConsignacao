@@ -1,11 +1,12 @@
 import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:appweb/app/core/gateway.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/shared/constants.dart';
 import '../model/order_attendance_model.dart';
 
-abstract class OrderAttendanceDatasource {
+abstract class OrderAttendanceDatasource extends Gateway {
+  OrderAttendanceDatasource({required super.httpClient});
+
   Future<List<OrderAttendanceModel>> getAll();
   Future<OrderAttendanceModel> get({required int id});
   Future<OrderAttendanceModel> post({required OrderAttendanceModel model});
@@ -13,17 +14,16 @@ abstract class OrderAttendanceDatasource {
   Future<OrderAttendanceModel> delete({required int id});
 }
 
-class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
-  final client = http.Client();
+class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
+  OrderAttendanceDatasourceImpl({required super.httpClient});
 
-  OrderAttendanceDatasourceImpl();
-  var tbInstitutionId = 1;
   @override
   Future<OrderAttendanceModel> delete({required int id}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
       final uri =
           Uri.parse('${baseApiUrl}orderattendance/$tbInstitutionId/$id');
-      final response = await client.delete(uri);
+      final response = await httpClient.delete(uri);
       if (response.statusCode == 200) {
         return OrderAttendanceModel.fromJson(json.decode(response.body));
       } else {
@@ -37,9 +37,10 @@ class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   @override
   Future<OrderAttendanceModel> get({required int id}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
       final uri =
           Uri.parse('$baseApiUrl/orderattendance/get/$tbInstitutionId/$id');
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
       if (response.statusCode == 200) {
         var decode = json.decode(response.body) as Map<String, dynamic>;
         return OrderAttendanceModel.fromJson(decode);
@@ -54,9 +55,11 @@ class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   @override
   Future<List<OrderAttendanceModel>> getAll() async {
     try {
+      var tbInstitutionId = getInstitutionId();
+
       final uri =
           Uri.parse('$baseApiUrl/orderattendance/getlist/$tbInstitutionId');
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         List<OrderAttendanceModel> result = (json.decode(response.body) as List)
@@ -76,9 +79,17 @@ class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   Future<OrderAttendanceModel> post(
       {required OrderAttendanceModel model}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      var tbUserId = getUserId();
+      var tbSalesmanId = getUserId();
+
+      model.tbInstitutionId = tbInstitutionId as int;
+      model.tbUserId = tbUserId as int;
+      model.tbSalesmanId = tbSalesmanId as int;
+
       final uri = Uri.parse('${baseApiUrl}orderattendance');
       final bodyorder = jsonEncode(model.toJson());
-      final response = await client.post(
+      final response = await httpClient.post(
         uri,
         body: bodyorder,
         headers: <String, String>{
@@ -100,8 +111,16 @@ class OrderAttendanceDatasourceImpl implements OrderAttendanceDatasource {
   Future<OrderAttendanceModel> put(
       {required OrderAttendanceModel model}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      var tbUserId = getUserId();
+      var tbSalesmanId = getUserId();
+
+      model.tbInstitutionId = tbInstitutionId as int;
+      model.tbUserId = tbUserId as int;
+      model.tbSalesmanId = tbSalesmanId as int;
+
       final uri = Uri.parse('${baseApiUrl}orderattendance');
-      final response = await client.put(
+      final response = await httpClient.put(
         uri,
         body: jsonEncode(model.toJson()),
         headers: <String, String>{

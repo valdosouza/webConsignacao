@@ -13,9 +13,10 @@ abstract class ProductDataSource extends Gateway {
 
 class ProductDataSourceImpl extends ProductDataSource {
   ProductDataSourceImpl({required super.httpClient});
-  var tbInstitutionId = 1;
+
   @override
   Future<List<ProductsPriceListEntity>> getPriceList() async {
+    var tbInstitutionId = getInstitutionId();
     return request(
       'product/pricelist/getall/$tbInstitutionId',
       (payload) {

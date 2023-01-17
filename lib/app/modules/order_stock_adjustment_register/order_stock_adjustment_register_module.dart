@@ -12,6 +12,7 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecas
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/page/order_stock_adjustment_register_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:http/http.dart' as http;
 
 class OrderStockAdjustmentRegisterModule extends Module {
   @override
@@ -21,7 +22,8 @@ class OrderStockAdjustmentRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<OrderStockAdjustmentRegisterDataSource>(
-          (i) => OrderStockAdjustmentRegisterDataSourceImpl(),
+          (i) => OrderStockAdjustmentRegisterDataSourceImpl(
+              httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => OrderStockAdjustmentRegisterRepositoryImpl(

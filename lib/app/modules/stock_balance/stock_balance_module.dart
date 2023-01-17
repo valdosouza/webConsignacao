@@ -16,6 +16,7 @@ import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance
 import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_general_page.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_salesman_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:http/http.dart' as http;
 
 class StockBalanceModule extends Module {
   @override
@@ -25,7 +26,7 @@ class StockBalanceModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory(
-          (i) => StockBalanceCustomerDataSourceImpl(),
+          (i) => StockBalanceCustomerDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => StockBalanceCustomerRepositoryImpl(
@@ -37,7 +38,7 @@ class StockBalanceModule extends Module {
         ),
         //---------------------------------------------------------------------
         Bind.factory(
-          (i) => StockBalanceSalesmanDataSourceImpl(),
+          (i) => StockBalanceSalesmanDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => StockBalanceSalesmanRepositoryImpl(
@@ -49,7 +50,7 @@ class StockBalanceModule extends Module {
         ),
         //---------------------------------------------------------------------
         Bind.factory(
-          (i) => StockBalanceGeneralDataSourceImpl(),
+          (i) => StockBalanceGeneralDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => StockBalanceGeneralRepositoryImpl(

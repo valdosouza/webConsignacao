@@ -8,12 +8,13 @@ import 'package:appweb/app/modules/price_list_register/data/repository/price_lis
 import 'package:appweb/app/modules/price_list_register/domain/usecase/price_list_register_get_list.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class OrderAttendanceRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<PriceListRegisterDataSource>(
-          (i) => PriceListRegisterDataSourceImpl(),
+          (i) => PriceListRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => PriceListRegisterRepositoryImpl(
@@ -24,7 +25,7 @@ class OrderAttendanceRegisterModule extends Module {
               repository: i.get<PriceListRegisterRepositoryImpl>()),
         ),
         Bind.factory<OrderAttendanceDatasource>(
-            (i) => OrderAttendanceDatasourceImpl()),
+            (i) => OrderAttendanceDatasourceImpl(httpClient: http.Client())),
         Bind.factory((i) => OrderAttendanceRepositoryImpl(
             orderAttendanceDatasource: i.get<OrderAttendanceDatasourceImpl>())),
         Bind.factory((i) => OrderAttendancePost(

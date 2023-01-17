@@ -22,8 +22,8 @@ class OrderConsignmentRegisterModule extends Module {
                 i.get<OrderConsignmentCheckpointDatasourceImpl>())),
         Bind.factory((i) => OrderConsignmentCheckpointPost(
             repository: i.get<OrderConsignmentCheckpointRepositoryImpl>())),
-        Bind.factory<OrderConsignmentSupplyingDatasource>(
-            (i) => OrderConsignmentSupplyingDatasourceImpl()),
+        Bind.factory<OrderConsignmentSupplyingDatasource>((i) =>
+            OrderConsignmentSupplyingDatasourceImpl(httpClient: http.Client())),
         Bind.factory((i) => OrderConsignmentSupplyingRepositoryImpl(
             orderSupplying: i.get<OrderConsignmentSupplyingDatasourceImpl>())),
         Bind.factory((i) => OrderConsignmentSupplyingPost(

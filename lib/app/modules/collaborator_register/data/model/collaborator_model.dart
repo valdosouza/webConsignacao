@@ -36,7 +36,7 @@ class CollaboratorModel extends CollaboratorEntity {
     Map<String, dynamic> data = <String, dynamic>{};
 
     data['id'] = id;
-    data['tb_institution_id'] = tbInstitutionId ?? 1;
+    data['tb_institution_id'] = tbInstitutionId;
     data['dt_admission'] = dtAdmission ?? "";
     data['dt_resignation'] = dtResignation ?? "";
     data['active'] = "S";

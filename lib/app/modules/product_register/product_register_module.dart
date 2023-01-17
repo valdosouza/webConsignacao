@@ -9,12 +9,13 @@ import 'package:appweb/app/modules/product_register/presentation/bloc/product_re
 import 'package:appweb/app/modules/product_register/presentation/page/product_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class ProductRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<ProductRegisterDataSource>(
-          (i) => ProductRegisterDataSourceImpl(),
+          (i) => ProductRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => ProductRegisterRepositoryImpl(

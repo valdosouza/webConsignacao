@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/stock_list_model.dart';
-import 'package:http/http.dart' as http;
 
-abstract class OrderStockAdjustmentRegisterDataSource {
+abstract class OrderStockAdjustmentRegisterDataSource extends Gateway {
+  OrderStockAdjustmentRegisterDataSource({required super.httpClient});
+
   Future<List<OrderStockAdjustmentRegisterModel>> getlist();
   Future<OrderStockAdjustmentRegisterModel> get(
       {required int orderStockAdjustmentId});
@@ -25,19 +27,22 @@ abstract class OrderStockAdjustmentRegisterDataSource {
 
 class OrderStockAdjustmentRegisterDataSourceImpl
     extends OrderStockAdjustmentRegisterDataSource {
-  final client = http.Client();
   List<OrderStockAdjustmentRegisterModel> orderStockAdjustment = [];
   List<ProductListModel> products = [];
   List<StockListModel> stock = [];
   List<EntityListModel> entity = [];
-  var tbInstitutionId = 1;
+
+  OrderStockAdjustmentRegisterDataSourceImpl({required super.httpClient});
+
   @override
   Future<List<OrderStockAdjustmentRegisterModel>> getlist() async {
     try {
+      var tbInstitutionId = getInstitutionId();
+
       final uri =
           Uri.parse('${baseApiUrl}orderstockadjust/getlist/$tbInstitutionId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -58,9 +63,15 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   Future<OrderStockAdjustmentRegisterModel> post(
       {required OrderStockAdjustmentRegisterModel model}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      var tbUserId = getUserId();
+
+      model.tbInstitutionId = tbInstitutionId as int;
+      model.tbUserId = tbUserId as int;
+
       final uri = Uri.parse('${baseApiUrl}orderstockadjust');
       final body = jsonEncode(model.toJson());
-      final response = await client.post(uri,
+      final response = await httpClient.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -82,9 +93,15 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   Future<OrderStockAdjustmentRegisterModel> put(
       {required OrderStockAdjustmentRegisterModel model}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      var tbUserId = getUserId();
+
+      model.tbInstitutionId = tbInstitutionId as int;
+      model.tbUserId = tbUserId as int;
+
       final uri = Uri.parse('${baseApiUrl}orderstockadjust');
 
-      final response = await client.put(
+      final response = await httpClient.put(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -109,7 +126,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
     try {
       final uri = Uri.parse('${baseApiUrl}orderstockadjust/$id');
 
-      final response = await client.delete(uri);
+      final response = await httpClient.delete(uri);
 
       if (response.statusCode == 200) {
         return "";
@@ -125,10 +142,12 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   Future<OrderStockAdjustmentRegisterModel> get(
       {required int orderStockAdjustmentId}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+
       final uri = Uri.parse(
           '${baseApiUrl}orderstockadjust/get/$tbInstitutionId/$orderStockAdjustmentId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -145,9 +164,11 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   @override
   Future<List<ProductListModel>> getListProducts() async {
     try {
+      var tbInstitutionId = getInstitutionId();
+
       final uri = Uri.parse('${baseApiUrl}product/getlist/$tbInstitutionId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -167,9 +188,11 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   @override
   Future<List<StockListModel>> getListStock() async {
     try {
+      var tbInstitutionId = getInstitutionId();
+
       final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$tbInstitutionId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -191,7 +214,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
     try {
       final uri = Uri.parse('${baseApiUrl}entity');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

@@ -25,13 +25,14 @@ abstract class CashierStatementDataSource extends Gateway {
 
 class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   CashierStatementDataSourceImpl({required super.httpClient});
-  var tbInstitutionId = 1;
-  var tbUserid = 2;
+
   @override
   Future<List<CashierStatementModel>> cashierStatementGetByCustomer(
       {required CashierStatementParams params}) async {
+    var tbInstitutionId = getInstitutionId();
+    var tbUserId = getUserId();
     return await request(
-      'financial/statement/getbycustomer/$tbInstitutionId/$tbUserid/${params.tbCustomerId}/${params.date}',
+      'financial/statement/getbycustomer/$tbInstitutionId/$tbUserId/${params.tbCustomerId}/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)
@@ -48,8 +49,10 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   @override
   Future<List<CashierStatementModel>> cashierStatementGetByDay(
       {required CashierStatementParams params}) async {
+    var tbInstitutionId = getInstitutionId();
+    var tbUserId = getUserId();
     return await request(
-      'financial/statement/getbyday/$tbInstitutionId/$tbUserid/${params.date}',
+      'financial/statement/getbyday/$tbInstitutionId/$tbUserId/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)
@@ -66,8 +69,10 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   @override
   Future<List<CashierStatementModel>> cashierStatementGetByMonth(
       {required CashierStatementParams params}) async {
+    var tbInstitutionId = getInstitutionId();
+    var tbUserId = getUserId();
     return await request(
-      'financial/statement/getbymonth/$tbInstitutionId/$tbUserid/${params.date}',
+      'financial/statement/getbymonth/$tbInstitutionId/$tbUserId/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)
@@ -84,8 +89,10 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
   @override
   Future<List<CashierStatementCustomerModel>> cashierStatementGetCustomers(
       {required CashierStatementParams params}) async {
+    var tbInstitutionId = getInstitutionId();
+    var tbUserId = getUserId();
     return await request(
-      'financial/customer/charged/getlist/$tbInstitutionId/$tbUserid/${params.date}',
+      'financial/customer/charged/getlist/$tbInstitutionId/$tbUserId/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)

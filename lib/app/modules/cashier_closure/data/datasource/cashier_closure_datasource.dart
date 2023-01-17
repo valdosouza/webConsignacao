@@ -18,15 +18,16 @@ abstract class CashierClosureDatasource extends Gateway {
 
 class CashierClosureDatasourceImpl extends CashierClosureDatasource {
   CashierClosureDatasourceImpl({required super.httpClient});
-  var tbIntitutionId = 1;
-  var tbUserId = 2;
+
   @override
   Future<ClosureModel> getClosure({
     required String date,
   }) async {
     String formattedDate = CustomDate.formatDateOut(date);
+    var tbInstitutionId = getInstitutionId();
+    var tbUserId = getUserId();
     return await request(
-      'cashier/closure/get/$tbIntitutionId/$tbUserId/$formattedDate',
+      'cashier/closure/get/$tbInstitutionId/$tbUserId/$formattedDate',
       (payload) {
         final data = json.decode(payload);
 
@@ -41,8 +42,10 @@ class CashierClosureDatasourceImpl extends CashierClosureDatasource {
 
   @override
   Future<List<CashierClosurePreviouslyModel>> closurePreviously() async {
+    var tbInstitutionId = getInstitutionId();
+    var tbUserId = getUserId();
     return await request(
-      'cashier/closure/getlist/$tbIntitutionId/$tbUserId',
+      'cashier/closure/getlist/$tbInstitutionId/$tbUserId',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)

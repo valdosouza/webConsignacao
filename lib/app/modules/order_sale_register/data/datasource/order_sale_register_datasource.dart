@@ -14,11 +14,18 @@ abstract class OrderSaleRegisterDatasource extends Gateway {
 
 class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
   OrderSaleRegisterDatasourceImpl({required super.httpClient});
-  var tbInstitutionId = 1;
+
   @override
   Future<OrderSaleModel> post({
     required OrderSaleMainCardModel model,
   }) async {
+    var tbInstitutionId = getInstitutionId();
+    var tbSalesmanId = getUserId();
+    var tbUserId = getUserId();
+    model.order.tbInstitutionId = tbInstitutionId as int;
+    model.order.tbSalesmanId = tbSalesmanId as int;
+    model.order.tbUserId = tbUserId as int;
+
     final bodyEnvio = json.encode(model.toJson());
 
     return await request(
@@ -38,6 +45,8 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
   @override
   Future<List<OrderSaleCardModel>> getNewOrderSaleCard(
       {required int tbPriceListId}) async {
+    var tbInstitutionId = getInstitutionId();
+
     return request(
       'ordersale/card/newlist/$tbInstitutionId/$tbPriceListId',
       (payload) {

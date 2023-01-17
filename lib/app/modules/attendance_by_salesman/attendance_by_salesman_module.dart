@@ -5,22 +5,13 @@ import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/atte
 import 'package:appweb/app/modules/attendance_by_salesman/presentation/page/attendance_salesman_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class AttendanceBySalesmanModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<CustomerDataSource>(
-          (i) => CustomerDataSourceImpl(),
-        ),
-        Bind.factory(
-          (i) =>
-              CustomerRepositoryImpl(datasource: i.get<CustomerDataSource>()),
-        ),
-        Bind.factory(
-          (i) => CustomerGetlist(repository: i.get<CustomerRepositoryImpl>()),
-        ),
-        Bind.factory<CustomerDataSource>(
-          (i) => CustomerDataSourceImpl(),
+          (i) => CustomerDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) =>

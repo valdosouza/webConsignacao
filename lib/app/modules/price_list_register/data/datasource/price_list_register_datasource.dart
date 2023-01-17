@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
-import 'package:http/http.dart' as http;
 
-abstract class PriceListRegisterDataSource {
+abstract class PriceListRegisterDataSource extends Gateway {
+  PriceListRegisterDataSource({required super.httpClient});
+
   Future<List<PriceListModel>> getlist();
   Future<PriceListModel> post({required PriceListModel model});
   Future<PriceListModel> put({required PriceListModel model});
@@ -13,15 +15,16 @@ abstract class PriceListRegisterDataSource {
 }
 
 class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
-  final client = http.Client();
   List<PriceListModel> prices = [];
-  var tbInstitutionId = 1;
+
+  PriceListRegisterDataSourceImpl({required super.httpClient});
   @override
   Future<List<PriceListModel>> getlist() async {
     try {
+      var tbInstitutionId = getInstitutionId();
       final uri = Uri.parse('${baseApiUrl}pricelist/getlist/$tbInstitutionId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -41,9 +44,12 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   @override
   Future<PriceListModel> post({required PriceListModel model}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId as int;
+
       final uri = Uri.parse('${baseApiUrl}pricelist');
 
-      final response = await client.post(
+      final response = await httpClient.post(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -66,9 +72,12 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   @override
   Future<PriceListModel> put({required PriceListModel model}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId as int;
+
       final uri = Uri.parse('${baseApiUrl}pricelist');
 
-      final response = await client.put(
+      final response = await httpClient.put(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -93,7 +102,7 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
     try {
       final uri = Uri.parse('${baseApiUrl}pricelist/$id');
 
-      final response = await client.delete(uri);
+      final response = await httpClient.delete(uri);
 
       if (response.statusCode == 200) {
         return "";

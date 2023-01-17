@@ -14,9 +14,15 @@ class OrderConsignmentCheckpointDatasourceImpl
     extends OrderConsignmentCheckpointDatasource {
   OrderConsignmentCheckpointDatasourceImpl({required super.httpClient});
 
+  var tbInstitutionId = 1;
+
   @override
   Future<OrderConsignmentCheckpointModel> post(
       OrderConsignmentCheckpointModel model) async {
+    var tbInstitutionId = getInstitutionId();
+
+    model.order.tbInstitutionId = tbInstitutionId as int;
+
     var bodyConsignment = jsonEncode(model.toJson());
     return await request(
       'orderconsignment/checkpoint',

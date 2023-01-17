@@ -76,7 +76,7 @@ class OrderSaleRegisterBloc
       event.model.order.tbSalesmanId = modelAttendance.tbSalesmanId;
       event.model.order.nameSalesman = modelAttendance.nameSalesman;
 
-      event.model.order.tbUserIid = modelAttendance.tbUserId;
+      event.model.order.tbUserId = modelAttendance.tbUserId;
 
       event.model.order.dtRecord = modelAttendance.dtRecord;
 

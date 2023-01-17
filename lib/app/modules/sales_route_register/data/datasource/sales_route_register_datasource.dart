@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:appweb/app/core/error/exceptions.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/sales_route_register/data/model/sales_route_model.dart';
-import 'package:http/http.dart' as http;
 
-abstract class SalesRouteRegisterDataSource {
+abstract class SalesRouteRegisterDataSource extends Gateway {
+  SalesRouteRegisterDataSource({required super.httpClient});
+
   Future<List<SalesRouteRegisterModel>> getlist();
   Future<SalesRouteRegisterModel> post(
       {required SalesRouteRegisterModel model});
@@ -14,15 +15,16 @@ abstract class SalesRouteRegisterDataSource {
 }
 
 class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
-  final client = http.Client();
   List<SalesRouteRegisterModel> prices = [];
-  var tbInstitutionId = 1;
+
+  SalesRouteRegisterDataSourceImpl({required super.httpClient});
   @override
   Future<List<SalesRouteRegisterModel>> getlist() async {
     try {
+      var tbInstitutionId = getInstitutionId();
       final uri = Uri.parse('${baseApiUrl}salesroute/getlist/$tbInstitutionId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -43,9 +45,12 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
   Future<SalesRouteRegisterModel> post(
       {required SalesRouteRegisterModel model}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId as int;
+
       final uri = Uri.parse('${baseApiUrl}salesroute');
 
-      final response = await client.post(
+      final response = await httpClient.post(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -69,9 +74,11 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
   Future<SalesRouteRegisterModel> put(
       {required SalesRouteRegisterModel model}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId as int;
       final uri = Uri.parse('${baseApiUrl}salesroute');
 
-      final response = await client.put(
+      final response = await httpClient.put(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -97,7 +104,7 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
     try {
       final uri = Uri.parse('${baseApiUrl}salesroute/$id');
 
-      final response = await client.delete(uri);
+      final response = await httpClient.delete(uri);
 
       if (response.statusCode == 200) {
         return "";

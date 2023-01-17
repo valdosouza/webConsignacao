@@ -1,26 +1,29 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
-import 'package:http/http.dart' as http;
 
-abstract class StockBalanceCustomerDataSource {
+abstract class StockBalanceCustomerDataSource extends Gateway {
+  StockBalanceCustomerDataSource({required super.httpClient});
+
   Future<List<StockBalanceModel>> getlist();
 }
 
 class StockBalanceCustomerDataSourceImpl
     extends StockBalanceCustomerDataSource {
-  final client = http.Client();
   List<StockBalanceModel> stockBalanceCustomer = [];
-  var tbInstitutionId = 1;
-  var tbSalesmanId = 2;
+
+  StockBalanceCustomerDataSourceImpl({required super.httpClient});
   @override
   Future<List<StockBalanceModel>> getlist() async {
     try {
+      var tbInstitutionId = getInstitutionId();
+      var tbSalesmanId = getUserId();
       final uri = Uri.parse(
           '${baseApiUrl}stockbalance/customer/getlist/$tbInstitutionId/$tbSalesmanId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

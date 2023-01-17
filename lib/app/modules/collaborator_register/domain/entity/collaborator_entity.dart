@@ -1,6 +1,6 @@
 class CollaboratorEntity {
   int id;
-  int? tbInstitutionId;
+  int tbInstitutionId;
   String? dtAdmission;
   String? dtResignation;
   String? active;
@@ -14,7 +14,7 @@ class CollaboratorEntity {
   String? militaryCertificate;
   CollaboratorEntity({
     required this.id,
-    this.tbInstitutionId,
+    required this.tbInstitutionId,
     this.dtAdmission,
     this.dtResignation,
     this.active,

@@ -6,15 +6,15 @@ import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_
 import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_put.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_bloc.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/page/payment_type_register.dart';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class PaymentTypeRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<PaymentTypeRegisterDataSource>(
-          (i) => PaymentTypeRegisterDataSourceImpl(),
+          (i) => PaymentTypeRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => PaymentTypeRegisterRepositoryImpl(

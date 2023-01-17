@@ -19,10 +19,12 @@ class CollaboratorRegisterDatasourceImpl
     extends CollaboratorRegisterDatasource {
   List<StateModel> states = [];
   List<CityModel> citys = [];
-  var tbInstitutionId = 1;
+
   CollaboratorRegisterDatasourceImpl({required super.httpClient});
   @override
   Future<CollaboratorMainModel> get({required int id}) async {
+    var tbInstitutionId = getInstitutionId();
+
     return await request(
       'collaborator/$tbInstitutionId/$id',
       (payload) {
@@ -39,6 +41,8 @@ class CollaboratorRegisterDatasourceImpl
   Future<CollaboratorListModel> post({
     required CollaboratorMainModel model,
   }) async {
+    var tbInstitutionId = getInstitutionId();
+    model.collaborator.tbInstitutionId = tbInstitutionId as int;
     final bodyEnvio = json.encode(model.toJson());
 
     return await request(
@@ -71,6 +75,7 @@ class CollaboratorRegisterDatasourceImpl
 
   @override
   Future<List<CollaboratorListModel>> getlist() async {
+    var tbInstitutionId = getInstitutionId();
     return await request(
       'collaborator/getlist/$tbInstitutionId',
       (payload) {

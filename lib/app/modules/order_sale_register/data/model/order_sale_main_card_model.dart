@@ -42,7 +42,7 @@ class OrderSaleMainCardModel extends OrderSaleMainCardEntity {
         tbInstitutionId: 0,
         tbCustomerId: 0,
         nameCustomer: "",
-        tbUserIid: 0,
+        tbUserId: 0,
         number: 0,
         tbSalesmanId: 0,
         nameSalesman: "",

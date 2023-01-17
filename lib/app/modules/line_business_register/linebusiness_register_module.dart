@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/line_business_register/data/datasource/remote/ownapi/linebusiness_register_datasource.dart';
+import 'package:appweb/app/modules/line_business_register/data/datasource/linebusiness_register_datasource.dart';
 import 'package:appweb/app/modules/line_business_register/data/repository/linebusiness_repository_impl.dart';
 import 'package:appweb/app/modules/line_business_register/domain/usecase/linebusiness_register_delete.dart';
 import 'package:appweb/app/modules/line_business_register/domain/usecase/linebusiness_register_getlist.dart';
@@ -8,12 +8,13 @@ import 'package:appweb/app/modules/line_business_register/presentation/bloc/line
 import 'package:appweb/app/modules/line_business_register/presentation/page/linebusiness_register.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class LinebusinessRegisterModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<LinebusinessRegisterDataSource>(
-          (i) => LinebusinessRegisterDataSourceImpl(),
+          (i) => LinebusinessRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => LinebusinessRegisterRepositoryImpl(

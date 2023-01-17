@@ -9,12 +9,13 @@ import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attenda
 import 'package:appweb/app/modules/attendance_by_route/presentation/page/attendance_sales_route_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:modular_bloc_bind/modular_bloc_bind.dart';
+import 'package:http/http.dart' as http;
 
 class AttendanceByRouteModule extends Module {
   @override
   List<Bind> get binds => [
         Bind.factory<SalesRouteDataSource>(
-          (i) => SalesRouteDataSourceImpl(),
+          (i) => SalesRouteDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => SalesRouteRepositoryImpl(
@@ -25,7 +26,7 @@ class AttendanceByRouteModule extends Module {
               SalesRouteGetlist(repository: i.get<SalesRouteRepositoryImpl>()),
         ),
         Bind.factory<CustomerDataSource>(
-          (i) => CustomerDataSourceImpl(),
+          (i) => CustomerDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) =>

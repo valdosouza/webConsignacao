@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
 
-import 'package:http/http.dart' as http;
-
-abstract class CustomerDataSource {
+abstract class CustomerDataSource extends Gateway {
+  CustomerDataSource({required super.httpClient});
   Future<List<CustomerListByRouteModel>> getList({required int tbSalesRouteId});
   Future<void> sequence(
       {required int tbSalesRouteId,
@@ -14,17 +14,19 @@ abstract class CustomerDataSource {
 }
 
 class CustomerDataSourceImpl extends CustomerDataSource {
-  final client = http.Client();
   List<CustomerListByRouteModel> items = [];
-  var tbInstitutionId = 1;
+
+  CustomerDataSourceImpl({required super.httpClient});
   @override
   Future<List<CustomerListByRouteModel>> getList(
       {required int tbSalesRouteId}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+
       final uri = Uri.parse(
           '${baseApiUrl}customer/salesroute/getlist/$tbInstitutionId/$tbSalesRouteId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -47,6 +49,8 @@ class CustomerDataSourceImpl extends CustomerDataSource {
       required int tbCustomerId,
       required int sequence}) async {
     try {
+      var tbInstitutionId = getInstitutionId();
+
       final uri = Uri.parse('${baseApiUrl}salesroute/sequence/');
       var body = {
         "tb_institution_id": tbInstitutionId,
@@ -55,7 +59,7 @@ class CustomerDataSourceImpl extends CustomerDataSource {
         "sequence": sequence
       };
 
-      final response = await client.post(
+      final response = await httpClient.post(
         uri,
         body: jsonEncode(body),
         headers: <String, String>{

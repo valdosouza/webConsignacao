@@ -6,7 +6,7 @@ class OrderSaleModel extends OrderSaleEntity {
   int tbInstitutionId;
   int tbCustomerId;
   String nameCustomer;
-  int tbUserIid;
+  int tbUserId;
   int number;
   int tbSalesmanId;
   String nameSalesman;
@@ -21,7 +21,7 @@ class OrderSaleModel extends OrderSaleEntity {
     required this.tbInstitutionId,
     required this.tbCustomerId,
     required this.nameCustomer,
-    required this.tbUserIid,
+    required this.tbUserId,
     required this.number,
     required this.tbSalesmanId,
     required this.nameSalesman,
@@ -35,7 +35,7 @@ class OrderSaleModel extends OrderSaleEntity {
           tbInstitutionId: tbInstitutionId,
           tbCustomerId: tbCustomerId,
           nameCustomer: nameCustomer,
-          tbUserIid: tbUserIid,
+          tbUserId: tbUserId,
           number: number,
           tbSalesmanId: tbSalesmanId,
           nameSalesman: nameSalesman,
@@ -52,7 +52,7 @@ class OrderSaleModel extends OrderSaleEntity {
       tbInstitutionId: json['tb_institution_id'],
       tbCustomerId: json['tb_customer_id'],
       nameCustomer: json['name_customer'] as String? ?? "",
-      tbUserIid: json['tb_user_id'],
+      tbUserId: json['tb_user_id'],
       number: json['number'],
       tbSalesmanId: json['tb_salesman_id'],
       nameSalesman: json['name_salesman'],
@@ -74,7 +74,7 @@ class OrderSaleModel extends OrderSaleEntity {
       'tb_institution_id': tbInstitutionId,
       'tb_customer_id': tbCustomerId,
       'name_customer': nameCustomer,
-      'tb_user_id': tbUserIid,
+      'tb_user_id': tbUserId,
       'number': number,
       'tb_salesman_id': tbSalesmanId,
       'name_salesman': nameSalesman,

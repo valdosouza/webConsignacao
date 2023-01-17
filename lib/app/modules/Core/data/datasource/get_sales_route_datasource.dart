@@ -1,23 +1,26 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
+import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
-import 'package:http/http.dart' as http;
 
-abstract class GetSalesRouteDatasource {
+abstract class GetSalesRouteDatasource extends Gateway {
+  GetSalesRouteDatasource({required super.httpClient});
+
   Future<List<SalesRouteListModel>> getSalesRoute();
 }
 
 class GetSalesRouteDataSourceImpl extends GetSalesRouteDatasource {
-  final client = http.Client();
   List<SalesRouteListModel> list = [];
-  var tbInstitutionId = 1;
+
+  GetSalesRouteDataSourceImpl({required super.httpClient});
   @override
   Future<List<SalesRouteListModel>> getSalesRoute() async {
     try {
+      var tbInstitutionId = getInstitutionId();
       final uri = Uri.parse('${baseApiUrl}salesroute/getlist/$tbInstitutionId');
 
-      final response = await client.get(uri);
+      final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
         var obj = jsonDecode(response.body);

@@ -4,7 +4,7 @@ class OrderSaleEntity {
     int? tbInstitutionId,
     int? tbCustomerId,
     String? nameCustomer,
-    int? tbUserIid,
+    int? tbUserId,
     int? number,
     int? tbSalesmanId,
     String? nameSalesman,

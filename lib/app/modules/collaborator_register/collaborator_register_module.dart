@@ -10,7 +10,7 @@ import 'package:appweb/app/modules/collaborator_register/domain/usecase/collabor
 import 'package:appweb/app/modules/collaborator_register/domain/usecase/collaborator_register_post.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/page/collaborator_register.dart';
-import 'package:appweb/app/modules/line_business_register/data/datasource/remote/ownapi/linebusiness_register_datasource.dart';
+import 'package:appweb/app/modules/line_business_register/data/datasource/linebusiness_register_datasource.dart';
 import 'package:appweb/app/modules/line_business_register/data/repository/linebusiness_repository_impl.dart';
 import 'package:appweb/app/modules/line_business_register/domain/usecase/linebusiness_register_getlist.dart';
 import 'package:appweb/app/modules/line_business_register/linebusiness_register_module.dart';
@@ -46,7 +46,7 @@ class CollaboratorRegisterModule extends Module {
               repository: i.get<CollaboratorRegisterRepositoryImpl>()),
         ),
         Bind.factory<LinebusinessRegisterDataSource>(
-          (i) => LinebusinessRegisterDataSourceImpl(),
+          (i) => LinebusinessRegisterDataSourceImpl(httpClient: http.Client()),
         ),
         Bind.factory(
           (i) => LinebusinessRegisterRepositoryImpl(

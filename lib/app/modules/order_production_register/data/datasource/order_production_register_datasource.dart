@@ -5,7 +5,6 @@ import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
-import 'package:http/http.dart' as http;
 
 abstract class OrderProductionRegisterDataSource extends Gateway {
   OrderProductionRegisterDataSource({required super.httpClient});
@@ -23,15 +22,16 @@ abstract class OrderProductionRegisterDataSource extends Gateway {
 
 class OrderProductionRegisterDataSourceImpl
     extends OrderProductionRegisterDataSource {
-  final client = http.Client();
   List<OrderProductionRegisterModel> orderProduction = [];
   List<ProductListModel> products = [];
   List<StockListModel> stock = [];
 
   OrderProductionRegisterDataSourceImpl({required super.httpClient});
-  var tbInstitutionId = 1;
+
   @override
   Future<List<OrderProductionRegisterModel>> getlist() async {
+    var tbInstitutionId = getInstitutionId();
+
     return request(
       'orderproduction/getlist/$tbInstitutionId',
       (payload) {
@@ -53,6 +53,12 @@ class OrderProductionRegisterDataSourceImpl
   Future<OrderProductionRegisterModel> post({
     required OrderProductionRegisterModel model,
   }) async {
+    var tbInstitutionId = getInstitutionId();
+    var tbUserId = getUserId();
+
+    model.tbInstitutionId = tbInstitutionId as int;
+    model.tbUserId = tbUserId as int;
+
     final body = jsonEncode(model.toJson());
 
     return request(
@@ -74,6 +80,12 @@ class OrderProductionRegisterDataSourceImpl
   Future<OrderProductionRegisterModel> put({
     required OrderProductionRegisterModel model,
   }) async {
+    var tbInstitutionId = getInstitutionId();
+    var tbUserId = getUserId();
+
+    model.tbInstitutionId = tbInstitutionId as int;
+    model.tbUserId = tbUserId as int;
+
     final body = jsonEncode(model.toJson());
     return request(
       'orderproduction',
@@ -109,6 +121,8 @@ class OrderProductionRegisterDataSourceImpl
   @override
   Future<OrderProductionRegisterModel> get(
       {required int orderProductionId}) async {
+    var tbInstitutionId = getInstitutionId();
+
     return request(
       'orderproduction/get/$tbInstitutionId/$orderProductionId',
       (payload) {
@@ -124,6 +138,7 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<List<ProductListModel>> getListProducts() async {
+    var tbInstitutionId = getInstitutionId();
     return request(
       'product/getlist/$tbInstitutionId',
       (payload) {
@@ -142,6 +157,7 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<List<StockListModel>> getListStock() async {
+    var tbInstitutionId = getInstitutionId();
     return request(
       'stocklist/getlist/$tbInstitutionId',
       (payload) {
