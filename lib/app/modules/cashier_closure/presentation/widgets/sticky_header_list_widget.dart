@@ -1,53 +1,12 @@
-import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
+import '../../data/model/closure_model.dart';
+
 final StickyHeaderController controller = StickyHeaderController();
 
-class ConsignmentStickHeader extends StatelessWidget {
-  const ConsignmentStickHeader({
-    Key? key,
-    required this.closureModel,
-  }) : super(key: key);
-
-  final ClosureModel closureModel;
-
-  @override
-  Widget build(BuildContext context) {
-    var currenKind = '';
-    List<int> listIndex = [];
-    List<int> listIndexSum = [];
-    List<String> listKind = [];
-
-    for (var i in closureModel.items!) {
-      if (currenKind == '' || currenKind != i.kind) {
-        currenKind = i.kind!;
-        listIndex.add(closureModel.items!.indexOf(i));
-        if (closureModel.items![closureModel.items!.indexOf(i)].kind ==
-            'sumarized1') {
-          listIndexSum.add(closureModel.items!.indexOf(i));
-        }
-      }
-
-      listKind.add(closureModel.items![closureModel.items!.indexOf(i)].kind!);
-    }
-
-    return CustomScrollView(
-      slivers: listIndex.map(
-        (e) {
-          return _StickyHeaderList(
-            listIndex: listIndex,
-            index: listIndex.indexOf(e),
-            closureModel: closureModel,
-          );
-        },
-      ).toList(),
-    );
-  }
-}
-
-class _StickyHeaderList extends StatelessWidget {
-  const _StickyHeaderList({
+class StickyHeaderList extends StatelessWidget {
+  const StickyHeaderList({
     Key? key,
     required this.closureModel,
     required this.index,
@@ -63,7 +22,7 @@ class _StickyHeaderList extends StatelessWidget {
       controller: controller,
       header: Header(
         title:
-            '${closureModel.items![listIndex[index]].kind![0].toUpperCase()}${closureModel.items![listIndex[index]].kind!.substring(1)}',
+            '${closureModel.items![listIndex[index]].kind[0].toUpperCase()}${closureModel.items![listIndex[index]].kind.substring(1)}',
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
@@ -75,7 +34,7 @@ class _StickyHeaderList extends StatelessWidget {
                 leading: CircleAvatar(
                   child: Text('${i + 1}'),
                 ),
-                title: Text('${closureModel.items![i].description}'),
+                title: Text(closureModel.items![i].description),
               );
             } else {
               return const SizedBox();

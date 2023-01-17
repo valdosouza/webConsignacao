@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.consigna">
+    package="com.industriadechocolatesamor.consigna">
    <application
-        android:label="consigna"
+        android:label="Consignação e Venda"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

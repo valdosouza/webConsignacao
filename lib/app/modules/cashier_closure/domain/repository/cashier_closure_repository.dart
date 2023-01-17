@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class CashierClosureRepository {
   Future<Either<Failure, ClosureModel>> getClosure({
-    required DateTime date,
+    required String date,
   });
   Future<Either<Failure, List<CashierClosurePreviouslyModel>>>
       closurePreviously();

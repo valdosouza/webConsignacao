@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/cashier/presentation/contents/content_mobile_cashier.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/bloc/cashier_closure_bloc.dart';
+import 'package:appweb/app/modules/cashier_closure/presentation/contents/content_cashier_list_previously.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,7 +32,7 @@ class CashierClosurePreviouslyPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Fechamento anteriores"),
+        title: const Text("Fechamentos anteriores"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -40,12 +40,7 @@ class CashierClosurePreviouslyPageMobileState
           },
         ),
       ),
-      body: const ContentMobileCashier(
-        event: CashierClosureGetClosurePreviouslyEvent(
-          institutionId: 1,
-          userId: 2,
-        ),
-      ),
+      body: const ContentCashierListPreviously(),
     );
   }
 }

@@ -1,10 +1,7 @@
 part of 'cashier_closure_bloc.dart';
 
-abstract class CashierClosureState extends Equatable {
+abstract class CashierClosureState {
   const CashierClosureState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class CashierClosureLoadingState extends CashierClosureState {}
@@ -12,8 +9,7 @@ class CashierClosureLoadingState extends CashierClosureState {}
 class CashierClosureGetClosureErrorState extends CashierClosureState {}
 
 class CashierClosureGetClosureLoadedState extends CashierClosureState {
-  const CashierClosureGetClosureLoadedState({required this.closure});
-  final ClosureModel closure;
+  const CashierClosureGetClosureLoadedState();
 }
 
 class CashierClosureGetClosurePreviouslyLoadedState

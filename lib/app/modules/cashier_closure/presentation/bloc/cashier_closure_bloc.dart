@@ -3,7 +3,6 @@ import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_previously.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_today.dart';
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 part 'cashier_closure_event.dart';
 part 'cashier_closure_state.dart';
@@ -21,7 +20,8 @@ class CashierClosureBloc
 
   final CashierClosureGet cashierClosureGet;
   final CashierClosureGetPreviously cashierClosureGetPreviously;
-  List<CashierClosurePreviouslyModel> _closures = [];
+  List<CashierClosurePreviouslyModel> closuresPreviously = [];
+  late ClosureModel closureModel = ClosureModel.isEmpty();
 
   void onSearch(
     CashierClosureGetClosureOnSearchEvent event,
@@ -31,7 +31,7 @@ class CashierClosureBloc
 
     late List<CashierClosurePreviouslyModel> closuresSearched;
 
-    closuresSearched = _closures.where((element) {
+    closuresSearched = closuresPreviously.where((element) {
       String dtRecord = element.dtRecord;
       return dtRecord
           .toLowerCase()
@@ -49,19 +49,12 @@ class CashierClosureBloc
     Emitter<CashierClosureState> emit,
   ) async {
     emit(CashierClosureLoadingState());
-    final response = await cashierClosureGet.call(
-      ParamsGet(
-        date: event.date,
-        institutionId: event.institutionId,
-        userId: event.userId,
-      ),
-    );
+    final response = await cashierClosureGet.call(ParamsGet(date: event.date));
 
     emit(
       response.fold((l) => CashierClosureGetClosureErrorState(), (r) {
-        return CashierClosureGetClosureLoadedState(
-          closure: r,
-        );
+        closureModel = r;
+        return const CashierClosureGetClosureLoadedState();
       }),
     );
   }
@@ -70,17 +63,18 @@ class CashierClosureBloc
     CashierClosureGetClosurePreviouslyEvent event,
     Emitter<CashierClosureState> emit,
   ) async {
-    emit(CashierClosureLoadingState());
-    final response =
-        await cashierClosureGetPreviously.call(const ParamsGetPreviously());
-
-    emit(
-      response.fold((l) => CashierClosureGetClosureErrorState(), (r) {
-        _closures = r;
-        return CashierClosureGetClosurePreviouslyLoadedState(
-          closures: r,
-        );
-      }),
-    );
+    if (closuresPreviously.isEmpty) {
+      emit(CashierClosureLoadingState());
+      final response =
+          await cashierClosureGetPreviously.call(const ParamsGetPreviously());
+      emit(
+        response.fold((l) => CashierClosureGetClosureErrorState(), (r) {
+          closuresPreviously = r;
+          return CashierClosureGetClosurePreviouslyLoadedState(
+            closures: r,
+          );
+        }),
+      );
+    }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/cashier_closure/cashier_closure_module.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/menus/cashier_closure_menus_mobile.dart';
-import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -18,7 +18,7 @@ class CashierClosurePageMobileState extends State<CashierClosurePageMobile> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<CashierStatementModule>();
+      await Modular.isModuleReady<CashierClosureModule>();
     });
   }
 
@@ -30,7 +30,7 @@ class CashierClosurePageMobileState extends State<CashierClosurePageMobile> {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Extrato"),
+        title: const Text("Fechamento"),
       ),
       drawer: const DrawerPageMobile(),
       body: SizedBox(

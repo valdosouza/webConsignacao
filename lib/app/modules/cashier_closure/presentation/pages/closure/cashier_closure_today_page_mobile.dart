@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/cashier/presentation/contents/content_mobile_cashier.dart';
-import 'package:appweb/app/modules/cashier_closure/presentation/bloc/cashier_closure_bloc.dart';
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
+import 'package:appweb/app/modules/cashier_closure/presentation/contents/content_cashier_closure.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -38,12 +38,8 @@ class CashierClosureTodayPageMobileState
           },
         ),
       ),
-      body: ContentMobileCashier(
-        event: CashierClosureGetClosureEvent(
-          institutionId: 1,
-          userId: 2,
-          date: DateTime.now(),
-        ),
+      body: ContentCashierClosure(
+        dateSelected: CustomDate.newDate(),
       ),
     );
   }

@@ -4,7 +4,6 @@ import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/repository/cashier_closure_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 
 class CashierClosureGet implements UseCase<ClosureModel, ParamsGet> {
   CashierClosureGet({
@@ -26,17 +25,8 @@ class CashierClosureGet implements UseCase<ClosureModel, ParamsGet> {
   }
 }
 
-class ParamsGet extends Equatable {
-  final int institutionId;
-  final int userId;
-  final DateTime date;
+class ParamsGet {
+  final String date;
 
-  const ParamsGet({
-    required this.institutionId,
-    required this.userId,
-    required this.date,
-  });
-
-  @override
-  List<Object?> get props => [institutionId];
+  const ParamsGet({required this.date});
 }

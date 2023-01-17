@@ -45,12 +45,21 @@ class _CashierStatementCustomerWidgetState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text("Cliente",
-                        style: TextStyle(fontSize: 16, color: Colors.white)),
-                    Text("Horário",
-                        style: TextStyle(fontSize: 16, color: Colors.white)),
-                    Text("Valor",
-                        style: TextStyle(fontSize: 16, color: Colors.white))
+                    Expanded(
+                        flex: 3,
+                        child: Text("Cliente",
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white))),
+                    Expanded(
+                        flex: 1,
+                        child: Text("Horário",
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white))),
+                    Expanded(
+                        flex: 1,
+                        child: Text("Valor",
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white)))
                   ],
                 ),
               )),
@@ -78,10 +87,20 @@ class _CashierStatementCustomerWidgetState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(bloc.customers[index].nameCustomer),
-                        Text(bloc.customers[index].timeAttendace),
-                        Text(bloc.customers[index].valuerCharged
-                            .toStringAsFixed(2)),
+                        Expanded(
+                            flex: 3,
+                            child: Text(bloc.customers[index].nameCustomer)),
+                        Expanded(
+                            flex: 1,
+                            child: Text(bloc.customers[index].timeAttendace)),
+                        Expanded(
+                          flex: 1,
+                          child: Text(
+                            bloc.customers[index].valuerCharged
+                                .toStringAsFixed(2),
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
                       ],
                     ),
                   ));

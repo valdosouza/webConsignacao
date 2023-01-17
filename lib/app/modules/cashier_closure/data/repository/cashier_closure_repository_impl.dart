@@ -14,7 +14,7 @@ class CashierClosureRepositoryImpl implements CashierClosureRepository {
 
   @override
   Future<Either<Failure, ClosureModel>> getClosure({
-    required DateTime date,
+    required String date,
   }) async {
     try {
       final closureToday = await datasource.getClosure(

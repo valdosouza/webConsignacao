@@ -1,7 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
@@ -35,10 +34,6 @@ class CashierStatementCustomersChargedPageMobileState
       await Modular.isModuleReady<CashierStatementModule>();
     });
     var initialDate = CustomDate.newDate();
-    controller = MaskedTextController(
-      mask: '00/00/0000',
-      text: initialDate,
-    );
     bloc = Modular.get<CashierStatementBloc>();
     if (bloc.cashierStatement.isEmpty) {
       bloc.add(
@@ -92,28 +87,7 @@ class CashierStatementCustomersChargedPageMobileState
 
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  CustomInput(
-                    title: "Data",
-                    keyboardType: TextInputType.datetime,
-                    inputAction: TextInputAction.done,
-                    onChanged: (p0) {},
-                    onFieldSubmitted: (value) {
-                      bloc.add(
-                        CashierStatementGetCustomersMobileEvent(
-                          params: CashierStatementParams(
-                            date: value,
-                          ),
-                        ),
-                      );
-                      date = value;
-                    },
-                    controller: controller,
-                  ),
-                  Expanded(child: CashierStatementCustomerWidget(date: date))
-                ],
-              ),
+              child: CashierStatementCustomerWidget(date: date),
             );
           },
         ));

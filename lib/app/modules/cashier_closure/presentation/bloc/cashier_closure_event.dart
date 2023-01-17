@@ -1,10 +1,7 @@
 part of 'cashier_closure_bloc.dart';
 
-abstract class CashierClosureEvent extends Equatable {
+abstract class CashierClosureEvent {
   const CashierClosureEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class CashierClosureGetClosureOnSearchEvent extends CashierClosureEvent {
@@ -14,20 +11,11 @@ class CashierClosureGetClosureOnSearchEvent extends CashierClosureEvent {
 
 class CashierClosureGetClosureEvent extends CashierClosureEvent {
   const CashierClosureGetClosureEvent({
-    required this.institutionId,
-    required this.userId,
     required this.date,
   });
-  final int institutionId;
-  final int userId;
-  final DateTime date;
+  final String date;
 }
 
 class CashierClosureGetClosurePreviouslyEvent extends CashierClosureEvent {
-  const CashierClosureGetClosurePreviouslyEvent({
-    required this.institutionId,
-    required this.userId,
-  });
-  final int institutionId;
-  final int userId;
+  const CashierClosureGetClosurePreviouslyEvent();
 }

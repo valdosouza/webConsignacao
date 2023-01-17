@@ -3,6 +3,7 @@ import 'package:appweb/app/modules/cashier_closure/data/repository/cashier_closu
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_previously.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_today.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/pages/cashier_closure_page.dart';
+import 'package:appweb/app/modules/cashier_closure/presentation/pages/closure/cashier_closure_by_day_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/pages/closure/cashier_closure_previously_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/pages/closure/cashier_closure_today_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/pages/closure/cashier_closure_yesterday_page_mobile.dart';
@@ -55,6 +56,11 @@ class CashierClosureModule extends Module {
     ChildRoute(
       '/mobile/allpreviously/',
       child: (_, args) => const CashierClosurePreviouslyPageMobile(),
-    )
+    ),
+    ChildRoute(
+      '/mobile/byday/',
+      child: (_, args) =>
+          CashierClosureByDayPageMobile(dateSelected: args.data),
+    ),
   ];
 }
