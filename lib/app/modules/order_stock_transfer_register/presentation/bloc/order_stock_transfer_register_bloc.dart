@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_items_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/entities_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_delete.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_main_get.dart';
@@ -36,7 +36,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
   List<ProductListModel> products = [];
   List<StockListModel> stocks = [];
   List<EntityListModel> entities = [];
-  StockListModel stock = StockListModel();
+  StockListModel stock = StockListModel.empty();
 
   int tabIndex = 0;
   String search = "";

@@ -21,7 +21,7 @@ class CustomerDataSourceImpl extends CustomerDataSource {
   Future<List<CustomerListByRouteModel>> getList(
       {required int tbSalesRouteId}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri = Uri.parse(
           '${baseApiUrl}customer/salesroute/getlist/$tbInstitutionId/$tbSalesRouteId');
@@ -49,7 +49,7 @@ class CustomerDataSourceImpl extends CustomerDataSource {
       required int tbCustomerId,
       required int sequence}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri = Uri.parse('${baseApiUrl}salesroute/sequence/');
       var body = {

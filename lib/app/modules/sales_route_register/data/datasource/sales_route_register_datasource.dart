@@ -21,7 +21,7 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
   @override
   Future<List<SalesRouteRegisterModel>> getlist() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri = Uri.parse('${baseApiUrl}salesroute/getlist/$tbInstitutionId');
 
       final response = await httpClient.get(uri);
@@ -45,8 +45,8 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
   Future<SalesRouteRegisterModel> post(
       {required SalesRouteRegisterModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      model.tbInstitutionId = tbInstitutionId as int;
+      final tbInstitutionId = await getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}salesroute');
 
@@ -74,17 +74,15 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
   Future<SalesRouteRegisterModel> put(
       {required SalesRouteRegisterModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      model.tbInstitutionId = tbInstitutionId as int;
+      final tbInstitutionId = await getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId;
       final uri = Uri.parse('${baseApiUrl}salesroute');
-
-      final response = await httpClient.put(
-        uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(model.toJson()),
-      );
+      final bodyContent = jsonEncode(model.toJson());
+      final response = await httpClient.put(uri,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: bodyContent);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

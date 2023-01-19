@@ -20,6 +20,11 @@ class ProductRegisterMainModel extends ProductRegisterMainEntity {
     );
   }
 
+  factory ProductRegisterMainModel.empty() {
+    return ProductRegisterMainModel(
+        product: ProductRegisterModel.empty(), priceList: []);
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['product'] = product.toJson();

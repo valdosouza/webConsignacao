@@ -17,8 +17,8 @@ class CashierBalanceDataSourceImpl extends CashierBalanceDataSource {
   @override
   Future<CashierBalanceModel> cashierBalanceGet({required String date}) async {
     var newDate = CustomDate.formatDateOut(date);
-    var tbInstitutionId = getInstitutionId();
-    var tbUserId = getUserId();
+    final tbInstitutionId = await getInstitutionId();
+    final tbUserId = await getUserId();
     return await request(
       'cashier/balance/get/$tbInstitutionId/$tbUserId/$newDate',
       (payload) {

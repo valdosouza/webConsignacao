@@ -1,9 +1,9 @@
 class AuthRecoveryPasswordEntity {
-  String user;
+  int tbUserId;
   String email;
 
   AuthRecoveryPasswordEntity({
-    required this.user,
+    required this.tbUserId,
     required this.email,
   });
 }

@@ -34,9 +34,9 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, String>> delete({required int userId}) async {
+  Future<Either<Failure, String>> delete({required int tbUserId}) async {
     try {
-      final result = await datasource.delete(id: userId);
+      final result = await datasource.delete(id: tbUserId);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure());

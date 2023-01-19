@@ -68,10 +68,9 @@ class _AuthPageState extends State<AuthPage> {
       bloc: bloc,
       listener: (context, state) {
         if (state is AuthErrorState) {
-          const String errorMsg = "Login ou senha inválidos";
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(errorMsg),
+            SnackBar(
+              content: Text(state.error),
             ),
           );
         }

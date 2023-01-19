@@ -19,12 +19,12 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
   Future<OrderSaleModel> post({
     required OrderSaleMainCardModel model,
   }) async {
-    var tbInstitutionId = getInstitutionId();
-    var tbSalesmanId = getUserId();
-    var tbUserId = getUserId();
-    model.order.tbInstitutionId = tbInstitutionId as int;
-    model.order.tbSalesmanId = tbSalesmanId as int;
-    model.order.tbUserId = tbUserId as int;
+    final tbInstitutionId = await getInstitutionId();
+    final tbSalesmanId = await getUserId();
+    final tbUserId = await getUserId();
+    model.order.tbInstitutionId = tbInstitutionId;
+    model.order.tbSalesmanId = tbSalesmanId;
+    model.order.tbUserId = tbUserId;
 
     final bodyEnvio = json.encode(model.toJson());
 
@@ -45,7 +45,7 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
   @override
   Future<List<OrderSaleCardModel>> getNewOrderSaleCard(
       {required int tbPriceListId}) async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
 
     return request(
       'ordersale/card/newlist/$tbInstitutionId/$tbPriceListId',

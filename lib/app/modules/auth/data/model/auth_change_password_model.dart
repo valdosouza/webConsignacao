@@ -2,18 +2,18 @@ import 'package:appweb/app/modules/auth/domain/entity/auth_change_password_entit
 
 class AuthChangePasswordModel extends AuthChangePasswordEntity {
   AuthChangePasswordModel({
-    required String userId,
+    required int tbUserId,
     required String salt,
     required String newPassword,
   }) : super(
-          userId: userId,
+          tbUserId: tbUserId,
           salt: salt,
           newPassword: newPassword,
         );
 
   factory AuthChangePasswordModel.fromJson(Map<String, dynamic> json) {
     return AuthChangePasswordModel(
-      userId: json['userId'] as String? ?? "",
+      tbUserId: json['tbUserId'],
       salt: json['salt'] as String? ?? "",
       newPassword: json['newPassword'] as String? ?? "",
     );
@@ -21,7 +21,7 @@ class AuthChangePasswordModel extends AuthChangePasswordEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['userId'] = int.parse(userId);
+    data['tb_user_id'] = tbUserId;
     data['salt'] = salt;
     data['newPassword'] = newPassword;
     return data;

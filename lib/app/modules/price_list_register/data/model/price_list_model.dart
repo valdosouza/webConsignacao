@@ -35,6 +35,18 @@ class PriceListModel extends PriceListRegisterEntity {
     );
   }
 
+  factory PriceListModel.empty() {
+    return PriceListModel(
+      id: 0,
+      tbInstitutionId: 0,
+      description: "",
+      validity: "",
+      modality: "",
+      aliqProfit: 0.0,
+      active: "S",
+    );
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

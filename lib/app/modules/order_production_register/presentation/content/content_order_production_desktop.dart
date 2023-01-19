@@ -48,18 +48,18 @@ class _ContentOrderProductionRegisterDesktopState
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        bloc.add(OrderProductionRegisterGetListEvent());
+        bloc.add(OrderGetListEvent());
         return true;
       },
       child: BlocConsumer<OrderProductionRegisterBloc,
           OrderProductionRegisterState>(
         bloc: bloc,
         listener: (context, state) {
-          if (state is OrderProductionRegisterStockErrorState) {
+          if (state is OrderGetStockErrorState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
           }
-          if (state is OrderProductionRegisterProductErrorState) {
+          if (state is OrderGetProductErrorState) {
             CustomToast.showToast(
                 "Ocorreu um erro ao buscar por produto. Tente novamente mais tarde.");
           }
@@ -73,11 +73,11 @@ class _ContentOrderProductionRegisterDesktopState
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back_ios),
                   onPressed: () {
-                    bloc.add(OrderProductionRegisterGetListEvent());
+                    bloc.add(OrderGetListEvent());
                   },
                 ),
                 title: Text(
-                  bloc.edit
+                  (bloc.orderProduction.id > 0)
                       ? "Editar Ordem de Produção"
                       : "Adicionar Ordem de Produção",
                   style: kHintTextStyle.copyWith(fontSize: 20.0),
@@ -89,11 +89,9 @@ class _ContentOrderProductionRegisterDesktopState
                       size: 30.0,
                     ),
                     onPressed: () {
-                      bloc.edit
-                          ? bloc.add(OrderProductionRegisterPutEvent(
-                              model: bloc.orderProduction))
-                          : bloc.add(OrderProductionRegisterPostEvent(
-                              model: bloc.orderProduction));
+                      (bloc.orderProduction.id > 0)
+                          ? bloc.add(OrderPutEvent())
+                          : bloc.add(OrderPostEvent());
                     },
                   ),
                 ],
@@ -121,13 +119,13 @@ class _ContentOrderProductionRegisterDesktopState
                     CustomInputButtonWidget(
                         bloc: bloc,
                         initialValue: bloc.orderProduction.nameMerchandise,
-                        event: OrderProductionRegisterGetProductsEvent(),
+                        event: OrderGetProductsEvent(),
                         title: "Descrição do Produto"),
                     const SizedBox(height: 10),
                     CustomInputButtonWidget(
                         bloc: bloc,
                         initialValue: bloc.orderProduction.nameStockListDes,
-                        event: OrderProductionRegisterGetStocksEvent(),
+                        event: OrderGetStocksEvent(),
                         title: "Descrição do estoque"),
                     const SizedBox(height: 10),
                     CustomInput(

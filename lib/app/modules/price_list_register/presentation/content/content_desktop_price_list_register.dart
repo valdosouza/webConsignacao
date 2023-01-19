@@ -53,10 +53,7 @@ class _ContentDesktopPriceListRegisterState
             child: CircularProgressIndicator(),
           );
         } else if (state is PriceListRegisterInfoPageState) {
-          return PriceListRegisterInterationPage(
-            price: state.model,
-            index: state.list.last.id,
-          );
+          return const PriceListRegisterInterationPage();
         }
         final prices = state.list;
         return Scaffold(
@@ -66,7 +63,7 @@ class _ContentDesktopPriceListRegisterState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(PriceListRegisterInfoEvent());
+                  bloc.add(PriceListRegisterAddEvent());
                 },
               ),
             ],
@@ -89,8 +86,8 @@ class _ContentDesktopPriceListRegisterState
                             itemCount: prices.length,
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
-                                bloc.add(PriceListRegisterInfoEvent(
-                                    model: prices[index]));
+                                bloc.model = prices[index];
+                                bloc.add(PriceListRegisterEditEvent());
                               },
                               child: ListTile(
                                 leading: CircleAvatar(

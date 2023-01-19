@@ -18,7 +18,7 @@ class GetlistCollaboratorDatasourceImpl extends GetlistCollaboratorDatasource {
   @override
   Future<List<CollaboratorListModel>> getlistCollaborator() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri =
           Uri.parse('${baseApiUrl}collaborator/getlist/$tbInstitutionId');
       final response = await httpClient.get(uri);

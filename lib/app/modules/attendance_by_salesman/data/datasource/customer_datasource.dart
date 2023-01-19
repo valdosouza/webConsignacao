@@ -18,8 +18,8 @@ class CustomerDataSourceImpl extends CustomerDataSource {
   @override
   Future<List<CustomerListModel>> getList() async {
     try {
-      var tbUserId = getUserId();
-      var tbInstitutionId = getInstitutionId();
+      final tbUserId = await getUserId();
+      final tbInstitutionId = await getInstitutionId();
       final uri = Uri.parse(
           '${baseApiUrl}customer/salesman/getlist/$tbInstitutionId/$tbUserId');
 

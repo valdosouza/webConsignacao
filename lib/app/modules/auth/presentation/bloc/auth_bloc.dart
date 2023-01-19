@@ -7,7 +7,9 @@ import 'package:appweb/app/modules/auth/domain/usecase/login_email.dart';
 import 'package:appweb/app/modules/auth/domain/usecase/recovery_password.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'auth_state.dart';
 
@@ -53,34 +55,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   login() async {
     on<AuthLoginEvent>((event, emit) async {
       emit(AuthLoadingState());
-
+      LocalStorageService.instance.saveItem(
+        key: LocalStorageKey.token,
+        value: "",
+      );
       final result = await loginEmail(
           Params(username: event.login, password: event.password));
-
+      var status = PermissionStatus.granted;
+      if (!kIsWeb) {
+        status = await Permission.storage.request();
+      }
       var response = result
           .fold((l) => const AuthErrorState('Erro ao realizar Login'),
               (AuthModel authResponse) {
-        final AuthModel authModel = authResponse;
-        final bool auth = authModel.auth;
-        LocalStorageService.instance.saveItem(
-          key: LocalStorageKey.token,
-          value: authModel.jwt,
-        );
-        LocalStorageService.instance.saveItem(
-          key: LocalStorageKey.institutionId,
-          value: authModel.tbInstitutionId.toString(),
-        );
-        LocalStorageService.instance.saveItem(
-          key: LocalStorageKey.userId,
-          value: authModel.id,
-        );
-        if (auth) {
-          return AuthSuccessState();
-        } else {
-          return const AuthErrorState('Login ou senha inválido');
+        if (status == PermissionStatus.granted) {
+          final AuthModel authModel = authResponse;
+          final bool auth = authModel.auth;
+          if (auth) {
+            LocalStorageService.instance.saveItem(
+              key: LocalStorageKey.token,
+              value: authModel.jwt,
+            );
+            LocalStorageService.instance.saveItem(
+              key: LocalStorageKey.tbInstitutionId,
+              value: authModel.tbInstitutionId,
+            );
+            LocalStorageService.instance.saveItem(
+              key: LocalStorageKey.tbUserId,
+              value: authModel.id,
+            );
+            return AuthSuccessState();
+          } else {
+            return const AuthErrorState('Login ou senha inválido');
+          }
+        } else if (status == PermissionStatus.denied) {
+          return const AuthErrorState('Permissão negada.');
+        } else if (status == PermissionStatus.permanentlyDenied) {
+          return const AuthErrorState('Permissão negada.');
         }
       });
-      emit(response);
+      emit(response!);
     });
   }
 

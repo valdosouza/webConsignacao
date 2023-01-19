@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_list_repository.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_getlist.dart';
 import 'package:dartz/dartz.dart';
@@ -15,7 +15,7 @@ import 'stock_list_getlist_test.mocks.dart';
 void main() {
   late StockListRegisterGetlist usecase;
   late MockStockListRepository mockStockListRepository;
-  late ParamsStockListRegister tParams;
+  late ParamsStockListGetList tParams;
 
   setUp(() {
     mockStockListRepository = MockStockListRepository();
@@ -29,7 +29,7 @@ void main() {
       main: 'S',
       active: 'S');
   final List<StockListModel> tListStock = [item, item];
-  tParams = const ParamsStockListRegister();
+  tParams = ParamsStockListGetList();
   test(
     'should show de list of stocks from the repository',
     () async {

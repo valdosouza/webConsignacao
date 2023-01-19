@@ -1,17 +1,18 @@
+import 'package:dartz/dartz.dart';
+
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/repository/stock_list_repository.dart';
-import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 
-class StockListRegisterDelete implements UseCase<String, DeleteStockParams> {
+class StockListRegisterDelete
+    implements UseCase<String, ParamsStockListDelete> {
   final StockListRepository repository;
 
   StockListRegisterDelete({required this.repository});
 
   @override
-  Future<Either<Failure, String>> call(DeleteStockParams params) async {
+  Future<Either<Failure, String>> call(ParamsStockListDelete params) async {
     try {
       final list = await repository.delete(stockId: params.stockId);
       return list;
@@ -21,13 +22,7 @@ class StockListRegisterDelete implements UseCase<String, DeleteStockParams> {
   }
 }
 
-class DeleteStockParams extends Equatable {
-  final int stockId;
-
-  const DeleteStockParams({
-    required this.stockId,
-  });
-
-  @override
-  List<Object?> get props => [stockId];
+class ParamsStockListDelete {
+  int stockId;
+  ParamsStockListDelete(this.stockId);
 }

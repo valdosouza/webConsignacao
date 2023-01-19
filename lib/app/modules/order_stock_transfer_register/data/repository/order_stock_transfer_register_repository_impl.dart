@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/datasource/order_stock_transfer_register_datasource.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/repository/order_stock_transfer_register_respository.dart';
 import 'package:dartz/dartz.dart';
 

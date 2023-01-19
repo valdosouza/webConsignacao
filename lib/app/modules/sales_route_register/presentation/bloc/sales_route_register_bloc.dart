@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/modules/sales_route_register/data/model/sales_route_model.dart';
 import 'package:appweb/app/modules/sales_route_register/domain/usecase/sales_route_register_delete.dart';
 import 'package:appweb/app/modules/sales_route_register/domain/usecase/sales_route_register_get_list.dart';
@@ -15,6 +16,8 @@ class SalesRouteRegisterBloc
   final SalesRouteRegisterDelete delete;
 
   List<SalesRouteRegisterModel> list = [];
+  SalesRouteRegisterModel model = SalesRouteRegisterModel.empty();
+  OptionYesNo? optionYesNo = OptionYesNo.S;
 
   SalesRouteRegisterBloc({
     required this.getlist,
@@ -26,7 +29,9 @@ class SalesRouteRegisterBloc
 
     searchRouteSales();
 
-    goToInfoPage();
+    salesRouteAdd();
+
+    salesRouteEdit();
 
     postFunction();
 
@@ -66,16 +71,27 @@ class SalesRouteRegisterBloc
     });
   }
 
-  goToInfoPage() {
-    on<SalesRouteRegisterInfoEvent>((event, emit) async {
-      emit(SalesRouteRegisterInfoPageState(list: list, model: event.model));
+  salesRouteAdd() {
+    on<SalesRouteRegisterAddEvent>((event, emit) async {
+      model = SalesRouteRegisterModel.empty();
+      optionYesNo = OptionYesNo.S;
+      emit(SalesRouteRegisterInfoPageState(list: list));
+    });
+  }
+
+  salesRouteEdit() {
+    on<SalesRouteRegisterEditEvent>((event, emit) async {
+      (model.active == "S")
+          ? optionYesNo = OptionYesNo.S
+          : optionYesNo = OptionYesNo.N;
+      emit(SalesRouteRegisterInfoPageState(list: list));
     });
   }
 
   postFunction() {
     on<SalesRouteRegisterPostEvent>((event, emit) async {
       SalesRouteRegisterLoadingState();
-      var response = await post.call(ParamsSalesRoutePost(model: event.model));
+      var response = await post.call(ParamsSalesRoutePost(model: model));
 
       var result = response.fold(
         (l) => SalesRouteRegisterAddErrorState(list: list),
@@ -91,7 +107,7 @@ class SalesRouteRegisterBloc
   putFunction() {
     on<SalesRouteRegisterPutEvent>((event, emit) async {
       SalesRouteRegisterLoadingState();
-      var response = await put.call(ParamsSalesRoutePut(model: event.model));
+      var response = await put.call(ParamsSalesRoutePut(model: model));
 
       var result = response.fold(
         (l) => SalesRouteRegisterEditErrorState(list: list),

@@ -1,10 +1,10 @@
 class AuthChangePasswordEntity {
-  String userId;
+  int tbUserId;
   String salt;
   String newPassword;
 
   AuthChangePasswordEntity({
-    required this.userId,
+    required this.tbUserId,
     required this.salt,
     required this.newPassword,
   });

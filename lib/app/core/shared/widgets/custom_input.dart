@@ -16,38 +16,50 @@ class CustomInput extends StatelessWidget {
   final TextEditingController? controller;
   final int? maxLines;
   final int? minLines;
-  const CustomInput(
-      {super.key,
-      required this.title,
-      required this.keyboardType,
-      required this.inputAction,
-      required this.onChanged,
-      this.onFieldSubmitted,
-      this.validator,
-      this.initialValue,
-      this.minLines,
-      this.maxLines,
-      this.sufixIcon,
-      this.hint,
-      this.obscureText = false,
-      this.readOnly = false,
-      this.controller});
+  final double width;
+  final Alignment alignment;
+  final TextAlign textAlign;
+  const CustomInput({
+    super.key,
+    required this.title,
+    required this.keyboardType,
+    required this.inputAction,
+    required this.onChanged,
+    this.onFieldSubmitted,
+    this.validator,
+    this.initialValue,
+    this.minLines,
+    this.maxLines,
+    this.sufixIcon,
+    this.hint,
+    this.obscureText = false,
+    this.readOnly = false,
+    this.controller,
+    this.width = 0,
+    this.alignment = Alignment.centerRight,
+    this.textAlign = TextAlign.left,
+  });
 
   @override
   Widget build(BuildContext context) {
+    double newWidth = 0;
+    if (width == 0) {
+      newWidth = MediaQuery.of(context).size.width;
+    } else {
+      newWidth = width;
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          title,
-          style: kLabelStyle,
-        ),
+        const SizedBox(height: 10.0),
+        Text(title, style: kLabelStyle),
         const SizedBox(height: 10.0),
         Container(
-          alignment: Alignment.centerLeft,
+          width: newWidth,
+          alignment: alignment,
           decoration: kBoxDecorationStyle,
-          width: MediaQuery.of(context).size.width,
           child: TextFormField(
+            textAlign: textAlign,
             initialValue: initialValue,
             readOnly: readOnly,
             keyboardType: keyboardType,

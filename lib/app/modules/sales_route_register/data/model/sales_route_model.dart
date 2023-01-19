@@ -32,4 +32,13 @@ class SalesRouteRegisterModel extends SalesRouteRegisterEntity {
     data['active'] = active;
     return data;
   }
+
+  factory SalesRouteRegisterModel.empty() {
+    return SalesRouteRegisterModel(
+      id: 0,
+      tbInstitutionId: 0,
+      description: "",
+      active: "S",
+    );
+  }
 }

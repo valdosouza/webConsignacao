@@ -7,20 +7,20 @@ import 'package:appweb/app/modules/order_production_register/presentation/bloc/o
 import 'package:flutter/material.dart';
 
 statesOrderProductions(OrderProductionRegisterState state) {
-  if (state is OrderProductionRegisterErrorState) {
+  if (state is OrderGetErrorState) {
     CustomToast.showToast(
         "Erro ao buscar ordem de produção. Tente novamente mais tarde");
-  } else if (state is OrderProductionRegisterPostSuccessState) {
+  } else if (state is OrderPostSuccessState) {
     CustomToast.showToast("Ordem de produção adicionada com sucesso.");
-  } else if (state is OrderProductionRegisterPutSuccessState) {
+  } else if (state is OrderPutSuccessState) {
     CustomToast.showToast("Ordem de produção editada com sucesso.");
-  } else if (state is OrderProductionRegisterPostErrorState) {
+  } else if (state is OrderPostErrorState) {
     CustomToast.showToast(
         "Ocorreu um erro ao adicionar a ordem de produção. Tente novamente mais tarde.");
-  } else if (state is OrderProductionRegisterPutErrorState) {
+  } else if (state is OrderPutErrorState) {
     CustomToast.showToast(
         "Ocorreu um erro ao editar ordem de produção. Tente novamente mais tarde.");
-  } else if (state is OrderProductionRegisterGetErrorState) {
+  } else if (state is OrderGetErrorState) {
     CustomToast.showToast(
         "Ocorreu um erro ao buscar os dados da ordem de produção. Tente novamente mais tarde.");
   }
@@ -33,7 +33,7 @@ buildSearchInput(OrderProductionRegisterBloc bloc) {
       keyboardType: TextInputType.text,
       autofocus: true,
       onChanged: (value) {
-        bloc.add(OrderProductionRegisterSearchEvent(search: value));
+        bloc.add(OrderSearchEvent(search: value));
       },
       style: const TextStyle(
         color: Colors.white,
@@ -59,9 +59,8 @@ buildListView(OrderProductionRegisterBloc bloc,
             itemCount: orderProductions.length,
             itemBuilder: (context, index) => InkWell(
               onTap: () {
-                bloc.edit = true;
-                bloc.add(OrderProductionRegisterDesktopEvent(
-                    model: orderProductions[index]));
+                bloc.orderProduction = orderProductions[index];
+                bloc.add(OrderEditEvent());
               },
               child: ListTile(
                 leading: CircleAvatar(

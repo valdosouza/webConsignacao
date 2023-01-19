@@ -20,7 +20,7 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   @override
   Future<OrderAttendanceModel> delete({required int id}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri =
           Uri.parse('${baseApiUrl}orderattendance/$tbInstitutionId/$id');
       final response = await httpClient.delete(uri);
@@ -37,7 +37,7 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   @override
   Future<OrderAttendanceModel> get({required int id}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri =
           Uri.parse('$baseApiUrl/orderattendance/get/$tbInstitutionId/$id');
       final response = await httpClient.get(uri);
@@ -55,7 +55,7 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   @override
   Future<List<OrderAttendanceModel>> getAll() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri =
           Uri.parse('$baseApiUrl/orderattendance/getlist/$tbInstitutionId');
@@ -79,13 +79,13 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   Future<OrderAttendanceModel> post(
       {required OrderAttendanceModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      var tbUserId = getUserId();
-      var tbSalesmanId = getUserId();
+      final tbInstitutionId = await getInstitutionId();
+      final tbUserId = await getUserId();
+      final tbSalesmanId = await getUserId();
 
-      model.tbInstitutionId = tbInstitutionId as int;
-      model.tbUserId = tbUserId as int;
-      model.tbSalesmanId = tbSalesmanId as int;
+      model.tbInstitutionId = tbInstitutionId;
+      model.tbUserId = tbUserId;
+      model.tbSalesmanId = tbSalesmanId;
 
       final uri = Uri.parse('${baseApiUrl}orderattendance');
       final bodyorder = jsonEncode(model.toJson());
@@ -111,13 +111,13 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   Future<OrderAttendanceModel> put(
       {required OrderAttendanceModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      var tbUserId = getUserId();
-      var tbSalesmanId = getUserId();
+      final tbInstitutionId = await getInstitutionId();
+      final tbUserId = await getUserId();
+      final tbSalesmanId = await getUserId();
 
-      model.tbInstitutionId = tbInstitutionId as int;
-      model.tbUserId = tbUserId as int;
-      model.tbSalesmanId = tbSalesmanId as int;
+      model.tbInstitutionId = tbInstitutionId;
+      model.tbUserId = tbUserId;
+      model.tbSalesmanId = tbSalesmanId;
 
       final uri = Uri.parse('${baseApiUrl}orderattendance');
       final response = await httpClient.put(

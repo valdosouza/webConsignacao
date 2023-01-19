@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 
 abstract class OrderStockTransferRegisterDataSource extends Gateway {
   OrderStockTransferRegisterDataSource({required super.httpClient});
@@ -33,7 +33,7 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<List<OrderStockTransferListModel>> getlist() async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
 
     return await request(
       'orderstocktransfer/getlist/$tbInstitutionId',
@@ -73,7 +73,7 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<List<ProductListModel>> getListProduct() async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
 
     return await request(
       'product/getlist/$tbInstitutionId',
@@ -95,10 +95,10 @@ class OrderStockTransferRegisterDataSourceImpl
   Future<OrderStockTransferListModel> post({
     required OrderStockTransferMainModel model,
   }) async {
-    var tbInstitutionId = getInstitutionId();
-    var tbUserId = getUserId();
-    model.order.tbInstitutionId = tbInstitutionId as int;
-    model.order.tbUserId = tbUserId as int;
+    final tbInstitutionId = await getInstitutionId();
+    final tbUserId = await getUserId();
+    model.order.tbInstitutionId = tbInstitutionId;
+    model.order.tbUserId = tbUserId;
 
     final body = jsonEncode(model.toJson());
     return request(
@@ -120,10 +120,10 @@ class OrderStockTransferRegisterDataSourceImpl
   Future<OrderStockTransferListModel> put(
       {required OrderStockTransferMainModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      var tbUserId = getUserId();
-      model.order.tbInstitutionId = tbInstitutionId as int;
-      model.order.tbUserId = tbUserId as int;
+      final tbInstitutionId = await getInstitutionId();
+      final tbUserId = await getUserId();
+      model.order.tbInstitutionId = tbInstitutionId;
+      model.order.tbUserId = tbUserId;
       final body = jsonEncode(model.toJson());
       return request(
         'orderstocktransfer',
@@ -145,7 +145,7 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<String> delete({required int id}) async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
 
     return request(
       'orderstocktransfer/$tbInstitutionId/$id',
@@ -163,7 +163,7 @@ class OrderStockTransferRegisterDataSourceImpl
   Future<OrderStockTransferMainModel> get({
     required int orderStockId,
   }) async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
 
     return request(
       'orderstocktransfer/get/$tbInstitutionId/$orderStockId',
@@ -180,7 +180,7 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<List<StockListModel>> getListStock() async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
 
     return request(
       'stocklist/getlist/$tbInstitutionId',

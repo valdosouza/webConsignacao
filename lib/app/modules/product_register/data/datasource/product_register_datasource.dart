@@ -25,7 +25,7 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   @override
   Future<List<ProductRegisterModel>> getlist() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri = Uri.parse('${baseApiUrl}product/getlist/$tbInstitutionId');
 
       final response = await httpClient.get(uri);
@@ -49,9 +49,9 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   Future<ProductRegisterMainModel> post(
       {required ProductRegisterMainModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      model.product.tbInstitutionId = tbInstitutionId as int;
-
+      final tbInstitutionId = await getInstitutionId();
+      model.product.tbInstitutionId = tbInstitutionId;
+      final bodyContent = jsonEncode(model.toJson());
       final uri = Uri.parse('${baseApiUrl}product');
 
       final response = await httpClient.post(
@@ -59,7 +59,7 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(model.toJson()),
+        body: bodyContent,
       );
 
       if (response.statusCode == 200) {
@@ -78,8 +78,8 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   Future<ProductRegisterMainModel> put(
       {required ProductRegisterMainModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      model.product.tbInstitutionId = tbInstitutionId as int;
+      final tbInstitutionId = await getInstitutionId();
+      model.product.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}product');
 
@@ -123,7 +123,7 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   @override
   Future<ProductRegisterMainModel> get({required int productId}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri =
           Uri.parse('${baseApiUrl}product/get/$tbInstitutionId/$productId');
 

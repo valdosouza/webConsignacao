@@ -19,8 +19,8 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
 
   @override
   Future<UserRegisterModel> post({required UserRegisterModel model}) async {
-    var tbInstitutionId = getInstitutionId();
-    model.tbInstitutionId = tbInstitutionId as int;
+    final tbInstitutionId = await getInstitutionId();
+    model.tbInstitutionId = tbInstitutionId;
 
     final bodyEnvio = json.encode(model.toJson());
     return await request(
@@ -53,8 +53,8 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
 
   @override
   Future<UserRegisterModel> put({required UserRegisterModel model}) async {
-    var tbInstitutionId = getInstitutionId();
-    model.tbInstitutionId = tbInstitutionId as int;
+    final tbInstitutionId = await getInstitutionId();
+    model.tbInstitutionId = tbInstitutionId;
     final bodyEnvio = json.encode(model.toJson());
     return await request(
       'user',
@@ -72,7 +72,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
 
   @override
   Future<List<UserRegisterModel>> getlist() async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
     return await request(
       'user/getlist/$tbInstitutionId',
       (payload) {

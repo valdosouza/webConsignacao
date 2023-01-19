@@ -21,7 +21,7 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   @override
   Future<List<PriceListModel>> getlist() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri = Uri.parse('${baseApiUrl}pricelist/getlist/$tbInstitutionId');
 
       final response = await httpClient.get(uri);
@@ -44,9 +44,9 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   @override
   Future<PriceListModel> post({required PriceListModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      model.tbInstitutionId = tbInstitutionId as int;
-
+      final tbInstitutionId = await getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId;
+      final bodyContent = jsonEncode(model.toJson());
       final uri = Uri.parse('${baseApiUrl}pricelist');
 
       final response = await httpClient.post(
@@ -54,7 +54,7 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(model.toJson()),
+        body: bodyContent,
       );
 
       if (response.statusCode == 200) {
@@ -72,8 +72,8 @@ class PriceListRegisterDataSourceImpl extends PriceListRegisterDataSource {
   @override
   Future<PriceListModel> put({required PriceListModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      model.tbInstitutionId = tbInstitutionId as int;
+      final tbInstitutionId = await getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}pricelist');
 

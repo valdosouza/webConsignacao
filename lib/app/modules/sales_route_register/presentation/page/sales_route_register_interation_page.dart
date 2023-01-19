@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
@@ -9,9 +10,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class SalesRouteRegisterInterationPage extends StatefulWidget {
   final SalesRouteRegisterModel? model;
-  final int index;
-  const SalesRouteRegisterInterationPage(
-      {super.key, this.model, required this.index});
+
+  const SalesRouteRegisterInterationPage({super.key, this.model});
 
   @override
   State<SalesRouteRegisterInterationPage> createState() =>
@@ -21,22 +21,13 @@ class SalesRouteRegisterInterationPage extends StatefulWidget {
 class SalesRoutetRegisterInterationPageState
     extends State<SalesRouteRegisterInterationPage> {
   late final SalesRouteRegisterBloc bloc;
-  SalesRouteRegisterModel? model;
+
   final _formKey = GlobalKey<FormState>();
-
-  bool selectRadio = false;
-
-  String description = "";
-  String active = "S";
 
   @override
   void initState() {
     super.initState();
     bloc = Modular.get<SalesRouteRegisterBloc>();
-    model = widget.model;
-    if (model != null) {
-      selectRadio = model!.active == "S";
-    }
   }
 
   @override
@@ -51,9 +42,9 @@ class SalesRoutetRegisterInterationPageState
           flexibleSpace: Container(
             decoration: kBoxDecorationflexibleSpace,
           ),
-          title: model == null
+          title: bloc.model.id == 0
               ? const Text('Adicionar')
-              : Text('Editar ${model!.description}'),
+              : Text('Editar ${bloc.model.description}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -67,15 +58,9 @@ class SalesRoutetRegisterInterationPageState
                 icon: const Icon(Icons.check),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    model != null
-                        ? bloc.add(SalesRouteRegisterPutEvent(model: model!))
-                        : bloc.add(SalesRouteRegisterPostEvent(
-                            model: SalesRouteRegisterModel(
-                            id: 0,
-                            tbInstitutionId: 0,
-                            description: description,
-                            active: active,
-                          )));
+                    (bloc.model.id > 0)
+                        ? bloc.add(SalesRouteRegisterPutEvent())
+                        : bloc.add(SalesRouteRegisterPostEvent());
                   }
                 },
               ),
@@ -89,63 +74,48 @@ class SalesRoutetRegisterInterationPageState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Ativo", style: kLabelStyle),
-                const SizedBox(height: 10.0),
-                Row(
-                  children: [
-                    Row(
-                      children: [
-                        Radio(
-                          value: true,
-                          groupValue: selectRadio,
-                          activeColor: Colors.red,
-                          onChanged: selectRadio
-                              ? (value) {}
-                              : (value) {
-                                  setState(() {
-                                    selectRadio = true;
-                                  });
-                                  model?.active = "S";
-                                  active = "S";
-                                },
-                        ),
-                        const SizedBox(width: 5.0),
-                        const Text("Sim", style: kLabelStyle),
-                      ],
-                    ),
-                    const SizedBox(width: 10.0),
-                    Row(
-                      children: [
-                        Radio(
-                            value: false,
-                            groupValue: selectRadio,
-                            activeColor: Colors.red,
-                            onChanged: selectRadio
-                                ? (value) {
-                                    setState(() {
-                                      selectRadio = false;
-                                    });
-                                    model?.active = "N";
-                                    active = "N";
-                                  }
-                                : (value) {}),
-                        const SizedBox(width: 5.0),
-                        const Text("Não", style: kLabelStyle),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30.0),
                 CustomInput(
                   title: 'Descrição',
-                  initialValue: model?.description ?? "",
+                  initialValue: bloc.model.description,
                   validator: (value) => Validators.validateRequired(value),
                   keyboardType: TextInputType.text,
                   inputAction: TextInputAction.next,
                   onChanged: (value) {
-                    model?.description = value;
-                    description = value;
+                    bloc.model.description = value;
                   },
+                ),
+                const SizedBox(height: 30.0),
+                const Text("Ativo", style: kLabelStyle),
+                const SizedBox(height: 10.0),
+                Row(
+                  children: [
+                    Radio<OptionYesNo>(
+                        value: OptionYesNo.N,
+                        groupValue: bloc.optionYesNo,
+                        activeColor: Colors.red,
+                        onChanged: (value) {
+                          setState(() {
+                            bloc.optionYesNo = value;
+                          });
+                          bloc.model.active = "N";
+                        }),
+                    const SizedBox(width: 5.0),
+                    const Text("Não", style: kLabelStyle),
+                    const SizedBox(width: 5.0),
+                    Radio<OptionYesNo>(
+                        value: OptionYesNo.S,
+                        groupValue: bloc.optionYesNo,
+                        activeColor: Colors.red,
+                        onChanged: (value) {
+                          setState(() {
+                            bloc.optionYesNo = value;
+                          });
+
+                          bloc.model.active = "S";
+                        }),
+                    const SizedBox(width: 5.0),
+                    const Text("Sim", style: kLabelStyle),
+                  ],
                 ),
               ],
             ),

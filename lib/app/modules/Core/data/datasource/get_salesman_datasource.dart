@@ -17,7 +17,7 @@ class GetSalesmanDataSourceImpl extends GetSalesmanDatasource {
   @override
   Future<List<SalesmanListModel>> getSalesman() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri =
           Uri.parse('${baseApiUrl}collaborator/getlist/$tbInstitutionId');
 

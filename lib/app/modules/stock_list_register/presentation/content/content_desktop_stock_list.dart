@@ -9,28 +9,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentDesktopStockList extends StatefulWidget {
-  const ContentDesktopStockList({Key? key}) : super(key: key);
+  const ContentDesktopStockList({super.key});
 
   @override
   State<ContentDesktopStockList> createState() =>
-      _ContentDesktopStockListeState();
+      _ContentDesktopStockListState();
 }
 
-class _ContentDesktopStockListeState extends State<ContentDesktopStockList> {
-  // final clientsList = [];
+class _ContentDesktopStockListState extends State<ContentDesktopStockList> {
   late final StockListBloc bloc;
 
   @override
   void initState() {
     super.initState();
     bloc = Modular.get<StockListBloc>();
-    bloc.add(LoadStockListEvent());
-  }
-
-  @override
-  void dispose() {
-    bloc.close();
-    super.dispose();
+    bloc.add(StockListGetListEvent());
   }
 
   @override
@@ -38,48 +31,40 @@ class _ContentDesktopStockListeState extends State<ContentDesktopStockList> {
     return BlocConsumer<StockListBloc, StockListState>(
       bloc: bloc,
       listener: (context, state) {
-        if (state is StockDeleteSuccessState) {
-          CustomToast.showToast("Estoque removido com sucesso.");
-        } else if (state is StockListDeleteErrorState) {
+        if (state is StockListErrorState) {
           CustomToast.showToast(
-              "Erro ao remover o estoque. Tente novamente mais tarde.");
-        } else if (state is StockAddSuccessState) {
-          CustomToast.showToast("Estoque adicionado com sucesso");
-          bloc.add(LoadStockListEvent());
-        } else if (state is StockAddErrorState) {
+              "Erro ao buscar a lista. Tente novamente mais tarde.");
+        } else if (state is StockListAddSuccessState) {
+          CustomToast.showToast("Lista de Preço adicionado com sucesso.");
+        } else if (state is StockListAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar o estoque. Tente novamente mais tarde.");
-        } else if (state is StockEditSuccessState) {
-          CustomToast.showToast("Estoque editado com sucesso");
-          bloc.add(LoadStockListEvent());
-        } else if (state is StockPutErrorState) {
+              "Erro ao adicionar Lista de preço. Tente novamente mais tarde.");
+        } else if (state is StockListEditSuccessState) {
+          CustomToast.showToast("Lista de Preço editado com sucesso.");
+        } else if (state is StockListEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar o estoque. Tente novamente mais tarde.");
+              "Erro ao editar Lista de preço. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
-        if (state is StockListInitialState) {
+        if (state is StockListLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is StockListInterationPageState) {
-          return StockListInterationPage(
-            bloc: bloc,
-            stock: state.stock,
-          );
+        } else {
+          if (state is StockListInfoPageState) {
+            return const StockListInteractionPage();
+          }
         }
-        final stocklists = state.stocklist;
+        final stocks = state.list;
         return Scaffold(
           appBar: AppBar(
-            flexibleSpace: Container(
-              decoration: kBoxDecorationflexibleSpace,
-            ),
-            title: const Text('Lista de estoque'),
+            title: const Text('Lista de estoques'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(StockListInterationEvent());
+                  bloc.add(StockListAddEvent());
                 },
               ),
             ],
@@ -94,24 +79,30 @@ class _ContentDesktopStockListeState extends State<ContentDesktopStockList> {
                   _buildSearchInput(),
                   const SizedBox(height: 30.0),
                   Expanded(
-                    child: stocklists.isEmpty
+                    child: stocks.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum registros em nossa base."))
+                                "Não encontramos nenhum dado em nossa base."))
                         : ListView.separated(
-                            itemCount: stocklists.length,
+                            itemCount: stocks.length,
                             itemBuilder: (context, index) => InkWell(
-                              onTap: () => bloc.add(StockListInterationEvent(
-                                  stock: stocklists[index])),
+                              onTap: () {
+                                bloc.model = stocks[index];
+                                bloc.add(StockListEditEvent());
+                              },
                               child: ListTile(
                                 leading: CircleAvatar(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child:
-                                        Text(stocklists[index].id.toString()),
+                                    child: Text((index + 1).toString()),
                                   ),
                                 ),
-                                title: Text(stocklists[index].description),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(stocks[index].description),
+                                  ],
+                                ),
                                 trailing: IconButton(
                                   icon: const Icon(Icons.remove),
                                   onPressed: () {
@@ -140,7 +131,7 @@ class _ContentDesktopStockListeState extends State<ContentDesktopStockList> {
         keyboardType: TextInputType.text,
         autofocus: true,
         onChanged: (value) {
-          bloc.add(SearchStockEvent(search: value));
+          bloc.add(StockListSearchEvent(search: value));
         },
         style: const TextStyle(
           color: Colors.white,
@@ -149,7 +140,7 @@ class _ContentDesktopStockListeState extends State<ContentDesktopStockList> {
         decoration: const InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(left: 10.0),
-          hintText: "Pesquise estoques",
+          hintText: "Pesquise pelo nome",
           hintStyle: kHintTextStyle,
         ),
       ),

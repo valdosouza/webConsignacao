@@ -1,45 +1,31 @@
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
-
 abstract class StockListEvent {}
 
-class LoadStockListEvent extends StockListEvent {}
+class StockListGetListEvent extends StockListEvent {}
 
-class AddStockListEvent extends StockListEvent {
-  StockListModel stock;
-
-  AddStockListEvent({
-    required this.stock,
-  });
-}
-
-class EditStockListEvent extends StockListEvent {
-  StockListModel stock;
-
-  EditStockListEvent({
-    required this.stock,
-  });
-}
-
-class SearchStockEvent extends StockListEvent {
+class StockListSearchEvent extends StockListEvent {
   String search;
 
-  SearchStockEvent({
+  StockListSearchEvent({
     required this.search,
   });
 }
 
-class DeleteStockEvent extends StockListEvent {
-  int stockId;
-
-  DeleteStockEvent({
-    required this.stockId,
-  });
+class StockListPutEvent extends StockListEvent {
+  StockListPutEvent();
 }
 
-class StockListInterationEvent extends StockListEvent {
-  StockListModel? stock;
+class StockListPostEvent extends StockListEvent {
+  StockListPostEvent();
+}
 
-  StockListInterationEvent({
-    this.stock,
-  });
+class StockListAddEvent extends StockListEvent {
+  StockListAddEvent();
+}
+
+class StockListEditEvent extends StockListEvent {
+  StockListEditEvent();
+}
+
+class SearchStockEvent extends StockListEvent {
+  SearchStockEvent();
 }

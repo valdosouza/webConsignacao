@@ -282,7 +282,7 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
           } else {
             bloc.add(AuthChangeEvent(
               model: AuthChangePasswordModel(
-                userId: bloc.recoveryModel.user,
+                tbUserId: bloc.recoveryModel.tbUserId,
                 salt: code,
                 newPassword: md5.convert(utf8.encode(password)).toString(),
               ),

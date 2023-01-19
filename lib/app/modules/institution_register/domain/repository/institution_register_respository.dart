@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/institution_register/data/model/institution_m
 import 'package:dartz/dartz.dart';
 
 abstract class InstitutionRegisterRespository {
-  Future<Either<Failure, InstitutionModel>> get({required int id});
+  Future<Either<Failure, InstitutionModel>> get();
   Future<Either<Failure, InstitutionModel>> post(
       {required InstitutionModel model});
   Future<Either<Failure, InstitutionModel>> put(

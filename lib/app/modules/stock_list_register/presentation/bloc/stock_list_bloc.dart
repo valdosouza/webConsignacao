@@ -1,94 +1,120 @@
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
-import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_post.dart';
+import 'package:appweb/app/core/shared/enum.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_delete.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_getlist.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_post.dart';
 import 'package:appweb/app/modules/stock_list_register/domain/usecase/stock_list_register_put.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_events.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_state.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StockListBloc extends Bloc<StockListEvent, StockListState> {
   final StockListRegisterGetlist getlist;
-  final StockListRegisterDelete delete;
   final StockListRegisterPost post;
   final StockListRegisterPut put;
+  final StockListRegisterDelete delete;
 
-  List<StockListModel> clients = [];
+  List<StockListModel> modelList = [];
+  StockListModel model = StockListModel.empty();
+  OptionYesNo? optionYesNo = OptionYesNo.S;
 
   StockListBloc({
     required this.getlist,
-    required this.delete,
     required this.post,
     required this.put,
-  }) : super(StockListInitialState()) {
-    on<LoadStockListEvent>((event, emit) async {
-      StockListInitialState();
-      var response = await getlist.call(const ParamsStockListRegister());
-      var result = response.fold(
-        (l) => StockListErrorState(),
-        (r) {
-          clients = r;
-          return StockListSuccessState(stocklist: r);
-        },
-      );
+    required this.delete,
+  }) : super(StockListLoadingState()) {
+    getList();
+
+    searchPrices();
+
+    stockListAdd();
+
+    stockListEdit();
+
+    postFunction();
+
+    putFunction();
+  }
+
+  getList() {
+    on<StockListGetListEvent>((event, emit) async {
+      emit(StockListLoadingState());
+
+      var response = await getlist.call(ParamsStockListGetList());
+
+      var result =
+          response.fold((l) => StockListErrorState(list: modelList), (r) {
+        modelList = r;
+        return StockListLoadedState(list: r);
+      });
+
       emit(result);
     });
+  }
 
-    on<SearchStockEvent>((event, emit) async {
+  searchPrices() {
+    on<StockListSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var clienstSearched = clients.where((element) {
+        var priceSearched = modelList.where((element) {
           String name = element.description;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        if (clienstSearched.isEmpty) {}
-        emit(StockListSuccessState(stocklist: clienstSearched));
+        emit(StockListLoadedState(list: priceSearched));
       } else {
-        emit(StockListSuccessState(stocklist: clients));
+        emit(StockListLoadedState(list: modelList));
       }
     });
+  }
 
-    on<DeleteStockEvent>((event, emit) async {
-      StockListInitialState();
-      var response =
-          await delete.call(DeleteStockParams(stockId: event.stockId));
+  stockListAdd() {
+    on<StockListAddEvent>((event, emit) async {
+      model = StockListModel.empty();
+      optionYesNo = OptionYesNo.S;
+      emit(StockListInfoPageState(list: modelList));
+    });
+  }
+
+  stockListEdit() {
+    on<StockListEditEvent>((event, emit) async {
+      (model.active == "S")
+          ? optionYesNo = OptionYesNo.S
+          : optionYesNo = OptionYesNo.N;
+      emit(StockListInfoPageState(list: modelList));
+    });
+  }
+
+  postFunction() {
+    on<StockListPostEvent>((event, emit) async {
+      emit(StockListLoadingState());
+      var response = await post.call(ParamsStockListPost(model: model));
+
       var result = response.fold(
-        (l) => StockListDeleteErrorState(stocklist: clients),
+        (l) => StockListAddErrorState(list: modelList),
         (r) {
-          clients.removeWhere((element) => element.id == event.stockId);
-          return StockDeleteSuccessState(stocklist: clients);
+          modelList.add(r);
+          return StockListAddSuccessState(list: modelList);
         },
       );
       emit(result);
     });
+  }
 
-    on<StockListInterationEvent>((event, emit) async {
-      emit(
-          StockListInterationPageState(stocklist: clients, stock: event.stock));
-    });
+  putFunction() {
+    on<StockListPutEvent>((event, emit) async {
+      emit(StockListLoadingState());
+      var response = await put.call(ParamsStockListPut(model: model));
 
-    on<AddStockListEvent>((event, emit) async {
-      StockListInitialState();
-      var response = await post.call(AddStockParams(stock: event.stock));
       var result = response.fold(
-        (l) => StockAddErrorState(stocklist: clients),
-        (r) => StockAddSuccessState(
-          stocklist: clients,
-        ),
-      );
-      emit(result);
-    });
-
-    on<EditStockListEvent>((event, emit) async {
-      StockListInitialState();
-      var response = await put.call(PutStockParams(stock: event.stock));
-      var result = response.fold(
-        (l) => StockPutErrorState(stocklist: clients),
-        (r) => StockEditSuccessState(
-          stocklist: clients,
-        ),
+        (l) {
+          return StockListEditErrorState(list: modelList);
+        },
+        (r) {
+          return StockListEditSuccessState(list: modelList);
+        },
       );
       emit(result);
     });

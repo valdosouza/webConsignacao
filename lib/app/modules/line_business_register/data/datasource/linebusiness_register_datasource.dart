@@ -23,7 +23,7 @@ class LinebusinessRegisterDataSourceImpl
   @override
   Future<List<LinebusinessModel>> getlist() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
       final uri =
           Uri.parse('${baseApiUrl}linebusiness/getlist/$tbInstitutionId');
 
@@ -47,8 +47,8 @@ class LinebusinessRegisterDataSourceImpl
   @override
   Future<LinebusinessModel> post({required LinebusinessModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      model.tbInstitutionId = tbInstitutionId as int;
+      final tbInstitutionId = await getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}linebusiness');
       final response = await httpClient.post(
@@ -74,8 +74,8 @@ class LinebusinessRegisterDataSourceImpl
   @override
   Future<LinebusinessModel> put({required LinebusinessModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      model.tbInstitutionId = tbInstitutionId as int;
+      final tbInstitutionId = await getInstitutionId();
+      model.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}linebusiness');
       final response = await httpClient.put(

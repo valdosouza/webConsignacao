@@ -21,7 +21,7 @@ class PaymentTypeRegisterDataSourceImpl extends PaymentTypeRegisterDataSource {
   @override
   Future<List<PaymentTypeModel>> getlist() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri =
           Uri.parse('${baseApiUrl}paymenttype/getlist/$tbInstitutionId');
@@ -46,9 +46,9 @@ class PaymentTypeRegisterDataSourceImpl extends PaymentTypeRegisterDataSource {
   @override
   Future<PaymentTypeModel> post({required PaymentTypeModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
-      model.tbInstitutionId = tbInstitutionId as int;
+      model.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}paymenttype');
 
@@ -75,9 +75,9 @@ class PaymentTypeRegisterDataSourceImpl extends PaymentTypeRegisterDataSource {
   @override
   Future<PaymentTypeModel> put({required PaymentTypeModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
-      model.tbInstitutionId = tbInstitutionId as int;
+      model.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}paymenttype');
 

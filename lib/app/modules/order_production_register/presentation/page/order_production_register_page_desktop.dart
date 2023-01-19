@@ -31,7 +31,7 @@ class OrderProductionRegisterPageDesktopState
       await Modular.isModuleReady<OrderProductionRegisterModule>();
     });
     bloc = Modular.get<OrderProductionRegisterBloc>();
-    bloc.add(OrderProductionRegisterGetListEvent());
+    bloc.add(OrderGetListEvent());
   }
 
   @override
@@ -43,29 +43,29 @@ class OrderProductionRegisterPageDesktopState
         statesOrderProductions(state);
       },
       builder: (context, state) {
-        if (state is OrderProductionRegisterLoadingState) {
+        if (state is OrderLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        if (state is OrderProductionRegisterInfoPageState) {
+        if (state is OrderInfoPageState) {
           return const ContentOrderProductionRegisterDesktop();
         }
 
-        if (state is OrderProductionRegisterProductSuccessState) {
+        if (state is OrderGetProductSucessState) {
           return OrderProductionRegisterProductsListWidget(
             orderProduction: bloc.orderProduction,
           );
         }
 
-        if (state is OrderProductionRegisterStockSuccessState) {
+        if (state is OrderGetStockSucessState) {
           return OrderProductionRegisterStocksListWidget(
             orderProduction: bloc.orderProduction,
           );
         }
 
-        return _listaOrderProductions(state.list);
+        return _listaOrderProductions(bloc.orderProductions);
       },
     );
   }
@@ -81,9 +81,8 @@ class OrderProductionRegisterPageDesktopState
           IconButton(
             icon: const Icon(Icons.person_add),
             onPressed: () {
-              bloc.orderProduction = OrderProductionRegisterModel();
-              bloc.edit = false;
-              bloc.add(OrderProductionRegisterDesktopEvent());
+              bloc.orderProduction = OrderProductionRegisterModel.isEmpty();
+              bloc.add(OrderAddEvent());
             },
           ),
         ],

@@ -4,7 +4,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 
 abstract class OrderProductionRegisterDataSource extends Gateway {
   OrderProductionRegisterDataSource({required super.httpClient});
@@ -30,7 +30,7 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<List<OrderProductionRegisterModel>> getlist() async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
 
     return request(
       'orderproduction/getlist/$tbInstitutionId',
@@ -53,11 +53,11 @@ class OrderProductionRegisterDataSourceImpl
   Future<OrderProductionRegisterModel> post({
     required OrderProductionRegisterModel model,
   }) async {
-    var tbInstitutionId = getInstitutionId();
-    var tbUserId = getUserId();
+    final tbInstitutionId = await getInstitutionId();
+    final tbUserId = await getUserId();
 
-    model.tbInstitutionId = tbInstitutionId as int;
-    model.tbUserId = tbUserId as int;
+    model.tbInstitutionId = tbInstitutionId;
+    model.tbUserId = tbUserId;
 
     final body = jsonEncode(model.toJson());
 
@@ -80,11 +80,11 @@ class OrderProductionRegisterDataSourceImpl
   Future<OrderProductionRegisterModel> put({
     required OrderProductionRegisterModel model,
   }) async {
-    var tbInstitutionId = getInstitutionId();
-    var tbUserId = getUserId();
+    final tbInstitutionId = await getInstitutionId();
+    final tbUserId = await getUserId();
 
-    model.tbInstitutionId = tbInstitutionId as int;
-    model.tbUserId = tbUserId as int;
+    model.tbInstitutionId = tbInstitutionId;
+    model.tbUserId = tbUserId;
 
     final body = jsonEncode(model.toJson());
     return request(
@@ -121,7 +121,7 @@ class OrderProductionRegisterDataSourceImpl
   @override
   Future<OrderProductionRegisterModel> get(
       {required int orderProductionId}) async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
 
     return request(
       'orderproduction/get/$tbInstitutionId/$orderProductionId',
@@ -138,7 +138,7 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<List<ProductListModel>> getListProducts() async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
     return request(
       'product/getlist/$tbInstitutionId',
       (payload) {
@@ -157,7 +157,7 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<List<StockListModel>> getListStock() async {
-    var tbInstitutionId = getInstitutionId();
+    final tbInstitutionId = await getInstitutionId();
     return request(
       'stocklist/getlist/$tbInstitutionId',
       (payload) {

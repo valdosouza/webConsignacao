@@ -1,61 +1,47 @@
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 
 abstract class StockListState {
-  List<StockListModel> stocklist;
+  List<StockListModel> list;
 
   StockListState({
-    required this.stocklist,
+    required this.list,
   });
 }
 
-class StockListInitialState extends StockListState {
-  StockListInitialState() : super(stocklist: []);
+class StockListLoadingState extends StockListState {
+  StockListLoadingState() : super(list: []);
 }
 
-class StockListSuccessState extends StockListState {
-  StockListSuccessState({
-    required List<StockListModel> stocklist,
-  }) : super(stocklist: stocklist);
-}
-
-class StockEditSuccessState extends StockListState {
-  StockEditSuccessState({required List<StockListModel> stocklist})
-      : super(stocklist: stocklist);
-}
-
-class StockAddSuccessState extends StockListState {
-  StockAddSuccessState({required List<StockListModel> stocklist})
-      : super(stocklist: stocklist);
-}
-
-class StockPutErrorState extends StockListState {
-  StockPutErrorState({required List<StockListModel> stocklist})
-      : super(stocklist: stocklist);
-}
-
-class StockAddErrorState extends StockListState {
-  StockAddErrorState({required List<StockListModel> stocklist})
-      : super(stocklist: stocklist);
+class StockListLoadedState extends StockListState {
+  StockListLoadedState({required List<StockListModel> list})
+      : super(list: list);
 }
 
 class StockListErrorState extends StockListState {
-  StockListErrorState() : super(stocklist: []);
+  StockListErrorState({required List<StockListModel> list}) : super(list: list);
 }
 
-class StockDeleteSuccessState extends StockListState {
-  StockDeleteSuccessState({required List<StockListModel> stocklist})
-      : super(stocklist: stocklist);
+class StockListInfoPageState extends StockListState {
+  StockListInfoPageState({required List<StockListModel> list})
+      : super(list: list);
 }
 
-class StockListDeleteErrorState extends StockListState {
-  StockListDeleteErrorState({required List<StockListModel> stocklist})
-      : super(stocklist: stocklist);
+class StockListAddSuccessState extends StockListState {
+  StockListAddSuccessState({required List<StockListModel> list})
+      : super(list: list);
 }
 
-class StockListInterationPageState extends StockListState {
-  final StockListModel? stock;
-  StockListInterationPageState({
-    required List<StockListModel> stocklist,
-    this.stock,
-  }) : super(stocklist: stocklist);
+class StockListAddErrorState extends StockListState {
+  StockListAddErrorState({required List<StockListModel> list})
+      : super(list: list);
+}
+
+class StockListEditSuccessState extends StockListState {
+  StockListEditSuccessState({required List<StockListModel> list})
+      : super(list: list);
+}
+
+class StockListEditErrorState extends StockListState {
+  StockListEditErrorState({required List<StockListModel> list})
+      : super(list: list);
 }

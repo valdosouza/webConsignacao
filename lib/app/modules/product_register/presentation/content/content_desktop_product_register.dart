@@ -56,10 +56,7 @@ class _ContentDesktopProductRegisterState
             child: CircularProgressIndicator(),
           );
         } else if (state is ProductRegisterInfoPageState) {
-          return ProductRegisterInterationPage(
-            product: state.model!,
-            index: state.list.last.id,
-          );
+          return const ProductRegisterInterationPage();
         }
         final prices = state.list;
         return Scaffold(
@@ -69,7 +66,7 @@ class _ContentDesktopProductRegisterState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(ProductRegisterInfoEvent());
+                  bloc.add(ProductRegisterAddEvent());
                 },
               ),
             ],
@@ -92,8 +89,8 @@ class _ContentDesktopProductRegisterState
                             itemCount: prices.length,
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
-                                bloc.add(ProductRegisterInfoEvent(
-                                    model: prices[index]));
+                                bloc.model.product = prices[index];
+                                bloc.add(ProductRegisterEditEvent());
                               },
                               child: ListTile(
                                 leading: CircleAvatar(

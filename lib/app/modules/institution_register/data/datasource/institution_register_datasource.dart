@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/institution_register/data/model/institution_m
 abstract class InstitutionRegisterDatasource extends Gateway {
   InstitutionRegisterDatasource({required super.httpClient});
 
-  Future<InstitutionModel> get({required int id});
+  Future<InstitutionModel> get();
   Future<InstitutionModel> post({required InstitutionModel model});
   Future<InstitutionModel> put({required InstitutionModel model});
   Future<String> delete({required int id});
@@ -15,9 +15,10 @@ abstract class InstitutionRegisterDatasource extends Gateway {
 class InstitutionRegisterDatasourceImpl extends InstitutionRegisterDatasource {
   InstitutionRegisterDatasourceImpl({required super.httpClient});
   @override
-  Future<InstitutionModel> get({required int id}) async {
+  Future<InstitutionModel> get() async {
+    final tbInstitutionId = await getInstitutionId();
     return request(
-      'institution/$id',
+      'institution/$tbInstitutionId',
       (payload) {
         final data = json.decode(payload);
         return InstitutionModel.fromJson(data);

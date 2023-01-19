@@ -20,7 +20,7 @@ class OrderConsignmentSupplyingDatasourceImpl
   Future<OrderConsignmentSupplyingModel> getlast(
       {required int tbCustomerId}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri = Uri.parse(
           '${baseApiUrl}orderconsignment/getlast/$tbInstitutionId/$tbCustomerId');
@@ -42,9 +42,9 @@ class OrderConsignmentSupplyingDatasourceImpl
   Future<OrderConsignmentSupplyingModel> post(
       OrderConsignmentSupplyingModel model) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
-      model.order.tbInstitutionId = tbInstitutionId as int;
+      model.order.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying');
       var bodyConsignment = jsonEncode(model.toJson());

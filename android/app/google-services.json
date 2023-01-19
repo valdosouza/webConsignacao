@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "396524153897",
+    "project_id": "consigna-e-venda",
+    "storage_bucket": "consigna-e-venda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396524153897:android:0e8958e15a9abc8fd38038",
+        "android_client_info": {
+          "package_name": "com.industriadechocolatesamor.consigna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396524153897-7p5e7iqo5idt4mi3b1nisidv3rui0d1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1CFOxJOyHBs6kjvoIzxkKBuKG6OEogq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396524153897-7p5e7iqo5idt4mi3b1nisidv3rui0d1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

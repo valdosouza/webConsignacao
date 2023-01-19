@@ -1,8 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_bloc.dart';
@@ -37,8 +35,8 @@ class OrderProductionRegisterStocksListWidgetState
         OrderProductionRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        if (state is OrderProductionRegisterStockSuccessState) {
-          return _orderProductionStocksList(state);
+        if (state is OrderGetStockSucessState) {
+          return _orderProductionStocksList(bloc);
         } else {
           return Container();
         }
@@ -46,7 +44,7 @@ class OrderProductionRegisterStocksListWidgetState
     );
   }
 
-  _orderProductionStocksList(OrderProductionRegisterStockSuccessState state) {
+  _orderProductionStocksList(OrderProductionRegisterBloc bloc) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -56,7 +54,7 @@ class OrderProductionRegisterStocksListWidgetState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            bloc.add(OrderProductionRegisterReturnEvent());
+            bloc.add(OrderReturnEvent());
           },
         ),
       ),
@@ -71,8 +69,7 @@ class OrderProductionRegisterStocksListWidgetState
                 keyboardType: TextInputType.text,
                 autofocus: false,
                 onChanged: (value) {
-                  bloc.add(OrderProductionRegisterSearchStocksEvent(
-                      search: value));
+                  bloc.add(OrderSearchStocksEvent(search: value));
                 },
                 style: const TextStyle(
                   color: Colors.white,
@@ -88,31 +85,31 @@ class OrderProductionRegisterStocksListWidgetState
             ),
             const SizedBox(height: 5.0),
             Expanded(
-              child: state.stock.isEmpty
+              child: bloc.stocks.isEmpty
                   ? const Center(
-                      child: Text(
-                          "Não encontramos nenhum estoque em nossa base."))
+                      child:
+                          Text("Não encontramos nenhum estoque em nossa base."))
                   : ListView.separated(
-                      itemCount: state.stock.length,
+                      itemCount: bloc.stocks.length,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           widget.orderProduction.tbStockListIdDes =
-                              state.stock[index].id;
+                              bloc.stocks[index].id;
                           widget.orderProduction.nameStockListDes =
-                              state.stock[index].description;
-                          bloc.add(OrderProductionRegisterReturnEvent());
+                              bloc.stocks[index].description;
+                          bloc.add(OrderReturnEvent());
                         },
                         child: ListTile(
                           leading: CircleAvatar(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text(state.stock[index].id.toString()),
+                              child: Text(bloc.stocks[index].id.toString()),
                             ),
                           ),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(state.stock[index].description),
+                              Text(bloc.stocks[index].description),
                             ],
                           ),
                         ),

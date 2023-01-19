@@ -23,4 +23,13 @@ class ProductRegisterModel extends ProductRegisterEntity {
       active: json['active'] as String? ?? "",
     );
   }
+
+  factory ProductRegisterModel.empty() {
+    return ProductRegisterModel(
+      id: 0,
+      tbInstitutionId: 0,
+      description: "",
+      active: "S",
+    );
+  }
 }

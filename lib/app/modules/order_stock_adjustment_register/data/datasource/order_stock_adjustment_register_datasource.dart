@@ -5,7 +5,7 @@ import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 
 abstract class OrderStockAdjustmentRegisterDataSource extends Gateway {
   OrderStockAdjustmentRegisterDataSource({required super.httpClient});
@@ -37,7 +37,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   @override
   Future<List<OrderStockAdjustmentRegisterModel>> getlist() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri =
           Uri.parse('${baseApiUrl}orderstockadjust/getlist/$tbInstitutionId');
@@ -63,11 +63,11 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   Future<OrderStockAdjustmentRegisterModel> post(
       {required OrderStockAdjustmentRegisterModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      var tbUserId = getUserId();
+      final tbInstitutionId = await getInstitutionId();
+      final tbUserId = await getUserId();
 
-      model.tbInstitutionId = tbInstitutionId as int;
-      model.tbUserId = tbUserId as int;
+      model.tbInstitutionId = tbInstitutionId;
+      model.tbUserId = tbUserId;
 
       final uri = Uri.parse('${baseApiUrl}orderstockadjust');
       final body = jsonEncode(model.toJson());
@@ -93,11 +93,11 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   Future<OrderStockAdjustmentRegisterModel> put(
       {required OrderStockAdjustmentRegisterModel model}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
-      var tbUserId = getUserId();
+      final tbInstitutionId = await getInstitutionId();
+      final tbUserId = await getUserId();
 
-      model.tbInstitutionId = tbInstitutionId as int;
-      model.tbUserId = tbUserId as int;
+      model.tbInstitutionId = tbInstitutionId;
+      model.tbUserId = tbUserId;
 
       final uri = Uri.parse('${baseApiUrl}orderstockadjust');
 
@@ -142,7 +142,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   Future<OrderStockAdjustmentRegisterModel> get(
       {required int orderStockAdjustmentId}) async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri = Uri.parse(
           '${baseApiUrl}orderstockadjust/get/$tbInstitutionId/$orderStockAdjustmentId');
@@ -164,7 +164,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   @override
   Future<List<ProductListModel>> getListProducts() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri = Uri.parse('${baseApiUrl}product/getlist/$tbInstitutionId');
 
@@ -188,7 +188,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   @override
   Future<List<StockListModel>> getListStock() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$tbInstitutionId');
 

@@ -36,7 +36,7 @@ class StockListRegisterModule extends Module {
           (i) => StockListRegisterPut(
               repository: i.get<StockListRepositoryImpl>()),
         ),
-        BlocBind.factory(
+        BlocBind.singleton(
           (i) => StockListBloc(
             getlist: i.get<StockListRegisterGetlist>(),
             delete: i.get<StockListRegisterDelete>(),

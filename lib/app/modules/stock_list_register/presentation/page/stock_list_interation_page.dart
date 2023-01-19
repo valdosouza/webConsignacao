@@ -1,206 +1,125 @@
+import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_bloc.dart';
-
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_events.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class StockListInterationPage extends StatefulWidget {
-  final StockListBloc bloc;
-  final StockListModel? stock;
-  const StockListInterationPage({
-    super.key,
-    required this.bloc,
-    this.stock,
-  });
+class StockListInteractionPage extends StatefulWidget {
+  const StockListInteractionPage({super.key});
 
   @override
-  State<StockListInterationPage> createState() =>
-      _StockListInterationPageState();
+  State<StockListInteractionPage> createState() =>
+      _StockListInteractionPageState();
 }
 
-class _StockListInterationPageState extends State<StockListInterationPage> {
-  bool selectRadio = false;
-  bool selectMain = false;
-  StockListModel? stock;
+class _StockListInteractionPageState extends State<StockListInteractionPage> {
+  late final StockListBloc bloc;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    if (widget.stock?.active != null) {
-      selectRadio = widget.stock!.active == "S";
-      selectMain = widget.stock!.main == "S";
-    }
-    stock = widget.stock;
-
     super.initState();
+    bloc = Modular.get<StockListBloc>();
   }
 
-  String descripton = "";
-  String active = "N";
-  String main = "N";
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        widget.bloc.add(LoadStockListEvent());
+        bloc.add(StockListGetListEvent());
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: kBoxDecorationflexibleSpace,
-          ),
-          title: stock == null ? const Text('Adicionar') : const Text('Editar'),
+          title: bloc.model.id == 0
+              ? const Text('Adicionar')
+              : Text('Editar ${bloc.model.description}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              widget.bloc.add(LoadStockListEvent());
+              bloc.add(StockListGetListEvent());
             },
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.check),
-              onPressed: () {
-                if (stock != null) {
-                  if (stock!.description.isEmpty) {
-                    CustomToast.showToast("Campo descrição é obrigatório.");
-                  } else {
-                    widget.bloc.add(EditStockListEvent(stock: stock!));
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: IconButton(
+                icon: const Icon(Icons.check),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    bloc.model.id > 0
+                        ? bloc.add(StockListPutEvent())
+                        : bloc.add(StockListPostEvent());
                   }
-                } else {
-                  if (descripton.isEmpty) {
-                    CustomToast.showToast("Campo descrição é obrigatório.");
-                  } else {
-                    widget.bloc.add(
-                      AddStockListEvent(
-                        stock: StockListModel(
-                          id: (widget.bloc.state.stocklist.last.id + 1),
-                          tbInstitutionId:
-                              widget.bloc.state.stocklist.last.tbInstitutionId,
-                          description: descripton,
-                          active: active,
-                          main: "N",
-                        ),
-                      ),
-                    );
-                  }
-                }
-              },
+                },
+              ),
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomInput(
-                title: 'Descrição',
-                initialValue: stock?.description ?? "",
-                keyboardType: TextInputType.number,
-                inputAction: TextInputAction.next,
-                onChanged: (value) {
-                  stock?.description = value;
-                  descripton = value;
-                },
-              ),
-              const SizedBox(height: 30.0),
-              const Text("Ativo", style: kLabelStyle),
-              const SizedBox(height: 10.0),
-              Row(
-                children: [
-                  Row(
-                    children: [
-                      Radio(
-                        value: true,
-                        groupValue: selectRadio,
-                        activeColor: Colors.red,
-                        onChanged: selectRadio
-                            ? (value) {}
-                            : (value) {
-                                setState(() {
-                                  selectRadio = true;
-                                });
-                                stock?.active = "S";
-                                active = "S";
-                              },
-                      ),
-                      const SizedBox(width: 5.0),
-                      const Text("Sim", style: kLabelStyle),
-                    ],
-                  ),
-                  const SizedBox(width: 10.0),
-                  Row(
-                    children: [
-                      Radio(
-                          value: false,
-                          groupValue: selectRadio,
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomInput(
+                  title: 'Descrição',
+                  initialValue: bloc.model.description,
+                  validator: (value) => Validators.validateRequired(value),
+                  keyboardType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    bloc.model.description = value;
+                  },
+                ),
+                const SizedBox(height: 30.0),
+                const Text("Ativo", style: kLabelStyle),
+                const SizedBox(height: 10.0),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        Radio<OptionYesNo>(
+                          value: OptionYesNo.S,
+                          groupValue: bloc.optionYesNo,
                           activeColor: Colors.red,
-                          onChanged: selectRadio
-                              ? (value) {
-                                  setState(() {
-                                    selectRadio = false;
-                                  });
-                                  stock?.active = "N";
-                                  active = "N";
-                                }
-                              : (value) {}),
-                      const SizedBox(width: 5.0),
-                      const Text("Não", style: kLabelStyle),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30.0),
-              const Text("Principal", style: kLabelStyle),
-              const SizedBox(height: 10.0),
-              Row(
-                children: [
-                  Row(
-                    children: [
-                      Radio(
-                        value: true,
-                        groupValue: selectMain,
-                        activeColor: Colors.red,
-                        onChanged: selectMain
-                            ? (value) {}
-                            : (value) {
-                                setState(() {
-                                  selectMain = true;
-                                });
-                                stock?.main = "S";
-                                main = "S";
-                              },
-                      ),
-                      const SizedBox(width: 5.0),
-                      const Text("Sim", style: kLabelStyle),
-                    ],
-                  ),
-                  const SizedBox(width: 10.0),
-                  Row(
-                    children: [
-                      Radio(
-                          value: false,
-                          groupValue: selectMain,
-                          activeColor: Colors.red,
-                          onChanged: selectMain
-                              ? (value) {
-                                  setState(() {
-                                    selectMain = false;
-                                  });
-                                  stock?.main = "N";
-                                  main = "N";
-                                }
-                              : (value) {}),
-                      const SizedBox(width: 5.0),
-                      const Text("Não", style: kLabelStyle),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                          onChanged: (value) {
+                            setState(() {
+                              bloc.optionYesNo = value;
+                            });
+                            bloc.model.active = "S";
+                          },
+                        ),
+                        const SizedBox(width: 5.0),
+                        const Text("Sim", style: kLabelStyle),
+                      ],
+                    ),
+                    const SizedBox(width: 10.0),
+                    Row(
+                      children: [
+                        Radio<OptionYesNo>(
+                            value: OptionYesNo.N,
+                            groupValue: bloc.optionYesNo,
+                            activeColor: Colors.red,
+                            onChanged: (value) {
+                              setState(() {
+                                bloc.optionYesNo = value;
+                              });
+                              bloc.model.active = "N";
+                            }),
+                        const SizedBox(width: 5.0),
+                        const Text("Não", style: kLabelStyle),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

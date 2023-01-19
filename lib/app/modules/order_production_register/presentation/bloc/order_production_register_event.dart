@@ -1,67 +1,51 @@
-import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
-
 abstract class OrderProductionRegisterEvent {}
 
-class OrderProductionRegisterGetListEvent extends OrderProductionRegisterEvent {
-}
+class OrderGetListEvent extends OrderProductionRegisterEvent {}
 
-class OrderProductionRegisterGetProductsEvent
-    extends OrderProductionRegisterEvent {
-  OrderProductionRegisterGetProductsEvent();
-}
-
-class OrderProductionRegisterGetStocksEvent
-    extends OrderProductionRegisterEvent {
-  OrderProductionRegisterGetStocksEvent();
-}
-
-class OrderProductionRegisterSearchProductsEvent
-    extends OrderProductionRegisterEvent {
-  final String search;
-  OrderProductionRegisterSearchProductsEvent({required this.search});
-}
-
-class OrderProductionRegisterSearchStocksEvent
-    extends OrderProductionRegisterEvent {
-  final String search;
-  OrderProductionRegisterSearchStocksEvent({required this.search});
-}
-
-class OrderProductionRegisterSearchEvent extends OrderProductionRegisterEvent {
+class OrderSearchEvent extends OrderProductionRegisterEvent {
   String search;
-  OrderProductionRegisterSearchEvent({
-    required this.search,
-  });
+  OrderSearchEvent({required this.search});
 }
 
-class OrderProductionRegisterPutEvent extends OrderProductionRegisterEvent {
-  final OrderProductionRegisterModel model;
-
-  OrderProductionRegisterPutEvent({required this.model});
+class OrderReturnEvent extends OrderProductionRegisterEvent {
+  OrderReturnEvent();
 }
 
-class OrderProductionRegisterPostEvent extends OrderProductionRegisterEvent {
-  final OrderProductionRegisterModel model;
-
-  OrderProductionRegisterPostEvent({required this.model});
+class OrderPutEvent extends OrderProductionRegisterEvent {
+  OrderPutEvent();
 }
 
-class OrderProductionRegisterDeleteEvent extends OrderProductionRegisterEvent {
-  final OrderProductionRegisterModel model;
-
-  OrderProductionRegisterDeleteEvent({required this.model});
+class OrderPostEvent extends OrderProductionRegisterEvent {
+  OrderPostEvent();
 }
 
-class OrderProductionRegisterDesktopEvent extends OrderProductionRegisterEvent {
-  final OrderProductionRegisterModel? model;
-  OrderProductionRegisterDesktopEvent({this.model});
+class OrderDeleteEvent extends OrderProductionRegisterEvent {
+  OrderDeleteEvent();
 }
 
-class OrderProductionRegisterMobileEvent extends OrderProductionRegisterEvent {
-  final OrderProductionRegisterModel? model;
-  OrderProductionRegisterMobileEvent({this.model});
+class OrderAddEvent extends OrderProductionRegisterEvent {
+  OrderAddEvent();
 }
 
-class OrderProductionRegisterReturnEvent extends OrderProductionRegisterEvent {
-  OrderProductionRegisterReturnEvent();
+class OrderEditEvent extends OrderProductionRegisterEvent {
+  OrderEditEvent();
+}
+
+//-----------------------Auxiliares-----------------------------------
+class OrderGetProductsEvent extends OrderProductionRegisterEvent {
+  OrderGetProductsEvent();
+}
+
+class OrderSearchProductsEvent extends OrderProductionRegisterEvent {
+  final String search;
+  OrderSearchProductsEvent({required this.search});
+}
+
+class OrderGetStocksEvent extends OrderProductionRegisterEvent {
+  OrderGetStocksEvent();
+}
+
+class OrderSearchStocksEvent extends OrderProductionRegisterEvent {
+  final String search;
+  OrderSearchStocksEvent({required this.search});
 }

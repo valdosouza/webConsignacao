@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 import 'package:appweb/app/modules/price_list_register/domain/usecase/price_list_register_delete.dart';
 import 'package:appweb/app/modules/price_list_register/domain/usecase/price_list_register_get_list.dart';
@@ -14,7 +15,9 @@ class PriceListRegisterBloc
   final PriceListRegisterPut put;
   final PriceListRegisterDelete delete;
 
-  List<PriceListModel> prices = [];
+  List<PriceListModel> modelList = [];
+  PriceListModel model = PriceListModel.empty();
+  OptionYesNo? optionYesNo = OptionYesNo.S;
 
   PriceListRegisterBloc({
     required this.getlist,
@@ -26,11 +29,13 @@ class PriceListRegisterBloc
 
     searchPrices();
 
-    goToInfoPage();
+    priceListAdd();
 
-    addFunction();
+    priceListEdit();
 
-    editFunction();
+    postFunction();
+
+    putFunction();
   }
 
   getList() {
@@ -39,9 +44,9 @@ class PriceListRegisterBloc
 
       var response = await getlist.call(ParamsPriceListGet());
 
-      var result =
-          response.fold((l) => PriceListRegisterErrorState(list: prices), (r) {
-        prices = r;
+      var result = response
+          .fold((l) => PriceListRegisterErrorState(list: modelList), (r) {
+        modelList = r;
         return PriceListRegisterLoadedState(list: r);
       });
 
@@ -52,7 +57,7 @@ class PriceListRegisterBloc
   searchPrices() {
     on<PriceListRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var priceSearched = prices.where((element) {
+        var priceSearched = modelList.where((element) {
           String name = element.description;
           return name
               .toLowerCase()
@@ -61,42 +66,53 @@ class PriceListRegisterBloc
         }).toList();
         emit(PriceListRegisterLoadedState(list: priceSearched));
       } else {
-        emit(PriceListRegisterLoadedState(list: prices));
+        emit(PriceListRegisterLoadedState(list: modelList));
       }
     });
   }
 
-  goToInfoPage() {
-    on<PriceListRegisterInfoEvent>((event, emit) async {
-      emit(PriceListRegisterInfoPageState(list: prices, model: event.model));
+  priceListAdd() {
+    on<PriceListRegisterAddEvent>((event, emit) async {
+      model = PriceListModel.empty();
+      optionYesNo = OptionYesNo.S;
+      emit(PriceListRegisterInfoPageState(list: modelList));
     });
   }
 
-  addFunction() {
+  priceListEdit() {
+    on<PriceListRegisterEditEvent>((event, emit) async {
+      (model.active == "S")
+          ? optionYesNo = OptionYesNo.S
+          : optionYesNo = OptionYesNo.N;
+      emit(PriceListRegisterInfoPageState(list: modelList));
+    });
+  }
+
+  postFunction() {
     on<PriceListRegisterPostEvent>((event, emit) async {
       emit(PriceListRegisterLoadingState());
-      var response = await post.call(ParamsPriceListPost(model: event.model));
+      var response = await post.call(ParamsPriceListPost(model: model));
 
       var result = response.fold(
-        (l) => PriceListRegisterAddErrorState(list: prices),
+        (l) => PriceListRegisterAddErrorState(list: modelList),
         (r) {
-          prices.add(r);
-          return PriceListRegisterAddSuccessState(list: prices);
+          modelList.add(r);
+          return PriceListRegisterAddSuccessState(list: modelList);
         },
       );
       emit(result);
     });
   }
 
-  editFunction() {
+  putFunction() {
     on<PriceListRegisterPutEvent>((event, emit) async {
       emit(PriceListRegisterLoadingState());
-      var response = await put.call(ParamsPriceListPut(model: event.model));
+      var response = await put.call(ParamsPriceListPut(model: model));
 
       var result = response.fold(
-        (l) => PriceListRegisterEditErrorState(list: prices),
+        (l) => PriceListRegisterEditErrorState(list: modelList),
         (r) {
-          return PriceListRegisterEditSuccessState(list: prices);
+          return PriceListRegisterEditSuccessState(list: modelList);
         },
       );
       emit(result);

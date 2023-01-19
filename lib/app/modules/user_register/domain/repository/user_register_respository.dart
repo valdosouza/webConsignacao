@@ -6,7 +6,7 @@ abstract class UserRegisterRepository {
   Future<Either<Failure, List<UserRegisterModel>>> getList();
   Future<Either<Failure, UserRegisterModel>> post(
       {required UserRegisterModel model});
-  Future<Either<Failure, String>> delete({required int userId});
+  Future<Either<Failure, String>> delete({required int tbUserId});
   Future<Either<Failure, UserRegisterModel>> put(
       {required UserRegisterModel model});
 }

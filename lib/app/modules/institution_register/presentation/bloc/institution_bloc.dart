@@ -69,7 +69,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     on<InstitutionGetEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
-      final response = await get.call(const ParamsGet(id: 1));
+      final response = await get.call(const ParamsGet());
 
       response.fold((l) => emit(const InstitutionGetErrorState("")), (r) {
         institution = r;

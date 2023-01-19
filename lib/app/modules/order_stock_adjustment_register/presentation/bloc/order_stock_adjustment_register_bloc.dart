@@ -2,7 +2,7 @@ import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/entities_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_delete.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_get.dart';
@@ -32,7 +32,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
   List<ProductListModel> products = [];
   List<StockListModel> stocks = [];
   List<EntityListModel> entities = [];
-  StockListModel stock = StockListModel();
+  StockListModel stock = StockListModel.empty();
   OrderStockAdjustmentRegisterItemsModel item =
       OrderStockAdjustmentRegisterItemsModel.empty();
   bool edit = false;

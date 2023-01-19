@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+
 import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_route_register_bloc.dart';
 import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_route_register_event.dart';
 import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_route_register_state.dart';
@@ -55,7 +56,6 @@ class _ContentDesktopSalesRouteRegisterState
         } else if (state is SalesRouteRegisterInfoPageState) {
           return SalesRouteRegisterInterationPage(
             model: state.model,
-            index: state.list.last.id,
           );
         }
         final routes = state.list;
@@ -66,7 +66,7 @@ class _ContentDesktopSalesRouteRegisterState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(SalesRouteRegisterInfoEvent());
+                  bloc.add(SalesRouteRegisterAddEvent());
                 },
               ),
             ],
@@ -89,8 +89,8 @@ class _ContentDesktopSalesRouteRegisterState
                             itemCount: routes.length,
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
-                                bloc.add(SalesRouteRegisterInfoEvent(
-                                    model: routes[index]));
+                                bloc.model = routes[index];
+                                bloc.add(SalesRouteRegisterEditEvent());
                               },
                               child: ListTile(
                                 leading: CircleAvatar(

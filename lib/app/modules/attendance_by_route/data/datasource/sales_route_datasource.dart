@@ -16,7 +16,7 @@ class SalesRouteDataSourceImpl extends SalesRouteDataSource {
   @override
   Future<List<SalesRouteListModel>> getlist() async {
     try {
-      var tbInstitutionId = getInstitutionId();
+      final tbInstitutionId = await getInstitutionId();
 
       final uri = Uri.parse('${baseApiUrl}salesroute/getlist/$tbInstitutionId');
 

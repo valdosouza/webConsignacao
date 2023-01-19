@@ -1,5 +1,3 @@
-import 'package:appweb/app/modules/sales_route_register/data/model/sales_route_model.dart';
-
 abstract class SalesRouteRegisterEvent {}
 
 class SalesRouteRegisterGetListEvent extends SalesRouteRegisterEvent {}
@@ -12,19 +10,10 @@ class SalesRouteRegisterSearchEvent extends SalesRouteRegisterEvent {
   });
 }
 
-class SalesRouteRegisterPutEvent extends SalesRouteRegisterEvent {
-  final SalesRouteRegisterModel model;
+class SalesRouteRegisterPutEvent extends SalesRouteRegisterEvent {}
 
-  SalesRouteRegisterPutEvent({required this.model});
-}
+class SalesRouteRegisterPostEvent extends SalesRouteRegisterEvent {}
 
-class SalesRouteRegisterPostEvent extends SalesRouteRegisterEvent {
-  final SalesRouteRegisterModel model;
+class SalesRouteRegisterAddEvent extends SalesRouteRegisterEvent {}
 
-  SalesRouteRegisterPostEvent({required this.model});
-}
-
-class SalesRouteRegisterInfoEvent extends SalesRouteRegisterEvent {
-  final SalesRouteRegisterModel? model;
-  SalesRouteRegisterInfoEvent({this.model});
-}
+class SalesRouteRegisterEditEvent extends SalesRouteRegisterEvent {}

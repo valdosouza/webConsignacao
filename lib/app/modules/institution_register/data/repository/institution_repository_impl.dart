@@ -14,9 +14,9 @@ class InstitutionRegisterRespositoryImpl
   });
 
   @override
-  Future<Either<Failure, InstitutionModel>> get({required int id}) async {
+  Future<Either<Failure, InstitutionModel>> get() async {
     try {
-      InstitutionModel institution = await datasource.get(id: id);
+      InstitutionModel institution = await datasource.get();
       return Right(institution);
     } on ServerException {
       return Left(ServerFailure());

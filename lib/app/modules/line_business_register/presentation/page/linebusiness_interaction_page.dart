@@ -93,19 +93,18 @@ class _LinebusinessRegisterInterationPageState
                     Row(
                       children: [
                         Radio(
-                          value: true,
-                          groupValue: selectRadio,
-                          activeColor: Colors.red,
-                          onChanged: selectRadio
-                              ? (value) {}
-                              : (value) {
-                                  setState(() {
-                                    selectRadio = true;
-                                  });
-                                  model?.active = "S";
-                                  active = "S";
-                                },
-                        ),
+                            value: true,
+                            groupValue: selectRadio,
+                            activeColor: Colors.red,
+                            onChanged: selectRadio
+                                ? (value) {}
+                                : (value) {
+                                    setState(() {
+                                      selectRadio = true;
+                                    });
+                                    model?.active = "S";
+                                    active = "S";
+                                  }),
                         const SizedBox(width: 5.0),
                         const Text("Sim", style: kLabelStyle),
                       ],

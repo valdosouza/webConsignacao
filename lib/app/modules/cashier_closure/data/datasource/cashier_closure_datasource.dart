@@ -24,8 +24,8 @@ class CashierClosureDatasourceImpl extends CashierClosureDatasource {
     required String date,
   }) async {
     String formattedDate = CustomDate.formatDateOut(date);
-    var tbInstitutionId = getInstitutionId();
-    var tbUserId = getUserId();
+    final tbInstitutionId = await getInstitutionId();
+    final tbUserId = await getUserId();
     return await request(
       'cashier/closure/get/$tbInstitutionId/$tbUserId/$formattedDate',
       (payload) {
@@ -42,8 +42,8 @@ class CashierClosureDatasourceImpl extends CashierClosureDatasource {
 
   @override
   Future<List<CashierClosurePreviouslyModel>> closurePreviously() async {
-    var tbInstitutionId = getInstitutionId();
-    var tbUserId = getUserId();
+    final tbInstitutionId = await getInstitutionId();
+    final tbUserId = await getUserId();
     return await request(
       'cashier/closure/getlist/$tbInstitutionId/$tbUserId',
       (payload) {

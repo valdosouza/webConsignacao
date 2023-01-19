@@ -1,3 +1,5 @@
+import 'package:appweb/app/core/shared/enum.dart';
+import 'package:appweb/app/modules/product_register/data/model/product_register_main_model.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_delete.dart';
 import 'package:appweb/app/modules/product_register/domain/usecase/product_register_get.dart';
@@ -16,7 +18,9 @@ class ProductRegisterBloc
   final ProductRegisterDelete delete;
   final ProductRegisterGet get;
 
-  List<ProductRegisterModel> products = [];
+  List<ProductRegisterModel> modelList = [];
+  ProductRegisterMainModel model = ProductRegisterMainModel.empty();
+  OptionYesNo? optionYesNo = OptionYesNo.S;
 
   ProductRegisterBloc({
     required this.getlist,
@@ -29,11 +33,13 @@ class ProductRegisterBloc
 
     searchProducts();
 
-    goToInfoPage();
+    productAdd();
 
-    addFunction();
+    productEdit();
 
-    editFunction();
+    postFunction();
+
+    putFunction();
   }
 
   getList() {
@@ -43,8 +49,8 @@ class ProductRegisterBloc
       var response = await getlist.call(ParamsProductRegisterGetlist());
 
       var result =
-          response.fold((l) => ProductRegisterErrorState(list: products), (r) {
-        products = r;
+          response.fold((l) => ProductRegisterErrorState(list: modelList), (r) {
+        modelList = r;
         return ProductRegisterLoadedState(list: r);
       });
 
@@ -55,75 +61,94 @@ class ProductRegisterBloc
   searchProducts() {
     on<ProductRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var productsearched = products.where((element) {
+        var modelListearched = modelList.where((element) {
           String name = element.description;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        emit(ProductRegisterLoadedState(list: productsearched));
+        emit(ProductRegisterLoadedState(list: modelListearched));
       } else {
-        emit(ProductRegisterLoadedState(list: products));
+        emit(ProductRegisterLoadedState(list: modelList));
       }
     });
   }
 
-  goToInfoPage() {
-    on<ProductRegisterInfoEvent>((event, emit) async {
+  productAdd() {
+    on<ProductRegisterAddEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
 
-      var response = await get.call(ParamsProductRegisterGet(
-          productId: event.model != null ? event.model!.id : 0));
+      var response = await get.call(ParamsProductRegisterGet(productId: 0));
 
-      var result = response.fold(
-          (l) => ProductRegisterGetErrorState(list: products),
-          (r) => ProductRegisterInfoPageState(list: products, model: r));
-
+      var result = response.fold((l) {
+        return ProductRegisterGetErrorState(list: modelList);
+      }, (r) {
+        model = r;
+        model.product.active = "S";
+        optionYesNo = OptionYesNo.S;
+        return ProductRegisterInfoPageState(list: modelList);
+      });
       emit(result);
     });
   }
 
-  addFunction() {
-    on<ProductRegisterPostEvent>((event, emit) async {
+  productEdit() {
+    on<ProductRegisterEditEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
       var response =
-          await post.call(ParamsProductRegisterPost(model: event.model));
+          await get.call(ParamsProductRegisterGet(productId: model.product.id));
+
+      var result = response.fold((l) {
+        return ProductRegisterGetErrorState(list: modelList);
+      }, (r) {
+        model = r;
+        (model.product.active == "S")
+            ? optionYesNo = OptionYesNo.S
+            : optionYesNo = OptionYesNo.N;
+        return ProductRegisterInfoPageState(list: modelList);
+      });
+      emit(result);
+    });
+  }
+
+  postFunction() {
+    on<ProductRegisterPostEvent>((event, emit) async {
+      emit(ProductRegisterLoadingState());
+      var response = await post.call(ParamsProductRegisterPost(model: model));
 
       var result = response.fold(
-        (l) => ProductRegisterPostErrorState(list: products),
+        (l) => ProductRegisterPostErrorState(list: modelList),
         (r) {
-          products.add(ProductRegisterModel(
+          modelList.add(ProductRegisterModel(
             id: r.product.id,
             tbInstitutionId: r.product.tbInstitutionId,
             description: r.product.description,
             active: r.product.active,
           ));
-          return ProductRegisterPostSuccessState(list: products);
+          return ProductRegisterPostSuccessState(list: modelList);
         },
       );
       emit(result);
     });
   }
 
-  editFunction() {
+  putFunction() {
     on<ProductRegisterPutEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
-      var response =
-          await put.call(ParamsProductRegisterPut(model: event.model));
+      var response = await put.call(ParamsProductRegisterPut(model: model));
 
       var result = response.fold(
-        (l) => ProductRegisterPutErrorState(list: products),
+        (l) => ProductRegisterPutErrorState(list: modelList),
         (r) {
-          products
-              .removeWhere((element) => element.id == event.model.product.id);
-          products.add(ProductRegisterModel(
-            id: event.model.product.id,
-            tbInstitutionId: event.model.product.tbInstitutionId,
-            description: event.model.product.description,
-            active: event.model.product.active,
+          modelList.removeWhere((element) => element.id == model.product.id);
+          modelList.add(ProductRegisterModel(
+            id: model.product.id,
+            tbInstitutionId: model.product.tbInstitutionId,
+            description: model.product.description,
+            active: model.product.active,
           ));
-          return ProductRegisterPutSuccessState(list: products);
+          return ProductRegisterPutSuccessState(list: modelList);
         },
       );
       emit(result);

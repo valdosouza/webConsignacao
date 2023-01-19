@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
-import 'package:appweb/app/modules/stock_list_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 
 /// Throws a [ServerException] for all error codes.
 abstract class StockListDatasource extends Gateway {
@@ -17,12 +17,12 @@ abstract class StockListDatasource extends Gateway {
 
 class StockListDatasourceImpl extends StockListDatasource {
   List<StockListModel> items = [];
-  var tbInstitutionId = 1;
 
   StockListDatasourceImpl({required super.httpClient});
   @override
   Future<List<StockListModel>> getlist() async {
     try {
+      final tbInstitutionId = await getInstitutionId();
       final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$tbInstitutionId');
 
       final response = await httpClient.get(uri);
@@ -46,10 +46,15 @@ class StockListDatasourceImpl extends StockListDatasource {
   Future<StockListModel> post({required StockListModel model}) async {
     final uri = Uri.parse('${baseApiUrl}stockList');
     try {
+      final tbInstitutionId = await getInstitutionId();
       model.tbInstitutionId = tbInstitutionId;
+      final bodyContent = jsonEncode(model.toJson());
       final response = await httpClient.post(
         uri,
-        body: model.toJson(),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: bodyContent,
       );
 
       if (response.statusCode == 200) {
@@ -67,10 +72,18 @@ class StockListDatasourceImpl extends StockListDatasource {
   @override
   Future<String> put({required StockListModel model}) async {
     try {
+      final tbInstitutionId = await getInstitutionId();
       model.tbInstitutionId = tbInstitutionId;
+      final bodyContent = jsonEncode(model.toJson());
       final uri = Uri.parse('${baseApiUrl}stockList');
 
-      final response = await httpClient.put(uri, body: model.toJson());
+      final response = await httpClient.put(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: bodyContent,
+      );
 
       if (response.statusCode == 200) {
         return "";

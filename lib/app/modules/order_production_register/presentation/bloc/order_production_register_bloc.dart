@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_delete.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get_list.dart';
@@ -27,7 +27,6 @@ class OrderProductionRegisterBloc
       OrderProductionRegisterModel.isEmpty();
   List<ProductListModel> products = [];
   List<StockListModel> stocks = [];
-  bool edit = false;
 
   OrderProductionRegisterBloc({
     required this.getOrderProduction,
@@ -37,18 +36,20 @@ class OrderProductionRegisterBloc
     required this.deleteOrderProduction,
     required this.productGetlist,
     required this.stockListGetlist,
-  }) : super(OrderProductionRegisterLoadingState()) {
+  }) : super(OrderLoadingState()) {
     getList();
 
-    goToOrderProductionDesktopPage();
+    orderNew();
 
-    // goToOrderProductionMobilePage();
+    orderEdit();
 
-    postOrderProductionAction();
+    orderReturn();
 
-    putOrderProductionAction();
+    postOrder();
 
-    deleteOrderProductionAction();
+    putOrder();
+
+    deleteOrder();
 
     getProducts();
 
@@ -58,122 +59,120 @@ class OrderProductionRegisterBloc
 
     searchEventStocks();
 
-    searchEventOrderProduction();
-
-    on<OrderProductionRegisterReturnEvent>(
-        (event, emit) => emit(OrderProductionRegisterInfoPageState(list: [])));
+    searchOrderProduction();
   }
 
   getList() {
-    on<OrderProductionRegisterGetListEvent>((event, emit) async {
-      emit(OrderProductionRegisterLoadingState());
+    on<OrderGetListEvent>((event, emit) async {
+      emit(OrderLoadingState());
 
       var response = await getlistOrderProduction
           .call(ParamsGetlistOrderProductionRegister());
 
-      response.fold(
-          (l) =>
-              emit(OrderProductionRegisterErrorState(list: orderProductions)),
-          (r) {
+      response.fold((l) => emit(OrderGetErrorState()), (r) {
         orderProductions = r;
-        emit(OrderProductionRegisterLoadedState(list: r));
+        emit(OrderGetLoadedState());
       });
     });
   }
 
-  postOrderProductionAction() {
-    on<OrderProductionRegisterPostEvent>((event, emit) async {
-      emit(OrderProductionRegisterLoadingState());
+  postOrder() {
+    on<OrderPostEvent>((event, emit) async {
+      emit(OrderLoadingState());
 
       var response = await postOrderProduction
-          .call(ParamsPostOrderProductionRegister(model: event.model));
+          .call(ParamsPostOrderProductionRegister(model: orderProduction));
 
-      response.fold(
-          (l) => emit(
-              OrderProductionRegisterPostErrorState(list: orderProductions)),
-          (r) {
+      response.fold((l) => emit(OrderPostErrorState()), (r) {
         orderProductions.add(r);
-        emit(OrderProductionRegisterPostSuccessState(list: orderProductions));
+        emit(OrderPostSuccessState());
       });
     });
   }
 
-  putOrderProductionAction() {
-    on<OrderProductionRegisterPutEvent>((event, emit) async {
-      emit(OrderProductionRegisterLoadingState());
+  putOrder() {
+    on<OrderPutEvent>((event, emit) async {
+      emit(OrderLoadingState());
 
       var response = await putOrderProduction
-          .call(ParamsPutOrderProductionRegister(model: event.model));
+          .call(ParamsPutOrderProductionRegister(model: orderProduction));
 
-      response.fold(
-          (l) => event.model.id != 0
-              ? emit(
-                  OrderProductionRegisterPutErrorState(list: orderProductions))
-              : emit(
-                  OrderProductionRegisterPutErrorState(list: orderProductions)),
-          (r) {
+      response.fold((l) => emit(OrderPutErrorState()), (r) {
         orderProductions[
             orderProductions.indexWhere((element) => element.id == r.id)] = r;
-        emit(OrderProductionRegisterPutSuccessState(list: orderProductions));
+        emit(OrderPutSuccessState());
       });
     });
   }
 
-  deleteOrderProductionAction() {
-    on<OrderProductionRegisterDeleteEvent>((event, emit) async {
-      emit(OrderProductionRegisterLoadingState());
+  deleteOrder() {
+    on<OrderDeleteEvent>((event, emit) async {
+      emit(OrderLoadingState());
 
       var response = await deleteOrderProduction
-          .call(ParamsDeleteOrderProductionRegister(id: event.model.id));
+          .call(ParamsDeleteOrderProductionRegister(id: orderProduction.id));
 
-      response.fold(
-          (l) => emit(
-              OrderProductionRegisterDeleteErrorState(list: orderProductions)),
-          (r) {
-        orderProductions.removeWhere((element) => element.id == event.model.id);
-        emit(OrderProductionRegisterDeleteSuccessState(list: orderProductions));
+      response.fold((l) => emit(OrderDeleteErrorState()), (r) {
+        orderProductions
+            .removeWhere((element) => element.id == orderProduction.id);
+        emit(OrderDeleteSuccessState());
       });
     });
   }
 
-  goToOrderProductionDesktopPage() {
-    on<OrderProductionRegisterDesktopEvent>((event, emit) async {
-      emit(OrderProductionRegisterLoadingState());
+  orderNew() {
+    on<OrderAddEvent>((event, emit) async {
+      emit(OrderLoadingState());
 
       orderProduction = OrderProductionRegisterModel.isEmpty();
-      emit(OrderProductionRegisterInfoPageState(list: []));
+      emit(OrderInfoPageState());
+    });
+  }
+
+  orderEdit() {
+    on<OrderEditEvent>((event, emit) async {
+      emit(OrderLoadingState());
+
+      emit(OrderInfoPageState());
+    });
+  }
+
+  orderReturn() {
+    on<OrderReturnEvent>((event, emit) async {
+      emit(OrderLoadingState());
+
+      emit(OrderInfoPageState());
     });
   }
 
   getProducts() {
-    on<OrderProductionRegisterGetProductsEvent>((event, emit) async {
-      emit(OrderProductionRegisterLoadingState());
+    on<OrderGetProductsEvent>((event, emit) async {
+      emit(OrderLoadingState());
 
       final response = await productGetlist.call(ParamsGetlistProduct());
 
-      response.fold((l) => emit(OrderProductionRegisterProductErrorState()),
-          (r) {
+      response.fold((l) => emit(OrderGetProductErrorState()), (r) {
         products = r;
-        emit(OrderProductionRegisterProductSuccessState(products: r));
+        emit(OrderGetProductSucessState());
       });
     });
   }
 
   getStocks() {
-    on<OrderProductionRegisterGetStocksEvent>((event, emit) async {
-      emit(OrderProductionRegisterLoadingState());
+    on<OrderGetStocksEvent>((event, emit) async {
+      emit(OrderLoadingState());
 
       final response = await stockListGetlist.call(const ParamsGetListStock());
 
-      response.fold((l) => emit(OrderProductionRegisterStockErrorState()), (r) {
+      response.fold((l) => emit(OrderGetStockErrorState()), (r) {
         stocks = r;
-        emit(OrderProductionRegisterStockSuccessState(stock: r));
+        emit(OrderGetStockSucessState());
       });
     });
   }
 
   searchEventProducts() {
-    on<OrderProductionRegisterSearchProductsEvent>((event, emit) async {
+    on<OrderSearchProductsEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var productstSearched = products.where((element) {
           String name = element.description;
@@ -185,19 +184,18 @@ class OrderProductionRegisterBloc
               id.toString() == event.search);
         }).toList();
         if (productstSearched.isNotEmpty) {
-          emit(OrderProductionRegisterProductSuccessState(
-              products: productstSearched));
+          emit(OrderSearchProductSucessState());
         } else {
-          emit(OrderProductionRegisterProductSuccessState(products: []));
+          emit(OrderSearchProductSucessState());
         }
       } else {
-        emit(OrderProductionRegisterProductSuccessState(products: products));
+        emit(OrderSearchProductSucessState());
       }
     });
   }
 
   searchEventStocks() {
-    on<OrderProductionRegisterSearchStocksEvent>((event, emit) async {
+    on<OrderSearchStocksEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var stockSearched = stocks.where((element) {
           String name = element.description;
@@ -209,18 +207,18 @@ class OrderProductionRegisterBloc
               id.toString() == event.search);
         }).toList();
         if (stockSearched.isNotEmpty) {
-          emit(OrderProductionRegisterStockSuccessState(stock: stockSearched));
+          emit(OrderSearchStockSucessState());
         } else {
-          emit(OrderProductionRegisterStockSuccessState(stock: []));
+          emit(OrderSearchStockSucessState());
         }
       } else {
-        emit(OrderProductionRegisterStockSuccessState(stock: stocks));
+        emit(OrderSearchStockSucessState());
       }
     });
   }
 
-  searchEventOrderProduction() {
-    on<OrderProductionRegisterSearchEvent>((event, emit) async {
+  searchOrderProduction() {
+    on<OrderSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var orderProductionsSearched = orderProductions.where(
           (element) {
@@ -239,13 +237,12 @@ class OrderProductionRegisterBloc
           },
         ).toList();
         if (orderProductionsSearched.isNotEmpty) {
-          emit(OrderProductionRegisterLoadedState(
-              list: orderProductionsSearched));
+          emit(OrderSearchSucessState());
         } else {
-          emit(OrderProductionRegisterLoadedState(list: []));
+          emit(OrderSearchSucessState());
         }
       } else {
-        emit(OrderProductionRegisterLoadedState(list: orderProductions));
+        emit(OrderSearchSucessState());
       }
     });
   }

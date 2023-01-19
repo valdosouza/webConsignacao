@@ -1,19 +1,15 @@
+import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_price_list_model.dart';
-import 'package:appweb/app/modules/product_register/data/model/product_register_main_model.dart';
-import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
 import 'package:appweb/app/modules/product_register/presentation/bloc/product_register_bloc.dart';
 import 'package:appweb/app/modules/product_register/presentation/bloc/product_register_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class ProductRegisterInterationPage extends StatefulWidget {
-  final ProductRegisterMainModel product;
-  final int index;
-  const ProductRegisterInterationPage(
-      {super.key, required this.product, required this.index});
+  const ProductRegisterInterationPage({super.key});
 
   @override
   State<ProductRegisterInterationPage> createState() =>
@@ -26,15 +22,9 @@ class _ProductRegisterInterationPageState
   late TabController _tabController;
 
   late final ProductRegisterBloc bloc;
-  late ProductRegisterMainModel product;
   final _formKey = GlobalKey<FormState>();
 
-  bool selectRadio = false;
-
   List<ProductPriceListModel> priceList = [];
-
-  String description = "";
-  String active = "S";
 
   final List<Tab> myTabs = <Tab>[
     const Tab(text: 'Dados do Produto'),
@@ -45,8 +35,6 @@ class _ProductRegisterInterationPageState
   void initState() {
     super.initState();
     bloc = Modular.get<ProductRegisterBloc>();
-    product = widget.product;
-    selectRadio = product.product.active == "S";
     _tabController = TabController(vsync: this, length: myTabs.length);
   }
 
@@ -59,9 +47,9 @@ class _ProductRegisterInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
-          title: product.product.id == 0
+          title: bloc.model.product.id == 0
               ? const Text('Adicionar')
-              : Text('Editar ${product.product.description}'),
+              : Text('Editar ${bloc.model.product.description}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -74,23 +62,9 @@ class _ProductRegisterInterationPageState
               child: IconButton(
                 icon: const Icon(Icons.check),
                 onPressed: () {
-                  product.product.id != 0
-                      ? bloc.add(ProductRegisterPutEvent(model: product))
-                      : bloc.add(
-                          ProductRegisterPostEvent(
-                            model: ProductRegisterMainModel(
-                              product: ProductRegisterModel(
-                                id: widget.index + 1,
-                                tbInstitutionId: 0,
-                                description: description,
-                                active: active,
-                              ),
-                              priceList: product.priceList
-                                  .map((e) => e.toModel(e))
-                                  .toList(),
-                            ),
-                          ),
-                        );
+                  bloc.model.product.id > 0
+                      ? bloc.add(ProductRegisterPutEvent())
+                      : bloc.add(ProductRegisterPostEvent());
                 },
               ),
             ),
@@ -121,27 +95,14 @@ class _ProductRegisterInterationPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // CustomInput(
-            //   title: 'Código',
-            //   initialValue: product?.product.id.toString() ?? "0",
-            //   validator: (value) => Validators.validateRequired(value),
-            //   keyboardType: TextInputType.text,
-            //   inputAction: TextInputAction.next,
-            //   onChanged: (value) {
-            //     product?.product.id = value;
-            //     description = value;
-            //   },
-            // ),
-            // const SizedBox(height: 30.0),
             CustomInput(
               title: 'Descrição',
-              initialValue: product.product.description,
+              initialValue: bloc.model.product.description,
               validator: (value) => Validators.validateRequired(value),
               keyboardType: TextInputType.text,
               inputAction: TextInputAction.next,
               onChanged: (value) {
-                product.product.description = value;
-                description = value;
+                bloc.model.product.description = value;
               },
             ),
             const SizedBox(height: 30.0),
@@ -151,19 +112,16 @@ class _ProductRegisterInterationPageState
               children: [
                 Row(
                   children: [
-                    Radio(
-                      value: true,
-                      groupValue: selectRadio,
+                    Radio<OptionYesNo>(
+                      value: OptionYesNo.S,
+                      groupValue: bloc.optionYesNo,
                       activeColor: Colors.red,
-                      onChanged: selectRadio
-                          ? (value) {}
-                          : (value) {
-                              setState(() {
-                                selectRadio = true;
-                              });
-                              product.product.active = "S";
-                              active = "S";
-                            },
+                      onChanged: (value) {
+                        setState(() {
+                          bloc.optionYesNo = value;
+                        });
+                        bloc.model.product.active = "S";
+                      },
                     ),
                     const SizedBox(width: 5.0),
                     const Text("Sim", style: kLabelStyle),
@@ -172,19 +130,16 @@ class _ProductRegisterInterationPageState
                 const SizedBox(width: 10.0),
                 Row(
                   children: [
-                    Radio(
-                        value: false,
-                        groupValue: selectRadio,
+                    Radio<OptionYesNo>(
+                        value: OptionYesNo.N,
+                        groupValue: bloc.optionYesNo,
                         activeColor: Colors.red,
-                        onChanged: selectRadio
-                            ? (value) {
-                                setState(() {
-                                  selectRadio = false;
-                                });
-                                product.product.active = "N";
-                                active = "N";
-                              }
-                            : (value) {}),
+                        onChanged: (value) {
+                          setState(() {
+                            bloc.optionYesNo = value;
+                          });
+                          bloc.model.product.active = "N";
+                        }),
                     const SizedBox(width: 5.0),
                     const Text("Não", style: kLabelStyle),
                   ],
@@ -198,37 +153,30 @@ class _ProductRegisterInterationPageState
   }
 
   Widget _buildPriceList() {
-    if (product.priceList.isEmpty) {
+    if (bloc.model.priceList.isEmpty) {
       return const Center(
         child: Text("Este produto ainda não possui uma tabela de preço"),
       );
     } else {
-      return Column(
-        children: List.generate(
-          product.priceList.length,
-          (index) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(product.priceList[index].namePriceList!),
-                CustomInput(
-                  title: '',
-                  initialValue:
-                      product.priceList[index].priceTag!.toStringAsFixed(2),
-                  validator: (value) => Validators.validateRequired(value),
-                  keyboardType: TextInputType.number,
-                  inputAction: TextInputAction.next,
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      product.priceList[index].priceTag = double.parse(value);
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
+      return ListView.separated(
+        itemCount: bloc.model.priceList.length,
+        itemBuilder: (context, index) => CustomInput(
+          width: 200,
+          title: bloc.model.priceList[index].namePriceList!,
+          alignment: Alignment.centerRight,
+          textAlign: TextAlign.right,
+          initialValue:
+              bloc.model.priceList[index].priceTag!.toStringAsFixed(2),
+          validator: (value) => Validators.validateRequired(value),
+          keyboardType: TextInputType.number,
+          inputAction: TextInputAction.next,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              bloc.model.priceList[index].priceTag = double.parse(value);
+            }
+          },
         ),
+        separatorBuilder: (_, __) => const Divider(),
       );
     }
   }

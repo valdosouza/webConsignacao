@@ -1,17 +1,14 @@
+import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/price_list_register/data/model/price_list_model.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_bloc.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class PriceListRegisterInterationPage extends StatefulWidget {
-  final PriceListModel? price;
-  final int index;
-  const PriceListRegisterInterationPage(
-      {super.key, this.price, required this.index});
+  const PriceListRegisterInterationPage({super.key});
 
   @override
   State<PriceListRegisterInterationPage> createState() =>
@@ -21,22 +18,13 @@ class PriceListRegisterInterationPage extends StatefulWidget {
 class _PriceListRegisterInterationPageState
     extends State<PriceListRegisterInterationPage> {
   late final PriceListRegisterBloc bloc;
-  PriceListModel? price;
+
   final _formKey = GlobalKey<FormState>();
-
-  bool selectRadio = false;
-
-  String description = "";
-  String active = "S";
 
   @override
   void initState() {
     super.initState();
     bloc = Modular.get<PriceListRegisterBloc>();
-    price = widget.price;
-    if (price != null) {
-      selectRadio = price!.active == "S";
-    }
   }
 
   @override
@@ -48,9 +36,9 @@ class _PriceListRegisterInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
-          title: price == null
+          title: bloc.model.id == 0
               ? const Text('Adicionar')
-              : Text('Editar ${price!.description}'),
+              : Text('Editar ${bloc.model.description}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -64,15 +52,9 @@ class _PriceListRegisterInterationPageState
                 icon: const Icon(Icons.check),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    price != null
-                        ? bloc.add(PriceListRegisterPutEvent(model: price!))
-                        : bloc.add(PriceListRegisterPutEvent(
-                            model: PriceListModel(
-                            id: widget.index + 1,
-                            tbInstitutionId: 0,
-                            description: description,
-                            active: active,
-                          )));
+                    bloc.model.id > 0
+                        ? bloc.add(PriceListRegisterPutEvent())
+                        : bloc.add(PriceListRegisterPostEvent());
                   }
                 },
               ),
@@ -86,25 +68,33 @@ class _PriceListRegisterInterationPageState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                CustomInput(
+                  title: 'Descrição',
+                  initialValue: bloc.model.description,
+                  validator: (value) => Validators.validateRequired(value),
+                  keyboardType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    bloc.model.description = value;
+                  },
+                ),
+                const SizedBox(height: 30.0),
                 const Text("Ativo", style: kLabelStyle),
                 const SizedBox(height: 10.0),
                 Row(
                   children: [
                     Row(
                       children: [
-                        Radio(
-                          value: true,
-                          groupValue: selectRadio,
+                        Radio<OptionYesNo>(
+                          value: OptionYesNo.S,
+                          groupValue: bloc.optionYesNo,
                           activeColor: Colors.red,
-                          onChanged: selectRadio
-                              ? (value) {}
-                              : (value) {
-                                  setState(() {
-                                    selectRadio = true;
-                                  });
-                                  price?.active = "S";
-                                  active = "S";
-                                },
+                          onChanged: (value) {
+                            setState(() {
+                              bloc.optionYesNo = value;
+                            });
+                            bloc.model.active = "S";
+                          },
                         ),
                         const SizedBox(width: 5.0),
                         const Text("Sim", style: kLabelStyle),
@@ -113,36 +103,21 @@ class _PriceListRegisterInterationPageState
                     const SizedBox(width: 10.0),
                     Row(
                       children: [
-                        Radio(
-                            value: false,
-                            groupValue: selectRadio,
+                        Radio<OptionYesNo>(
+                            value: OptionYesNo.N,
+                            groupValue: bloc.optionYesNo,
                             activeColor: Colors.red,
-                            onChanged: selectRadio
-                                ? (value) {
-                                    setState(() {
-                                      selectRadio = false;
-                                    });
-                                    price?.active = "N";
-                                    active = "N";
-                                  }
-                                : (value) {}),
+                            onChanged: (value) {
+                              setState(() {
+                                bloc.optionYesNo = value;
+                              });
+                              bloc.model.active = "N";
+                            }),
                         const SizedBox(width: 5.0),
                         const Text("Não", style: kLabelStyle),
                       ],
                     ),
                   ],
-                ),
-                const SizedBox(height: 30.0),
-                CustomInput(
-                  title: 'Descrição',
-                  initialValue: price?.description ?? "",
-                  validator: (value) => Validators.validateRequired(value),
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.next,
-                  onChanged: (value) {
-                    price?.description = value;
-                    description = value;
-                  },
                 ),
               ],
             ),
