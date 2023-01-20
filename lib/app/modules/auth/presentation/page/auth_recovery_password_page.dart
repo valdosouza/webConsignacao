@@ -36,7 +36,7 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
       listener: (context, state) {
         if (state is AuthRecoveryErrorState) {
           CustomToast.showToast(
-              "Ops...Ocorreu um erro ao enviar o email. Tente novamente mais tarde");
+              "Ops...Erro ao enviar o email. Tente novamente mais tarde");
         } else if (state is AuthRecoverySuccessState) {
           Modular.to.pushNamed('/auth/change-password/');
         }

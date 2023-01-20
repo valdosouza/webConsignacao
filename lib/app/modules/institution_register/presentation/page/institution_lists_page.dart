@@ -75,7 +75,7 @@ class _InstitutionListsPageState extends State<InstitutionListsPage> {
                       child: state.states.isEmpty
                           ? const Center(
                               child: Text(
-                                  "Não encontramos nenhum estado em nossa base."))
+                                  "Não encontramos nenhum registro em nossa base."))
                           : ListView.separated(
                               itemCount: state.states.length,
                               itemBuilder: (context, index) => InkWell(
@@ -143,7 +143,7 @@ class _InstitutionListsPageState extends State<InstitutionListsPage> {
                       child: state.cities.isEmpty
                           ? const Center(
                               child: Text(
-                                  "Não encontramos nenhuma cidade em nossa base."))
+                                  "Não encontramos nenhum registro em nossa base."))
                           : ListView.separated(
                               itemCount: state.cities.length,
                               itemBuilder: (context, index) => InkWell(

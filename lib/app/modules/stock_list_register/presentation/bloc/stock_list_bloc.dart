@@ -26,7 +26,7 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
   }) : super(StockListLoadingState()) {
     getList();
 
-    searchPrices();
+    search();
 
     stockListAdd();
 
@@ -53,17 +53,17 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
     });
   }
 
-  searchPrices() {
+  search() {
     on<StockListSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var priceSearched = modelList.where((element) {
+        var searched = modelList.where((element) {
           String name = element.description;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        emit(StockListLoadedState(list: priceSearched));
+        emit(StockListLoadedState(list: searched));
       } else {
         emit(StockListLoadedState(list: modelList));
       }

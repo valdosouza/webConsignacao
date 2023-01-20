@@ -24,7 +24,7 @@ class EntityListModel extends EntityListEntity {
       id: json['id'] as int? ?? 0,
       nameCompany: json['name_company'] as String? ?? "",
       nickTrade: json['nick_trade'] as String? ?? "",
-      tbLineBusinessId: json['tb_linebuiness_id'] as int? ?? 0,
+      tbLineBusinessId: json['tb_linebusiness_id'] as int? ?? 0,
       nameLinebusiness: json['name_linebusiness'] as String? ?? "",
       aniversary: json['aniversary'] as String? ?? "",
       note: null,

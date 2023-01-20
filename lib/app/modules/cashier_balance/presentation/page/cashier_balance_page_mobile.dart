@@ -60,7 +60,7 @@ class _CashierBalanceMobiletState extends State<CashierBalancePageMobile> {
           listener: (context, state) {
             if (state is CashierBalanceMobileErrorState) {
               CustomToast.showToast(
-                  "Erro ao buscar o saldo. Tente novamente mais tarde.");
+                  "Erro ao buscar os dados. Tente novamente mais tarde.");
             }
           },
           builder: (context, state) {

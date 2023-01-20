@@ -40,7 +40,7 @@ class SalesRoutetRegisterInterationPageState
       listener: (context, state) {
         if (state is SalesRouteListErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar a lista. Tente novamente mais tarde.");
+              "buscar os cadastros. Tente novamente mais tarde.");
         }
         if (state is CustomerListOrderErrorState) {
           CustomToast.showToast(

@@ -16,9 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         terminal: event.terminal,
       ));
 
-      result.fold(
-          (l) => emit(const HomeErrorState(
-              'Erro ao Listar Vendas por Forma de Pagamento')),
+      result.fold((l) => emit(const HomeErrorState('Erro ao listar os dados')),
           (r) => HomeLoadedState(r));
     });
 

@@ -27,7 +27,7 @@ class PriceListRegisterBloc
   }) : super(PriceListRegisterLoadingState()) {
     getList();
 
-    searchPrices();
+    search();
 
     priceListAdd();
 
@@ -54,17 +54,17 @@ class PriceListRegisterBloc
     });
   }
 
-  searchPrices() {
+  search() {
     on<PriceListRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var priceSearched = modelList.where((element) {
+        var searched = modelList.where((element) {
           String name = element.description;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        emit(PriceListRegisterLoadedState(list: priceSearched));
+        emit(PriceListRegisterLoadedState(list: searched));
       } else {
         emit(PriceListRegisterLoadedState(list: modelList));
       }

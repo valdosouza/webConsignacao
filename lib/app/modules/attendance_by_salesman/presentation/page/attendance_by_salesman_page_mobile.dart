@@ -38,7 +38,7 @@ class AttendanceBySalesmanPageMobileState
       listener: (context, state) {
         if (state is CustomerListErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar a lista. Tente novamente mais tarde.");
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {

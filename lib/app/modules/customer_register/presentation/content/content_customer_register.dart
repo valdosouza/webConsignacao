@@ -9,24 +9,19 @@ import 'package:flutter/material.dart';
 statesCustomer(CustomerRegisterState state) {
   if (state is CustomerRegisterErrorState) {
     CustomToast.showToast(
-        "Erro ao buscar os clientes. Tente novamente mais tarde");
+        "Erro ao buscar os dados. Tente novamente mais tarde");
   } else if (state is CustomerRegisterCnpjErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
+        "Erro ao buscar os dados. Tente novamente mais tarde.");
   } else if ((state is CustomerRegisterPostByDesktopSuccessState) ||
       (state is CustomerRegisterPostByMobileEvent)) {
-    CustomToast.showToast("Cliente adicionado com sucesso.");
-  } else if (state is CustomerRegisterPutSuccessState) {
-    CustomToast.showToast("Cliente editado com sucesso.");
+    CustomToast.showToast("Cadastro atualizado com sucesso.");
   } else if (state is CustomerRegisterPostErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao adicionar o cliente. Tente novamente mais tarde.");
-  } else if (state is CustomerRegisterPutErrorState) {
-    CustomToast.showToast(
-        "Ocorreu um erro ao editar o cliente. Tente novamente mais tarde.");
+        "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
   } else if (state is CustomerRegisterGetErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao buscar os dados do cliente. Tente novamente mais tarde.");
+        "Erro ao buscar os dados do cadastro. Tente novamente mais tarde.");
   }
 }
 

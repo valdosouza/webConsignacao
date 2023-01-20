@@ -45,7 +45,7 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
       listener: (context, state) {
         if (state is AuthChangeErrorState) {
           CustomToast.showToast(
-              "Ops...Ocorreu um erro na alteração da senha. Tente novamente mais tarde.");
+              "Ops...Erro na alteração da senha. Tente novamente mais tarde.");
         } else if (state is AuthChangeSuccessState) {
           CustomToast.showToast("Senha alterada com sucesso.");
         }

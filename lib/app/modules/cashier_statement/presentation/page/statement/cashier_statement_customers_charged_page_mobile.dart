@@ -73,11 +73,11 @@ class CashierStatementCustomersChargedPageMobileState
           listener: (context, state) {
             if (state is CashierStatementCustomerMobileErrorState) {
               CustomToast.showToast(
-                  "Não foi possível acessar os clientes. Tente novamente mais tarde");
+                  "Não foi possível acessar os dados. Tente novamente mais tarde");
             }
             if (state is CashierStatementMobileErrorState) {
               CustomToast.showToast(
-                  "Não foi possível acessar o extrato. Tente novamente mais tarde");
+                  "Não foi possível acessar os dados. Tente novamente mais tarde");
             }
           },
           builder: (context, state) {

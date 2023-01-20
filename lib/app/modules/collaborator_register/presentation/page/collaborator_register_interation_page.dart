@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/collaborator_register/collaborator_register_module.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
+
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_event.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_state.dart';
@@ -14,13 +14,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CollaboratorRegisterInterationPage extends StatefulWidget {
-  final CollaboratorMainModel collaborator;
   final int tabIndex;
-  const CollaboratorRegisterInterationPage({
-    Key? key,
-    required this.collaborator,
-    required this.tabIndex,
-  }) : super(key: key);
+  const CollaboratorRegisterInterationPage({Key? key, required this.tabIndex})
+      : super(key: key);
 
   @override
   State<CollaboratorRegisterInterationPage> createState() =>
@@ -31,8 +27,6 @@ class _CollaboratorRegisterInterationPageState
     extends State<CollaboratorRegisterInterationPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
-  late CollaboratorMainModel collaborator;
 
   late final CollaboratorRegisterBloc bloc;
 
@@ -50,7 +44,7 @@ class _CollaboratorRegisterInterationPageState
       await Modular.isModuleReady<CollaboratorRegisterModule>();
     });
     bloc = Modular.get<CollaboratorRegisterBloc>();
-    collaborator = widget.collaborator;
+
     _tabController = TabController(vsync: this, length: myTabs.length);
     _tabController.animateTo(widget.tabIndex);
   }
@@ -67,7 +61,7 @@ class _CollaboratorRegisterInterationPageState
         listener: (context, state) {
           if (state is CollaboratorRegisterCnpjErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
+                "Erro ao buscar os dados. Tente novamente mais tarde.");
           }
         },
         builder: (context, state) {
@@ -87,7 +81,7 @@ class _CollaboratorRegisterInterationPageState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    collaborator.collaborator.id != 0
+                    bloc.model.collaborator.id != 0
                         ? "Editar Colaborador"
                         : "Adicionar Colaborador",
                     style: kHintTextStyle.copyWith(fontSize: 32.0),
@@ -95,8 +89,7 @@ class _CollaboratorRegisterInterationPageState
                   const SizedBox(width: 100.0),
                   IconButton(
                     onPressed: () {
-                      bloc.add(CollaboratorRegisterPostEvent(
-                          model: bloc.collaborator));
+                      bloc.add(CollaboratorRegisterPostEvent());
                     },
                     hoverColor: Colors.transparent,
                     icon: const Icon(
@@ -116,23 +109,11 @@ class _CollaboratorRegisterInterationPageState
             ),
             body: TabBarView(
               controller: _tabController,
-              children: <Widget>[
-                CollaboratorRegisterIdentificationWidget(
-                  bloc: bloc,
-                  collaborator: collaborator,
-                ),
-                CollaboratorRegisterAddressWidget(
-                  bloc: bloc,
-                  collaborator: collaborator,
-                ),
-                CollaboratorRegisterPhoneWidget(
-                  bloc: bloc,
-                  collaborator: collaborator,
-                ),
-                CollaboratorRegisterOthersWidget(
-                  bloc: bloc,
-                  collaborator: collaborator,
-                ),
+              children: const <Widget>[
+                CollaboratorRegisterIdentificationWidget(),
+                CollaboratorRegisterAddressWidget(),
+                CollaboratorRegisterPhoneWidget(),
+                CollaboratorRegisterOthersWidget(),
               ],
             ),
           );

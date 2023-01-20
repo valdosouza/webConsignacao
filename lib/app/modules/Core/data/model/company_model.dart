@@ -6,14 +6,12 @@ class CompanyModel extends CompanyEntity {
     String? cnpj,
     String? ie,
     String? iest,
-    String? dtFoundation,
     String? indIeDestinatario,
   }) : super(
           id: id ?? 0,
           cnpj: cnpj ?? "",
           ie: ie ?? "",
           iest: iest ?? "",
-          dtFoundation: dtFoundation ?? "",
           indIeDestinatario: indIeDestinatario ?? "",
         );
 
@@ -23,7 +21,6 @@ class CompanyModel extends CompanyEntity {
       cnpj: json['cnpj'] as String? ?? "",
       ie: json['ie'] as String? ?? "",
       iest: json['iest'] as String? ?? "",
-      dtFoundation: json['dt_foundation'] as String? ?? "",
       indIeDestinatario: json['ind_ie_destinatario'] as String? ?? "",
     );
   }
@@ -34,7 +31,6 @@ class CompanyModel extends CompanyEntity {
         cnpj.replaceAll(".", "").replaceAll("/", "").replaceAll("-", "");
     data['ie'] = ie;
     data['iest'] = iest;
-    data['dt_foundation'] = dtFoundation;
     data['ind_ie_destinatario'] = indIeDestinatario;
     return data;
   }
@@ -43,7 +39,6 @@ class CompanyModel extends CompanyEntity {
     return CompanyModel(
       id: 0,
       cnpj: "",
-      dtFoundation: "",
       ie: "",
       iest: "",
       indIeDestinatario: "",

@@ -16,7 +16,12 @@ class GetCnpjDatasourceImpl implements GetCnpjDatasource {
   Future<IdentificationCompanyModel> getCnpj(String cnpj) async {
     try {
       final uri = Uri.parse('https://www.receitaws.com.br/v1/cnpj/$cnpj');
-      final response = await client.get(uri);
+      final response = await client.get(
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        uri,
+      );
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         //Pega o codigo da Cidade

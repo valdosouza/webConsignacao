@@ -1,34 +1,30 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/line_business_register/linebusiness_register_module.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_bloc.dart';
-import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_events.dart';
-import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_states.dart';
-import 'package:appweb/app/modules/line_business_register/presentation/page/linebusiness_interaction_page.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_event.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_state.dart';
+import 'package:appweb/app/modules/line_business_register/presentation/page/linebusiness_register_interation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ContentDesktopLinebusinessRegister extends StatefulWidget {
-  const ContentDesktopLinebusinessRegister({super.key});
+class ContentDesktopLinebusiness extends StatefulWidget {
+  const ContentDesktopLinebusiness({super.key});
 
   @override
-  State<ContentDesktopLinebusinessRegister> createState() =>
-      _ContentDesktopLinebusinessRegisterState();
+  State<ContentDesktopLinebusiness> createState() =>
+      _ContentDesktopLinebusinessState();
 }
 
-class _ContentDesktopLinebusinessRegisterState
-    extends State<ContentDesktopLinebusinessRegister> {
+class _ContentDesktopLinebusinessState
+    extends State<ContentDesktopLinebusiness> {
   late final LinebusinessRegisterBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<LinebusinessRegisterModule>();
-    });
     bloc = Modular.get<LinebusinessRegisterBloc>();
-    bloc.add(LinebusinessRegisterGetListEvent());
+    bloc.add(LinebusinessGetListEvent());
   }
 
   @override
@@ -36,41 +32,38 @@ class _ContentDesktopLinebusinessRegisterState
     return BlocConsumer<LinebusinessRegisterBloc, LinebusinessRegisterState>(
       bloc: bloc,
       listener: (context, state) {
-        if (state is LinebusinessRegisterErrorState) {
+        if (state is LinebusinessErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar a lista. Tente novamente mais tarde.");
-        } else if (state is LinebusinessRegisterAddSuccessState) {
-          CustomToast.showToast("Cargo adicionado com sucesso.");
-        } else if (state is LinebusinessRegisterAddErrorState) {
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
+        } else if (state is LinebusinessAddSuccessState) {
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
+        } else if (state is LinebusinessAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar Cargo. Tente novamente mais tarde.");
-        } else if (state is LinebusinessRegisterEditSuccessState) {
-          CustomToast.showToast("Cargo editado com sucesso.");
-        } else if (state is LinebusinessRegisterEditErrorState) {
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
+        } else if (state is LinebusinessEditSuccessState) {
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
+        } else if (state is LinebusinessEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar Cargo. Tente novamente mais tarde.");
+              "Erro ao atualizar Lista o cadastro. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
-        if (state is LinebusinessRegisterLoadingState) {
+        if (state is LinebusinessLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is LinebusinessRegisterInfoPageState) {
-          return LinebusinessRegisterInterationPage(
-            model: state.model,
-            index: state.list.last.id,
-          );
+        } else if (state is LinebusinessInfoPageState) {
+          return const LinebusinessInterationPage();
         }
         final prices = state.list;
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Cargos'),
+            title: const Text('Lista de cargos'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(LinebusinessRegisterInfoEvent());
+                  bloc.add(LinebusinessAddEvent());
                 },
               ),
             ],
@@ -88,13 +81,13 @@ class _ContentDesktopLinebusinessRegisterState
                     child: prices.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum dado em nossa base."))
+                                "Não encontramos nenhum registro em nossa base."))
                         : ListView.separated(
                             itemCount: prices.length,
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
-                                bloc.add(LinebusinessRegisterInfoEvent(
-                                    model: prices[index]));
+                                bloc.model = prices[index];
+                                bloc.add(LinebusinessEditEvent());
                               },
                               child: ListTile(
                                 leading: CircleAvatar(
@@ -137,7 +130,7 @@ class _ContentDesktopLinebusinessRegisterState
         keyboardType: TextInputType.text,
         autofocus: true,
         onChanged: (value) {
-          bloc.add(LinebusinessRegisterSearchEvent(search: value));
+          bloc.add(LinebusinessSearchEvent(search: value));
         },
         style: const TextStyle(
           color: Colors.white,

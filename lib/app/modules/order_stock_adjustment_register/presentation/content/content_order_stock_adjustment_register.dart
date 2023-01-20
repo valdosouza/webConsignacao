@@ -9,20 +9,20 @@ import 'package:flutter/material.dart';
 statesOrderStockAdjustments(OrderStockAdjustmentRegisterState state) {
   if (state is OrderStockAdjustmentRegisterErrorState) {
     CustomToast.showToast(
-        "Erro ao buscar ordem de ajuste de estoque. Tente novamente mais tarde");
+        "Erro ao buscar os dados. Tente novamente mais tarde");
   } else if (state is OrderStockAdjustmentRegisterPostSuccessState) {
-    CustomToast.showToast("Ordem de ajuste de estoque adicionada com sucesso.");
+    CustomToast.showToast("Cadastro atualizado com sucesso.");
   } else if (state is OrderStockAdjustmentRegisterPutSuccessState) {
-    CustomToast.showToast("Ordem de ajuste de estoque editada com sucesso.");
+    CustomToast.showToast("Cadastro atualizado com sucesso.");
   } else if (state is OrderStockAdjustmentRegisterPostErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao adicionar a ordem de ajuste de estoque. Tente novamente mais tarde.");
+        "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
   } else if (state is OrderStockAdjustmentRegisterPutErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao editar ordem de ajuste de estoque. Tente novamente mais tarde.");
+        "Erro editar o cadastro. Tente novamente mais tarde.");
   } else if (state is OrderStockAdjustmentRegisterGetErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao buscar os dados da ordem de ajuste de estoque. Tente novamente mais tarde.");
+        "Erro ao buscar os dados do cadastro. Tente novamente mais tarde.");
   }
 }
 

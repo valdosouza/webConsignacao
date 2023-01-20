@@ -34,17 +34,17 @@ class _ContentDesktopPriceListRegisterState
       listener: (context, state) {
         if (state is PriceListRegisterErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar a lista. Tente novamente mais tarde.");
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
         } else if (state is PriceListRegisterAddSuccessState) {
-          CustomToast.showToast("Lista de Preço adicionado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is PriceListRegisterAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar Lista de preço. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is PriceListRegisterEditSuccessState) {
-          CustomToast.showToast("Lista de Preço editado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is PriceListRegisterEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar Lista de preço. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -81,7 +81,7 @@ class _ContentDesktopPriceListRegisterState
                     child: prices.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum dado em nossa base."))
+                                "Não encontramos nenhum registro em nossa base."))
                         : ListView.separated(
                             itemCount: prices.length,
                             itemBuilder: (context, index) => InkWell(

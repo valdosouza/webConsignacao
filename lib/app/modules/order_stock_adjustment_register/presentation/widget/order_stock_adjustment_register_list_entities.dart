@@ -91,7 +91,7 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
               child: state.entity.isEmpty
                   ? const Center(
                       child: Text(
-                          "Não encontramos nenhuma entidade em nossa base."))
+                          "Não encontramos nenhum registro em nossa base."))
                   : ListView.separated(
                       itemCount: state.entity.length,
                       itemBuilder: (context, index) => InkWell(
@@ -106,8 +106,7 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
                           leading: CircleAvatar(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child:
-                                  Text(state.entity[index].id.toString()),
+                              child: Text(state.entity[index].id.toString()),
                             ),
                           ),
                           title: Column(

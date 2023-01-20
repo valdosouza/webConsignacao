@@ -82,14 +82,14 @@ class _CollaboratorRegisterListsPageState
                       child: state.states.isEmpty
                           ? const Center(
                               child: Text(
-                                  "Não encontramos nenhum estado em nossa base."))
+                                  "Não encontramos nenhum registro em nossa base."))
                           : ListView.separated(
                               itemCount: state.states.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
-                                  bloc.collaborator.address.tbStateId =
+                                  bloc.model.address.tbStateId =
                                       state.states[index].id;
-                                  bloc.collaborator.address.stateName =
+                                  bloc.model.address.stateName =
                                       state.states[index].name;
                                   bloc.add(CollaboratorRegisterReturnEvent(
                                       index: 1));
@@ -154,14 +154,14 @@ class _CollaboratorRegisterListsPageState
                       child: state.cities.isEmpty
                           ? const Center(
                               child: Text(
-                                  "Não encontramos nenhuma cidade em nossa base."))
+                                  "Não encontramos nenhum registro em nossa base."))
                           : ListView.separated(
                               itemCount: state.cities.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
-                                  bloc.collaborator.address.tbCityId =
+                                  bloc.model.address.tbCityId =
                                       state.cities[index].id;
-                                  bloc.collaborator.address.cityName =
+                                  bloc.model.address.cityName =
                                       state.cities[index].name;
                                   bloc.add(CollaboratorRegisterReturnEvent(
                                       index: 1));
@@ -225,14 +225,14 @@ class _CollaboratorRegisterListsPageState
                       child: state.linebusiness.isEmpty
                           ? const Center(
                               child: Text(
-                                  "Não encontramos nenhum vendedor em nossa base."))
+                                  "Não encontramos nenhum registro em nossa base."))
                           : ListView.separated(
                               itemCount: state.linebusiness.length,
                               itemBuilder: (context, index) => InkWell(
                                 onTap: () {
-                                  bloc.collaborator.entity.tbLineBusinessId =
+                                  bloc.model.entity.tbLineBusinessId =
                                       state.linebusiness[index].id;
-                                  bloc.collaborator.entity.nameLinebusiness =
+                                  bloc.model.entity.nameLinebusiness =
                                       state.linebusiness[index].description;
                                   bloc.add(CollaboratorRegisterReturnEvent(
                                       index: 3));

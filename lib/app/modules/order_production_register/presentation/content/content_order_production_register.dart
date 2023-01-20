@@ -9,20 +9,20 @@ import 'package:flutter/material.dart';
 statesOrderProductions(OrderProductionRegisterState state) {
   if (state is OrderGetErrorState) {
     CustomToast.showToast(
-        "Erro ao buscar ordem de produção. Tente novamente mais tarde");
+        "Erro ao buscar os dados. Tente novamente mais tarde");
   } else if (state is OrderPostSuccessState) {
-    CustomToast.showToast("Ordem de produção adicionada com sucesso.");
+    CustomToast.showToast("Cadastro atualizado com sucesso.");
   } else if (state is OrderPutSuccessState) {
-    CustomToast.showToast("Ordem de produção editada com sucesso.");
+    CustomToast.showToast("Cadastro atualizado com sucesso.");
   } else if (state is OrderPostErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao adicionar a ordem de produção. Tente novamente mais tarde.");
+        "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
   } else if (state is OrderPutErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao editar ordem de produção. Tente novamente mais tarde.");
+        "Erro editar o cadastro. Tente novamente mais tarde.");
   } else if (state is OrderGetErrorState) {
     CustomToast.showToast(
-        "Ocorreu um erro ao buscar os dados da ordem de produção. Tente novamente mais tarde.");
+        "Erro ao buscar os dados do cadastro. Tente novamente mais tarde.");
   }
 }
 

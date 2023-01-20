@@ -39,8 +39,7 @@ class _ContentCashierStatementState extends State<ContentCashierStatement> {
           }
           if (bloc.cashierStatement.isEmpty) {
             return const Center(
-                child:
-                    Text("Não encontramos nenhuma registro em nossas bases"));
+                child: Text("Não encontramos nenhum registro em nossa base."));
           }
           return CustomScrollView(slivers: listOfCashier());
         });

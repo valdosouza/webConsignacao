@@ -47,7 +47,7 @@ class OrderSaleRegisterPageMobileState
       listener: (context, state) {
         if (state is OrderSaleGetNewCardListErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar os itens para venda. Tente novamente mais tarde");
+              "Erro ao buscar os dados. Tente novamente mais tarde");
           Modular.to.navigate('/attendance/');
         } else if (state is OrderSaleCardPostErrorState) {
           CustomToast.showToast("Erro ao gravar a venda.Tente novamente");

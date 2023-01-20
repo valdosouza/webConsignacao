@@ -87,8 +87,8 @@ class OrderProductionRegisterProductsListWidgetState
             Expanded(
               child: bloc.products.isEmpty
                   ? const Center(
-                      child:
-                          Text("Não encontramos nenhum produto em nossa base."))
+                      child: Text(
+                          "Não encontramos nenhum registro em nossa base."))
                   : ListView.separated(
                       itemCount: bloc.products.length,
                       itemBuilder: (context, index) => InkWell(

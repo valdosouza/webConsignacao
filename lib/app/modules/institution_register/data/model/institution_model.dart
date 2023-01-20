@@ -13,7 +13,6 @@ class InstitutionModel extends InstitutionEntity {
     required String? ie,
     required String? im,
     required String? iest,
-    required String? dtFoundation,
     required String? crt,
     required String? crtModal,
     required String? indIeDestinatario,
@@ -51,7 +50,6 @@ class InstitutionModel extends InstitutionEntity {
           ie: ie ?? "",
           im: im ?? "",
           iest: iest ?? "",
-          dtFoundation: dtFoundation ?? "",
           crt: crt ?? "",
           crtModal: crtModal ?? "",
           indIeDestinatario: indIeDestinatario ?? "",
@@ -92,7 +90,6 @@ class InstitutionModel extends InstitutionEntity {
       ie: json['ie'],
       im: json['im'],
       iest: json['iest'],
-      dtFoundation: json['dt_foundation'],
       crt: json['crt'],
       crtModal: json['crt_modal'],
       indIeDestinatario: json['ind_ie_destinatario'],
@@ -134,7 +131,6 @@ class InstitutionModel extends InstitutionEntity {
     data['ie'] = ie;
     data['im'] = im;
     data['iest'] = iest;
-    data['dt_foundation'] = dtFoundation;
     data['crt'] = crt;
     data['crt_modal'] = crtModal;
     data['ind_ie_destinatario'] = indIeDestinatario;
@@ -173,7 +169,6 @@ class InstitutionModel extends InstitutionEntity {
       ie: "",
       im: "",
       iest: "",
-      dtFoundation: "",
       crt: "",
       crtModal: "",
       indIeDestinatario: "",

@@ -86,7 +86,7 @@ class CustomerRegisterCityListWidgetState
                 child: state.cities.isEmpty
                     ? const Center(
                         child: Text(
-                            "Não encontramos nenhuma cidade em nossa base."))
+                            "Não encontramos nenhum registro em nossa base."))
                     : ListView.separated(
                         itemCount: state.cities.length,
                         itemBuilder: (context, index) => InkWell(

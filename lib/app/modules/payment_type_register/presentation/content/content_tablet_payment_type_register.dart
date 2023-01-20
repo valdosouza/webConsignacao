@@ -5,6 +5,6 @@ class ContentTabletPaymentTypeRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Cadastro Forma de Pagamento - Tablet"));
+    return const Center(child: Text("Tabela de preço - Tablet"));
   }
 }

@@ -34,22 +34,22 @@ class _ContentDesktopUserRegisterState
       listener: (context, state) {
         if (state is UserRegisterErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar os usuários. Tente novamente mais tarde.");
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
         } else if (state is UserRegisterSuccessState) {
-          CustomToast.showToast("Usuário adicionado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is UserRegisterAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar o usuário. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is UserRegisterEditSuccessState) {
-          CustomToast.showToast("Usuário editado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is UserRegisterEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar o usuário. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is UserRegisterDeleteSuccessState) {
-          CustomToast.showToast("Usuário removido com sucesso.");
+          CustomToast.showToast("Cadastro removido com sucesso.");
         } else if (state is UserRegisterDeleteErrorState) {
           CustomToast.showToast(
-              "Erro ao remover o usuário. Tente novamente mais tarde.");
+              "Erro ao remover o cadastro. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -89,7 +89,7 @@ class _ContentDesktopUserRegisterState
                     child: users.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum usuário em nossa base."))
+                                "Não encontramos nenhum registro em nossa base."))
                         : ListView.separated(
                             itemCount: users.length,
                             itemBuilder: (context, index) => InkWell(

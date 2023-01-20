@@ -3,7 +3,6 @@ class CompanyEntity {
   String cnpj;
   String ie;
   String iest;
-  String dtFoundation;
   String indIeDestinatario;
 
   CompanyEntity({
@@ -11,7 +10,6 @@ class CompanyEntity {
     this.cnpj = "",
     this.ie = "",
     this.iest = "",
-    this.dtFoundation = "",
     this.indIeDestinatario = "",
   });
 }

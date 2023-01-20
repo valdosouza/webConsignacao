@@ -9,7 +9,6 @@ class InstitutionEntity {
   String ie;
   String im;
   String iest;
-  String dtFoundation;
   String crt;
   String crtModal;
   String indIeDestinatario;
@@ -48,7 +47,6 @@ class InstitutionEntity {
     this.ie = "",
     this.im = "",
     this.iest = "",
-    this.dtFoundation = "",
     this.crt = "",
     this.crtModal = "",
     this.indIeDestinatario = "",

@@ -87,7 +87,7 @@ class OrderStockTransferRegisterEntitiesListWidgetState
               child: bloc.entities.isEmpty
                   ? const Center(
                       child: Text(
-                          "Não encontramos nenhuma entidade em nossa base."))
+                          "Não encontramos nenhum registro em nossa base."))
                   : ListView.separated(
                       itemCount: bloc.entities.length,
                       itemBuilder: (context, index) => InkWell(

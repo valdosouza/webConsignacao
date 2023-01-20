@@ -63,7 +63,7 @@ class _ContentCustomerRegisterDesktopState
         listener: (context, state) {
           if (state is CustomerRegisterCnpjErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
+                "Erro ao buscar os dados. Tente novamente mais tarde.");
           }
         },
         builder: (context, state) {

@@ -68,11 +68,11 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
         listener: (context, state) {
           if (state is OrderStockAdjustmentRegisterStockErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao buscar por estoque. Tente novamente mais tarde.");
+                "Erro ao buscar os dados. Tente novamente mais tarde.");
           }
           if (state is OrderStockAdjustmentRegisterProductErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao buscar por produto. Tente novamente mais tarde.");
+                "Erro ao buscar os dados. Tente novamente mais tarde.");
           }
         },
         builder: (context, state) {

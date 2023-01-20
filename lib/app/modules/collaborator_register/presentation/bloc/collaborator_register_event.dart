@@ -1,5 +1,3 @@
-import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
-
 abstract class CollaboratorRegisterEvent {}
 
 class CollaboratorRegisterGetListEvent extends CollaboratorRegisterEvent {}
@@ -59,11 +57,7 @@ class CollaboratorRegisterSearchCityEvent extends CollaboratorRegisterEvent {
 }
 
 class CollaboratorRegisterPostEvent extends CollaboratorRegisterEvent {
-  CollaboratorMainModel model;
-
-  CollaboratorRegisterPostEvent({
-    required this.model,
-  });
+  CollaboratorRegisterPostEvent();
 }
 
 class CollaboratorRegisterGetLineBusinessEvent

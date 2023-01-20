@@ -33,17 +33,17 @@ class _ContentDesktopStockListState extends State<ContentDesktopStockList> {
       listener: (context, state) {
         if (state is StockListErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar a lista. Tente novamente mais tarde.");
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
         } else if (state is StockListAddSuccessState) {
-          CustomToast.showToast("Lista de Preço adicionado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is StockListAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar Lista de preço. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is StockListEditSuccessState) {
-          CustomToast.showToast("Lista de Preço editado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is StockListEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar Lista de preço. Tente novamente mais tarde.");
+              "Erro ao atualizar Lista de Estoque. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -82,7 +82,7 @@ class _ContentDesktopStockListState extends State<ContentDesktopStockList> {
                     child: stocks.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum dado em nossa base."))
+                                "Não encontramos nenhum registro em nossa base."))
                         : ListView.separated(
                             itemCount: stocks.length,
                             itemBuilder: (context, index) => InkWell(

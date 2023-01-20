@@ -47,7 +47,7 @@ class ContentOrderStockTransferRegisterDetailState
       padding: const EdgeInsets.all(16.0),
       child: orderItemsFiltered.isEmpty
           ? const Center(
-              child: Text("Não encontramos nenhum produto em nossa base."))
+              child: Text("Não encontramos nenhum registro em nossa base."))
           : ListView.separated(
               itemCount: orderItemsFiltered.length,
               itemBuilder: (context, index) => InkWell(

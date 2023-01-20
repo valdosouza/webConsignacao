@@ -53,7 +53,8 @@ class OrderStockTransferRegisterPageDesktopState
         }
 
         if ((state is OrderGetLoadedState) ||
-            (state is OrderReturnMasterState)) {
+            (state is OrderReturnMasterState) ||
+            (state is OrderNewLoadedState)) {
           return ContentOrderStockTransferRegisterDesktop(
             tabIndex: bloc.tabIndex,
           );

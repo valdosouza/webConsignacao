@@ -52,27 +52,27 @@ class _ContentDesktopInstitutionRegisterState
         bloc: bloc,
         listener: (context, state) {
           if (state is InstitutionPostSuccessState) {
-            CustomToast.showToast("Cadastro realizado com sucesso.");
+            CustomToast.showToast("Cadastro atualizado com sucesso.");
           } else if (state is InstitutionPutSuccessState) {
             CustomToast.showToast("Cadastro atualizado com sucesso.");
           } else if (state is InstitutionPostErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao salvar. Tente novamente mais tarde.");
+                "Erro ao atualizar o cadstro. Tente novamente mais tarde.");
           } else if (state is InstitutionPutErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao atualizar. Tente novamente mais tarde.");
+                "Erro ao atualizar o cadstro. Tente novamente mais tarde.");
           } else if (state is InstitutionGetErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao buscar seu estabelecimento. Tente novamente mais tarde.");
+                "Erro ao buscar os dados do cadastro. Tente novamente mais tarde.");
           } else if (state is InstitutionCnpjErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
+                "Em erro ao buscar os dados. Tente novamente mais tarde.");
           } else if (state is InstitutionGetCityErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao buscar a lista de cidades. Tente novamente mais tarde.");
+                "Erro ao buscar os dados. Tente novamente mais tarde.");
           } else if (state is InstitutionGetStatesErrorState) {
             CustomToast.showToast(
-                "Ocorreu um erro ao buscar a lista de estados. Tente novamente mais tarde.");
+                "Erro ao buscar os dados. Tente novamente mais tarde.");
           } else if (state is InstitutionReturnedState) {
             _tabController.animateTo(1);
           }

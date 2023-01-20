@@ -1,16 +1,25 @@
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class CollaboratorRegisterPhoneWidget extends StatelessWidget {
-  final CollaboratorRegisterBloc bloc;
-  final CollaboratorMainModel? collaborator;
-  const CollaboratorRegisterPhoneWidget({
-    super.key,
-    this.collaborator,
-    required this.bloc,
-  });
+class CollaboratorRegisterPhoneWidget extends StatefulWidget {
+  const CollaboratorRegisterPhoneWidget({super.key});
+
+  @override
+  State<CollaboratorRegisterPhoneWidget> createState() =>
+      _CollaboratorRegisterPhoneWidgetState();
+}
+
+class _CollaboratorRegisterPhoneWidgetState
+    extends State<CollaboratorRegisterPhoneWidget> {
+  late final CollaboratorRegisterBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = Modular.get<CollaboratorRegisterBloc>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +30,11 @@ class CollaboratorRegisterPhoneWidget extends StatelessWidget {
         children: [
           CustomInput(
             title: 'Telefone',
-            initialValue: collaborator?.phone?.number,
+            initialValue: bloc.model.phone?.number,
             keyboardType: TextInputType.number,
             inputAction: TextInputAction.next,
             onChanged: (value) {
-              collaborator?.phone?.number = value;
+              bloc.model.phone?.number = value;
             },
           ),
         ],

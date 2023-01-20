@@ -1,5 +1,3 @@
-import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
-
 abstract class PaymentTypeRegisterEvent {}
 
 class PaymentTypeRegisterGetListEvent extends PaymentTypeRegisterEvent {}
@@ -13,18 +11,17 @@ class PaymentTypeRegisterSearchEvent extends PaymentTypeRegisterEvent {
 }
 
 class PaymentTypeRegisterPutEvent extends PaymentTypeRegisterEvent {
-  final PaymentTypeModel model;
-
-  PaymentTypeRegisterPutEvent({required this.model});
+  PaymentTypeRegisterPutEvent();
 }
 
 class PaymentTypeRegisterPostEvent extends PaymentTypeRegisterEvent {
-  final PaymentTypeModel model;
-
-  PaymentTypeRegisterPostEvent({required this.model});
+  PaymentTypeRegisterPostEvent();
 }
 
-class PaymentTypeRegisterInfoEvent extends PaymentTypeRegisterEvent {
-  final PaymentTypeModel? model;
-  PaymentTypeRegisterInfoEvent({this.model});
+class PaymentTypeRegisterAddEvent extends PaymentTypeRegisterEvent {
+  PaymentTypeRegisterAddEvent();
+}
+
+class PaymentTypeRegisterEditEvent extends PaymentTypeRegisterEvent {
+  PaymentTypeRegisterEditEvent();
 }

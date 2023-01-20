@@ -6,14 +6,14 @@ import 'package:appweb/app/modules/payment_type_register/domain/repository/payme
 import 'package:dartz/dartz.dart';
 
 class PaymentTypeRegisterGetlist
-    implements UseCase<List<PaymentTypeModel>, ParamsPaymentTypeRegisterGet> {
+    implements UseCase<List<PaymentTypeModel>, ParamsPaymentTypeGet> {
   final PaymentTypeRegisterRepository repository;
 
   PaymentTypeRegisterGetlist({required this.repository});
 
   @override
   Future<Either<Failure, List<PaymentTypeModel>>> call(
-      ParamsPaymentTypeRegisterGet params) async {
+      ParamsPaymentTypeGet params) async {
     try {
       final list = await repository.getList();
       return list;
@@ -23,6 +23,6 @@ class PaymentTypeRegisterGetlist
   }
 }
 
-class ParamsPaymentTypeRegisterGet {
-  ParamsPaymentTypeRegisterGet();
+class ParamsPaymentTypeGet {
+  ParamsPaymentTypeGet();
 }

@@ -76,14 +76,14 @@ class LinebusinessRegisterDataSourceImpl
     try {
       final tbInstitutionId = await getInstitutionId();
       model.tbInstitutionId = tbInstitutionId;
-
+      final bodyContent = jsonEncode(model.toJson());
       final uri = Uri.parse('${baseApiUrl}linebusiness');
       final response = await httpClient.put(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(model.toJson()),
+        body: bodyContent,
       );
 
       if (response.statusCode == 200) {

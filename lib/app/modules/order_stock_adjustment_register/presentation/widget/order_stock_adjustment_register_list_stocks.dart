@@ -90,8 +90,8 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
             Expanded(
               child: state.stock.isEmpty
                   ? const Center(
-                      child:
-                          Text("Não encontramos nenhum estoque em nossa base."))
+                      child: Text(
+                          "Não encontramos nenhum registro em nossa base."))
                   : ListView.separated(
                       itemCount: state.stock.length,
                       itemBuilder: (context, index) => InkWell(

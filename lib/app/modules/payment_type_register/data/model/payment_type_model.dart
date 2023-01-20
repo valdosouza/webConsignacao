@@ -24,6 +24,15 @@ class PaymentTypeModel extends PaymentTypeEntity {
     );
   }
 
+  factory PaymentTypeModel.empty() {
+    return PaymentTypeModel(
+      id: 0,
+      tbInstitutionId: 0,
+      description: "",
+      active: "S",
+    );
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

@@ -36,7 +36,7 @@ class _ContentMobileProductState extends State<ContentMobileProduct> {
       listener: (context, state) {
         if (state is ProductPriceListMobileErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar a lista. Tente novamente mais tarde.");
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {

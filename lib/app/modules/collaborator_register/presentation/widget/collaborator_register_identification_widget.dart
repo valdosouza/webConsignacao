@@ -2,21 +2,13 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/collaborator_register/collaborator_register_module.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_event.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CollaboratorRegisterIdentificationWidget extends StatefulWidget {
-  final CollaboratorRegisterBloc bloc;
-  final CollaboratorMainModel? collaborator;
-  const CollaboratorRegisterIdentificationWidget({
-    super.key,
-    this.collaborator,
-    required this.bloc,
-  });
+  const CollaboratorRegisterIdentificationWidget({super.key});
 
   @override
   State<CollaboratorRegisterIdentificationWidget> createState() =>
@@ -27,14 +19,13 @@ class _CollaboratorRegisterIdentificationWidgetState
     extends State<CollaboratorRegisterIdentificationWidget> {
   bool selectPersonType = false;
   bool selectWallet = false;
+
+  late final CollaboratorRegisterBloc bloc;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<CollaboratorRegisterModule>();
-    });
-
-    selectPersonType = widget.collaborator?.company?.cnpj.isNotEmpty == true;
+    bloc = Modular.get<CollaboratorRegisterBloc>();
   }
 
   @override
@@ -99,15 +90,15 @@ class _CollaboratorRegisterIdentificationWidgetState
       children: [
         CustomInput(
           title: 'CNPJ',
-          initialValue: widget.collaborator?.company?.cnpj,
+          initialValue: bloc.model.company?.cnpj,
           keyboardType: TextInputType.number,
           inputAction: TextInputAction.next,
           sufixIcon: IconButton(
             hoverColor: Colors.transparent,
             onPressed: () {
-              if (widget.collaborator?.company?.cnpj.length == 14) {
-                widget.bloc.add(CollaboratorRegisterCnpjEvent(
-                    widget.collaborator!.company!.cnpj));
+              if (bloc.model.company?.cnpj.length == 14) {
+                bloc.add(
+                    CollaboratorRegisterCnpjEvent(bloc.model.company!.cnpj));
               } else {
                 CustomToast.showToast("CNPJ inválido.");
               }
@@ -120,37 +111,37 @@ class _CollaboratorRegisterIdentificationWidgetState
           ),
           validator: (value) => Validators.validateCNPJ(value),
           onChanged: (value) {
-            widget.collaborator?.company?.cnpj = value;
+            bloc.model.company?.cnpj = value;
           },
         ),
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'Nome/Razão Social',
-          initialValue: widget.collaborator?.entity.nameCompany,
+          initialValue: bloc.model.entity.nameCompany,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.collaborator?.entity.nameCompany = value;
+            bloc.model.entity.nameCompany = value;
           },
         ),
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'Nome Fantasia',
-          initialValue: widget.collaborator?.entity.nickTrade,
+          initialValue: bloc.model.entity.nickTrade,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.collaborator?.entity.nickTrade = value;
+            bloc.model.entity.nickTrade = value;
           },
         ),
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'Inscrição Estadual',
-          initialValue: widget.collaborator?.company?.ie,
+          initialValue: bloc.model.company?.ie,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.done,
           onChanged: (value) {
-            widget.collaborator?.company?.ie = value;
+            bloc.model.company?.ie = value;
           },
         ),
       ],
@@ -162,41 +153,41 @@ class _CollaboratorRegisterIdentificationWidgetState
       children: [
         CustomInput(
           title: 'CPF',
-          initialValue: widget.collaborator?.person?.cpf,
+          initialValue: bloc.model.person?.cpf,
           keyboardType: TextInputType.number,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.collaborator?.person?.cpf = value;
+            bloc.model.person?.cpf = value;
           },
         ),
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'Nome',
-          initialValue: widget.collaborator?.entity.nameCompany,
+          initialValue: bloc.model.entity.nameCompany,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.collaborator?.entity.nameCompany = value;
+            bloc.model.entity.nameCompany = value;
           },
         ),
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'Apelido',
-          initialValue: widget.collaborator?.entity.nickTrade,
+          initialValue: bloc.model.entity.nickTrade,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.collaborator?.entity.nickTrade = value;
+            bloc.model.entity.nickTrade = value;
           },
         ),
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'R.G',
-          initialValue: widget.collaborator?.person?.rg,
+          initialValue: bloc.model.person?.rg,
           keyboardType: TextInputType.number,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.collaborator?.person?.rg = value;
+            bloc.model.person?.rg = value;
           },
         ),
       ],

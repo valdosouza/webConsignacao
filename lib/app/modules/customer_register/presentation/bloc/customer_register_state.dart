@@ -69,19 +69,6 @@ class CustomerRegisterPostErrorState extends CustomerRegisterState {
       : super(customers: customers);
 }
 
-/*------------------------PUT - Customer----------------------------------*/
-class CustomerRegisterPutSuccessState extends CustomerRegisterState {
-  CustomerRegisterPutSuccessState(List<CustomerListModel> customers)
-      : super(customers: customers);
-}
-
-class CustomerRegisterPutErrorState extends CustomerRegisterState {
-  final String error;
-
-  CustomerRegisterPutErrorState(List<CustomerListModel> customers, this.error)
-      : super(customers: customers);
-}
-
 /*------------------------Getlist - Customer----------------------------------*/
 class CustomerRegisterLoadedState extends CustomerRegisterState {
   CustomerRegisterLoadedState({

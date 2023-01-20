@@ -1,7 +1,6 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/collaborator_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 import 'package:appweb/app/modules/line_business_register/data/model/linebusiness_model.dart';
 
 abstract class CollaboratorRegisterState {
@@ -41,11 +40,9 @@ class CollaboratorRegisterGetErrorState extends CollaboratorRegisterState {
 }
 
 class CollaboratorRegisterInfoPageState extends CollaboratorRegisterState {
-  final CollaboratorMainModel model;
   final int tabIndex;
   CollaboratorRegisterInfoPageState({
     required List<CollaboratorListModel> modelList,
-    required this.model,
     required this.tabIndex,
   }) : super(modelList: modelList);
 }

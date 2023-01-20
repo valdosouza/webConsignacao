@@ -35,17 +35,17 @@ class _ContentDesktopSalesRouteRegisterState
       listener: (context, state) {
         if (state is SalesRouteRegisterErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar a lista. Tente novamente mais tarde.");
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
         } else if (state is SalesRouteRegisterAddSuccessState) {
-          CustomToast.showToast("Lista de Rotas adicionado com sucesso.");
+          CustomToast.showToast("Cadastro adicionado com sucesso.");
         } else if (state is SalesRouteRegisterAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar Lista de Rotas. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is SalesRouteRegisterEditSuccessState) {
-          CustomToast.showToast("Lista de Rotas editado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is SalesRouteRegisterEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar Lista de Rotas. Tente novamente mais tarde.");
+              "Erro ao atualizar cadastro. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -84,7 +84,7 @@ class _ContentDesktopSalesRouteRegisterState
                     child: routes.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum dado em nossa base."))
+                                "Não encontramos nenhum registro em nossa base."))
                         : ListView.separated(
                             itemCount: routes.length,
                             itemBuilder: (context, index) => InkWell(

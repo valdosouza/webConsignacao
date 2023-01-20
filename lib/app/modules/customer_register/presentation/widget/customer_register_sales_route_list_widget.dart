@@ -86,8 +86,8 @@ class _CustomerRegisterSalesRouteListWidgetState
               Expanded(
                 child: state.salesroute.isEmpty
                     ? const Center(
-                        child:
-                            Text("Não encontramos nenhuma rota em nossa base."))
+                        child: Text(
+                            "Não encontramos nenhum registro em nossa base."))
                     : ListView.separated(
                         itemCount: state.salesroute.length,
                         itemBuilder: (context, index) => InkWell(

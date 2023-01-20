@@ -40,23 +40,21 @@ class _ContentDesktopCollaboratorRegisterState
       listener: (context, state) {
         if (state is CollaboratorRegisterErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar os colaboradores. Tente novamente mais tarde");
+              "Erro ao buscar os dados. Tente novamente mais tarde");
         } else if (state is CollaboratorRegisterCnpjErrorState) {
           CustomToast.showToast(
-              "Ocorreu um erro ao buscar por cnpj. Tente novamente mais tarde.");
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
         } else if (state is CollaboratorRegisterPostAddSuccessState) {
-          CustomToast.showToast("Colaborador adicionado com sucesso.");
-        } else if (state is CollaboratorRegisterPostEditSuccessState) {
-          CustomToast.showToast("Colaborador editado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is CollaboratorRegisterPostAddErrorState) {
           CustomToast.showToast(
-              "Ocorreu um erro ao adicionar o colaborador. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is CollaboratorRegisterPostEditErrorState) {
           CustomToast.showToast(
-              "Ocorreu um erro ao editar o colaborador. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is CollaboratorRegisterGetErrorState) {
           CustomToast.showToast(
-              "Ocorreu um erro ao buscar os dados do colaboradores. Tente novamente mais tarde.");
+              "Erro ao buscar os dados do cadastro. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -73,7 +71,6 @@ class _ContentDesktopCollaboratorRegisterState
 
         if (state is CollaboratorRegisterInfoPageState) {
           return CollaboratorRegisterInterationPage(
-            collaborator: state.model,
             tabIndex: state.tabIndex,
           );
         }
@@ -88,7 +85,7 @@ class _ContentDesktopCollaboratorRegisterState
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.collaborator = CollaboratorMainModel.empty();
+                  bloc.model = CollaboratorMainModel.empty();
                   bloc.add(CollaboratorRegisterInfoEvent());
                 },
               ),

@@ -1,9 +1,9 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_bloc.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_events.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_states.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/page/payment_type_interaction_page.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_event.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_state.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/page/payment_type_register_interation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -22,9 +22,9 @@ class _ContentDesktopPaymentTypeRegisterState
 
   @override
   void initState() {
+    super.initState();
     bloc = Modular.get<PaymentTypeRegisterBloc>();
     bloc.add(PaymentTypeRegisterGetListEvent());
-    super.initState();
   }
 
   @override
@@ -34,17 +34,17 @@ class _ContentDesktopPaymentTypeRegisterState
       listener: (context, state) {
         if (state is PaymentTypeRegisterErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar a lista. Tente novamente mais tarde.");
+              "Erro ao buscar os dados. Tente novamente mais tarde.");
         } else if (state is PaymentTypeRegisterAddSuccessState) {
-          CustomToast.showToast("Forma de Pagamento adicionado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is PaymentTypeRegisterAddErrorState) {
           CustomToast.showToast(
-              "Erro ao adicionar Forma de Pagamento. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is PaymentTypeRegisterEditSuccessState) {
-          CustomToast.showToast("Forma de Pagamento editado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is PaymentTypeRegisterEditErrorState) {
           CustomToast.showToast(
-              "Erro ao editar Forma de Pagamento. Tente novamente mais tarde.");
+              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {
@@ -53,20 +53,17 @@ class _ContentDesktopPaymentTypeRegisterState
             child: CircularProgressIndicator(),
           );
         } else if (state is PaymentTypeRegisterInfoPageState) {
-          return PaymentTypeRegisterInterationPage(
-            model: state.model,
-            index: state.list.last.id,
-          );
+          return const PaymentTypeRegisterInterationPage();
         }
-        final prices = state.list;
+        final paymentsType = state.list;
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Formas de Pagamentos'),
+            title: const Text('Lista de forma de pagamentos'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.person_add),
                 onPressed: () {
-                  bloc.add(PaymentTypeRegisterInfoEvent());
+                  bloc.add(PaymentTypeRegisterAddEvent());
                 },
               ),
             ],
@@ -81,16 +78,16 @@ class _ContentDesktopPaymentTypeRegisterState
                   _buildSearchInput(),
                   const SizedBox(height: 30.0),
                   Expanded(
-                    child: prices.isEmpty
+                    child: paymentsType.isEmpty
                         ? const Center(
                             child: Text(
-                                "Não encontramos nenhum dado em nossa base."))
+                                "Não encontramos nenhum registro em nossa base."))
                         : ListView.separated(
-                            itemCount: prices.length,
+                            itemCount: paymentsType.length,
                             itemBuilder: (context, index) => InkWell(
                               onTap: () {
-                                bloc.add(PaymentTypeRegisterInfoEvent(
-                                    model: prices[index]));
+                                bloc.model = paymentsType[index];
+                                bloc.add(PaymentTypeRegisterEditEvent());
                               },
                               child: ListTile(
                                 leading: CircleAvatar(
@@ -102,7 +99,7 @@ class _ContentDesktopPaymentTypeRegisterState
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(prices[index].description),
+                                    Text(paymentsType[index].description),
                                   ],
                                 ),
                                 trailing: IconButton(

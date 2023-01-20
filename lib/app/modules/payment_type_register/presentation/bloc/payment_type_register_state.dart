@@ -23,9 +23,7 @@ class PaymentTypeRegisterErrorState extends PaymentTypeRegisterState {
 }
 
 class PaymentTypeRegisterInfoPageState extends PaymentTypeRegisterState {
-  final PaymentTypeModel? model;
-  PaymentTypeRegisterInfoPageState(
-      {required List<PaymentTypeModel> list, this.model})
+  PaymentTypeRegisterInfoPageState({required List<PaymentTypeModel> list})
       : super(list: list);
 }
 

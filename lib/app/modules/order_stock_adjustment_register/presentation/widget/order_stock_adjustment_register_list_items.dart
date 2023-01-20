@@ -45,7 +45,7 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
       padding: const EdgeInsets.all(16.0),
       child: widget.orderStockTransfer.items.isEmpty
           ? const Center(
-              child: Text("Não encontramos nenhum produto em nossa base."))
+              child: Text("Não encontramos nenhum registro em nossa base."))
           : ListView.separated(
               itemCount: widget.orderStockTransfer.items.length,
               itemBuilder: (context, index) => InkWell(

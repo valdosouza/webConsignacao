@@ -48,7 +48,7 @@ class OrderConsginmentRegisterPageMobileState
       listener: (context, state) {
         if (state is OrderConsigngmentGetLastErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar último operação. Tente novamente mais tarde");
+              "Erro ao buscar os dados. Tente novamente mais tarde");
           Modular.to.navigate('/attendance/');
         } else if (state is OrderConsignmentRegisterCheckpointPostErrorState) {
           CustomToast.showToast(

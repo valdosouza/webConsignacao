@@ -1,17 +1,11 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CollaboratorRegisterOthersWidget extends StatefulWidget {
-  final CollaboratorRegisterBloc bloc;
-  final CollaboratorMainModel? collaborator;
-  const CollaboratorRegisterOthersWidget({
-    super.key,
-    this.collaborator,
-    required this.bloc,
-  });
+  const CollaboratorRegisterOthersWidget({super.key});
 
   @override
   State<CollaboratorRegisterOthersWidget> createState() =>
@@ -20,9 +14,17 @@ class CollaboratorRegisterOthersWidget extends StatefulWidget {
 
 class _CollaboratorRegisterOthersWidgetState
     extends State<CollaboratorRegisterOthersWidget> {
+  late final CollaboratorRegisterBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = Modular.get<CollaboratorRegisterBloc>();
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool active = (widget.collaborator?.collaborator.active == "S");
+    bool active = (bloc.model.collaborator.active == "S");
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -44,7 +46,7 @@ class _CollaboratorRegisterOthersWidgetState
                             setState(() {
                               active = true;
                             });
-                            widget.collaborator?.collaborator.active = "S";
+                            bloc.model.collaborator.active = "S";
                           },
                   ),
                   const SizedBox(width: 5.0),
@@ -63,7 +65,7 @@ class _CollaboratorRegisterOthersWidgetState
                               setState(() {
                                 active = false;
                               });
-                              widget.collaborator?.collaborator.active = "N";
+                              bloc.model.collaborator.active = "N";
                             }
                           : (value) {}),
                   const SizedBox(width: 5.0),
@@ -91,7 +93,7 @@ class _CollaboratorRegisterOthersWidgetState
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10.0),
                           child: Text(
-                            widget.collaborator?.entity.nameLinebusiness ?? "",
+                            bloc.model.entity.nameLinebusiness,
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'OpenSans',
@@ -104,7 +106,7 @@ class _CollaboratorRegisterOthersWidgetState
                         child: IconButton(
                           hoverColor: Colors.transparent,
                           onPressed: () {
-                            widget.bloc.add(
+                            bloc.add(
                                 CollaboratorRegisterGetLineBusinessEvent());
                           },
                           icon: const Icon(

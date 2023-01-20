@@ -111,7 +111,7 @@ class CustomerRegisterBloc
         if (event.model.customer.id != 0) {
           emit(CustomerRegisterPostErrorState(customers, ""));
         } else {
-          emit(CustomerRegisterPutErrorState(customers, ""));
+          emit(CustomerRegisterPostErrorState(customers, ""));
         }
       }, (r) {
         customers.add(r);
@@ -128,10 +128,8 @@ class CustomerRegisterBloc
       var response =
           await postCustomer.call(ParamsPostCustomer(customer: event.model));
 
-      response.fold(
-          (l) => event.model.customer.id != 0
-              ? emit(CustomerRegisterPostErrorState(customers, ""))
-              : emit(CustomerRegisterPutErrorState(customers, "")), (r) {
+      response.fold((l) => emit(CustomerRegisterPostErrorState(customers, "")),
+          (r) {
         if (event.model.entity.id != 0) {
           customers[customers.indexWhere((element) => element.id == r.id)] = r;
         } else {

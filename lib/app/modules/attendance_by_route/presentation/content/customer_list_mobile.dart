@@ -35,7 +35,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
         padding: const EdgeInsets.symmetric(horizontal: 2.0),
         child: widget.lista.isEmpty
             ? const Center(
-                child: Text("Não encontramos nenhum dado em nossa base."))
+                child: Text("Não encontramos nenhum registro em nossa base."))
             : ListView.separated(
                 itemCount: widget.lista.length,
                 itemBuilder: (context, index) => InkWell(

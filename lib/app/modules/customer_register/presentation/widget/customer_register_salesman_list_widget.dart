@@ -87,7 +87,7 @@ class _CustomerRegisterSalesmanListWidgetState
                 child: state.salesmans.isEmpty
                     ? const Center(
                         child: Text(
-                            "Não encontramos nenhum vendedor em nossa base."))
+                            "Não encontramos nenhum registro em nossa base."))
                     : ListView.separated(
                         itemCount: state.salesmans.length,
                         itemBuilder: (context, index) => InkWell(

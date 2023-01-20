@@ -1,17 +1,14 @@
+import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_bloc.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_events.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class PaymentTypeRegisterInterationPage extends StatefulWidget {
-  final PaymentTypeModel? model;
-  final int index;
-  const PaymentTypeRegisterInterationPage(
-      {super.key, this.model, required this.index});
+  const PaymentTypeRegisterInterationPage({super.key});
 
   @override
   State<PaymentTypeRegisterInterationPage> createState() =>
@@ -21,22 +18,13 @@ class PaymentTypeRegisterInterationPage extends StatefulWidget {
 class _PaymentTypeRegisterInterationPageState
     extends State<PaymentTypeRegisterInterationPage> {
   late final PaymentTypeRegisterBloc bloc;
-  PaymentTypeModel? model;
+
   final _formKey = GlobalKey<FormState>();
-
-  bool selectRadio = false;
-
-  String description = "";
-  String active = "S";
 
   @override
   void initState() {
     super.initState();
     bloc = Modular.get<PaymentTypeRegisterBloc>();
-    model = widget.model;
-    if (model != null) {
-      selectRadio = model!.active == "S";
-    }
   }
 
   @override
@@ -48,9 +36,9 @@ class _PaymentTypeRegisterInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
-          title: model == null
+          title: bloc.model.id == 0
               ? const Text('Adicionar')
-              : Text('Editar ${model!.description}'),
+              : Text('Editar ${bloc.model.description}'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -64,15 +52,9 @@ class _PaymentTypeRegisterInterationPageState
                 icon: const Icon(Icons.check),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    model != null
-                        ? bloc.add(PaymentTypeRegisterPutEvent(model: model!))
-                        : bloc.add(PaymentTypeRegisterPutEvent(
-                            model: PaymentTypeModel(
-                            id: widget.index + 1,
-                            tbInstitutionId: 0,
-                            description: description,
-                            active: active,
-                          )));
+                    bloc.model.id > 0
+                        ? bloc.add(PaymentTypeRegisterPutEvent())
+                        : bloc.add(PaymentTypeRegisterPostEvent());
                   }
                 },
               ),
@@ -86,25 +68,33 @@ class _PaymentTypeRegisterInterationPageState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                CustomInput(
+                  title: 'Descrição',
+                  initialValue: bloc.model.description,
+                  validator: (value) => Validators.validateRequired(value),
+                  keyboardType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    bloc.model.description = value;
+                  },
+                ),
+                const SizedBox(height: 30.0),
                 const Text("Ativo", style: kLabelStyle),
                 const SizedBox(height: 10.0),
                 Row(
                   children: [
                     Row(
                       children: [
-                        Radio(
-                          value: true,
-                          groupValue: selectRadio,
+                        Radio<OptionYesNo>(
+                          value: OptionYesNo.S,
+                          groupValue: bloc.optionYesNo,
                           activeColor: Colors.red,
-                          onChanged: selectRadio
-                              ? (value) {}
-                              : (value) {
-                                  setState(() {
-                                    selectRadio = true;
-                                  });
-                                  model?.active = "S";
-                                  active = "S";
-                                },
+                          onChanged: (value) {
+                            setState(() {
+                              bloc.optionYesNo = value;
+                            });
+                            bloc.model.active = "S";
+                          },
                         ),
                         const SizedBox(width: 5.0),
                         const Text("Sim", style: kLabelStyle),
@@ -113,36 +103,21 @@ class _PaymentTypeRegisterInterationPageState
                     const SizedBox(width: 10.0),
                     Row(
                       children: [
-                        Radio(
-                            value: false,
-                            groupValue: selectRadio,
+                        Radio<OptionYesNo>(
+                            value: OptionYesNo.N,
+                            groupValue: bloc.optionYesNo,
                             activeColor: Colors.red,
-                            onChanged: selectRadio
-                                ? (value) {
-                                    setState(() {
-                                      selectRadio = false;
-                                    });
-                                    model?.active = "N";
-                                    active = "N";
-                                  }
-                                : (value) {}),
+                            onChanged: (value) {
+                              setState(() {
+                                bloc.optionYesNo = value;
+                              });
+                              bloc.model.active = "N";
+                            }),
                         const SizedBox(width: 5.0),
                         const Text("Não", style: kLabelStyle),
                       ],
                     ),
                   ],
-                ),
-                const SizedBox(height: 30.0),
-                CustomInput(
-                  title: 'Descrição',
-                  initialValue: model?.description ?? "",
-                  validator: (value) => Validators.validateRequired(value),
-                  keyboardType: TextInputType.text,
-                  inputAction: TextInputAction.next,
-                  onChanged: (value) {
-                    model?.description = value;
-                    description = value;
-                  },
                 ),
               ],
             ),

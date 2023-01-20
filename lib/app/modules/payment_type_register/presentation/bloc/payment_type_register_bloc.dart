@@ -1,10 +1,11 @@
+import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
-import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_delete.dart';
 import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_getlist.dart';
+import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_delete.dart';
 import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_post.dart';
 import 'package:appweb/app/modules/payment_type_register/domain/usecase/payment_type_register_put.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_events.dart';
-import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_states.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_event.dart';
+import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PaymentTypeRegisterBloc
@@ -14,7 +15,9 @@ class PaymentTypeRegisterBloc
   final PaymentTypeRegisterPut put;
   final PaymentTypeRegisterDelete delete;
 
-  List<PaymentTypeModel> prices = [];
+  List<PaymentTypeModel> modelList = [];
+  PaymentTypeModel model = PaymentTypeModel.empty();
+  OptionYesNo? optionYesNo = OptionYesNo.S;
 
   PaymentTypeRegisterBloc({
     required this.getlist,
@@ -24,24 +27,26 @@ class PaymentTypeRegisterBloc
   }) : super(PaymentTypeRegisterLoadingState()) {
     getList();
 
-    searchPrices();
+    search();
 
-    goToInfoPage();
+    paymentTypeAdd();
 
-    addFunction();
+    paymentTypeEdit();
 
-    editFunction();
+    postFunction();
+
+    putFunction();
   }
 
   getList() {
     on<PaymentTypeRegisterGetListEvent>((event, emit) async {
       emit(PaymentTypeRegisterLoadingState());
 
-      var response = await getlist.call(ParamsPaymentTypeRegisterGet());
+      var response = await getlist.call(ParamsPaymentTypeGet());
 
       var result = response
-          .fold((l) => PaymentTypeRegisterErrorState(list: prices), (r) {
-        prices = r;
+          .fold((l) => PaymentTypeRegisterErrorState(list: modelList), (r) {
+        modelList = r;
         return PaymentTypeRegisterLoadedState(list: r);
       });
 
@@ -49,54 +54,65 @@ class PaymentTypeRegisterBloc
     });
   }
 
-  searchPrices() {
+  search() {
     on<PaymentTypeRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var priceSearched = prices.where((element) {
+        var searched = modelList.where((element) {
           String name = element.description;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        emit(PaymentTypeRegisterLoadedState(list: priceSearched));
+        emit(PaymentTypeRegisterLoadedState(list: searched));
       } else {
-        emit(PaymentTypeRegisterLoadedState(list: prices));
+        emit(PaymentTypeRegisterLoadedState(list: modelList));
       }
     });
   }
 
-  goToInfoPage() {
-    on<PaymentTypeRegisterInfoEvent>((event, emit) async {
-      emit(PaymentTypeRegisterInfoPageState(list: prices, model: event.model));
+  paymentTypeAdd() {
+    on<PaymentTypeRegisterAddEvent>((event, emit) async {
+      model = PaymentTypeModel.empty();
+      optionYesNo = OptionYesNo.S;
+      emit(PaymentTypeRegisterInfoPageState(list: modelList));
     });
   }
 
-  addFunction() {
+  paymentTypeEdit() {
+    on<PaymentTypeRegisterEditEvent>((event, emit) async {
+      (model.active == "S")
+          ? optionYesNo = OptionYesNo.S
+          : optionYesNo = OptionYesNo.N;
+      emit(PaymentTypeRegisterInfoPageState(list: modelList));
+    });
+  }
+
+  postFunction() {
     on<PaymentTypeRegisterPostEvent>((event, emit) async {
-      PaymentTypeRegisterLoadingState();
-      var response = await post.call(ParamsPaymentTypePost(model: event.model));
+      emit(PaymentTypeRegisterLoadingState());
+      var response = await post.call(ParamsPaymentTypePost(model: model));
 
       var result = response.fold(
-        (l) => PaymentTypeRegisterAddErrorState(list: prices),
+        (l) => PaymentTypeRegisterAddErrorState(list: modelList),
         (r) {
-          prices.add(r);
-          return PaymentTypeRegisterAddSuccessState(list: prices);
+          modelList.add(r);
+          return PaymentTypeRegisterAddSuccessState(list: modelList);
         },
       );
       emit(result);
     });
   }
 
-  editFunction() {
+  putFunction() {
     on<PaymentTypeRegisterPutEvent>((event, emit) async {
-      PaymentTypeRegisterLoadingState();
-      var response = await put.call(ParamsPaymentTypePut(model: event.model));
+      emit(PaymentTypeRegisterLoadingState());
+      var response = await put.call(ParamsPaymentTypePut(model: model));
 
       var result = response.fold(
-        (l) => PaymentTypeRegisterEditErrorState(list: prices),
+        (l) => PaymentTypeRegisterEditErrorState(list: modelList),
         (r) {
-          return PaymentTypeRegisterEditSuccessState(list: prices);
+          return PaymentTypeRegisterEditSuccessState(list: modelList);
         },
       );
       emit(result);

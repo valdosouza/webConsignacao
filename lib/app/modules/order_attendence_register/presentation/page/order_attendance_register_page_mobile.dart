@@ -53,12 +53,12 @@ class OrderAttendanceRegisterPageMobileState
       listener: (context, state) {
         if (state is OrderAttendanceRegisterGetPriceListErrorState) {
           CustomToast.showToast(
-              "Erro ao buscar lista de Preços. Tente novamente mais tarde");
+              "Erro ao buscar os dados. Tente novamente mais tarde");
         } else if (state is OrderAttendanceRegisterPostSuccessState) {
-          CustomToast.showToast("Atendimento gravado com sucesso.");
+          CustomToast.showToast("Cadastro atualizado com sucesso.");
         } else if (state is OrderAttendanceRegisterPostErrorState) {
           CustomToast.showToast(
-              "Ocorreu um erro ao iniciar o Atendimento. Tente novamente mais tarde.");
+              "Erro iniciar o Atendimento. Tente novamente mais tarde.");
         }
       },
       builder: (context, state) {

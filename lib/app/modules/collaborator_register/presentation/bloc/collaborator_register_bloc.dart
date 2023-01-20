@@ -27,7 +27,7 @@ class CollaboratorRegisterBloc
   final LinebusinessRegisterGetlist getLinebusines;
 
   List<CollaboratorListModel> modelList = [];
-  CollaboratorMainModel collaborator = CollaboratorMainModel.empty();
+  CollaboratorMainModel model = CollaboratorMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> cities = [];
   List<LinebusinessModel> linebusiness = [];
@@ -66,7 +66,7 @@ class CollaboratorRegisterBloc
 
     on<CollaboratorRegisterReturnEvent>((event, emit) => emit(
         CollaboratorRegisterInfoPageState(
-            model: collaborator, modelList: modelList, tabIndex: event.index)));
+            modelList: modelList, tabIndex: event.index)));
   }
 
   getList() {
@@ -89,15 +89,15 @@ class CollaboratorRegisterBloc
     on<CollaboratorRegisterPostEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState());
 
-      var response = await postCollaborator
-          .call(ParamsPostCollaborator(model: event.model));
+      var response =
+          await postCollaborator.call(ParamsPostCollaborator(model: model));
 
       response.fold(
-          (l) => event.model.collaborator.id != 0
+          (l) => model.collaborator.id != 0
               ? emit(CollaboratorRegisterPostEditErrorState(modelList, ""))
               : emit(CollaboratorRegisterPostAddErrorState(modelList, "")),
           (r) {
-        if (event.model.collaborator.id != 0) {
+        if (model.collaborator.id != 0) {
           modelList[modelList.indexWhere((element) => element.id == r.id)] = r;
         } else {
           modelList.add(CollaboratorListModel(
@@ -167,13 +167,13 @@ class CollaboratorRegisterBloc
             (l) =>
                 emit(CollaboratorRegisterGetErrorState(modelList: modelList)),
             (r) {
-          collaborator = r;
+          model = r;
           emit(CollaboratorRegisterInfoPageState(
-              modelList: modelList, model: r, tabIndex: 0));
+              modelList: modelList, tabIndex: 0));
         });
       } else {
         emit(CollaboratorRegisterInfoPageState(
-            modelList: modelList, model: collaborator, tabIndex: 0));
+            modelList: modelList, tabIndex: 0));
       }
     });
   }
@@ -186,21 +186,21 @@ class CollaboratorRegisterBloc
 
       response.fold(
           (l) => emit(CollaboratorRegisterCnpjErrorState(modelList, "")), (r) {
-        collaborator.address.zipCode =
+        model.address.zipCode =
             r.zipCode.replaceAll("-", "").replaceAll(".", "");
-        collaborator.entity.nickTrade = r.nickTtrade;
-        collaborator.company?.cnpj = r.cnpj;
-        collaborator.entity.nameCompany = r.nameCompany;
-        collaborator.address.nmbr = r.nmbr;
-        collaborator.address.street = r.street;
-        collaborator.address.complement = r.complement;
-        collaborator.address.neighborhood = r.neighborhood;
-        collaborator.address.cityName = r.cityName;
-        collaborator.address.tbCityId = r.tbCityId;
-        collaborator.address.stateName = r.stateName;
-        collaborator.address.tbStateId = r.tbStateId;
+        model.entity.nickTrade = r.nickTtrade;
+        model.company?.cnpj = r.cnpj;
+        model.entity.nameCompany = r.nameCompany;
+        model.address.nmbr = r.nmbr;
+        model.address.street = r.street;
+        model.address.complement = r.complement;
+        model.address.neighborhood = r.neighborhood;
+        model.address.cityName = r.cityName;
+        model.address.tbCityId = r.tbCityId;
+        model.address.stateName = r.stateName;
+        model.address.tbStateId = r.tbStateId;
         emit(CollaboratorRegisterInfoPageState(
-            modelList: modelList, model: collaborator, tabIndex: 0));
+            modelList: modelList, tabIndex: 0));
       });
     });
   }
@@ -213,16 +213,16 @@ class CollaboratorRegisterBloc
 
       response.fold(
           (l) => emit(CollaboratorRegisterCepErrorState(modelList, "")), (r) {
-        collaborator.address.zipCode = r.zipCode.replaceAll("-", "");
-        collaborator.address.street = r.street;
-        collaborator.address.complement = r.complement;
-        collaborator.address.neighborhood = r.neighborhood;
-        collaborator.address.stateName = r.stateName;
-        collaborator.address.tbStateId = r.tbStateId;
-        collaborator.address.cityName = r.cityName;
-        collaborator.address.tbCityId = r.tbCityId;
+        model.address.zipCode = r.zipCode.replaceAll("-", "");
+        model.address.street = r.street;
+        model.address.complement = r.complement;
+        model.address.neighborhood = r.neighborhood;
+        model.address.stateName = r.stateName;
+        model.address.tbStateId = r.tbStateId;
+        model.address.cityName = r.cityName;
+        model.address.tbCityId = r.tbCityId;
         emit(CollaboratorRegisterInfoPageState(
-            modelList: modelList, model: collaborator, tabIndex: 1));
+            modelList: modelList, tabIndex: 1));
       });
     });
   }
