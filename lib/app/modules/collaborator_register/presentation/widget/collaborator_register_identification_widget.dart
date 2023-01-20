@@ -80,6 +80,16 @@ class _CollaboratorRegisterIdentificationWidgetState
           const SizedBox(height: 30.0),
           selectPersonType ? _buildJuridicalPerson() : _buildPerson(),
           const SizedBox(height: 30.0),
+          CustomInput(
+            title: 'e-mail* (não poderá ser alterado neste canal)',
+            readOnly: (bloc.model.entity.id > 0),
+            initialValue: bloc.model.userEmail.email,
+            keyboardType: TextInputType.emailAddress,
+            inputAction: TextInputAction.next,
+            onChanged: (value) {
+              bloc.model.userEmail.email = value;
+            },
+          ),
         ],
       ),
     );

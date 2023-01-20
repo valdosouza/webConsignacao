@@ -3,11 +3,11 @@ import 'package:appweb/app/modules/collaborator_register/domain/entity/collabora
 // ignore: must_be_immutable
 class CollaboratorModel extends CollaboratorEntity {
   CollaboratorModel({
-    int? id,
-    int? tbInstitutionId,
+    required int id,
+    required int tbInstitutionId,
+    required String active,
     String? dtAdmission,
     String? dtResignation,
-    String? active,
     String? salary,
     String? pis,
     String? fathersName,
@@ -17,11 +17,11 @@ class CollaboratorModel extends CollaboratorEntity {
     String? voteSection,
     String? militaryCertificate,
   }) : super(
-          id: id ?? 0,
-          tbInstitutionId: tbInstitutionId ?? 0,
+          id: id,
+          tbInstitutionId: tbInstitutionId,
+          active: active,
           dtAdmission: dtAdmission ?? "",
           dtResignation: dtResignation ?? "",
-          active: active ?? "S",
           salary: salary ?? "0.00",
           pis: pis ?? "",
           fathersName: fathersName ?? "",
@@ -37,9 +37,9 @@ class CollaboratorModel extends CollaboratorEntity {
 
     data['id'] = id;
     data['tb_institution_id'] = tbInstitutionId;
+    data['active'] = "S";
     data['dt_admission'] = dtAdmission ?? "";
     data['dt_resignation'] = dtResignation ?? "";
-    data['active'] = "S";
     data['salary'] = "0.00";
     data["pis"] = pis ?? "";
     data['fahters_name'] = fathersName ?? "";
@@ -53,16 +53,14 @@ class CollaboratorModel extends CollaboratorEntity {
 
   factory CollaboratorModel.fromJson(map) {
     return CollaboratorModel(
-      id: map['id'] as int,
-      tbInstitutionId: map['tb_institution_id'] != null
-          ? map['tb_institution_id'] as int
-          : null,
+      id: map['id'],
+      tbInstitutionId: map['tb_institution_id'],
+      active: map['active'],
       dtAdmission:
           map['dt_admission'] != null ? map['dt_admission'] as String : null,
       dtResignation: map['dt_resignation'] != null
           ? map['dt_resignation'] as String
           : null,
-      active: map['active'] != null ? map['active'] as String : null,
       salary: map['salary'] != null ? map['salary'] as String : null,
       pis: map['pis'] != null ? map['pis'] as String : null,
       fathersName:
@@ -82,12 +80,12 @@ class CollaboratorModel extends CollaboratorEntity {
   factory CollaboratorModel.empty() {
     return CollaboratorModel(
       id: 0,
+      tbInstitutionId: 0,
+      active: "S",
       dtAdmission: "",
       dtResignation: "",
       fathersName: "",
       mothersName: "",
-      active: "S",
-      tbInstitutionId: 0,
       militaryCertificate: "",
       pis: "",
       salary: "",

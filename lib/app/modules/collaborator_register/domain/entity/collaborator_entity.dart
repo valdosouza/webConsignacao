@@ -1,9 +1,10 @@
 class CollaboratorEntity {
   int id;
   int tbInstitutionId;
+  String? active;
   String? dtAdmission;
   String? dtResignation;
-  String? active;
+
   String? salary;
   String? pis;
   String? fathersName;
@@ -15,9 +16,9 @@ class CollaboratorEntity {
   CollaboratorEntity({
     required this.id,
     required this.tbInstitutionId,
+    this.active,
     this.dtAdmission,
     this.dtResignation,
-    this.active,
     this.salary,
     this.pis,
     this.fathersName,

@@ -69,7 +69,8 @@ class _ContentDesktopCollaboratorRegisterState
           return const CollaboratorRegisterListsPage();
         }
 
-        if (state is CollaboratorRegisterInfoPageState) {
+        if ((state is CollaboratorRegisterInfoPageState) ||
+            (state is CollaboratorRegisterCnpjErrorState)) {
           return CollaboratorRegisterInterationPage(
             tabIndex: state.tabIndex,
           );

@@ -1,6 +1,7 @@
 import 'package:appweb/app/modules/Core/data/model/address_model.dart';
 import 'package:appweb/app/modules/Core/data/model/company_model.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/user_email_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_model.dart';
 import 'package:appweb/app/modules/collaborator_register/domain/entity/collaborator_main_entity.dart';
 import 'package:appweb/app/modules/Core/data/model/person_model.dart';
@@ -14,6 +15,7 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
     PersonModel? person,
     required AddressModel address,
     required PhoneModel? phone,
+    required UserEmailModel userEmail,
   }) : super(
           collaborator: collaborator,
           entity: entity,
@@ -21,6 +23,7 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
           person: person,
           address: address,
           phone: phone,
+          userEmail: userEmail,
         );
 
   factory CollaboratorMainModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +38,7 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
       address: AddressModel.fromJson(json['address']),
       phone:
           json['phone'].length > 0 ? PhoneModel.fromJson(json['phone']) : null,
+      userEmail: UserEmailModel.fromJson(json['user']),
     );
   }
 
@@ -46,6 +50,7 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
     data['person'] = person?.toJson();
     data['address'] = address.toJson();
     data['phone'] = phone?.toJson();
+    data['user'] = userEmail.toJson();
     return data;
   }
 
@@ -57,6 +62,7 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
       person: PersonModel.empty(),
       address: AddressModel.empty(),
       phone: PhoneModel.empty(),
+      userEmail: UserEmailModel.empty(),
     );
   }
 }

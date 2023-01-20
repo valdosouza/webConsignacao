@@ -41,7 +41,7 @@ class CollaboratorRegisterBloc
     required this.getCollaborator,
     required this.postCollaborator,
     required this.getLinebusines,
-  }) : super(CollaboratorRegisterLoadingState()) {
+  }) : super(CollaboratorRegisterLoadingState(tabIndex: 0)) {
     getList();
 
     searchCustomer();
@@ -71,14 +71,16 @@ class CollaboratorRegisterBloc
 
   getList() {
     on<CollaboratorRegisterGetListEvent>((event, emit) async {
-      emit(CollaboratorRegisterLoadingState());
+      emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
       var response = await getlist.call(ParamsGetListCollaborator());
 
       var result = response.fold(
-          (l) => CollaboratorRegisterErrorState(modelList: modelList), (r) {
+          (l) =>
+              CollaboratorRegisterErrorState(modelList: modelList, tabIndex: 0),
+          (r) {
         modelList = r;
-        return CollaboratorRegisterLoadedState(modelList: r);
+        return CollaboratorRegisterLoadedState(modelList: r, tabIndex: 0);
       });
 
       emit(result);
@@ -87,16 +89,18 @@ class CollaboratorRegisterBloc
 
   postCollaboratorAction() {
     on<CollaboratorRegisterPostEvent>((event, emit) async {
-      emit(CollaboratorRegisterLoadingState());
+      emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
       var response =
           await postCollaborator.call(ParamsPostCollaborator(model: model));
 
-      response.fold(
-          (l) => model.collaborator.id != 0
-              ? emit(CollaboratorRegisterPostEditErrorState(modelList, ""))
-              : emit(CollaboratorRegisterPostAddErrorState(modelList, "")),
-          (r) {
+      response.fold((l) {
+        return emit(CollaboratorRegisterPostEditErrorState(
+          modelList: modelList,
+          error: l.toString(),
+          tabIndex: 0,
+        ));
+      }, (r) {
         if (model.collaborator.id != 0) {
           modelList[modelList.indexWhere((element) => element.id == r.id)] = r;
         } else {
@@ -110,7 +114,8 @@ class CollaboratorRegisterBloc
             nameLineBusiness: r.nameLineBusiness,
           ));
         }
-        emit(CollaboratorRegisterPostEditSuccessState(modelList));
+        emit(CollaboratorRegisterPostEditSuccessState(
+            modelList: modelList, tabIndex: 0));
       });
     });
   }
@@ -141,16 +146,17 @@ class CollaboratorRegisterBloc
         }).toList();
         if (collaboratorSearchedName.isNotEmpty) {
           emit(CollaboratorRegisterLoadedState(
-              modelList: collaboratorSearchedName));
+              modelList: collaboratorSearchedName, tabIndex: 0));
         } else if (collaboratorSearchedCnpj.isNotEmpty) {
           emit(CollaboratorRegisterLoadedState(
-              modelList: collaboratorSearchedCnpj));
+              modelList: collaboratorSearchedCnpj, tabIndex: 0));
         } else {
           emit(CollaboratorRegisterLoadedState(
-              modelList: collaboratorSearchedCpf));
+              modelList: collaboratorSearchedCpf, tabIndex: 0));
         }
       } else {
-        emit(CollaboratorRegisterLoadedState(modelList: modelList));
+        emit(
+            CollaboratorRegisterLoadedState(modelList: modelList, tabIndex: 0));
       }
     });
   }
@@ -158,15 +164,14 @@ class CollaboratorRegisterBloc
   goToCollaboratorInfoPage() {
     on<CollaboratorRegisterInfoEvent>((event, emit) async {
       if (event.id != null) {
-        emit(CollaboratorRegisterLoadingState());
+        emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
         final response =
             await getCollaborator.call(ParamsGetCollaborator(id: event.id!));
 
         response.fold(
-            (l) =>
-                emit(CollaboratorRegisterGetErrorState(modelList: modelList)),
-            (r) {
+            (l) => emit(CollaboratorRegisterGetErrorState(
+                modelList: modelList, tabIndex: 0)), (r) {
           model = r;
           emit(CollaboratorRegisterInfoPageState(
               modelList: modelList, tabIndex: 0));
@@ -180,12 +185,16 @@ class CollaboratorRegisterBloc
 
   searchCNPJ() {
     on<CollaboratorRegisterCnpjEvent>((event, emit) async {
-      emit(CollaboratorRegisterLoadingState());
+      emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
       final response = await getCnpj.call(ParamsCnpj(cnpj: event.cnpj));
 
       response.fold(
-          (l) => emit(CollaboratorRegisterCnpjErrorState(modelList, "")), (r) {
+          (l) => emit(CollaboratorRegisterCnpjErrorState(
+                modelList: modelList,
+                error: l.toString(),
+                tabIndex: 0,
+              )), (r) {
         model.address.zipCode =
             r.zipCode.replaceAll("-", "").replaceAll(".", "");
         model.entity.nickTrade = r.nickTtrade;
@@ -207,12 +216,16 @@ class CollaboratorRegisterBloc
 
   searchCEP() {
     on<CollaboratorRegisterCepEvent>((event, emit) async {
-      emit(CollaboratorRegisterLoadingState());
+      emit(CollaboratorRegisterLoadingState(tabIndex: 1));
 
       final response = await getCep.call(ParamsCep(cep: event.cep));
 
       response.fold(
-          (l) => emit(CollaboratorRegisterCepErrorState(modelList, "")), (r) {
+          (l) => emit(CollaboratorRegisterCepErrorState(
+                modelList: modelList,
+                error: l.toString(),
+                tabIndex: 1,
+              )), (r) {
         model.address.zipCode = r.zipCode.replaceAll("-", "");
         model.address.street = r.street;
         model.address.complement = r.complement;
@@ -229,33 +242,38 @@ class CollaboratorRegisterBloc
 
   getState() {
     on<CollaboratorRegisterGetStatesEvent>((event, emit) async {
-      emit(CollaboratorRegisterLoadingState());
+      emit(CollaboratorRegisterLoadingState(tabIndex: 1));
 
       final response = await getStates.call(ParamsGetStates());
 
-      response.fold(
-          (l) => emit(CollaboratorRegisterGetStatesErrorState(modelList, "")),
-          (r) {
+      response.fold((l) {
+        return emit(CollaboratorRegisterGetStatesErrorState(
+            modelList: modelList, error: l.toString(), tabIndex: 1));
+      }, (r) {
         states = r;
         emit(CollaboratorRegisterGetStatesSuccessState(
-            states: r, modelList: modelList));
+            states: r, modelList: modelList, tabIndex: 1));
       });
     });
   }
 
   getCitys() {
     on<CollaboratorRegisterGetCitysEvent>((event, emit) async {
-      emit(CollaboratorRegisterLoadingState());
+      emit(CollaboratorRegisterLoadingState(tabIndex: 1));
 
       final response =
           await getCity.call(ParamsGetCity(tbStateId: event.tbStateId));
 
-      response.fold(
-          (l) => emit(CollaboratorRegisterGetCityErrorState(modelList, "")),
-          (r) {
+      response.fold((l) {
+        emit(CollaboratorRegisterGetCityErrorState(
+            modelList: modelList, error: "", tabIndex: 1));
+      }, (r) {
         cities = r;
         emit(CollaboratorRegisterGetCitySuccessState(
-            cities: r, modelList: modelList));
+          cities: r,
+          modelList: modelList,
+          tabIndex: 1,
+        ));
       });
     });
   }
@@ -272,12 +290,10 @@ class CollaboratorRegisterBloc
         }).toList();
         if (statestSearched.isEmpty) {}
         emit(CollaboratorRegisterGetStatesSuccessState(
-          states: statestSearched,
-          modelList: modelList,
-        ));
+            states: statestSearched, modelList: modelList, tabIndex: 1));
       } else {
         emit(CollaboratorRegisterGetStatesSuccessState(
-            states: states, modelList: modelList));
+            states: states, modelList: modelList, tabIndex: 1));
       }
     });
   }
@@ -294,26 +310,37 @@ class CollaboratorRegisterBloc
         }).toList();
         if (citiestSearched.isEmpty) {}
         emit(CollaboratorRegisterGetCitySuccessState(
-            cities: citiestSearched, modelList: modelList));
+          cities: citiestSearched,
+          modelList: modelList,
+          tabIndex: 1,
+        ));
       } else {
         emit(CollaboratorRegisterGetCitySuccessState(
-            cities: cities, modelList: modelList));
+          cities: cities,
+          modelList: modelList,
+          tabIndex: 1,
+        ));
       }
     });
   }
 
   getLinebusinessAction() {
     on<CollaboratorRegisterGetLineBusinessEvent>((event, emit) async {
-      emit(CollaboratorRegisterLoadingState());
+      emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
       var response = await getLinebusines.call(ParamsLinebusinessRegisterGet());
 
       response.fold(
           (l) => emit(CollaboratorRegisterGetLinebusinessErrorState(
-              modelList: modelList)), (r) {
+                modelList: modelList,
+                tabIndex: 3,
+              )), (r) {
         linebusiness = r;
         emit(CollaboratorRegisterGetLinebusinessSuccessState(
-            modellist: modelList, linebusiness: r));
+          modellist: modelList,
+          linebusiness: r,
+          tabIndex: 3,
+        ));
       });
     });
   }
@@ -330,10 +357,15 @@ class CollaboratorRegisterBloc
         }).toList();
         if (linebusinessSearched.isEmpty) {}
         emit(CollaboratorRegisterGetLinebusinessSuccessState(
-            modellist: modelList, linebusiness: linebusinessSearched));
+            modellist: modelList,
+            linebusiness: linebusinessSearched,
+            tabIndex: 3));
       } else {
         emit(CollaboratorRegisterGetLinebusinessSuccessState(
-            modellist: modelList, linebusiness: linebusiness));
+          modellist: modelList,
+          linebusiness: linebusiness,
+          tabIndex: 3,
+        ));
       }
     });
   }

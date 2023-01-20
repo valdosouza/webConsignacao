@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_custom_input_button_widget.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_direction_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class OrderStockAdjustmentRegisterData extends StatelessWidget {
