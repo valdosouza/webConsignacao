@@ -5,6 +5,7 @@ import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/order_production_status_model.dart';
 
 abstract class OrderProductionRegisterDataSource extends Gateway {
   OrderProductionRegisterDataSource({required super.httpClient});
@@ -18,6 +19,8 @@ abstract class OrderProductionRegisterDataSource extends Gateway {
   Future<String> delete({required int id});
   Future<List<ProductListModel>> getListProducts();
   Future<List<StockListModel>> getListStock();
+  Future<String> closure({required OrderProductionStatusModel model});
+  Future<String> reopen({required OrderProductionStatusModel model});
 }
 
 class OrderProductionRegisterDataSourceImpl
@@ -167,6 +170,52 @@ class OrderProductionRegisterDataSourceImpl
         }).toList();
 
         return stock;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
+  }
+
+  @override
+  Future<String> closure({required OrderProductionStatusModel model}) async {
+    final tbInstitutionId = await getInstitutionId();
+
+    model.tbInstitutionId = tbInstitutionId;
+
+    final body = jsonEncode(model.toJson());
+
+    return request(
+      'orderproduction/closure',
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        final data = payload;
+        //var model = OrderProductionStatusModel.fromJson(data);
+        return data;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
+  }
+
+  @override
+  Future<String> reopen({required OrderProductionStatusModel model}) async {
+    final tbInstitutionId = await getInstitutionId();
+
+    model.tbInstitutionId = tbInstitutionId;
+
+    final body = jsonEncode(model.toJson());
+
+    return request(
+      'orderproduction/reopen',
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        final data = payload;
+        //var model = OrderProductionStatusModel.fromJson(data);
+        return data;
       },
       onError: (error) {
         return ServerException;

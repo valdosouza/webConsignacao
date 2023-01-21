@@ -8,14 +8,15 @@ class CustomInputButtonWidget extends StatelessWidget {
   final OrderProductionRegisterEvent event;
   final String initialValue;
   final String title;
+  final bool readOnly;
 
-  const CustomInputButtonWidget({
-    super.key,
-    required this.bloc,
-    required this.event,
-    required this.title,
-    required this.initialValue
-  });
+  const CustomInputButtonWidget(
+      {super.key,
+      required this.bloc,
+      required this.event,
+      required this.title,
+      required this.initialValue,
+      this.readOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class CustomInputButtonWidget extends StatelessWidget {
                   child: IconButton(
                     hoverColor: Colors.transparent,
                     onPressed: () {
-                      bloc.add(event);
+                      (!readOnly) ? bloc.add(event) : null;
                     },
                     icon: const Icon(
                       Icons.search,

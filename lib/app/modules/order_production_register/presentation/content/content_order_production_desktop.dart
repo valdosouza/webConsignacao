@@ -66,42 +66,48 @@ class _ContentOrderProductionRegisterDesktopState
         },
         builder: (context, state) {
           return Scaffold(
-              appBar: AppBar(
-                flexibleSpace: Container(
-                  decoration: kBoxDecorationflexibleSpace,
-                ),
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    bloc.add(OrderGetListEvent());
-                  },
-                ),
-                title: Text(
-                  (bloc.orderProduction.id > 0)
-                      ? "Editar Ordem de Produção"
-                      : "Adicionar Ordem de Produção",
-                  style: kHintTextStyle.copyWith(fontSize: 20.0),
-                ),
-                actions: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.check,
-                      size: 30.0,
-                    ),
-                    onPressed: () {
-                      (bloc.orderProduction.id > 0)
-                          ? bloc.add(OrderPutEvent())
-                          : bloc.add(OrderPostEvent());
-                    },
-                  ),
-                ],
+            appBar: AppBar(
+              flexibleSpace: Container(
+                decoration: kBoxDecorationflexibleSpace,
               ),
-              body: Padding(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                onPressed: () {
+                  bloc.add(OrderGetListEvent());
+                },
+              ),
+              title: Text(
+                (bloc.orderProduction.id > 0)
+                    ? "Editar Ordem de Produção"
+                    : "Adicionar Ordem de Produção",
+                style: kHintTextStyle.copyWith(fontSize: 20.0),
+              ),
+              actions: [
+                PopupMenuButton(
+                  itemBuilder: (context) => [
+                    (bloc.orderProduction.status == "A")
+                        ? PopupMenuItem(
+                            onTap: (() => bloc.add(OrderClosureEvent())),
+                            value: 0,
+                            child: const Text("Encerrar"),
+                          )
+                        : PopupMenuItem(
+                            onTap: (() => bloc.add(OrderReopenEvent())),
+                            value: 0,
+                            child: const Text("Reabrir"),
+                          ),
+                  ],
+                ),
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomInput(
+                        readOnly: (bloc.orderProduction.status == "F"),
                         title: "Data",
                         controller: controllerDate,
                         keyboardType: TextInputType.datetime,
@@ -109,6 +115,7 @@ class _ContentOrderProductionRegisterDesktopState
                         onChanged: (value) =>
                             {bloc.orderProduction.dtRecord = value}),
                     CustomInput(
+                        readOnly: (bloc.orderProduction.status == "F"),
                         title: "Número",
                         initialValue: bloc.orderProduction.number.toString(),
                         keyboardType: TextInputType.number,
@@ -117,18 +124,21 @@ class _ContentOrderProductionRegisterDesktopState
                             {bloc.orderProduction.number = int.parse(value)}),
                     const SizedBox(height: 10),
                     CustomInputButtonWidget(
+                        readOnly: (bloc.orderProduction.status == "F"),
                         bloc: bloc,
                         initialValue: bloc.orderProduction.nameMerchandise,
                         event: OrderGetProductsEvent(),
                         title: "Descrição do Produto"),
                     const SizedBox(height: 10),
                     CustomInputButtonWidget(
+                        readOnly: (bloc.orderProduction.status == "F"),
                         bloc: bloc,
                         initialValue: bloc.orderProduction.nameStockListDes,
                         event: OrderGetStocksEvent(),
                         title: "Descrição do estoque"),
                     const SizedBox(height: 10),
                     CustomInput(
+                        readOnly: (bloc.orderProduction.status == "F"),
                         title: "Quantidade",
                         initialValue:
                             bloc.orderProduction.qttyForecast.toString(),
@@ -145,16 +155,30 @@ class _ContentOrderProductionRegisterDesktopState
                         orderProduction: bloc.orderProduction),
                     const SizedBox(height: 10),
                     CustomInput(
+                        readOnly: (bloc.orderProduction.status == "F"),
                         title: "Observações",
                         maxLines: 10,
                         initialValue: bloc.orderProduction.note,
-                        keyboardType: TextInputType.datetime,
+                        keyboardType: TextInputType.multiline,
                         inputAction: TextInputAction.go,
                         onChanged: (value) =>
                             {bloc.orderProduction.note = value})
                   ],
                 ),
-              ));
+              ),
+            ),
+            floatingActionButton: (bloc.orderProduction.status == "A")
+                ? FloatingActionButton(
+                    onPressed: () {
+                      (bloc.orderProduction.id > 0)
+                          ? bloc.add(OrderPutEvent())
+                          : bloc.add(OrderPostEvent());
+                    },
+                    backgroundColor: Colors.black,
+                    child: const Icon(Icons.save),
+                  )
+                : null,
+          );
         },
       ),
     );

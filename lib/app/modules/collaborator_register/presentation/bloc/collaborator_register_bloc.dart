@@ -95,7 +95,7 @@ class CollaboratorRegisterBloc
           await postCollaborator.call(ParamsPostCollaborator(model: model));
 
       response.fold((l) {
-        return emit(CollaboratorRegisterPostEditErrorState(
+        return emit(CollaboratorRegisterPostErrorState(
           modelList: modelList,
           error: l.toString(),
           tabIndex: 0,
@@ -114,7 +114,7 @@ class CollaboratorRegisterBloc
             nameLineBusiness: r.nameLineBusiness,
           ));
         }
-        emit(CollaboratorRegisterPostEditSuccessState(
+        emit(CollaboratorRegisterPostSuccessState(
             modelList: modelList, tabIndex: 0));
       });
     });

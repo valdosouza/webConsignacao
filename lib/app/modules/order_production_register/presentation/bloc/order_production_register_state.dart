@@ -19,6 +19,20 @@ class OrderPutSuccessState extends OrderProductionRegisterState {}
 
 class OrderDeleteSuccessState extends OrderProductionRegisterState {}
 
+class OrderClosureSuccessState extends OrderProductionRegisterState {
+  final String result;
+  OrderClosureSuccessState({
+    required this.result,
+  });
+}
+
+class OrderReopenSuccessState extends OrderProductionRegisterState {
+  final String result;
+  OrderReopenSuccessState({
+    required this.result,
+  });
+}
+
 class StocksLoadSuccessState extends OrderProductionRegisterState {
   final String type;
 
@@ -45,6 +59,10 @@ class OrderPostErrorState extends OrderProductionRegisterState {}
 class OrderPutErrorState extends OrderProductionRegisterState {}
 
 class OrderDeleteErrorState extends OrderProductionRegisterState {}
+
+class OrderClosureErrorState extends OrderProductionRegisterState {}
+
+class OrderReopenErrorState extends OrderProductionRegisterState {}
 
 class StocksLoadErrorState extends OrderProductionRegisterState {}
 

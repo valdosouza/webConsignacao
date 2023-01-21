@@ -142,20 +142,8 @@ class CollaboratorRegisterGetCityErrorState extends CollaboratorRegisterState {
   }) : super(modelList: modelList, tabIndex: tabIndex);
 }
 
-class CollaboratorRegisterPostAddSuccessState
-    extends CollaboratorRegisterState {
-  CollaboratorRegisterPostAddSuccessState(
-    List<CollaboratorListModel> modelList,
-    int tabIndex,
-  ) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
-}
-
-class CollaboratorRegisterPostEditSuccessState
-    extends CollaboratorRegisterState {
-  CollaboratorRegisterPostEditSuccessState({
+class CollaboratorRegisterPostSuccessState extends CollaboratorRegisterState {
+  CollaboratorRegisterPostSuccessState({
     required List<CollaboratorListModel> modelList,
     required int tabIndex,
   }) : super(
@@ -164,23 +152,10 @@ class CollaboratorRegisterPostEditSuccessState
         );
 }
 
-class CollaboratorRegisterPostAddErrorState extends CollaboratorRegisterState {
+class CollaboratorRegisterPostErrorState extends CollaboratorRegisterState {
   final String error;
 
-  CollaboratorRegisterPostAddErrorState(
-    List<CollaboratorListModel> modelList,
-    this.error,
-    int tabIndex,
-  ) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
-}
-
-class CollaboratorRegisterPostEditErrorState extends CollaboratorRegisterState {
-  final String error;
-
-  CollaboratorRegisterPostEditErrorState({
+  CollaboratorRegisterPostErrorState({
     required List<CollaboratorListModel> modelList,
     required this.error,
     required int tabIndex,

@@ -44,12 +44,9 @@ class _ContentDesktopCollaboratorRegisterState
         } else if (state is CollaboratorRegisterCnpjErrorState) {
           CustomToast.showToast(
               "Erro ao buscar os dados. Tente novamente mais tarde.");
-        } else if (state is CollaboratorRegisterPostAddSuccessState) {
+        } else if (state is CollaboratorRegisterPostSuccessState) {
           CustomToast.showToast("Cadastro atualizado com sucesso.");
-        } else if (state is CollaboratorRegisterPostAddErrorState) {
-          CustomToast.showToast(
-              "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
-        } else if (state is CollaboratorRegisterPostEditErrorState) {
+        } else if (state is CollaboratorRegisterPostErrorState) {
           CustomToast.showToast(
               "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
         } else if (state is CollaboratorRegisterGetErrorState) {

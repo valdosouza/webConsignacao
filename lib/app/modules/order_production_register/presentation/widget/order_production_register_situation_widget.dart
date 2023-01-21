@@ -28,32 +28,10 @@ class _OrderProductionRegisterSituationWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Row(
-          children: [
-            Radio(
-                value: true,
-                groupValue: selectRadio,
-                activeColor: Colors.red,
-                onChanged: (value) {}),
-            const SizedBox(width: 5.0),
-            const Text("Aberto", style: kLabelStyle),
-          ],
-        ),
-        const SizedBox(width: 10.0),
-        Row(
-          children: [
-            Radio(
-                value: false,
-                groupValue: selectRadio,
-                activeColor: Colors.red,
-                onChanged: (value) {}),
-            const SizedBox(width: 5.0),
-            const Text("Fechado", style: kLabelStyle),
-          ],
-        ),
-      ],
-    );
+    if (widget.orderProduction.status == "A") {
+      return const Text("Aberto", style: kLabelStyle);
+    } else {
+      return const Text("Fechado", style: kLabelStyle);
+    }
   }
 }

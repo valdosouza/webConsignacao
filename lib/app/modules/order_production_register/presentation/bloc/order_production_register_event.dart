@@ -23,6 +23,14 @@ class OrderDeleteEvent extends OrderProductionRegisterEvent {
   OrderDeleteEvent();
 }
 
+class OrderClosureEvent extends OrderProductionRegisterEvent {
+  OrderClosureEvent();
+}
+
+class OrderReopenEvent extends OrderProductionRegisterEvent {
+  OrderReopenEvent();
+}
+
 class OrderAddEvent extends OrderProductionRegisterEvent {
   OrderAddEvent();
 }

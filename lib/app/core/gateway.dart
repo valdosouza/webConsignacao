@@ -34,6 +34,8 @@ class Gateway {
     final headers = {
       HttpHeaders.authorizationHeader: "Bearer $token",
       'Content-Type': 'application/json; charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Accept': '*/*'
     };
     return headers;
   }

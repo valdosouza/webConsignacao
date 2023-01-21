@@ -1,11 +1,15 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/order_production_register/data/model/order_production_status_model.dart';
+import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_closure.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_delete.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get_list.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_post.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_put.dart';
+import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_reopen.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/product_get_list.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_event.dart';
@@ -19,12 +23,16 @@ class OrderProductionRegisterBloc
   final OrderProductionRegisterPost postOrderProduction;
   final OrderProductionRegisterPut putOrderProduction;
   final OrderProductionRegisterDelete deleteOrderProduction;
+  final OrderProductionRegisterClosure closureOrderProduction;
+  final OrderProductionRegisterReopen reopenOrderProduction;
   final ProductGetlist productGetlist;
   final StockListGetlist stockListGetlist;
 
   List<OrderProductionRegisterModel> orderProductions = [];
   OrderProductionRegisterModel orderProduction =
       OrderProductionRegisterModel.isEmpty();
+
+  OrderProductionStatusModel modelStatus = OrderProductionStatusModel.empty();
   List<ProductListModel> products = [];
   List<StockListModel> stocks = [];
 
@@ -34,6 +42,8 @@ class OrderProductionRegisterBloc
     required this.postOrderProduction,
     required this.putOrderProduction,
     required this.deleteOrderProduction,
+    required this.closureOrderProduction,
+    required this.reopenOrderProduction,
     required this.productGetlist,
     required this.stockListGetlist,
   }) : super(OrderLoadingState()) {
@@ -50,6 +60,10 @@ class OrderProductionRegisterBloc
     putOrder();
 
     deleteOrder();
+
+    closureOrder();
+
+    reopenOrder();
 
     getProducts();
 
@@ -116,6 +130,47 @@ class OrderProductionRegisterBloc
         orderProductions
             .removeWhere((element) => element.id == orderProduction.id);
         emit(OrderDeleteSuccessState());
+      });
+    });
+  }
+
+  closureOrder() {
+    on<OrderClosureEvent>((event, emit) async {
+      emit(OrderLoadingState());
+      modelStatus.tbInstitutionId = orderProduction.tbInstitutionId;
+      modelStatus.id = orderProduction.id;
+      modelStatus.dtRecord = CustomDate.newDate();
+      modelStatus.direction = "E";
+      var response = await closureOrderProduction
+          .call(ParamsOrderProductionClosure(model: modelStatus));
+
+      response.fold((l) {
+        emit(OrderClosureErrorState());
+      }, (r) {
+        orderProductions[orderProductions
+                .indexWhere((element) => element.id == modelStatus.id)]
+            .status = "F";
+        emit(OrderClosureSuccessState(result: r));
+      });
+    });
+  }
+
+  reopenOrder() {
+    on<OrderReopenEvent>((event, emit) async {
+      emit(OrderLoadingState());
+      modelStatus.tbInstitutionId = orderProduction.tbInstitutionId;
+      modelStatus.id = orderProduction.id;
+      modelStatus.dtRecord = CustomDate.newDate();
+      modelStatus.direction = "S";
+      var response = await reopenOrderProduction
+          .call(ParamsOrderProductionReopen(model: modelStatus));
+
+      response.fold((l) => emit(OrderClosureErrorState()), (r) {
+        orderProductions[orderProductions
+                .indexWhere((element) => element.id == modelStatus.id)]
+            .status = "A";
+
+        emit(OrderClosureSuccessState(result: r));
       });
     });
   }

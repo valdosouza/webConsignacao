@@ -77,15 +77,6 @@ class OrderProductionRegisterPageDesktopState
           decoration: kBoxDecorationflexibleSpace,
         ),
         title: const Text('Lista de Ordens de Produção'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person_add),
-            onPressed: () {
-              bloc.orderProduction = OrderProductionRegisterModel.isEmpty();
-              bloc.add(OrderAddEvent());
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),
@@ -100,6 +91,14 @@ class OrderProductionRegisterPageDesktopState
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          bloc.orderProduction = OrderProductionRegisterModel.isEmpty();
+          bloc.add(OrderAddEvent());
+        },
+        backgroundColor: Colors.black,
+        child: const Icon(Icons.add),
       ),
     );
   }
