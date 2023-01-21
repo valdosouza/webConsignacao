@@ -50,8 +50,10 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
               itemCount: widget.orderStockTransfer.items.length,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  bloc.add(OrderStockAdjustmentRegisterItemEvent(
-                      item: widget.orderStockTransfer.items[index]));
+                  if (bloc.orderStockAdjustment.status == "A") {
+                    bloc.add(OrderStockAdjustmentRegisterItemEvent(
+                        item: widget.orderStockTransfer.items[index]));
+                  }
                 },
                 child: ListTile(
                   leading: CircleAvatar(

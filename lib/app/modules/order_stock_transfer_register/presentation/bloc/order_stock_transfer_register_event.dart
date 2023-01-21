@@ -13,6 +13,14 @@ class OrderPostEvent extends OrderStockTransferRegisterEvent {}
 
 class OrderDeleteEvent extends OrderStockTransferRegisterEvent {}
 
+class OrderClosureEvent extends OrderStockTransferRegisterEvent {
+  OrderClosureEvent();
+}
+
+class OrderReopenEvent extends OrderStockTransferRegisterEvent {
+  OrderReopenEvent();
+}
+
 class OrderSearchEvent extends OrderStockTransferRegisterEvent {}
 
 class OrderReturnMasterEvent extends OrderStockTransferRegisterEvent {}

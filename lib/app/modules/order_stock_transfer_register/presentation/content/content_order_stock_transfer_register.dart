@@ -71,12 +71,31 @@ buildListView(OrderStockTransferRegisterBloc bloc,
                     child: Text((index + 1).toString()),
                   ),
                 ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                title: Row(
                   children: [
-                    Text(list[index].nameEntity),
-                    const SizedBox(height: 5.0),
-                    Text(list[index].dtRecord)
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(list[index].nameEntity),
+                          const SizedBox(height: 5.0),
+                          Text(list[index].dtRecord)
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Situação",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 5.0),
+                          Text((list[index].status == "A")
+                              ? "Aberta"
+                              : "Fechada"),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 trailing: IconButton(

@@ -235,11 +235,8 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   @override
   Future<String> closure({required OrderStatusModel model}) async {
     final tbInstitutionId = await getInstitutionId();
-
     model.tbInstitutionId = tbInstitutionId;
-
     final body = jsonEncode(model.toJson());
-
     return request(
       'orderstockadjust/closure',
       method: HTTPMethod.post,
@@ -258,11 +255,8 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   @override
   Future<String> reopen({required OrderStatusModel model}) async {
     final tbInstitutionId = await getInstitutionId();
-
     model.tbInstitutionId = tbInstitutionId;
-
     final body = jsonEncode(model.toJson());
-
     return request(
       'orderstockadjust/reopen',
       method: HTTPMethod.post,

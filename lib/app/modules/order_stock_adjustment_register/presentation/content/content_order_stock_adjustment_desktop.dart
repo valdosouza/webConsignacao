@@ -125,7 +125,9 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                       )),
                       trailing: IconButton(
                           onPressed: () {
-                            bloc.add(OrderStockAdjustmentRegisterItemEvent());
+                            if (bloc.orderStockAdjustment.status == "A") {
+                              bloc.add(OrderStockAdjustmentRegisterItemEvent());
+                            }
                           },
                           icon: const Icon(Icons.add, color: Colors.white)),
                     ),

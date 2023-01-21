@@ -1,15 +1,19 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_items_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/entities_list_getlist.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_closure.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_delete.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_main_get.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_get_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_post.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_put.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_reopen.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/product_get_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_event.dart';
@@ -23,6 +27,9 @@ class OrderStockTransferRegisterBloc extends Bloc<
   final OrderStockTransferRegisterPost postOrderStockTransfer;
   final OrderStockTransferRegisterPut putOrderStockTransfer;
   final OrderStockTransferRegisterDelete deleteOrderStockTransfer;
+  final OrderStockTransferRegisterClosure closureOrderStocktransfer;
+  final OrderStockTransferRegisterReopen reopenOrderStocktransfer;
+
   final ProductGetlist productGetlist;
   final StockListGetlist stockListGetlist;
   final EntitiesListGetlist entitiesListGetlist;
@@ -38,6 +45,8 @@ class OrderStockTransferRegisterBloc extends Bloc<
   List<EntityListModel> entities = [];
   StockListModel stock = StockListModel.empty();
 
+  OrderStatusModel modelStatus = OrderStatusModel.empty();
+
   int tabIndex = 0;
   String search = "";
   OrderStockTransferRegisterBloc({
@@ -46,6 +55,8 @@ class OrderStockTransferRegisterBloc extends Bloc<
     required this.postOrderStockTransfer,
     required this.putOrderStockTransfer,
     required this.deleteOrderStockTransfer,
+    required this.closureOrderStocktransfer,
+    required this.reopenOrderStocktransfer,
     required this.productGetlist,
     required this.stockListGetlist,
     required this.entitiesListGetlist,
@@ -73,6 +84,10 @@ class OrderStockTransferRegisterBloc extends Bloc<
     orderPut();
 
     orderDelete();
+
+    closureOrder();
+
+    reopenOrder();
 
     getProducts();
 
@@ -152,6 +167,48 @@ class OrderStockTransferRegisterBloc extends Bloc<
         orderStockTransfers
             .removeWhere((element) => element.id == orderMain.order.id);
         emit(OrderDeleteSuccessState());
+      });
+    });
+  }
+
+  closureOrder() {
+    on<OrderClosureEvent>((event, emit) async {
+      emit(OrderLoadingState());
+      modelStatus.tbInstitutionId = orderMain.order.tbInstitutionId;
+      modelStatus.id = orderMain.order.id;
+      modelStatus.dtRecord = CustomDate.newDate();
+      modelStatus.direction = "V";
+      var response = await closureOrderStocktransfer
+          .call(ParamsOrderStockTransferClosure(model: modelStatus));
+
+      response.fold((l) {
+        emit(OrderClosureErrorState());
+      }, (r) {
+        orderStockTransfers[orderStockTransfers
+                .indexWhere((element) => element.id == modelStatus.id)]
+            .status = "F";
+        emit(OrderClosureSuccessState());
+      });
+    });
+  }
+
+  reopenOrder() {
+    on<OrderReopenEvent>((event, emit) async {
+      emit(OrderLoadingState());
+      modelStatus.tbInstitutionId = orderMain.order.tbInstitutionId;
+      modelStatus.id = orderMain.order.id;
+      modelStatus.dtRecord = CustomDate.newDate();
+      modelStatus.direction = "V";
+
+      var response = await reopenOrderStocktransfer
+          .call(ParamsOrderStocktransferReopen(model: modelStatus));
+
+      response.fold((l) => emit(OrderClosureErrorState()), (r) {
+        orderStockTransfers[orderStockTransfers
+                .indexWhere((element) => element.id == modelStatus.id)]
+            .status = "A";
+
+        emit(OrderReopenSuccessState());
       });
     });
   }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
@@ -20,6 +21,8 @@ abstract class OrderStockTransferRegisterDataSource extends Gateway {
   Future<List<StockListModel>> getListStock();
   Future<List<EntityListModel>> getListEntity();
   Future<List<ProductListModel>> getListProduct();
+  Future<String> closure({required OrderStatusModel model});
+  Future<String> reopen({required OrderStatusModel model});
 }
 
 class OrderStockTransferRegisterDataSourceImpl
@@ -194,6 +197,46 @@ class OrderStockTransferRegisterDataSourceImpl
       },
       onError: (error) {
         throw ServerException;
+      },
+    );
+  }
+
+  @override
+  Future<String> closure({required OrderStatusModel model}) async {
+    final tbInstitutionId = await getInstitutionId();
+    model.tbInstitutionId = tbInstitutionId;
+    final body = jsonEncode(model.toJson());
+    return request(
+      'orderstocktransfer/closure',
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        final data = payload;
+        //var model = OrderStatusModel.fromJson(data);
+        return data;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
+  }
+
+  @override
+  Future<String> reopen({required OrderStatusModel model}) async {
+    final tbInstitutionId = await getInstitutionId();
+    model.tbInstitutionId = tbInstitutionId;
+    final body = jsonEncode(model.toJson());
+    return request(
+      'orderstocktransfer/reopen',
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        final data = payload;
+        //var model = OrderStatusModel.fromJson(data);
+        return data;
+      },
+      onError: (error) {
+        return ServerException;
       },
     );
   }

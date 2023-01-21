@@ -7,9 +7,10 @@ class CustomInputButton extends StatelessWidget {
   final double? width;
   final int maxLines;
   final Widget? suffixIcon;
-
   final Function()? onAction;
   final String initialValue;
+  final bool readOnly;
+
   const CustomInputButton({
     super.key,
     this.onAction,
@@ -19,6 +20,7 @@ class CustomInputButton extends StatelessWidget {
     this.width,
     required this.title,
     required this.initialValue,
+    this.readOnly = false,
   });
 
   @override

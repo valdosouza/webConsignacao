@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
@@ -18,4 +19,6 @@ abstract class OrderStockTransferRegisterRepository {
   Future<Either<Failure, List<ProductListModel>>> getListProducts();
   Future<Either<Failure, List<StockListModel>>> getListStock();
   Future<Either<Failure, List<EntityListModel>>> getListEntities();
+  Future<Either<Failure, String>> closure({required OrderStatusModel model});
+  Future<Either<Failure, String>> reopen({required OrderStatusModel model});
 }

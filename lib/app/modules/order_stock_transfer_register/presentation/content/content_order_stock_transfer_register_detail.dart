@@ -52,8 +52,10 @@ class ContentOrderStockTransferRegisterDetailState
               itemCount: orderItemsFiltered.length,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  bloc.orderItem = orderItemsFiltered[index];
-                  bloc.add(OrderItemEditEvent());
+                  if (bloc.orderMain.order.status == "A") {
+                    bloc.orderItem = orderItemsFiltered[index];
+                    bloc.add(OrderItemEditEvent());
+                  }
                 },
                 child: ListTile(
                   leading: CircleAvatar(
@@ -77,8 +79,10 @@ class ContentOrderStockTransferRegisterDetailState
                   ),
                   trailing: IconButton(
                     onPressed: () {
-                      bloc.orderItem = orderItemsFiltered[index];
-                      bloc.add(OrderItemDeleteEvent());
+                      if (bloc.orderMain.order.status == "A") {
+                        bloc.orderItem = orderItemsFiltered[index];
+                        bloc.add(OrderItemDeleteEvent());
+                      }
                     },
                     icon: const Icon(
                       Icons.remove,

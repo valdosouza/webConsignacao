@@ -80,16 +80,20 @@ class _ContentOrderStockTransferRegisterDesktopState
                 style: kHintTextStyle.copyWith(fontSize: 20.0),
               ),
               actions: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.check,
-                    size: 30.0,
-                  ),
-                  onPressed: () {
-                    bloc.orderMain.order.id > 0
-                        ? bloc.add(OrderPutEvent())
-                        : bloc.add(OrderPostEvent());
-                  },
+                PopupMenuButton(
+                  itemBuilder: (context) => [
+                    (bloc.orderMain.order.status == "A")
+                        ? PopupMenuItem(
+                            onTap: (() => bloc.add(OrderClosureEvent())),
+                            value: 0,
+                            child: const Text("Encerrar"),
+                          )
+                        : PopupMenuItem(
+                            onTap: (() => bloc.add(OrderReopenEvent())),
+                            value: 0,
+                            child: const Text("Reabrir"),
+                          ),
+                  ],
                 ),
               ],
               bottom: TabBar(
@@ -107,7 +111,9 @@ class _ContentOrderStockTransferRegisterDesktopState
                       )),
                       trailing: IconButton(
                         onPressed: () {
-                          bloc.add(OrderItemNewEvent());
+                          if (bloc.orderMain.order.status == "A") {
+                            bloc.add(OrderItemNewEvent());
+                          }
                         },
                         icon: const Icon(Icons.add, color: Colors.white),
                       ),
@@ -116,10 +122,24 @@ class _ContentOrderStockTransferRegisterDesktopState
                 ],
               ),
             ),
-            body: TabBarView(controller: _tabController, children: const [
-              ContentOrderStockTransferRegisterMaster(),
-              ContentOrderStockTransferRegisterDetail(),
-            ]),
+            body: TabBarView(
+              controller: _tabController,
+              children: const [
+                ContentOrderStockTransferRegisterMaster(),
+                ContentOrderStockTransferRegisterDetail(),
+              ],
+            ),
+            floatingActionButton: (bloc.orderMain.order.status == "A")
+                ? FloatingActionButton(
+                    onPressed: () {
+                      bloc.orderMain.order.id > 0
+                          ? bloc.add(OrderPutEvent())
+                          : bloc.add(OrderPostEvent());
+                    },
+                    backgroundColor: Colors.black,
+                    child: const Icon(Icons.save),
+                  )
+                : null,
           );
         },
       ),

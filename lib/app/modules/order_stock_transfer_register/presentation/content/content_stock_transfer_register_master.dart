@@ -47,6 +47,7 @@ class _ContentOrderStockTransferRegisterMasterState
           ),
           const SizedBox(height: 10),
           CustomInput(
+              readOnly: (bloc.orderMain.order.status == "F"),
               title: "Número",
               initialValue: bloc.orderMain.order.number.toString(),
               keyboardType: TextInputType.number,
@@ -55,6 +56,7 @@ class _ContentOrderStockTransferRegisterMasterState
                   {bloc.orderMain.order.number = int.parse(value)}),
           const SizedBox(height: 10),
           CustomInputButton(
+            readOnly: (bloc.orderMain.order.status == "A"),
             initialValue: bloc.orderMain.order.nameEntity,
             title: "Descrição da Entidade",
             suffixIcon: const Icon(
@@ -62,22 +64,35 @@ class _ContentOrderStockTransferRegisterMasterState
               size: 20.0,
               color: Colors.white,
             ),
-            onAction: (() => {bloc.add(EntitiesGetEvent())}),
+            onAction: (() => {
+                  (bloc.orderMain.order.status == "A")
+                      ? bloc.add(EntitiesGetEvent())
+                      : null
+                }),
           ),
           const SizedBox(height: 10),
           CustomInputButton(
             initialValue: bloc.orderMain.order.nameStockListOri,
             title: "Descrição do estoque de Origem",
-            onAction: (() => {bloc.add(StocksGetEvent(type: "Origem"))}),
+            onAction: (() => {
+                  (bloc.orderMain.order.status == "A")
+                      ? bloc.add(StocksGetEvent(type: "Origem"))
+                      : null
+                }),
           ),
           const SizedBox(height: 10),
           CustomInputButton(
             initialValue: bloc.orderMain.order.nameStockListDes,
             title: "Descrição do estoque de Destino",
-            onAction: (() => {bloc.add(StocksGetEvent(type: "Destino"))}),
+            onAction: (() => {
+                  (bloc.orderMain.order.status == "A")
+                      ? bloc.add(StocksGetEvent(type: "Destino"))
+                      : null
+                }),
           ),
           const SizedBox(height: 10),
           CustomInput(
+              readOnly: (bloc.orderMain.order.status == "F"),
               title: "Observações",
               maxLines: 10,
               initialValue: bloc.orderMain.order.note,

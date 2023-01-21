@@ -17,6 +17,10 @@ class OrderPutSuccessState extends OrderStockTransferRegisterState {}
 
 class OrderDeleteSuccessState extends OrderStockTransferRegisterState {}
 
+class OrderClosureSuccessState extends OrderStockTransferRegisterState {}
+
+class OrderReopenSuccessState extends OrderStockTransferRegisterState {}
+
 class EntitiesLoadSuccessState extends OrderStockTransferRegisterState {}
 
 class EntityChosenSuccessState extends OrderStockTransferRegisterState {}
@@ -41,6 +45,14 @@ class OrderDeleteErrorState extends OrderStockTransferRegisterState {}
 class EntityLoadErrorState extends OrderStockTransferRegisterState {}
 
 class StocksLoadErrorState extends OrderStockTransferRegisterState {}
+
+class OrderClosureErrorState extends OrderStockTransferRegisterState {
+  OrderClosureErrorState();
+}
+
+class OrderReopenErrorState extends OrderStockTransferRegisterState {
+  OrderReopenErrorState();
+}
 
 //======================Detail============================
 class OrderItemUpdateSuccessState extends OrderStockTransferRegisterState {}
