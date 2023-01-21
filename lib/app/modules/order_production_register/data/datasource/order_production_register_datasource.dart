@@ -5,7 +5,7 @@ import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/order_production_status_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 
 abstract class OrderProductionRegisterDataSource extends Gateway {
   OrderProductionRegisterDataSource({required super.httpClient});
@@ -19,8 +19,8 @@ abstract class OrderProductionRegisterDataSource extends Gateway {
   Future<String> delete({required int id});
   Future<List<ProductListModel>> getListProducts();
   Future<List<StockListModel>> getListStock();
-  Future<String> closure({required OrderProductionStatusModel model});
-  Future<String> reopen({required OrderProductionStatusModel model});
+  Future<String> closure({required OrderStatusModel model});
+  Future<String> reopen({required OrderStatusModel model});
 }
 
 class OrderProductionRegisterDataSourceImpl
@@ -178,7 +178,7 @@ class OrderProductionRegisterDataSourceImpl
   }
 
   @override
-  Future<String> closure({required OrderProductionStatusModel model}) async {
+  Future<String> closure({required OrderStatusModel model}) async {
     final tbInstitutionId = await getInstitutionId();
 
     model.tbInstitutionId = tbInstitutionId;
@@ -191,7 +191,7 @@ class OrderProductionRegisterDataSourceImpl
       data: body,
       (payload) {
         final data = payload;
-        //var model = OrderProductionStatusModel.fromJson(data);
+        //var model = OrderStatusModel.fromJson(data);
         return data;
       },
       onError: (error) {
@@ -201,7 +201,7 @@ class OrderProductionRegisterDataSourceImpl
   }
 
   @override
-  Future<String> reopen({required OrderProductionStatusModel model}) async {
+  Future<String> reopen({required OrderStatusModel model}) async {
     final tbInstitutionId = await getInstitutionId();
 
     model.tbInstitutionId = tbInstitutionId;
@@ -214,7 +214,7 @@ class OrderProductionRegisterDataSourceImpl
       data: body,
       (payload) {
         final data = payload;
-        //var model = OrderProductionStatusModel.fromJson(data);
+        //var model = OrderStatusModel.fromJson(data);
         return data;
       },
       onError: (error) {

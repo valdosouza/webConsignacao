@@ -28,6 +28,7 @@ class OrderStockAdjustmentRegisterData extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomInput(
+              readOnly: (bloc.orderStockAdjustment.status == "F"),
               title: "Data",
               controller: controllerDate,
               keyboardType: TextInputType.datetime,
@@ -35,6 +36,7 @@ class OrderStockAdjustmentRegisterData extends StatelessWidget {
               onChanged: (value) => {orderStockTransfer.dtRecord = value}),
           const SizedBox(height: 10),
           CustomInput(
+              readOnly: (bloc.orderStockAdjustment.status == "F"),
               title: "Número",
               initialValue: orderStockTransfer.number.toString(),
               keyboardType: TextInputType.number,
@@ -43,12 +45,14 @@ class OrderStockAdjustmentRegisterData extends StatelessWidget {
                   {orderStockTransfer.number = int.parse(value)}),
           const SizedBox(height: 10),
           CustomInputButtonWidget(
+              readOnly: (bloc.orderStockAdjustment.status == "F"),
               bloc: bloc,
               initialValue: orderStockTransfer.nameEntity,
               event: OrderStockAdjustmentRegisterGetEntityEvent(),
               title: "Descrição da Entidade"),
           const SizedBox(height: 10),
           CustomInputButtonWidget(
+              readOnly: (bloc.orderStockAdjustment.status == "F"),
               bloc: bloc,
               initialValue: bloc.stock.description,
               event: OrderStockAdjustmentRegisterGetStocksEvent(),
@@ -60,6 +64,7 @@ class OrderStockAdjustmentRegisterData extends StatelessWidget {
               orderStockTransfer: orderStockTransfer),
           const SizedBox(height: 10),
           CustomInput(
+              readOnly: (bloc.orderStockAdjustment.status == "F"),
               title: "Observações",
               maxLines: 10,
               initialValue: orderStockTransfer.note,

@@ -91,6 +91,22 @@ class OrderStockAdjustmentRegisterDeleteErrorState
       : super(list: list);
 }
 
+class OrderClosureSuccessState extends OrderStockAdjustmentRegisterState {
+  final String result;
+  OrderClosureSuccessState(
+      {required this.result,
+      required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
+
+class OrderReopenSuccessState extends OrderStockAdjustmentRegisterState {
+  final String result;
+  OrderReopenSuccessState(
+      {required this.result,
+      required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
+
 class OrderStockAdjustmentRegisterProductSuccessState
     extends OrderStockAdjustmentRegisterState {
   final List<ProductListModel> products;
@@ -141,4 +157,14 @@ class OrderStockAdjustmentRegisterChangeDirectionErrorState
 class OrderStockAdjustmentRegisterChangeDirectionkSuccessState
     extends OrderStockAdjustmentRegisterState {
   OrderStockAdjustmentRegisterChangeDirectionkSuccessState() : super(list: []);
+}
+
+//======================MASTER - Errors============================
+
+class OrderClosureErrorState extends OrderStockAdjustmentRegisterState {
+  OrderClosureErrorState({required super.list});
+}
+
+class OrderReopenErrorState extends OrderStockAdjustmentRegisterState {
+  OrderReopenErrorState({required super.list});
 }

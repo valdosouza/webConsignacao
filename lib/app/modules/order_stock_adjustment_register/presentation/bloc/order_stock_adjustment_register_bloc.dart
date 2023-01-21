@@ -1,14 +1,18 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/entities_list_getlist.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_closure.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_delete.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_get.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_get_list.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_post.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_put.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_reopen.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/product_get_list.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
@@ -22,6 +26,9 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
   final OrderStockAdjustmentRegisterPost postOrderStockAdjustment;
   final OrderStockAdjustmentRegisterPut putOrderStockAdjustment;
   final OrderStockAdjustmentRegisterDelete deleteOrderStockAdjustment;
+  final OrderStockAdjustmentRegisterClosure closureOrderStockAdjustment;
+  final OrderStockAdjustmentRegisterReopen reopenOrderStockAdjustment;
+
   final ProductGetlist productGetlist;
   final StockListGetlist stockListGetlist;
   final EntitiesListGetlist entitiesListGetlist;
@@ -37,12 +44,16 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
       OrderStockAdjustmentRegisterItemsModel.empty();
   bool edit = false;
 
+  OrderStatusModel modelStatus = OrderStatusModel.empty();
+
   OrderStockAdjustmentRegisterBloc({
     required this.getOrderStockAdjustment,
     required this.getlistOrderStockAdjustment,
     required this.postOrderStockAdjustment,
     required this.putOrderStockAdjustment,
     required this.deleteOrderStockAdjustment,
+    required this.closureOrderStockAdjustment,
+    required this.reopenOrderStockAdjustment,
     required this.productGetlist,
     required this.stockListGetlist,
     required this.entitiesListGetlist,
@@ -54,11 +65,15 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     // goToOrderStockAdjustmentMobilePage();
     goToItemsPage();
 
-    postOrderStockAdjustmentAction();
+    postOrder();
 
-    putOrderStockAdjustmentAction();
+    putOrder();
 
-    deleteOrderStockAdjustmentAction();
+    deleteOrder();
+
+    closureOrder();
+
+    reopenOrder();
 
     getProducts();
 
@@ -117,7 +132,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  postOrderStockAdjustmentAction() {
+  postOrder() {
     on<OrderStockAdjustmentRegisterPostEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
       formatItems();
@@ -134,7 +149,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  putOrderStockAdjustmentAction() {
+  putOrder() {
     on<OrderStockAdjustmentRegisterPutEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
       formatItems();
@@ -160,7 +175,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  deleteOrderStockAdjustmentAction() {
+  deleteOrder() {
     on<OrderStockAdjustmentRegisterDeleteEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
 
@@ -174,6 +189,53 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
             .removeWhere((element) => element.id == event.model.id);
         emit(OrderStockAdjustmentRegisterDeleteSuccessState(
             list: orderStockAdjustments));
+      });
+    });
+  }
+
+  closureOrder() {
+    on<OrderClosureEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
+      modelStatus.tbInstitutionId = orderStockAdjustment.tbInstitutionId;
+      modelStatus.id = orderStockAdjustment.id;
+      modelStatus.dtRecord = CustomDate.newDate();
+      modelStatus.direction = orderStockAdjustment.direction;
+      var response = await closureOrderStockAdjustment
+          .call(ParamsOrderStockAdjustmentClosure(model: modelStatus));
+
+      response.fold((l) {
+        emit(OrderClosureErrorState(
+          list: orderStockAdjustments,
+        ));
+      }, (r) {
+        orderStockAdjustments[orderStockAdjustments
+                .indexWhere((element) => element.id == modelStatus.id)]
+            .status = "F";
+        emit(OrderClosureSuccessState(list: orderStockAdjustments, result: r));
+      });
+    });
+  }
+
+  reopenOrder() {
+    on<OrderReopenEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
+      modelStatus.tbInstitutionId = orderStockAdjustment.tbInstitutionId;
+      modelStatus.id = orderStockAdjustment.id;
+      modelStatus.dtRecord = CustomDate.newDate();
+      modelStatus.direction = orderStockAdjustment.direction;
+
+      var response = await reopenOrderStockAdjustment
+          .call(ParamsOrderStockAdjustmentReopen(model: modelStatus));
+
+      response.fold(
+          (l) => emit(OrderClosureErrorState(
+                list: orderStockAdjustments,
+              )), (r) {
+        orderStockAdjustments[orderStockAdjustments
+                .indexWhere((element) => element.id == modelStatus.id)]
+            .status = "A";
+
+        emit(OrderReopenSuccessState(list: orderStockAdjustments, result: r));
       });
     });
   }

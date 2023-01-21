@@ -94,18 +94,20 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                 style: kHintTextStyle.copyWith(fontSize: 20.0),
               ),
               actions: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.check,
-                    size: 30.0,
-                  ),
-                  onPressed: () {
-                    bloc.edit
-                        ? bloc.add(OrderStockAdjustmentRegisterPutEvent(
-                            model: orderStockAdjustment))
-                        : bloc.add(OrderStockAdjustmentRegisterPostEvent(
-                            model: orderStockAdjustment));
-                  },
+                PopupMenuButton(
+                  itemBuilder: (context) => [
+                    (bloc.orderStockAdjustment.status == "A")
+                        ? PopupMenuItem(
+                            onTap: (() => bloc.add(OrderClosureEvent())),
+                            value: 0,
+                            child: const Text("Encerrar"),
+                          )
+                        : PopupMenuItem(
+                            onTap: (() => bloc.add(OrderReopenEvent())),
+                            value: 0,
+                            child: const Text("Reabrir"),
+                          ),
+                  ],
                 ),
               ],
               bottom: TabBar(
@@ -140,6 +142,19 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                 orderStockTransfer: orderStockAdjustment,
               ),
             ]),
+            floatingActionButton: (bloc.orderStockAdjustment.status == "A")
+                ? FloatingActionButton(
+                    onPressed: () {
+                      bloc.edit
+                          ? bloc.add(OrderStockAdjustmentRegisterPutEvent(
+                              model: orderStockAdjustment))
+                          : bloc.add(OrderStockAdjustmentRegisterPostEvent(
+                              model: orderStockAdjustment));
+                    },
+                    backgroundColor: Colors.black,
+                    child: const Icon(Icons.save),
+                  )
+                : null,
           );
         },
       ),

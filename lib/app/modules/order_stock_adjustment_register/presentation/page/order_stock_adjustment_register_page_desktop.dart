@@ -98,18 +98,6 @@ class OrderStockAdjustmentRegisterPageDesktopState
           decoration: kBoxDecorationflexibleSpace,
         ),
         title: const Text('Lista de Ordens de Ajuste de estoque'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person_add),
-            onPressed: () {
-              bloc.orderStockAdjustment =
-                  OrderStockAdjustmentRegisterModel.empty();
-              bloc.stock = StockListModel.empty();
-              bloc.edit = false;
-              bloc.add(OrderStockAdjustmentRegisterDesktopEvent());
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),
@@ -124,6 +112,16 @@ class OrderStockAdjustmentRegisterPageDesktopState
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          bloc.orderStockAdjustment = OrderStockAdjustmentRegisterModel.empty();
+          bloc.stock = StockListModel.empty();
+          bloc.edit = false;
+          bloc.add(OrderStockAdjustmentRegisterDesktopEvent());
+        },
+        backgroundColor: Colors.black,
+        child: const Icon(Icons.add),
       ),
     );
   }

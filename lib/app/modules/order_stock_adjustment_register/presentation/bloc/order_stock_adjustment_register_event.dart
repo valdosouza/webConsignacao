@@ -75,6 +75,14 @@ class OrderStockAdjustmentRegisterDeleteEvent
   OrderStockAdjustmentRegisterDeleteEvent({required this.model});
 }
 
+class OrderClosureEvent extends OrderStockAdjustmentRegisterEvent {
+  OrderClosureEvent();
+}
+
+class OrderReopenEvent extends OrderStockAdjustmentRegisterEvent {
+  OrderReopenEvent();
+}
+
 class OrderStockAdjustmentRegisterDesktopEvent
     extends OrderStockAdjustmentRegisterEvent {
   final OrderStockAdjustmentRegisterModel? model;

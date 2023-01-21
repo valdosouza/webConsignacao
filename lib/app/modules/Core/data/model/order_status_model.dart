@@ -1,8 +1,8 @@
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
-import 'package:appweb/app/modules/order_production_register/domain/entity/order_production_status_entity.dart';
+import 'package:appweb/app/modules/Core/domain/entity/order_status_entity.dart';
 
-class OrderProductionStatusModel extends OrderProductionStatusEntity {
-  OrderProductionStatusModel({
+class OrderStatusModel extends OrderStatusEntity {
+  OrderStatusModel({
     required int tbInstitutionId,
     required int id,
     required String dtRecord,
@@ -14,16 +14,16 @@ class OrderProductionStatusModel extends OrderProductionStatusEntity {
           direction: direction,
         );
 
-  factory OrderProductionStatusModel.fromJson(Map<String?, dynamic> json) {
-    return OrderProductionStatusModel(
+  factory OrderStatusModel.fromJson(Map<String?, dynamic> json) {
+    return OrderStatusModel(
       tbInstitutionId: json['tb_institution_id'],
       id: json['id'],
       dtRecord: CustomDate.formatDateIn(json['dt_record']),
       direction: json['direction'],
     );
   }
-  factory OrderProductionStatusModel.empty() {
-    return OrderProductionStatusModel(
+  factory OrderStatusModel.empty() {
+    return OrderStatusModel(
       tbInstitutionId: 0,
       id: 0,
       dtRecord: "",

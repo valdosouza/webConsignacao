@@ -4,7 +4,7 @@ import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/datasource/order_production_register_datasource.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/order_production_status_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/order_production_register/domain/repository/order_production_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -90,7 +90,7 @@ class OrderProductionRegisterRepositoryImpl
 
   @override
   Future<Either<Failure, String>> closure(
-      {required OrderProductionStatusModel model}) async {
+      {required OrderStatusModel model}) async {
     try {
       final result = await datasource.closure(model: model);
 
@@ -102,7 +102,7 @@ class OrderProductionRegisterRepositoryImpl
 
   @override
   Future<Either<Failure, String>> reopen(
-      {required OrderProductionStatusModel model}) async {
+      {required OrderStatusModel model}) async {
     try {
       final result = await datasource.reopen(model: model);
 

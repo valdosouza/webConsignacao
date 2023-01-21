@@ -23,6 +23,14 @@ statesOrderProductions(OrderProductionRegisterState state) {
   } else if (state is OrderGetErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados do cadastro. Tente novamente mais tarde.");
+  } else if (state is OrderClosureSuccessState) {
+    CustomToast.showToast("Registro Encerrado com sucesso");
+  } else if (state is OrderClosureErrorState) {
+    CustomToast.showToast("Erro ao encerrar o registro");
+  } else if (state is OrderReopenSuccessState) {
+    CustomToast.showToast("Registro reaberto com sucesso");
+  } else if (state is OrderReopenErrorState) {
+    CustomToast.showToast("Erro ao reabrir o registro");
   }
 }
 
@@ -69,12 +77,31 @@ buildListView(OrderProductionRegisterBloc bloc,
                     child: Text((index + 1).toString()),
                   ),
                 ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                title: Row(
                   children: [
-                    Text(orderProductions[index].nameMerchandise),
-                    const SizedBox(height: 5.0),
-                    Text(orderProductions[index].dtRecord)
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(orderProductions[index].nameMerchandise),
+                          const SizedBox(height: 5.0),
+                          Text(orderProductions[index].dtRecord)
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Situação",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 5.0),
+                          Text((orderProductions[index].status == "A")
+                              ? "Aberta"
+                              : "Fechada"),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 trailing: IconButton(

@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
@@ -21,8 +22,8 @@ abstract class OrderStockAdjustmentRegisterDataSource extends Gateway {
   Future<List<ProductListModel>> getListProducts();
   Future<List<StockListModel>> getListStock();
   Future<List<EntityListModel>> getListEtities();
-  Future<void> close({required OrderStockAdjustmentRegisterModel model});
-  Future<void> reopen({required OrderStockAdjustmentRegisterModel model});
+  Future<String> closure({required OrderStatusModel model});
+  Future<String> reopen({required OrderStatusModel model});
 }
 
 class OrderStockAdjustmentRegisterDataSourceImpl
@@ -232,12 +233,48 @@ class OrderStockAdjustmentRegisterDataSourceImpl
   }
 
   @override
-  Future<void> close({required OrderStockAdjustmentRegisterModel model}) {
-    throw UnimplementedError();
+  Future<String> closure({required OrderStatusModel model}) async {
+    final tbInstitutionId = await getInstitutionId();
+
+    model.tbInstitutionId = tbInstitutionId;
+
+    final body = jsonEncode(model.toJson());
+
+    return request(
+      'orderstockadjust/closure',
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        final data = payload;
+        //var model = OrderStatusModel.fromJson(data);
+        return data;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 
   @override
-  Future<void> reopen({required OrderStockAdjustmentRegisterModel model}) {
-    throw UnimplementedError();
+  Future<String> reopen({required OrderStatusModel model}) async {
+    final tbInstitutionId = await getInstitutionId();
+
+    model.tbInstitutionId = tbInstitutionId;
+
+    final body = jsonEncode(model.toJson());
+
+    return request(
+      'orderstockadjust/reopen',
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        final data = payload;
+        //var model = OrderStatusModel.fromJson(data);
+        return data;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
   }
 }

@@ -2,7 +2,7 @@ import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
-import 'package:appweb/app/modules/order_production_register/data/model/order_production_status_model.dart';
+import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_closure.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_delete.dart';
 import 'package:appweb/app/modules/order_production_register/domain/usecase/order_production_register_get.dart';
@@ -32,7 +32,7 @@ class OrderProductionRegisterBloc
   OrderProductionRegisterModel orderProduction =
       OrderProductionRegisterModel.isEmpty();
 
-  OrderProductionStatusModel modelStatus = OrderProductionStatusModel.empty();
+  OrderStatusModel modelStatus = OrderStatusModel.empty();
   List<ProductListModel> products = [];
   List<StockListModel> stocks = [];
 
@@ -140,6 +140,7 @@ class OrderProductionRegisterBloc
       modelStatus.tbInstitutionId = orderProduction.tbInstitutionId;
       modelStatus.id = orderProduction.id;
       modelStatus.dtRecord = CustomDate.newDate();
+
       modelStatus.direction = "E";
       var response = await closureOrderProduction
           .call(ParamsOrderProductionClosure(model: modelStatus));
@@ -170,7 +171,7 @@ class OrderProductionRegisterBloc
                 .indexWhere((element) => element.id == modelStatus.id)]
             .status = "A";
 
-        emit(OrderClosureSuccessState(result: r));
+        emit(OrderReopenSuccessState(result: r));
       });
     });
   }
