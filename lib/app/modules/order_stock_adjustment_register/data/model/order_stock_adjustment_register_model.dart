@@ -38,32 +38,32 @@ class OrderStockAdjustmentRegisterModel
   factory OrderStockAdjustmentRegisterModel.fromJson(
       Map<String, dynamic> json) {
     return OrderStockAdjustmentRegisterModel(
-        id: json['id'] is String ? int.parse(json['id']) : json['id'],
-        tbInstitutionId: json['tb_institution_id'] is String
-            ? int.parse(json['tb_institution_id'])
-            : json['tb_institution_id'],
-        tbOrderid: json['tb_order_id'] is String
-            ? int.parse(json['tb_order_id'])
-            : json['tb_order_id'],
-        tbUserId: json['tb_user_id'] is String
-            ? int.parse(json['tb_user_id'])
-            : json['tb_user_id'],
-        tbEntityid: json['tb_entity_id'] is String
-            ? int.parse(json['tb_entity_id'])
-            : json['tb_entity_id'],
-        nameEntity: json['name_entity'] as String? ?? "",
-        number: json['number'] is String
-            ? int.parse(json['number'])
-            : json['number'],
-        dtRecord: formatDate(json['dt_record'], "dd/MM/yyyy"),
-        direction: json['direction'] as String? ?? "",
-        note: json['note'] as String? ?? "",
-        status: json['status'] as String? ?? "",
-        items: json['items'] == null
-            ? null
-            : (json['items'] as List)
-                .map((e) => OrderStockAdjustmentRegisterItemsModel.fromJson(e))
-                .toList());
+      id: json['id'] is String ? int.parse(json['id']) : json['id'],
+      tbInstitutionId: json['tb_institution_id'] is String
+          ? int.parse(json['tb_institution_id'])
+          : json['tb_institution_id'],
+      tbOrderid: json['tb_order_id'] is String
+          ? int.parse(json['tb_order_id'])
+          : json['tb_order_id'],
+      tbUserId: json['tb_user_id'] is String
+          ? int.parse(json['tb_user_id'])
+          : json['tb_user_id'],
+      tbEntityid: json['tb_entity_id'] is String
+          ? int.parse(json['tb_entity_id'])
+          : json['tb_entity_id'],
+      nameEntity: json['name_entity'] as String? ?? "",
+      number:
+          json['number'] is String ? int.parse(json['number']) : json['number'],
+      dtRecord: formatDate(json['dt_record'], "dd/MM/yyyy"),
+      direction: json['direction'] as String? ?? "",
+      note: json['note'] as String? ?? "",
+      status: json['status'] as String? ?? "",
+      items: json['items'] == null
+          ? null
+          : (json['items'] as List)
+              .map((e) => OrderStockAdjustmentRegisterItemsModel.fromJson(e))
+              .toList(),
+    );
   }
 
   factory OrderStockAdjustmentRegisterModel.fromListJson(

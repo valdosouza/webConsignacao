@@ -7,15 +7,13 @@ import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 abstract class StockBalanceGeneralDataSource extends Gateway {
   StockBalanceGeneralDataSource({required super.httpClient});
 
-  Future<List<StockBalanceModel>> getlist();
+  Future<StockBalanceModel> getlist();
 }
 
 class StockBalanceGeneralDataSourceImpl extends StockBalanceGeneralDataSource {
-  List<StockBalanceModel> stockBalanceGeneral = [];
-
   StockBalanceGeneralDataSourceImpl({required super.httpClient});
   @override
-  Future<List<StockBalanceModel>> getlist() async {
+  Future<StockBalanceModel> getlist() async {
     try {
       final tbInstitutionId = await getInstitutionId();
       final uri = Uri.parse(
@@ -25,11 +23,10 @@ class StockBalanceGeneralDataSourceImpl extends StockBalanceGeneralDataSource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        stockBalanceGeneral = (data as List).map((json) {
-          return StockBalanceModel.fromJson(json);
-        }).toList();
 
-        return stockBalanceGeneral;
+        final stockBalance = StockBalanceModel.fromJson(data);
+
+        return stockBalance;
       } else {
         throw ServerException();
       }

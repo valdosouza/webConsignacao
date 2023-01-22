@@ -39,18 +39,18 @@ class StockBalanceCustomerPageMobileState
         statesStockBalance(state);
       },
       builder: (context, state) {
-        if (state is StockBalanceCustomerLoadingState) {
+        if (state is StockBalanceLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        final stockBalance = state.list;
-        return _listastockBalance(stockBalance);
+
+        return _listastockBalance(bloc.stockBalance);
       },
     );
   }
 
-  _listastockBalance(List<StockBalanceModel> customers) {
+  _listastockBalance(StockBalanceModel customers) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

@@ -25,6 +25,12 @@ class StockMenuMain extends StatelessWidget {
             'Transferência de Estoques',
             () async => Modular.to.navigate('/stock/desktop/stocktransfer/'),
           ),
+          itemMenuDraw(
+            Icons.home,
+            'Saldo por Estoque',
+            () async =>
+                Modular.to.navigate('/stock/desktop/stockbalance/bystocklist/'),
+          ),
         ],
       ),
     );

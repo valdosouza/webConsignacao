@@ -1,5 +1,15 @@
 abstract class StockBalanceEvent {}
 
+class StockBalanceGetListEvent extends StockBalanceEvent {
+  final int tbStockListId;
+  StockBalanceGetListEvent({required this.tbStockListId});
+}
+
+class StockBalanceSearchEvent extends StockBalanceEvent {
+  final String search;
+  StockBalanceSearchEvent({required this.search});
+}
+
 class StockBalanceCustomerGetListEvent extends StockBalanceEvent {
   StockBalanceCustomerGetListEvent();
 }
@@ -25,4 +35,16 @@ class StockBalanceSalesmanGetListEvent extends StockBalanceEvent {
 class StockBalanceSalesmanSearchEvent extends StockBalanceEvent {
   final String search;
   StockBalanceSalesmanSearchEvent({required this.search});
+}
+
+//==========================Get StockList===========================
+class StockBalanceReturnStockListPagEvent extends StockBalanceEvent {}
+
+class StockBalanceGetStockListEvent extends StockBalanceEvent {}
+
+class StockBalanceSearcheStocksListEvent extends StockBalanceEvent {
+  final String search;
+  StockBalanceSearcheStocksListEvent({
+    required this.search,
+  });
 }

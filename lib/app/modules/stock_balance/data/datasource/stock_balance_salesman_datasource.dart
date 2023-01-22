@@ -7,16 +7,14 @@ import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 abstract class StockBalanceSalesmanDataSource extends Gateway {
   StockBalanceSalesmanDataSource({required super.httpClient});
 
-  Future<List<StockBalanceModel>> getlist();
+  Future<StockBalanceModel> getlist();
 }
 
 class StockBalanceSalesmanDataSourceImpl
     extends StockBalanceSalesmanDataSource {
-  List<StockBalanceModel> stockBalanceSalesman = [];
-
   StockBalanceSalesmanDataSourceImpl({required super.httpClient});
   @override
-  Future<List<StockBalanceModel>> getlist() async {
+  Future<StockBalanceModel> getlist() async {
     try {
       final tbInstitutionId = await getInstitutionId();
       final tbSalesmanId = await getUserId();
@@ -28,11 +26,9 @@ class StockBalanceSalesmanDataSourceImpl
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        stockBalanceSalesman = (data as List).map((json) {
-          return StockBalanceModel.fromJson(json);
-        }).toList();
+        final stockBalance = StockBalanceModel.fromJson(data);
 
-        return stockBalanceSalesman;
+        return stockBalance;
       } else {
         throw ServerException();
       }

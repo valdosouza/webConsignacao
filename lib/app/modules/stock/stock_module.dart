@@ -4,7 +4,6 @@ import 'package:appweb/app/modules/stock/presentation/page/stock_page_desktop.da
 import 'package:appweb/app/modules/stock/presentation/page/stock_page_mobile.dart';
 import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
 import 'package:appweb/app/modules/stock_list_register/stock_list_register_module.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class StockModule extends Module {
@@ -19,10 +18,7 @@ class StockModule extends Module {
             module: OrderStockAdjustmentRegisterModule()),
         ModuleRoute('/stocktransfer/',
             module: OrderStockTransferRegisterModule()),
-        ChildRoute('/stockstatement/',
-            child: (_, args) => const Center(
-                  child: Text("Movimentação de Estoque"),
-                )),
+        ModuleRoute('/stockbalance/', module: StockBalanceModule()),
       ],
     ),
     ChildRoute(

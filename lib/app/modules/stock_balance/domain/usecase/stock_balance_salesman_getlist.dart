@@ -6,14 +6,13 @@ import 'package:appweb/app/modules/stock_balance/domain/repository/stock_balance
 import 'package:dartz/dartz.dart';
 
 class StockBalanceSalesmanGetlist
-    implements
-        UseCase<List<StockBalanceModel>, ParamsGetListStockBalanceSalesman> {
+    implements UseCase<StockBalanceModel, ParamsGetListStockBalanceSalesman> {
   final StockBalanceSalesmanRepository repository;
 
   StockBalanceSalesmanGetlist({required this.repository});
 
   @override
-  Future<Either<Failure, List<StockBalanceModel>>> call(
+  Future<Either<Failure, StockBalanceModel>> call(
       ParamsGetListStockBalanceSalesman params) async {
     try {
       final list = await repository.getList();

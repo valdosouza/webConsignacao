@@ -37,14 +37,16 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
               value: true,
               groupValue: selectRadio,
               activeColor: Colors.red,
-              onChanged: selectRadio
-                  ? (value) {}
-                  : (value) {
-                      setState(() {
-                        selectRadio = true;
-                        widget.orderStockTransfer.direction = "E";
-                      });
-                    },
+              onChanged: (widget.orderStockTransfer.status == "A")
+                  ? selectRadio
+                      ? (value) {}
+                      : (value) {
+                          setState(() {
+                            selectRadio = true;
+                            widget.orderStockTransfer.direction = "E";
+                          });
+                        }
+                  : null,
             ),
             const SizedBox(width: 5.0),
             const Text("Entrada", style: kLabelStyle),
@@ -57,14 +59,16 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
                 value: false,
                 groupValue: selectRadio,
                 activeColor: Colors.red,
-                onChanged: selectRadio
-                    ? (value) {
-                        setState(() {
-                          selectRadio = false;
-                          widget.orderStockTransfer.direction = "S";
-                        });
-                      }
-                    : (value) {}),
+                onChanged: (widget.orderStockTransfer.status == "A")
+                    ? selectRadio
+                        ? (value) {
+                            setState(() {
+                              selectRadio = false;
+                              widget.orderStockTransfer.direction = "S";
+                            });
+                          }
+                        : (value) {}
+                    : null),
             const SizedBox(width: 5.0),
             const Text("Saída", style: kLabelStyle),
           ],

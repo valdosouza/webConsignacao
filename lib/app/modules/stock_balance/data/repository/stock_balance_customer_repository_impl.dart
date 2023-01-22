@@ -11,7 +11,7 @@ class StockBalanceCustomerRepositoryImpl
 
   StockBalanceCustomerRepositoryImpl({required this.datasource});
   @override
-  Future<Either<Failure, List<StockBalanceModel>>> getList() async {
+  Future<Either<Failure, StockBalanceModel>> getList() async {
     try {
       final list = await datasource.getlist();
       return Right(list);

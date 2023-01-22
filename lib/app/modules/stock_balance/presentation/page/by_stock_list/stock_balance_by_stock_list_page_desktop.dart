@@ -3,22 +3,22 @@ import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_bloc.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_event.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_state.dart';
-import 'package:appweb/app/modules/stock_balance/presentation/content/content_stock_balance_general.dart';
+import 'package:appweb/app/modules/stock_balance/presentation/content/content_stock_balance_customer.dart';
 import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class StockBalanceGeneralPageMobile extends StatefulWidget {
-  const StockBalanceGeneralPageMobile({super.key});
+class StockBalanceByStockListPageDesktop extends StatefulWidget {
+  const StockBalanceByStockListPageDesktop({super.key});
 
   @override
-  State<StockBalanceGeneralPageMobile> createState() =>
-      StockBalanceGeneralPageMobileState();
+  State<StockBalanceByStockListPageDesktop> createState() =>
+      StockBalanceByStockListPageDesktopState();
 }
 
-class StockBalanceGeneralPageMobileState
-    extends State<StockBalanceGeneralPageMobile> {
+class StockBalanceByStockListPageDesktopState
+    extends State<StockBalanceByStockListPageDesktop> {
   late final StockBalanceBloc bloc;
 
   @override
@@ -28,7 +28,6 @@ class StockBalanceGeneralPageMobileState
       await Modular.isModuleReady<StockBalanceModule>();
     });
     bloc = Modular.get<StockBalanceBloc>();
-    bloc.add(StockBalanceGeneralGetListEvent());
   }
 
   @override
@@ -39,12 +38,6 @@ class StockBalanceGeneralPageMobileState
         statesStockBalance(state);
       },
       builder: (context, state) {
-        if (state is StockBalanceLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
         return _listastockBalance(bloc.stockBalance);
       },
     );
@@ -56,11 +49,11 @@ class StockBalanceGeneralPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Balanço de Estoque Geral'),
+        title: Text('Saldo do estoque ${bloc.stockBalance.nameStockList}'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Modular.to.navigate('/stock/mobile/');
+            bloc.add(StockBalanceReturnStockListPagEvent());
           },
         ),
       ),
@@ -68,13 +61,11 @@ class StockBalanceGeneralPageMobileState
         padding: const EdgeInsets.symmetric(vertical: 24),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: [
-              buildSearchInput(bloc),
-              const SizedBox(height: 15),
-              buildListView(bloc.stockBalance),
-            ],
-          ),
+          child: Column(children: [
+            buildSearchInput(bloc),
+            const SizedBox(height: 15),
+            buildListView(bloc.stockBalance),
+          ]),
         ),
       ),
     );

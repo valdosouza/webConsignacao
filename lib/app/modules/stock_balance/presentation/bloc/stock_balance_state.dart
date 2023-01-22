@@ -1,49 +1,53 @@
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 
-abstract class StockBalanceState {
-  List<StockBalanceModel> list;
+abstract class StockBalanceState {}
 
-  StockBalanceState({
-    required this.list,
+class StockBalanceLoadingState extends StockBalanceState {}
+
+class StockBalanceErrorState extends StockBalanceState {}
+
+//====================Customer================================
+class StockBalanceCustomerLoadedState extends StockBalanceState {
+  final StockBalanceModel item;
+  StockBalanceCustomerLoadedState({
+    required this.item,
   });
 }
 
-class StockBalanceLoadingState extends StockBalanceState {
-  StockBalanceLoadingState() : super(list: []);
-}
-
-class StockBalanceCustomerLoadingState extends StockBalanceLoadingState {}
-
-class StockBalanceCustomerLoadedState extends StockBalanceState {
-  StockBalanceCustomerLoadedState({required List<StockBalanceModel> list})
-      : super(list: list);
-}
-
-class StockBalanceCustomerErrorState extends StockBalanceState {
-  StockBalanceCustomerErrorState({required List<StockBalanceModel> list})
-      : super(list: list);
-}
-
-class StockBalanceGeneralLoadingState extends StockBalanceLoadingState {}
+//============================General==================================
 
 class StockBalanceGeneralLoadedState extends StockBalanceState {
-  StockBalanceGeneralLoadedState({required List<StockBalanceModel> list})
-      : super(list: list);
+  final StockBalanceModel item;
+  StockBalanceGeneralLoadedState({
+    required this.item,
+  });
 }
 
-class StockBalanceGeneralErrorState extends StockBalanceState {
-  StockBalanceGeneralErrorState({required List<StockBalanceModel> list})
-      : super(list: list);
-}
-
-class StockBalanceSalesmanLoadingState extends StockBalanceLoadingState {}
+//============================Salesman==================================
 
 class StockBalanceSalesmanLoadedState extends StockBalanceState {
-  StockBalanceSalesmanLoadedState({required List<StockBalanceModel> list})
-      : super(list: list);
+  final StockBalanceModel item;
+  StockBalanceSalesmanLoadedState({
+    required this.item,
+  });
 }
 
-class StockBalanceSalesmanErrorState extends StockBalanceState {
-  StockBalanceSalesmanErrorState({required List<StockBalanceModel> list})
-      : super(list: list);
+//============================Salesman==================================
+
+class StockBalanceLoadedState extends StockBalanceState {
+  final StockBalanceModel item;
+  StockBalanceLoadedState({
+    required this.item,
+  });
 }
+
+//==========================StockList==================================
+class StockBalanceGetStockListSucessState extends StockBalanceState {
+  final List<StockListModel> item;
+  StockBalanceGetStockListSucessState({
+    required this.item,
+  });
+}
+
+class StockBalanceGetStockListErrorState extends StockBalanceState {}

@@ -8,7 +8,7 @@ import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance
 import 'package:flutter/material.dart';
 
 statesStockBalance(StockBalanceState state) {
-  if (state is StockBalanceGeneralErrorState) {
+  if (state is StockBalanceErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados. Tente novamente mais tarde");
   }
@@ -37,13 +37,13 @@ buildSearchInput(StockBalanceBloc bloc) {
   );
 }
 
-buildListView(List<StockBalanceModel> stockBalance) {
+buildListView(StockBalanceModel stockBalance) {
   return Expanded(
-    child: stockBalance.isEmpty
+    child: stockBalance.items.isEmpty
         ? const Center(
             child: Text("Não encontramos nenhum registro em nossa base."))
         : ListView.separated(
-            itemCount: stockBalance.length,
+            itemCount: stockBalance.items.length,
             itemBuilder: (context, index) => ListTile(
               leading: CircleAvatar(
                 child: ClipRRect(
@@ -55,9 +55,9 @@ buildListView(List<StockBalanceModel> stockBalance) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(stockBalance[index].nameMerchandise),
+                  Text(stockBalance.items[index].nameMerchandise),
                   const SizedBox(height: 5.0),
-                  Text(stockBalance[index].quantity.toString())
+                  Text(stockBalance.items[index].quantity.toString())
                 ],
               ),
             ),
