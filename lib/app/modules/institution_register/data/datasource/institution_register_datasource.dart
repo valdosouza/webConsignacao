@@ -16,7 +16,11 @@ class InstitutionRegisterDatasourceImpl extends InstitutionRegisterDatasource {
   InstitutionRegisterDatasourceImpl({required super.httpClient});
   @override
   Future<InstitutionModel> get() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return request(
       'institution/$tbInstitutionId',
       (payload) {

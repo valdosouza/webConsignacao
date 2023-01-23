@@ -37,6 +37,8 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
         tbInstitutionId: 0,
         tbCustomerId: 0,
         nameCustomer: "",
+        tbSalesmanId: 0,
+        nameSalesman: "",
         dtRecord: CustomDate.newDate(),
         currentDebitBalance: 0,
         note: "",
@@ -51,6 +53,8 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
       tbInstitutionId: checkpoint.order.tbInstitutionId,
       tbCustomerId: checkpoint.order.tbCustomerId,
       nameCustomer: checkpoint.order.nameCustomer,
+      tbSalesmanId: checkpoint.order.tbSalesmanId,
+      nameSalesman: checkpoint.order.nameSalesman,
       dtRecord: "",
       currentDebitBalance: checkpoint.order.currentDebitBalance,
       note: "",
@@ -82,6 +86,8 @@ class OrderConsignmentSupplyingOrderModel
   int tbInstitutionId;
   int tbCustomerId;
   String nameCustomer;
+  int tbSalesmanId;
+  String nameSalesman;
   String dtRecord;
   double currentDebitBalance;
   String note;
@@ -91,6 +97,8 @@ class OrderConsignmentSupplyingOrderModel
     required this.tbInstitutionId,
     required this.tbCustomerId,
     required this.nameCustomer,
+    required this.tbSalesmanId,
+    required this.nameSalesman,
     required this.dtRecord,
     required this.currentDebitBalance,
     required this.note,
@@ -99,6 +107,8 @@ class OrderConsignmentSupplyingOrderModel
           tbInstitutionId: tbInstitutionId,
           tbCustomerId: tbCustomerId,
           nameCustomer: nameCustomer,
+          tbSalesmanId: tbSalesmanId,
+          nameSalesman: nameSalesman,
           dtRecord: dtRecord,
           currentDebitBalance: currentDebitBalance,
           note: note,
@@ -111,6 +121,8 @@ class OrderConsignmentSupplyingOrderModel
       tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
       tbCustomerId: json['tb_customer_id'] as int? ?? 0,
       nameCustomer: json['name_customer'] as String? ?? "",
+      tbSalesmanId: json['tb_salesman_id'],
+      nameSalesman: json['name_salesman'],
       dtRecord: CustomDate.newDate(),
       currentDebitBalance: double.parse(json['current_debit_balance']),
       note: json['note'] as String? ?? "",
@@ -123,7 +135,10 @@ class OrderConsignmentSupplyingOrderModel
       'tb_institution_id': tbInstitutionId,
       'tb_customer_id': tbCustomerId,
       'name_customer': nameCustomer,
-      'dt_record': CustomDate.formatDateOut(dtRecord),
+      'tb_salesman_id': tbSalesmanId,
+      'name_salesman': nameSalesman,
+      'dt_record':
+          dtRecord, //Como a consignação não tem campo data, não preicsa de conversão
       'current_debit_balance': currentDebitBalance,
       'note': note,
     };

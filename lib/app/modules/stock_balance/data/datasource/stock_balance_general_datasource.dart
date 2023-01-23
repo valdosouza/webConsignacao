@@ -15,7 +15,11 @@ class StockBalanceGeneralDataSourceImpl extends StockBalanceGeneralDataSource {
   @override
   Future<StockBalanceModel> getlist() async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+
       final uri = Uri.parse(
           '${baseApiUrl}stockbalance/salesman/getall/$tbInstitutionId/tbSalesmanId');
 

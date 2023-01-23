@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class OrderSaleRegisterDatasource extends Gateway {
   OrderSaleRegisterDatasource({required super.httpClient});
@@ -19,9 +20,14 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
   Future<OrderSaleModel> post({
     required OrderSaleMainCardModel model,
   }) async {
-    final tbInstitutionId = await getInstitutionId();
-    final tbSalesmanId = await getUserId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
+
     final tbUserId = await getUserId();
+    final tbSalesmanId = tbUserId;
+
     model.order.tbInstitutionId = tbInstitutionId;
     model.order.tbSalesmanId = tbSalesmanId;
     model.order.tbUserId = tbUserId;
@@ -45,7 +51,10 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
   @override
   Future<List<OrderSaleCardModel>> getNewOrderSaleCard(
       {required int tbPriceListId}) async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return request(
       'ordersale/card/newlist/$tbInstitutionId/$tbPriceListId',

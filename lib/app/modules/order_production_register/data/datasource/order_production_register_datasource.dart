@@ -6,6 +6,7 @@ import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class OrderProductionRegisterDataSource extends Gateway {
   OrderProductionRegisterDataSource({required super.httpClient});
@@ -33,7 +34,10 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<List<OrderProductionRegisterModel>> getlist() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return request(
       'orderproduction/getlist/$tbInstitutionId',
@@ -56,7 +60,11 @@ class OrderProductionRegisterDataSourceImpl
   Future<OrderProductionRegisterModel> post({
     required OrderProductionRegisterModel model,
   }) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
+
     final tbUserId = await getUserId();
 
     model.tbInstitutionId = tbInstitutionId;
@@ -83,7 +91,11 @@ class OrderProductionRegisterDataSourceImpl
   Future<OrderProductionRegisterModel> put({
     required OrderProductionRegisterModel model,
   }) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
+
     final tbUserId = await getUserId();
 
     model.tbInstitutionId = tbInstitutionId;
@@ -124,7 +136,10 @@ class OrderProductionRegisterDataSourceImpl
   @override
   Future<OrderProductionRegisterModel> get(
       {required int orderProductionId}) async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return request(
       'orderproduction/get/$tbInstitutionId/$orderProductionId',
@@ -141,7 +156,11 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<List<ProductListModel>> getListProducts() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return request(
       'product/getlist/$tbInstitutionId',
       (payload) {
@@ -160,7 +179,11 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<List<StockListModel>> getListStock() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return request(
       'stocklist/getlist/$tbInstitutionId',
       (payload) {
@@ -179,7 +202,10 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<String> closure({required OrderStatusModel model}) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
 
     model.tbInstitutionId = tbInstitutionId;
 
@@ -202,7 +228,10 @@ class OrderProductionRegisterDataSourceImpl
 
   @override
   Future<String> reopen({required OrderStatusModel model}) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
 
     model.tbInstitutionId = tbInstitutionId;
 

@@ -17,7 +17,10 @@ class StockBalanceDataSourceImpl extends StockBalanceDataSource {
   @override
   Future<StockBalanceModel> getlist({required int tbStockListId}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
 
       final uri = Uri.parse(
           '${baseApiUrl}stockbalance/getlist/$tbInstitutionId/$tbStockListId');
@@ -39,7 +42,10 @@ class StockBalanceDataSourceImpl extends StockBalanceDataSource {
 
   @override
   Future<List<StockListModel>> getListStock() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return request(
       'stocklist/getlist/$tbInstitutionId',

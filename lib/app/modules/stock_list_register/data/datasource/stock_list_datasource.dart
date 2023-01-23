@@ -4,6 +4,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
+import 'package:flutter/foundation.dart';
 
 /// Throws a [ServerException] for all error codes.
 abstract class StockListDatasource extends Gateway {
@@ -22,7 +23,11 @@ class StockListDatasourceImpl extends StockListDatasource {
   @override
   Future<List<StockListModel>> getlist() async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+
       final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$tbInstitutionId');
 
       final response = await httpClient.get(uri);
@@ -46,7 +51,10 @@ class StockListDatasourceImpl extends StockListDatasource {
   Future<StockListModel> post({required StockListModel model}) async {
     final uri = Uri.parse('${baseApiUrl}stockList');
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
       model.tbInstitutionId = tbInstitutionId;
       final bodyContent = jsonEncode(model.toJson());
       final response = await httpClient.post(
@@ -72,7 +80,10 @@ class StockListDatasourceImpl extends StockListDatasource {
   @override
   Future<String> put({required StockListModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
       model.tbInstitutionId = tbInstitutionId;
       final bodyContent = jsonEncode(model.toJson());
       final uri = Uri.parse('${baseApiUrl}stockList');

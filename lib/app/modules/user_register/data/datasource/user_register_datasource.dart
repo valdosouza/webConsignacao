@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class UserRegisterDataSource extends Gateway {
   UserRegisterDataSource({required super.httpClient});
@@ -19,7 +20,10 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
 
   @override
   Future<UserRegisterModel> post({required UserRegisterModel model}) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
     model.tbInstitutionId = tbInstitutionId;
 
     final bodyEnvio = json.encode(model.toJson());
@@ -53,7 +57,10 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
 
   @override
   Future<UserRegisterModel> put({required UserRegisterModel model}) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
     model.tbInstitutionId = tbInstitutionId;
     final bodyEnvio = json.encode(model.toJson());
     return await request(
@@ -72,7 +79,11 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
 
   @override
   Future<List<UserRegisterModel>> getlist() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return await request(
       'user/getlist/$tbInstitutionId',
       (payload) {

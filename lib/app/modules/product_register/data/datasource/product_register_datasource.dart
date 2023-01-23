@@ -5,6 +5,7 @@ import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_register_main_model.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_register_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class ProductRegisterDataSource extends Gateway {
   ProductRegisterDataSource({required super.httpClient});
@@ -25,7 +26,11 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   @override
   Future<List<ProductRegisterModel>> getlist() async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+
       final uri = Uri.parse('${baseApiUrl}product/getlist/$tbInstitutionId');
 
       final response = await httpClient.get(uri);
@@ -49,7 +54,10 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   Future<ProductRegisterMainModel> post(
       {required ProductRegisterMainModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
       model.product.tbInstitutionId = tbInstitutionId;
       final bodyContent = jsonEncode(model.toJson());
       final uri = Uri.parse('${baseApiUrl}product');
@@ -78,7 +86,10 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   Future<ProductRegisterMainModel> put(
       {required ProductRegisterMainModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
       model.product.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}product');
@@ -123,7 +134,11 @@ class ProductRegisterDataSourceImpl extends ProductRegisterDataSource {
   @override
   Future<ProductRegisterMainModel> get({required int productId}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+
       final uri =
           Uri.parse('${baseApiUrl}product/get/$tbInstitutionId/$productId');
 

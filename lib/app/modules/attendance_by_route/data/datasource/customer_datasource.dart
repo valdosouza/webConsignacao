@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class CustomerDataSource extends Gateway {
   CustomerDataSource({required super.httpClient});
@@ -21,7 +22,10 @@ class CustomerDataSourceImpl extends CustomerDataSource {
   Future<List<CustomerListByRouteModel>> getList(
       {required int tbSalesRouteId}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
 
       final uri = Uri.parse(
           '${baseApiUrl}customer/salesroute/getlist/$tbInstitutionId/$tbSalesRouteId');
@@ -49,7 +53,10 @@ class CustomerDataSourceImpl extends CustomerDataSource {
       required int tbCustomerId,
       required int sequence}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
 
       final uri = Uri.parse('${baseApiUrl}salesroute/sequence/');
       var body = {

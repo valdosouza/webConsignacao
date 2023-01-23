@@ -4,6 +4,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/payment_type_register/data/model/payment_type_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class PaymentTypeRegisterDataSource extends Gateway {
   PaymentTypeRegisterDataSource({required super.httpClient});
@@ -21,7 +22,10 @@ class PaymentTypeRegisterDataSourceImpl extends PaymentTypeRegisterDataSource {
   @override
   Future<List<PaymentTypeModel>> getlist() async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
 
       final uri =
           Uri.parse('${baseApiUrl}paymenttype/getlist/$tbInstitutionId');
@@ -46,7 +50,10 @@ class PaymentTypeRegisterDataSourceImpl extends PaymentTypeRegisterDataSource {
   @override
   Future<PaymentTypeModel> post({required PaymentTypeModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
 
       model.tbInstitutionId = tbInstitutionId;
 
@@ -75,7 +82,10 @@ class PaymentTypeRegisterDataSourceImpl extends PaymentTypeRegisterDataSource {
   @override
   Future<PaymentTypeModel> put({required PaymentTypeModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
 
       model.tbInstitutionId = tbInstitutionId;
 

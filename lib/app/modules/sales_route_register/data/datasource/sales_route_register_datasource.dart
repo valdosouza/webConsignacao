@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/sales_route_register/data/model/sales_route_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class SalesRouteRegisterDataSource extends Gateway {
   SalesRouteRegisterDataSource({required super.httpClient});
@@ -21,7 +22,11 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
   @override
   Future<List<SalesRouteRegisterModel>> getlist() async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+
       final uri = Uri.parse('${baseApiUrl}salesroute/getlist/$tbInstitutionId');
 
       final response = await httpClient.get(uri);
@@ -45,7 +50,10 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
   Future<SalesRouteRegisterModel> post(
       {required SalesRouteRegisterModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
       model.tbInstitutionId = tbInstitutionId;
 
       final uri = Uri.parse('${baseApiUrl}salesroute');
@@ -74,7 +82,10 @@ class SalesRouteRegisterDataSourceImpl extends SalesRouteRegisterDataSource {
   Future<SalesRouteRegisterModel> put(
       {required SalesRouteRegisterModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
       model.tbInstitutionId = tbInstitutionId;
       final uri = Uri.parse('${baseApiUrl}salesroute');
       final bodyContent = jsonEncode(model.toJson());

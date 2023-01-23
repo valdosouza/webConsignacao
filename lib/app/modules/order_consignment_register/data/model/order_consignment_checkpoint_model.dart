@@ -42,6 +42,8 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
         tbInstitutionId: 0,
         tbCustomerId: 0,
         nameCustomer: "",
+        tbSalesmanId: 0,
+        nameSalesman: "",
         dtRecord: CustomDate.newDate(),
         totalValue: 0,
         changeValue: 0,
@@ -60,6 +62,8 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
       tbInstitutionId: supplying.order.tbInstitutionId,
       tbCustomerId: supplying.order.tbCustomerId,
       nameCustomer: supplying.order.nameCustomer,
+      tbSalesmanId: supplying.order.tbSalesmanId,
+      nameSalesman: supplying.order.nameSalesman,
       dtRecord: CustomDate.newDate(),
       totalValue: 0,
       changeValue: 0,
@@ -108,6 +112,8 @@ class OrderConsignmentCheckpointOrderModel
   int tbInstitutionId;
   int tbCustomerId;
   String nameCustomer;
+  int tbSalesmanId;
+  String nameSalesman;
   String dtRecord;
   double totalValue;
   double changeValue;
@@ -118,6 +124,8 @@ class OrderConsignmentCheckpointOrderModel
       required this.tbInstitutionId,
       required this.tbCustomerId,
       required this.nameCustomer,
+      required this.tbSalesmanId,
+      required this.nameSalesman,
       required this.dtRecord,
       required this.totalValue,
       required this.changeValue,
@@ -142,6 +150,8 @@ class OrderConsignmentCheckpointOrderModel
       tbInstitutionId: json['tb_institution_id'],
       tbCustomerId: json['tb_customer_id'],
       nameCustomer: json['name_customer'] as String? ?? "",
+      tbSalesmanId: json['tb_salesman_id'],
+      nameSalesman: json['name_salesman'],
       dtRecord: CustomDate.formatDateIn(json['dt_record']) as String? ?? "",
       totalValue: json['total_value'],
       changeValue: json['change_value'] is int
@@ -162,7 +172,10 @@ class OrderConsignmentCheckpointOrderModel
       'tb_institution_id': tbInstitutionId,
       'tb_customer_id': tbCustomerId,
       'name_customer': nameCustomer,
-      'dt_record': CustomDate.formatDateOut(dtRecord),
+      'tb_salesman_id': tbSalesmanId,
+      'name_salesman': nameSalesman,
+      'dt_record':
+          dtRecord, //Como não há manipulação nem visualização de dados não é necessário conversão
       'total_value': totalValue,
       'change_value': changeValue,
       'previous_debit_balance': previousDebiBalance,

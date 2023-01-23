@@ -7,6 +7,7 @@ import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class OrderStockTransferRegisterDataSource extends Gateway {
   OrderStockTransferRegisterDataSource({required super.httpClient});
@@ -36,7 +37,10 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<List<OrderStockTransferListModel>> getlist() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return await request(
       'orderstocktransfer/getlist/$tbInstitutionId',
@@ -76,7 +80,10 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<List<ProductListModel>> getListProduct() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return await request(
       'product/getlist/$tbInstitutionId',
@@ -98,8 +105,14 @@ class OrderStockTransferRegisterDataSourceImpl
   Future<OrderStockTransferListModel> post({
     required OrderStockTransferMainModel model,
   }) async {
-    final tbInstitutionId = await getInstitutionId();
-    final tbUserId = await getUserId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
+    int tbUserId = 1;
+    await getUserId().then((value) {
+      tbUserId = int.parse(value);
+    });
     model.order.tbInstitutionId = tbInstitutionId;
     model.order.tbUserId = tbUserId;
 
@@ -123,8 +136,14 @@ class OrderStockTransferRegisterDataSourceImpl
   Future<OrderStockTransferListModel> put(
       {required OrderStockTransferMainModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
-      final tbUserId = await getUserId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
+      int tbUserId = 1;
+      await getUserId().then((value) {
+        tbUserId = int.parse(value);
+      });
       model.order.tbInstitutionId = tbInstitutionId;
       model.order.tbUserId = tbUserId;
       final body = jsonEncode(model.toJson());
@@ -148,7 +167,10 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<String> delete({required int id}) async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return request(
       'orderstocktransfer/$tbInstitutionId/$id',
@@ -166,7 +188,10 @@ class OrderStockTransferRegisterDataSourceImpl
   Future<OrderStockTransferMainModel> get({
     required int orderStockId,
   }) async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return request(
       'orderstocktransfer/get/$tbInstitutionId/$orderStockId',
@@ -183,7 +208,10 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<List<StockListModel>> getListStock() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return request(
       'stocklist/getlist/$tbInstitutionId',
@@ -203,7 +231,10 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<String> closure({required OrderStatusModel model}) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
     model.tbInstitutionId = tbInstitutionId;
     final body = jsonEncode(model.toJson());
     return request(
@@ -223,7 +254,10 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<String> reopen({required OrderStatusModel model}) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
     model.tbInstitutionId = tbInstitutionId;
     final body = jsonEncode(model.toJson());
     return request(

@@ -24,8 +24,15 @@ class CashierClosureDatasourceImpl extends CashierClosureDatasource {
     required String date,
   }) async {
     String formattedDate = CustomDate.formatDateOut(date);
-    final tbInstitutionId = await getInstitutionId();
-    final tbUserId = await getUserId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
+    String tbUserId = '1';
+    await getInstitutionId().then((value) {
+      tbUserId = value as String;
+    });
     return await request(
       'cashier/closure/get/$tbInstitutionId/$tbUserId/$formattedDate',
       (payload) {
@@ -42,8 +49,16 @@ class CashierClosureDatasourceImpl extends CashierClosureDatasource {
 
   @override
   Future<List<CashierClosurePreviouslyModel>> closurePreviously() async {
-    final tbInstitutionId = await getInstitutionId();
-    final tbUserId = await getUserId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
+    String tbUserId = '1';
+    await getInstitutionId().then((value) {
+      tbUserId = value as String;
+    });
+
     return await request(
       'cashier/closure/getlist/$tbInstitutionId/$tbUserId',
       (payload) {

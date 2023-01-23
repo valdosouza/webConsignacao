@@ -15,12 +15,12 @@ class Gateway {
     return await LocalStorageService.instance.get(key: LocalStorageKey.token);
   }
 
-  Future<int> getInstitutionId() async {
+  getInstitutionId() async {
     return await LocalStorageService.instance
         .get(key: LocalStorageKey.tbInstitutionId);
   }
 
-  Future<int> getUserId() async {
+  getUserId() async {
     return await LocalStorageService.instance
         .get(key: LocalStorageKey.tbUserId);
   }

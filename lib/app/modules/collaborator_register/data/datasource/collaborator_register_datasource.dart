@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/collaborator_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class CollaboratorRegisterDatasource extends Gateway {
   CollaboratorRegisterDatasource({required super.httpClient});
@@ -23,7 +24,10 @@ class CollaboratorRegisterDatasourceImpl
   CollaboratorRegisterDatasourceImpl({required super.httpClient});
   @override
   Future<CollaboratorMainModel> get({required int id}) async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
 
     return await request(
       'collaborator/$tbInstitutionId/$id',
@@ -41,7 +45,11 @@ class CollaboratorRegisterDatasourceImpl
   Future<CollaboratorListModel> post({
     required CollaboratorMainModel model,
   }) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
+
     model.collaborator.tbInstitutionId = tbInstitutionId;
     final bodyEnvio = json.encode(model.toJson());
 
@@ -75,7 +83,11 @@ class CollaboratorRegisterDatasourceImpl
 
   @override
   Future<List<CollaboratorListModel>> getlist() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return await request(
       'collaborator/getlist/$tbInstitutionId',
       (payload) {

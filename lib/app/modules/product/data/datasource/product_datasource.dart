@@ -16,7 +16,11 @@ class ProductDataSourceImpl extends ProductDataSource {
 
   @override
   Future<List<ProductsPriceListEntity>> getPriceList() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return request(
       'product/pricelist/getall/$tbInstitutionId',
       (payload) {

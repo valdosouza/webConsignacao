@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class CustomerRegisterDataSource extends Gateway {
   CustomerRegisterDataSource({required super.httpClient});
@@ -20,7 +21,11 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
 
   @override
   Future<List<CustomerListModel>> getList() async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return await request(
       'customer/getlist/$tbInstitutionId',
       (payload) {
@@ -40,7 +45,11 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
 
   @override
   Future<CustomerMainModel> get({required int id}) async {
-    final tbInstitutionId = await getInstitutionId();
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return await request(
       'customer/get/$tbInstitutionId/$id',
       (payload) {
@@ -58,7 +67,11 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
   Future<CustomerListModel> post({
     required CustomerMainModel customer,
   }) async {
-    final tbInstitutionId = await getInstitutionId();
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
+
     customer.customer.tbInstitutionId = tbInstitutionId;
     var bodyCustomer = jsonEncode(customer.toJson());
 

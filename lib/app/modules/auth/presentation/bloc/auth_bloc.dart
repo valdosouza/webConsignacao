@@ -55,16 +55,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   login() async {
     on<AuthLoginEvent>((event, emit) async {
       emit(AuthLoadingState());
+      var status = PermissionStatus.granted;
+      if (!kIsWeb) {
+        status = await Permission.storage.request();
+      }
       LocalStorageService.instance.saveItem(
         key: LocalStorageKey.token,
         value: "",
       );
       final result = await loginEmail(
           Params(username: event.login, password: event.password));
-      var status = PermissionStatus.granted;
-      if (!kIsWeb) {
-        status = await Permission.storage.request();
-      }
+
       var response = result
           .fold((l) => const AuthErrorState('Erro ao realizar Login'),
               (AuthModel authResponse) {

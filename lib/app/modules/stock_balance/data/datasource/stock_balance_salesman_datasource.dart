@@ -16,9 +16,14 @@ class StockBalanceSalesmanDataSourceImpl
   @override
   Future<StockBalanceModel> getlist() async {
     try {
-      final tbInstitutionId = await getInstitutionId();
-      final tbSalesmanId = await getUserId();
-
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+      String tbSalesmanId = '1';
+      await getInstitutionId().then((value) {
+        tbSalesmanId = value as String;
+      });
       final uri = Uri.parse(
           '$baseApiUrl/stockbalance/salesman/getlist/$tbInstitutionId/$tbSalesmanId');
 

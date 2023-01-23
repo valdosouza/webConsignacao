@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:appweb/app/core/gateway.dart';
+import 'package:flutter/foundation.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/shared/constants.dart';
 import '../model/order_attendance_model.dart';
@@ -20,7 +21,11 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   @override
   Future<OrderAttendanceModel> delete({required int id}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+
       final uri =
           Uri.parse('${baseApiUrl}orderattendance/$tbInstitutionId/$id');
       final response = await httpClient.delete(uri);
@@ -37,7 +42,11 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   @override
   Future<OrderAttendanceModel> get({required int id}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+
       final uri =
           Uri.parse('$baseApiUrl/orderattendance/get/$tbInstitutionId/$id');
       final response = await httpClient.get(uri);
@@ -55,7 +64,10 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   @override
   Future<List<OrderAttendanceModel>> getAll() async {
     try {
-      final tbInstitutionId = await getInstitutionId();
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
 
       final uri =
           Uri.parse('$baseApiUrl/orderattendance/getlist/$tbInstitutionId');
@@ -79,13 +91,18 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   Future<OrderAttendanceModel> post(
       {required OrderAttendanceModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
-      final tbUserId = await getUserId();
-      final tbSalesmanId = await getUserId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
+      int tbUserId = 1;
+      await getUserId().then((value) {
+        (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
+      });
 
       model.tbInstitutionId = tbInstitutionId;
       model.tbUserId = tbUserId;
-      model.tbSalesmanId = tbSalesmanId;
+      model.tbSalesmanId = tbUserId;
 
       final uri = Uri.parse('${baseApiUrl}orderattendance');
       final bodyorder = jsonEncode(model.toJson());
@@ -111,13 +128,18 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
   Future<OrderAttendanceModel> put(
       {required OrderAttendanceModel model}) async {
     try {
-      final tbInstitutionId = await getInstitutionId();
-      final tbUserId = await getUserId();
-      final tbSalesmanId = await getUserId();
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
+      int tbUserId = 1;
+      await getUserId().then((value) {
+        tbUserId = int.parse(value);
+      });
 
       model.tbInstitutionId = tbInstitutionId;
       model.tbUserId = tbUserId;
-      model.tbSalesmanId = tbSalesmanId;
+      model.tbSalesmanId = tbUserId;
 
       final uri = Uri.parse('${baseApiUrl}orderattendance');
       final response = await httpClient.put(
