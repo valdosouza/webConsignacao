@@ -8,7 +8,7 @@ Widget paymentinfo(OrderSaleMainCardModel modelOrdersale) {
   String calcInfoPayment() {
     modelOrdersale.order.totalValue = 0;
     for (OrderSaleCardModel item in modelOrdersale.items) {
-      modelOrdersale.order.totalValue += (item.sale * item.unitValue);
+      modelOrdersale.order.totalValue += (item.qttySold * item.unitValue);
     }
     return modelOrdersale.order.totalValue.toStringAsFixed(2);
   }

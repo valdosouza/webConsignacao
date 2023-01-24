@@ -25,7 +25,11 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
       (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
     });
 
-    final tbUserId = await getUserId();
+    int tbUserId = 1;
+    await getUserId().then((value) {
+      (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
+    });
+
     final tbSalesmanId = tbUserId;
 
     model.order.tbInstitutionId = tbInstitutionId;

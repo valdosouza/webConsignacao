@@ -21,7 +21,9 @@ Widget paymentinfopix(OrderConsignmentCheckpointModel modelCheckpoint) {
           ),
           child: TextField(
             controller: TextEditingController(
-                text: modelCheckpoint.payments[1].value.toStringAsFixed(2)),
+                text: (modelCheckpoint.payments[1].value > 0)
+                    ? modelCheckpoint.payments[1].value.toStringAsFixed(2)
+                    : ""),
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
             onSubmitted: (value) {

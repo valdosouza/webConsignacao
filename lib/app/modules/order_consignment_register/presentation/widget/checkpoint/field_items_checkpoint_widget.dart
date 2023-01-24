@@ -11,14 +11,14 @@ Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
       case 2:
         return item.nameProduct;
       case 3:
-        return item.qtyConsigned.toStringAsFixed(0);
+        return item.qttyConsigned.toStringAsFixed(0);
       case 4:
-        if (item.leftover == item.qtyConsigned) {
+        if (item.leftover == item.qttyConsigned) {
           return item.leftover.toStringAsFixed(0);
         }
-        return (item.qtySold > 0) ? item.leftover.toStringAsFixed(0) : "";
+        return (item.qttySold > 0) ? item.leftover.toStringAsFixed(0) : "";
       case 5:
-        return (item.qtySold > 0) ? item.qtySold.toStringAsFixed(0) : "";
+        return (item.qttySold > 0) ? item.qttySold.toStringAsFixed(0) : "";
       case 6:
         return (item.subtotal > 0) ? item.subtotal.toStringAsFixed(2) : "";
     }
@@ -48,19 +48,19 @@ Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
               item.nameProduct = value;
               break;
             case 3:
-              item.qtyConsigned = double.parse(value);
+              item.qttyConsigned = double.parse(value);
 
               break;
             case 4:
               if (value.isNotEmpty) {
                 item.leftover = double.parse(value);
-                item.qtySold = (item.qtyConsigned - item.leftover);
+                item.qttySold = (item.qttyConsigned - item.leftover);
                 if (item.unitValue == 0) item.unitValue = 1;
                 item.subtotal =
-                    (item.qtyConsigned - item.leftover) * item.unitValue;
+                    (item.qttyConsigned - item.leftover) * item.unitValue;
               } else {
                 item.leftover = 0;
-                item.qtySold = 0;
+                item.qttySold = 0;
                 item.subtotal = 0;
               }
               break;

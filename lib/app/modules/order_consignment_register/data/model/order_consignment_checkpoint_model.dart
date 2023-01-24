@@ -78,8 +78,8 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
         nameProduct: item.nameProduct,
         bonus: item.bonus,
         leftover: 0.0,
-        qtyConsigned: item.qtyConsigned,
-        qtySold: 0,
+        qttyConsigned: item.qttyConsigned,
+        qttySold: 0,
         unitValue: item.unitValue,
         subtotal: 0,
       ));
@@ -189,27 +189,27 @@ class OrderConsignmentCheckpointCardModel
   int tbProductId;
   String nameProduct;
   double bonus;
-  double qtyConsigned;
+  double qttyConsigned;
   double leftover;
-  double qtySold;
+  double qttySold;
   double unitValue;
   double subtotal;
   OrderConsignmentCheckpointCardModel({
     required this.tbProductId,
     required this.nameProduct,
     required this.bonus,
-    required this.qtyConsigned,
+    required this.qttyConsigned,
     required this.leftover,
-    required this.qtySold,
+    required this.qttySold,
     required this.unitValue,
     required this.subtotal,
   }) : super(
           tbProductId: tbProductId,
           nameProduct: nameProduct,
           bonus: bonus,
-          qtyConsigned: qtyConsigned,
+          qttyConsigned: qttyConsigned,
           leftover: leftover,
-          qtySold: qtySold,
+          qttySold: qttySold,
           unitValue: unitValue,
           subtotal: subtotal,
         );
@@ -220,19 +220,19 @@ class OrderConsignmentCheckpointCardModel
       tbProductId: json['tb_product_id'],
       nameProduct: json['name_product'] as String? ?? "",
       bonus: json['bonus'] is int ? json['bonus'].toDouble() : json['bonus'],
-      qtyConsigned: json['qty_consigned'] is int
-          ? json['qty_consigned'].toDouble()
-          : json['qty_consigned'],
+      qttyConsigned: json['qtty_consigned'] is int
+          ? json['qtty_consigned'].toDouble()
+          : json['qtty_consigned'],
       leftover: json['leftover'] is int
           ? json['leftover'].toDouble()
           : json['leftover'],
-      qtySold: json['qty_sold'] is int
-          ? json['qty_sold'].toDouble()
-          : json['qty_sold'],
+      qttySold: json['qtty_sold'] is int
+          ? json['qtty_sold'].toDouble()
+          : json['qtty_sold'],
       unitValue: json['unit_value'] is int
           ? json['unit_value'].toDouble()
           : json['unit_value'],
-      subtotal: ((json['qty_sold']) * (json['unit_value'])),
+      subtotal: ((json['qtty_sold']) * (json['unit_value'])),
     );
   }
 
@@ -241,9 +241,9 @@ class OrderConsignmentCheckpointCardModel
       'tb_product_id': tbProductId,
       'name_product': nameProduct,
       'bonus': bonus,
-      'qty_consigned': qtyConsigned,
+      'qtty_consigned': qttyConsigned,
       'leftover': leftover,
-      'qty_sold': qtySold,
+      'qtty_sold': qttySold,
       'unit_value': unitValue,
     };
   }

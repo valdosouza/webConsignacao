@@ -23,8 +23,8 @@ class CashierBalanceDataSourceImpl extends CashierBalanceDataSource {
     });
 
     String tbUserId = '1';
-    await getInstitutionId().then((value) {
-      tbUserId = value as String;
+    await getUserId().then((value) {
+      tbUserId = value.toString();
     });
     return await request(
       'cashier/balance/get/$tbInstitutionId/$tbUserId/$newDate',

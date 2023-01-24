@@ -17,6 +17,7 @@ Widget paymentBoleto(OrderSaleMainCardModel modelOrdersale) {
           border: Border.all(color: Colors.black),
         ),
         child: TextField(
+          keyboardType: TextInputType.number,
           enabled: true,
           controller: MaskedTextController(
               mask: '00/00/0000',

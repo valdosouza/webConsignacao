@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
@@ -29,11 +31,20 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
 
   @override
   void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
+    if (Platform.isAndroid) {
+      WidgetsFlutterBinding.ensureInitialized();
+      SystemChrome.setPreferredOrientations(
+        [
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.landscapeRight,
+          DeviceOrientation.landscapeLeft,
+        ],
+      ).then((val) {
+        super.initState();
+      });
+    } else {
+      super.initState();
+    }
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       Modular.isModuleReady<OrderSaleRegisterModule>;
     });
@@ -43,12 +54,14 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
 
   @override
   dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    if (Platform.isAndroid) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    }
     super.dispose();
   }
 

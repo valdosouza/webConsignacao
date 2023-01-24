@@ -13,7 +13,9 @@ class CashierStatementModel extends CashierStatementEntity {
   factory CashierStatementModel.fromJson(Map<String, dynamic> json) {
     return CashierStatementModel(
       description: json['description'],
-      tagValue: json['tag_value'] is String ? double.parse(json['tag_value']) : json['tag_value'],
+      tagValue: json['tag_value'] is int
+          ? json['tag_value'].toDouble()
+          : json['tag_value'],
       kind: json['kind'],
     );
   }

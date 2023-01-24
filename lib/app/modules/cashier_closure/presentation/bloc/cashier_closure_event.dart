@@ -19,3 +19,7 @@ class CashierClosureGetClosureEvent extends CashierClosureEvent {
 class CashierClosureGetClosurePreviouslyEvent extends CashierClosureEvent {
   const CashierClosureGetClosurePreviouslyEvent();
 }
+
+class CashierClosurePostClosureEvent extends CashierClosureEvent {
+  const CashierClosurePostClosureEvent();
+}

@@ -10,11 +10,11 @@ class StockMenuMobile extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          itemMenuDraw(
-            Icons.home,
-            'Carregamento',
-            () async => Modular.to.navigate('/stockbalance/mobile/stockload/'),
-          ),
+          // itemMenuDraw(
+          //   Icons.home,
+          //   'Carregamento',
+          //   () async => Modular.to.navigate('/stockbalance/mobile/stockload/'),
+          // ),
           itemMenuDraw(
             Icons.home,
             'Cliente',

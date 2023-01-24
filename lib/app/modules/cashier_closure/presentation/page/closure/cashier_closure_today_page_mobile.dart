@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
+import 'package:appweb/app/modules/cashier_closure/presentation/bloc/cashier_closure_bloc.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/content/content_cashier_closure.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,14 @@ class CashierClosureTodayPageMobile extends StatefulWidget {
 
 class CashierClosureTodayPageMobileState
     extends State<CashierClosureTodayPageMobile> {
+  late CashierClosureBloc bloc;
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<CashierStatementModule>();
     });
+    bloc = Modular.get<CashierClosureBloc>();
   }
 
   @override
@@ -37,6 +40,17 @@ class CashierClosureTodayPageMobileState
             Modular.to.navigate('/cashierclosure/mobile/');
           },
         ),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                onTap: (() => bloc.add(const CashierClosurePostClosureEvent())),
+                value: 0,
+                child: const Text("Fechar Caixa"),
+              )
+            ],
+          ),
+        ],
       ),
       body: ContentCashierClosure(
         dateSelected: CustomDate.newDate(),

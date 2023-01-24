@@ -94,7 +94,7 @@ class OrderSaleRegisterBloc
     on<OrderSaleRegisterClearEvent>((event, emit) async {
       for (OrderSaleCardModel item in modelOrderSale.items) {
         item.bonus = 0;
-        item.sale = 0;
+        item.qttySold = 0;
         item.subtotal = 0;
       }
       modelOrderSale.order.totalValue = 0;

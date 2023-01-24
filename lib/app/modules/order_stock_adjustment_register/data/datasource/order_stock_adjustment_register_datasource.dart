@@ -74,7 +74,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
       });
       int tbUserId = 1;
       await getUserId().then((value) {
-        tbUserId = int.parse(value);
+        (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
       });
       model.tbInstitutionId = tbInstitutionId;
       model.tbUserId = tbUserId;
@@ -109,7 +109,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
       });
       int tbUserId = 1;
       await getUserId().then((value) {
-        tbUserId = int.parse(value);
+        (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
       });
       model.tbInstitutionId = tbInstitutionId;
       model.tbUserId = tbUserId;

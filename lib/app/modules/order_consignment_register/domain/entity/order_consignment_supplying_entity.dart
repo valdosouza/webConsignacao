@@ -27,7 +27,7 @@ class OrderConsignmentSupplyingCardEntity {
     double? leftover,
     double? devolution,
     double? newConsignment,
-    double? qtyConsigned,
+    double? qttyConsigned,
     double? unitValue,
   });
 }

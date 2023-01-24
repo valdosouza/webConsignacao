@@ -78,7 +78,7 @@ class OrderSaleModel extends OrderSaleEntity {
       'number': number,
       'tb_salesman_id': tbSalesmanId,
       'name_salesman': nameSalesman,
-      'dt_record': CustomDate.newDate(),
+      'dt_record': CustomDate.formatDateOut(CustomDate.newDate()),
       'total_value': totalValue,
       'change_value': changeValue,
       'note': note,

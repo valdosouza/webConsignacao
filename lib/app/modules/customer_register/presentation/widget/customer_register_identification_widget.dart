@@ -33,101 +33,103 @@ class _CustomerRegisterIdentificationWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Tipo de Pessoa", style: kLabelStyle),
-          const SizedBox(height: 5.0),
-          Row(
-            children: [
-              Row(
-                children: [
-                  Radio(
-                    value: true,
-                    groupValue: selectPersonType,
-                    activeColor: Colors.red,
-                    onChanged: selectPersonType
-                        ? (value) {}
-                        : (value) {
-                            setState(() {
-                              selectPersonType = true;
-                            });
-                          },
-                  ),
-                  const SizedBox(width: 5.0),
-                  const Text("Jurídica", style: kLabelStyle),
-                ],
-              ),
-              const SizedBox(width: 5.0),
-              Row(
-                children: [
-                  Radio(
-                      value: false,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text("Tipo de Pessoa", style: kLabelStyle),
+            const SizedBox(height: 5.0),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                      value: true,
                       groupValue: selectPersonType,
                       activeColor: Colors.red,
                       onChanged: selectPersonType
-                          ? (value) {
+                          ? (value) {}
+                          : (value) {
                               setState(() {
-                                selectPersonType = false;
+                                selectPersonType = true;
                               });
-                            }
-                          : (value) {}),
-                  const SizedBox(width: 5.0),
-                  const Text("Física", style: kLabelStyle),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 10.0),
-          selectPersonType ? _buildCompany() : _buildPerson(),
-          const SizedBox(height: 10.0),
-          const Text("Consumidor Final", style: kLabelStyle),
-          const SizedBox(height: 10.0),
-          Row(
-            children: [
-              Row(
-                children: [
-                  Radio(
-                    value: true,
-                    groupValue: selectWallet,
-                    activeColor: Colors.red,
-                    onChanged: selectWallet
-                        ? (value) {}
-                        : (value) {
-                            setState(() {
-                              selectWallet = true;
-                            });
-                            widget.customer?.customer.consumer = "S";
-                          },
-                  ),
-                  const SizedBox(width: 5.0),
-                  const Text("Sim", style: kLabelStyle),
-                ],
-              ),
-              const SizedBox(width: 10.0),
-              Row(
-                children: [
-                  Radio(
-                      value: false,
+                            },
+                    ),
+                    const SizedBox(width: 5.0),
+                    const Text("Jurídica", style: kLabelStyle),
+                  ],
+                ),
+                const SizedBox(width: 5.0),
+                Row(
+                  children: [
+                    Radio(
+                        value: false,
+                        groupValue: selectPersonType,
+                        activeColor: Colors.red,
+                        onChanged: selectPersonType
+                            ? (value) {
+                                setState(() {
+                                  selectPersonType = false;
+                                });
+                              }
+                            : (value) {}),
+                    const SizedBox(width: 5.0),
+                    const Text("Física", style: kLabelStyle),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 10.0),
+            selectPersonType ? _buildCompany() : _buildPerson(),
+            const SizedBox(height: 10.0),
+            const Text("Consumidor Final", style: kLabelStyle),
+            const SizedBox(height: 10.0),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                      value: true,
                       groupValue: selectWallet,
                       activeColor: Colors.red,
                       onChanged: selectWallet
-                          ? (value) {
+                          ? (value) {}
+                          : (value) {
                               setState(() {
-                                selectWallet = false;
+                                selectWallet = true;
                               });
-                              widget.customer?.customer.consumer = "N";
-                            }
-                          : (value) {}),
-                  const SizedBox(width: 5.0),
-                  const Text("Não", style: kLabelStyle),
-                ],
-              ),
-            ],
-          ),
-        ],
+                              widget.customer?.customer.consumer = "S";
+                            },
+                    ),
+                    const SizedBox(width: 5.0),
+                    const Text("Sim", style: kLabelStyle),
+                  ],
+                ),
+                const SizedBox(width: 10.0),
+                Row(
+                  children: [
+                    Radio(
+                        value: false,
+                        groupValue: selectWallet,
+                        activeColor: Colors.red,
+                        onChanged: selectWallet
+                            ? (value) {
+                                setState(() {
+                                  selectWallet = false;
+                                });
+                                widget.customer?.customer.consumer = "N";
+                              }
+                            : (value) {}),
+                    const SizedBox(width: 5.0),
+                    const Text("Não", style: kLabelStyle),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

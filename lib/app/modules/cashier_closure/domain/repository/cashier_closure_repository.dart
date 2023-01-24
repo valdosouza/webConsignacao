@@ -1,6 +1,7 @@
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/cashier_closure_previously_model.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
+import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_post.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CashierClosureRepository {
@@ -9,4 +10,6 @@ abstract class CashierClosureRepository {
   });
   Future<Either<Failure, List<CashierClosurePreviouslyModel>>>
       closurePreviously();
+  Future<Either<Failure, ClosureModel>> postClosure(
+      {required ParamsCashierClosurePost param});
 }

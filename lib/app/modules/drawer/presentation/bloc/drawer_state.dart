@@ -7,3 +7,17 @@ class DrawerLogoutState extends DrawerState {
 
   DrawerLogoutState({required this.logged});
 }
+
+class LoadingState extends DrawerState {}
+
+class GetErrorState extends DrawerState {}
+
+class GetSucessState extends DrawerState {
+  late final bool cashierOpen;
+  GetSucessState(this.cashierOpen);
+}
+
+class DrawerCashierIsOpenState extends DrawerState {
+  final bool open;
+  DrawerCashierIsOpenState({required this.open});
+}

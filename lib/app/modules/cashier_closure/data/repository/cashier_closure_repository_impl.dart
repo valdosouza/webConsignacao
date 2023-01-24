@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/cashier_closure/data/model/cashier_closure_pr
 import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/repository/cashier_closure_repository.dart';
+import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_post.dart';
 import 'package:dartz/dartz.dart';
 
 class CashierClosureRepositoryImpl implements CashierClosureRepository {
@@ -32,6 +33,17 @@ class CashierClosureRepositoryImpl implements CashierClosureRepository {
     try {
       final closurePreviously = await datasource.closurePreviously();
       return Right(closurePreviously);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ClosureModel>> postClosure(
+      {required ParamsCashierClosurePost param}) async {
+    try {
+      final closurePost = await datasource.postClosure(param: param);
+      return Right(closurePost);
     } on ServerException {
       return Left(ServerFailure());
     }

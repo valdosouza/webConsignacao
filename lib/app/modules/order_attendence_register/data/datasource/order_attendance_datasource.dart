@@ -48,7 +48,7 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
       });
 
       final uri =
-          Uri.parse('$baseApiUrl/orderattendance/get/$tbInstitutionId/$id');
+          Uri.parse('$baseApiUrl}orderattendance/get/$tbInstitutionId/$id');
       final response = await httpClient.get(uri);
       if (response.statusCode == 200) {
         var decode = json.decode(response.body) as Map<String, dynamic>;
@@ -70,7 +70,7 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
       });
 
       final uri =
-          Uri.parse('$baseApiUrl/orderattendance/getlist/$tbInstitutionId');
+          Uri.parse('$baseApiUrl}orderattendance/getlist/$tbInstitutionId');
       final response = await httpClient.get(uri);
 
       if (response.statusCode == 200) {
@@ -134,7 +134,7 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
       });
       int tbUserId = 1;
       await getUserId().then((value) {
-        tbUserId = int.parse(value);
+        (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
       });
 
       model.tbInstitutionId = tbInstitutionId;

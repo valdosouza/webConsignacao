@@ -1,39 +1,39 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/presentation/content/customer_list_mobile.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/attendance_by_salesman_module.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/attendance_by_salesman_bloc.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/attendance_by_salesman_event.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/attendance_by_salesman_state.dart';
+import 'package:appweb/app/modules/attendance_by_customer/attendance_by_customer_module.dart';
+import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_bloc.dart';
+import 'package:appweb/app/modules/attendance_by_customer/presentation/content/customer_list_mobile.dart';
+import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_event.dart';
+import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AttendanceBySalesmanPageMobile extends StatefulWidget {
-  const AttendanceBySalesmanPageMobile({super.key});
+class AttendanceByCustomerPageMobile extends StatefulWidget {
+  const AttendanceByCustomerPageMobile({super.key});
 
   @override
-  State<AttendanceBySalesmanPageMobile> createState() =>
-      AttendanceBySalesmanPageMobileState();
+  State<AttendanceByCustomerPageMobile> createState() =>
+      AttendanceByCustomerPageMobileState();
 }
 
-class AttendanceBySalesmanPageMobileState
-    extends State<AttendanceBySalesmanPageMobile> {
-  late final AttendanceBySalesmanBloc bloc;
+class AttendanceByCustomerPageMobileState
+    extends State<AttendanceByCustomerPageMobile> {
+  late final AttendanceByCustomerBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AttendanceBySalesmanBloc>();
+    bloc = Modular.get<AttendanceByCustomerBloc>();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceBySalesmanModule>();
+      await Modular.isModuleReady<AttendanceByCustomerModule>();
     });
     bloc.add(CustomerGetListEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AttendanceBySalesmanBloc, AttendanceBySalesmanState>(
+    return BlocConsumer<AttendanceByCustomerBloc, AttendanceByCustomerState>(
       bloc: bloc,
       listener: (context, state) {
         if (state is CustomerListErrorState) {

@@ -100,7 +100,7 @@ class OrderConsignmentRegisterBloc
     on<OrderConsignmentRegisterClearCheckoutEvent>((event, emit) async {
       for (OrderConsignmentCheckpointCardModel item in modelCheckpoint.items) {
         item.leftover = 0;
-        item.qtySold = 0;
+        item.qttySold = 0;
         item.subtotal = 0;
       }
       modelCheckpoint.order.totalValue = 0;

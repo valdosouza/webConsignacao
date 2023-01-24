@@ -65,7 +65,10 @@ class OrderProductionRegisterDataSourceImpl
       (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
     });
 
-    final tbUserId = await getUserId();
+    int tbUserId = 1;
+    await getUserId().then((value) {
+      (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
+    });
 
     model.tbInstitutionId = tbInstitutionId;
     model.tbUserId = tbUserId;
@@ -96,7 +99,10 @@ class OrderProductionRegisterDataSourceImpl
       (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
     });
 
-    final tbUserId = await getUserId();
+    int tbUserId = 1;
+    await getUserId().then((value) {
+      (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
+    });
 
     model.tbInstitutionId = tbInstitutionId;
     model.tbUserId = tbUserId;

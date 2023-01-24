@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
@@ -31,11 +33,20 @@ class _ContentConsignmenteSupplyingState
 
   @override
   void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
+    if (Platform.isAndroid) {
+      WidgetsFlutterBinding.ensureInitialized();
+      SystemChrome.setPreferredOrientations(
+        [
+          DeviceOrientation.landscapeRight,
+          DeviceOrientation.landscapeLeft,
+        ],
+      ).then((val) {
+        super.initState();
+      });
+    } else {
+      super.initState();
+    }
+
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       Modular.isModuleReady<OrderConsignmentRegisterModule>;
     });
@@ -45,12 +56,14 @@ class _ContentConsignmenteSupplyingState
 
   @override
   dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    if (Platform.isAndroid) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    }
     super.dispose();
   }
 

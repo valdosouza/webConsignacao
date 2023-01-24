@@ -2,6 +2,7 @@ import 'package:appweb/app/modules/cashier_closure/data/datasource/cashier_closu
 import 'package:appweb/app/modules/cashier_closure/data/repository/cashier_closure_repository_impl.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_previously.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_today.dart';
+import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_post.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/page/cashier_closure_page.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/page/closure/cashier_closure_by_day_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/page/closure/cashier_closure_previously_page_mobile.dart';
@@ -32,10 +33,15 @@ class CashierClosureModule extends Module {
           (i) => CashierClosureGetPreviously(
               repository: i.get<CashierClosureRepositoryImpl>()),
         ),
+        Bind.factory(
+          (i) => CashierClosurePost(
+              repository: i.get<CashierClosureRepositoryImpl>()),
+        ),
         Bind.singleton(
           (i) => CashierClosureBloc(
             cashierClosureGet: i.get<CashierClosureGet>(),
             cashierClosureGetPreviously: i.get<CashierClosureGetPreviously>(),
+            cashierClosurePost: i.get<CashierClosurePost>(),
           ),
         ),
       ];

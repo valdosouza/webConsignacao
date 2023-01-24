@@ -65,10 +65,10 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
         tbProductId: item.tbProductId,
         bonus: 0,
         nameProduct: item.nameProduct,
-        leftover: item.qtyConsigned - item.qtySold,
+        leftover: item.qttyConsigned - item.qttySold,
         devolution: 0,
         newConsignment: 0,
-        qtyConsigned: item.leftover,
+        qttyConsigned: item.leftover,
         unitValue: item.unitValue,
       ));
     }
@@ -153,7 +153,7 @@ class OrderConsignmentSupplyingCardModel
   double leftover;
   double devolution;
   double newConsignment;
-  double qtyConsigned;
+  double qttyConsigned;
   double unitValue;
 
   OrderConsignmentSupplyingCardModel({
@@ -163,7 +163,7 @@ class OrderConsignmentSupplyingCardModel
     required this.leftover,
     required this.devolution,
     required this.newConsignment,
-    required this.qtyConsigned,
+    required this.qttyConsigned,
     required this.unitValue,
   }) : super(
           tbProductId: tbProductId,
@@ -172,7 +172,7 @@ class OrderConsignmentSupplyingCardModel
           leftover: leftover,
           devolution: devolution,
           newConsignment: newConsignment,
-          qtyConsigned: qtyConsigned,
+          qttyConsigned: qttyConsigned,
           unitValue: unitValue,
         );
 
@@ -185,7 +185,7 @@ class OrderConsignmentSupplyingCardModel
       leftover: double.parse(json['leftover']),
       devolution: double.parse(json['devolution']),
       newConsignment: double.parse(json['new_consignment']),
-      qtyConsigned: double.parse(json['qty_consigned']),
+      qttyConsigned: double.parse(json['qtty_consigned']),
       unitValue: double.parse(json['unit_value']),
     );
   }
@@ -198,7 +198,7 @@ class OrderConsignmentSupplyingCardModel
       'leftover': leftover,
       'devolution': devolution,
       'new_consignment': newConsignment,
-      'qty_consigned': qtyConsigned,
+      'qtty_consigned': qttyConsigned,
       'unit_value': unitValue,
     };
   }

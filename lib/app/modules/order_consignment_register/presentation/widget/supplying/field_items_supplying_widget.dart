@@ -19,8 +19,8 @@ Widget fielditemssupplying(OrderConsignmentSupplyingCardModel item,
             : "";
 
       case 6:
-        return (item.qtyConsigned > 0)
-            ? item.qtyConsigned.toStringAsFixed(0)
+        return (item.qttyConsigned > 0)
+            ? item.qttyConsigned.toStringAsFixed(0)
             : "";
     }
     return "";
@@ -60,13 +60,13 @@ Widget fielditemssupplying(OrderConsignmentSupplyingCardModel item,
                 } else {
                   item.devolution = 0;
                 }
-                item.qtyConsigned =
+                item.qttyConsigned =
                     item.newConsignment + (item.leftover - item.devolution);
 
                 break;
               case 5:
                 item.newConsignment = double.parse(value);
-                item.qtyConsigned =
+                item.qttyConsigned =
                     item.newConsignment + (item.leftover - item.devolution);
 
                 break;

@@ -17,8 +17,8 @@ class CustomerMenuMobile extends StatelessWidget {
           ),
           itemMenuDraw(
             Icons.home,
-            'Por vendedor',
-            () async => Modular.to.navigate('/attendancesalesman/mobile/'),
+            'Lista',
+            () async => Modular.to.navigate('/attendancecustomer/mobile/'),
           ),
           itemMenuDraw(
             Icons.home,

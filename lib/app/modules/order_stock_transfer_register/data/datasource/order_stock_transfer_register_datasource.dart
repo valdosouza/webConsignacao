@@ -111,7 +111,7 @@ class OrderStockTransferRegisterDataSourceImpl
     });
     int tbUserId = 1;
     await getUserId().then((value) {
-      tbUserId = int.parse(value);
+      (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
     });
     model.order.tbInstitutionId = tbInstitutionId;
     model.order.tbUserId = tbUserId;
@@ -142,7 +142,7 @@ class OrderStockTransferRegisterDataSourceImpl
       });
       int tbUserId = 1;
       await getUserId().then((value) {
-        tbUserId = int.parse(value);
+        (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
       });
       model.order.tbInstitutionId = tbInstitutionId;
       model.order.tbUserId = tbUserId;

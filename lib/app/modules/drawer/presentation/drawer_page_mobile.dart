@@ -1,4 +1,6 @@
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
+import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_event.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_state.dart';
@@ -19,6 +21,9 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<DrawerModule>();
+    });
     bloc = Modular.get<DrawerBloc>();
   }
 
@@ -29,6 +34,15 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
       listener: (context, state) {
         if (state is DrawerLogoutState) {
           Modular.to.popAndPushNamed('/auth/');
+        }
+        if (state is DrawerCashierIsOpenState) {
+          if (state.open) {
+            CustomToast.showToast(
+                "Para iniciar atendimento, efetue o fechamento anterior.");
+            Modular.to.navigate('/cashier/mobile/');
+          } else {
+            Modular.to.navigate('/customer/mobile/');
+          }
         }
       },
       builder: (context, state) {
@@ -70,8 +84,9 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
                   ],
                 ),
               ),
-              itemMenuDraw(Icons.home, 'Clientes',
-                  () => Modular.to.navigate('/customer/mobile/')),
+              itemMenuDraw(Icons.home, 'Clientes', () {
+                bloc.add(CashierIsOpenEvent());
+              }),
               itemMenuDraw(Icons.home, 'Caixa',
                   () => Modular.to.navigate('/cashier/mobile/')),
               itemMenuDraw(Icons.home, 'Produtos',

@@ -28,9 +28,9 @@ class OrderConsignmentCheckpointCardEntity {
     int? tbProductId,
     String? nameProduct,
     double? bonus,
-    double? qtyConsigned,
+    double? qttyConsigned,
     double? leftover,
-    double? qtySold,
+    double? qttySold,
     double? unitValue,
     double? subtotal,
   });

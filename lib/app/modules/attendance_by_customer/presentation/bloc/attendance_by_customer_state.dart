@@ -1,9 +1,9 @@
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
 
-abstract class AttendanceBySalesmanState {}
+abstract class AttendanceByCustomerState {}
 
 /*----------------------------------------------------------------------------*/
-class CustomerListState extends AttendanceBySalesmanState {
+class CustomerListState extends AttendanceByCustomerState {
   List<CustomerListModel> customerList;
   CustomerListState({
     required this.customerList,

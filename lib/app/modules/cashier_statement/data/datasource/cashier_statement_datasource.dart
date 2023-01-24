@@ -35,8 +35,8 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
     });
 
     String tbUserId = '1';
-    await getInstitutionId().then((value) {
-      tbUserId = value as String;
+    await getUserId().then((value) {
+      tbUserId = value.toString();
     });
 
     return await request(
@@ -63,8 +63,8 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
     });
 
     String tbUserId = '1';
-    await getInstitutionId().then((value) {
-      tbUserId = value as String;
+    await getUserId().then((value) {
+      tbUserId = value.toString();
     });
     return await request(
       'financial/statement/getbyday/$tbInstitutionId/$tbUserId/${params.date}',
@@ -90,8 +90,8 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
     });
 
     String tbUserId = '1';
-    await getInstitutionId().then((value) {
-      tbUserId = value as String;
+    await getUserId().then((value) {
+      tbUserId = value.toString();
     });
     return await request(
       'financial/statement/getbymonth/$tbInstitutionId/$tbUserId/${params.date}',
@@ -117,8 +117,8 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
     });
 
     String tbUserId = '1';
-    await getInstitutionId().then((value) {
-      tbUserId = value as String;
+    await getUserId().then((value) {
+      tbUserId = value.toString();
     });
     return await request(
       'financial/customer/charged/getlist/$tbInstitutionId/$tbUserId/${params.date}',

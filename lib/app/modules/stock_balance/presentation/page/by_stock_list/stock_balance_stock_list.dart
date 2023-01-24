@@ -70,6 +70,7 @@ class _ContentStockBalanceByStockListState
                             itemBuilder: (context, index) => InkWell(
                               child: ListTile(
                                 leading: CircleAvatar(
+                                  backgroundColor: (Colors.black),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child: Text((index + 1).toString()),

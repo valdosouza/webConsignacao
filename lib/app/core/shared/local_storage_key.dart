@@ -4,4 +4,5 @@ class LocalStorageKey {
   static const token = 'token';
   static const tbInstitutionId = 'tb_institution_id';
   static const tbUserId = 'tb_user_id';
+  static const dtCashier = 'dt_cashier';
 }

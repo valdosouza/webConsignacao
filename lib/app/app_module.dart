@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/page_404.dart';
 import 'package:appweb/app/modules/admin/admin_module.dart';
 import 'package:appweb/app/modules/attendance_by_route/attendance_by_route_module.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/attendance_by_salesman_module.dart';
+import 'package:appweb/app/modules/attendance_by_customer/attendance_by_customer_module.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/cashier/cashier_module.dart';
 import 'package:appweb/app/modules/cashier_balance/cashier_balance_module.dart';
@@ -9,6 +9,9 @@ import 'package:appweb/app/modules/cashier_closure/cashier_closure_module.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/customer/customer_module.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
+import 'package:appweb/app/modules/drawer/data/datasource/drawer_datasource.dart';
+import 'package:appweb/app/modules/drawer/data/repository/drawer_repository_impl.dart';
+import 'package:appweb/app/modules/drawer/domain/usecase/drawer_cashier_is_open.dart';
 import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
@@ -24,13 +27,25 @@ import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class AppModule extends Module {
   // Provide a list of dependencies to inject into your project
   @override
   List<Bind> get binds => [
         AsyncBind((i) => SharedPreferences.getInstance()),
-        Bind.singleton((i) => DrawerBloc()),
+        Bind.factory<DrawerDataSource>(
+          (i) => DrawerDataSourceImpl(httpClient: http.Client()),
+        ),
+        Bind.factory(
+          (i) => DrawerRepositoryImpl(datasource: i.get<DrawerDataSource>()),
+        ),
+        Bind.factory(
+          (i) => DrawerCashierIsOpen(repository: i.get<DrawerRepositoryImpl>()),
+        ),
+        Bind.singleton((i) => DrawerBloc(
+              drawerCashierIsOpen: i.get<DrawerCashierIsOpen>(),
+            )),
       ];
 
   // Provide all the routes for your module
@@ -49,8 +64,8 @@ class AppModule extends Module {
         ModuleRoute('/financial', module: FinancialModule()),
         ModuleRoute('/resourcehuman', module: ResourceHumanModule()),
         ModuleRoute('/attendancesalesroute', module: AttendanceByRouteModule()),
-        ModuleRoute('/attendancesalesman',
-            module: AttendanceBySalesmanModule()),
+        ModuleRoute('/attendancecustomer',
+            module: AttendanceByCustomerModule()),
         ModuleRoute('/orderproduction', module: OrderProductionModule()),
         ModuleRoute('/cashier', module: CashierModule()),
         ModuleRoute('/cashierbalance', module: CashierBalanceModule()),

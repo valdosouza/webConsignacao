@@ -24,8 +24,8 @@ class CustomerDataSourceImpl extends CustomerDataSource {
       });
 
       String tbUserId = '1';
-      await getInstitutionId().then((value) {
-        tbUserId = value as String;
+      await getUserId().then((value) {
+        tbUserId = value.toString();
       });
 
       final uri = Uri.parse(

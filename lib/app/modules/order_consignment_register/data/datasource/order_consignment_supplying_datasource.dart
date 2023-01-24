@@ -51,7 +51,7 @@ class OrderConsignmentSupplyingDatasourceImpl
         (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
       });
       int tbUserId = 1;
-      await getInstitutionId().then((value) {
+      await getUserId().then((value) {
         (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
       });
 

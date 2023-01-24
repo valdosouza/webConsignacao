@@ -58,6 +58,7 @@ class _ContentOrderAttendanceRegisterMobileState
                 itemBuilder: (context, index) => InkWell(
                   child: ListTile(
                     leading: CircleAvatar(
+                      backgroundColor: (Colors.black),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Text(bloc.pricelist[index].id.toString()),

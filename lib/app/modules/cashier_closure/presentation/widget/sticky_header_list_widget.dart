@@ -32,6 +32,7 @@ class StickyHeaderList extends StatelessWidget {
               return ListTile(
                 trailing: Text('${closureModel.items![i].tagValue}'),
                 leading: CircleAvatar(
+                  backgroundColor: (Colors.black),
                   child: Text('${i + 1}'),
                 ),
                 title: Text(closureModel.items![i].description),

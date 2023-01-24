@@ -52,4 +52,15 @@ class CustomDate {
       return "";
     }
   }
+
+  static tomorrow() {
+    try {
+      initializeDateFormatting('pt_BR,', null);
+
+      DateTime time = DateTime.now().add(const Duration(days: 1));
+      return (DateFormat("dd/MM/yyyy").format(time));
+    } catch (e) {
+      return "";
+    }
+  }
 }

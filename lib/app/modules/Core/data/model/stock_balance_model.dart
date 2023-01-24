@@ -13,6 +13,7 @@ class StockBalanceModel extends StockBalanceEntity {
 
   factory StockBalanceModel.fromJson(Map<String, dynamic> json) {
     return StockBalanceModel(
+      //[{"tb_institution_id":1,"tb_stock_list_id":2,"name_stock_list":"Valdo","tb_merchandise_id":1,"name_merchandise":"Choim Ameixa","quantity":"-35.0000"}]"
       tbStockListId: json['tb_stock_list_id'] as int? ?? 0,
       nameStockList: json['name_stock_list'],
       items: json['items'] == null

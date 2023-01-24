@@ -1,16 +1,16 @@
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/domain/usecase/customer_get_list.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/attendance_by_salesman_event.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/presentation/bloc/attendance_by_salesman_state.dart';
+import 'package:appweb/app/modules/attendance_by_customer/domain/usecase/customer_get_list.dart';
+import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_event.dart';
+import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AttendanceBySalesmanBloc
-    extends Bloc<AttendanceBySalesmanEvent, AttendanceBySalesmanState> {
+class AttendanceByCustomerBloc
+    extends Bloc<AttendanceByCustomerEvent, AttendanceByCustomerState> {
   final CustomerGetlist getlistCustomer;
 
   List<CustomerListModel> customerlist = [];
 
-  AttendanceBySalesmanBloc({
+  AttendanceByCustomerBloc({
     required this.getlistCustomer,
   }) : super(CustomerListLoadingState()) {
     getListCustomer();

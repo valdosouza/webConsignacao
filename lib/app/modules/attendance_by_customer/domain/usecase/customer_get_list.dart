@@ -2,7 +2,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
-import 'package:appweb/app/modules/attendance_by_salesman/domain/repository/customer_respository.dart';
+import 'package:appweb/app/modules/attendance_by_customer/domain/repository/customer_respository.dart';
 import 'package:dartz/dartz.dart';
 
 class CustomerGetlist

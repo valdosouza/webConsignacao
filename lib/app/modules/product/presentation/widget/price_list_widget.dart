@@ -15,7 +15,7 @@ class PriceListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverStickyHeader.builder(
       builder: (context, state) => Container(
-        height: 60.0,
+        height: 50.0,
         color: Theme.of(context).primaryColor,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         alignment: Alignment.centerLeft,
@@ -28,6 +28,7 @@ class PriceListWidget extends StatelessWidget {
         delegate: SliverChildBuilderDelegate(
           (context, index) => ListTile(
             leading: CircleAvatar(
+              backgroundColor: Colors.black,
               child: Text(prices[index].id.toString()),
             ),
             title: Row(

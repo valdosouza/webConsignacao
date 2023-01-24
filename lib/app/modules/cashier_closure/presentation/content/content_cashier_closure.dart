@@ -27,6 +27,7 @@ class _ContentCashierClosureState extends State<ContentCashierClosure> {
       await Modular.isModuleReady<CashierClosureModule>();
     });
     bloc = Modular.get<CashierClosureBloc>();
+
     bloc.add(CashierClosureGetClosureEvent(date: widget.dateSelected));
   }
 
@@ -51,18 +52,12 @@ class _ContentCashierClosureState extends State<ContentCashierClosure> {
   _listOfCashierClosure() {
     var currenKind = '';
     List<int> listIndex = [];
-    List<int> listIndexSum = [];
     List<String> listKind = [];
 
     for (var i in bloc.closureModel.items!) {
       if (currenKind == '' || currenKind != i.kind) {
         currenKind = i.kind;
         listIndex.add(bloc.closureModel.items!.indexOf(i));
-        if (bloc.closureModel.items![bloc.closureModel.items!.indexOf(i)]
-                .kind ==
-            'sumarized1') {
-          listIndexSum.add(bloc.closureModel.items!.indexOf(i));
-        }
       }
 
       listKind.add(

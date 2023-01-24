@@ -10,7 +10,7 @@ Widget fielditemsordersale(OrderSaleCardModel item, int position, bool enabled,
       case 2:
         return item.nameProduct;
       case 3:
-        return (item.sale > 0) ? item.sale.toStringAsFixed(0) : "";
+        return (item.qttySold > 0) ? item.qttySold.toStringAsFixed(0) : "";
       case 4:
         return (item.subtotal > 0) ? item.subtotal.toStringAsFixed(2) : "";
     }
@@ -41,9 +41,9 @@ Widget fielditemsordersale(OrderSaleCardModel item, int position, bool enabled,
               break;
             case 3:
               if (value.isNotEmpty) {
-                item.sale = double.parse(value);
-                if (item.sale > 0) {
-                  item.subtotal = item.sale * item.unitValue;
+                item.qttySold = double.parse(value);
+                if (item.qttySold > 0) {
+                  item.subtotal = item.qttySold * item.unitValue;
                 } else {
                   item.subtotal = 0;
                 }

@@ -29,7 +29,9 @@ class ProductsPriceListItemsModel extends ProductsPriceListItemsEntity {
     return ProductsPriceListItemsModel(
       id: json['id'],
       nameProduct: json['name_product'],
-      priceTag: json['price_tag'],
+      priceTag: json['price_tag'] is int
+          ? json['price_tag'].toDouble()
+          : json['price_tag'],
     );
   }
 }

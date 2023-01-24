@@ -29,6 +29,7 @@ class CashierStatementWidget extends StatelessWidget {
         delegate: SliverChildBuilderDelegate(
           (context, index) => ListTile(
             leading: CircleAvatar(
+              backgroundColor: (Colors.black),
               child: Text((index + 1).toString()),
             ),
             title: Row(
