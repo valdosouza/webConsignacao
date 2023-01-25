@@ -8,8 +8,12 @@ abstract class CashierClosureRepository {
   Future<Either<Failure, ClosureModel>> getClosure({
     required String date,
   });
+  Future<Either<Failure, ClosureModel>> getForClosure({
+    required String date,
+  });
+
   Future<Either<Failure, List<CashierClosurePreviouslyModel>>>
       closurePreviously();
-  Future<Either<Failure, ClosureModel>> postClosure(
+  Future<Either<Failure, String>> postClosure(
       {required ParamsCashierClosurePost param});
 }

@@ -29,3 +29,5 @@ class CashierStatementGetCustomersMobileEvent extends CashierStatementEvent {
     required this.params,
   });
 }
+
+class GetCurrentDateEvent extends CashierStatementEvent {}

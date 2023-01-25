@@ -16,3 +16,7 @@ class CashierBalanceMobileSuccessState extends CashierBalanceState {
 class CashierBalanceMobileErrorState extends CashierBalanceState {
   CashierBalanceMobileErrorState();
 }
+
+class CashierBalanceGetCurrentDateSucessState extends CashierBalanceState {
+  CashierBalanceGetCurrentDateSucessState();
+}

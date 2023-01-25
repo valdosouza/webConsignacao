@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import '../bloc/cashier_closure_event.dart';
+import '../bloc/cashier_closure_state.dart';
 
 final TextEditingController controller =
     MaskedTextController(mask: '00/00/0000');
@@ -31,7 +33,7 @@ class _ContentCashierListPreviouslyState
       await Modular.isModuleReady<CashierClosureModule>();
     });
     bloc = Modular.get<CashierClosureBloc>();
-    bloc.add(const CashierClosureGetClosurePreviouslyEvent());
+    bloc.add(CashierClosureGetClosurePreviouslyEvent());
   }
 
   @override

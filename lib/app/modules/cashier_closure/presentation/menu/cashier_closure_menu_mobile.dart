@@ -27,6 +27,12 @@ class CashierClosureMenuMobile extends StatelessWidget {
             () async =>
                 Modular.to.navigate('/cashierclosure/mobile/allpreviously/'),
           ),
+          // itemMenuDraw(
+          //   Icons.home,
+          //   'Altera data para 24/01/2023',
+          //   () async => await LocalStorageService.instance.saveItem(
+          //       key: LocalStorageKey.dtCashier, value: CustomDate.yesterday()),
+          // ),
         ],
       ),
     );

@@ -46,13 +46,6 @@ class CashierStatementCustomersChargedPageMobileState
     }
   }
 
-  // @override
-  // void dispose() {
-  //   bloc.cashierStatement.clear();
-  //   bloc.customers.clear();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,17 +64,17 @@ class CashierStatementCustomersChargedPageMobileState
         body: BlocConsumer<CashierStatementBloc, CashierStatementState>(
           bloc: bloc,
           listener: (context, state) {
-            if (state is CashierStatementCustomerMobileErrorState) {
+            if (state is CustomerMobileErrorState) {
               CustomToast.showToast(
                   "Não foi possível acessar os dados. Tente novamente mais tarde");
             }
-            if (state is CashierStatementMobileErrorState) {
+            if (state is MobileErrorState) {
               CustomToast.showToast(
                   "Não foi possível acessar os dados. Tente novamente mais tarde");
             }
           },
           builder: (context, state) {
-            if (state is CashierStatementLoadingState) {
+            if (state is LoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
 

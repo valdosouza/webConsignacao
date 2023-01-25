@@ -39,8 +39,8 @@ class CashierBalanceItemsModel extends CashierBalanceItemsEntity {
   factory CashierBalanceItemsModel.fromJson(Map<String?, dynamic> json) {
     return CashierBalanceItemsModel(
       namePaymentType: json['name_payment_type'],
-      balanceValue: json['balance_value'] is String
-          ? double.parse(json['balance_value'])
+      balanceValue: json['balance_value'] is int
+          ? json['balance_value'].toDouble()
           : json['balance_value'],
     );
   }

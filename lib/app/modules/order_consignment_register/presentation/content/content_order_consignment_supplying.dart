@@ -58,8 +58,6 @@ class _ContentConsignmenteSupplyingState
   dispose() {
     if (Platform.isAndroid) {
       SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.landscapeLeft,
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
       ]);

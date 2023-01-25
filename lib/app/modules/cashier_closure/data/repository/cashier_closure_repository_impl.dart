@@ -39,7 +39,21 @@ class CashierClosureRepositoryImpl implements CashierClosureRepository {
   }
 
   @override
-  Future<Either<Failure, ClosureModel>> postClosure(
+  Future<Either<Failure, ClosureModel>> getForClosure({
+    required String date,
+  }) async {
+    try {
+      final closureToday = await datasource.getForClosure(
+        date: date,
+      );
+      return Right(closureToday);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> postClosure(
       {required ParamsCashierClosurePost param}) async {
     try {
       final closurePost = await datasource.postClosure(param: param);

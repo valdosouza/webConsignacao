@@ -1,12 +1,13 @@
 import 'package:appweb/app/modules/cashier_closure/data/datasource/cashier_closure_datasource.dart';
 import 'package:appweb/app/modules/cashier_closure/data/repository/cashier_closure_repository_impl.dart';
+import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_for.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_previously.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_today.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_post.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/page/cashier_closure_page.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/page/closure/cashier_closure_by_day_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/page/closure/cashier_closure_previously_page_mobile.dart';
-import 'package:appweb/app/modules/cashier_closure/presentation/page/closure/cashier_closure_today_page_mobile.dart';
+import 'package:appweb/app/modules/cashier_closure/presentation/page/closure/cashier_closure_for_closure_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/page/closure/cashier_closure_yesterday_page_mobile.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -34,6 +35,10 @@ class CashierClosureModule extends Module {
               repository: i.get<CashierClosureRepositoryImpl>()),
         ),
         Bind.factory(
+          (i) => CashierClosureGetFor(
+              repository: i.get<CashierClosureRepositoryImpl>()),
+        ),
+        Bind.factory(
           (i) => CashierClosurePost(
               repository: i.get<CashierClosureRepositoryImpl>()),
         ),
@@ -41,6 +46,7 @@ class CashierClosureModule extends Module {
           (i) => CashierClosureBloc(
             cashierClosureGet: i.get<CashierClosureGet>(),
             cashierClosureGetPreviously: i.get<CashierClosureGetPreviously>(),
+            cashierClosureGetFor: i.get<CashierClosureGetFor>(),
             cashierClosurePost: i.get<CashierClosurePost>(),
           ),
         ),
@@ -53,7 +59,7 @@ class CashierClosureModule extends Module {
     ),
     ChildRoute(
       '/mobile/today/',
-      child: (_, args) => const CashierClosureTodayPageMobile(),
+      child: (_, args) => const CashierClosureForClosurePageMobile(),
     ),
     ChildRoute(
       '/mobile/yesterday/',

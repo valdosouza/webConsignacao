@@ -1,29 +1,17 @@
 abstract class CashierStatementState {}
 
-class CashierStatementLoadedState extends CashierStatementState {
-  CashierStatementLoadedState();
-}
+class LoadedState extends CashierStatementState {}
 
-class CashierStatementLoadingState extends CashierStatementState {
-  CashierStatementLoadingState();
-}
+class LoadingState extends CashierStatementState {}
 
-class CashierStatementMobileSuccessState extends CashierStatementState {
-  CashierStatementMobileSuccessState();
-}
+class MobileSuccessState extends CashierStatementState {}
 
-class CashierStatementByCustomerState extends CashierStatementState {
-  CashierStatementByCustomerState();
-}
+class ByCustomerState extends CashierStatementState {}
 
-class CashierStatementMobileErrorState extends CashierStatementState {
-  CashierStatementMobileErrorState();
-}
+class MobileErrorState extends CashierStatementState {}
 
-class CashierStatementCustomerMobileSuccessState extends CashierStatementState {
-  CashierStatementCustomerMobileSuccessState();
-}
+class CustomerMobileSuccessState extends CashierStatementState {}
 
-class CashierStatementCustomerMobileErrorState extends CashierStatementState {
-  CashierStatementCustomerMobileErrorState();
-}
+class CustomerMobileErrorState extends CashierStatementState {}
+
+class GetCurrentDateSucessState extends CashierStatementState {}

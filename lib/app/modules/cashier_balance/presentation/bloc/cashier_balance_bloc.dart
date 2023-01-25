@@ -1,3 +1,6 @@
+import 'package:appweb/app/core/shared/helpers/local_storage.dart';
+import 'package:appweb/app/core/shared/local_storage_key.dart';
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/cashier_balance/data/model/cashier_balance_model.dart';
 import 'package:bloc/bloc.dart';
 
@@ -13,6 +16,20 @@ class CashierBalanceBloc
   CashierBalanceBloc({required this.cashierbalance})
       : super(CashierBalanceLoadingState()) {
     cashierBalanceGet();
+    getCurrentData();
+  }
+
+  getCurrentData() {
+    on<CashierBalanceGetDateEvent>((event, emit) async {
+      emit(CashierBalanceLoadingState());
+      var dtCashier = await LocalStorageService.instance
+          .get(key: LocalStorageKey.dtCashier);
+      if (dtCashier == "") {
+        dtCashier = CustomDate.newDate();
+      }
+      cashierBalance.dtRecord = dtCashier;
+      emit(CashierBalanceGetCurrentDateSucessState());
+    });
   }
 
   cashierBalanceGet() {

@@ -6,6 +6,7 @@ import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/cashier_closure_previously_model.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_post.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class CashierClosureDatasource extends Gateway {
   CashierClosureDatasource({required super.httpClient});
@@ -14,7 +15,9 @@ abstract class CashierClosureDatasource extends Gateway {
 
   Future<List<CashierClosurePreviouslyModel>> closurePreviously();
 
-  Future<ClosureModel> postClosure({required ParamsCashierClosurePost param});
+  Future<String> postClosure({required ParamsCashierClosurePost param});
+
+  Future<ClosureModel> getForClosure({required String date});
 }
 
 class CashierClosureDatasourceImpl extends CashierClosureDatasource {
@@ -36,6 +39,34 @@ class CashierClosureDatasourceImpl extends CashierClosureDatasource {
     });
     return await request(
       'cashier/closure/get/$tbInstitutionId/$tbUserId/$formattedDate',
+      (payload) {
+        final data = json.decode(payload);
+
+        var currentClosure = ClosureModel.fromJson(data);
+        return currentClosure;
+      },
+      onError: (error) {
+        throw ServerException();
+      },
+    );
+  }
+
+  @override
+  Future<ClosureModel> getForClosure({
+    required String date,
+  }) async {
+    String formattedDate = CustomDate.formatDateOut(date);
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
+    String tbUserId = '1';
+    await getUserId().then((value) {
+      tbUserId = value.toString();
+    });
+    return await request(
+      'cashier/closure/getforclosure/$tbInstitutionId/$tbUserId/$formattedDate',
       (payload) {
         final data = json.decode(payload);
 
@@ -76,28 +107,28 @@ class CashierClosureDatasourceImpl extends CashierClosureDatasource {
   }
 
   @override
-  Future<ClosureModel> postClosure(
-      {required ParamsCashierClosurePost param}) async {
-    String formattedDate = CustomDate.newDate();
-    String tbInstitutionId = '1';
+  Future<String> postClosure({required ParamsCashierClosurePost param}) async {
+    int tbInstitutionId = 1;
     await getInstitutionId().then((value) {
-      tbInstitutionId = value.toString();
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
     });
-
-    String tbUserId = '1';
+    int tbUserId = 1;
     await getUserId().then((value) {
-      tbUserId = value.toString();
+      (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
     });
-    return await request(
-      'cashier/closure/get/$tbInstitutionId/$tbUserId/$formattedDate',
-      (payload) {
-        final data = json.decode(payload);
+    param.model.tbInstitutionId = tbInstitutionId;
+    param.model.tbUserId = tbUserId;
+    final bodyContent = json.encode(param.model.toJson());
 
-        var currentClosure = ClosureModel.fromJson(data);
-        return currentClosure;
+    return await request(
+      'cashier/closure',
+      data: bodyContent,
+      method: HTTPMethod.post,
+      (payload) {
+        return payload;
       },
       onError: (error) {
-        throw ServerException();
+        return ServerException;
       },
     );
   }

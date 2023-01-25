@@ -28,13 +28,13 @@ class _ContentCashierStatementState extends State<ContentCashierStatement> {
     return BlocConsumer<CashierStatementBloc, CashierStatementState>(
         bloc: bloc,
         listener: (context, state) {
-          if (state is CashierStatementMobileErrorState) {
+          if (state is MobileErrorState) {
             CustomToast.showToast(
                 "Não foi possível acessar o extrato. Tente novamente mais tarde.");
           }
         },
         builder: (context, state) {
-          if (state is CashierStatementLoadingState) {
+          if (state is LoadingState) {
             return const Center(child: CircularProgressIndicator());
           }
           if (bloc.cashierStatement.isEmpty) {

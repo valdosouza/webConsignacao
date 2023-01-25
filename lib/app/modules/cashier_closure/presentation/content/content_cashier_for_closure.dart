@@ -6,21 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../bloc/cashier_closure_event.dart';
 import '../bloc/cashier_closure_state.dart';
 
-class ContentCashierClosure extends StatefulWidget {
-  final String dateSelected;
-  const ContentCashierClosure({
+class ContentCashierForClosure extends StatefulWidget {
+  const ContentCashierForClosure({
     Key? key,
-    required this.dateSelected,
   }) : super(key: key);
 
   @override
-  State<ContentCashierClosure> createState() => _ContentCashierClosureState();
+  State<ContentCashierForClosure> createState() =>
+      _ContentCashierForClosureState();
 }
 
-class _ContentCashierClosureState extends State<ContentCashierClosure> {
+class _ContentCashierForClosureState extends State<ContentCashierForClosure> {
   late CashierClosureBloc bloc;
   @override
   void initState() {
@@ -30,8 +28,6 @@ class _ContentCashierClosureState extends State<ContentCashierClosure> {
       await Modular.isModuleReady<CashierClosureModule>();
     });
     bloc = Modular.get<CashierClosureBloc>();
-
-    bloc.add(CashierClosureGetClosureEvent(date: widget.dateSelected));
   }
 
   @override
@@ -47,6 +43,10 @@ class _ContentCashierClosureState extends State<ContentCashierClosure> {
         builder: (context, state) {
           if (state is CashierClosureLoadingState) {
             return const Center(child: CircularProgressIndicator());
+          }
+          if (bloc.closureModel.items!.isEmpty) {
+            return const Center(
+                child: Text("Não encontramos nenhum registro em nossa base."));
           }
           return _listOfCashierClosure();
         });

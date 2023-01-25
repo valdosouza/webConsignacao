@@ -1,25 +1,22 @@
-part of 'cashier_closure_bloc.dart';
-
-abstract class CashierClosureEvent {
-  const CashierClosureEvent();
-}
+abstract class CashierClosureEvent {}
 
 class CashierClosureGetClosureOnSearchEvent extends CashierClosureEvent {
-  const CashierClosureGetClosureOnSearchEvent({required this.value});
   final String value;
+  CashierClosureGetClosureOnSearchEvent({required this.value});
 }
 
 class CashierClosureGetClosureEvent extends CashierClosureEvent {
-  const CashierClosureGetClosureEvent({
-    required this.date,
-  });
+  CashierClosureGetClosureEvent({required this.date});
   final String date;
 }
 
-class CashierClosureGetClosurePreviouslyEvent extends CashierClosureEvent {
-  const CashierClosureGetClosurePreviouslyEvent();
+class CashierClosureGetForClosureEvent extends CashierClosureEvent {
+  CashierClosureGetForClosureEvent({required this.date});
+  final String date;
 }
 
-class CashierClosurePostClosureEvent extends CashierClosureEvent {
-  const CashierClosurePostClosureEvent();
-}
+class CashierClosureGetClosurePreviouslyEvent extends CashierClosureEvent {}
+
+class CashierClosurePostClosureEvent extends CashierClosureEvent {}
+
+class CashierClosureGetCurrentDateEvent extends CashierClosureEvent {}

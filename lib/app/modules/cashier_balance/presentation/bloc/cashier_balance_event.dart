@@ -6,3 +6,5 @@ class CashierBalanceMobileEvent extends CashierBalanceEvent {
     required this.date,
   });
 }
+
+class CashierBalanceGetDateEvent extends CashierBalanceEvent {}
