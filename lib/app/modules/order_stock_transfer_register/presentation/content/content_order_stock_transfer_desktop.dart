@@ -82,7 +82,7 @@ class _ContentOrderStockTransferRegisterDesktopState
               actions: [
                 PopupMenuButton(
                   itemBuilder: (context) => [
-                    (bloc.orderMain.order.status == "A")
+                    (bloc.orderMain.order.status != "F")
                         ? PopupMenuItem(
                             onTap: (() => bloc.add(OrderClosureEvent())),
                             value: 0,
@@ -111,7 +111,7 @@ class _ContentOrderStockTransferRegisterDesktopState
                       )),
                       trailing: IconButton(
                         onPressed: () {
-                          if (bloc.orderMain.order.status == "A") {
+                          if (bloc.orderMain.order.status != "F") {
                             bloc.add(OrderItemNewEvent());
                           }
                         },
@@ -129,7 +129,7 @@ class _ContentOrderStockTransferRegisterDesktopState
                 ContentOrderStockTransferRegisterDetail(),
               ],
             ),
-            floatingActionButton: (bloc.orderMain.order.status == "A")
+            floatingActionButton: (bloc.orderMain.order.status != "F")
                 ? FloatingActionButton(
                     onPressed: () {
                       bloc.orderMain.order.id > 0

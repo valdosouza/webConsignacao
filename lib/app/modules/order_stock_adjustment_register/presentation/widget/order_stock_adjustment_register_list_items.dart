@@ -8,10 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class OrderStockAdjustmentRegisterItemsListWidget extends StatefulWidget {
-  final OrderStockAdjustmentRegisterModel orderStockTransfer;
+  final OrderStockAdjustmentRegisterModel orderStockAdjust;
   const OrderStockAdjustmentRegisterItemsListWidget({
     Key? key,
-    required this.orderStockTransfer,
+    required this.orderStockAdjust,
   }) : super(key: key);
 
   @override
@@ -35,24 +35,24 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
         OrderStockAdjustmentRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        return _orderStockTransferProductsList();
+        return _orderStockAdjustProductsList();
       },
     );
   }
 
-  _orderStockTransferProductsList() {
+  _orderStockAdjustProductsList() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: widget.orderStockTransfer.items.isEmpty
+      child: widget.orderStockAdjust.items.isEmpty
           ? const Center(
               child: Text("Não encontramos nenhum registro em nossa base."))
           : ListView.separated(
-              itemCount: widget.orderStockTransfer.items.length,
+              itemCount: widget.orderStockAdjust.items.length,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  if (bloc.orderStockAdjustment.status == "A") {
+                  if (bloc.orderStockAdjustment.status != "F") {
                     bloc.add(OrderStockAdjustmentRegisterItemEvent(
-                        item: widget.orderStockTransfer.items[index]));
+                        item: widget.orderStockAdjust.items[index]));
                   }
                 },
                 child: ListTile(
@@ -63,10 +63,9 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
                       child: Text((index + 1).toString()),
                     ),
                   ),
-                  title:
-                      Text(widget.orderStockTransfer.items[index].description),
-                  trailing: Text(widget.orderStockTransfer.items[index].quantity
-                      .toString()),
+                  title: Text(widget.orderStockAdjust.items[index].description),
+                  trailing: Text(
+                      widget.orderStockAdjust.items[index].quantity.toString()),
                 ),
               ),
               separatorBuilder: (_, __) => const Divider(),

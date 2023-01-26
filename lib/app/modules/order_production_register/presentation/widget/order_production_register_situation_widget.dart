@@ -28,7 +28,7 @@ class _OrderProductionRegisterSituationWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (widget.orderProduction.status == "A") {
+    if (widget.orderProduction.status != "F") {
       return const Text("Aberto", style: kLabelStyle);
     } else {
       return const Text("Fechado", style: kLabelStyle);

@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_mobile.dart';
 import 'package:appweb/app/modules/order_production/presentation/page/order_production_page_mobile.dart';
-import 'package:appweb/app/modules/stock/stock_module.dart';
+import 'package:appweb/app/modules/order_production_register/order_production_register_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -18,7 +18,7 @@ class _OrderProductionPageTabletState extends State<OrderProductionPageTablet> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<StockModule>();
+      await Modular.isModuleReady<OrderProductionRegisterModule>();
     });
   }
 

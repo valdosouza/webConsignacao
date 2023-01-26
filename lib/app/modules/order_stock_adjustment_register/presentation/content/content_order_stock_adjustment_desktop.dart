@@ -96,7 +96,7 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
               actions: [
                 PopupMenuButton(
                   itemBuilder: (context) => [
-                    (bloc.orderStockAdjustment.status == "A")
+                    (bloc.orderStockAdjustment.status != "F")
                         ? PopupMenuItem(
                             onTap: (() => bloc.add(OrderClosureEvent())),
                             value: 0,
@@ -125,7 +125,7 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                       )),
                       trailing: IconButton(
                           onPressed: () {
-                            if (bloc.orderStockAdjustment.status == "A") {
+                            if (bloc.orderStockAdjustment.status != "F") {
                               bloc.add(OrderStockAdjustmentRegisterItemEvent());
                             }
                           },
@@ -137,14 +137,14 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
             ),
             body: TabBarView(controller: _tabController, children: [
               OrderStockAdjustmentRegisterData(
-                  orderStockTransfer: orderStockAdjustment,
+                  orderStockAdjust: orderStockAdjustment,
                   bloc: bloc,
                   controllerDate: controllerDate),
               OrderStockAdjustmentRegisterItemsListWidget(
-                orderStockTransfer: orderStockAdjustment,
+                orderStockAdjust: orderStockAdjustment,
               ),
             ]),
-            floatingActionButton: (bloc.orderStockAdjustment.status == "A")
+            floatingActionButton: (bloc.orderStockAdjustment.status != "F")
                 ? FloatingActionButton(
                     onPressed: () {
                       bloc.edit

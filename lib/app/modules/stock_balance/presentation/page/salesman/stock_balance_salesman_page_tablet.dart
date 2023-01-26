@@ -1,5 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/stock/stock_module.dart';
+import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -17,7 +17,7 @@ class _StockBalanceSalesmanPageTabletState
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<StockModule>();
+      await Modular.isModuleReady<StockBalanceModule>();
     });
   }
 

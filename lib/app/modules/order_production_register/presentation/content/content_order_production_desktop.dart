@@ -85,7 +85,7 @@ class _ContentOrderProductionRegisterDesktopState
               actions: [
                 PopupMenuButton(
                   itemBuilder: (context) => [
-                    (bloc.orderProduction.status == "A")
+                    (bloc.orderProduction.status != "F")
                         ? PopupMenuItem(
                             onTap: (() => bloc.add(OrderClosureEvent())),
                             value: 0,
@@ -167,7 +167,7 @@ class _ContentOrderProductionRegisterDesktopState
                 ),
               ),
             ),
-            floatingActionButton: (bloc.orderProduction.status == "A")
+            floatingActionButton: (bloc.orderProduction.status != "F")
                 ? FloatingActionButton(
                     onPressed: () {
                       (bloc.orderProduction.id > 0)

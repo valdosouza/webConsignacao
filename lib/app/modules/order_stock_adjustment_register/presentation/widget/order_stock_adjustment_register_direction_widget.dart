@@ -4,10 +4,10 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/or
 import 'package:flutter/material.dart';
 
 class OrderStockAdjustmentRegisterDirectionWidget extends StatefulWidget {
-  final OrderStockAdjustmentRegisterModel orderStockTransfer;
+  final OrderStockAdjustmentRegisterModel orderStockAdjust;
   const OrderStockAdjustmentRegisterDirectionWidget({
     Key? key,
-    required this.orderStockTransfer,
+    required this.orderStockAdjust,
   }) : super(key: key);
 
   @override
@@ -23,12 +23,12 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
   @override
   void initState() {
     super.initState();
-    selectRadio = widget.orderStockTransfer.direction == 'E' ? true : false;
+    selectRadio = widget.orderStockAdjust.direction == 'E' ? true : false;
   }
 
   @override
   Widget build(BuildContext context) {
-    active = widget.orderStockTransfer.direction == 'E' ? true : false;
+    active = widget.orderStockAdjust.direction == 'E' ? true : false;
     return Row(
       children: [
         Row(
@@ -37,13 +37,13 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
               value: true,
               groupValue: selectRadio,
               activeColor: Colors.red,
-              onChanged: (widget.orderStockTransfer.status == "A")
+              onChanged: (widget.orderStockAdjust.status != "F")
                   ? selectRadio
                       ? (value) {}
                       : (value) {
                           setState(() {
                             selectRadio = true;
-                            widget.orderStockTransfer.direction = "E";
+                            widget.orderStockAdjust.direction = "E";
                           });
                         }
                   : null,
@@ -59,12 +59,12 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
                 value: false,
                 groupValue: selectRadio,
                 activeColor: Colors.red,
-                onChanged: (widget.orderStockTransfer.status == "A")
+                onChanged: (widget.orderStockAdjust.status != "F")
                     ? selectRadio
                         ? (value) {
                             setState(() {
                               selectRadio = false;
-                              widget.orderStockTransfer.direction = "S";
+                              widget.orderStockAdjust.direction = "S";
                             });
                           }
                         : (value) {}

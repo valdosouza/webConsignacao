@@ -10,7 +10,7 @@ class OrderStockAdjustmentRegisterItemsModel
     int? tbProductId,
     String? description,
     String? nameStockList,
-    int? unitValue,
+    double? unitValue,
     double? quantity,
   }) : super(
           id: id ?? 0,
@@ -36,7 +36,7 @@ class OrderStockAdjustmentRegisterItemsModel
       description: json['description'] as String? ?? "",
       nameStockList: json['name_stock_list'] as String? ?? "",
       unitValue: json['unit_value'] is String
-          ? int.parse(json['unit_value'])
+          ? double.parse(json['unit_value'])
           : json['unit_value'],
       quantity: json['quantity'] is String
           ? double.parse(json['quantity'])

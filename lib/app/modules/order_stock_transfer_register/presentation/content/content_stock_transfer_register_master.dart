@@ -56,7 +56,7 @@ class _ContentOrderStockTransferRegisterMasterState
                   {bloc.orderMain.order.number = int.parse(value)}),
           const SizedBox(height: 10),
           CustomInputButton(
-            readOnly: (bloc.orderMain.order.status == "A"),
+            readOnly: (bloc.orderMain.order.status != "F"),
             initialValue: bloc.orderMain.order.nameEntity,
             title: "Descrição da Entidade",
             suffixIcon: const Icon(
@@ -65,7 +65,7 @@ class _ContentOrderStockTransferRegisterMasterState
               color: Colors.white,
             ),
             onAction: (() => {
-                  (bloc.orderMain.order.status == "A")
+                  (bloc.orderMain.order.status != "F")
                       ? bloc.add(EntitiesGetEvent())
                       : null
                 }),
@@ -75,7 +75,7 @@ class _ContentOrderStockTransferRegisterMasterState
             initialValue: bloc.orderMain.order.nameStockListOri,
             title: "Descrição do estoque de Origem",
             onAction: (() => {
-                  (bloc.orderMain.order.status == "A")
+                  (bloc.orderMain.order.status != "F")
                       ? bloc.add(StocksGetEvent(type: "Origem"))
                       : null
                 }),
@@ -85,7 +85,7 @@ class _ContentOrderStockTransferRegisterMasterState
             initialValue: bloc.orderMain.order.nameStockListDes,
             title: "Descrição do estoque de Destino",
             onAction: (() => {
-                  (bloc.orderMain.order.status == "A")
+                  (bloc.orderMain.order.status != "F")
                       ? bloc.add(StocksGetEvent(type: "Destino"))
                       : null
                 }),

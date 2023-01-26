@@ -97,7 +97,7 @@ buildListView(OrderProductionRegisterBloc bloc,
                           const Text("Situação",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           const SizedBox(height: 5.0),
-                          Text((orderProductions[index].status == "A")
+                          Text((orderProductions[index].status != "F")
                               ? "Aberta"
                               : "Fechada"),
                         ],

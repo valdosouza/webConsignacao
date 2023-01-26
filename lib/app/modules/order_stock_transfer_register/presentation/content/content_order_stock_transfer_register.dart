@@ -91,7 +91,7 @@ buildListView(OrderStockTransferRegisterBloc bloc,
                           const Text("Situação",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           const SizedBox(height: 5.0),
-                          Text((list[index].status == "A")
+                          Text((list[index].status != "F")
                               ? "Aberta"
                               : "Fechada"),
                         ],

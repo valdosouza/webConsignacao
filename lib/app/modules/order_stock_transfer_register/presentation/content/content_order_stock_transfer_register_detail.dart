@@ -52,7 +52,7 @@ class ContentOrderStockTransferRegisterDetailState
               itemCount: orderItemsFiltered.length,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  if (bloc.orderMain.order.status == "A") {
+                  if (bloc.orderMain.order.status != "F") {
                     bloc.orderItem = orderItemsFiltered[index];
                     bloc.add(OrderItemEditEvent());
                   }
@@ -80,7 +80,7 @@ class ContentOrderStockTransferRegisterDetailState
                   ),
                   trailing: IconButton(
                     onPressed: () {
-                      if (bloc.orderMain.order.status == "A") {
+                      if (bloc.orderMain.order.status != "F") {
                         bloc.orderItem = orderItemsFiltered[index];
                         bloc.add(OrderItemDeleteEvent());
                       }

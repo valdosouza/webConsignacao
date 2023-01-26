@@ -7,7 +7,7 @@ class OrderStockAdjustmentRegisterItemsEntity {
   int tbProductId;
   String description;
   String nameStockList;
-  int unitValue;
+  double unitValue;
   double quantity;
 
   OrderStockAdjustmentRegisterItemsEntity({

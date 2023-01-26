@@ -2,6 +2,7 @@ import 'package:appweb/app/modules/customer/presentation/page/customer_page.dart
 import 'package:appweb/app/modules/customer/presentation/page/customer_page_mobile.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
 import 'package:appweb/app/modules/customer_register/presentation/page/customer_register_page_mobile.dart';
+import 'package:appweb/app/modules/order_bonus_register/order_bonus_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomerModule extends Module {
@@ -15,6 +16,8 @@ class CustomerModule extends Module {
       child: (_, args) => const CustomerPage(),
       children: [
         ModuleRoute('/customer-register/', module: CustomerRegisterModule()),
+        ModuleRoute('/orderbonus-register/',
+            module: OrderBonusRegisterModule()),
       ],
     ),
     ChildRoute(
