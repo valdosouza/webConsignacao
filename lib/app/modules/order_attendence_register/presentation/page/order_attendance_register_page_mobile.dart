@@ -54,9 +54,11 @@ class OrderAttendanceRegisterPageMobileState
         if (state is OrderAttendanceRegisterGetPriceListErrorState) {
           CustomToast.showToast(
               "Erro ao buscar os dados. Tente novamente mais tarde");
-        } else if (state is OrderAttendanceRegisterPostSuccessState) {
+        } else if ((state is OrderAttendanceRegisterPostSuccessState) ||
+            (state is OrderAttendanceRegisterPutSuccessState)) {
           CustomToast.showToast("Cadastro atualizado com sucesso.");
-        } else if (state is OrderAttendanceRegisterPostErrorState) {
+        } else if ((state is OrderAttendanceRegisterPostErrorState) ||
+            (state is OrderAttendanceRegisterPutErrorState)) {
           CustomToast.showToast(
               "Erro iniciar o Atendimento. Tente novamente mais tarde.");
         }
@@ -85,19 +87,32 @@ class OrderAttendanceRegisterPageMobileState
             body: const ContentOrderAttendanceRegisterMobile(),
           );
         }
-        if (state is OrderAttendanceRegisterPostSuccessState) {
-          switch (state.orderAttendance.tbPriceListId) {
+        if ((state is OrderAttendanceRegisterPostErrorState) ||
+            (state is OrderAttendanceRegisterPutErrorState)) {
+          Modular.to.navigate('/customer/mobile/');
+        }
+        if ((state is OrderAttendanceRegisterPostSuccessState) ||
+            (state is OrderAttendanceRegisterPutSuccessState)) {
+          OrderAttendanceModel orderAttendance = OrderAttendanceModel.isEmpty();
+
+          if (state is OrderAttendanceRegisterPostSuccessState) {
+            orderAttendance = state.orderAttendance;
+          } else if (state is OrderAttendanceRegisterPutSuccessState) {
+            orderAttendance = state.orderAttendance;
+          }
+
+          switch (orderAttendance.tbPriceListId) {
+            case 0:
+              Modular.to.navigate('/customer/mobile/');
+              break;
             case 1:
-              Modular.to
-                  .navigate('/consignment/', arguments: state.orderAttendance);
+              Modular.to.navigate('/consignment/', arguments: orderAttendance);
               break;
             case 2:
-              Modular.to
-                  .navigate('/ordersale/', arguments: state.orderAttendance);
+              Modular.to.navigate('/ordersale/', arguments: orderAttendance);
               break;
             case 3:
-              Modular.to
-                  .navigate('/ordersale/', arguments: state.orderAttendance);
+              Modular.to.navigate('/ordersale/', arguments: orderAttendance);
               break;
           }
         }

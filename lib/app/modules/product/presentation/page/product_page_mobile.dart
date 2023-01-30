@@ -1,9 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_mobile.dart';
 import 'package:appweb/app/modules/product/presentation/content/content_mobile_product.dart';
-import 'package:appweb/app/modules/product/product_module.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class ProductPageMobile extends StatefulWidget {
   const ProductPageMobile({super.key});
@@ -13,14 +11,6 @@ class ProductPageMobile extends StatefulWidget {
 }
 
 class _ProductMobiletState extends State<ProductPageMobile> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<ProductModule>();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;

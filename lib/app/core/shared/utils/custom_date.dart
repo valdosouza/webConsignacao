@@ -5,11 +5,13 @@ class CustomDate {
   static formatDateOut(String date) {
     if (date != "") {
       try {
-        //12/01/2023
-        var result =
-            "${date.substring(6, 10)}-${date.substring(3, 5)}-${date.substring(0, 2)}";
-
-        return result;
+        //12/01/2023 - 2023-01-27
+        if (date.substring(4, 5) != "-") {
+          var result =
+              "${date.substring(6, 10)}-${date.substring(3, 5)}-${date.substring(0, 2)}";
+          return result;
+        }
+        return date;
       } catch (e) {
         return "";
       }

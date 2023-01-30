@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
@@ -9,8 +7,6 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/supplying/custom_body_supplying_wiget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/supplying/custom_header_supplying_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
 
@@ -33,19 +29,7 @@ class _ContentConsignmenteSupplyingState
 
   @override
   void initState() {
-    if (Platform.isAndroid) {
-      WidgetsFlutterBinding.ensureInitialized();
-      SystemChrome.setPreferredOrientations(
-        [
-          DeviceOrientation.landscapeRight,
-          DeviceOrientation.landscapeLeft,
-        ],
-      ).then((val) {
-        super.initState();
-      });
-    } else {
-      super.initState();
-    }
+    super.initState();
 
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       Modular.isModuleReady<OrderConsignmentRegisterModule>;
@@ -54,50 +38,72 @@ class _ContentConsignmenteSupplyingState
     bloc = Modular.get<OrderConsignmentRegisterBloc>();
   }
 
-  @override
-  dispose() {
-    if (Platform.isAndroid) {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
-    }
-    super.dispose();
+  Future<bool?> showConfirmationDialog() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Deseja realmente sair desta Tela"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text("Cancelar"),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                Modular.to
+                    .navigate('/attendance/', arguments: bloc.modelAttendance);
+              },
+              child: const Text("Sim"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
-    return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.bottomCenter,
-                height: 45,
-                child: Text(
-                  bloc.modelSupplying.order.nameCustomer,
-                  style: ktittleAppBarStyle,
-                  textAlign: TextAlign.center,
+    return WillPopScope(
+      onWillPop: (() async {
+        if (bloc.stage == 1) {
+          final confirmation = await showConfirmationDialog();
+          return confirmation ?? false;
+        }
+        return false;
+      }),
+      child: Scaffold(
+        appBar: AppBar(
+          flexibleSpace: Container(
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  height: 45,
+                  child: Text(
+                    bloc.modelSupplying.order.nameCustomer,
+                    style: ktittleAppBarStyle,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-              const CustomHeaderSupplying(),
-            ],
+                const CustomHeaderSupplying(),
+              ],
+            ),
           ),
         ),
+        body: SingleChildScrollView(
+          child: CustomBodySupplying(
+              size: size, modelSupplying: bloc.modelSupplying),
+        ),
+        bottomSheet: (keyboardHide) ? _footer(bloc.stage) : null,
       ),
-      body: SingleChildScrollView(
-        child: CustomBodySupplying(
-            size: size, modelSupplying: bloc.modelSupplying),
-      ),
-      bottomSheet: (keyboardHide) ? _footer() : null,
     );
   }
 
-  _footer() {
+  _footer(int state) {
     return SizedBox(
       height: 40,
       child: Row(
@@ -105,7 +111,15 @@ class _ContentConsignmenteSupplyingState
         children: [
           Expanded(
             flex: 1,
-            child: Container(), //custombutton("Voltar", (() => {})),
+            child: custombutton(
+              "Voltar",
+              (() async {
+                if (state == 1) {
+                  final confirmation = await showConfirmationDialog();
+                  return (confirmation ?? false);
+                }
+              }),
+            ),
           ),
           Expanded(
             flex: 1,

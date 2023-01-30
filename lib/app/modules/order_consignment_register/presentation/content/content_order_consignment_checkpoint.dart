@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
@@ -7,7 +5,6 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/custom_body_checkpoint_wiget.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/custom_header_checkpoint_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
@@ -32,19 +29,8 @@ class _ContentConsignmenteCheckpointState
 
   @override
   void initState() {
-    if (Platform.isAndroid) {
-      WidgetsFlutterBinding.ensureInitialized();
-      SystemChrome.setPreferredOrientations(
-        [
-          DeviceOrientation.landscapeRight,
-          DeviceOrientation.landscapeLeft,
-        ],
-      ).then((val) {
-        super.initState();
-      });
-    } else {
-      super.initState();
-    }
+    super.initState();
+
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       Modular.isModuleReady<OrderConsignmentRegisterModule>;
     });
@@ -52,46 +38,64 @@ class _ContentConsignmenteCheckpointState
     bloc = Modular.get<OrderConsignmentRegisterBloc>();
   }
 
-  @override
-  dispose() {
-    if (Platform.isAndroid) {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
-    }
-    super.dispose();
+  Future<bool?> showConfirmationDialog() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Deseja realmente sair desta Tela"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Cancelar"),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  Modular.to.navigate('/attendance/',
+                      arguments: bloc.modelAttendance);
+                },
+                child: const Text("Sim"),
+              ),
+            ],
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
-    return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.bottomCenter,
-                height: 45,
-                child: Text(
-                  bloc.modelCheckpoint.order.nameCustomer,
-                  style: ktittleAppBarStyle,
-                  textAlign: TextAlign.center,
+    return WillPopScope(
+      onWillPop: (() async {
+        final confirmation = await showConfirmationDialog();
+        return confirmation ?? false;
+      }),
+      child: Scaffold(
+        appBar: AppBar(
+          flexibleSpace: Container(
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  height: 45,
+                  child: Text(
+                    bloc.modelCheckpoint.order.nameCustomer,
+                    style: ktittleAppBarStyle,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-              const CustomHeaderCheckpoint(),
-            ],
+                const CustomHeaderCheckpoint(),
+              ],
+            ),
           ),
         ),
+        body: SingleChildScrollView(
+          child: CustomBodyCheckpoint(
+              size: size, modelCheckpoint: bloc.modelCheckpoint),
+        ),
+        bottomSheet: (keyboardHide) ? _footer() : null,
       ),
-      body: SingleChildScrollView(
-        child: CustomBodyCheckpoint(
-            size: size, modelCheckpoint: bloc.modelCheckpoint),
-      ),
-      bottomSheet: (keyboardHide) ? _footer() : null,
     );
   }
 
@@ -103,8 +107,10 @@ class _ContentConsignmenteCheckpointState
         children: [
           Expanded(
             flex: 1,
-            child: _custombutton(
-                "Voltar", (() => Modular.to.navigate('/customer/mobile/'))),
+            child: _custombutton("Voltar", (() async {
+              final confirmation = await showConfirmationDialog();
+              return confirmation ?? false;
+            })),
           ),
           Expanded(
             flex: 1,

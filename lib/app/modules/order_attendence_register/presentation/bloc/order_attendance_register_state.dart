@@ -29,6 +29,22 @@ class OrderAttendanceRegisterPostErrorState
       : super(pricelist: []);
 }
 
+/*------------------------PUT - OrderAttendance-----------------------------*/
+class OrderAttendanceRegisterPutSuccessState
+    extends OrderAttendanceRegisterState {
+  final OrderAttendanceModel orderAttendance;
+  OrderAttendanceRegisterPutSuccessState({required this.orderAttendance})
+      : super(pricelist: []);
+}
+
+class OrderAttendanceRegisterPutErrorState
+    extends OrderAttendanceRegisterState {
+  final String error;
+
+  OrderAttendanceRegisterPutErrorState({required this.error})
+      : super(pricelist: []);
+}
+
 /*------------------------Getlist - PriceList----------------------------------*/
 class OrderAttendanceRegisterGetPriceListSuccessState
     extends OrderAttendanceRegisterState {

@@ -77,7 +77,11 @@ class _ContentOrderAttendanceRegisterMobileState
                         bloc.orderAttendance.note = editcontrol.text;
                         bloc.orderAttendance.tbPriceListId =
                             bloc.pricelist[index].id;
-                        bloc.add(OrderAttendanceRegisterPostEvent());
+                        if (bloc.orderAttendance.id == 0) {
+                          bloc.add(OrderAttendanceRegisterPostEvent());
+                        } else {
+                          bloc.add(OrderAttendanceRegisterPutEvent());
+                        }
                       },
                     ),
                   ),
@@ -96,9 +100,8 @@ class _ContentOrderAttendanceRegisterMobileState
                   ),
                   onPressed: () {
                     bloc.orderAttendance.note = editcontrol.text;
+                    bloc.orderAttendance.tbPriceListId = 0;
                     bloc.add(OrderAttendanceRegisterPostEvent());
-                    editcontrol.clear();
-                    Modular.to.navigate('/customer/mobile/');
                   },
                   child: Column(
                     children: const <Widget>[

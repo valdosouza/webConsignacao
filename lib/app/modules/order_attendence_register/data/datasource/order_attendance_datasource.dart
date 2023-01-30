@@ -142,9 +142,10 @@ class OrderAttendanceDatasourceImpl extends OrderAttendanceDatasource {
       model.tbSalesmanId = tbUserId;
 
       final uri = Uri.parse('${baseApiUrl}orderattendance');
+      var bodyContent = jsonEncode(model.toJson());
       final response = await httpClient.put(
         uri,
-        body: jsonEncode(model.toJson()),
+        body: bodyContent,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

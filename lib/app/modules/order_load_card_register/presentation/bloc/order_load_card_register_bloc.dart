@@ -7,7 +7,7 @@ import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_s
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_state.dart';
 import 'package:bloc/bloc.dart';
 
-class OrderSaleRegisterBloc
+class OrderLoadCardRegisterBloc
     extends Bloc<OrderSaleRegisterEvent, OrderSaleRegisterState> {
   final GetNewOrderSaleCard getNewOrderSaleCard;
   final OrderSaleRegisterPost postOrderSale;
@@ -15,7 +15,7 @@ class OrderSaleRegisterBloc
   late OrderAttendanceModel modelAttendance;
   OrderSaleMainCardModel modelOrderSale = OrderSaleMainCardModel.isEmpty();
 
-  OrderSaleRegisterBloc({
+  OrderLoadCardRegisterBloc({
     required this.getNewOrderSaleCard,
     required this.postOrderSale,
   }) : super(OrderSaleRegisterLoadingState()) {

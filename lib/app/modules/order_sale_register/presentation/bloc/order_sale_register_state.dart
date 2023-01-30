@@ -33,3 +33,5 @@ class OrderSaleCardPostSucessState extends OrderSaleRegisterState {
 }
 
 class OrderSaleRegisterCalcDoneState extends OrderSaleRegisterState {}
+
+class OrderSaleRegisterCleanDoneState extends OrderSaleRegisterState {}

@@ -14,7 +14,7 @@ class OrderConsignmentRegisterBloc
   final OrderConsignmentSupplyingGetlast getlastSupplying;
   final OrderConsignmentCheckpointPost postCheckpoint;
   final OrderConsignmentSupplyingPost postSupplying;
-
+  int stage = 0;
   late OrderAttendanceModel modelAttendance;
   OrderConsignmentCheckpointModel modelCheckpoint =
       OrderConsignmentCheckpointModel.isEmpty();
@@ -36,7 +36,7 @@ class OrderConsignmentRegisterBloc
   supplyingGetlast() {
     on<OrderConsignmentRegisterGetlastEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
-
+      stage = 1;
       modelCheckpoint = OrderConsignmentCheckpointModel.isEmpty();
 
       modelSupplying = OrderConsignmentSupplyingModel.isEmpty();
@@ -47,6 +47,7 @@ class OrderConsignmentRegisterBloc
           .fold((l) => OrderConsigngmentGetLastErrorState(l.toString()), (r) {
         modelSupplying = r;
         if (modelSupplying.order.id > 0) {
+          stage = 2;
           modelCheckpoint =
               OrderConsignmentCheckpointModel.fromSupplying(modelSupplying);
         }
@@ -68,6 +69,7 @@ class OrderConsignmentRegisterBloc
       var result = response.fold(
           (l) => OrderConsignmentRegisterCheckpointPostErrorState(
               error: l.toString()), (r) {
+        stage = 2;
         modelCheckpoint = r;
         modelSupplying =
             OrderConsignmentSupplyingModel.fromCheckpoint(modelCheckpoint);
