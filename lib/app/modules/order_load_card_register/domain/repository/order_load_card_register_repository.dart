@@ -4,8 +4,7 @@ import 'package:appweb/app/modules/order_load_card_register/data/model/order_loa
 import 'package:dartz/dartz.dart';
 
 abstract class OrderLoadCardRegisterRepository {
-  Future<Either<Failure, OrderLoadCardMainModel>> post(
-      {required OrderLoadCardMainModel model});
+  Future<Either<Failure, String>> post({required OrderLoadCardMainModel model});
 
   Future<Either<Failure, List<OrderLoadCardItemsModel>>> getNewOrderLoadCard();
 }

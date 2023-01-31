@@ -27,8 +27,13 @@ class CustomerDataSourceImpl extends CustomerDataSource {
         tbInstitutionId = value.toString();
       });
 
+      String tbSalesmanId = '1';
+      await getUserId().then((value) {
+        tbSalesmanId = value.toString();
+      });
+
       final uri = Uri.parse(
-          '${baseApiUrl}customer/salesroute/getlist/$tbInstitutionId/$tbSalesRouteId');
+          '${baseApiUrl}customer/salesroute/getlist/$tbInstitutionId/$tbSalesRouteId/$tbSalesmanId');
 
       final response = await httpClient.get(uri);
 

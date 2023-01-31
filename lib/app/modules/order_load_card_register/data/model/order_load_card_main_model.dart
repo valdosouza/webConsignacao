@@ -5,23 +5,20 @@ import 'package:appweb/app/modules/order_load_card_register/domain/entity/order_
 class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
   int id;
   int tbInstitutionId;
-  int tbSalesmanId;
-  String nameSalesman;
+  int tbUserId;
   String dtRecord;
   List<OrderLoadCardItemsModel> items;
 
   OrderLoadCardMainModel({
     required this.id,
     required this.tbInstitutionId,
-    required this.tbSalesmanId,
-    required this.nameSalesman,
+    required this.tbUserId,
     required this.dtRecord,
     required this.items,
   }) : super(
           id: id,
           tbInstitutionId: tbInstitutionId,
-          tbSalesmanId: tbSalesmanId,
-          nameSalesman: nameSalesman,
+          tbUserId: tbUserId,
           dtRecord: dtRecord,
           items: items,
         );
@@ -30,8 +27,7 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
     return OrderLoadCardMainModel(
       id: json['id'],
       tbInstitutionId: json['tb_institutioin_id'],
-      tbSalesmanId: json['tb_salesman_id'],
-      nameSalesman: json['name_salesman'],
+      tbUserId: json['tb_user_id'],
       dtRecord: json['dt_record'],
       items: (json['Items'] as List)
           .map((e) => OrderLoadCardItemsModel.fromJson(e))
@@ -43,9 +39,8 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['tb_institution_id'] = tbInstitutionId;
-    data['tb_salesman_id'] = tbSalesmanId;
-    data['name_salesman'] = nameSalesman;
-    data['dt_record'] = dtRecord;
+    data['tb_user_id'] = tbUserId;
+    data['dt_record'] = CustomDate.formatDateOut(dtRecord);
     data['Items'] = items.map((i) => i.toJson()).toList();
 
     return data;
@@ -55,8 +50,7 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
     return OrderLoadCardMainModel(
       id: 0,
       tbInstitutionId: 0,
-      tbSalesmanId: 0,
-      nameSalesman: "",
+      tbUserId: 0,
       dtRecord: CustomDate.newDate(),
       items: [],
     );

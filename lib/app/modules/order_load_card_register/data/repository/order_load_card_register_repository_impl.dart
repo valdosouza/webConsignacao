@@ -23,7 +23,7 @@ class OrderLoadCardRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, OrderLoadCardMainModel>> post(
+  Future<Either<Failure, String>> post(
       {required OrderLoadCardMainModel model}) async {
     try {
       return Right(await orderLoadCardDatasource.post(model: model));

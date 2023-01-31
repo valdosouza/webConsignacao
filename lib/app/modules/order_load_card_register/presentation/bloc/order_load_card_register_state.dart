@@ -2,18 +2,17 @@ abstract class OrderLoadCardRegisterState {}
 
 class OrderLoadCardRegisterLoadingState extends OrderLoadCardRegisterState {}
 
-class OrderLoadCardGetNewCardListErrorState extends OrderLoadCardRegisterState {
+class OrderLoadCardGetItemsErrorState extends OrderLoadCardRegisterState {
   final String error;
 
-  OrderLoadCardGetNewCardListErrorState(this.error);
+  OrderLoadCardGetItemsErrorState(this.error);
 }
 
-class OrderLoadCardGetNewCardListLoadedState
-    extends OrderLoadCardRegisterState {}
+class OrderLoadCardGetItemsLoadedState extends OrderLoadCardRegisterState {}
 
-class OrderLoadCardCardPostErrorState extends OrderLoadCardRegisterState {
+class OrderLoadCardPostErrorState extends OrderLoadCardRegisterState {
   final String error;
-  OrderLoadCardCardPostErrorState({
+  OrderLoadCardPostErrorState({
     required this.error,
   });
 }

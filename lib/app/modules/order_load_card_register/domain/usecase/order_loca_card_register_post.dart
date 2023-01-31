@@ -7,7 +7,7 @@ class OrderLoadCardRegisterPost {
   final OrderLoadCardRegisterRepository repository;
 
   OrderLoadCardRegisterPost({required this.repository});
-  Future<Either<Failure, OrderLoadCardMainModel>> call(
+  Future<Either<Failure, String>> call(
       OrderLoadCardMainModel orderLoadCardMainModel) async {
     return await repository.post(model: orderLoadCardMainModel);
   }

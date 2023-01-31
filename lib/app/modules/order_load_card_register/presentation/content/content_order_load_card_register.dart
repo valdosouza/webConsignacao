@@ -1,40 +1,37 @@
-import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/order_sale_register_module.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_bloc.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_event.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/custom_body_order_sale_wiget.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/custom_header_order_sale_widget.dart';
+import 'package:appweb/app/modules/order_load_card_register/order_load_card_register_module.dart';
+import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
+import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_event.dart';
+import 'package:appweb/app/modules/order_load_card_register/presentation/widget/custom_body_order_load_card_wiget.dart';
+import 'package:appweb/app/modules/order_load_card_register/presentation/widget/custom_header_order_load_card_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ContentOrderSaleRegister extends StatefulWidget {
-  final OrderSaleMainCardModel orderSale;
-  const ContentOrderSaleRegister({
+class ContentOrderLoadCardRegister extends StatefulWidget {
+  const ContentOrderLoadCardRegister({
     Key? key,
-    required this.orderSale,
   }) : super(key: key);
 
   @override
-  State<ContentOrderSaleRegister> createState() =>
-      _ContentOrderSaleRegisterState();
+  State<ContentOrderLoadCardRegister> createState() =>
+      _ContentOrderLoadCardRegisterState();
 }
 
-class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
+class _ContentOrderLoadCardRegisterState
+    extends State<ContentOrderLoadCardRegister> {
   late TextEditingController editcontrol;
-  late final OrderSaleRegisterBloc bloc;
+  late final OrderLoadCardRegisterBloc bloc;
 
   @override
   void initState() {
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      Modular.isModuleReady<OrderSaleRegisterModule>;
+      Modular.isModuleReady<OrderLoadCardRegisterModule>;
     });
 
-    bloc = Modular.get<OrderSaleRegisterBloc>();
+    bloc = Modular.get<OrderLoadCardRegisterBloc>();
   }
 
   Future<bool?> showConfirmationDialog() {
@@ -50,10 +47,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
             ),
             OutlinedButton(
               onPressed: () {
-                Modular.to.navigate(
-                  '/attendance/',
-                  arguments: bloc.modelAttendance,
-                );
+                Modular.to.navigate('/stock/mobile/');
               },
               child: const Text("Sim"),
             ),
@@ -80,21 +74,19 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
               children: [
                 Container(
                   alignment: Alignment.bottomCenter,
-                  height: 45,
-                  child: Text(
-                    bloc.modelOrderSale.order.nameCustomer,
-                    style: ktittleAppBarStyle,
+                  height: 40,
+                  child: const Text(
+                    "Carregamento do próximo dia",
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const CustomHeaderOrderSale(),
+                const CustomHeaderOrderLoadCard(),
               ],
             ),
           ),
         ),
         body: SingleChildScrollView(
-          child: CustomBodyOrderSale(
-              size: size, modelOrdersale: bloc.modelOrderSale),
+          child: CustomBodyOrderLoadCardWidget(size: size),
         ),
         bottomSheet: (keyboardHide) ? _footer() : null,
       ),
@@ -117,7 +109,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
           Expanded(
             flex: 1,
             child: _custombutton(
-                "Limpar", () => bloc.add(OrderSaleRegisterClearEvent())),
+                "Limpar", () => bloc.add(OrderLoadCardRegisterClearEvent())),
           ),
           Expanded(
             flex: 1,
@@ -129,11 +121,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
           Expanded(
             flex: 1,
             child: _custombutton(
-                "Finalizar",
-                (() => {
-                      bloc.add(
-                          OrderSaleCardPostEvent(model: bloc.modelOrderSale))
-                    })),
+                "Finalizar", (() => {bloc.add(OrderLoadCardPostEvent())})),
           ),
         ],
       ),

@@ -19,6 +19,7 @@ import 'package:appweb/app/modules/home/home_module.dart';
 import 'package:appweb/app/modules/order_attendence_register/order_attendance_register_module.dart';
 import 'package:appweb/app/modules/order_bonus_register/order_bonus_register_module.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
+import 'package:appweb/app/modules/order_load_card_register/order_load_card_register_module.dart';
 import 'package:appweb/app/modules/order_production/order_production_module.dart';
 import 'package:appweb/app/modules/order_sale_register/order_sale_register_module.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
@@ -82,6 +83,7 @@ class AppModule extends Module {
         ModuleRoute('/attendance', module: OrderAttendanceRegisterModule()),
         ModuleRoute('/consignment', module: OrderConsignmentRegisterModule()),
         ModuleRoute('/ordersale', module: OrderSaleRegisterModule()),
+        ModuleRoute('/orderloadCard', module: OrderLoadCardRegisterModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }

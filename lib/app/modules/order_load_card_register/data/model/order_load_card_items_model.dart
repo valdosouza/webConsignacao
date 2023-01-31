@@ -32,13 +32,15 @@ class OrderLoadCardItemsModel extends OrderLoadCardItemsEntity {
       tbProductId: json['tb_product_id'],
       nameProduct: json['name_product'] as String,
       stockBalance: json['stock_balance'] is int
-          ? json['stock_balance'].toDouble
+          ? json['stock_balance'].toDouble()
           : json['stock_balance'],
-      sale: json['sale'] is int ? json['sale'].toDouble : json['sale'],
-      bonus: json['bonus'] is int ? json['bonus'].toDouble : json['bonus'],
-      adjust: json['adjust'] is int ? json['adjust'].toDouble : json['adjust'],
-      newLoad:
-          json['newLoad'] is int ? json['newLoad'].toDouble : json['newLoad'],
+      sale: json['sale'] is int ? json['sale'].toDouble() : json['sale'],
+      bonus: json['bonus'] is int ? json['bonus'].toDouble() : json['bonus'],
+      adjust:
+          json['adjust'] is int ? json['adjust'].toDouble() : json['adjust'],
+      newLoad: json['new_load'] is int
+          ? json['new_load'].toDouble()
+          : json['newLoad'],
     );
   }
 

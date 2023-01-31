@@ -1,5 +1,4 @@
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_model.dart';
 
 abstract class OrderSaleRegisterState {}
 
@@ -26,11 +25,7 @@ class OrderSaleCardPostErrorState extends OrderSaleRegisterState {
   });
 }
 
-class OrderSaleCardPostSucessState extends OrderSaleRegisterState {
-  final OrderSaleModel ordermodel;
-
-  OrderSaleCardPostSucessState({required this.ordermodel});
-}
+class OrderSaleCardPostSucessState extends OrderSaleRegisterState {}
 
 class OrderSaleRegisterCalcDoneState extends OrderSaleRegisterState {}
 

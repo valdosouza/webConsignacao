@@ -2,16 +2,16 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:flutter/material.dart';
 
-class OrderSaleRegisterPageTablet extends StatefulWidget {
-  const OrderSaleRegisterPageTablet({super.key});
+class OrderLoadCardRegisterPageTablet extends StatefulWidget {
+  const OrderLoadCardRegisterPageTablet({super.key});
 
   @override
-  State<OrderSaleRegisterPageTablet> createState() =>
+  State<OrderLoadCardRegisterPageTablet> createState() =>
       OrderSaleRegisterPageMobileState();
 }
 
 class OrderSaleRegisterPageMobileState
-    extends State<OrderSaleRegisterPageTablet> {
+    extends State<OrderLoadCardRegisterPageTablet> {
   late final CustomerRegisterBloc bloc;
 
   @override

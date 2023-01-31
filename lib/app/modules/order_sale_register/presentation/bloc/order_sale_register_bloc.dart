@@ -84,7 +84,7 @@ class OrderSaleRegisterBloc
       var result = response
           .fold((l) => OrderSaleCardPostErrorState(error: l.toString()), (r) {
         modelOrderSale.order = r;
-        return OrderSaleCardPostSucessState(ordermodel: modelOrderSale.order);
+        return OrderSaleCardPostSucessState();
       });
       emit(result);
     });

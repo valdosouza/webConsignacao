@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 abstract class OrderLoadCardRegisterDatasource extends Gateway {
   OrderLoadCardRegisterDatasource({required super.httpClient});
 
-  Future<OrderLoadCardMainModel> post({required OrderLoadCardMainModel model});
+  Future<String> post({required OrderLoadCardMainModel model});
 
   Future<List<OrderLoadCardItemsModel>> getNewOrderLoadCard();
 }
@@ -19,7 +19,7 @@ class OrderLoadCardRegisterDatasourceImpl
   OrderLoadCardRegisterDatasourceImpl({required super.httpClient});
 
   @override
-  Future<OrderLoadCardMainModel> post({
+  Future<String> post({
     required OrderLoadCardMainModel model,
   }) async {
     int tbInstitutionId = 1;
@@ -32,10 +32,8 @@ class OrderLoadCardRegisterDatasourceImpl
       (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
     });
 
-    final tbSalesmanId = tbUserId;
-
     model.tbInstitutionId = tbInstitutionId;
-    model.tbSalesmanId = tbSalesmanId;
+    model.tbUserId = tbUserId;
 
     final bodyEnvio = json.encode(model.toJson());
 
@@ -45,7 +43,7 @@ class OrderLoadCardRegisterDatasourceImpl
       method: HTTPMethod.post,
       (payload) {
         final data = json.decode(payload);
-        return OrderLoadCardMainModel.fromJson(data);
+        return data['result'];
       },
       onError: (error) {
         return ServerException;

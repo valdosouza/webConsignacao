@@ -4,8 +4,7 @@ class OrderLoadCardMainEntity {
   OrderLoadCardMainEntity({
     int? id,
     int? tbInstitutionId,
-    int? tbSalesmanId,
-    String? nameSalesman,
+    int? tbUserId,
     String? dtRecord,
     List<OrderLoadCardItemsModel>? items,
   });

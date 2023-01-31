@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/order_load_card_register/order_load_card_register_module.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_transfer_register_module.dart';
 import 'package:appweb/app/modules/stock/presentation/page/stock_page_desktop.dart';
@@ -26,6 +27,7 @@ class StockModule extends Module {
       child: (_, args) => const StocPageMobile(),
       children: [
         ModuleRoute('/', module: StockBalanceModule()),
+        ModuleRoute('/orderloadCard/', module: OrderLoadCardRegisterModule()),
       ],
     ),
   ];
