@@ -20,8 +20,13 @@ class StockBalanceGeneralDataSourceImpl extends StockBalanceGeneralDataSource {
         tbInstitutionId = value.toString();
       });
 
+      String tbSalesmanId = '1';
+      await getUserId().then((value) {
+        tbSalesmanId = value.toString();
+      });
+
       final uri = Uri.parse(
-          '${baseApiUrl}stockbalance/salesman/getall/$tbInstitutionId/tbSalesmanId');
+          '${baseApiUrl}stockbalance/salesman/getall/$tbInstitutionId/$tbSalesmanId');
 
       final response = await httpClient.get(uri);
 

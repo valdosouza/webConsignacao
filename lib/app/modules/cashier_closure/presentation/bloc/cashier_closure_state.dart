@@ -1,5 +1,3 @@
-import 'package:appweb/app/modules/cashier_closure/data/model/cashier_closure_previously_model.dart';
-
 abstract class CashierClosureState {
   const CashierClosureState();
 }
@@ -8,17 +6,12 @@ class CashierClosureLoadingState extends CashierClosureState {}
 
 class CashierClosureGetClosureErrorState extends CashierClosureState {}
 
-class CashierClosureGetClosureLoadedState extends CashierClosureState {
-  const CashierClosureGetClosureLoadedState();
-}
+class CashierClosureGetClosureLoadedState extends CashierClosureState {}
+
+class CashierClosureSeachedState extends CashierClosureState {}
 
 class CashierClosureGetClosurePreviouslyLoadedState
-    extends CashierClosureState {
-  const CashierClosureGetClosurePreviouslyLoadedState({
-    required this.closures,
-  });
-  final List<CashierClosurePreviouslyModel> closures;
-}
+    extends CashierClosureState {}
 
 class GetCurrentDateSucessState extends CashierClosureState {}
 

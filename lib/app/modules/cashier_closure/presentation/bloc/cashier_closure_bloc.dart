@@ -19,6 +19,7 @@ class CashierClosureBloc
   final CashierClosurePost cashierClosurePost;
   List<CashierClosurePreviouslyModel> closuresPreviously = [];
   late ClosureModel closureModel = ClosureModel.isEmpty();
+  late List<CashierClosurePreviouslyModel> closuresSearched;
 
   String dtCashier = "";
 
@@ -42,8 +43,6 @@ class CashierClosureBloc
   ) async {
     emit(CashierClosureLoadingState());
 
-    late List<CashierClosurePreviouslyModel> closuresSearched;
-
     closuresSearched = closuresPreviously.where((element) {
       String dtRecord = element.dtRecord;
       return dtRecord
@@ -52,9 +51,7 @@ class CashierClosureBloc
           .contains(event.value.toLowerCase().trim());
     }).toList();
 
-    emit(
-      CashierClosureGetClosurePreviouslyLoadedState(closures: closuresSearched),
-    );
+    emit(CashierClosureSeachedState());
   }
 
   getCurrentData(
@@ -80,7 +77,7 @@ class CashierClosureBloc
     emit(
       response.fold((l) => CashierClosureGetClosureErrorState(), (r) {
         closureModel = r;
-        return const CashierClosureGetClosureLoadedState();
+        return CashierClosureGetClosureLoadedState();
       }),
     );
   }
@@ -96,7 +93,7 @@ class CashierClosureBloc
     emit(
       response.fold((l) => CashierClosureGetClosureErrorState(), (r) {
         closureModel = r;
-        return const CashierClosureGetClosureLoadedState();
+        return CashierClosureGetClosureLoadedState();
       }),
     );
   }
@@ -138,17 +135,16 @@ class CashierClosureBloc
   ) async {
     emit(CashierClosureLoadingState());
     if (closuresPreviously.isEmpty) {
-      emit(CashierClosureLoadingState());
       final response =
           await cashierClosureGetPreviously.call(const ParamsGetPreviously());
       emit(
         response.fold((l) => CashierClosureGetClosureErrorState(), (r) {
           closuresPreviously = r;
-          return CashierClosureGetClosurePreviouslyLoadedState(
-            closures: r,
-          );
+          return CashierClosureGetClosurePreviouslyLoadedState();
         }),
       );
+    } else {
+      emit(CashierClosureGetClosurePreviouslyLoadedState());
     }
   }
 }

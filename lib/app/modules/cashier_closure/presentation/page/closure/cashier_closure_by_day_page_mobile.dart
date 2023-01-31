@@ -33,7 +33,7 @@ class CashierClosureByDayPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: Text("Fechamento do dia ${widget.dateSelected}"),
+        title: Text("Fechamento dia ${widget.dateSelected}"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {

@@ -20,7 +20,10 @@ Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
             border: Border.all(color: Colors.black),
           ),
           child: TextField(
-            controller: TextEditingController(text: ""),
+            controller: TextEditingController(
+                text: (modelOrderPaid[1].value > 0)
+                    ? modelOrderPaid[1].value.toStringAsFixed(2)
+                    : ""),
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
             onSubmitted: (value) {

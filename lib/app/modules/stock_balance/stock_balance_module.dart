@@ -110,7 +110,7 @@ class StockBalanceModule extends Module {
       children: [
         ChildRoute(
           '/get/',
-          child: (_, args) => const StockBalanceCustomerPage(),
+          child: (_, args) => const StockBalanceSalesmanPage(),
         ),
       ],
     ),
@@ -120,7 +120,7 @@ class StockBalanceModule extends Module {
       children: [
         ChildRoute(
           '/get/',
-          child: (_, args) => const StockBalanceCustomerPage(),
+          child: (_, args) => const StockBalanceGeneralPage(),
         ),
       ],
     ),

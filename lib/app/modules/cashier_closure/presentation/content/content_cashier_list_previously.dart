@@ -43,7 +43,7 @@ class _ContentCashierListPreviouslyState
         listener: (context, state) {
           if (state is CashierClosureGetClosureErrorState) {
             CustomToast.showToast(
-                "Não foi possível acessar o fechamento. Tente novamente mais tarde.");
+                "Não foi possível listas os registros. Tente novamente mais tarde.");
           }
         },
         builder: (context, state) {
