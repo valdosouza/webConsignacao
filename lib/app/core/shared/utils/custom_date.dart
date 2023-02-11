@@ -44,12 +44,18 @@ class CustomDate {
     }
   }
 
-  static yesterday() {
+  static yesterday(String date) {
     try {
       initializeDateFormatting('pt_BR,', null);
 
-      DateTime time = DateTime.now().subtract(const Duration(days: 1));
-      return (DateFormat("dd/MM/yyyy").format(time));
+      if (date == "") {
+        return (DateFormat("dd/MM/yyyy")
+            .format(DateTime.now().subtract(const Duration(days: 1))));
+      } else {
+        return (DateFormat("dd/MM/yyyy").format(
+            DateTime.parse(formatDateOut(date))
+                .subtract(const Duration(days: 1))));
+      }
     } catch (e) {
       return "";
     }

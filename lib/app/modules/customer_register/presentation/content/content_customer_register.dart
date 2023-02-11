@@ -30,7 +30,7 @@ buildSearchInput(CustomerRegisterBloc bloc) {
     decoration: kBoxDecorationStyle,
     child: TextFormField(
       keyboardType: TextInputType.text,
-      autofocus: true,
+      autofocus: false,
       onChanged: (value) {
         bloc.add(CustomerRegisterSearchEvent(search: value));
       },

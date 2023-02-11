@@ -15,6 +15,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
   String status;
   String visited;
   String charged;
+  String recall;
   String longitude;
   String latitude;
 
@@ -32,6 +33,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     required this.status,
     required this.visited,
     required this.charged,
+    required this.recall,
     required this.longitude,
     required this.latitude,
   }) : super(
@@ -48,6 +50,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
           status: status,
           visited: visited,
           charged: charged,
+          recall: recall,
           longitude: longitude,
           latitude: latitude,
         );
@@ -69,6 +72,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
       status: json['status'],
       visited: json['visited'],
       charged: json['charged'],
+      recall: json['recall'],
       longitude: json['longitude'],
       latitude: json['latitude'],
     );
@@ -89,6 +93,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     data["status"] = status;
     data["visited"] = visited;
     data["charged"] = charged;
+    data["recall"] = recall;
     data["longitude"] = longitude;
     data["latitude"] = latitude;
     return data;
@@ -109,6 +114,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
         status: "A",
         visited: "N",
         charged: "N",
+        recall: "N",
         latitude: "",
         longitude: "");
   }

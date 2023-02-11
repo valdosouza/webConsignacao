@@ -2,7 +2,7 @@ import 'package:appweb/app/modules/order_load_card_register/order_load_card_regi
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_event.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_state.dart';
-import 'package:appweb/app/modules/order_load_card_register/presentation/content/content_order_load_card_register.dart';
+import 'package:appweb/app/modules/order_load_card_register/presentation/content/content_order_load_card_register_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -31,7 +31,8 @@ class OrderLoadCardRegisterPageMobileState
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       Modular.isModuleReady<OrderLoadCardRegisterModule>;
     });
-    bloc.add(OrderLoadCardRegisterGetCardEvent());
+    //no mobile pode passar zero que no datasource ele preenche
+    bloc.add(OrderLoadCardRegisterGetCardEvent(tbSalesmanId: 0));
   }
 
   @override
@@ -52,7 +53,7 @@ class OrderLoadCardRegisterPageMobileState
       },
       builder: (context, state) {
         if (state is OrderLoadCardPostErrorState) {
-          return const ContentOrderLoadCardRegister();
+          return const ContentOrderLoadCardRegisterMobile();
         }
 
         if (state is OrderLoadCardRegisterLoadingState) {
@@ -62,7 +63,7 @@ class OrderLoadCardRegisterPageMobileState
         }
         if ((state is OrderLoadCardGetItemsLoadedState) ||
             (state is OrderLoadCardRegisterCleanDoneState)) {
-          return const ContentOrderLoadCardRegister();
+          return const ContentOrderLoadCardRegisterMobile();
         }
         if (state is OrderLoadCardCardPostSucessState) {
           Modular.to.navigate('/stock/mobile/');

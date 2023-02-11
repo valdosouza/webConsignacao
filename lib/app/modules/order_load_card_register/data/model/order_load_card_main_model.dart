@@ -6,6 +6,7 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
   int id;
   int tbInstitutionId;
   int tbUserId;
+  String nameUser;
   String dtRecord;
   List<OrderLoadCardItemsModel> items;
 
@@ -13,12 +14,14 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
     required this.id,
     required this.tbInstitutionId,
     required this.tbUserId,
+    required this.nameUser,
     required this.dtRecord,
     required this.items,
   }) : super(
           id: id,
           tbInstitutionId: tbInstitutionId,
           tbUserId: tbUserId,
+          nameUser: nameUser,
           dtRecord: dtRecord,
           items: items,
         );
@@ -26,12 +29,15 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
   factory OrderLoadCardMainModel.fromJson(Map<String, dynamic> json) {
     return OrderLoadCardMainModel(
       id: json['id'],
-      tbInstitutionId: json['tb_institutioin_id'],
+      tbInstitutionId: json['tb_institution_id'],
       tbUserId: json['tb_user_id'],
+      nameUser: json['name_user'],
       dtRecord: json['dt_record'],
-      items: (json['Items'] as List)
-          .map((e) => OrderLoadCardItemsModel.fromJson(e))
-          .toList(),
+      items: (json['Items'] != null)
+          ? (json['Items'] as List)
+              .map((e) => OrderLoadCardItemsModel.fromJson(e))
+              .toList()
+          : [],
     );
   }
 
@@ -51,6 +57,7 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
       id: 0,
       tbInstitutionId: 0,
       tbUserId: 0,
+      nameUser: "",
       dtRecord: CustomDate.newDate(),
       items: [],
     );

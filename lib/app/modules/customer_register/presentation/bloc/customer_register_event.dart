@@ -15,9 +15,12 @@ class CustomerRegisterDesktopEvent extends CustomerRegisterEvent {
   CustomerRegisterDesktopEvent({this.id});
 }
 
-class CustomerRegisterMobileEvent extends CustomerRegisterEvent {
-  final int? id;
-  CustomerRegisterMobileEvent({this.id});
+class CustomerRegisterMobileNewEvent extends CustomerRegisterEvent {}
+
+class CustomerRegisterMobileEditEvent extends CustomerRegisterEvent {
+  final int tbCustomerId;
+
+  CustomerRegisterMobileEditEvent({required this.tbCustomerId});
 }
 
 class CustomerRegisterCepEvent extends CustomerRegisterEvent {

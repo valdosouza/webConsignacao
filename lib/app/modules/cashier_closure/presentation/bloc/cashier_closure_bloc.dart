@@ -21,7 +21,8 @@ class CashierClosureBloc
   late ClosureModel closureModel = ClosureModel.isEmpty();
   late List<CashierClosurePreviouslyModel> closuresSearched;
 
-  String dtCashier = "";
+  String dtCashierToday = "";
+  String dtCashierYesterDay = "";
 
   CashierClosureBloc({
     required this.cashierClosureGet,
@@ -59,11 +60,13 @@ class CashierClosureBloc
     Emitter<CashierClosureState> emit,
   ) async {
     emit(CashierClosureLoadingState());
-    dtCashier =
+    dtCashierToday =
         await LocalStorageService.instance.get(key: LocalStorageKey.dtCashier);
-    if (dtCashier == "") {
-      dtCashier = CustomDate.newDate();
+
+    if (dtCashierToday == "") {
+      dtCashierToday = CustomDate.newDate();
     }
+    dtCashierYesterDay = CustomDate.yesterday(dtCashierToday);
     emit(GetCurrentDateSucessState());
   }
 
@@ -115,7 +118,7 @@ class CashierClosureBloc
       //vardtCashier =
       //    LocalStorageService.instance.get(key: LocalStorageKey.dtCashier);
       var dtCurrent = CustomDate.newDate();
-      if (dtCurrent == dtCashier) {
+      if (dtCurrent == dtCashierToday) {
         LocalStorageService.instance.saveItem(
             key: LocalStorageKey.dtCashier, value: CustomDate.tomorrow());
       } else {

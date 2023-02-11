@@ -47,7 +47,9 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Text(
-                          (widget.lista[index].sequence).toString(),
+                          (widget.lista[index].sequence > 0)
+                              ? (index + 1).toString()
+                              : '0',
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
@@ -63,16 +65,25 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                       bloc: bloc,
                       builder: (context, state) {
                         if (state is CustomerListOrderState) {
-                          return IconButton(
-                              icon: const Icon(Icons.check),
-                              onPressed: () {
-                                bloc.add(CustomerOrderedModeEvent(
-                                    tbCustomerId: bloc.idSequenceCustomer,
-                                    tbSalesRouteId:
-                                        widget.lista[index].tbSalesRouteIid,
-                                    sequence:
-                                        widget.lista[index].sequence + 1));
-                              });
+                          if (((bloc.tbCustomerIdPickedForOrder !=
+                                  widget.lista[index].id)) ||
+                              (widget.lista[index].sequence == 0)) {
+                            return IconButton(
+                                icon: const Icon(Icons.check),
+                                onPressed: () {
+                                  bloc.add(CustomerOrderedModeEvent(
+                                      tbCustomerId:
+                                          bloc.tbCustomerIdPickedForOrder,
+                                      tbSalesRouteId:
+                                          widget.lista[index].tbSalesRouteIid,
+                                      sequence:
+                                          widget.lista[index].sequence + 1));
+                                });
+                          } else {
+                            return IconButton(
+                                icon: const Icon(Icons.block),
+                                onPressed: () {});
+                          }
                         }
                         return IconButton(
                           icon: const Icon(Icons.arrow_forward_ios_outlined),
@@ -92,6 +103,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                               status: "A",
                               visited: "S",
                               charged: "N",
+                              recall: "N",
                               longitude: "",
                               latitude: "",
                             );

@@ -1,5 +1,6 @@
 class OrderLoadCardItemsEntity {
   OrderLoadCardItemsEntity({
+    int? id,
     int? tbProductId,
     String? nameProduct,
     double? stockBalance,

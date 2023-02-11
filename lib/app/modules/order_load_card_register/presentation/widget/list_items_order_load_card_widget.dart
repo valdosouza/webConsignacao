@@ -32,12 +32,12 @@ Widget listitemsorderLoadCard(List<OrderLoadCardItemsModel> items) {
           Expanded(
             flex: 250,
             child: fielditemsorderLoadCard(
-                items[index], 5, true, 0, TextAlign.center),
+                items[index], 5, (items[index].id == 0), 0, TextAlign.center),
           ),
           Expanded(
             flex: 250,
             child: fielditemsorderLoadCard(
-                items[index], 6, true, 0, TextAlign.center),
+                items[index], 6, (items[index].id == 0), 0, TextAlign.center),
           ),
           Expanded(
             flex: 250,

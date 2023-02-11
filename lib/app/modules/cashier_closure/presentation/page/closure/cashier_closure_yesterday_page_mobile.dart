@@ -39,7 +39,7 @@ class CashierClosureYesterdayPageMobileState
         ),
       ),
       body: ContentCashierClosure(
-        dateSelected: CustomDate.yesterday(),
+        dateSelected: CustomDate.yesterday(""),
       ),
     );
   }

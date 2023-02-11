@@ -31,7 +31,8 @@ class _CustomBodySupplyingState extends State<CustomBodySupplying> {
             ),
             Expanded(
               flex: 3,
-              child: extrainfo(widget.modelSupplying, widget.size),
+              child: ExtraInfo(
+                  modelSupplying: widget.modelSupplying, size: widget.size),
             ),
           ],
         ),

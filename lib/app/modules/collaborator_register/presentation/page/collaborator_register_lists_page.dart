@@ -60,7 +60,7 @@ class _CollaboratorRegisterListsPageState
                       decoration: kBoxDecorationStyle,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        autofocus: true,
+                        autofocus: false,
                         onChanged: (value) {
                           bloc.add(CollaboratorRegisterSearchStateEvent(
                               search: value));
@@ -132,7 +132,7 @@ class _CollaboratorRegisterListsPageState
                       decoration: kBoxDecorationStyle,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        autofocus: true,
+                        autofocus: false,
                         onChanged: (value) {
                           bloc.add(CollaboratorRegisterSearchCityEvent(
                               search: value));
@@ -203,7 +203,7 @@ class _CollaboratorRegisterListsPageState
                       decoration: kBoxDecorationStyle,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        autofocus: true,
+                        autofocus: false,
                         onChanged: (value) {
                           bloc.add(CollaboratorRegisterSearchLinebusinessEvent(
                               search: value));

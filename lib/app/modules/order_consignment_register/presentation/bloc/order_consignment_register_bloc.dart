@@ -80,26 +80,43 @@ class OrderConsignmentRegisterBloc
     });
   }
 
+  Future<String> _validadeSupplyingPost() async {
+    if (modelSupplying.order.recall == "S") {
+      if (modelSupplying.order.note.length < 10) {
+        return "Detalhe melhor por que o produto foi recolhido.";
+      }
+    }
+    return "";
+  }
+
   supplyingPost() {
     on<OrderConsignementRegisterSupplyngPostEvent>((event, emit) async {
-      emit(OrderConsignmentRegisterLoadingState());
-      event.suplyingmodel.order.id = modelAttendance.id;
-      event.suplyingmodel.order.tbInstitutionId =
-          modelAttendance.tbInstitutionId;
-      event.suplyingmodel.order.dtRecord = modelAttendance.dtRecord;
+      _validadeSupplyingPost().then((errorValidate) async {
+        emit(OrderConsignmentRegisterLoadingState());
+        if (errorValidate.isNotEmpty) {
+          emit(OrderConsignmentRegisterSupplyingPostErrorState(
+              error: errorValidate));
+        } else {
+          event.suplyingmodel.order.id = modelAttendance.id;
+          event.suplyingmodel.order.tbInstitutionId =
+              modelAttendance.tbInstitutionId;
+          event.suplyingmodel.order.dtRecord = modelAttendance.dtRecord;
 
-      final response = await postSupplying(event.suplyingmodel);
-      response.fold((l) {
-        emit(OrderConsignmentRegisterSupplyingPostErrorState(
-            error: l.toString()));
-      }, (r) {
-        emit(OrderConsignmentRegisterSupplyingPostSucessState());
+          final response = await postSupplying(event.suplyingmodel);
+          response.fold((l) {
+            emit(OrderConsignmentRegisterSupplyingPostErrorState(
+                error: l.toString()));
+          }, (r) {
+            emit(OrderConsignmentRegisterSupplyingPostSucessState());
+          });
+        }
       });
     });
   }
 
   clearCheckout() {
     on<OrderConsignmentRegisterClearCheckoutEvent>((event, emit) async {
+      emit(OrderConsignmentRegisterLoadingState());
       for (OrderConsignmentCheckpointCardModel item in modelCheckpoint.items) {
         item.leftover = 0;
         item.qttySold = 0;
@@ -111,16 +128,21 @@ class OrderConsignmentRegisterBloc
       for (OrderPaidModel item in modelCheckpoint.payments) {
         item.value = 0;
       }
+      emit(OrderConsignmentRegisterCheckpointClearSucessState());
     });
   }
 
   clearSupplying() {
     on<OrderConsignmentRegisterClearSupplyingEvent>((event, emit) async {
+      emit(OrderConsignmentRegisterLoadingState());
       for (OrderConsignmentSupplyingCardModel item in modelSupplying.items) {
         item.bonus = 0;
         item.devolution = 0;
         item.newConsignment = 0;
+        item.qttyConsigned = 0;
       }
+      modelSupplying.order.note = "";
+      emit(OrderConsignmentRegisterSupplyingClearSucessState());
     });
   }
 }

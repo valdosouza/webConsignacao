@@ -132,7 +132,7 @@ class _ContentDesktopSalesRouteRegisterState
       decoration: kBoxDecorationStyle,
       child: TextFormField(
         keyboardType: TextInputType.text,
-        autofocus: true,
+        autofocus: false,
         onChanged: (value) {
           bloc.add(SalesRouteRegisterSearchEvent(search: value));
         },

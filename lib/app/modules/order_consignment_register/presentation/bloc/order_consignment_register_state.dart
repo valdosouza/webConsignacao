@@ -50,3 +50,9 @@ class OrderConsignmentRegisterSupplyingPostErrorState
 
 class OrderConsignmentRegisterSupplyingPostSucessState
     extends OrderConsignmentRegisterState {}
+
+class OrderConsignmentRegisterSupplyingClearSucessState
+    extends OrderConsignmentRegisterState {}
+
+class OrderConsignmentRegisterCheckpointClearSucessState
+    extends OrderConsignmentRegisterState {}

@@ -4,22 +4,22 @@ import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:flutter/material.dart';
 
-class CustomerRegisterOthersWidget extends StatefulWidget {
+class CustomerRegisterOthersDesktopWidget extends StatefulWidget {
   final CustomerRegisterBloc bloc;
   final CustomerMainModel? customer;
-  const CustomerRegisterOthersWidget({
+  const CustomerRegisterOthersDesktopWidget({
     super.key,
     this.customer,
     required this.bloc,
   });
 
   @override
-  State<CustomerRegisterOthersWidget> createState() =>
-      _CustomerRegisterOthersWidgetState();
+  State<CustomerRegisterOthersDesktopWidget> createState() =>
+      _CustomerRegisterOthersDesktopWidgetState();
 }
 
-class _CustomerRegisterOthersWidgetState
-    extends State<CustomerRegisterOthersWidget> {
+class _CustomerRegisterOthersDesktopWidgetState
+    extends State<CustomerRegisterOthersDesktopWidget> {
   @override
   Widget build(BuildContext context) {
     bool active = (widget.customer?.customer.active == "S");

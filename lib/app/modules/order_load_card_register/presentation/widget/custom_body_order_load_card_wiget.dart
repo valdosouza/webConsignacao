@@ -33,7 +33,7 @@ class _CustomBodyOrderLoadCardWidgetState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.size.height - 127,
+      height: widget.size.height - 152,
       width: widget.size.width,
       child: listitemsorderLoadCard(bloc.modelLoadCard.items),
     );

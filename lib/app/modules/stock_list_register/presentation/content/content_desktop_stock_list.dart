@@ -130,7 +130,7 @@ class _ContentDesktopStockListState extends State<ContentDesktopStockList> {
       decoration: kBoxDecorationStyle,
       child: TextFormField(
         keyboardType: TextInputType.text,
-        autofocus: true,
+        autofocus: false,
         onChanged: (value) {
           bloc.add(StockListSearchEvent(search: value));
         },

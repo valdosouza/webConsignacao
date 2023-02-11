@@ -1,6 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_event.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/custom_button_widget.dart';
@@ -11,10 +10,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
 
 class ContentConsignmentSupplying extends StatefulWidget {
-  final OrderConsignmentSupplyingModel supplyingmodel;
   const ContentConsignmentSupplying({
     Key? key,
-    required this.supplyingmodel,
   }) : super(key: key);
 
   @override

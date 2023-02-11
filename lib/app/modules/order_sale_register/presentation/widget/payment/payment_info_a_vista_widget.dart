@@ -9,7 +9,7 @@ Widget paymentAVista(OrderSaleMainCardModel modelOrderSale) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      paymentinfodinheiro(modelOrderSale.payments),
+      PaymentInfoCash(modelOrderPaid: modelOrderSale.payments),
       paymentinfopix(modelOrderSale.payments),
       paymentinfotroco(modelOrderSale),
     ],

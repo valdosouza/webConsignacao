@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'package:appweb/app/core/shared/helpers/local_storage.dart';
 import 'package:appweb/app/core/shared/local_storage_key.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
@@ -19,7 +18,7 @@ class CashierStatementBloc
   final CashierStatementGetByCustomer statementCustomer;
   final CashierStatementGetCustomers customersCharged;
 
-  HashMap<String, List<CashierStatementModel>> cashierStatement = HashMap();
+  List<CashierStatementModel> cashierStatement = List.empty();
   List<CashierStatementCustomerModel> customers = List.empty();
   int customerIndex = 0;
   String dtCashier = "";
@@ -57,7 +56,7 @@ class CashierStatementBloc
       var response = await day.call(event.params);
 
       var result = response.fold((l) => MobileErrorState(), (r) {
-        formatByKind(r);
+        cashierStatement = r;
         return MobileSuccessState();
       });
 
@@ -72,7 +71,7 @@ class CashierStatementBloc
       var response = await month.call(event.params);
 
       var result = response.fold((l) => MobileErrorState(), (r) {
-        formatByKind(r);
+        cashierStatement = r;
         return MobileSuccessState();
       });
 
@@ -83,11 +82,13 @@ class CashierStatementBloc
   cashierStatementGetByCustomer() {
     on<CashierStatementGetByCustomerMobileEvent>((event, emit) async {
       emit(LoadingState());
-
+      var dtCashier = await LocalStorageService.instance
+          .get(key: LocalStorageKey.dtCashier);
+      event.params.date = CustomDate.formatDateOut(dtCashier);
       var response = await statementCustomer.call(event.params);
 
       var result = response.fold((l) => MobileErrorState(), (r) {
-        formatByKind(r);
+        cashierStatement = r;
         return ByCustomerState();
       });
 
@@ -98,7 +99,10 @@ class CashierStatementBloc
   cashierStatementGetCustomers() {
     on<CashierStatementGetCustomersMobileEvent>((event, emit) async {
       emit(LoadingState());
+      var dtCashier = await LocalStorageService.instance
+          .get(key: LocalStorageKey.dtCashier);
 
+      event.params.date = CustomDate.formatDateOut(dtCashier);
       var response = await customersCharged.call(event.params);
 
       var result = response.fold((l) => CustomerMobileErrorState(), (r) {
@@ -108,18 +112,5 @@ class CashierStatementBloc
 
       emit(result);
     });
-  }
-
-  formatByKind(List<CashierStatementModel> data) {
-    cashierStatement.clear();
-    for (var element in data) {
-      if (cashierStatement.containsKey(element.kind)) {
-        cashierStatement[element.kind]!.add(element);
-      } else {
-        cashierStatement[element.kind] =
-            List<CashierStatementModel>.empty(growable: true);
-        cashierStatement[element.kind]!.add(element);
-      }
-    }
   }
 }

@@ -85,6 +85,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               key: LocalStorageKey.tbUserId,
               value: authModel.id,
             );
+            LocalStorageService.instance.saveItem(
+              key: LocalStorageKey.userName,
+              value: authModel.username,
+            );
             return AuthSuccessState();
           } else {
             return const AuthErrorState('Login ou senha inválido');

@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_event.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_state.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -25,6 +26,7 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
       await Modular.isModuleReady<DrawerModule>();
     });
     bloc = Modular.get<DrawerBloc>();
+    bloc.add(UserLoggedEvent());
   }
 
   @override
@@ -55,7 +57,7 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
                     colors: <Color>[
                       Colors.red,
                       Colors.black,
-                      Colors.black,
+                      //Colors.black,
                       Colors.white,
                     ],
                     begin: Alignment.topCenter,
@@ -66,20 +68,21 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
                   children: <Widget>[
                     Material(
                       borderRadius:
-                          const BorderRadius.all(Radius.circular(50.0)),
+                          const BorderRadius.all(Radius.circular(40.0)),
                       elevation: 10,
                       child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
                             "images/logomarca.png",
-                            width: 160,
-                            height: 70,
+                            width: 180,
+                            height: 90,
                             //fit: BoxFit.fill,
                           )),
                     ),
-                    const Text(
-                      'Nome do Usuario',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    const SizedBox(height: 5),
+                    AutoSizeText(
+                      bloc.userName,
+                      style: const TextStyle(color: Colors.black, fontSize: 18),
                     )
                   ],
                 ),

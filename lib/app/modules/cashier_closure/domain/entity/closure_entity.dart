@@ -4,7 +4,7 @@ class ClosureEntity {
   String dtRecord;
   int tbInstitutionId;
   int tbUserId;
-  List<ClosureItemsModel>? items;
+  List<ClosureItemsModel> items;
 
   ClosureEntity({
     required this.dtRecord,
@@ -18,10 +18,12 @@ class ClosureItemsEntity {
   String description;
   double tagValue;
   String kind;
+  String color;
 
   ClosureItemsEntity({
     required this.description,
     required this.tagValue,
     required this.kind,
+    required this.color,
   });
 }

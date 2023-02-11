@@ -4,15 +4,24 @@ import 'package:appweb/app/modules/customer_register/presentation/page/customer_
 import 'package:appweb/app/modules/customer_register/presentation/page/customer_register_page_tablet.dart';
 import 'package:flutter/material.dart';
 
-class CustomerRegisterPage extends StatelessWidget {
-  const CustomerRegisterPage({super.key});
+class CustomerRegisterPage extends StatefulWidget {
+  final int tbCustomerId;
+  const CustomerRegisterPage({
+    super.key,
+    required this.tbCustomerId,
+  });
 
   @override
+  State<CustomerRegisterPage> createState() => _CustomerRegisterPageState();
+}
+
+class _CustomerRegisterPageState extends State<CustomerRegisterPage> {
+  @override
   Widget build(BuildContext context) {
-    return const Responsive(
-      mobile: CustomerRegisterPageMobile(),
-      tablet: CustomerRegisterPageTablet(),
-      desktop: CustomerRegisterPageDesktop(),
+    return Responsive(
+      mobile: CustomerRegisterPageMobile(tbCustomerId: widget.tbCustomerId),
+      tablet: const CustomerRegisterPageTablet(),
+      desktop: const CustomerRegisterPageDesktop(),
     );
   }
 }

@@ -129,7 +129,7 @@ class _ContentDesktopPaymentTypeRegisterState
       decoration: kBoxDecorationStyle,
       child: TextFormField(
         keyboardType: TextInputType.text,
-        autofocus: true,
+        autofocus: false,
         onChanged: (value) {
           bloc.add(PaymentTypeRegisterSearchEvent(search: value));
         },

@@ -7,6 +7,13 @@ class CustomerGetListEvent extends AttendanceByCustomerEvent {
   });
 }
 
+class CustomerEditListEvent extends AttendanceByCustomerEvent {
+  final int? tbCustomerId;
+  CustomerEditListEvent({
+    this.tbCustomerId,
+  });
+}
+
 class CustomerSearchEvent extends AttendanceByCustomerEvent {
   String search;
 

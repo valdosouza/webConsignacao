@@ -24,7 +24,7 @@ class SearchWidget extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             keyboardType: keyboardType ?? TextInputType.text,
-            autofocus: true,
+            autofocus: false,
             onChanged: (value) {
               onChange(value);
             },

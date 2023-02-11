@@ -1,6 +1,7 @@
 import 'package:appweb/app/modules/order_load_card_register/domain/entity/order_load_card_items_entity.dart';
 
 class OrderLoadCardItemsModel extends OrderLoadCardItemsEntity {
+  int id;
   int tbProductId;
   String nameProduct;
   double stockBalance;
@@ -10,6 +11,7 @@ class OrderLoadCardItemsModel extends OrderLoadCardItemsEntity {
   double newLoad;
 
   OrderLoadCardItemsModel({
+    required this.id,
     required this.tbProductId,
     required this.nameProduct,
     required this.stockBalance,
@@ -18,6 +20,7 @@ class OrderLoadCardItemsModel extends OrderLoadCardItemsEntity {
     required this.adjust,
     required this.newLoad,
   }) : super(
+          id: id,
           tbProductId: tbProductId,
           nameProduct: nameProduct,
           stockBalance: stockBalance,
@@ -29,6 +32,7 @@ class OrderLoadCardItemsModel extends OrderLoadCardItemsEntity {
 
   factory OrderLoadCardItemsModel.fromJson(Map<String?, dynamic> json) {
     return OrderLoadCardItemsModel(
+      id: json['id'],
       tbProductId: json['tb_product_id'],
       nameProduct: json['name_product'] as String,
       stockBalance: json['stock_balance'] is int
@@ -46,6 +50,7 @@ class OrderLoadCardItemsModel extends OrderLoadCardItemsEntity {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'tb_product_id': tbProductId,
       'name_product': nameProduct,
       'stock_balance': stockBalance,
@@ -58,6 +63,7 @@ class OrderLoadCardItemsModel extends OrderLoadCardItemsEntity {
 
   factory OrderLoadCardItemsModel.isEmpty() {
     return OrderLoadCardItemsModel(
+      id: 0,
       tbProductId: 0,
       nameProduct: "",
       stockBalance: 0,

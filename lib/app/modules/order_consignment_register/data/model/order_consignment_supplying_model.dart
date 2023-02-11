@@ -41,6 +41,7 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
         nameSalesman: "",
         dtRecord: CustomDate.newDate(),
         currentDebitBalance: 0,
+        recall: "N",
         note: "",
       ),
       items: [],
@@ -57,6 +58,7 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
       nameSalesman: checkpoint.order.nameSalesman,
       dtRecord: "",
       currentDebitBalance: checkpoint.order.currentDebitBalance,
+      recall: "N",
       note: "",
     );
     List<OrderConsignmentSupplyingCardModel> listItems = [];
@@ -90,6 +92,7 @@ class OrderConsignmentSupplyingOrderModel
   String nameSalesman;
   String dtRecord;
   double currentDebitBalance;
+  String recall;
   String note;
 
   OrderConsignmentSupplyingOrderModel({
@@ -101,6 +104,7 @@ class OrderConsignmentSupplyingOrderModel
     required this.nameSalesman,
     required this.dtRecord,
     required this.currentDebitBalance,
+    required this.recall,
     required this.note,
   }) : super(
           id: id,
@@ -111,6 +115,7 @@ class OrderConsignmentSupplyingOrderModel
           nameSalesman: nameSalesman,
           dtRecord: dtRecord,
           currentDebitBalance: currentDebitBalance,
+          recall: recall,
           note: note,
         );
 
@@ -125,6 +130,7 @@ class OrderConsignmentSupplyingOrderModel
       nameSalesman: json['name_salesman'],
       dtRecord: CustomDate.newDate(),
       currentDebitBalance: double.parse(json['current_debit_balance']),
+      recall: json['recall'] as String? ?? "N",
       note: json['note'] as String? ?? "",
     );
   }
@@ -140,6 +146,7 @@ class OrderConsignmentSupplyingOrderModel
       'dt_record':
           dtRecord, //Como a consignação não tem campo data, não preicsa de conversão
       'current_debit_balance': currentDebitBalance,
+      'recall': recall,
       'note': note,
     };
   }

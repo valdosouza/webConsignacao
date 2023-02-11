@@ -1,6 +1,5 @@
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
-import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
@@ -16,7 +15,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomerRegisterPageMobile extends StatefulWidget {
-  const CustomerRegisterPageMobile({super.key});
+  final int tbCustomerId;
+  const CustomerRegisterPageMobile({
+    super.key,
+    required this.tbCustomerId,
+  });
 
   @override
   State<CustomerRegisterPageMobile> createState() =>
@@ -35,8 +38,12 @@ class _CustomerRegisterPageMobileState
     });
 
     bloc = Modular.get<CustomerRegisterBloc>();
-    bloc.customer = CustomerMainModel.empty();
-    bloc.add(CustomerRegisterMobileEvent());
+    if (widget.tbCustomerId == 0) {
+      bloc.add(CustomerRegisterMobileNewEvent());
+    } else {
+      bloc.add(
+          CustomerRegisterMobileEditEvent(tbCustomerId: widget.tbCustomerId));
+    }
   }
 
   @override
@@ -82,6 +89,7 @@ class _CustomerRegisterPageMobileState
             status: "A",
             visited: "S",
             charged: "N",
+            recall: "N",
             longitude: "",
             latitude: "",
           );

@@ -23,7 +23,6 @@ class ContentOrderSaleRegister extends StatefulWidget {
 }
 
 class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
-  late TextEditingController editcontrol;
   late final OrderSaleRegisterBloc bloc;
 
   @override
@@ -80,7 +79,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
               children: [
                 Container(
                   alignment: Alignment.bottomCenter,
-                  height: 45,
+                  height: 40,
                   child: Text(
                     bloc.modelOrderSale.order.nameCustomer,
                     style: ktittleAppBarStyle,

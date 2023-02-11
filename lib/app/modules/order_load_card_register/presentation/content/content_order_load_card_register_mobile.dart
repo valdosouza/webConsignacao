@@ -8,18 +8,18 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-class ContentOrderLoadCardRegister extends StatefulWidget {
-  const ContentOrderLoadCardRegister({
+class ContentOrderLoadCardRegisterMobile extends StatefulWidget {
+  const ContentOrderLoadCardRegisterMobile({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ContentOrderLoadCardRegister> createState() =>
-      _ContentOrderLoadCardRegisterState();
+  State<ContentOrderLoadCardRegisterMobile> createState() =>
+      _ContentOrderLoadCardRegisterMobileState();
 }
 
-class _ContentOrderLoadCardRegisterState
-    extends State<ContentOrderLoadCardRegister> {
+class _ContentOrderLoadCardRegisterMobileState
+    extends State<ContentOrderLoadCardRegisterMobile> {
   late TextEditingController editcontrol;
   late final OrderLoadCardRegisterBloc bloc;
 
@@ -78,6 +78,12 @@ class _ContentOrderLoadCardRegisterState
                   child: const Text(
                     "Carregamento do próximo dia",
                     textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      fontFamily: 'OpenSans',
+                    ),
                   ),
                 ),
                 const CustomHeaderOrderLoadCard(),
@@ -120,8 +126,14 @@ class _ContentOrderLoadCardRegisterState
           ),
           Expanded(
             flex: 1,
-            child: _custombutton(
-                "Finalizar", (() => {bloc.add(OrderLoadCardPostEvent())})),
+            child: (bloc.modelLoadCard.items[0].id == 0)
+                ? _custombutton(
+                    "Finalizar", (() => {bloc.add(OrderLoadCardPostEvent())}))
+                : _custombutton("Consultar", (() {
+                    //no mobile pode passar zero que no datasource ele preenche
+                    bloc.add(
+                        OrderLoadCardRegisterGetCardEvent(tbSalesmanId: 0));
+                  })),
           ),
         ],
       ),

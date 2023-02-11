@@ -13,10 +13,20 @@ class OrderLoadCardRegisterRepositoryImpl
   OrderLoadCardRegisterRepositoryImpl({required this.orderLoadCardDatasource});
 
   @override
-  Future<Either<Failure, List<OrderLoadCardItemsModel>>>
-      getNewOrderLoadCard() async {
+  Future<Either<Failure, List<OrderLoadCardItemsModel>>> getNewOrderLoadCard(
+      {required int tbSalesmanId}) async {
     try {
-      return Right(await orderLoadCardDatasource.getNewOrderLoadCard());
+      return Right(await orderLoadCardDatasource.getNewOrderLoadCard(
+          tbSalesmanId: tbSalesmanId));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<OrderLoadCardMainModel>>> getList() async {
+    try {
+      return Right(await orderLoadCardDatasource.getList());
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -27,6 +37,16 @@ class OrderLoadCardRegisterRepositoryImpl
       {required OrderLoadCardMainModel model}) async {
     try {
       return Right(await orderLoadCardDatasource.post(model: model));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> closure(
+      {required OrderLoadCardMainModel model}) async {
+    try {
+      return Right(await orderLoadCardDatasource.closure(model: model));
     } on ServerException {
       return Left(ServerFailure());
     }

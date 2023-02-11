@@ -11,7 +11,12 @@ abstract class OrderLoadCardRegisterDatasource extends Gateway {
 
   Future<String> post({required OrderLoadCardMainModel model});
 
-  Future<List<OrderLoadCardItemsModel>> getNewOrderLoadCard();
+  Future<List<OrderLoadCardItemsModel>> getNewOrderLoadCard(
+      {required int tbSalesmanId});
+
+  Future<List<OrderLoadCardMainModel>> getList();
+
+  Future<String> closure({required OrderLoadCardMainModel model});
 }
 
 class OrderLoadCardRegisterDatasourceImpl
@@ -52,24 +57,69 @@ class OrderLoadCardRegisterDatasourceImpl
   }
 
   @override
-  Future<List<OrderLoadCardItemsModel>> getNewOrderLoadCard() async {
+  Future<List<OrderLoadCardItemsModel>> getNewOrderLoadCard(
+      {required int tbSalesmanId}) async {
     String tbInstitutionId = '1';
     await getInstitutionId().then((value) {
       tbInstitutionId = value.toString();
     });
-    String tbSalesmanId = '1';
-    await getUserId().then((value) {
-      tbSalesmanId = value.toString();
-    });
+    String tbUserId = tbSalesmanId.toString();
+    if (tbUserId == '0') {
+      await getUserId().then((value) {
+        tbUserId = value.toString();
+      });
+    }
     var dtRecord = CustomDate.formatDateOut(CustomDate.newDate());
     return request(
-      'orderloadcard/$tbInstitutionId/$tbSalesmanId/$dtRecord  ',
+      'orderloadcard/$tbInstitutionId/$tbUserId/$dtRecord  ',
       (payload) {
         final obj = json.decode(payload);
         List<OrderLoadCardItemsModel> orderLoadCard = (obj as List).map((json) {
           return OrderLoadCardItemsModel.fromJson(json);
         }).toList();
         return orderLoadCard;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
+  }
+
+  @override
+  Future<List<OrderLoadCardMainModel>> getList() async {
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
+    return request(
+      'orderloadcard/getlist/$tbInstitutionId',
+      (payload) {
+        final obj = json.decode(payload);
+        List<OrderLoadCardMainModel> orderLoadCard = (obj as List).map((json) {
+          return OrderLoadCardMainModel.fromJson(json);
+        }).toList();
+        return orderLoadCard;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
+  }
+
+  @override
+  Future<String> closure({
+    required OrderLoadCardMainModel model,
+  }) async {
+    final bodyEnvio = json.encode(model.toJson());
+
+    return await request(
+      'orderloadcard/closure',
+      data: bodyEnvio,
+      method: HTTPMethod.post,
+      (payload) {
+        final data = json.decode(payload);
+        return data['result'];
       },
       onError: (error) {
         return ServerException;

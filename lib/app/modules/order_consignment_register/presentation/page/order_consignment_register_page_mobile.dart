@@ -54,14 +54,12 @@ class OrderConsginmentRegisterPageMobileState
           CustomToast.showToast(
               "Erro ao Gravar a etapa de Checagem.Tente novamente");
         } else if (state is OrderConsignmentRegisterSupplyingPostErrorState) {
-          CustomToast.showToast(
-              "Erro ao Gravar a etapa de Abastecimento.Tente novamente");
+          CustomToast.showToast(state.error);
         }
       },
       builder: (context, state) {
         if (state is OrderConsignmentRegisterCheckpointPostSucessState) {
-          return ContentConsignmentSupplying(
-              supplyingmodel: state.supplyingmode);
+          return const ContentConsignmentSupplying();
         }
         if (state is OrderConsignmentRegisterCheckpointPostErrorState) {
           return ContentConsignmentCheckpoint(
@@ -71,8 +69,7 @@ class OrderConsginmentRegisterPageMobileState
           Modular.to.navigate('/customer/mobile/');
         }
         if (state is OrderConsignmentRegisterSupplyingPostErrorState) {
-          return ContentConsignmentSupplying(
-              supplyingmodel: bloc.modelSupplying);
+          return const ContentConsignmentSupplying();
         }
 
         if (state is OrderConsignmentRegisterLoadingState) {
@@ -80,13 +77,15 @@ class OrderConsginmentRegisterPageMobileState
             child: CircularProgressIndicator(),
           );
         }
+        if (state is OrderConsignmentRegisterSupplyingClearSucessState) {
+          return const ContentConsignmentSupplying();
+        }
         if (state is OrderConsignmentGetLastLoadedState) {
           if (state.supplyingmodel.order.id > 0) {
             return ContentConsignmentCheckpoint(
                 checkpointmodel: state.checkpointmodel);
           } else {
-            return ContentConsignmentSupplying(
-                supplyingmodel: state.supplyingmodel);
+            return const ContentConsignmentSupplying();
           }
         }
         return Container();

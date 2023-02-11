@@ -1,7 +1,7 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/widget/cashier_statement_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -25,6 +25,7 @@ class _ContentCashierStatementState extends State<ContentCashierStatement> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return BlocConsumer<CashierStatementBloc, CashierStatementState>(
         bloc: bloc,
         listener: (context, state) {
@@ -41,16 +42,51 @@ class _ContentCashierStatementState extends State<ContentCashierStatement> {
             return const Center(
                 child: Text("Não encontramos nenhum registro em nossa base."));
           }
-          return CustomScrollView(slivers: listOfCashier());
+          return _listOfCashierClosure(size);
         });
   }
 
-  listOfCashier() {
-    List<Widget> data = List.empty(growable: true);
-    bloc.cashierStatement.forEach((key, value) {
-      data.add(CashierStatementWidget(
-          title: (key == "summarized" ? "Totais" : key), model: value));
-    });
-    return data;
+  _listOfCashierClosure(Size size) {
+    var list = bloc.cashierStatement;
+    return Container(
+      padding: const EdgeInsets.all(10),
+      alignment: Alignment.topCenter,
+      height: size.height,
+      child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (_, index) {
+            if (list[index].kind != "summarized") {
+              return Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      list[index].description,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: getColor(list[index].color),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      list[index].tagValue.toStringAsFixed(2),
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: getColor(list[index].color),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return const Divider(height: 30);
+            }
+          }),
+    );
   }
 }

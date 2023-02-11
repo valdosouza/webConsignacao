@@ -2,16 +2,16 @@ import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/entity/closure_entity.dart';
 
 class ClosureModel extends ClosureEntity {
-  ClosureModel(
-      {String? dtRecord,
-      int? tbInstitutionId,
-      int? tbUserId,
-      List<ClosureItemsModel>? items})
-      : super(
-          dtRecord: dtRecord ?? "",
-          tbInstitutionId: tbInstitutionId ?? 0,
-          tbUserId: tbUserId ?? 0,
-          items: items ?? [],
+  ClosureModel({
+    required String dtRecord,
+    required int tbInstitutionId,
+    required int tbUserId,
+    required List<ClosureItemsModel> items,
+  }) : super(
+          dtRecord: dtRecord,
+          tbInstitutionId: tbInstitutionId,
+          tbUserId: tbUserId,
+          items: items,
         );
 
   factory ClosureModel.fromJson(Map<String, dynamic> json) {
@@ -39,7 +39,7 @@ class ClosureModel extends ClosureEntity {
     data['dt_record'] = CustomDate.formatDateOut(dtRecord);
     data['tb_institution_id'] = tbInstitutionId;
     data['tb_user_id'] = tbUserId;
-    data['items'] = items!.map((v) => v.toJson()).toList();
+    data['items'] = items.map((v) => v.toJson()).toList();
     return data;
   }
 }
@@ -49,10 +49,12 @@ class ClosureItemsModel extends ClosureItemsEntity {
     String? description,
     double? tagValue,
     String? kind,
+    String? color,
   }) : super(
           description: description ?? "",
           tagValue: tagValue ?? 0.0,
           kind: kind ?? "",
+          color: color ?? "black",
         );
 
   factory ClosureItemsModel.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,7 @@ class ClosureItemsModel extends ClosureItemsEntity {
           ? json['tag_value'].toDouble()
           : json['tag_value'],
       kind: json['kind'],
+      color: json['color'],
     );
   }
 
@@ -70,6 +73,7 @@ class ClosureItemsModel extends ClosureItemsEntity {
     data['description'] = description;
     data['tag_value'] = tagValue;
     data['kind'] = kind;
+    data['color'] = color;
     return data;
   }
 }

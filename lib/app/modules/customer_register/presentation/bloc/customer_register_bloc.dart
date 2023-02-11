@@ -53,7 +53,9 @@ class CustomerRegisterBloc
 
     goToCustomerDesktopPage();
 
-    goToCustomerMobilePage();
+    newCustomerMobilePage();
+
+    getCustomerMobilePage();
 
     searchCEP();
 
@@ -205,25 +207,29 @@ class CustomerRegisterBloc
     });
   }
 
-  goToCustomerMobilePage() {
-    on<CustomerRegisterMobileEvent>((event, emit) async {
-      if (event.id != null) {
-        emit(CustomerRegisterLoadingState());
+  getCustomerMobilePage() {
+    on<CustomerRegisterMobileEditEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
 
-        final response =
-            await getCustomer.call(ParamsGetCustomer(id: event.id!));
+      final response =
+          await getCustomer.call(ParamsGetCustomer(id: event.tbCustomerId));
 
-        response.fold(
-            (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
-            (r) {
-          customer = r;
-          emit(CustomerRegisterInfoPageState(
-              customers: customers, model: r, tabIndex: 0));
-        });
-      } else {
+      response.fold(
+          (l) => emit(CustomerRegisterGetErrorState(customers: customers)),
+          (r) {
+        customer = r;
         emit(CustomerRegisterInfoPageState(
-            customers: customers, model: customer, tabIndex: 0));
-      }
+            customers: customers, model: r, tabIndex: 0));
+      });
+    });
+  }
+
+  newCustomerMobilePage() {
+    on<CustomerRegisterMobileNewEvent>((event, emit) async {
+      emit(CustomerRegisterLoadingState());
+      customer = CustomerMainModel.empty();
+      emit(CustomerRegisterInfoPageState(
+          customers: customers, model: customer, tabIndex: 0));
     });
   }
 

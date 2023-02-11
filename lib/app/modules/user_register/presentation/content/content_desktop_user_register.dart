@@ -140,7 +140,7 @@ class _ContentDesktopUserRegisterState
       decoration: kBoxDecorationStyle,
       child: TextFormField(
         keyboardType: TextInputType.text,
-        autofocus: true,
+        autofocus: false,
         onChanged: (value) {
           bloc.add(UserRegisterSearchEvent(search: value));
         },

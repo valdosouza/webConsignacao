@@ -19,7 +19,7 @@ buildSearchInput(StockBalanceBloc bloc) {
     decoration: kBoxDecorationStyle,
     child: TextFormField(
       keyboardType: TextInputType.text,
-      autofocus: true,
+      autofocus: false,
       onChanged: (value) {
         bloc.add(StockBalanceSalesmanSearchEvent(search: value));
       },

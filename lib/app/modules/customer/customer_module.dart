@@ -29,7 +29,7 @@ class CustomerModule extends Module {
     ),
     ChildRoute(
       '/mobile/register/',
-      child: (_, args) => const CustomerRegisterPageMobile(),
+      child: (_, args) => const CustomerRegisterPageMobile(tbCustomerId: 0),
       children: [
         ModuleRoute('/customer-register/', module: CustomerRegisterModule()),
       ],

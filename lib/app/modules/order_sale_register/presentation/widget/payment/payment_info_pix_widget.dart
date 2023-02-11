@@ -27,7 +27,9 @@ Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
             onSubmitted: (value) {
-              modelOrderPaid[1].value = double.parse(value);
+              if (value.isNotEmpty) {
+                modelOrderPaid[1].value = double.parse(value);
+              }
             },
           ),
         ),

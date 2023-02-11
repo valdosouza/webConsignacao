@@ -5,6 +5,7 @@ class OrderLoadCardMainEntity {
     int? id,
     int? tbInstitutionId,
     int? tbUserId,
+    String? nameUser,
     String? dtRecord,
     List<OrderLoadCardItemsModel>? items,
   });

@@ -26,7 +26,7 @@ class CashierStatementCustomersChargedPageMobileState
   late MaskedTextController controller;
   late CashierStatementBloc bloc;
   String title = "Clientes Cobrados";
-  String date = "00/00/0000";
+
   @override
   void initState() {
     super.initState();
@@ -78,9 +78,9 @@ class CashierStatementCustomersChargedPageMobileState
               return const Center(child: CircularProgressIndicator());
             }
 
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CashierStatementCustomerWidget(date: date),
+            return const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CashierStatementCustomerWidget(),
             );
           },
         ));

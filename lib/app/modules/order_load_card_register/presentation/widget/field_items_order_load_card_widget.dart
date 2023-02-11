@@ -21,7 +21,7 @@ Widget fielditemsorderLoadCard(OrderLoadCardItemsModel item, int position,
       case 7:
         double currentBalance =
             (item.stockBalance + item.newLoad) - item.adjust;
-        return currentBalance.toStringAsFixed(0);
+        return (currentBalance > 0) ? currentBalance.toStringAsFixed(0) : "";
     }
     return "";
   }
@@ -36,6 +36,10 @@ Widget fielditemsorderLoadCard(OrderLoadCardItemsModel item, int position,
     child: Padding(
       padding: const EdgeInsets.only(left: 2.0),
       child: TextField(
+        textAlignVertical: TextAlignVertical.center,
+        style: const TextStyle(
+          height: 10,
+        ),
         enabled: enabled,
         keyboardType: TextInputType.number,
         textAlign: textAlign,

@@ -14,21 +14,32 @@ class StockModule extends Module {
       '/desktop/',
       child: (_, args) => const StocPageDesktop(),
       children: [
-        ModuleRoute('/stocklist/', module: StockListRegisterModule()),
-        ModuleRoute('/stockadjustement/',
-            module: OrderStockAdjustmentRegisterModule()),
-        ModuleRoute('/stocktransfer/',
-            module: OrderStockTransferRegisterModule()),
-        ModuleRoute('/stockbalance/', module: StockBalanceModule()),
+        ModuleRoute('/', module: StockBalanceModule()),
+        ModuleRoute(
+          '/stocklist/',
+          module: StockListRegisterModule(),
+        ),
+        ModuleRoute(
+          '/stockadjustement/',
+          module: OrderStockAdjustmentRegisterModule(),
+        ),
+        ModuleRoute(
+          '/stocktransfer/',
+          module: OrderStockTransferRegisterModule(),
+        ),
+        ModuleRoute(
+          '/stockbalance/',
+          module: StockBalanceModule(),
+        ),
+        ModuleRoute(
+          '/orderloadCard/',
+          module: OrderLoadCardRegisterModule(),
+        ),
       ],
     ),
     ChildRoute(
       '/mobile/',
       child: (_, args) => const StocPageMobile(),
-      children: [
-        ModuleRoute('/', module: StockBalanceModule()),
-        ModuleRoute('/orderloadCard/', module: OrderLoadCardRegisterModule()),
-      ],
     ),
   ];
 }

@@ -56,7 +56,7 @@ class StockBalanceCustomerPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Balanço de Estoque Cliente'),
+        title: const Text('Estoque Cliente'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {

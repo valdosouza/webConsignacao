@@ -7,7 +7,8 @@ class OrderLoadCardRegiterGetItems {
   final OrderLoadCardRegisterRepository repository;
 
   OrderLoadCardRegiterGetItems({required this.repository});
-  Future<Either<Failure, List<OrderLoadCardItemsModel>>> call() async {
-    return await repository.getNewOrderLoadCard();
+  Future<Either<Failure, List<OrderLoadCardItemsModel>>> call(
+      {required int tbSalesmanId}) async {
+    return await repository.getNewOrderLoadCard(tbSalesmanId: tbSalesmanId);
   }
 }

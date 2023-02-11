@@ -13,6 +13,7 @@ class OrderAttendanceEntity {
     String? status,
     String? visited,
     String? charged,
+    String? recall,
     String? longitude,
     String? latitude,
   });

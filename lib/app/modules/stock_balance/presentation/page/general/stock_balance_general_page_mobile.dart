@@ -56,7 +56,7 @@ class StockBalanceGeneralPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Balanço de Estoque Geral'),
+        title: const Text('Estoque Geral'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {

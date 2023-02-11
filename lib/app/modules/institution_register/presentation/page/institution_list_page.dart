@@ -54,7 +54,7 @@ class _InstitutionListPageState extends State<InstitutionListPage> {
                       decoration: kBoxDecorationStyle,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        autofocus: true,
+                        autofocus: false,
                         onChanged: (value) {
                           bloc.add(SearchStateEvent(search: value));
                         },
@@ -122,7 +122,7 @@ class _InstitutionListPageState extends State<InstitutionListPage> {
                       decoration: kBoxDecorationStyle,
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        autofocus: true,
+                        autofocus: false,
                         onChanged: (value) {
                           bloc.add(SearchCityEvent(search: value));
                         },

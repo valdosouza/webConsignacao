@@ -39,7 +39,7 @@ buildSearchInput(OrderStockAdjustmentRegisterBloc bloc) {
     decoration: kBoxDecorationStyle,
     child: TextFormField(
       keyboardType: TextInputType.text,
-      autofocus: true,
+      autofocus: false,
       onChanged: (value) {
         bloc.add(OrderStockAdjustmentRegisterSearchEvent(search: value));
       },

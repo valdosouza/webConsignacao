@@ -2,13 +2,16 @@ import 'package:appweb/app/modules/cashier_statement/domain/entity/cashier_state
 
 class CashierStatementModel extends CashierStatementEntity {
   CashierStatementModel({
-    String? description,
-    double? tagValue,
-    String? kind,
+    required String description,
+    required double tagValue,
+    required String kind,
+    required String color,
   }) : super(
-            description: description ?? "",
-            tagValue: tagValue ?? 0.00,
-            kind: kind ?? "");
+          description: description,
+          tagValue: tagValue,
+          kind: kind,
+          color: color,
+        );
 
   factory CashierStatementModel.fromJson(Map<String, dynamic> json) {
     return CashierStatementModel(
@@ -17,10 +20,16 @@ class CashierStatementModel extends CashierStatementEntity {
           ? json['tag_value'].toDouble()
           : json['tag_value'],
       kind: json['kind'],
+      color: json['color'],
     );
   }
 
   factory CashierStatementModel.empty() {
-    return CashierStatementModel();
+    return CashierStatementModel(
+      description: "",
+      tagValue: 0,
+      kind: "info",
+      color: "black",
+    );
   }
 }

@@ -7,10 +7,8 @@ import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.da
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 
 class CashierStatementCustomerWidget extends StatefulWidget {
-  final String date;
   const CashierStatementCustomerWidget({
     Key? key,
-    required this.date,
   }) : super(key: key);
 
   @override
@@ -75,7 +73,7 @@ class _CashierStatementCustomerWidgetState
                     bloc.add(
                       CashierStatementGetByCustomerMobileEvent(
                         params: CashierStatementParams(
-                          date: widget.date,
+                          date: "",
                           tbCustomerId: bloc.customers[index].id,
                         ),
                       ),

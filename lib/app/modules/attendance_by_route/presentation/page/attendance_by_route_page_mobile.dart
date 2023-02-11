@@ -94,7 +94,8 @@ class SalesRoutetRegisterInterationPageState
                     flexibleSpace: Container(
                       decoration: kBoxDecorationflexibleSpace,
                     ),
-                    title: const Text('Lista de Clientes'),
+                    title: Text(
+                        'Lista de Clientes (${state.customerList.length})'),
                     leading: IconButton(
                       icon: const Icon(Icons.arrow_back_ios),
                       onPressed: () {
@@ -106,21 +107,6 @@ class SalesRoutetRegisterInterationPageState
           );
         }
         return Container();
-        // return Scaffold(
-        //   appBar: AppBar(
-        //     flexibleSpace: Container(
-        //       decoration: kBoxDecorationflexibleSpace,
-        //     ),
-        //     leading: IconButton(
-        //       icon: const Icon(Icons.arrow_back_ios),
-        //       onPressed: () {
-        //         Modular.to.navigate('/customer/mobile/');
-        //       },
-        //     ),
-        //     title: const Text('Erro'),
-        //   ),
-        //   body: const Center(child: Text("Estado não encontrado")),
-        // );
       },
     );
   }

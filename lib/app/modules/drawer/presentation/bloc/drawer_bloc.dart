@@ -8,10 +8,14 @@ import 'package:bloc/bloc.dart';
 
 class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
   final DrawerCashierIsOpen drawerCashierIsOpen;
+
+  String userName = "";
+
   DrawerBloc({
     required this.drawerCashierIsOpen,
   }) : super(DrawerInitState()) {
     cashierIsOpen();
+    userLogged();
 
     on<DrawerLogoutEvent>((event, emit) async {
       await LocalStorageService.instance
@@ -51,6 +55,13 @@ class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
       } else {
         emit(DrawerCashierIsOpenState(open: false));
       }
+    });
+  }
+
+  userLogged() {
+    on<UserLoggedEvent>((event, emit) async {
+      userName =
+          await LocalStorageService.instance.get(key: LocalStorageKey.userName);
     });
   }
 }

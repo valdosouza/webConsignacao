@@ -51,3 +51,17 @@ const kTitleTextColor = Color(0xFF30384D);
 const kTextColor = Color(0xFF4D5875);
 
 const kDefaultPadding = 16.0;
+
+Color getColor(String color) {
+  switch (color) {
+    case 'green':
+      return Colors.green;
+    case 'blue':
+      return Colors.blue;
+    case 'black':
+      return Colors.black;
+    case 'red':
+      return Colors.red;
+  }
+  return Colors.black;
+}

@@ -15,6 +15,7 @@ class OrderConsignmentSupplyingOrderEntity {
     String? nameSalesman,
     String? dtRecord,
     double? currentDebitBalance,
+    String? recall,
     String? note,
   });
 }

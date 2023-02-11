@@ -1,8 +1,30 @@
-import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
 import 'package:flutter/material.dart';
 
-Widget fielditemsordersale(OrderSaleCardModel item, int position, bool enabled,
-    int decimal, TextAlign textAlign) {
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
+
+class FieldItemOrdersale extends StatefulWidget {
+  final OrderSaleCardModel item;
+  final int position;
+  final bool enabled;
+
+  final TextAlign textAlign;
+  final FocusNode focus;
+  final List<FocusNode> listNode;
+  const FieldItemOrdersale({
+    Key? key,
+    required this.item,
+    required this.position,
+    required this.enabled,
+    required this.textAlign,
+    required this.focus,
+    required this.listNode,
+  }) : super(key: key);
+
+  @override
+  State<FieldItemOrdersale> createState() => _FieldItemOrdersaleState();
+}
+
+class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
   String setTextController(OrderSaleCardModel item, int position) {
     switch (position) {
       case 1:
@@ -17,43 +39,50 @@ Widget fielditemsordersale(OrderSaleCardModel item, int position, bool enabled,
     return "";
   }
 
-  return Container(
-    height: 30,
-    alignment: Alignment.center,
-    margin: const EdgeInsets.only(left: 3.0, top: 0.0, right: 3.0, bottom: 0.0),
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.black),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.only(left: 2.0),
-      child: TextField(
-        enabled: enabled,
-        keyboardType: TextInputType.number,
-        textAlign: textAlign,
-        onSubmitted: (value) {
-          if (value.isEmpty) value = "0";
-          switch (position) {
-            case 1:
-              item.bonus = double.parse(value);
-              break;
-            case 2:
-              item.nameProduct = value;
-              break;
-            case 3:
-              if (value.isNotEmpty) {
-                item.qttySold = double.parse(value);
-                if (item.qttySold > 0) {
-                  item.subtotal = item.qttySold * item.unitValue;
-                } else {
-                  item.subtotal = 0;
-                }
-              }
-              break;
-          }
-        },
-        controller:
-            TextEditingController(text: setTextController(item, position)),
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      alignment: Alignment.center,
+      margin:
+          const EdgeInsets.only(left: 3.0, top: 0.0, right: 3.0, bottom: 0.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
       ),
-    ),
-  );
+      child: Padding(
+        padding: const EdgeInsets.only(left: 2.0),
+        child: TextField(
+          focusNode: widget.focus,
+          enabled: widget.enabled,
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.done,
+          textAlign: widget.textAlign,
+          onSubmitted: (value) {
+            if (value.isEmpty) value = "0";
+            switch (widget.position) {
+              case 1:
+                widget.item.bonus = double.parse(value);
+                break;
+              case 2:
+                widget.item.nameProduct = value;
+                break;
+              case 3:
+                if (value.isNotEmpty) {
+                  widget.item.qttySold = double.parse(value);
+                  if (widget.item.qttySold > 0) {
+                    widget.item.subtotal =
+                        widget.item.qttySold * widget.item.unitValue;
+                  } else {
+                    widget.item.subtotal = 0;
+                  }
+                }
+                break;
+            }
+          },
+          controller: TextEditingController(
+              text: setTextController(widget.item, widget.position)),
+        ),
+      ),
+    );
+  }
 }

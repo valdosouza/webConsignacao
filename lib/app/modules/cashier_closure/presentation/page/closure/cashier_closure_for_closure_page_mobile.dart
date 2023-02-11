@@ -32,8 +32,23 @@ class CashierClosureForClosurePageMobileState
     bloc.add(CashierClosureGetCurrentDateEvent());
   }
 
+  Color getColor(int index) {
+    switch (index) {
+      case 1:
+        return Colors.green;
+      case 2:
+        return Colors.blue;
+      case 3:
+        return Colors.black;
+      case 4:
+        return Colors.red;
+    }
+    return Colors.black;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -71,7 +86,7 @@ class CashierClosureForClosurePageMobileState
 
           if (state is GetCurrentDateSucessState) {
             bloc.add(
-              CashierClosureGetForClosureEvent(date: bloc.dtCashier),
+              CashierClosureGetForClosureEvent(date: bloc.dtCashierToday),
             );
           }
         },
@@ -79,9 +94,14 @@ class CashierClosureForClosurePageMobileState
           if (state is CashierClosureLoadingState) {
             return const Center(child: CircularProgressIndicator());
           }
-          return const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: ContentCashierForClosure(),
+          return Container(
+            alignment: Alignment.topCenter,
+            height: size.height,
+            width: size.width,
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ContentCashierForClosure(),
+            ),
           );
         },
       ),

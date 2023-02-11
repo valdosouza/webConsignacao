@@ -54,7 +54,7 @@ class AttendanceByCustomerPageMobileState
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
-              title: const Text('Lista de Clientes'),
+              title: Text('Lista de Clientes (${state.customerList.length})'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
@@ -73,8 +73,6 @@ class AttendanceByCustomerPageMobileState
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {
-                //Modular.to.pop();
-                //Navigator.of(context).pop();
                 Modular.to.navigate('/customer/mobile/');
               },
             ),

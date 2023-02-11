@@ -58,7 +58,7 @@ class CustomerRegisterModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(
       '/',
-      child: (_, args) => const CustomerRegisterPage(),
+      child: (_, args) => CustomerRegisterPage(tbCustomerId: args.data),
     ),
   ];
 }

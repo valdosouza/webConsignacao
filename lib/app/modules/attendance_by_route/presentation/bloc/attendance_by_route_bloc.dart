@@ -13,8 +13,8 @@ class AttendanceByRouteBloc
   final SalesRouteGetlist getlistSalesRoute;
   final CustomerGetlist getlistCustomer;
   final CustomerSequence sequence;
-  int idSequenceCustomer = -1;
-
+  //int idSequenceCustomer = -1;
+  int tbCustomerIdPickedForOrder = -1;
   List<SalesRouteListModel> saleroutlist = [];
   List<CustomerListByRouteModel> customerlist = [];
 
@@ -83,14 +83,16 @@ class AttendanceByRouteBloc
 
   orderMode() {
     on<CustomerOrderModeEvent>((event, emit) async {
-      idSequenceCustomer = event.tbCustomerId;
-      emit(CustomerListOrderState(customerList: customerlist));
+      tbCustomerIdPickedForOrder = event.tbCustomerId;
+      emit(CustomerListOrderState(
+        customerList: customerlist,
+      ));
     });
   }
 
   ordererMode() {
     on<CustomerOrderedModeEvent>((event, emit) async {
-      idSequenceCustomer = -1;
+      tbCustomerIdPickedForOrder = -1;
 
       var response = await sequence.call(ParamsSequenceCustomer(
           tbCustomerId: event.tbCustomerId,
@@ -106,7 +108,7 @@ class AttendanceByRouteBloc
 
   cancelOrderMode() {
     on<CustomerCancelOrderModeEvent>((event, emit) async {
-      idSequenceCustomer = -1;
+      tbCustomerIdPickedForOrder = -1;
       emit(CustomerListLoadedState(customerList: customerlist));
     });
   }

@@ -129,7 +129,7 @@ class _ContentDesktopPriceListRegisterState
       decoration: kBoxDecorationStyle,
       child: TextFormField(
         keyboardType: TextInputType.text,
-        autofocus: true,
+        autofocus: false,
         onChanged: (value) {
           bloc.add(PriceListRegisterSearchEvent(search: value));
         },

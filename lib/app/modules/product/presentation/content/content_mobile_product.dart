@@ -53,7 +53,7 @@ class _ContentMobileProductState extends State<ContentMobileProduct> {
                 decoration: kBoxDecorationStyle,
                 child: TextFormField(
                   keyboardType: TextInputType.text,
-                  autofocus: true,
+                  autofocus: false,
                   onChanged: (value) {
                     bloc.add(ProductSearchPriceListMobileEvent(search: value));
                   },

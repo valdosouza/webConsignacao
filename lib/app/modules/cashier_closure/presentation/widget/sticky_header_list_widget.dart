@@ -22,26 +22,26 @@ class StickyHeaderList extends StatelessWidget {
       controller: controller,
       header: Header(
         title:
-            '${closureModel.items![listIndex[index]].kind[0].toUpperCase()}${closureModel.items![listIndex[index]].kind.substring(1)}',
+            '${closureModel.items[listIndex[index]].kind[0].toUpperCase()}${closureModel.items[listIndex[index]].kind.substring(1)}',
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, i) {
-            if (closureModel.items![listIndex[index]].kind ==
-                closureModel.items![i].kind) {
+            if (closureModel.items[listIndex[index]].kind ==
+                closureModel.items[i].kind) {
               return ListTile(
-                trailing: Text('${closureModel.items![i].tagValue}'),
+                trailing: Text('${closureModel.items[i].tagValue}'),
                 leading: CircleAvatar(
                   backgroundColor: (Colors.black),
                   child: Text('${i + 1}'),
                 ),
-                title: Text(closureModel.items![i].description),
+                title: Text(closureModel.items[i].description),
               );
             } else {
               return const SizedBox();
             }
           },
-          childCount: closureModel.items!.length,
+          childCount: closureModel.items.length,
         ),
       ),
     );

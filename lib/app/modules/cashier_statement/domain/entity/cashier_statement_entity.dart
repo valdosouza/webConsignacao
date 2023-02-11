@@ -3,10 +3,11 @@ class CashierStatementEntity {
   String description;
   double tagValue;
   String kind;
+  String color;
 
-  CashierStatementEntity({
-    required this.description,
-    required this.tagValue,
-    required this.kind,
-  });
+  CashierStatementEntity(
+      {required this.description,
+      required this.tagValue,
+      required this.kind,
+      required this.color});
 }

@@ -109,7 +109,7 @@ class _ContentStockBalanceByStockListState
       decoration: kBoxDecorationStyle,
       child: TextFormField(
         keyboardType: TextInputType.text,
-        autofocus: true,
+        autofocus: false,
         onChanged: (value) {
           bloc.add(StockBalanceSearcheStocksListEvent(search: value));
         },
