@@ -21,7 +21,8 @@ class CashierStatementBloc
   List<CashierStatementModel> cashierStatement = List.empty();
   List<CashierStatementCustomerModel> customers = List.empty();
   int customerIndex = 0;
-  String dtCashier = "";
+  String dtCashierToday = "";
+  String dtCashierMonth = "";
 
   CashierStatementBloc({
     required this.day,
@@ -39,12 +40,12 @@ class CashierStatementBloc
   getCurrentData() {
     on<GetCurrentDateEvent>((event, emit) async {
       emit(LoadingState());
-      dtCashier = await LocalStorageService.instance
+      dtCashierToday = await LocalStorageService.instance
           .get(key: LocalStorageKey.dtCashier);
-      if (dtCashier == "") {
-        dtCashier = CustomDate.newDate();
+      if (dtCashierToday == "") {
+        dtCashierToday = CustomDate.newDate();
       }
-
+      dtCashierMonth = CustomDate().getMonth(dtCashierToday);
       emit(GetCurrentDateSucessState());
     });
   }

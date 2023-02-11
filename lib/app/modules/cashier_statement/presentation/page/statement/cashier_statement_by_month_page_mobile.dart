@@ -63,7 +63,7 @@ class CashierStatementByMonthPageMobileState
           }
           if (state is GetCurrentDateSucessState) {
             bloc.add(CashierStatementGetByMonthMobileEvent(
-              params: CashierStatementParams(date: bloc.dtCashier),
+              params: CashierStatementParams(date: bloc.dtCashierToday),
             ));
           }
         },

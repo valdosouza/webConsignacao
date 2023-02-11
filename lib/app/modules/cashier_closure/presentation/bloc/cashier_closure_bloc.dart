@@ -22,7 +22,7 @@ class CashierClosureBloc
   late List<CashierClosurePreviouslyModel> closuresSearched;
 
   String dtCashierToday = "";
-  String dtCashierYesterDay = "";
+  String dtCashierYesterday = "";
 
   CashierClosureBloc({
     required this.cashierClosureGet,
@@ -66,7 +66,7 @@ class CashierClosureBloc
     if (dtCashierToday == "") {
       dtCashierToday = CustomDate.newDate();
     }
-    dtCashierYesterDay = CustomDate.yesterday(dtCashierToday);
+    dtCashierYesterday = CustomDate.yesterday(dtCashierToday);
     emit(GetCurrentDateSucessState());
   }
 

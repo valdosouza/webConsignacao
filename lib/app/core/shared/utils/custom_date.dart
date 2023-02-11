@@ -61,6 +61,13 @@ class CustomDate {
     }
   }
 
+  String getMonth(String date) {
+    initializeDateFormatting('pt_BR,', null);
+    var dateMonth = DateTime.parse(formatDateOut(date));
+    //return DateFormat('MMM').format(DateTime(0, currentMonthIndex)).toString();
+    return DateFormat('MMMM').format(dateMonth);
+  }
+
   static tomorrow() {
     try {
       initializeDateFormatting('pt_BR,', null);

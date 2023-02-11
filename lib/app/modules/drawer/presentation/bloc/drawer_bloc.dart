@@ -60,8 +60,10 @@ class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
 
   userLogged() {
     on<UserLoggedEvent>((event, emit) async {
+      emit(LoadingState());
       userName =
           await LocalStorageService.instance.get(key: LocalStorageKey.userName);
+      emit(GetSucessState());
     });
   }
 }

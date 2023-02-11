@@ -31,6 +31,12 @@ class CashierClosurePageMobileState extends State<CashierClosurePageMobile> {
           decoration: kBoxDecorationflexibleSpace,
         ),
         title: const Text("Fechamento"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Modular.to.navigate('/cashier/mobile/');
+          },
+        ),
       ),
       drawer: const DrawerPageMobile(),
       body: SizedBox(

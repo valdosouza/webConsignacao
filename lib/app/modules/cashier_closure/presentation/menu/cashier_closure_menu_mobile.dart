@@ -37,7 +37,7 @@ class _CashierClosureMenuMobileState extends State<CashierClosureMenuMobile> {
             ),
             itemMenuDraw(
               Icons.home,
-              'Ontem - ${bloc.dtCashierYesterDay}',
+              'Ontem - ${bloc.dtCashierYesterday}',
               () async =>
                   Modular.to.navigate('/cashierclosure/mobile/yesterday/'),
             ),

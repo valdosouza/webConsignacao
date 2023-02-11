@@ -12,10 +12,7 @@ class LoadingState extends DrawerState {}
 
 class GetErrorState extends DrawerState {}
 
-class GetSucessState extends DrawerState {
-  late final bool cashierOpen;
-  GetSucessState(this.cashierOpen);
-}
+class GetSucessState extends DrawerState {}
 
 class DrawerCashierIsOpenState extends DrawerState {
   final bool open;
