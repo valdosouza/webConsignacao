@@ -115,17 +115,6 @@ class CashierClosureBloc
 
     var result =
         response.fold((l) => CashierClosureGetClosureErrorState(), (r) {
-      //vardtCashier =
-      //    LocalStorageService.instance.get(key: LocalStorageKey.dtCashier);
-      var dtCurrent = CustomDate.newDate();
-      if (dtCurrent == dtCashierToday) {
-        LocalStorageService.instance.saveItem(
-            key: LocalStorageKey.dtCashier, value: CustomDate.tomorrow());
-      } else {
-        //abrir o caixa
-        LocalStorageService.instance
-            .saveItem(key: LocalStorageKey.dtCashier, value: dtCurrent);
-      }
       return PostSucessState(message: r);
     });
 

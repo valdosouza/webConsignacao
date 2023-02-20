@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_sale_register/order_sale_register_module.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_bloc.dart';
@@ -50,7 +51,7 @@ class OrderSaleRegisterPageMobileState
               "Erro ao buscar os dados. Tente novamente mais tarde");
           Modular.to.navigate('/attendance/');
         } else if (state is OrderSaleCardPostErrorState) {
-          CustomToast.showToast("Erro ao gravar a venda.Tente novamente");
+          CustomToast.showToast(state.error);
         }
       },
       builder: (context, state) {
@@ -63,7 +64,7 @@ class OrderSaleRegisterPageMobileState
 
         if (state is OrderSaleRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
         if (state is OrderSaleGetNewCardListLoadedState) {

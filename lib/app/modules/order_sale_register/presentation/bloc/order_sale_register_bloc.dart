@@ -65,28 +65,63 @@ class OrderSaleRegisterBloc
     });
   }
 
+  Future<String> _validadePost() async {
+    if (modelOrderSale.payments[0].tbPaymentTypeId == 3) {
+      modelOrderSale.payments[0].value = modelOrderSale.order.totalValue;
+      if (modelOrderSale.payments[0].dtExpiration.isEmpty) {
+        return "Informe a data de Vencimento.";
+      }
+    }
+    if (modelOrderSale.order.totalValue == 0) {
+      double bonus = 0;
+      for (var item in modelOrderSale.items) {
+        bonus += item.bonus;
+      }
+      //Se nenhum bonus foi dado e nenhuma venda informada
+      if (bonus == 0) {
+        return "Valor total igual a zero. Informe a venda.";
+      }
+    } else {
+      double payment = 0;
+      for (var item in modelOrderSale.payments) {
+        payment += item.value;
+      }
+      if (payment < modelOrderSale.order.totalValue) {
+        return "Os valores de pagamentos abaixo do esperado.";
+      }
+    }
+
+    return "";
+  }
+
   ordersaleCardPos() {
     on<OrderSaleCardPostEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
-      event.model.order.id = modelAttendance.id;
-      event.model.order.tbInstitutionId = modelAttendance.tbInstitutionId;
-      event.model.order.tbCustomerId = modelAttendance.tbCustomerId;
-      event.model.order.nameCustomer = modelAttendance.nameCustomer;
+      String errorValidate = await _validadePost();
 
-      event.model.order.tbSalesmanId = modelAttendance.tbSalesmanId;
-      event.model.order.nameSalesman = modelAttendance.nameSalesman;
+      if (errorValidate.isNotEmpty) {
+        emit(OrderSaleCardPostErrorState(error: errorValidate));
+      } else {
+        event.model.order.id = modelAttendance.id;
+        event.model.order.tbInstitutionId = modelAttendance.tbInstitutionId;
+        event.model.order.tbCustomerId = modelAttendance.tbCustomerId;
+        event.model.order.nameCustomer = modelAttendance.nameCustomer;
 
-      event.model.order.tbUserId = modelAttendance.tbUserId;
+        event.model.order.tbSalesmanId = modelAttendance.tbSalesmanId;
+        event.model.order.nameSalesman = modelAttendance.nameSalesman;
 
-      event.model.order.dtRecord = modelAttendance.dtRecord;
+        event.model.order.tbUserId = modelAttendance.tbUserId;
 
-      final response = await postOrderSale(event.model);
-      var result = response
-          .fold((l) => OrderSaleCardPostErrorState(error: l.toString()), (r) {
-        modelOrderSale.order = r;
-        return OrderSaleCardPostSucessState();
-      });
-      emit(result);
+        event.model.order.dtRecord = modelAttendance.dtRecord;
+
+        final response = await postOrderSale(event.model);
+        var result = response
+            .fold((l) => OrderSaleCardPostErrorState(error: l.toString()), (r) {
+          modelOrderSale.order = r;
+          return OrderSaleCardPostSucessState();
+        });
+        emit(result);
+      }
     });
   }
 

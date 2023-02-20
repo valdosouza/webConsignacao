@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_main_model.dart';
 import 'package:appweb/app/modules/order_load_card_register/order_load_card_register_module.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
@@ -42,7 +43,7 @@ class OrderLoadCardRegisterPageDesktopState
       builder: (context, state) {
         if (state is OrderLoadCardRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
 

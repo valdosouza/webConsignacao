@@ -34,27 +34,41 @@ class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
   cashierIsOpen() {
     on<CashierIsOpenEvent>((event, emit) async {
       emit(LoadingState());
-      var dtCashier = await LocalStorageService.instance
-          .get(key: LocalStorageKey.dtCashier);
-      if (dtCashier == null) {
-        dtCashier = CustomDate.newDate();
-        //abrir o caixa
-        await LocalStorageService.instance
-            .saveItem(key: LocalStorageKey.dtCashier, value: dtCashier);
-      }
-
       var dtCurrent = CustomDate.newDate();
-      if (dtCurrent != dtCashier) {
-        var response =
-            await drawerCashierIsOpen.call(ParamsDrawerCashierIsOpen());
+      var dtCashier = "";
+      var response =
+          await drawerCashierIsOpen.call(ParamsDrawerCashierIsOpen());
 
-        var result = response.fold((l) => GetErrorState(), (r) {
-          return DrawerCashierIsOpenState(open: r);
-        });
-        emit(result);
-      } else {
-        emit(DrawerCashierIsOpenState(open: false));
-      }
+      var result = response.fold((l) {
+        return GetErrorState(error: l.toString());
+      }, (r) {
+        dtCashier = r.dtRecord;
+
+        if (r.status == "A") {
+          if (r.dtRecord == dtCurrent) {
+            return DrawerCashierStatusState(msg: "Aberto");
+          } else {
+            return DrawerCashierStatusState(
+                msg: "Por favor faça o encerramento");
+          }
+        } else {
+          if (r.status == "F") {
+            if (r.dtRecord == dtCurrent) {
+              return DrawerCashierStatusState(
+                  msg: "Caixa Fechado - Aguarde próximo dia.");
+            } else {
+              //Caixa será aberto automaticamente
+              return DrawerCashierStatusState(msg: "Aberto");
+            }
+          } else {
+            //Caixa será aberto automaticamente
+            return DrawerCashierStatusState(msg: "Aberto");
+          }
+        }
+      });
+      await LocalStorageService.instance
+          .saveItem(key: LocalStorageKey.dtCashier, value: dtCashier);
+      emit(result);
     });
   }
 

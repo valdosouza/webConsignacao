@@ -9,11 +9,13 @@ class AttendanceByCustomerBloc
   final CustomerGetlist getlistCustomer;
 
   List<CustomerListModel> customerlist = [];
+  List<CustomerListModel> customerlistReserv = [];
 
   AttendanceByCustomerBloc({
     required this.getlistCustomer,
   }) : super(CustomerListLoadingState()) {
     getListCustomer();
+    searchCustomer();
   }
 
   getListCustomer() {
@@ -29,6 +31,21 @@ class AttendanceByCustomerBloc
       });
 
       emit(result);
+    });
+  }
+
+  searchCustomer() {
+    on<CustomerSearchEvent>((event, emit) async {
+      customerlist;
+      if (event.search.isNotEmpty) {
+        customerlistReserv = customerlist
+            .where((x) =>
+                x.nickTrade.toLowerCase().contains(event.search.toLowerCase()))
+            .toList();
+        emit(CustomerListLoadedState(customerList: customerlistReserv));
+      } else {
+        emit(CustomerListLoadedState(customerList: customerlist));
+      }
     });
   }
 }

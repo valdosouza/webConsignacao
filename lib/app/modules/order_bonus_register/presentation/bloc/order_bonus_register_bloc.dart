@@ -356,7 +356,7 @@ class OrderBonusRegisterBloc
     on<OrderBonusRegisterSearchEntityEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var entitiesSearched = entities.where((element) {
-          String name = element.nameCompany;
+          String name = element.nickTrade;
           int id = element.id;
           return (name
                   .toLowerCase()

@@ -124,7 +124,7 @@ class CollaboratorRegisterBloc
     on<CollaboratorRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var collaboratorSearchedName = modelList.where((element) {
-          String name = element.nameCompany;
+          String name = element.nickTrade;
           return name
               .toLowerCase()
               .trim()

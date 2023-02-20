@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/order_production_register/data/model/order_production_register_model.dart';
 import 'package:appweb/app/modules/order_production_register/order_production_register_module.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/bloc/order_production_register_bloc.dart';
@@ -45,7 +46,7 @@ class OrderProductionRegisterPageDesktopState
       builder: (context, state) {
         if (state is OrderLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
 

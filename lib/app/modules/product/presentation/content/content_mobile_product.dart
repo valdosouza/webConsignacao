@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/product/presentation/bloc/product_event.dart';
 import 'package:appweb/app/modules/product/presentation/bloc/product_bloc.dart';
 import 'package:appweb/app/modules/product/presentation/bloc/product_state.dart';
@@ -42,7 +43,7 @@ class _ContentMobileProductState extends State<ContentMobileProduct> {
       builder: (context, state) {
         if (state is ProductLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
         return Padding(

@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_bloc.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_event.dart';
 import 'package:appweb/app/modules/price_list_register/presentation/bloc/price_list_register_state.dart';
@@ -50,7 +51,7 @@ class _ContentDesktopPriceListRegisterState
       builder: (context, state) {
         if (state is PriceListRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         } else if (state is PriceListRegisterInfoPageState) {
           return const PriceListRegisterInterationPage();

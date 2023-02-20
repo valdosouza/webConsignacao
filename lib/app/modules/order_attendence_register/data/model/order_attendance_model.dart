@@ -16,8 +16,10 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
   String visited;
   String charged;
   String recall;
+  String finished;
   String longitude;
   String latitude;
+  String routeRetorn;
 
   OrderAttendanceModel({
     required this.id,
@@ -33,9 +35,11 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     required this.status,
     required this.visited,
     required this.charged,
+    required this.finished,
     required this.recall,
     required this.longitude,
     required this.latitude,
+    required this.routeRetorn,
   }) : super(
           id: id,
           tbInstitutionId: tbInstitutionId,
@@ -51,8 +55,10 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
           visited: visited,
           charged: charged,
           recall: recall,
+          finished: finished,
           longitude: longitude,
           latitude: latitude,
+          routeRetorn: routeRetorn,
         );
 
   factory OrderAttendanceModel.fromJson(Map<String, dynamic> json) {
@@ -73,8 +79,10 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
       visited: json['visited'],
       charged: json['charged'],
       recall: json['recall'],
+      finished: json['finished'],
       longitude: json['longitude'],
       latitude: json['latitude'],
+      routeRetorn: "",
     );
   }
 
@@ -94,6 +102,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     data["visited"] = visited;
     data["charged"] = charged;
     data["recall"] = recall;
+    data['finished'] = finished;
     data["longitude"] = longitude;
     data["latitude"] = latitude;
     return data;
@@ -101,21 +110,24 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
 
   factory OrderAttendanceModel.isEmpty() {
     return OrderAttendanceModel(
-        id: 0,
-        tbInstitutionId: 0,
-        tbUserId: 0,
-        tbCustomerId: 0,
-        nameCustomer: "",
-        tbSalesmanId: 0,
-        nameSalesman: "",
-        tbPriceListId: 0,
-        dtRecord: "",
-        note: "",
-        status: "A",
-        visited: "N",
-        charged: "N",
-        recall: "N",
-        latitude: "",
-        longitude: "");
+      id: 0,
+      tbInstitutionId: 0,
+      tbUserId: 0,
+      tbCustomerId: 0,
+      nameCustomer: "",
+      tbSalesmanId: 0,
+      nameSalesman: "",
+      tbPriceListId: 0,
+      dtRecord: "",
+      note: "",
+      status: "A",
+      visited: "N",
+      charged: "N",
+      recall: "N",
+      finished: "S",
+      latitude: "",
+      longitude: "",
+      routeRetorn: "",
+    );
   }
 }

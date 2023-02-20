@@ -3,6 +3,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_bloc.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_event.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_state.dart';
@@ -79,7 +80,7 @@ class _ContentDesktopInstitutionRegisterState
         },
         builder: (context, state) {
           if (state is InstitutionLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomCircularProgressIndicator();
           }
           if (state is InstitutionGetStatesSuccessState ||
               state is InstitutionGetCitySuccessState) {

@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_event.dart';
@@ -34,64 +35,70 @@ class _DrawerPageMainState extends State<DrawerPageMain> {
         }
       },
       builder: (context, state) {
-        return Drawer(
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      Colors.red,
-                      Colors.black,
-                      //Colors.black,
-                      Colors.white,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Material(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(40.0)),
-                      elevation: 10,
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            "images/logomarca.png",
-                            width: 180,
-                            height: 90,
-                            //fit: BoxFit.fill,
-                          )),
-                    ),
-                    const SizedBox(height: 5),
-                    AutoSizeText(
-                      bloc.userName,
-                      style: const TextStyle(color: Colors.black, fontSize: 18),
-                    )
-                  ],
-                ),
-              ),
-              itemMenuDraw(Icons.home, 'Administração',
-                  () => Modular.to.navigate('/admin/content/')),
-              itemMenuDraw(Icons.home, 'Produtos',
-                  () => Modular.to.navigate('/product/content/')),
-              itemMenuDraw(Icons.home, 'Estoque',
-                  () => Modular.to.navigate('/stock/desktop/')),
-              itemMenuDraw(Icons.home, 'Clientes',
-                  () => Modular.to.navigate('/customer/desktop/')),
-              itemMenuDraw(Icons.home, 'Financeiro',
-                  () => Modular.to.navigate('/financial/content/')),
-              itemMenuDraw(Icons.home, 'Pessoal',
-                  () => Modular.to.navigate('/resourcehuman/content/')),
-              itemMenuDraw(Icons.home, 'Produção',
-                  () => Modular.to.navigate('/orderproduction/content/')),
-              itemLogout(Icons.close, 'Sair'),
-            ],
-          ),
-        );
+        if (state is LoadingState) {
+          return const CustomCircularProgressIndicator();
+        }
+        return drawer();
       },
+    );
+  }
+
+  Widget drawer() {
+    return Drawer(
+      child: ListView(
+        children: <Widget>[
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[
+                  Colors.red,
+                  Colors.black,
+                  //Colors.black,
+                  Colors.white,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Column(
+              children: <Widget>[
+                Material(
+                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
+                  elevation: 10,
+                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        "images/logomarca.png",
+                        width: 180,
+                        height: 90,
+                        //fit: BoxFit.fill,
+                      )),
+                ),
+                const SizedBox(height: 5),
+                AutoSizeText(
+                  bloc.userName,
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                )
+              ],
+            ),
+          ),
+          itemMenuDraw(Icons.home, 'Administração',
+              () => Modular.to.navigate('/admin/content/')),
+          itemMenuDraw(Icons.home, 'Produtos',
+              () => Modular.to.navigate('/product/content/')),
+          itemMenuDraw(Icons.home, 'Estoque',
+              () => Modular.to.navigate('/stock/desktop/')),
+          itemMenuDraw(Icons.home, 'Clientes',
+              () => Modular.to.navigate('/customer/desktop/')),
+          itemMenuDraw(Icons.home, 'Financeiro',
+              () => Modular.to.navigate('/financial/content/')),
+          itemMenuDraw(Icons.home, 'Pessoal',
+              () => Modular.to.navigate('/resourcehuman/content/')),
+          itemMenuDraw(Icons.home, 'Produção',
+              () => Modular.to.navigate('/orderproduction/content/')),
+          itemLogout(Icons.close, 'Sair'),
+        ],
+      ),
     );
   }
 

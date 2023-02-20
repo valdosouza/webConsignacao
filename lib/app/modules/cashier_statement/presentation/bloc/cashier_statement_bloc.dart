@@ -6,6 +6,7 @@ import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statemen
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_customer.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_day.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_month.dart';
+import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_order.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_customer.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
@@ -13,9 +14,10 @@ import 'package:bloc/bloc.dart';
 
 class CashierStatementBloc
     extends Bloc<CashierStatementEvent, CashierStatementState> {
-  final CashierStatementGetByDay day;
-  final CashierStatementGetByMonth month;
-  final CashierStatementGetByCustomer statementCustomer;
+  final CashierStatementGetByDay byDay;
+  final CashierStatementGetByMonth byMonth;
+  final CashierStatementGetByCustomer byCustomer;
+  final CashierStatementGetByOrder byOrder;
   final CashierStatementGetCustomers customersCharged;
 
   List<CashierStatementModel> cashierStatement = List.empty();
@@ -25,14 +27,16 @@ class CashierStatementBloc
   String dtCashierMonth = "";
 
   CashierStatementBloc({
-    required this.day,
-    required this.month,
-    required this.statementCustomer,
+    required this.byDay,
+    required this.byMonth,
+    required this.byCustomer,
+    required this.byOrder,
     required this.customersCharged,
   }) : super(LoadedState()) {
     cashierStatementGetByDay();
     cashierStatementGetByMonth();
     cashierStatementGetByCustomer();
+    cashierStatementGetByOrder();
     cashierStatementGetCustomers();
     getCurrentData();
   }
@@ -54,7 +58,7 @@ class CashierStatementBloc
     on<CashierStatementGetByDayMobileEvent>((event, emit) async {
       emit(LoadingState());
 
-      var response = await day.call(event.params);
+      var response = await byDay.call(event.params);
 
       var result = response.fold((l) => MobileErrorState(), (r) {
         cashierStatement = r;
@@ -69,7 +73,7 @@ class CashierStatementBloc
     on<CashierStatementGetByMonthMobileEvent>((event, emit) async {
       emit(LoadingState());
 
-      var response = await month.call(event.params);
+      var response = await byMonth.call(event.params);
 
       var result = response.fold((l) => MobileErrorState(), (r) {
         cashierStatement = r;
@@ -83,10 +87,31 @@ class CashierStatementBloc
   cashierStatementGetByCustomer() {
     on<CashierStatementGetByCustomerMobileEvent>((event, emit) async {
       emit(LoadingState());
+      //posicina o cliente na lista para mostrar na proxima tela do detalhamento
+
       var dtCashier = await LocalStorageService.instance
           .get(key: LocalStorageKey.dtCashier);
       event.params.date = CustomDate.formatDateOut(dtCashier);
-      var response = await statementCustomer.call(event.params);
+      var response = await byCustomer.call(event.params);
+
+      var result = response.fold((l) => MobileErrorState(), (r) {
+        cashierStatement = r;
+        return ByCustomerState();
+      });
+
+      emit(result);
+    });
+  }
+
+  cashierStatementGetByOrder() {
+    on<CashierStatementGetByOrderMobileEvent>((event, emit) async {
+      emit(LoadingState());
+      //posicina o cliente na lista para mostrar na proxima tela do detalhamento
+
+      var dtCashier = await LocalStorageService.instance
+          .get(key: LocalStorageKey.dtCashier);
+      event.params.date = CustomDate.formatDateOut(dtCashier);
+      var response = await byOrder.call(event.params);
 
       var result = response.fold((l) => MobileErrorState(), (r) {
         cashierStatement = r;

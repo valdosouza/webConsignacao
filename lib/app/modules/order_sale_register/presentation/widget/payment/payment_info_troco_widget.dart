@@ -13,6 +13,7 @@ Widget paymentinfotroco(OrderSaleMainCardModel modelOrderSale) {
     if (modelOrderSale.order.totalValue > 0) {
       if (totalpayment > modelOrderSale.order.totalValue) {
         if (totalcash > 0) {
+          modelOrderSale.order.changeValue = 0;
           modelOrderSale.order.changeValue =
               totalpayment - modelOrderSale.order.totalValue;
           if (totalcash > modelOrderSale.order.changeValue) {

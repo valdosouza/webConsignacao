@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/order_bonus_register/data/model/order_bonus_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_bonus_register/order_bonus_register_module.dart';
@@ -47,7 +48,7 @@ class OrderBonusRegisterPageDesktopState
       builder: (context, state) {
         if (state is OrderBonusRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
 

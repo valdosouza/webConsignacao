@@ -70,7 +70,7 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
         leftover: item.qttyConsigned - item.qttySold,
         devolution: 0,
         newConsignment: 0,
-        qttyConsigned: item.leftover,
+        qttyConsigned: item.qttyConsigned - item.qttySold,
         unitValue: item.unitValue,
       ));
     }

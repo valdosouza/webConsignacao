@@ -97,7 +97,7 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           widget.orderStockAdjustment.nameEntity =
-                              state.entity[index].nameCompany;
+                              state.entity[index].nickTrade;
                           widget.orderStockAdjustment.tbEntityid =
                               state.entity[index].id;
                           bloc.add(OrderStockAdjustmentRegisterReturnEvent());
@@ -113,7 +113,7 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(state.entity[index].nameCompany),
+                              Text(state.entity[index].nickTrade),
                             ],
                           ),
                         ),

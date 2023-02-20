@@ -70,7 +70,7 @@ buildListView(CustomerRegisterBloc bloc, List<CustomerListModel> customers) {
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Nome: ${customers[index].nameCompany}"),
+                    Text("Nome: ${customers[index].nickTrade}"),
                     const SizedBox(height: 5.0),
                     customers[index].docKind == "J"
                         ? Text("CNPJ: ${customers[index].docNumber}")

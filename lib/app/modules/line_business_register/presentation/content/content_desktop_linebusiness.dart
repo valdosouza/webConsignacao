@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_bloc.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_event.dart';
 import 'package:appweb/app/modules/line_business_register/presentation/bloc/linebusiness_register_state.dart';
@@ -50,7 +51,7 @@ class _ContentDesktopLinebusinessState
       builder: (context, state) {
         if (state is LinebusinessLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         } else if (state is LinebusinessInfoPageState) {
           return const LinebusinessInterationPage();

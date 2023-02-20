@@ -38,7 +38,6 @@ class CustomerDataSourceImpl extends CustomerDataSource {
         items = (data as List).map((json) {
           return CustomerListModel.fromJson(json);
         }).toList();
-
         return items;
       } else {
         throw ServerException();

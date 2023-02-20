@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
@@ -74,7 +75,7 @@ class OrderConsginmentRegisterPageMobileState
 
         if (state is OrderConsignmentRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
         if (state is OrderConsignmentRegisterSupplyingClearSucessState) {

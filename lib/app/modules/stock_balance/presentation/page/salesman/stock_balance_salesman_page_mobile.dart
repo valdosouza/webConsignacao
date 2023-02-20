@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_bloc.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_event.dart';
@@ -41,7 +42,7 @@ class StockBalanceSalesmanPageMobileState
       builder: (context, state) {
         if (state is StockBalanceLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
 

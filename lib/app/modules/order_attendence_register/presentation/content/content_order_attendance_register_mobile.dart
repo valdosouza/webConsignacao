@@ -101,6 +101,7 @@ class _ContentOrderAttendanceRegisterMobileState
                   onPressed: () {
                     bloc.orderAttendance.note = editcontrol.text;
                     bloc.orderAttendance.tbPriceListId = 0;
+                    bloc.orderAttendance.finished = "S";
                     bloc.add(OrderAttendanceRegisterPostEvent());
                   },
                   child: Column(

@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_bloc.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_event.dart';
 import 'package:appweb/app/modules/payment_type_register/presentation/bloc/payment_type_register_state.dart';
@@ -49,9 +50,7 @@ class _ContentDesktopPaymentTypeRegisterState
       },
       builder: (context, state) {
         if (state is PaymentTypeRegisterLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const CustomCircularProgressIndicator();
         } else if (state is PaymentTypeRegisterInfoPageState) {
           return const PaymentTypeRegisterInterationPage();
         }

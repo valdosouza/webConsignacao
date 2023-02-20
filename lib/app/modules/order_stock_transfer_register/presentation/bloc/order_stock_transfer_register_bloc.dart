@@ -377,7 +377,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     on<EntitySearchEvent>((event, emit) async {
       if (search.isNotEmpty) {
         var entitiesSearched = entities.where((element) {
-          String name = element.nameCompany;
+          String name = element.nickTrade;
           int id = element.id;
           return (name
                   .toLowerCase()

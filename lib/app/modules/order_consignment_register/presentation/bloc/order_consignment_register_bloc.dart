@@ -81,36 +81,58 @@ class OrderConsignmentRegisterBloc
   }
 
   Future<String> _validadeSupplyingPost() async {
-    if (modelSupplying.order.recall == "S") {
-      if (modelSupplying.order.note.length < 10) {
-        return "Detalhe melhor por que o produto foi recolhido.";
+    double leftover = 0;
+    for (var item in modelSupplying.items) {
+      leftover += item.leftover;
+    }
+    if (leftover > 0) {
+      if (modelSupplying.order.recall == "S") {
+        if (modelSupplying.order.note.length < 10) {
+          return "Detalhe melhor por que o produto foi recolhido.";
+        }
+        for (var item in modelSupplying.items) {
+          item.devolution = item.leftover;
+        }
+      }
+    } else {
+      double bonus = 0;
+      for (var item in modelSupplying.items) {
+        bonus += item.bonus;
+      }
+      double newConsignment = 0;
+      for (var item in modelSupplying.items) {
+        newConsignment += item.newConsignment;
+      }
+      if ((newConsignment == 0) && (bonus == 0)) {
+        return "Preecha a coluna de Bonus ou de Nova Consignação.";
       }
     }
+
     return "";
   }
 
   supplyingPost() {
     on<OrderConsignementRegisterSupplyngPostEvent>((event, emit) async {
-      _validadeSupplyingPost().then((errorValidate) async {
-        emit(OrderConsignmentRegisterLoadingState());
-        if (errorValidate.isNotEmpty) {
-          emit(OrderConsignmentRegisterSupplyingPostErrorState(
-              error: errorValidate));
-        } else {
-          event.suplyingmodel.order.id = modelAttendance.id;
-          event.suplyingmodel.order.tbInstitutionId =
-              modelAttendance.tbInstitutionId;
-          event.suplyingmodel.order.dtRecord = modelAttendance.dtRecord;
+      emit(OrderConsignmentRegisterLoadingState());
+      String errorValidate = await _validadeSupplyingPost();
 
-          final response = await postSupplying(event.suplyingmodel);
-          response.fold((l) {
-            emit(OrderConsignmentRegisterSupplyingPostErrorState(
-                error: l.toString()));
-          }, (r) {
-            emit(OrderConsignmentRegisterSupplyingPostSucessState());
-          });
-        }
-      });
+      if (errorValidate.isNotEmpty) {
+        emit(OrderConsignmentRegisterSupplyingPostErrorState(
+            error: errorValidate));
+      } else {
+        event.suplyingmodel.order.id = modelAttendance.id;
+        event.suplyingmodel.order.tbInstitutionId =
+            modelAttendance.tbInstitutionId;
+        event.suplyingmodel.order.dtRecord = modelAttendance.dtRecord;
+
+        final response = await postSupplying(event.suplyingmodel);
+        response.fold((l) {
+          emit(OrderConsignmentRegisterSupplyingPostErrorState(
+              error: l.toString()));
+        }, (r) {
+          emit(OrderConsignmentRegisterSupplyingPostSucessState());
+        });
+      }
     });
   }
 

@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_bloc.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_event.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_state.dart';
@@ -67,7 +68,7 @@ class _CashierBalanceMobiletState extends State<CashierBalancePageMobile> {
         },
         builder: (context, state) {
           if (state is CashierBalanceLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomCircularProgressIndicator();
           }
           if (state is CashierBalanceMobileSuccessState) {
             return const ContentMobileCashierBalance();

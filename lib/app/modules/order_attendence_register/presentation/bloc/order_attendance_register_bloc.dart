@@ -1,3 +1,6 @@
+import 'package:appweb/app/core/shared/helpers/local_storage.dart';
+import 'package:appweb/app/core/shared/local_storage_key.dart';
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_attendence_register/domain/usecase/order_attendance_post.dart';
 import 'package:appweb/app/modules/order_attendence_register/domain/usecase/order_attendance_put.dart';
@@ -45,15 +48,22 @@ class OrderAttendanceRegisterBloc
       emit(OrderAttendanceRegisterLoadingState());
       final response = await postOrderAttendance.call(orderAttendance);
 
-      response.fold((l) {
-        emit(OrderAttendanceRegisterPostErrorState(error: ""));
+      final result = response.fold((l) {
+        return OrderAttendanceRegisterPostErrorState(error: "");
       }, (r) {
         orderAttendance = r;
-        emit(
-          OrderAttendanceRegisterPostSuccessState(
-              orderAttendance: orderAttendance),
-        );
+        return OrderAttendanceRegisterPostSuccessState(
+            orderAttendance: orderAttendance);
       });
+      var dtCashier = await LocalStorageService.instance
+          .get(key: LocalStorageKey.dtCashier);
+      var dtAttendace = CustomDate.formatDateIn(orderAttendance.dtRecord);
+      final dtResut = dtCashier.compareTo(dtAttendace);
+      if (dtResut != 0) {
+        LocalStorageService.instance
+            .saveItem(key: LocalStorageKey.dtCashier, value: dtAttendace);
+      }
+      emit(result);
     });
   }
 

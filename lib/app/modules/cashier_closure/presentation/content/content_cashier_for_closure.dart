@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/cashier_closure/cashier_closure_module.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/bloc/cashier_closure_bloc.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _ContentCashierForClosureState extends State<ContentCashierForClosure> {
         },
         builder: (context, state) {
           if (state is CashierClosureLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomCircularProgressIndicator();
           }
           if (bloc.closureModel.items.isEmpty) {
             return const Center(

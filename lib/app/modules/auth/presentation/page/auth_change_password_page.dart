@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/core/shared/widgets/logo_area.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_change_password_model.dart';
@@ -53,7 +54,7 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
       builder: (context, state) {
         if (state is AuthLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
         return Scaffold(

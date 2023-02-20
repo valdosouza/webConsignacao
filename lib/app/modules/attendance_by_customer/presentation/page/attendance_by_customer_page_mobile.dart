@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/attendance_by_customer/attendance_by_customer_module.dart';
 import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_bloc.dart';
 import 'package:appweb/app/modules/attendance_by_customer/presentation/content/customer_list_mobile.dart';
@@ -43,9 +44,7 @@ class AttendanceByCustomerPageMobileState
       },
       builder: (context, state) {
         if (state is CustomerListLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const CustomCircularProgressIndicator();
         }
 
         if (state is CustomerListLoadedState) {

@@ -23,6 +23,13 @@ class CashierStatementGetByCustomerMobileEvent extends CashierStatementEvent {
   });
 }
 
+class CashierStatementGetByOrderMobileEvent extends CashierStatementEvent {
+  CashierStatementParams params;
+  CashierStatementGetByOrderMobileEvent({
+    required this.params,
+  });
+}
+
 class CashierStatementGetCustomersMobileEvent extends CashierStatementEvent {
   CashierStatementParams params;
   CashierStatementGetCustomersMobileEvent({

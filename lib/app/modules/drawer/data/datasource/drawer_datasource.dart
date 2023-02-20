@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
+import 'package:appweb/app/modules/Core/data/model/cashier_status_model.dart';
 
 abstract class DrawerDataSource extends Gateway {
   DrawerDataSource({required super.httpClient});
 
-  Future<bool> cashierIsOpen();
+  Future<CashierStatusModel> cashierIsOpen();
 }
 
 class DrawerDataSourceImpl extends DrawerDataSource {
   DrawerDataSourceImpl({required super.httpClient});
 
   @override
-  Future<bool> cashierIsOpen() async {
+  Future<CashierStatusModel> cashierIsOpen() async {
     String tbInstitutionId = '1';
     await getInstitutionId().then((value) {
       tbInstitutionId = value.toString();
@@ -26,7 +27,7 @@ class DrawerDataSourceImpl extends DrawerDataSource {
       'cashier/isopen/$tbInstitutionId/$tbUserId',
       (payload) {
         final data = json.decode(payload);
-        return data['result'] as bool;
+        return CashierStatusModel.fromJson(data);
       },
       onError: (error) {
         return ServerException;

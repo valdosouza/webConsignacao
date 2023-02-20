@@ -13,11 +13,24 @@ class CashierStatementRepositoryImpl implements CashierStatementRepository {
   CashierStatementRepositoryImpl({required this.datasource});
 
   @override
-  Future<Either<Failure, List<CashierStatementModel>>> cashierStatementGetByCustomer(
-      {required CashierStatementParams params}) async {
+  Future<Either<Failure, List<CashierStatementModel>>>
+      cashierStatementGetByCustomer(
+          {required CashierStatementParams params}) async {
     try {
       final model =
           await datasource.cashierStatementGetByCustomer(params: params);
+      return Right(model);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CashierStatementModel>>>
+      cashierStatementGetByOrder(
+          {required CashierStatementParams params}) async {
+    try {
+      final model = await datasource.cashierStatementGetByOrder(params: params);
       return Right(model);
     } on ServerException {
       return Left(ServerFailure());
@@ -36,8 +49,9 @@ class CashierStatementRepositoryImpl implements CashierStatementRepository {
   }
 
   @override
-  Future<Either<Failure, List<CashierStatementModel>>> cashierStatementGetByMonth(
-      {required CashierStatementParams params}) async {
+  Future<Either<Failure, List<CashierStatementModel>>>
+      cashierStatementGetByMonth(
+          {required CashierStatementParams params}) async {
     try {
       final model = await datasource.cashierStatementGetByMonth(params: params);
       return Right(model);

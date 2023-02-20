@@ -7,10 +7,12 @@ import 'package:dartz/dartz.dart';
 abstract class CashierStatementRepository {
   Future<Either<Failure, List<CashierStatementModel>>> cashierStatementGetByDay(
       {required CashierStatementParams params});
-  Future<Either<Failure, List<CashierStatementModel>>> cashierStatementGetByMonth(
-      {required CashierStatementParams params});
-  Future<Either<Failure, List<CashierStatementModel>>> cashierStatementGetByCustomer(
-      {required CashierStatementParams params});
+  Future<Either<Failure, List<CashierStatementModel>>>
+      cashierStatementGetByMonth({required CashierStatementParams params});
+  Future<Either<Failure, List<CashierStatementModel>>>
+      cashierStatementGetByCustomer({required CashierStatementParams params});
   Future<Either<Failure, List<CashierStatementCustomerModel>>>
       cashierStatementGetCustomers({required CashierStatementParams params});
+  Future<Either<Failure, List<CashierStatementModel>>>
+      cashierStatementGetByOrder({required CashierStatementParams params});
 }

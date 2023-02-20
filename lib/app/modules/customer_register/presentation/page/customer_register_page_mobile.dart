@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
@@ -56,7 +57,7 @@ class _CustomerRegisterPageMobileState
       builder: (context, state) {
         if (state is CustomerRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
         if (state is CustomerRegisterGetStatesSuccessState) {
@@ -81,7 +82,7 @@ class _CustomerRegisterPageMobileState
             tbUserId: 0,
             dtRecord: CustomDate.newDate(),
             tbCustomerId: state.customer.id,
-            nameCustomer: state.customer.nameCompany,
+            nameCustomer: state.customer.nickTrade,
             tbSalesmanId: 0,
             nameSalesman: "",
             tbPriceListId: 0,
@@ -90,8 +91,10 @@ class _CustomerRegisterPageMobileState
             visited: "S",
             charged: "N",
             recall: "N",
+            finished: "N",
             longitude: "",
             latitude: "",
+            routeRetorn: '/attendancecustomer/mobile/',
           );
           Modular.to.navigate(
             '/attendance/',

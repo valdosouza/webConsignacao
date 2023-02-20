@@ -1,6 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
@@ -25,7 +26,7 @@ class CashierStatementCustomersChargedPageMobileState
     extends State<CashierStatementCustomersChargedPageMobile> {
   late MaskedTextController controller;
   late CashierStatementBloc bloc;
-  String title = "Clientes Cobrados";
+  String title = "Clientes Atendidos";
 
   @override
   void initState() {
@@ -75,13 +76,10 @@ class CashierStatementCustomersChargedPageMobileState
           },
           builder: (context, state) {
             if (state is LoadingState) {
-              return const Center(child: CircularProgressIndicator());
+              return const CustomCircularProgressIndicator();
             }
 
-            return const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: CashierStatementCustomerWidget(),
-            );
+            return const CashierStatementCustomerWidget();
           },
         ));
   }

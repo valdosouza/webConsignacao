@@ -10,11 +10,16 @@ class DrawerLogoutState extends DrawerState {
 
 class LoadingState extends DrawerState {}
 
-class GetErrorState extends DrawerState {}
+class GetErrorState extends DrawerState {
+  final String error;
+  GetErrorState({
+    required this.error,
+  });
+}
 
 class GetSucessState extends DrawerState {}
 
-class DrawerCashierIsOpenState extends DrawerState {
-  final bool open;
-  DrawerCashierIsOpenState({required this.open});
+class DrawerCashierStatusState extends DrawerState {
+  final String msg;
+  DrawerCashierStatusState({required this.msg});
 }

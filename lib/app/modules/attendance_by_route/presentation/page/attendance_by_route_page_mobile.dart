@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_bloc.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_state.dart';
@@ -49,9 +50,7 @@ class SalesRoutetRegisterInterationPageState
       },
       builder: (context, state) {
         if (state is SalesRouteListLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const CustomCircularProgressIndicator();
         }
         if (state is SalesRouteListLoadedState) {
           return Scaffold(

@@ -21,7 +21,7 @@ Widget fielditemsorderLoadCard(OrderLoadCardItemsModel item, int position,
       case 7:
         double currentBalance =
             (item.stockBalance + item.newLoad) - item.adjust;
-        return (currentBalance > 0) ? currentBalance.toStringAsFixed(0) : "";
+        return currentBalance.toStringAsFixed(0);
     }
     return "";
   }

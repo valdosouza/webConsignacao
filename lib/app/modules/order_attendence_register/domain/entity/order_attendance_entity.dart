@@ -14,7 +14,9 @@ class OrderAttendanceEntity {
     String? visited,
     String? charged,
     String? recall,
+    String? finished,
     String? longitude,
     String? latitude,
+    String? routeRetorn,
   });
 }

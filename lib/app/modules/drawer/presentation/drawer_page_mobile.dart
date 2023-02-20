@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
 import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
@@ -37,10 +38,9 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
         if (state is DrawerLogoutState) {
           Modular.to.popAndPushNamed('/auth/');
         }
-        if (state is DrawerCashierIsOpenState) {
-          if (state.open) {
-            CustomToast.showToast(
-                "Para iniciar atendimento, efetue o fechamento anterior.");
+        if (state is DrawerCashierStatusState) {
+          if (state.msg != "Aberto") {
+            CustomToast.showToast(state.msg);
             Modular.to.navigate('/cashier/mobile/');
           } else {
             Modular.to.navigate('/customer/mobile/');
@@ -49,7 +49,7 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
       },
       builder: (context, state) {
         if (state is LoadingState) {
-          return const Center(child: CircularProgressIndicator());
+          return const CustomCircularProgressIndicator();
         }
         return drawer();
       },

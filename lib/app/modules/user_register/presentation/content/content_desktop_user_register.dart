@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_state.dart';
@@ -55,7 +56,7 @@ class _ContentDesktopUserRegisterState
       builder: (context, state) {
         if (state is UserRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         } else if (state is UserRegisterInfoPageState) {
           return const UserInteractionPage();

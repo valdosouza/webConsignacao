@@ -167,11 +167,11 @@ class _CustomerRegisterIdentificationWidgetState
         const SizedBox(height: 30.0),
         CustomInput(
           title: 'Nome/Razão Social',
-          initialValue: widget.customer?.entity.nameCompany,
+          initialValue: widget.customer?.entity.nickTrade,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.next,
           onChanged: (value) {
-            widget.customer?.entity.nameCompany = value;
+            widget.customer?.entity.nickTrade = value;
           },
         ),
         const SizedBox(height: 30.0),

@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/order_attendence_register/order_attendance_register_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,7 +67,7 @@ class OrderAttendanceRegisterPageMobileState
       builder: (context, state) {
         if (state is OrderAttendanceRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
         if ((state is OrderAttendanceRegisterGetPriceListSuccessState) ||
@@ -80,7 +81,11 @@ class OrderAttendanceRegisterPageMobileState
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  Modular.to.navigate('/customer/mobile/');
+                  if (widget.model.routeRetorn.isNotEmpty) {
+                    Modular.to.navigate(widget.model.routeRetorn);
+                  } else {
+                    Modular.to.navigate('/customer/mobile/');
+                  }
                 },
               ),
             ),

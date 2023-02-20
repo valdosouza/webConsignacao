@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
@@ -47,7 +48,7 @@ class CustomerRegisterListWidgetState
       builder: (context, state) {
         if (state is CustomerRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
 

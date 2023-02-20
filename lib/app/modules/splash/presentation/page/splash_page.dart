@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/splash/presentation/bloc/splash_bloc.dart';
 import 'package:appweb/app/modules/splash/presentation/bloc/splash_event.dart';
 import 'package:appweb/app/modules/splash/presentation/bloc/splash_state.dart';
@@ -36,19 +37,7 @@ class _SplashPageState extends State<SplashPage> {
           }
         },
         builder: (context, state) {
-          return Center(
-            child: Column(
-              children: [
-                Image.asset(
-                  "images/logomarca.png",
-                  width: 450,
-                  height: 196,
-                  //fit: BoxFit.fill,
-                ),
-                const CircularProgressIndicator(),
-              ],
-            ),
-          );
+          return const CustomCircularProgressIndicator();
         },
       ),
     );

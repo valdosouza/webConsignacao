@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/collaborator_register/collaborator_register_module.dart';
 import 'package:appweb/app/modules/collaborator_register/data/model/collaborator_main_model.dart';
 import 'package:appweb/app/modules/collaborator_register/presentation/bloc/collaborator_register_bloc.dart';
@@ -57,7 +58,7 @@ class _ContentDesktopCollaboratorRegisterState
       builder: (context, state) {
         if (state is CollaboratorRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
         if (state is CollaboratorRegisterGetCitySuccessState ||

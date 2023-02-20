@@ -94,7 +94,7 @@ class OrderBonusRegisterEntitiesListWidgetState
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           widget.orderBonus.nameCustomer =
-                              state.entity[index].nameCompany;
+                              state.entity[index].nickTrade;
                           widget.orderBonus.tbCustomerid =
                               state.entity[index].id;
                           bloc.add(OrderBonusRegisterReturnEvent());
@@ -110,7 +110,7 @@ class OrderBonusRegisterEntitiesListWidgetState
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(state.entity[index].nameCompany),
+                              Text(state.entity[index].nickTrade),
                             ],
                           ),
                         ),

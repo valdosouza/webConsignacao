@@ -57,7 +57,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.lista[index].nameCompany),
+                        Text(widget.lista[index].nickTrade),
                       ],
                     ),
                     trailing: BlocBuilder<AttendanceByRouteBloc,
@@ -95,7 +95,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                               tbUserId: 0,
                               dtRecord: CustomDate.newDate(),
                               tbCustomerId: widget.lista[index].id,
-                              nameCustomer: widget.lista[index].nameCompany,
+                              nameCustomer: widget.lista[index].nickTrade,
                               tbSalesmanId: 0,
                               nameSalesman: "",
                               tbPriceListId: 0,
@@ -104,8 +104,10 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                               visited: "S",
                               charged: "N",
                               recall: "N",
+                              finished: "N",
                               longitude: "",
                               latitude: "",
+                              routeRetorn: '/attendancesalesroute/mobile/',
                             );
                             Modular.to.navigate(
                               '/attendance/',

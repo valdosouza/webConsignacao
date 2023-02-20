@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _ContentCashierStatementState extends State<ContentCashierStatement> {
         },
         builder: (context, state) {
           if (state is LoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomCircularProgressIndicator();
           }
           if (bloc.cashierStatement.isEmpty) {
             return const Center(

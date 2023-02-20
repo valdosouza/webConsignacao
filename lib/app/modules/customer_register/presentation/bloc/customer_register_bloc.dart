@@ -152,7 +152,7 @@ class CustomerRegisterBloc
     on<CustomerRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var customersSearchedName = customers.where((element) {
-          String name = element.nameCompany;
+          String name = element.nickTrade;
           return name
               .toLowerCase()
               .trim()
@@ -382,7 +382,7 @@ class CustomerRegisterBloc
     on<CustomerRegisterSearchSalesmanEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var salesmanSearched = salesmans.where((element) {
-          String name = element.nameCompany;
+          String name = element.nickTrade;
           return name
               .toLowerCase()
               .trim()

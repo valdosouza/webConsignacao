@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/product_register/presentation/bloc/product_register_bloc.dart';
 import 'package:appweb/app/modules/product_register/presentation/bloc/product_register_event.dart';
 import 'package:appweb/app/modules/product_register/presentation/bloc/product_register_state.dart';
@@ -53,7 +54,7 @@ class _ContentDesktopProductRegisterState
       builder: (context, state) {
         if (state is ProductRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         } else if (state is ProductRegisterInfoPageState) {
           return const ProductRegisterInterationPage();

@@ -93,7 +93,7 @@ class OrderStockTransferRegisterEntitiesListWidgetState
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           bloc.orderMain.order.nameEntity =
-                              bloc.entities[index].nameCompany;
+                              bloc.entities[index].nickTrade;
                           bloc.orderMain.order.tbEntityId =
                               bloc.entities[index].id;
                           bloc.tabIndex = 0;
@@ -110,7 +110,7 @@ class OrderStockTransferRegisterEntitiesListWidgetState
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(bloc.entities[index].nameCompany),
+                              Text(bloc.entities[index].nickTrade),
                             ],
                           ),
                         ),

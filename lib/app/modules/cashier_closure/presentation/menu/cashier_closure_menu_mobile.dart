@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/bloc/cashier_closure_bloc.dart';
 import 'package:flutter/material.dart';
@@ -49,9 +50,9 @@ class _CashierClosureMenuMobileState extends State<CashierClosureMenuMobile> {
             ),
             // itemMenuDraw(
             //   Icons.home,
-            //   'Altera data para 24/01/2023',
+            //   'Altera data para 11/02/2023',
             //   () async => await LocalStorageService.instance.saveItem(
-            //       key: LocalStorageKey.dtCashier, value: CustomDate.yesterday()),
+            //       key: LocalStorageKey.dtCashier, value: "11/02/2023"),
             // ),
           ],
         ),
@@ -63,7 +64,7 @@ class _CashierClosureMenuMobileState extends State<CashierClosureMenuMobile> {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is CashierClosureLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomCircularProgressIndicator();
           }
           return menu();
         });

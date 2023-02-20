@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/customer_register/presentation/content/content_customer_register_desktop.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_city_list_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_sales_route_list_widget.dart';
@@ -50,7 +51,7 @@ class _CustomerRegisterPageDesktopState
       builder: (context, state) {
         if (state is CustomerRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         }
 

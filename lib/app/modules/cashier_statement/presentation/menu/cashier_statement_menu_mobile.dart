@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
@@ -45,7 +46,7 @@ class _CashierStatementMenuMobileState
             ),
             itemMenuDraw(
               Icons.home,
-              'Clientes Cobrados',
+              'Clientes Atendidos',
               () async => Modular.to
                   .navigate('/cashierstatement/mobile/customerscharged/'),
             ),
@@ -59,7 +60,7 @@ class _CashierStatementMenuMobileState
         listener: (context, state) {},
         builder: (context, state) {
           if (state is LoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomCircularProgressIndicator();
           }
           return menu();
         });

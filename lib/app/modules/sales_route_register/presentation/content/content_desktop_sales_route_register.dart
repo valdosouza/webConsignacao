@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 
 import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_route_register_bloc.dart';
 import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_route_register_event.dart';
@@ -51,7 +52,7 @@ class _ContentDesktopSalesRouteRegisterState
       builder: (context, state) {
         if (state is SalesRouteRegisterLoadingState) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomCircularProgressIndicator(),
           );
         } else if (state is SalesRouteRegisterInfoPageState) {
           return SalesRouteRegisterInterationPage(
