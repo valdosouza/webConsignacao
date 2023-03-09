@@ -257,7 +257,8 @@ class CustomerRegisterBloc
         customer.address.tbCityId = r.tbCityId;
         customer.address.stateName = r.stateName;
         customer.address.tbStateId = r.tbStateId;
-        customer.address.kind = r.kind;
+        customer.address.kind = "Comercial";
+        customer.address.tbCountryId = 1058;
         emit(CustomerRegisterInfoPageState(
             customers: customers, model: customer, tabIndex: 0));
       });

@@ -4,7 +4,6 @@ import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicato
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_bloc.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_state.dart';
-import 'package:appweb/app/modules/attendance_by_route/presentation/content/customer_list_mobile.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/content/sales_route_list_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,10 +42,6 @@ class SalesRoutetRegisterInterationPageState
           CustomToast.showToast(
               "buscar os cadastros. Tente novamente mais tarde.");
         }
-        if (state is CustomerListOrderErrorState) {
-          CustomToast.showToast(
-              "Erro ao ordenar a lista. Tente novamente mais tarde.");
-        }
       },
       builder: (context, state) {
         if (state is SalesRouteListLoadingState) {
@@ -67,42 +62,6 @@ class SalesRoutetRegisterInterationPageState
               ),
             ),
             body: SalesRouteListMobile(lista: bloc.saleroutlist),
-          );
-        }
-        if (state is CustomerListLoadedState ||
-            state is CustomerListOrderState ||
-            state is CustomerListOrderErrorState) {
-          state = state as CustomerListState;
-          return Scaffold(
-            appBar: (state is CustomerListOrderState)
-                ? AppBar(
-                    flexibleSpace: Container(
-                      decoration: kBoxDecorationflexibleSpace,
-                    ),
-                    title: const Text('Ordenar Lista de Clientes'),
-                    actions: [
-                      IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          bloc.add(CustomerCancelOrderModeEvent());
-                        },
-                      )
-                    ],
-                  )
-                : AppBar(
-                    flexibleSpace: Container(
-                      decoration: kBoxDecorationflexibleSpace,
-                    ),
-                    title:
-                        Text('Lista de Clientes (${bloc.customerlist.length})'),
-                    leading: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios),
-                      onPressed: () {
-                        bloc.add(SalesRouteGetListEvent());
-                      },
-                    ),
-                  ),
-            body: CustomerListMobile(lista: bloc.customerlist),
           );
         }
         return Container();

@@ -1,60 +1,29 @@
-import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
-import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
-
 abstract class AttendanceByRouteState {}
 
 /*----------------------------------------------------------------------------*/
-abstract class SalesRouteListState extends AttendanceByRouteState {
-  List<SalesRouteListModel> salesRouteList;
-  SalesRouteListState({
-    required this.salesRouteList,
-  });
-}
+abstract class SalesRouteListState extends AttendanceByRouteState {}
 
-class SalesRouteListLoadingState extends SalesRouteListState {
-  SalesRouteListLoadingState() : super(salesRouteList: []);
-}
+class SalesRouteListLoadingState extends SalesRouteListState {}
 
-class SalesRouteListLoadedState extends SalesRouteListState {
-  SalesRouteListLoadedState({required List<SalesRouteListModel> salesRouteList})
-      : super(salesRouteList: salesRouteList);
-}
+class SalesRouteListLoadedState extends SalesRouteListState {}
 
 class SalesRouteListErrorState extends SalesRouteListState {
-  SalesRouteListErrorState({required List<SalesRouteListModel> salesRouteList})
-      : super(salesRouteList: salesRouteList);
+  final String error;
+  SalesRouteListErrorState({required this.error});
 }
 
 /*----------------------------------------------------------------------------*/
-class CustomerListState extends AttendanceByRouteState {
-  List<CustomerListByRouteModel> customerList;
-  CustomerListState({
-    required this.customerList,
-  });
-}
+class CustomerListState extends AttendanceByRouteState {}
 
-class CustomerListLoadingState extends CustomerListState {
-  CustomerListLoadingState() : super(customerList: []);
-}
+class CustomerListLoadingState extends CustomerListState {}
 
-class CustomerListLoadedState extends CustomerListState {
-  CustomerListLoadedState(
-      {required List<CustomerListByRouteModel> customerList})
-      : super(customerList: customerList);
-}
+class CustomerListLoadedState extends CustomerListState {}
 
 class CustomerListErrorState extends CustomerListState {
-  CustomerListErrorState({required List<CustomerListByRouteModel> customerList})
-      : super(customerList: customerList);
+  final String error;
+  CustomerListErrorState({required this.error});
 }
 
-class CustomerListOrderState extends CustomerListState {
-  CustomerListOrderState({required List<CustomerListByRouteModel> customerList})
-      : super(customerList: customerList);
-}
+class CustomerListOrderState extends CustomerListState {}
 
-class CustomerListOrderErrorState extends CustomerListState {
-  CustomerListOrderErrorState(
-      {required List<CustomerListByRouteModel> customerList})
-      : super(customerList: customerList);
-}
+class CustomerListOrderErrorState extends CustomerListState {}

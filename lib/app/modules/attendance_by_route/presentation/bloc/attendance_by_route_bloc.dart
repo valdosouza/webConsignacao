@@ -37,10 +37,10 @@ class AttendanceByRouteBloc
 
       var response = await getlistSalesRoute.call(ParamsSalesRouteGet());
 
-      var result = response.fold(
-          (l) => SalesRouteListErrorState(salesRouteList: saleroutlist), (r) {
+      var result = response
+          .fold((l) => SalesRouteListErrorState(error: l.toString()), (r) {
         saleroutlist = r;
-        return SalesRouteListLoadedState(salesRouteList: r);
+        return SalesRouteListLoadedState();
       });
 
       emit(result);
@@ -55,9 +55,9 @@ class AttendanceByRouteBloc
           .call(ParamsGetListCustomer(tbSalesRouteId: event.tbSalesRouteId!));
 
       var result = response
-          .fold((l) => CustomerListErrorState(customerList: customerlist), (r) {
+          .fold((l) => CustomerListErrorState(error: l.toString()), (r) {
         customerlist = r;
-        return CustomerListLoadedState(customerList: r);
+        return CustomerListLoadedState();
       });
 
       emit(result);
@@ -67,16 +67,16 @@ class AttendanceByRouteBloc
   searchRouteSales() {
     on<SalesRouteSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var listearched = saleroutlist.where((element) {
+        saleroutlist.where((element) {
           String name = element.description;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        emit(SalesRouteListLoadedState(salesRouteList: listearched));
+        emit(SalesRouteListLoadedState());
       } else {
-        emit(SalesRouteListLoadedState(salesRouteList: saleroutlist));
+        emit(SalesRouteListLoadedState());
       }
     });
   }
@@ -84,9 +84,7 @@ class AttendanceByRouteBloc
   orderMode() {
     on<CustomerOrderModeEvent>((event, emit) async {
       tbCustomerIdPickedForOrder = event.tbCustomerId;
-      emit(CustomerListOrderState(
-        customerList: customerlist,
-      ));
+      emit(CustomerListOrderState());
     });
   }
 
@@ -99,7 +97,7 @@ class AttendanceByRouteBloc
           tbSalesRouteId: event.tbSalesRouteId,
           sequence: event.sequence));
       response.fold((l) {
-        emit(CustomerListOrderErrorState(customerList: customerlist));
+        emit(CustomerListOrderErrorState());
       }, (r) {
         add(CustomerGetListEvent(tbSalesRouteId: event.tbSalesRouteId));
       });
@@ -109,7 +107,7 @@ class AttendanceByRouteBloc
   cancelOrderMode() {
     on<CustomerCancelOrderModeEvent>((event, emit) async {
       tbCustomerIdPickedForOrder = -1;
-      emit(CustomerListLoadedState(customerList: customerlist));
+      emit(CustomerListLoadedState());
     });
   }
 }

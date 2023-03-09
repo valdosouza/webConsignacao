@@ -29,6 +29,8 @@ Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
             onSubmitted: (value) {
               if (value.isNotEmpty) {
                 modelOrderPaid[1].value = double.parse(value);
+              } else {
+                modelOrderPaid[1].value = 0.0;
               }
             },
           ),

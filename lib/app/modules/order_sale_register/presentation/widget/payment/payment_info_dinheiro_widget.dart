@@ -43,6 +43,8 @@ class _PaymentInfoCashState extends State<PaymentInfoCash> {
               onFieldSubmitted: (value) {
                 if (value.isNotEmpty) {
                   widget.modelOrderPaid[0].value = double.parse(value);
+                } else {
+                  widget.modelOrderPaid[0].value = 0.0;
                 }
               },
             ),
