@@ -59,7 +59,7 @@ class OrderSaleRegisterPageMobileState
           Modular.to.navigate('/customer/mobile/');
         }
         if (state is OrderSaleCardPostErrorState) {
-          return ContentOrderSaleRegister(orderSale: bloc.modelOrderSale);
+          return const ContentOrderSaleRegister();
         }
 
         if (state is OrderSaleRegisterLoadingState) {
@@ -68,7 +68,7 @@ class OrderSaleRegisterPageMobileState
           );
         }
         if (state is OrderSaleGetNewCardListLoadedState) {
-          return ContentOrderSaleRegister(orderSale: state.model);
+          return const ContentOrderSaleRegister();
         }
         if (state is OrderSaleCardPostSucessState) {
           Modular.to.navigate('/customer/mobile/');

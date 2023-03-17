@@ -27,7 +27,11 @@ Widget paymentinfopix(OrderConsignmentCheckpointModel modelCheckpoint) {
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
             onSubmitted: (value) {
-              modelCheckpoint.payments[1].value = double.parse(value);
+              if (value.isNotEmpty) {
+                modelCheckpoint.payments[1].value = double.parse(value);
+              } else {
+                modelCheckpoint.payments[1].value = 0.0;
+              }
             },
           ),
         ),

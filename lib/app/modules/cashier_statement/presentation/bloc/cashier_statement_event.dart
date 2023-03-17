@@ -38,3 +38,20 @@ class CashierStatementGetCustomersMobileEvent extends CashierStatementEvent {
 }
 
 class GetCurrentDateEvent extends CashierStatementEvent {}
+
+//---------------------------DEsktop---------------------------------------
+class GetSalesmanDesktopEvent extends CashierStatementEvent {
+  CashierStatementParams params;
+  GetSalesmanDesktopEvent({
+    required this.params,
+  });
+}
+
+class CashierStatementGetByCustomerDesktopEvent extends CashierStatementEvent {
+  CashierStatementParams params;
+  CashierStatementGetByCustomerDesktopEvent({
+    required this.params,
+  });
+}
+
+class CashierStatementReturnListSalesmanEvent extends CashierStatementEvent {}

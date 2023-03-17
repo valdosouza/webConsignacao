@@ -5,6 +5,7 @@ import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_customer_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_salesman_model.dart';
 
 abstract class CashierStatementDataSource extends Gateway {
   CashierStatementDataSource({required super.httpClient});
@@ -24,6 +25,9 @@ abstract class CashierStatementDataSource extends Gateway {
   Future<List<CashierStatementCustomerModel>> cashierStatementGetCustomers({
     required CashierStatementParams params,
   });
+  Future<List<CashierStatementSalesmanModel>> cashierStatementGetSalesmans({
+    required CashierStatementParams params,
+  });
 }
 
 class CashierStatementDataSourceImpl extends CashierStatementDataSource {
@@ -38,9 +42,13 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
     });
 
     String tbUserId = '1';
-    await getUserId().then((value) {
-      tbUserId = value.toString();
-    });
+    if (params.tbSalesmanId == 0) {
+      await getUserId().then((value) {
+        tbUserId = value.toString();
+      });
+    } else {
+      tbUserId = params.tbSalesmanId.toString();
+    }
 
     return await request(
       'financial/statement/getbycustomer/$tbInstitutionId/$tbUserId/${params.tbCustomerId}/${params.date}',
@@ -148,15 +156,43 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
     });
 
     String tbUserId = '1';
-    await getUserId().then((value) {
-      tbUserId = value.toString();
-    });
+    //Se não for passado por parametro pegara o Usuario logado
+    if (params.tbSalesmanId == 0) {
+      await getUserId().then((value) {
+        tbUserId = value.toString();
+      });
+    } else {
+      tbUserId = params.tbSalesmanId.toString();
+    }
     return await request(
       'financial/customer/charged/getlist/$tbInstitutionId/$tbUserId/${params.date}',
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)
             .map((e) => CashierStatementCustomerModel.fromJson(e))
+            .toList();
+        return model;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
+  }
+
+  @override
+  Future<List<CashierStatementSalesmanModel>> cashierStatementGetSalesmans(
+      {required CashierStatementParams params}) async {
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
+    return await request(
+      'financial/salesman/customer/charged/getlist/$tbInstitutionId/${params.date}',
+      (payload) {
+        final data = json.decode(payload);
+        var model = (data as List)
+            .map((e) => CashierStatementSalesmanModel.fromJson(e))
             .toList();
         return model;
       },

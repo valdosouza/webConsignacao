@@ -51,7 +51,13 @@ class OrderAttendanceRegisterBloc
       final result = response.fold((l) {
         return OrderAttendanceRegisterPostErrorState(error: "");
       }, (r) {
+        //este dois items não sao enviados para o post e retornam vazios
+        String routeRetorn = orderAttendance.routeRetorn;
+        int tbSalesRouteId = orderAttendance.tbSalesRouteId;
         orderAttendance = r;
+        //Depois do post precisamos setar estes campos novamentes
+        orderAttendance.routeRetorn = routeRetorn;
+        orderAttendance.tbSalesRouteId = tbSalesRouteId;
         return OrderAttendanceRegisterPostSuccessState(
             orderAttendance: orderAttendance);
       });
@@ -75,7 +81,13 @@ class OrderAttendanceRegisterBloc
       response.fold((l) {
         emit(OrderAttendanceRegisterPutErrorState(error: ""));
       }, (r) {
+        //este dois items não sao enviados para o put e retornam vazios
+        String routeRetorn = orderAttendance.routeRetorn;
+        int tbSalesRouteId = orderAttendance.tbSalesRouteId;
         orderAttendance = r;
+        //Depois do post precisamos setar estes campos novamentes
+        orderAttendance.routeRetorn = routeRetorn;
+        orderAttendance.tbSalesRouteId = tbSalesRouteId;
         emit(
           OrderAttendanceRegisterPutSuccessState(
               orderAttendance: orderAttendance),

@@ -108,6 +108,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                               longitude: "",
                               latitude: "",
                               routeRetorn: '/attendancesalesroute/mobile/',
+                              tbSalesRouteId: bloc.tbSalesRouteIdSelected,
                             );
                             Modular.to.navigate(
                               '/attendance/',

@@ -62,6 +62,14 @@ class CustomerRegisterPostByMobileSuccessState extends CustomerRegisterState {
   }) : super(customers: customers);
 }
 
+class CustomerRegisterPutByMobileSuccessState extends CustomerRegisterState {
+  final CustomerListModel customer;
+  CustomerRegisterPutByMobileSuccessState({
+    required this.customer,
+    required List<CustomerListModel> customers,
+  }) : super(customers: customers);
+}
+
 class CustomerRegisterPostErrorState extends CustomerRegisterState {
   final String error;
 

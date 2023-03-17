@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/cashier/presentation/page/cashier_page.dart';
-import 'package:flutter/material.dart';
+import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CashierModule extends Module {
@@ -7,16 +7,16 @@ class CashierModule extends Module {
   List<Bind> get binds => [];
   @override
   final List<ModularRoute> routes = [
+    ChildRoute('/mobile/', child: (_, args) => const CashierPage()),
     ChildRoute(
-      '/content/',
+      '/desktop/',
       child: (_, args) => const CashierPage(),
       children: [
-        ChildRoute('/cashierstatement/',
-            child: (_, args) => const Center(
-                  child: Text("Movimentação de Caixa"),
-                )),
+        ModuleRoute(
+          '/cashierstatement/',
+          module: CashierStatementModule(),
+        ),
       ],
     ),
-    ChildRoute('/mobile/', child: (_, args) => const CashierPage())
   ];
 }

@@ -7,12 +7,14 @@ class CustomerListModel extends CustomerListEntity {
     String? nickTrade,
     String? docKind,
     String? docNumber,
+    String? error,
   }) : super(
           id: id ?? 0,
           nameCompany: nameCompany ?? "",
           nickTrade: nickTrade ?? "",
           docKind: docKind ?? "",
           docNumber: docNumber ?? "",
+          error: error ?? "",
         );
 
   factory CustomerListModel.fromJson(Map<String, dynamic> json) {
@@ -21,6 +23,7 @@ class CustomerListModel extends CustomerListEntity {
         nameCompany: json['name_company'] as String? ?? "",
         nickTrade: json['nick_trade'] as String? ?? "",
         docKind: json['doc_kind'] as String? ?? "",
-        docNumber: json['doc_number'] as String? ?? "");
+        docNumber: json['doc_number'] as String? ?? "",
+        error: json['error'] as String? ?? "");
   }
 }

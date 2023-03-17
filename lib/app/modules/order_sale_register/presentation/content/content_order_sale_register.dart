@@ -1,6 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
 import 'package:appweb/app/modules/order_sale_register/order_sale_register_module.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_bloc.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_event.dart';
@@ -11,10 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentOrderSaleRegister extends StatefulWidget {
-  final OrderSaleMainCardModel orderSale;
   const ContentOrderSaleRegister({
     Key? key,
-    required this.orderSale,
   }) : super(key: key);
 
   @override

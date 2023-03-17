@@ -12,19 +12,9 @@ class CashierMenuMain extends StatelessWidget {
         children: <Widget>[
           itemMenuDraw(
             Icons.home,
-            'Saldo',
-            () async => Modular.to.navigate('/cashier/content/cashierbalance/'),
-          ),
-          itemMenuDraw(
-            Icons.home,
-            'Extrato',
-            () async =>
-                Modular.to.navigate('/cashier/content/cashierstatement/'),
-          ),
-          itemMenuDraw(
-            Icons.home,
-            'Fechamento',
-            () async => Modular.to.navigate('/cashier/content/cashierclosure/'),
+            'Clientes Atendidos',
+            () async => Modular.to.navigate(
+                '/cashier/desktop/cashierstatement/desktop/salesman/salesmanlist/'),
           ),
         ],
       ),

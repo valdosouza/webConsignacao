@@ -17,8 +17,7 @@ statesCustomer(CustomerRegisterState state) {
       (state is CustomerRegisterPostByMobileEvent)) {
     CustomToast.showToast("Cadastro atualizado com sucesso.");
   } else if (state is CustomerRegisterPostErrorState) {
-    CustomToast.showToast(
-        "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
+    CustomToast.showToast(state.error);
   } else if (state is CustomerRegisterGetErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados do cadastro. Tente novamente mais tarde.");

@@ -13,8 +13,8 @@ class CustomerMenuMain extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Cadastro de Clientes',
-            () async =>
-                Modular.to.navigate('/customer/desktop/customer-register/'),
+            () async => Modular.to
+                .navigate('/customer/desktop/customer-register/', arguments: 0),
           ),
           itemMenuDraw(
             Icons.home,

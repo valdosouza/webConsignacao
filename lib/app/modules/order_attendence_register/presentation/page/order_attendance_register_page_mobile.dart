@@ -81,8 +81,9 @@ class OrderAttendanceRegisterPageMobileState
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  if (widget.model.routeRetorn.isNotEmpty) {
-                    Modular.to.navigate(widget.model.routeRetorn);
+                  if (bloc.orderAttendance.routeRetorn.isNotEmpty) {
+                    Modular.to.navigate(bloc.orderAttendance.routeRetorn,
+                        arguments: bloc.orderAttendance.tbSalesRouteId);
                   } else {
                     Modular.to.navigate('/customer/mobile/');
                   }
@@ -111,13 +112,16 @@ class OrderAttendanceRegisterPageMobileState
               Modular.to.navigate('/customer/mobile/');
               break;
             case 1:
-              Modular.to.navigate('/consignment/', arguments: orderAttendance);
+              Modular.to
+                  .navigate('/consignment/', arguments: bloc.orderAttendance);
               break;
             case 2:
-              Modular.to.navigate('/ordersale/', arguments: orderAttendance);
+              Modular.to
+                  .navigate('/ordersale/', arguments: bloc.orderAttendance);
               break;
             case 3:
-              Modular.to.navigate('/ordersale/', arguments: orderAttendance);
+              Modular.to
+                  .navigate('/ordersale/', arguments: bloc.orderAttendance);
               break;
           }
         }

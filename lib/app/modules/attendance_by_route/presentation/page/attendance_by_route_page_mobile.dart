@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
@@ -6,14 +10,15 @@ import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attenda
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_state.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/content/customer_list_mobile.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/content/sales_route_list_mobile.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../attendance_by_route_module.dart';
 
 class AttendanceByRoutePageMobile extends StatefulWidget {
-  const AttendanceByRoutePageMobile({super.key});
+  final int tbSalesRouteId;
+  const AttendanceByRoutePageMobile({
+    Key? key,
+    required this.tbSalesRouteId,
+  }) : super(key: key);
 
   @override
   State<AttendanceByRoutePageMobile> createState() =>
@@ -31,7 +36,13 @@ class SalesRoutetRegisterInterationPageState
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<AttendanceByRouteModule>();
     });
-    bloc.add(SalesRouteGetListEvent());
+    if (widget.tbSalesRouteId == 0) {
+      bloc.add(SalesRouteGetListEvent());
+    } else {
+      bloc.tbSalesRouteIdSelected = widget.tbSalesRouteId;
+
+      bloc.add(CustomerGetListEvent());
+    }
   }
 
   @override

@@ -15,3 +15,12 @@ class CustomerMobileSuccessState extends CashierStatementState {}
 class CustomerMobileErrorState extends CashierStatementState {}
 
 class GetCurrentDateSucessState extends CashierStatementState {}
+
+//---------------------------DEsktop---------------------------------------
+class SalesmanDesktopErrorState extends CashierStatementState {}
+
+class SalesmanDesktopGetListSucessState extends CashierStatementState {}
+
+class ByCustomerDesktopSucessState extends CashierStatementState {}
+
+class ReturnSalesmanListSucessState extends CashierStatementState {}

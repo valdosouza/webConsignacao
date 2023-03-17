@@ -20,6 +20,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
   String longitude;
   String latitude;
   String routeRetorn;
+  int tbSalesRouteId = 0;
 
   OrderAttendanceModel({
     required this.id,
@@ -40,6 +41,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     required this.longitude,
     required this.latitude,
     required this.routeRetorn,
+    this.tbSalesRouteId = 0,
   }) : super(
           id: id,
           tbInstitutionId: tbInstitutionId,
@@ -59,6 +61,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
           longitude: longitude,
           latitude: latitude,
           routeRetorn: routeRetorn,
+          tbSalesRouteId: tbSalesRouteId,
         );
 
   factory OrderAttendanceModel.fromJson(Map<String, dynamic> json) {
@@ -83,6 +86,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
       longitude: json['longitude'],
       latitude: json['latitude'],
       routeRetorn: "",
+      tbSalesRouteId: 0,
     );
   }
 
@@ -128,6 +132,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
       latitude: "",
       longitude: "",
       routeRetorn: "",
+      tbSalesRouteId: 0,
     );
   }
 }

@@ -4,6 +4,7 @@ class CustomerListEntity {
   String nickTrade;
   String docKind;
   String docNumber;
+  String error;
 
   CustomerListEntity({
     this.id = 0,
@@ -11,5 +12,6 @@ class CustomerListEntity {
     this.nickTrade = "",
     this.docKind = "",
     this.docNumber = "",
+    this.error = "",
   });
 }

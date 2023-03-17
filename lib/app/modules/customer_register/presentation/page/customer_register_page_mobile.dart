@@ -75,6 +75,12 @@ class _CustomerRegisterPageMobileState
         if (state is CustomerRegisterGetSalesRouteSuccessState) {
           return const CustomerRegisterSalesRouteListWidget();
         }
+        if (state is CustomerRegisterPostErrorState) {
+          Modular.to.navigate('/customer/mobile/');
+        }
+        if (state is CustomerRegisterPutByMobileSuccessState) {
+          Modular.to.navigate('/attendancecustomer/mobile/');
+        }
         if (state is CustomerRegisterPostByMobileSuccessState) {
           OrderAttendanceModel orderAttemdance = OrderAttendanceModel(
             id: 0,

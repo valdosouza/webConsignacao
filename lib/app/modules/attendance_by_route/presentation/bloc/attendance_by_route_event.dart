@@ -12,12 +12,7 @@ class SalesRouteSearchEvent extends AttendanceByRouteEvent {
   });
 }
 
-class CustomerGetListEvent extends AttendanceByRouteEvent {
-  final int? tbSalesRouteId;
-  CustomerGetListEvent({
-    this.tbSalesRouteId,
-  });
-}
+class CustomerGetListEvent extends AttendanceByRouteEvent {}
 
 class CustomerSearchEvent extends AttendanceByRouteEvent {
   String search;

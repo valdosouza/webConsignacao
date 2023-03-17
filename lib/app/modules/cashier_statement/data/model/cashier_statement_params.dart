@@ -4,9 +4,14 @@ class CashierStatementParams {
   String date;
   int? tbCustomerId;
   int? tbOrderId;
+  int? tbSalesmanId;
 
-  CashierStatementParams(
-      {required this.date, this.tbCustomerId, this.tbOrderId}) {
+  CashierStatementParams({
+    required this.date,
+    this.tbCustomerId,
+    this.tbOrderId,
+    this.tbSalesmanId,
+  }) {
     date = CustomDate.formatDateOut(date);
   }
 }

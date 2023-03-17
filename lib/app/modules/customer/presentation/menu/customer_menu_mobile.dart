@@ -13,7 +13,8 @@ class CustomerMenuMobile extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Por rota',
-            () async => Modular.to.navigate('/attendancesalesroute/mobile/'),
+            () async => Modular.to
+                .navigate('/attendancesalesroute/mobile/', arguments: 0),
           ),
           itemMenuDraw(
             Icons.home,

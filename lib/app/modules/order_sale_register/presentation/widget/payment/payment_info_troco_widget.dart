@@ -22,7 +22,7 @@ Widget paymentinfotroco(OrderSaleMainCardModel modelOrderSale) {
         }
       }
     }
-    return "0,00";
+    return "";
   }
 
   return Row(

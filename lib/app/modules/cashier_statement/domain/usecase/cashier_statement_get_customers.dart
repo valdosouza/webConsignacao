@@ -7,7 +7,8 @@ import 'package:appweb/app/modules/cashier_statement/domain/repository/cashier_s
 import 'package:dartz/dartz.dart';
 
 class CashierStatementGetCustomers
-    implements UseCase<List<CashierStatementCustomerModel>, CashierStatementParams> {
+    implements
+        UseCase<List<CashierStatementCustomerModel>, CashierStatementParams> {
   final CashierStatementRepository repository;
   CashierStatementGetCustomers({required this.repository});
 

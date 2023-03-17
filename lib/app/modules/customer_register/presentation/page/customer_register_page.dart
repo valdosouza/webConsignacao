@@ -21,7 +21,7 @@ class _CustomerRegisterPageState extends State<CustomerRegisterPage> {
     return Responsive(
       mobile: CustomerRegisterPageMobile(tbCustomerId: widget.tbCustomerId),
       tablet: const CustomerRegisterPageTablet(),
-      desktop: const CustomerRegisterPageDesktop(),
+      desktop: CustomerRegisterPageDesktop(tbCustomerId: widget.tbCustomerId),
     );
   }
 }

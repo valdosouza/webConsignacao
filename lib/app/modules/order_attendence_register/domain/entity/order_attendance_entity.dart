@@ -18,5 +18,6 @@ class OrderAttendanceEntity {
     String? longitude,
     String? latitude,
     String? routeRetorn,
+    int? tbSalesRouteId,
   });
 }

@@ -47,10 +47,11 @@ class AttendanceByRouteModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(
       '/mobile/',
-      child: (_, args) => const AttendanceSalesRoutePage(),
+      child: (_, args) => AttendanceSalesRoutePage(tbSalesRouteId: args.data),
       children: [
         ChildRoute('/customer_list_by_route/',
-            child: (_, args) => const AttendanceSalesRoutePage()),
+            child: (_, args) =>
+                AttendanceSalesRoutePage(tbSalesRouteId: args.data)),
       ],
     ),
   ];

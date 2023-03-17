@@ -12,19 +12,8 @@ class CashierStatementMenuMain extends StatelessWidget {
         children: <Widget>[
           itemMenuDraw(
             Icons.home,
-            'Saldo',
+            'Este submenu não existe para Desktop',
             () async => Modular.to.navigate('/cashier/content/cashierbalance/'),
-          ),
-          itemMenuDraw(
-            Icons.home,
-            'Extrato',
-            () async =>
-                Modular.to.navigate('/cashier/content/cashierstatement/'),
-          ),
-          itemMenuDraw(
-            Icons.home,
-            'Fechamento',
-            () async => Modular.to.navigate('/cashier/content/cashierclosure/'),
           ),
         ],
       ),

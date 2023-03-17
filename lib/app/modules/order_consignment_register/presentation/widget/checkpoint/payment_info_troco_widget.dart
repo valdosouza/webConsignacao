@@ -14,7 +14,6 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
       if (totalpayment > modelCheckpoint.order.totalValue) {
         if (totalcash > 0) {
           modelCheckpoint.order.changeValue = 0;
-
           modelCheckpoint.order.changeValue =
               totalpayment - modelCheckpoint.order.totalValue;
           if (totalcash > modelCheckpoint.order.changeValue) {
@@ -23,7 +22,7 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
         }
       }
     }
-    return "0,00";
+    return "";
   }
 
   return Row(

@@ -110,15 +110,24 @@ class CustomerRegisterBloc
           await postCustomer.call(ParamsPostCustomer(customer: event.model));
 
       response.fold((l) {
-        if (event.model.customer.id != 0) {
-          emit(CustomerRegisterPostErrorState(customers, ""));
-        } else {
-          emit(CustomerRegisterPostErrorState(customers, ""));
-        }
+        emit(CustomerRegisterPostErrorState(customers, l.toString()));
       }, (r) {
-        customers.add(r);
-        emit(CustomerRegisterPostByMobileSuccessState(
-            customer: r, customers: customers));
+        if (r.error == "") {
+          if (event.model.entity.id != 0) {
+            int index = customers.indexWhere((element) => element.id == r.id);
+            if (index != -1) {
+              customers[index] = r;
+            }
+            emit(CustomerRegisterPutByMobileSuccessState(
+                customer: r, customers: customers));
+          } else {
+            customers.add(r);
+            emit(CustomerRegisterPostByMobileSuccessState(
+                customer: r, customers: customers));
+          }
+        } else {
+          emit(CustomerRegisterPostErrorState(customers, r.error));
+        }
       });
     });
   }
@@ -130,20 +139,20 @@ class CustomerRegisterBloc
       var response =
           await postCustomer.call(ParamsPostCustomer(customer: event.model));
 
-      response.fold((l) => emit(CustomerRegisterPostErrorState(customers, "")),
+      response.fold(
+          (l) => emit(CustomerRegisterPostErrorState(customers, l.toString())),
           (r) {
-        if (event.model.entity.id != 0) {
-          customers[customers.indexWhere((element) => element.id == r.id)] = r;
+        if (r.error == "") {
+          if (event.model.entity.id != 0) {
+            customers[customers.indexWhere((element) => element.id == r.id)] =
+                r;
+          } else {
+            customers.add(r);
+          }
+          emit(CustomerRegisterPostByDesktopSuccessState(customers));
         } else {
-          customers.add(CustomerListModel(
-            id: r.id,
-            docKind: r.docKind,
-            docNumber: r.docNumber,
-            nameCompany: r.nameCompany,
-            nickTrade: r.nickTrade,
-          ));
+          emit(CustomerRegisterPostErrorState(customers, r.error));
         }
-        emit(CustomerRegisterPostByDesktopSuccessState(customers));
       });
     });
   }

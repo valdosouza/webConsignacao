@@ -15,6 +15,7 @@ class AttendanceByRouteBloc
   final CustomerSequence sequence;
   //int idSequenceCustomer = -1;
   int tbCustomerIdPickedForOrder = -1;
+  int tbSalesRouteIdSelected = 0;
   List<SalesRouteListModel> saleroutlist = [];
   List<CustomerListByRouteModel> customerlist = [];
 
@@ -52,7 +53,7 @@ class AttendanceByRouteBloc
       emit(CustomerListLoadingState());
 
       var response = await getlistCustomer
-          .call(ParamsGetListCustomer(tbSalesRouteId: event.tbSalesRouteId!));
+          .call(ParamsGetListCustomer(tbSalesRouteId: tbSalesRouteIdSelected));
 
       var result = response
           .fold((l) => CustomerListErrorState(error: l.toString()), (r) {
@@ -99,7 +100,7 @@ class AttendanceByRouteBloc
       response.fold((l) {
         emit(CustomerListOrderErrorState());
       }, (r) {
-        add(CustomerGetListEvent(tbSalesRouteId: event.tbSalesRouteId));
+        add(CustomerGetListEvent());
       });
     });
   }
