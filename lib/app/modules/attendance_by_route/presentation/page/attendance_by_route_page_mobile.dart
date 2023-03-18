@@ -40,7 +40,6 @@ class SalesRoutetRegisterInterationPageState
       bloc.add(SalesRouteGetListEvent());
     } else {
       bloc.tbSalesRouteIdSelected = widget.tbSalesRouteId;
-
       bloc.add(CustomerGetListEvent());
     }
   }
@@ -104,8 +103,8 @@ class SalesRoutetRegisterInterationPageState
                     flexibleSpace: Container(
                       decoration: kBoxDecorationflexibleSpace,
                     ),
-                    title:
-                        Text('Lista de Clientes (${bloc.customerlist.length})'),
+                    title: Text(
+                        ' ${bloc.salesRouteSelected} - ${bloc.customerlist.length} clientes'),
                     leading: IconButton(
                       icon: const Icon(Icons.arrow_back_ios),
                       onPressed: () {

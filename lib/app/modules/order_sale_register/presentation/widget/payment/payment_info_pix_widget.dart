@@ -3,6 +3,12 @@ import 'package:appweb/app/modules/order_sale_register/presentation/widget/order
 import 'package:flutter/material.dart';
 
 Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
+  double valor = 0;
+  String valorStr = "";
+  var txt = TextEditingController(
+      text: (modelOrderPaid[1].value > 0)
+          ? modelOrderPaid[1].value.toStringAsFixed(2)
+          : "");
   return Row(
     children: [
       Expanded(
@@ -20,10 +26,20 @@ Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
             border: Border.all(color: Colors.black),
           ),
           child: TextField(
-            controller: TextEditingController(
-                text: (modelOrderPaid[1].value > 0)
-                    ? modelOrderPaid[1].value.toStringAsFixed(2)
-                    : ""),
+            controller: txt,
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                valorStr = value.replaceAll('.', '');
+                valor = double.parse(valorStr);
+                txt.text = "";
+                if (valor > 0) {
+                  valor = valor / 100;
+                  txt.text = valor.toStringAsFixed(2);
+                }
+              }
+              txt.selection = TextSelection.fromPosition(
+                  TextPosition(offset: txt.text.length));
+            },
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
             onSubmitted: (value) {

@@ -78,7 +78,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
                   alignment: Alignment.bottomCenter,
                   height: 40,
                   child: Text(
-                    bloc.modelOrderSale.order.nameCustomer,
+                    bloc.modelAttendance.nameCustomer,
                     style: ktittleAppBarStyle,
                     textAlign: TextAlign.center,
                   ),

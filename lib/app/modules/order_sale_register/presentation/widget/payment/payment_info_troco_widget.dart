@@ -6,6 +6,7 @@ Widget paymentinfotroco(OrderSaleMainCardModel modelOrderSale) {
   String calcChange() {
     double totalpayment = 0;
     double totalcash = 0;
+    double totalChange = 0;
     for (var item in modelOrderSale.payments) {
       totalpayment += item.value;
       if (item.namePaymentType == "DINHEIRO") totalcash += item.value;
@@ -14,9 +15,9 @@ Widget paymentinfotroco(OrderSaleMainCardModel modelOrderSale) {
       if (totalpayment > modelOrderSale.order.totalValue) {
         if (totalcash > 0) {
           modelOrderSale.order.changeValue = 0;
-          modelOrderSale.order.changeValue =
-              totalpayment - modelOrderSale.order.totalValue;
-          if (totalcash > modelOrderSale.order.changeValue) {
+          totalChange = totalpayment - modelOrderSale.order.totalValue;
+          if (totalcash > totalChange) {
+            modelOrderSale.order.changeValue = totalChange;
             return modelOrderSale.order.changeValue.toStringAsFixed(2);
           }
         }

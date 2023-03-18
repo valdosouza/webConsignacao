@@ -35,40 +35,39 @@ Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
     child: Padding(
       padding: const EdgeInsets.only(left: 2.0),
       child: TextField(
-        enabled: enabled,
-        keyboardType: TextInputType.number,
-        textAlign: textAlign,
-        onSubmitted: (value) {
-          if (value.isEmpty) value = "0";
-          switch (position) {
-            case 1:
-              item.bonus = double.parse(value);
-              break;
-            case 2:
-              item.nameProduct = value;
-              break;
-            case 3:
-              item.qttyConsigned = double.parse(value);
+          enabled: enabled,
+          keyboardType: TextInputType.number,
+          textAlign: textAlign,
+          onSubmitted: (value) {
+            if (value.isEmpty) value = "0";
+            switch (position) {
+              case 1:
+                item.bonus = double.parse(value);
+                break;
+              case 2:
+                item.nameProduct = value;
+                break;
+              case 3:
+                item.qttyConsigned = double.parse(value);
 
-              break;
-            case 4:
-              if (value.isNotEmpty) {
-                item.leftover = double.parse(value);
-                item.qttySold = (item.qttyConsigned - item.leftover);
-                if (item.unitValue == 0) item.unitValue = 1;
-                item.subtotal =
-                    (item.qttyConsigned - item.leftover) * item.unitValue;
-              } else {
-                item.leftover = 0;
-                item.qttySold = 0;
-                item.subtotal = 0;
-              }
-              break;
-          }
-        },
-        controller:
-            TextEditingController(text: setTextController(item, position)),
-      ),
+                break;
+              case 4:
+                if (value.isNotEmpty) {
+                  item.leftover = double.parse(value);
+                  item.qttySold = (item.qttyConsigned - item.leftover);
+                  if (item.unitValue == 0) item.unitValue = 1;
+                  item.subtotal =
+                      (item.qttyConsigned - item.leftover) * item.unitValue;
+                } else {
+                  item.leftover = 0;
+                  item.qttySold = 0;
+                  item.subtotal = 0;
+                }
+                break;
+            }
+          },
+          controller:
+              TextEditingController(text: setTextController(item, position))),
     ),
   );
 }

@@ -34,7 +34,8 @@ class OrderAttendanceRegisterBloc
       var response = await getPriceList.call(ParamsPriceListGet());
 
       var result = response.fold(
-          (l) => OrderAttendanceRegisterGetPriceListErrorState(error: ""), (r) {
+          (l) => OrderAttendanceRegisterGetPriceListErrorState(
+              error: l.toString()), (r) {
         pricelist = r;
         return OrderAttendanceRegisterGetPriceListSuccessState(pricelist: r);
       });
@@ -79,7 +80,7 @@ class OrderAttendanceRegisterBloc
       final response = await putOrderAttendance.call(orderAttendance);
 
       response.fold((l) {
-        emit(OrderAttendanceRegisterPutErrorState(error: ""));
+        emit(OrderAttendanceRegisterPutErrorState(error: l.toString()));
       }, (r) {
         //este dois items não sao enviados para o put e retornam vazios
         String routeRetorn = orderAttendance.routeRetorn;

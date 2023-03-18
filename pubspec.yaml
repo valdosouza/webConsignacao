@@ -64,6 +64,9 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_sticky_header: ^0.6.5
   permission_handler: ^9.2.0
+  url_launcher: ^6.1.10
+  mask_text_input_formatter: ^2.4.0
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   # cupertino_icons: ^1.0.2

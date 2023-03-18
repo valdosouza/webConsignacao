@@ -72,8 +72,10 @@ class CustomerRegisterPutByMobileSuccessState extends CustomerRegisterState {
 
 class CustomerRegisterPostErrorState extends CustomerRegisterState {
   final String error;
+  final int tabIndex;
 
-  CustomerRegisterPostErrorState(List<CustomerListModel> customers, this.error)
+  CustomerRegisterPostErrorState(
+      List<CustomerListModel> customers, this.error, this.tabIndex)
       : super(customers: customers);
 }
 

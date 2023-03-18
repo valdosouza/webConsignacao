@@ -8,10 +8,10 @@ class CustomerRegisterOthersMobileWidget extends StatefulWidget {
   final CustomerRegisterBloc bloc;
   final CustomerMainModel? customer;
   const CustomerRegisterOthersMobileWidget({
-    super.key,
-    this.customer,
+    Key? key,
     required this.bloc,
-  });
+    this.customer,
+  }) : super(key: key);
 
   @override
   State<CustomerRegisterOthersMobileWidget> createState() =>

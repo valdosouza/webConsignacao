@@ -58,6 +58,8 @@ class SalesRoutListeMobileState extends State<SalesRouteListMobile> {
                       icon: const Icon(Icons.arrow_forward_ios_outlined),
                       onPressed: () {
                         bloc.tbSalesRouteIdSelected = widget.lista[index].id;
+                        bloc.salesRouteSelected =
+                            widget.lista[index].description;
                         bloc.add(CustomerGetListEvent());
                       },
                     ),

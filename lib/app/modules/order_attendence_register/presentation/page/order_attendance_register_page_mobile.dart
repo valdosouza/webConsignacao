@@ -58,10 +58,10 @@ class OrderAttendanceRegisterPageMobileState
         } else if ((state is OrderAttendanceRegisterPostSuccessState) ||
             (state is OrderAttendanceRegisterPutSuccessState)) {
           CustomToast.showToast("Cadastro atualizado com sucesso.");
-        } else if ((state is OrderAttendanceRegisterPostErrorState) ||
-            (state is OrderAttendanceRegisterPutErrorState)) {
-          CustomToast.showToast(
-              "Erro iniciar o Atendimento. Tente novamente mais tarde.");
+        } else if (state is OrderAttendanceRegisterPostErrorState) {
+          CustomToast.showToast(state.error);
+        } else if (state is OrderAttendanceRegisterPutErrorState) {
+          CustomToast.showToast(state.error);
         }
       },
       builder: (context, state) {
@@ -109,7 +109,12 @@ class OrderAttendanceRegisterPageMobileState
 
           switch (orderAttendance.tbPriceListId) {
             case 0:
-              Modular.to.navigate('/customer/mobile/');
+              if (bloc.orderAttendance.routeRetorn.isNotEmpty) {
+                Modular.to.navigate(bloc.orderAttendance.routeRetorn,
+                    arguments: bloc.orderAttendance.tbSalesRouteId);
+              } else {
+                Modular.to.navigate('/customer/mobile/');
+              }
               break;
             case 1:
               Modular.to

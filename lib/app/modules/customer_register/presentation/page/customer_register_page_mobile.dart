@@ -75,9 +75,7 @@ class _CustomerRegisterPageMobileState
         if (state is CustomerRegisterGetSalesRouteSuccessState) {
           return const CustomerRegisterSalesRouteListWidget();
         }
-        if (state is CustomerRegisterPostErrorState) {
-          Modular.to.navigate('/customer/mobile/');
-        }
+
         if (state is CustomerRegisterPutByMobileSuccessState) {
           Modular.to.navigate('/attendancecustomer/mobile/');
         }
@@ -105,6 +103,12 @@ class _CustomerRegisterPageMobileState
           Modular.to.navigate(
             '/attendance/',
             arguments: orderAttemdance,
+          );
+        }
+        if (state is CustomerRegisterPostErrorState) {
+          return ContentCustomerRegisterMobile(
+            customer: bloc.customer,
+            tabIndex: bloc.tabIndex,
           );
         }
         if (state is CustomerRegisterInfoPageState) {

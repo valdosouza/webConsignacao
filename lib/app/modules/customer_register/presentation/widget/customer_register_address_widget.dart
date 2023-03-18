@@ -1,6 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/core/shared/utils/validators.dart';
+
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
@@ -11,10 +11,10 @@ class CustomerRegisterAddressWidget extends StatefulWidget {
   final CustomerRegisterBloc bloc;
   final CustomerMainModel? customer;
   const CustomerRegisterAddressWidget({
-    super.key,
-    this.customer,
+    Key? key,
     required this.bloc,
-  });
+    this.customer,
+  }) : super(key: key);
 
   @override
   State<CustomerRegisterAddressWidget> createState() =>
@@ -54,7 +54,6 @@ class _CustomerRegisterAddressWidgetState
               initialValue: widget.customer?.address.zipCode,
               keyboardType: TextInputType.number,
               inputAction: TextInputAction.next,
-              validator: (value) => Validators.validateExactLength(value, 8),
               onChanged: (value) {
                 widget.customer?.address.zipCode = value;
               },

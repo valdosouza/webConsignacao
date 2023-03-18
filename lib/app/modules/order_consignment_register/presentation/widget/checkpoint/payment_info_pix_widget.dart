@@ -3,6 +3,12 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:flutter/material.dart';
 
 Widget paymentinfopix(OrderConsignmentCheckpointModel modelCheckpoint) {
+  double valor = 0;
+  String valorStr = "";
+  var txt = TextEditingController(
+      text: (modelCheckpoint.payments[1].value > 0)
+          ? modelCheckpoint.payments[1].value.toStringAsFixed(2)
+          : "");
   return Row(
     children: [
       Expanded(
@@ -20,10 +26,20 @@ Widget paymentinfopix(OrderConsignmentCheckpointModel modelCheckpoint) {
             border: Border.all(color: Colors.black),
           ),
           child: TextField(
-            controller: TextEditingController(
-                text: (modelCheckpoint.payments[1].value > 0)
-                    ? modelCheckpoint.payments[1].value.toStringAsFixed(2)
-                    : ""),
+            controller: txt,
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                valorStr = value.replaceAll('.', '');
+                valor = double.parse(valorStr);
+                txt.text = "";
+                if (valor > 0) {
+                  valor = valor / 100;
+                  txt.text = valor.toStringAsFixed(2);
+                }
+              }
+              txt.selection = TextSelection.fromPosition(
+                  TextPosition(offset: txt.text.length));
+            },
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
             onSubmitted: (value) {

@@ -43,9 +43,7 @@ class OrderConsignmentRegisterCalcDoneState
 class OrderConsignmentRegisterSupplyingPostErrorState
     extends OrderConsignmentRegisterState {
   final String error;
-  OrderConsignmentRegisterSupplyingPostErrorState({
-    required this.error,
-  });
+  OrderConsignmentRegisterSupplyingPostErrorState({required this.error});
 }
 
 class OrderConsignmentRegisterSupplyingPostSucessState

@@ -17,6 +17,12 @@ class PaymentInfoCash extends StatefulWidget {
 class _PaymentInfoCashState extends State<PaymentInfoCash> {
   @override
   Widget build(BuildContext context) {
+    double valor = 0;
+    String valorStr = "";
+    var txt = TextEditingController(
+        text: (widget.modelOrderPaid[0].value > 0)
+            ? widget.modelOrderPaid[0].value.toStringAsFixed(2)
+            : "");
     return Row(
       children: [
         Expanded(
@@ -34,10 +40,20 @@ class _PaymentInfoCashState extends State<PaymentInfoCash> {
               border: Border.all(color: Colors.black),
             ),
             child: TextFormField(
-              controller: TextEditingController(
-                  text: (widget.modelOrderPaid[0].value > 0)
-                      ? widget.modelOrderPaid[0].value.toStringAsFixed(2)
-                      : ""),
+              controller: txt,
+              onChanged: (value) {
+                if (value.isNotEmpty) {
+                  valorStr = value.replaceAll('.', '');
+                  valor = double.parse(valorStr);
+                  txt.text = "";
+                  if (valor > 0) {
+                    valor = valor / 100;
+                    txt.text = valor.toStringAsFixed(2);
+                  }
+                }
+                txt.selection = TextSelection.fromPosition(
+                    TextPosition(offset: txt.text.length));
+              },
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
               onFieldSubmitted: (value) {

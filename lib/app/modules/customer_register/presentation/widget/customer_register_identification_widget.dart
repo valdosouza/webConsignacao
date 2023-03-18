@@ -1,6 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
@@ -11,10 +10,10 @@ class CustomerRegisterIdentificationWidget extends StatefulWidget {
   final CustomerRegisterBloc bloc;
   final CustomerMainModel? customer;
   const CustomerRegisterIdentificationWidget({
-    super.key,
-    this.customer,
+    Key? key,
     required this.bloc,
-  });
+    this.customer,
+  }) : super(key: key);
 
   @override
   State<CustomerRegisterIdentificationWidget> createState() =>
@@ -158,7 +157,6 @@ class _CustomerRegisterIdentificationWidgetState
               color: Colors.white,
             ),
           ),
-          validator: (value) => Validators.validateCNPJ(value),
           onChanged: (value) {
             widget.customer?.person?.cpf = "";
             widget.customer?.company?.cnpj = value;

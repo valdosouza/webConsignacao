@@ -5,8 +5,10 @@ import 'package:appweb/app/modules/attendance_by_customer/attendance_by_customer
 import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_bloc.dart';
 import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_event.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:url_launcher/link.dart';
 
 class CustomerListMobile extends StatefulWidget {
   const CustomerListMobile({
@@ -60,7 +62,43 @@ class CustomerListeMobileState extends State<CustomerListMobile> {
                             },
                           ),
                         ),
-                        title: Text(widget.lista[index].nickTrade),
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              widget.lista[index].nickTrade,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                              maxLines: 2,
+                            ),
+                            AutoSizeText(
+                              "End: ${widget.lista[index].street}, ${widget.lista[index].nmbr}",
+                              style: const TextStyle(
+                                  fontSize: 10, fontWeight: FontWeight.normal),
+                              maxLines: 1,
+                            ),
+                            (widget.lista[index].complement.contains("https"))
+                                ? SizedBox(
+                                    child: Link(
+                                        uri: Uri.parse(
+                                            widget.lista[index].complement),
+                                        target: LinkTarget.blank,
+                                        builder: (context, followLink) {
+                                          return ElevatedButton(
+                                              onPressed: followLink,
+                                              child: const Text("Ver no mapa"));
+                                        }),
+                                  )
+                                : (widget.lista[index].complement.isNotEmpty)
+                                    ? Text(
+                                        "Comp: ${widget.lista[index].complement}",
+                                        style: const TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.normal),
+                                      )
+                                    : const Text("")
+                          ],
+                        ),
                         trailing: IconButton(
                           icon: const Icon(Icons.arrow_forward_ios_outlined),
                           onPressed: () {

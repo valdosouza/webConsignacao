@@ -78,7 +78,7 @@ class _CollaboratorRegisterIdentificationWidgetState
             ],
           ),
           const SizedBox(height: 30.0),
-          selectPersonType ? _buildJuridicalPerson() : _buildPerson(),
+          selectPersonType ? _buildCompany() : _buildPerson(),
           const SizedBox(height: 30.0),
           CustomInput(
             title: 'e-mail* (não poderá ser alterado neste canal)',
@@ -95,7 +95,7 @@ class _CollaboratorRegisterIdentificationWidgetState
     );
   }
 
-  Column _buildJuridicalPerson() {
+  Column _buildCompany() {
     return Column(
       children: [
         CustomInput(
@@ -130,6 +130,7 @@ class _CollaboratorRegisterIdentificationWidgetState
           initialValue: bloc.model.entity.nameCompany,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.next,
+          validator: (value) => Validators.validateRequired(value),
           onChanged: (value) {
             bloc.model.entity.nameCompany = value;
           },
@@ -140,6 +141,7 @@ class _CollaboratorRegisterIdentificationWidgetState
           initialValue: bloc.model.entity.nickTrade,
           keyboardType: TextInputType.text,
           inputAction: TextInputAction.next,
+          validator: (value) => Validators.validateRequired(value),
           onChanged: (value) {
             bloc.model.entity.nickTrade = value;
           },

@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
@@ -35,7 +36,7 @@ class CustomerRegisterBloc
   List<CityModel> cities = [];
   List<SalesmanListModel> salesmans = [];
   List<SalesRouteListModel> salesRoute = [];
-
+  int tabIndex = 0;
   CustomerRegisterBloc({
     required this.getlist,
     required this.getCep,
@@ -102,33 +103,83 @@ class CustomerRegisterBloc
     });
   }
 
+  Future<String?> _validadePostCustomer() async {
+    tabIndex = 0;
+    String? error = "";
+    if ((customer.company?.cnpj != "") && (customer.company?.cnpj != null)) {
+      error = Validators.validateCNPJ(customer.company?.cnpj);
+      if (error != "") {
+        return error;
+      }
+    }
+    if ((customer.person?.cpf != "") && (customer.person?.cpf != null)) {
+      error = Validators.validateCPF(customer.person?.cpf);
+      if (error != "") {
+        return error;
+      }
+    }
+    if (customer.entity.nameCompany.isEmpty) {
+      return "Campo Nome/Razão é Obrigatório";
+    }
+    if (customer.entity.nickTrade.isEmpty) {
+      return "Campo Apelido/Nome Fantasia";
+    }
+    tabIndex = 1;
+    if (customer.address.zipCode.length < 8) {
+      return "Campo Cep não é valido ";
+    }
+    if (customer.address.street.length < 3) {
+      return "Campo logradouro não é valido ";
+    }
+    if (customer.address.nmbr.isEmpty) {
+      return "Campo número não é valido ";
+    }
+    if (customer.address.neighborhood.isEmpty) {
+      return "Campo bairro não é valido ";
+    }
+    if (customer.address.neighborhood.isEmpty) {
+      return "Campo bairro não é valido ";
+    }
+    tabIndex = 3;
+    if (customer.customer.tbSalesRouteId == 0) {
+      return "Campo Rota não é valido ";
+    }
+    return "";
+  }
+
   postCustomerByMobile() async {
     on<CustomerRegisterPostByMobileEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
+      String? errorValidate = await _validadePostCustomer();
+      if (errorValidate!.isNotEmpty) {
+        emit(
+            CustomerRegisterPostErrorState(customers, errorValidate, tabIndex));
+      } else {
+        var response =
+            await postCustomer.call(ParamsPostCustomer(customer: event.model));
 
-      var response =
-          await postCustomer.call(ParamsPostCustomer(customer: event.model));
-
-      response.fold((l) {
-        emit(CustomerRegisterPostErrorState(customers, l.toString()));
-      }, (r) {
-        if (r.error == "") {
-          if (event.model.entity.id != 0) {
-            int index = customers.indexWhere((element) => element.id == r.id);
-            if (index != -1) {
-              customers[index] = r;
+        response.fold((l) {
+          emit(CustomerRegisterPostErrorState(
+              customers, l.toString(), tabIndex));
+        }, (r) {
+          if (r.error == "") {
+            if (event.model.entity.id != 0) {
+              int index = customers.indexWhere((element) => element.id == r.id);
+              if (index != -1) {
+                customers[index] = r;
+              }
+              emit(CustomerRegisterPutByMobileSuccessState(
+                  customer: r, customers: customers));
+            } else {
+              customers.add(r);
+              emit(CustomerRegisterPostByMobileSuccessState(
+                  customer: r, customers: customers));
             }
-            emit(CustomerRegisterPutByMobileSuccessState(
-                customer: r, customers: customers));
           } else {
-            customers.add(r);
-            emit(CustomerRegisterPostByMobileSuccessState(
-                customer: r, customers: customers));
+            emit(CustomerRegisterPostErrorState(customers, r.error, tabIndex));
           }
-        } else {
-          emit(CustomerRegisterPostErrorState(customers, r.error));
-        }
-      });
+        });
+      }
     });
   }
 
@@ -140,8 +191,8 @@ class CustomerRegisterBloc
           await postCustomer.call(ParamsPostCustomer(customer: event.model));
 
       response.fold(
-          (l) => emit(CustomerRegisterPostErrorState(customers, l.toString())),
-          (r) {
+          (l) => emit(CustomerRegisterPostErrorState(
+              customers, l.toString(), tabIndex)), (r) {
         if (r.error == "") {
           if (event.model.entity.id != 0) {
             customers[customers.indexWhere((element) => element.id == r.id)] =
@@ -151,7 +202,7 @@ class CustomerRegisterBloc
           }
           emit(CustomerRegisterPostByDesktopSuccessState(customers));
         } else {
-          emit(CustomerRegisterPostErrorState(customers, r.error));
+          emit(CustomerRegisterPostErrorState(customers, r.error, tabIndex));
         }
       });
     });

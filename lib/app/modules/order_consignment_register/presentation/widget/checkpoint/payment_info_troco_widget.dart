@@ -6,6 +6,7 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
   String calcChange() {
     double totalpayment = 0;
     double totalcash = 0;
+    double totalChange = 0;
     for (var item in modelCheckpoint.payments) {
       totalpayment += item.value;
       if (item.namePaymentType == "DINHEIRO") totalcash += item.value;
@@ -14,9 +15,9 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
       if (totalpayment > modelCheckpoint.order.totalValue) {
         if (totalcash > 0) {
           modelCheckpoint.order.changeValue = 0;
-          modelCheckpoint.order.changeValue =
-              totalpayment - modelCheckpoint.order.totalValue;
-          if (totalcash > modelCheckpoint.order.changeValue) {
+          totalChange = totalpayment - modelCheckpoint.order.totalValue;
+          if (totalcash > totalChange) {
+            modelCheckpoint.order.changeValue = totalChange;
             return modelCheckpoint.order.changeValue.toStringAsFixed(2);
           }
         }

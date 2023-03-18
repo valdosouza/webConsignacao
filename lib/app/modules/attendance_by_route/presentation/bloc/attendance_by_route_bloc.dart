@@ -16,6 +16,7 @@ class AttendanceByRouteBloc
   //int idSequenceCustomer = -1;
   int tbCustomerIdPickedForOrder = -1;
   int tbSalesRouteIdSelected = 0;
+  String salesRouteSelected = "";
   List<SalesRouteListModel> saleroutlist = [];
   List<CustomerListByRouteModel> customerlist = [];
 

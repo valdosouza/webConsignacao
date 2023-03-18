@@ -30,7 +30,6 @@ class _ContentCustomerRegisterMobileState
     extends State<ContentCustomerRegisterMobile>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
   late CustomerMainModel customer;
 
   late final CustomerRegisterBloc bloc;
@@ -48,11 +47,12 @@ class _ContentCustomerRegisterMobileState
     bloc = Modular.get();
     customer = widget.customer;
     _tabController = TabController(vsync: this, length: myTabs.length);
-    _tabController.animateTo(widget.tabIndex);
+    //_tabController.animateTo(widget.tabIndex);
   }
 
   @override
   Widget build(BuildContext context) {
+    _tabController.animateTo(widget.tabIndex);
     final Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
