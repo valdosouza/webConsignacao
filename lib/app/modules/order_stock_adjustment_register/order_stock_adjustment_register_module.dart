@@ -4,7 +4,7 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/data/reposito
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/entities_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_closure.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_delete.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_get.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_main_get.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_get_list.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_post.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_put.dart';
@@ -25,14 +25,15 @@ class OrderStockAdjustmentRegisterModule extends Module {
   List<Bind> get binds => [
         Bind.factory<OrderStockAdjustmentRegisterDataSource>(
           (i) => OrderStockAdjustmentRegisterDataSourceImpl(
-              httpClient: http.Client()),
+            httpClient: http.Client(),
+          ),
         ),
         Bind.factory(
           (i) => OrderStockAdjustmentRegisterRepositoryImpl(
               datasource: i.get<OrderStockAdjustmentRegisterDataSource>()),
         ),
         Bind.factory(
-          (i) => OrderStockAdjustmentRegisterGet(
+          (i) => OrderStockAdjustmentMainGet(
               repository: i.get<OrderStockAdjustmentRegisterRepositoryImpl>()),
         ),
         Bind.factory(
@@ -72,7 +73,7 @@ class OrderStockAdjustmentRegisterModule extends Module {
               repository: i.get<OrderStockAdjustmentRegisterRepositoryImpl>()),
         ),
         Bind.singleton((i) => OrderStockAdjustmentRegisterBloc(
-            getOrderStockAdjustment: i.get<OrderStockAdjustmentRegisterGet>(),
+            getOrderStockAdjustment: i.get<OrderStockAdjustmentMainGet>(),
             getlistOrderStockAdjustment:
                 i.get<OrderStockAdjustmentRegisterGetlist>(),
             postOrderStockAdjustment: i.get<OrderStockAdjustmentRegisterPost>(),

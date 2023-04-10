@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/domain/entity/person_entity.dart';
 
 class PersonModel extends PersonEntity {
@@ -25,7 +26,8 @@ class PersonModel extends PersonEntity {
       id: json['id'] as int? ?? 0,
       cpf: json['cpf'] as String? ?? "",
       rg: json['rg'] as String? ?? "",
-      rgDtEmission: json['rg_dt_emission'] as String? ?? "",
+      rgDtEmission:
+          CustomDate.formatDateIn(json['rg_dt_emission'] as String) ?? "",
       rgOrganIssuer: json['rg_organ_issuer'] as String? ?? "",
       rgStateIssuer: json['rg_state_issuer'] as int? ?? 0,
       birthday: json['birthday'] as String? ?? "",
@@ -37,7 +39,7 @@ class PersonModel extends PersonEntity {
     data['id'] = id;
     data['cpf'] = cpf.replaceAll(".", "").replaceAll("-", "");
     data['rg'] = rg;
-    data['rg_dt_emission'] = rgDtEmission;
+    data['rg_dt_emission'] = CustomDate.formatDateOut(rgDtEmission);
     data['rg_organ_issuer'] = rgOrganIssuer;
     data['rg_state_issuer'] = 0;
     data['birthday'] = birthday;

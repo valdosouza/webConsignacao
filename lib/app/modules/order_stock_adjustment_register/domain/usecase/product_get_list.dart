@@ -24,5 +24,6 @@ class ProductGetlist
 }
 
 class ParamsGetlistProduct {
-  ParamsGetlistProduct();
+  int id;
+  ParamsGetlistProduct({required this.id});
 }

@@ -18,8 +18,12 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
   final StockListGetlist stockListGetlist;
 
   StockBalanceModel stockBalance = StockBalanceModel.empty();
+  StockBalanceModel stockBalanceTemp = StockBalanceModel.empty();
 
   List<StockListModel> stockListList = [];
+  int pageStockBalance = 0;
+  String search = "";
+  int tbStockListId = 0;
 
   StockBalanceBloc({
     required this.customergetlist,
@@ -30,9 +34,11 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
   }) : super(StockBalanceLoadingState()) {
     customerGetList();
     customerSearchEvent();
+
     salesmanGetList();
     salesmanSearchEvent();
-    generalGetList();
+
+    salesmamLiabilityGetList();
     generalSearchEvent();
     getList();
     searchEvent();
@@ -44,35 +50,45 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     on<StockBalanceGetListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
-      var response = await getlist
-          .call(ParamsGetListStockBalance(tbStockListId: event.tbStockListId));
+      if (event.params.page == 0) {
+        stockBalance.items.clear();
+        stockBalanceTemp.items.clear;
+        pageStockBalance = 1;
+      } else {
+        pageStockBalance += 1;
+      }
+      tbStockListId = event.params.tbStockListId;
+      event.params.page = pageStockBalance;
+
+      var response = await getlist.call(event.params);
 
       response.fold((l) => emit(StockBalanceErrorState()), (r) {
-        stockBalance = r;
-        emit(StockBalanceLoadedState(item: r));
+        stockBalance.nameStockList = r.nameStockList;
+        stockBalance.tbStockListId = r.tbStockListId;
+        stockBalance.items += r.items;
+        emit(GetListByStockListLoadedState());
       });
     });
   }
 
   searchEvent() {
     on<StockBalanceSearchEvent>((event, emit) async {
-      if (event.search.isNotEmpty) {
-        StockBalanceModel stockBalanceSearched = StockBalanceModel.empty();
-        stockBalanceSearched.items = stockBalance.items.where((element) {
-          String name = element.nameMerchandise;
-          return (name
-              .toLowerCase()
-              .trim()
-              .contains(event.search.toLowerCase().trim()));
-        }).toList();
-        if (stockBalanceSearched.items.isNotEmpty) {
-          emit(StockBalanceCustomerLoadedState(item: stockBalanceSearched));
-        } else {
-          emit(StockBalanceCustomerLoadedState(item: stockBalance));
-        }
+      if (stockBalanceTemp.items.length < stockBalance.items.length) {
+        stockBalanceTemp = stockBalance;
       } else {
-        emit(StockBalanceCustomerLoadedState(item: stockBalance));
+        stockBalance = stockBalanceTemp;
       }
+      if (search.isNotEmpty) {
+        stockBalance.items = stockBalance.items
+            .where(
+              (element) => element.nameMerchandise
+                  .toLowerCase()
+                  .trim()
+                  .contains(search.toLowerCase().trim()),
+            )
+            .toList();
+      }
+      emit(StockBalanceSearchSucessState());
     });
   }
 
@@ -85,70 +101,40 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
 
       response.fold((l) => emit(StockBalanceErrorState()), (r) {
         stockBalance = r;
-        emit(StockBalanceCustomerLoadedState(item: r));
+        emit(GetListByCustomerLoadedState());
       });
     });
   }
 
   customerSearchEvent() {
-    on<StockBalanceCustomerSearchEvent>((event, emit) async {
-      if (event.search.isNotEmpty) {
-        StockBalanceModel stockBalanceSearched = StockBalanceModel.empty();
-        stockBalanceSearched.items = stockBalance.items.where((element) {
-          String name = element.nameMerchandise;
-          return (name
-              .toLowerCase()
-              .trim()
-              .contains(event.search.toLowerCase().trim()));
-        }).toList();
-        if (stockBalanceSearched.items.isNotEmpty) {
-          emit(StockBalanceCustomerLoadedState(item: stockBalanceSearched));
-        } else {
-          emit(StockBalanceCustomerLoadedState(item: stockBalance));
-        }
-      } else {
-        emit(StockBalanceCustomerLoadedState(item: stockBalance));
-      }
-    });
+    on<StockBalanceCustomerSearchEvent>((event, emit) async {});
   }
 
   salesmanGetList() {
     on<StockBalanceSalesmanGetListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
-
-      var response =
-          await salesmangetlist.call(const ParamsGetListStockBalanceSalesman());
+      if (event.params.page == 0) {
+        stockBalance.items.clear();
+        stockBalanceTemp.items.clear;
+        pageStockBalance = 1;
+      } else {
+        pageStockBalance += 1;
+      }
+      event.params.page = pageStockBalance;
+      var response = await salesmangetlist.call(event.params);
 
       response.fold((l) => emit(StockBalanceErrorState()), (r) {
-        stockBalance = r;
-        emit(StockBalanceSalesmanLoadedState(item: r));
+        stockBalance.items += r.items;
+        emit(GetListBySalesmanLoadedState());
       });
     });
   }
 
   salesmanSearchEvent() {
-    on<StockBalanceSalesmanSearchEvent>((event, emit) async {
-      if (event.search.isNotEmpty) {
-        StockBalanceModel stockBalanceSearched = StockBalanceModel.empty();
-        stockBalanceSearched.items = stockBalance.items.where((element) {
-          String name = element.nameMerchandise;
-          return (name
-              .toLowerCase()
-              .trim()
-              .contains(event.search.toLowerCase().trim()));
-        }).toList();
-        if (stockBalanceSearched.items.isNotEmpty) {
-          emit(StockBalanceSalesmanLoadedState(item: stockBalanceSearched));
-        } else {
-          emit(StockBalanceSalesmanLoadedState(item: stockBalance));
-        }
-      } else {
-        emit(StockBalanceSalesmanLoadedState(item: stockBalance));
-      }
-    });
+    on<StockBalanceSalesmanSearchEvent>((event, emit) async {});
   }
 
-  generalGetList() {
+  salesmamLiabilityGetList() {
     on<StockBalanceGeneralGetListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
@@ -157,49 +143,32 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
 
       response.fold((l) => emit(StockBalanceErrorState()), (r) {
         stockBalance = r;
-        emit(StockBalanceGeneralLoadedState(item: r));
+        emit(GetListBySalesmanLoadedState());
       });
     });
   }
 
   generalSearchEvent() {
-    on<StockBalanceGeneralSearchEvent>((event, emit) async {
-      if (event.search.isNotEmpty) {
-        StockBalanceModel stockBalanceSearched = StockBalanceModel.empty();
-        stockBalanceSearched.items = stockBalance.items.where((element) {
-          String name = element.nameMerchandise;
-          return (name
-              .toLowerCase()
-              .trim()
-              .contains(event.search.toLowerCase().trim()));
-        }).toList();
-        if (stockBalanceSearched.items.isNotEmpty) {
-          emit(StockBalanceGeneralLoadedState(item: stockBalanceSearched));
-        } else {
-          emit(StockBalanceGeneralLoadedState(item: stockBalance));
-        }
-      } else {
-        emit(StockBalanceGeneralLoadedState(item: stockBalance));
-      }
-    });
+    on<StockBalanceGeneralSearchEvent>((event, emit) async {});
   }
 
   getStocks() {
-    on<StockBalanceGetStockListEvent>((event, emit) async {
+    on<GetStockListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
       final response = await stockListGetlist.call(const ParamsGetListStock());
 
       response.fold((l) => emit(StockBalanceGetStockListErrorState()), (r) {
         stockListList = r;
-        emit(StockBalanceGetStockListSucessState(item: stockListList));
+
+        emit(GetStockListLoadedState());
       });
     });
   }
 
   returnStockListPage() {
     on<StockBalanceReturnStockListPagEvent>((event, emit) async {
-      emit(StockBalanceCustomerLoadedState(item: stockBalance));
+      emit(GetStockListLoadedState());
     });
   }
 }

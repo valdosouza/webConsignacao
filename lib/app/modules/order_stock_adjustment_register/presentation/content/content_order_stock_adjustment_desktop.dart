@@ -1,10 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_data.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_list_items.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/content/content_stock_adjustment_register_master.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/content/content_order_stock_adjustment_register_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -13,10 +12,9 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 
 class ContentOrderStockAdjustmentRegisterDesktop extends StatefulWidget {
-  final OrderStockAdjustmentRegisterModel orderStockAdjustment;
   final int tabIndex;
   const ContentOrderStockAdjustmentRegisterDesktop(
-      {Key? key, required this.orderStockAdjustment, this.tabIndex = 0})
+      {Key? key, this.tabIndex = 0})
       : super(key: key);
 
   @override
@@ -27,7 +25,6 @@ class ContentOrderStockAdjustmentRegisterDesktop extends StatefulWidget {
 class _ContentOrderStockAdjustmentRegisterDesktopState
     extends State<ContentOrderStockAdjustmentRegisterDesktop>
     with SingleTickerProviderStateMixin {
-  late OrderStockAdjustmentRegisterModel orderStockAdjustment;
   late TabController _tabController;
 
   late final OrderStockAdjustmentRegisterBloc bloc;
@@ -35,21 +32,11 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
 
   @override
   void initState() {
-    bloc = Modular.get();
-    orderStockAdjustment = widget.orderStockAdjustment;
-    String initialValueDate = orderStockAdjustment.dtRecord == ""
-        ? OrderStockAdjustmentRegisterModel.formatDate(
-            DateTime.now().toString(), "dd/MM/yyyy")
-        : orderStockAdjustment.dtRecord;
-    orderStockAdjustment.dtRecord = initialValueDate;
-    controllerDate =
-        MaskedTextController(mask: '00/00/0000', text: initialValueDate);
+    bloc = Modular.get<OrderStockAdjustmentRegisterBloc>();
+    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+      await Modular.isModuleReady<OrderStockAdjustmentRegisterModule>();
+    });
 
-    orderStockAdjustment.id = orderStockAdjustment.id == 0
-        ? bloc.orderStockAdjustments.isEmpty
-            ? 1
-            : bloc.orderStockAdjustments.last.id + 1
-        : orderStockAdjustment.id;
     _tabController = TabController(vsync: this, length: 2);
     _tabController.animateTo(widget.tabIndex);
     super.initState();
@@ -59,18 +46,18 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        bloc.add(OrderStockAdjustmentRegisterGetListEvent());
+        bloc.add(OrderGetListEvent());
         return true;
       },
       child: BlocConsumer<OrderStockAdjustmentRegisterBloc,
           OrderStockAdjustmentRegisterState>(
         bloc: bloc,
         listener: (context, state) {
-          if (state is OrderStockAdjustmentRegisterStockErrorState) {
+          if (state is StocksLoadErrorState) {
             CustomToast.showToast(
                 "Erro ao buscar os dados. Tente novamente mais tarde.");
           }
-          if (state is OrderStockAdjustmentRegisterProductErrorState) {
+          if (state is ProductGetErrorState) {
             CustomToast.showToast(
                 "Erro ao buscar os dados. Tente novamente mais tarde.");
           }
@@ -84,11 +71,11 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  bloc.add(OrderStockAdjustmentRegisterGetListEvent());
+                  bloc.add(OrderGetListEvent());
                 },
               ),
               title: Text(
-                bloc.edit
+                bloc.orderMain.order.id > 0
                     ? "Editar Ordem de Ajuste de Estoque"
                     : "Adicionar Ordem de Ajuste de Estoque",
                 style: kHintTextStyle.copyWith(fontSize: 20.0),
@@ -96,7 +83,7 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
               actions: [
                 PopupMenuButton(
                   itemBuilder: (context) => [
-                    (bloc.orderStockAdjustment.status != "F")
+                    (bloc.orderMain.order.status != "F")
                         ? PopupMenuItem(
                             onTap: (() => bloc.add(OrderClosureEvent())),
                             value: 0,
@@ -120,38 +107,35 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                     child: ListTile(
                       title: const Center(
                           child: Text(
-                        'Itens para ajustar',
+                        'Itens para Ajustar',
                         style: TextStyle(color: Colors.white),
                       )),
                       trailing: IconButton(
-                          onPressed: () {
-                            if (bloc.orderStockAdjustment.status != "F") {
-                              bloc.add(OrderStockAdjustmentRegisterItemEvent());
-                            }
-                          },
-                          icon: const Icon(Icons.add, color: Colors.white)),
+                        onPressed: () {
+                          if (bloc.orderMain.order.status != "F") {
+                            bloc.add(OrderItemNewEvent());
+                          }
+                        },
+                        icon: const Icon(Icons.add, color: Colors.white),
+                      ),
                     ),
                   )
                 ],
               ),
             ),
-            body: TabBarView(controller: _tabController, children: [
-              OrderStockAdjustmentRegisterData(
-                  orderStockAdjust: orderStockAdjustment,
-                  bloc: bloc,
-                  controllerDate: controllerDate),
-              OrderStockAdjustmentRegisterItemsListWidget(
-                orderStockAdjust: orderStockAdjustment,
-              ),
-            ]),
-            floatingActionButton: (bloc.orderStockAdjustment.status != "F")
+            body: TabBarView(
+              controller: _tabController,
+              children: const [
+                ContentOrderStockAdjustmentRegisterMaster(),
+                ContentOrderStockAdjustmentRegisterDetail(),
+              ],
+            ),
+            floatingActionButton: (bloc.orderMain.order.status != "F")
                 ? FloatingActionButton(
                     onPressed: () {
-                      bloc.edit
-                          ? bloc.add(OrderStockAdjustmentRegisterPutEvent(
-                              model: orderStockAdjustment))
-                          : bloc.add(OrderStockAdjustmentRegisterPostEvent(
-                              model: orderStockAdjustment));
+                      bloc.orderMain.order.id > 0
+                          ? bloc.add(OrderPutEvent())
+                          : bloc.add(OrderPostEvent());
                     },
                     backgroundColor: Colors.black,
                     child: const Icon(Icons.save),

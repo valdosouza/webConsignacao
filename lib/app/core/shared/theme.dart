@@ -6,8 +6,15 @@ const kHintTextStyle = TextStyle(
 );
 
 const kLabelStyle = TextStyle(
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'OpenSans',
+);
+
+const kLabelAvatarStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
+  fontSize: 12,
   fontFamily: 'OpenSans',
 );
 
@@ -48,7 +55,7 @@ const kPrimaryColor = Color(0xFF366CF6);
 const kSecondaryColor = Color(0xFFF5F6FC);
 const kBgLightColor = Color(0xFFF2F4FC);
 const kBgDarkColor = Color(0xFFEBEDFA);
-const kBadgeColor = Color(0xFFEE376E);
+const kBadgeColor = Color.fromRGBO(123, 160, 91, 80);
 const kGrayColor = Color(0xFF8793B2);
 const kTitleTextColor = Color(0xFF30384D);
 const kTextColor = Color(0xFF4D5875);
@@ -63,7 +70,7 @@ Color getColor(String color) {
     case 'black':
       return Colors.black;
     case 'red':
-      return Colors.red;
+      return const Color.fromRGBO(123, 160, 91, 80);
   }
   return Colors.black;
 }

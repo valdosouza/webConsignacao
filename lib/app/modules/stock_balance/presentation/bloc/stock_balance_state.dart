@@ -1,6 +1,3 @@
-import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
-import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
-
 abstract class StockBalanceState {}
 
 class StockBalanceLoadingState extends StockBalanceState {}
@@ -8,46 +5,21 @@ class StockBalanceLoadingState extends StockBalanceState {}
 class StockBalanceErrorState extends StockBalanceState {}
 
 //====================Customer================================
-class StockBalanceCustomerLoadedState extends StockBalanceState {
-  final StockBalanceModel item;
-  StockBalanceCustomerLoadedState({
-    required this.item,
-  });
-}
+class GetListByCustomerLoadedState extends StockBalanceState {}
 
-//============================General==================================
+//============================Salesman Liability=========================
 
-class StockBalanceGeneralLoadedState extends StockBalanceState {
-  final StockBalanceModel item;
-  StockBalanceGeneralLoadedState({
-    required this.item,
-  });
-}
+class GetListBySalesmanLiabilityLoadedState extends StockBalanceState {}
 
 //============================Salesman==================================
 
-class StockBalanceSalesmanLoadedState extends StockBalanceState {
-  final StockBalanceModel item;
-  StockBalanceSalesmanLoadedState({
-    required this.item,
-  });
-}
-
-//============================Salesman==================================
-
-class StockBalanceLoadedState extends StockBalanceState {
-  final StockBalanceModel item;
-  StockBalanceLoadedState({
-    required this.item,
-  });
-}
+class GetListBySalesmanLoadedState extends StockBalanceState {}
 
 //==========================StockList==================================
-class StockBalanceGetStockListSucessState extends StockBalanceState {
-  final List<StockListModel> item;
-  StockBalanceGetStockListSucessState({
-    required this.item,
-  });
-}
+class GetStockListLoadedState extends StockBalanceState {}
+
+class GetListByStockListLoadedState extends StockBalanceState {}
 
 class StockBalanceGetStockListErrorState extends StockBalanceState {}
+
+class StockBalanceSearchSucessState extends StockBalanceState {}

@@ -1,2 +1,2 @@
 # webERPSetes
-Sistema ERP - Setes
+Sistema Gestão - Setes

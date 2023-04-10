@@ -4,6 +4,7 @@ import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/params_get_list_product_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
@@ -21,7 +22,8 @@ abstract class OrderStockTransferRegisterDataSource extends Gateway {
   Future<String> delete({required int id});
   Future<List<StockListModel>> getListStock();
   Future<List<EntityListModel>> getListEntity();
-  Future<List<ProductListModel>> getListProduct();
+  Future<List<ProductListModel>> getListProduct(
+      ParamsGetlistProductModel params);
   Future<String> closure({required OrderStatusModel model});
   Future<String> reopen({required OrderStatusModel model});
 }
@@ -62,8 +64,13 @@ class OrderStockTransferRegisterDataSourceImpl
 
   @override
   Future<List<EntityListModel>> getListEntity() async {
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
     return request(
-      'entity',
+      'entity/getlist/$tbInstitutionId',
       (payload) {
         final data = json.decode(payload);
         entities = (data as List).map((json) {
@@ -79,14 +86,18 @@ class OrderStockTransferRegisterDataSourceImpl
   }
 
   @override
-  Future<List<ProductListModel>> getListProduct() async {
-    String tbInstitutionId = '1';
+  Future<List<ProductListModel>> getListProduct(
+      ParamsGetlistProductModel params) async {
+    params.tbInstitutionId = 1;
     await getInstitutionId().then((value) {
-      tbInstitutionId = value.toString();
+      params.tbInstitutionId = int.parse(value);
     });
+    final body = jsonEncode(params.toJson());
 
     return await request(
-      'product/getlist/$tbInstitutionId',
+      'product/getlist/',
+      method: HTTPMethod.post,
+      data: body,
       (payload) {
         final data = json.decode(payload);
         products = (data as List).map((json) {

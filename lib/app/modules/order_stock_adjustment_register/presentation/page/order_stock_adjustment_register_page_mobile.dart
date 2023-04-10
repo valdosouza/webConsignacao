@@ -1,7 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class OrderStockAdjustmentRegisterPageMobile extends StatefulWidget {
   const OrderStockAdjustmentRegisterPageMobile({super.key});
@@ -16,9 +15,6 @@ class OrderStockAdjustmentRegisterPageMobileState
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<OrderStockAdjustmentRegisterModule>();
-    });
   }
 
   @override
@@ -28,7 +24,7 @@ class OrderStockAdjustmentRegisterPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Ordem de ajuste de estoque"),
+        title: const Text("Ordem de Adjuste de estoque"),
       ),
     );
   }

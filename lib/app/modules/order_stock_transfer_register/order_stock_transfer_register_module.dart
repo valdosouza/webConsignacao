@@ -11,8 +11,8 @@ import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/order_stock_transfer_register_reopen.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/product_get_list.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/domain/usecase/stock_list_getlist.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
-import 'package:appweb/app/modules/order_stock_transfer_register/presentation/page/order_stock_transfer_register_page.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/bloc.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/presentation/page/page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 
@@ -90,7 +90,7 @@ class OrderStockTransferRegisterModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(
       '/',
-      child: (_, args) => const OrderStockTransferRegisterPage(),
+      child: (_, args) => const Page(),
     ),
   ];
 }

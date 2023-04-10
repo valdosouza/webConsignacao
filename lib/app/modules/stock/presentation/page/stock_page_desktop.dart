@@ -5,14 +5,14 @@ import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class StocPageDesktop extends StatefulWidget {
-  const StocPageDesktop({super.key});
+class StockPageDesktop extends StatefulWidget {
+  const StockPageDesktop({super.key});
 
   @override
-  State<StocPageDesktop> createState() => StocPageDesktopState();
+  State<StockPageDesktop> createState() => StockPageDesktopState();
 }
 
-class StocPageDesktopState extends State<StocPageDesktop> {
+class StockPageDesktopState extends State<StockPageDesktop> {
   @override
   void initState() {
     super.initState();
@@ -29,7 +29,7 @@ class StocPageDesktopState extends State<StocPageDesktop> {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema ERP - Setes"),
+        title: const Text("Sistema Gestão - Setes"),
       ),
       body: SizedBox(
         height: size.height,

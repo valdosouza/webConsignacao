@@ -14,7 +14,7 @@ class HomePageDesktop extends StatelessWidget {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema ERP - Setes"),
+        title: const Text("Sistema Gestão - Setes"),
       ),
       body: SizedBox(
         height: size.height,

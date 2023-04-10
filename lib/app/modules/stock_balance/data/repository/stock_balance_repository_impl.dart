@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/stock_balance/data/datasource/stock_balance_datasource.dart';
+import 'package:appweb/app/modules/stock_balance/data/model/params_get_list_stock_balance_model.dart';
 import 'package:appweb/app/modules/stock_balance/domain/repository/stock_balance_respository.dart';
 
 import 'package:dartz/dartz.dart';
@@ -25,9 +26,9 @@ class StockBalanceRepositoryImpl implements StockBalancerRepository {
 
   @override
   Future<Either<Failure, StockBalanceModel>> getList(
-      {required int tbStockListId}) async {
+      {required ParamsGetlistStockBalanceModel params}) async {
     try {
-      final list = await datasource.getlist(tbStockListId: tbStockListId);
+      final list = await datasource.getlist(params: params);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

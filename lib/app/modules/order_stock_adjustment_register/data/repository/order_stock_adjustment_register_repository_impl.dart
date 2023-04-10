@@ -4,7 +4,8 @@ import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/datasource/order_stock_adjustment_register_datasource.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_list_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_main_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/repository/order_stock_adjustment_register_respository.dart';
 import 'package:dartz/dartz.dart';
@@ -25,8 +26,8 @@ class OrderStockAdjustmentRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, OrderStockAdjustmentRegisterModel>> put(
-      {required OrderStockAdjustmentRegisterModel model}) async {
+  Future<Either<Failure, OrderStockAdjustmentListModel>> put(
+      {required OrderStockAdjustmentMainModel model}) async {
     try {
       final list = await datasource.put(model: model);
       return Right(list);
@@ -36,8 +37,7 @@ class OrderStockAdjustmentRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, List<OrderStockAdjustmentRegisterModel>>>
-      getList() async {
+  Future<Either<Failure, List<OrderStockAdjustmentListModel>>> getList() async {
     try {
       final list = await datasource.getlist();
       return Right(list);
@@ -47,8 +47,8 @@ class OrderStockAdjustmentRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, OrderStockAdjustmentRegisterModel>> post(
-      {required OrderStockAdjustmentRegisterModel model}) async {
+  Future<Either<Failure, OrderStockAdjustmentListModel>> post(
+      {required OrderStockAdjustmentMainModel model}) async {
     try {
       final list = await datasource.post(model: model);
       return Right(list);
@@ -58,20 +58,9 @@ class OrderStockAdjustmentRegisterRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, OrderStockAdjustmentRegisterModel>> get(
-      {required int productId}) async {
-    try {
-      final list = await datasource.get(orderStockAdjustmentId: productId);
-      return Right(list);
-    } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
-
-  @override
   Future<Either<Failure, List<ProductListModel>>> getListProducts() async {
     try {
-      final list = await datasource.getListProducts();
+      final list = await datasource.getListProduct();
 
       return Right(list);
     } on ServerException {
@@ -93,8 +82,19 @@ class OrderStockAdjustmentRegisterRepositoryImpl
   @override
   Future<Either<Failure, List<EntityListModel>>> getListEntities() async {
     try {
-      final list = await datasource.getListEtities();
+      final list = await datasource.getListEntity();
 
+      return Right(list);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, OrderStockAdjustmentMainModel>> get(
+      {required int orderId}) async {
+    try {
+      final list = await datasource.get(orderStockId: orderId);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

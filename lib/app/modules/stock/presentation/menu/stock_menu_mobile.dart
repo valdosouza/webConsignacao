@@ -13,12 +13,14 @@ class StockMenuMobile extends StatelessWidget {
           itemMenuDraw(
             Icons.home,
             'Reabaster Estoque',
-            () async => Modular.to.navigate('/orderloadCard/'),
+            () async =>
+                Modular.to.navigate('/stock/mobile/reload/stocktransfer/'),
           ),
           itemMenuDraw(
             Icons.home,
             'Saldo de Estoque',
-            () async => Modular.to.navigate('/stockbalance/customer/all/'),
+            () async =>
+                Modular.to.navigate('/stock/mobile/balance/bysalesman/get/'),
           ),
         ],
       ),

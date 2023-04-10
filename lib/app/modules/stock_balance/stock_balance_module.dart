@@ -99,7 +99,7 @@ class StockBalanceModule extends Module {
       ],
     ),
     ChildRoute(
-      '/salesman/',
+      '/bysalesman/',
       child: (_, args) => const StockBalanceSalesmanPage(),
       children: [
         ChildRoute(

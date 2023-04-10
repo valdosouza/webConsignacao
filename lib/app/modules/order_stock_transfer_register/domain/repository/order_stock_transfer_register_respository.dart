@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_list_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_main_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/order_stock_transfer_register/data/model/params_get_list_product_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class OrderStockTransferRegisterRepository {
@@ -16,7 +17,8 @@ abstract class OrderStockTransferRegisterRepository {
   Future<Either<Failure, OrderStockTransferListModel>> put(
       {required OrderStockTransferMainModel model});
   Future<Either<Failure, String>> delete({required int id});
-  Future<Either<Failure, List<ProductListModel>>> getListProducts();
+  Future<Either<Failure, List<ProductListModel>>> getListProducts(
+      ParamsGetlistProductModel params);
   Future<Either<Failure, List<StockListModel>>> getListStock();
   Future<Either<Failure, List<EntityListModel>>> getListEntities();
   Future<Either<Failure, String>> closure({required OrderStatusModel model});

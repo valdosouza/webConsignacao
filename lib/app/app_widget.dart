@@ -19,7 +19,7 @@ class AppWidget extends StatelessWidget {
           } else {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
-              title: 'Sistema ERP - Setes',
+              title: 'Sistema Gestão - Setes',
               theme: ThemeData(
                 primarySwatch: Colors.red,
               ),
