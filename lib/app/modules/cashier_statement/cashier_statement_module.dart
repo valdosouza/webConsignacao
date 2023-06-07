@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_stat
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_day.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_month.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_order.dart';
+import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_current_date.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_customers.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_salesmans.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
@@ -44,6 +45,9 @@ class CashierStatementModule extends Module {
         Bind.factory<CashierStatementGetSalesmans>((i) =>
             CashierStatementGetSalesmans(
                 repository: i.get<CashierStatementRepositoryImpl>())),
+        Bind.factory<CashierStatementGetCurrentDate>((i) =>
+            CashierStatementGetCurrentDate(
+                repository: i.get<CashierStatementRepositoryImpl>())),
         Bind.singleton<CashierStatementBloc>(
           (i) => CashierStatementBloc(
             byDay: i.get<CashierStatementGetByDay>(),
@@ -52,6 +56,7 @@ class CashierStatementModule extends Module {
             byOrder: i.get<CashierStatementGetByOrder>(),
             customersCharged: i.get<CashierStatementGetCustomers>(),
             salesmanCustomersCharged: i.get<CashierStatementGetSalesmans>(),
+            getCurrentDate: i.get<CashierStatementGetCurrentDate>(),
           ),
         )
       ];

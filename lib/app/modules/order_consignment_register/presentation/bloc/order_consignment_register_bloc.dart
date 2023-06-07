@@ -58,25 +58,52 @@ class OrderConsignmentRegisterBloc
     });
   }
 
+  Future<String> _validadeCheckPoinPost() async {
+    if (modelCheckpoint.order.totalValue > 0) {
+      double valuereceived = 0;
+      for (var item in modelCheckpoint.payments) {
+        valuereceived += item.value;
+      }
+      if (valuereceived >
+          (modelCheckpoint.order.totalValue +
+              modelCheckpoint.order.changeValue)) {
+        return "Verifique! Valor recebido maior que o devido";
+      }
+      if (modelCheckpoint.order.changeValue >
+          modelCheckpoint.payments[0].value) {
+        return "Verifique! Verifique o valor do troco";
+      }
+    }
+
+    return "";
+  }
+
   checkpointPost() {
     on<OrderConsignementRegisterCheckpointPostEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
-      event.checkpointmodel.order.id = modelAttendance.id;
-      event.checkpointmodel.order.tbInstitutionId =
-          modelAttendance.tbInstitutionId;
-      event.checkpointmodel.order.dtRecord = modelAttendance.dtRecord;
-      final response = await postCheckpoint(event.checkpointmodel);
-      var result = response.fold(
-          (l) => OrderConsignmentRegisterCheckpointPostErrorState(
-              error: l.toString()), (r) {
-        stage = 2;
-        modelCheckpoint = r;
-        modelSupplying =
-            OrderConsignmentSupplyingModel.fromCheckpoint(modelCheckpoint);
-        return OrderConsignmentRegisterCheckpointPostSucessState(
-            supplyingmode: modelSupplying);
-      });
-      emit(result);
+      String errorValidate = await _validadeCheckPoinPost();
+
+      if (errorValidate.isNotEmpty) {
+        emit(OrderConsignmentRegisterCheckpointPostErrorState(
+            error: errorValidate));
+      } else {
+        event.checkpointmodel.order.id = modelAttendance.id;
+        event.checkpointmodel.order.tbInstitutionId =
+            modelAttendance.tbInstitutionId;
+        event.checkpointmodel.order.dtRecord = modelAttendance.dtRecord;
+        final response = await postCheckpoint(event.checkpointmodel);
+        var result = response.fold(
+            (l) => OrderConsignmentRegisterCheckpointPostErrorState(
+                error: l.toString()), (r) {
+          stage = 2;
+          modelCheckpoint = r;
+          modelSupplying =
+              OrderConsignmentSupplyingModel.fromCheckpoint(modelCheckpoint);
+          return OrderConsignmentRegisterCheckpointPostSucessState(
+              supplyingmode: modelSupplying);
+        });
+        emit(result);
+      }
     });
   }
 
@@ -103,8 +130,10 @@ class OrderConsignmentRegisterBloc
       for (var item in modelSupplying.items) {
         newConsignment += item.newConsignment;
       }
-      if ((newConsignment == 0) && (bonus == 0)) {
-        return "Preecha a coluna de Bonus ou de Nova Consignação.";
+      if (modelSupplying.order.recall != "S") {
+        if ((newConsignment == 0) && (bonus == 0)) {
+          return "Preecha a coluna de Bonus ou de Nova Consignação.";
+        }
       }
     }
 

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_customer_model.dart';
@@ -81,16 +80,15 @@ class _ContentCashierStatementCustomerState
                                   bloc.customers.indexOf(customer);
                               if (customer.valuerCharged > 0) {
                                 bloc.add(
-                                  CashierStatementGetByOrderMobileEvent(
+                                  GotoOrderDetailDesktopEvent(
                                     params: CashierStatementParams(
-                                      date: "",
+                                      date: customer.dtRecord,
                                       tbCustomerId: customer.id,
                                       tbOrderId: customer.tbOrderId,
+                                      tbSalesmanId: customer.tbSalesmanId,
                                     ),
                                   ),
                                 );
-                                Modular.to.navigate(
-                                    '/cashierstatement/mobile/byorder/');
                               } else {
                                 CustomToast.showToast(
                                     "Somente atendimento Registrado!");

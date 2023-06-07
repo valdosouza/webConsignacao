@@ -4,6 +4,8 @@ class CashierStatementCustomerModel extends CashierStatementCustomerEntity {
   CashierStatementCustomerModel({
     int? tbOrderId,
     int? id,
+    int? tbSalesmanId,
+    String? dtRecord,
     String? nameCustomer,
     String? timeAttendace,
     double? valuerCharged,
@@ -12,6 +14,8 @@ class CashierStatementCustomerModel extends CashierStatementCustomerEntity {
   }) : super(
             tbOrderId: tbOrderId ?? 0,
             id: id ?? 0,
+            tbSalesmanId: tbSalesmanId ?? 0,
+            dtRecord: dtRecord ?? "",
             nameCustomer: nameCustomer ?? "",
             timeAttendace: timeAttendace ?? "",
             valuerCharged: valuerCharged ?? 0.00,
@@ -22,6 +26,8 @@ class CashierStatementCustomerModel extends CashierStatementCustomerEntity {
     return CashierStatementCustomerModel(
       tbOrderId: json['tb_order_id'],
       id: json['id'],
+      tbSalesmanId: json['tb_salesman_id'],
+      dtRecord: json['dt_record'],
       nameCustomer: json['name_customer'],
       timeAttendace: json['time_attendace'],
       valuerCharged: json['value_charged'] is String

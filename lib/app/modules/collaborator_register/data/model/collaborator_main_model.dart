@@ -36,8 +36,15 @@ class CollaboratorMainModel extends CollaboratorMainEntity {
       person:
           json['person'] != null ? PersonModel.fromJson(json['person']) : null,
       address: AddressModel.fromJson(json['address']),
-      phone:
-          json['phone'].length > 0 ? PhoneModel.fromJson(json['phone']) : null,
+      phone: json['phone'].length > 0
+          ? PhoneModel.fromJson(json['phone'])
+          : PhoneModel(
+              id: json['entity']['id'],
+              kind: "Comercial",
+              addressKind: "Comercial",
+              number: "",
+              contact: "",
+            ),
       userEmail: UserEmailModel.fromJson(json['user']),
     );
   }

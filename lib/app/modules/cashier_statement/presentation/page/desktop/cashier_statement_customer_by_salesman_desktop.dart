@@ -36,13 +36,12 @@ class CashierStatementCustomerBySalesmanDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: Text("Vendedor ${bloc.salesmanSelected}"),
+        title: Text(
+            "Vendedor: ${bloc.salesmanSelected} - Data: ${bloc.dateSelected}"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            bloc.add(CashierStatementReturnListSalesmanEvent());
-            Modular.to.navigate(
-                '/cashier/desktop/cashierstatement/desktop/salesman/salesmanlist/');
+            bloc.add(ReturnSalesmanListDesktopEvent());
           },
         ),
       ),

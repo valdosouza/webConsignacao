@@ -60,10 +60,10 @@ class CashierClosureBloc
     Emitter<CashierClosureState> emit,
   ) async {
     emit(CashierClosureLoadingState());
-    dtCashierToday =
+    var dtCashierToday =
         await LocalStorageService.instance.get(key: LocalStorageKey.dtCashier);
 
-    if (dtCashierToday == "") {
+    if ((dtCashierToday == null) || (dtCashierToday == "")) {
       dtCashierToday = CustomDate.newDate();
     }
     dtCashierYesterday = CustomDate.yesterday(dtCashierToday);

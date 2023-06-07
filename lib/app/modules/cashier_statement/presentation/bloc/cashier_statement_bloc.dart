@@ -8,6 +8,7 @@ import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_stat
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_day.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_month.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_order.dart';
+import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_current_date.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_customers.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_salesmans.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
@@ -22,6 +23,7 @@ class CashierStatementBloc
   final CashierStatementGetByOrder byOrder;
   final CashierStatementGetCustomers customersCharged;
   final CashierStatementGetSalesmans salesmanCustomersCharged;
+  final CashierStatementGetCurrentDate getCurrentDate;
 
   List<CashierStatementModel> cashierStatement = List.empty();
   List<CashierStatementCustomerModel> customers = List.empty();
@@ -40,28 +42,39 @@ class CashierStatementBloc
     required this.byOrder,
     required this.customersCharged,
     required this.salesmanCustomersCharged,
+    required this.getCurrentDate,
   }) : super(LoadedState()) {
     cashierStatementGetByDay();
     cashierStatementGetByMonth();
     cashierStatementGetByCustomer();
     cashierStatementGetByCustomerBySalesman();
+    cashierStatementGetCurrentDate();
     cashierStatementGetByOrder();
     cashierStatementGetCustomers();
     cashierStatementGetSalesmans();
     returnListSalesmanEvent();
-    getCurrentData();
+    returnToCustomerDesktopEvent();
+
+    goToOrderDetailPageDesktop();
   }
 
-  getCurrentData() {
+  cashierStatementGetCurrentDate() {
     on<GetCurrentDateEvent>((event, emit) async {
       emit(LoadingState());
-      dtCashierToday = await LocalStorageService.instance
-          .get(key: LocalStorageKey.dtCashier);
-      if (dtCashierToday == "") {
-        dtCashierToday = CustomDate.newDate();
-      }
-      dtCashierMonth = CustomDate().getMonth(dtCashierToday);
-      emit(GetCurrentDateSucessState());
+      var response =
+          await getCurrentDate.call(ParamsCashierStatementGetCurrentDate());
+
+      var result = response.fold((l) {
+        return MobileErrorState();
+      }, (r) {
+        dtCashierToday = r.dtRecord;
+        dtCashierMonth = CustomDate().getMonth(dtCashierToday);
+        LocalStorageService.instance
+            .saveItem(key: LocalStorageKey.dtCashier, value: dtCashierToday);
+        return GetCurrentDateSucessState();
+      });
+
+      emit(result);
     });
   }
 
@@ -102,6 +115,9 @@ class CashierStatementBloc
 
       var dtCashier = await LocalStorageService.instance
           .get(key: LocalStorageKey.dtCashier);
+      if ((dtCashier == null) || (dtCashier == "")) {
+        dtCashier = CustomDate.newDate();
+      }
       event.params.date = CustomDate.formatDateOut(dtCashier);
       var response = await byCustomer.call(event.params);
 
@@ -115,7 +131,7 @@ class CashierStatementBloc
   }
 
   cashierStatementGetByCustomerBySalesman() {
-    on<CashierStatementGetByCustomerDesktopEvent>((event, emit) async {
+    on<GotoCustomerListDesktopEvent>((event, emit) async {
       emit(LoadingState());
 
       event.params.date = CustomDate.formatDateOut(event.params.date);
@@ -125,7 +141,7 @@ class CashierStatementBloc
         return CustomerMobileErrorState();
       }, (r) {
         customers = r;
-        return ByCustomerDesktopSucessState();
+        return GoToCustomerListDesktopSucessState();
       });
 
       emit(result);
@@ -139,6 +155,9 @@ class CashierStatementBloc
 
       var dtCashier = await LocalStorageService.instance
           .get(key: LocalStorageKey.dtCashier);
+      if ((dtCashier == null) || (dtCashier == "")) {
+        dtCashier = CustomDate.newDate();
+      }
       event.params.date = CustomDate.formatDateOut(dtCashier);
       var response = await byOrder.call(event.params);
 
@@ -156,7 +175,9 @@ class CashierStatementBloc
       emit(LoadingState());
       var dtCashier = await LocalStorageService.instance
           .get(key: LocalStorageKey.dtCashier);
-
+      if ((dtCashier == null) || (dtCashier == "")) {
+        dtCashier = CustomDate.newDate();
+      }
       event.params.date = CustomDate.formatDateOut(dtCashier);
       var response = await customersCharged.call(event.params);
 
@@ -170,16 +191,16 @@ class CashierStatementBloc
   }
 
   cashierStatementGetSalesmans() {
-    on<GetSalesmanDesktopEvent>((event, emit) async {
+    on<GoToSalesmanListDesktopEvent>((event, emit) async {
       emit(LoadingState());
 
       var response = await salesmanCustomersCharged.call(event.params);
 
       var result = response.fold((l) {
-        return SalesmanDesktopErrorState();
+        return GoToSalesmanListDesktopSucessState();
       }, (r) {
         salesmans = r;
-        return SalesmanDesktopGetListSucessState();
+        return GoToSalesmanListDesktopSucessState();
       });
 
       emit(result);
@@ -187,8 +208,36 @@ class CashierStatementBloc
   }
 
   returnListSalesmanEvent() {
-    on<CashierStatementReturnListSalesmanEvent>((event, emit) async {
-      emit(ReturnSalesmanListSucessState());
+    on<ReturnSalesmanListDesktopEvent>((event, emit) async {
+      emit(ReturnSalesmanListDesktopSucessState());
+    });
+  }
+
+  returnToCustomerDesktopEvent() {
+    on<ReturnCustomerListDesktopEvent>((event, emit) async {
+      emit(ReturnCustomerListDesktopSucessState());
+    });
+  }
+
+  goToOrderDetailPageDesktop() {
+    on<GotoOrderDetailDesktopEvent>((event, emit) async {
+      emit(LoadingState());
+      //posicina o cliente na lista para mostrar na proxima tela do detalhamento
+
+      var dtCashier = "";
+      if (event.params.date == "") {
+        event.params.date = CustomDate.formatDateOut(dtCashier);
+      }
+      var response = await byOrder.call(event.params);
+
+      var result = response.fold((l) {
+        return DesktopErrorState();
+      }, (r) {
+        cashierStatement = r;
+        return GoToOrderDetailDesktopSucessState();
+      });
+
+      emit(result);
     });
   }
 }

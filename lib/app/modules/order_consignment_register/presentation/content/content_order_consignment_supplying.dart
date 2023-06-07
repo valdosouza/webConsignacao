@@ -35,12 +35,12 @@ class _ContentConsignmenteSupplyingState
     bloc = Modular.get<OrderConsignmentRegisterBloc>();
   }
 
-  Future<bool?> showConfirmationDialog() {
+  Future<bool?> showConfirmationExitProcess() {
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Deseja realmente sair desta Tela"),
+          title: const Text("Deseja realmente sair desta Tela?"),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -59,6 +59,30 @@ class _ContentConsignmenteSupplyingState
     );
   }
 
+  Future<bool?> showConfirmationProcess() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Deseja realmente finalizar?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text("Cancelar"),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                bloc.add(OrderConsignementRegisterSupplyngPostEvent(
+                    suplyingmodel: bloc.modelSupplying));
+              },
+              child: const Text("Sim"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -66,7 +90,7 @@ class _ContentConsignmenteSupplyingState
     return WillPopScope(
       onWillPop: (() async {
         if (bloc.stage == 1) {
-          final confirmation = await showConfirmationDialog();
+          final confirmation = await showConfirmationExitProcess();
           return confirmation ?? false;
         }
         return false;
@@ -112,7 +136,7 @@ class _ContentConsignmenteSupplyingState
               "Voltar",
               (() async {
                 if (state == 1) {
-                  final confirmation = await showConfirmationDialog();
+                  final confirmation = await showConfirmationExitProcess();
                   return (confirmation ?? false);
                 }
               }),
@@ -132,12 +156,10 @@ class _ContentConsignmenteSupplyingState
           ),
           Expanded(
             flex: 1,
-            child: custombutton(
-                "Finalizar",
-                (() => {
-                      bloc.add(OrderConsignementRegisterSupplyngPostEvent(
-                          suplyingmodel: bloc.modelSupplying))
-                    })),
+            child: custombutton("Finalizar", (() async {
+              final confirmation = await showConfirmationProcess();
+              return (confirmation ?? false);
+            })),
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
+import 'package:appweb/app/modules/Core/data/model/cashier_status_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_customer_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
@@ -28,6 +29,7 @@ abstract class CashierStatementDataSource extends Gateway {
   Future<List<CashierStatementSalesmanModel>> cashierStatementGetSalesmans({
     required CashierStatementParams params,
   });
+  Future<CashierStatusModel> cashierStatementGetCurrentDate();
 }
 
 class CashierStatementDataSourceImpl extends CashierStatementDataSource {
@@ -74,10 +76,13 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
     });
 
     String tbUserId = '1';
-    await getUserId().then((value) {
-      tbUserId = value.toString();
-    });
-
+    if (params.tbSalesmanId! > 0) {
+      tbUserId = params.tbSalesmanId.toString();
+    } else {
+      await getUserId().then((value) {
+        tbUserId = value.toString();
+      });
+    }
     return await request(
       'financial/statement/getbyorder/$tbInstitutionId/$tbUserId/${params.tbOrderId}/${params.date}',
       (payload) {
@@ -157,7 +162,7 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
 
     String tbUserId = '1';
     //Se não for passado por parametro pegara o Usuario logado
-    if (params.tbSalesmanId == 0) {
+    if ((params.tbSalesmanId == 0) || (params.tbSalesmanId == null)) {
       await getUserId().then((value) {
         tbUserId = value.toString();
       });
@@ -195,6 +200,29 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
             .map((e) => CashierStatementSalesmanModel.fromJson(e))
             .toList();
         return model;
+      },
+      onError: (error) {
+        return ServerException;
+      },
+    );
+  }
+
+  @override
+  Future<CashierStatusModel> cashierStatementGetCurrentDate() async {
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+    String tbUserId = '1';
+    await getUserId().then((value) {
+      tbUserId = value.toString();
+    });
+
+    return request(
+      'cashier/isopen/$tbInstitutionId/$tbUserId',
+      (payload) {
+        final data = json.decode(payload);
+        return CashierStatusModel.fromJson(data);
       },
       onError: (error) {
         return ServerException;

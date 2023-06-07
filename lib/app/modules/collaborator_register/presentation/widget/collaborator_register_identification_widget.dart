@@ -30,67 +30,69 @@ class _CollaboratorRegisterIdentificationWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Tipo de Pessoa", style: kLabelStyle),
-          const SizedBox(height: 10.0),
-          Row(
-            children: [
-              Row(
-                children: [
-                  Radio(
-                    value: true,
-                    groupValue: selectPersonType,
-                    activeColor: Colors.red,
-                    onChanged: selectPersonType
-                        ? (value) {}
-                        : (value) {
-                            setState(() {
-                              selectPersonType = true;
-                            });
-                          },
-                  ),
-                  const SizedBox(width: 5.0),
-                  const Text("Jurídica", style: kLabelStyle),
-                ],
-              ),
-              const SizedBox(width: 10.0),
-              Row(
-                children: [
-                  Radio(
-                      value: false,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text("Tipo de Pessoa", style: kLabelStyle),
+            const SizedBox(height: 10.0),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                      value: true,
                       groupValue: selectPersonType,
                       activeColor: Colors.red,
                       onChanged: selectPersonType
-                          ? (value) {
+                          ? (value) {}
+                          : (value) {
                               setState(() {
-                                selectPersonType = false;
+                                selectPersonType = true;
                               });
-                            }
-                          : (value) {}),
-                  const SizedBox(width: 5.0),
-                  const Text("Física", style: kLabelStyle),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 30.0),
-          selectPersonType ? _buildCompany() : _buildPerson(),
-          const SizedBox(height: 30.0),
-          CustomInput(
-            title: 'e-mail* (não poderá ser alterado neste canal)',
-            readOnly: (bloc.model.entity.id > 0),
-            initialValue: bloc.model.userEmail.email,
-            keyboardType: TextInputType.emailAddress,
-            inputAction: TextInputAction.next,
-            onChanged: (value) {
-              bloc.model.userEmail.email = value;
-            },
-          ),
-        ],
+                            },
+                    ),
+                    const SizedBox(width: 5.0),
+                    const Text("Jurídica", style: kLabelStyle),
+                  ],
+                ),
+                const SizedBox(width: 10.0),
+                Row(
+                  children: [
+                    Radio(
+                        value: false,
+                        groupValue: selectPersonType,
+                        activeColor: Colors.red,
+                        onChanged: selectPersonType
+                            ? (value) {
+                                setState(() {
+                                  selectPersonType = false;
+                                });
+                              }
+                            : (value) {}),
+                    const SizedBox(width: 5.0),
+                    const Text("Física", style: kLabelStyle),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 30.0),
+            selectPersonType ? _buildCompany() : _buildPerson(),
+            const SizedBox(height: 30.0),
+            CustomInput(
+              title: 'e-mail* (não poderá ser alterado neste canal)',
+              readOnly: (bloc.model.entity.id > 0),
+              initialValue: bloc.model.userEmail.email,
+              keyboardType: TextInputType.emailAddress,
+              inputAction: TextInputAction.next,
+              onChanged: (value) {
+                bloc.model.userEmail.email = value.trim();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

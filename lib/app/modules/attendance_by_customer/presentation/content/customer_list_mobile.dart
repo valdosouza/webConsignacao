@@ -77,11 +77,12 @@ class CustomerListeMobileState extends State<CustomerListMobile> {
                                   fontSize: 10, fontWeight: FontWeight.normal),
                               maxLines: 1,
                             ),
-                            (widget.lista[index].complement.contains("https"))
+                            (widget.lista[index].complement.startsWith("https"))
                                 ? SizedBox(
                                     child: Link(
-                                        uri: Uri.parse(
-                                            widget.lista[index].complement),
+                                        uri: Uri.parse(widget
+                                            .lista[index].complement
+                                            .trim()),
                                         target: LinkTarget.blank,
                                         builder: (context, followLink) {
                                           return ElevatedButton(

@@ -24,7 +24,7 @@ class CashierBalanceBloc
       emit(CashierBalanceLoadingState());
       var dtCashier = await LocalStorageService.instance
           .get(key: LocalStorageKey.dtCashier);
-      if (dtCashier == "") {
+      if ((dtCashier == null) || (dtCashier == "")) {
         dtCashier = CustomDate.newDate();
       }
       cashierBalance.dtRecord = dtCashier;

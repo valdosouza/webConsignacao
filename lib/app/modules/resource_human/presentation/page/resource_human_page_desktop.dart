@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/drawer/presentation/drawer_page_main.dart';
-import 'package:appweb/app/modules/financial/financial_module.dart';
 import 'package:appweb/app/modules/resource_human/presentation/menu/resource_human_menu_main.dart';
+import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -17,7 +17,7 @@ class FinancialnPageDesktopState extends State<ResourceHumanPageDesktop> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<FinancialModule>();
+      await Modular.isModuleReady<ResourceHumanModule>();
     });
   }
 

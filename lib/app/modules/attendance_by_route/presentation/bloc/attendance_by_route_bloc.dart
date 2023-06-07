@@ -1,35 +1,43 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_sequence.dart';
+import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_set_turn_back.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/sales_route_get_list.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_state.dart';
+import 'package:intl/intl.dart';
 
 class AttendanceByRouteBloc
     extends Bloc<AttendanceByRouteEvent, AttendanceByRouteState> {
   final SalesRouteGetlist getlistSalesRoute;
   final CustomerGetlist getlistCustomer;
   final CustomerSequence sequence;
+  final CustomerSetTurnBack customerSetTurnBack;
   //int idSequenceCustomer = -1;
   int tbCustomerIdPickedForOrder = -1;
   int tbSalesRouteIdSelected = 0;
   String salesRouteSelected = "";
+  String dtRecordSelected = CustomDate.formatDateOut(CustomDate.newDate());
+  String kindSelected = "Atender";
   List<SalesRouteListModel> saleroutlist = [];
   List<CustomerListByRouteModel> customerlist = [];
 
-  AttendanceByRouteBloc(
-      {required this.getlistSalesRoute,
-      required this.getlistCustomer,
-      required this.sequence})
-      : super(SalesRouteListLoadingState()) {
+  AttendanceByRouteBloc({
+    required this.getlistSalesRoute,
+    required this.getlistCustomer,
+    required this.sequence,
+    required this.customerSetTurnBack,
+  }) : super(SalesRouteListLoadingState()) {
     getListRouteSales();
     getListCustomer();
     orderMode();
     ordererMode();
     cancelOrderMode();
+    setTurnBack();
     //searchRouteSales();
   }
 
@@ -52,9 +60,95 @@ class AttendanceByRouteBloc
   getListCustomer() {
     on<CustomerGetListEvent>((event, emit) async {
       emit(CustomerListLoadingState());
+      var dtConsulta = DateTime.parse(event.params.dtRecord);
+      var dtResultado = DateTime.now();
+      String diaDaSemana = DateFormat('EEEE').format(dtConsulta);
+      switch (diaDaSemana) {
+        case 'segunda-feira':
+          switch (event.params.tbSalesRouteId) {
+            case 2:
+              dtResultado = dtConsulta.add(const Duration(days: 1));
+              break;
+            case 3:
+              dtResultado = dtConsulta.add(const Duration(days: 2));
+              break;
+            case 4:
+              dtResultado = dtConsulta.add(const Duration(days: 3));
+              break;
+            case 5:
+              dtResultado = dtConsulta.add(const Duration(days: 4));
+              break;
+          }
+          break;
+        case 'terça-feira':
+          switch (event.params.tbSalesRouteId) {
+            case 1:
+              dtResultado = dtConsulta.subtract(const Duration(days: 1));
+              break;
+            case 3:
+              dtResultado = dtConsulta.add(const Duration(days: 1));
+              break;
+            case 4:
+              dtResultado = dtConsulta.add(const Duration(days: 2));
+              break;
+            case 5:
+              dtResultado = dtConsulta.add(const Duration(days: 3));
+              break;
+          }
+          break;
+        case 'quarta-feira':
+          switch (event.params.tbSalesRouteId) {
+            case 1:
+              dtResultado = dtConsulta.subtract(const Duration(days: 2));
+              break;
+            case 2:
+              dtResultado = dtConsulta.subtract(const Duration(days: 1));
+              break;
+            case 4:
+              dtResultado = dtConsulta.add(const Duration(days: 1));
+              break;
+            case 5:
+              dtResultado = dtConsulta.add(const Duration(days: 2));
+              break;
+          }
+          break;
+        case 'quinta-feira':
+          switch (event.params.tbSalesRouteId) {
+            case 1:
+              dtResultado = dtConsulta.subtract(const Duration(days: 3));
+              break;
+            case 2:
+              dtResultado = dtConsulta.subtract(const Duration(days: 2));
+              break;
+            case 3:
+              dtResultado = dtConsulta.subtract(const Duration(days: 1));
+              break;
+            case 5:
+              dtResultado = dtConsulta.add(const Duration(days: 1));
+              break;
+          }
+          break;
+        case 'sexta-feira':
+          switch (event.params.tbSalesRouteId) {
+            case 1:
+              dtResultado = dtConsulta.subtract(const Duration(days: 4));
+              break;
+            case 2:
+              dtResultado = dtConsulta.subtract(const Duration(days: 3));
+              break;
+            case 3:
+              dtResultado = dtConsulta.subtract(const Duration(days: 2));
+              break;
+            case 4:
+              dtResultado = dtConsulta.subtract(const Duration(days: 1));
+              break;
+          }
+          break;
+      }
 
-      var response = await getlistCustomer
-          .call(ParamsGetListCustomer(tbSalesRouteId: tbSalesRouteIdSelected));
+      String dataString = DateFormat('yyyy-MM-dd').format(dtResultado);
+      event.params.dtRecord = CustomDate.formatDateOut(dataString);
+      var response = await getlistCustomer.call(event.params);
 
       var result = response
           .fold((l) => CustomerListErrorState(error: l.toString()), (r) {
@@ -101,7 +195,12 @@ class AttendanceByRouteBloc
       response.fold((l) {
         emit(CustomerListOrderErrorState());
       }, (r) {
-        add(CustomerGetListEvent());
+        add(CustomerGetListEvent(
+            params: ParamsGetListCustomerByRoute(
+          tbSalesRouteId: tbSalesRouteIdSelected,
+          dtRecord: dtRecordSelected,
+          kind: kindSelected,
+        )));
       });
     });
   }
@@ -109,6 +208,17 @@ class AttendanceByRouteBloc
   cancelOrderMode() {
     on<CustomerCancelOrderModeEvent>((event, emit) async {
       tbCustomerIdPickedForOrder = -1;
+      emit(CustomerListLoadedState());
+    });
+  }
+
+  setTurnBack() {
+    on<CustomerSetTurnBackEvent>((event, emit) async {
+      emit(SalesRouteListLoadingState());
+      await customerSetTurnBack.call(event.params);
+      var elemento = customerlist
+          .firstWhere((customer) => customer.id == event.params.tbCustomerId);
+      customerlist.remove(elemento);
       emit(CustomerListLoadedState());
     });
   }

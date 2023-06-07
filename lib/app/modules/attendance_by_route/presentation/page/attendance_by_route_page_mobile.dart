@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -40,7 +41,12 @@ class SalesRoutetRegisterInterationPageState
       bloc.add(SalesRouteGetListEvent());
     } else {
       bloc.tbSalesRouteIdSelected = widget.tbSalesRouteId;
-      bloc.add(CustomerGetListEvent());
+      bloc.add(CustomerGetListEvent(
+          params: ParamsGetListCustomerByRoute(
+        tbSalesRouteId: bloc.tbSalesRouteIdSelected,
+        dtRecord: bloc.dtRecordSelected,
+        kind: bloc.kindSelected,
+      )));
     }
   }
 

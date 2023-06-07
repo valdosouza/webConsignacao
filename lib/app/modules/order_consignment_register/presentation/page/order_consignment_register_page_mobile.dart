@@ -52,8 +52,7 @@ class OrderConsginmentRegisterPageMobileState
               "Erro ao buscar os dados. Tente novamente mais tarde");
           Modular.to.navigate('/attendance/');
         } else if (state is OrderConsignmentRegisterCheckpointPostErrorState) {
-          CustomToast.showToast(
-              "Erro ao Gravar a etapa de Checagem.Tente novamente");
+          CustomToast.showToast(state.error);
         } else if (state is OrderConsignmentRegisterSupplyingPostErrorState) {
           CustomToast.showToast(state.error);
         }

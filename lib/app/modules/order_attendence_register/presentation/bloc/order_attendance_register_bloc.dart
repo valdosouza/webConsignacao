@@ -64,6 +64,9 @@ class OrderAttendanceRegisterBloc
       });
       var dtCashier = await LocalStorageService.instance
           .get(key: LocalStorageKey.dtCashier);
+      if ((dtCashier == null) || (dtCashier == "")) {
+        dtCashier = CustomDate.newDate();
+      }
       var dtAttendace = CustomDate.formatDateIn(orderAttendance.dtRecord);
       final dtResut = dtCashier.compareTo(dtAttendace);
       if (dtResut != 0) {

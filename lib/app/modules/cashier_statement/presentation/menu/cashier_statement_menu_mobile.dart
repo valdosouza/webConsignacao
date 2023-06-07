@@ -23,7 +23,9 @@ class _CashierStatementMenuMobileState
   void initState() {
     super.initState();
     bloc = Modular.get<CashierStatementBloc>();
-    bloc.add(GetCurrentDateEvent());
+    if (bloc.dtCashierToday == "") {
+      bloc.add(GetCurrentDateEvent());
+    }
   }
 
   @override

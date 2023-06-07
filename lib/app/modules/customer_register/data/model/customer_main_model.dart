@@ -31,9 +31,18 @@ class CustomerMainModel extends CustomerMainEntity {
       entity: retentity,
       company: json['company'] != null
           ? CompanyModel.fromJson(json['company'])
-          : null,
-      person:
-          json['person'] != null ? PersonModel.fromJson(json['person']) : null,
+          : CompanyModel(
+              cnpj: "",
+              id: json['entity']['id'],
+              ie: "",
+            ),
+      person: json['person'] != null
+          ? PersonModel.fromJson(json['person'])
+          : PersonModel(
+              cpf: "",
+              id: json['entity']['id'],
+              rg: "",
+            ),
       address: AddressModel.fromJson(json['address']),
       phone:
           json['phone'].length > 0 ? PhoneModel.fromJson(json['phone']) : null,

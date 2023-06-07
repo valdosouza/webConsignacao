@@ -7,6 +7,7 @@ import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_s
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/content/content_cashier_statement_salesman_list.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/page/desktop/cashier_statement_by_order_page_desktop.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/page/desktop/cashier_statement_customer_by_salesman_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,7 @@ class CashierStatementPageDesktopState
     bloc = Modular.get<CashierStatementBloc>();
 
     bloc.add(
-      GetSalesmanDesktopEvent(
+      GoToSalesmanListDesktopEvent(
         params: CashierStatementParams(
           date: bloc.dateSelected,
         ),
@@ -52,7 +53,7 @@ class CashierStatementPageDesktopState
         body: BlocConsumer<CashierStatementBloc, CashierStatementState>(
           bloc: bloc,
           listener: (context, state) {
-            if (state is SalesmanDesktopErrorState) {
+            if (state is DesktopErrorState) {
               CustomToast.showToast(
                   "Não foi possível acessar os dados. Tente novamente mais tarde");
             }
@@ -61,8 +62,13 @@ class CashierStatementPageDesktopState
             if (state is LoadingState) {
               return const CustomCircularProgressIndicator();
             }
-            if (state is ByCustomerDesktopSucessState) {
+            if ((state is GoToCustomerListDesktopSucessState) ||
+                (state is ReturnCustomerListDesktopSucessState)) {
               return const CashierStatementCustomerBySalesmanDesktop();
+            }
+
+            if (state is GoToOrderDetailDesktopSucessState) {
+              return const CashierStatementByOrderPageDesktop();
             }
             return const ContentCashierStatementSalesmanList();
           },

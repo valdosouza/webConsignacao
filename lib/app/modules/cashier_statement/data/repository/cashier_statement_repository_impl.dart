@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
+import 'package:appweb/app/modules/Core/data/model/cashier_status_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/datasource/cashier_statement_datasource.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_customer_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_model.dart';
@@ -82,6 +83,17 @@ class CashierStatementRepositoryImpl implements CashierStatementRepository {
       final model =
           await datasource.cashierStatementGetSalesmans(params: params);
       return Right(model);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, CashierStatusModel>>
+      cashierStatementGetCurrentDate() async {
+    try {
+      final result = await datasource.cashierStatementGetCurrentDate();
+      return Right(result);
     } on ServerException {
       return Left(ServerFailure());
     }

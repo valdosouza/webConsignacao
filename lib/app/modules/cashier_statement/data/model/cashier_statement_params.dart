@@ -10,7 +10,7 @@ class CashierStatementParams {
     required this.date,
     this.tbCustomerId,
     this.tbOrderId,
-    this.tbSalesmanId,
+    this.tbSalesmanId = 0,
   }) {
     date = CustomDate.formatDateOut(date);
   }

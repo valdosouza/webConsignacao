@@ -25,6 +25,7 @@ import 'package:appweb/app/modules/order_sale_register/order_sale_register_modul
 import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_transfer_register_module.dart';
 import 'package:appweb/app/modules/product/product_module.dart';
+import 'package:appweb/app/modules/region_register/region_register_module.dart';
 import 'package:appweb/app/modules/resource_human/resource_human_module.dart';
 import 'package:appweb/app/modules/splash/splash_module.dart';
 import 'package:appweb/app/modules/stock/stock_module.dart';
@@ -84,6 +85,7 @@ class AppModule extends Module {
         ModuleRoute('/consignment', module: OrderConsignmentRegisterModule()),
         ModuleRoute('/ordersale', module: OrderSaleRegisterModule()),
         ModuleRoute('/orderloadCard', module: OrderLoadCardRegisterModule()),
+        ModuleRoute('/region', module: RegionRegisterModule()),
         WildcardRoute(child: (_, __) => const Page404()),
       ];
 }

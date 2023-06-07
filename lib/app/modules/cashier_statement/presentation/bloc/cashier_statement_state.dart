@@ -17,10 +17,14 @@ class CustomerMobileErrorState extends CashierStatementState {}
 class GetCurrentDateSucessState extends CashierStatementState {}
 
 //---------------------------DEsktop---------------------------------------
-class SalesmanDesktopErrorState extends CashierStatementState {}
+class DesktopErrorState extends CashierStatementState {}
 
-class SalesmanDesktopGetListSucessState extends CashierStatementState {}
+class GoToSalesmanListDesktopSucessState extends CashierStatementState {}
 
-class ByCustomerDesktopSucessState extends CashierStatementState {}
+class ReturnSalesmanListDesktopSucessState extends CashierStatementState {}
 
-class ReturnSalesmanListSucessState extends CashierStatementState {}
+class GoToCustomerListDesktopSucessState extends CashierStatementState {}
+
+class ReturnCustomerListDesktopSucessState extends CashierStatementState {}
+
+class GoToOrderDetailDesktopSucessState extends CashierStatementState {}

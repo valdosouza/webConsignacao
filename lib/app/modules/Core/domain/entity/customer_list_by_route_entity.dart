@@ -7,6 +7,7 @@ class CustomerListByRouteEntity {
   int tbSalesRouteIid;
   String nameSalesRoute;
   int sequence;
+  String turnBack;
   String street;
   String nmbr;
   String complement;
@@ -21,6 +22,7 @@ class CustomerListByRouteEntity {
     this.tbSalesRouteIid = 0,
     this.nameSalesRoute = "",
     this.sequence = 0,
+    this.turnBack = "N",
     this.street = "",
     this.nmbr = "",
     this.complement = "",

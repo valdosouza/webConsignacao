@@ -88,7 +88,7 @@ class _ContentCashierStatementSalesmanListState
                   icon: const Icon(Icons.arrow_forward_ios_outlined),
                   onPressed: () {
                     bloc.salesmanSelected = bloc.salesmans[index].nameSalesman;
-                    bloc.add(CashierStatementGetByCustomerDesktopEvent(
+                    bloc.add(GotoCustomerListDesktopEvent(
                       params: CashierStatementParams(
                         date: bloc.dateSelected,
                         tbSalesmanId: bloc.salesmans[index].id,
@@ -164,7 +164,7 @@ class _ContentCashierStatementSalesmanListState
               hoverColor: Colors.transparent,
               onPressed: () {
                 bloc.add(
-                  GetSalesmanDesktopEvent(
+                  GoToSalesmanListDesktopEvent(
                     params: CashierStatementParams(
                       date: bloc.dateSelected,
                     ),

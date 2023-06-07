@@ -2,6 +2,8 @@
 class CashierStatementCustomerEntity {
   int tbOrderId;
   int id;
+  int tbSalesmanId;
+  String dtRecord;
   String nameCustomer;
   String timeAttendace;
   double valuerCharged;
@@ -10,6 +12,8 @@ class CashierStatementCustomerEntity {
   CashierStatementCustomerEntity({
     required this.tbOrderId,
     required this.id,
+    required this.tbSalesmanId,
+    required this.dtRecord,
     required this.nameCustomer,
     required this.timeAttendace,
     required this.valuerCharged,
