@@ -7,8 +7,8 @@ import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_
 import 'package:appweb/app/modules/customer_register/presentation/content/content_customer_register.dart';
 import 'package:appweb/app/modules/customer_register/presentation/content/content_customer_register_mobile.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_city_list_widget.dart';
+import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_region_list_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_sales_route_list_widget.dart';
-import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_salesman_list_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_state_list_widget.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 import 'package:flutter/material.dart';
@@ -68,8 +68,8 @@ class _CustomerRegisterPageMobileState
           return const CustomerRegisterCityListWidget();
         }
 
-        if (state is CustomerRegisterGetSalesmanSuccessState) {
-          return const CustomerRegisterSalesmanListWidget();
+        if (state is CustomerRegisterGetRegionSuccessState) {
+          return const CustomerRegisterRegionListWidget();
         }
 
         if (state is CustomerRegisterGetSalesRouteSuccessState) {

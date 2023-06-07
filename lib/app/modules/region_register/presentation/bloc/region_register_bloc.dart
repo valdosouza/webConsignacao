@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_salesman.dart';
-import 'package:appweb/app/modules/region_register/data/model/region_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:appweb/app/modules/region_register/domain/usecase/region_register_delete.dart';
 import 'package:appweb/app/modules/region_register/domain/usecase/region_register_get_list.dart';
 import 'package:appweb/app/modules/region_register/domain/usecase/region_register_post.dart';

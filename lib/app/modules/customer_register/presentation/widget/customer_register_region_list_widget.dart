@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CustomerRegisterSalesmanListWidget extends StatefulWidget {
-  const CustomerRegisterSalesmanListWidget({
+class CustomerRegisterRegionListWidget extends StatefulWidget {
+  const CustomerRegisterRegionListWidget({
     super.key,
   });
 
   @override
-  State<CustomerRegisterSalesmanListWidget> createState() =>
-      _CustomerRegisterSalesmanListWidgetState();
+  State<CustomerRegisterRegionListWidget> createState() =>
+      _CustomerRegisterRegionListWidgetState();
 }
 
-class _CustomerRegisterSalesmanListWidgetState
-    extends State<CustomerRegisterSalesmanListWidget> {
+class _CustomerRegisterRegionListWidgetState
+    extends State<CustomerRegisterRegionListWidget> {
   late final CustomerRegisterBloc bloc;
 
   @override
@@ -31,8 +31,8 @@ class _CustomerRegisterSalesmanListWidgetState
     return BlocBuilder<CustomerRegisterBloc, CustomerRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        if (state is CustomerRegisterGetSalesmanSuccessState) {
-          return _customerSalesmanList(state);
+        if (state is CustomerRegisterGetRegionSuccessState) {
+          return _customerRegionList(state);
         } else {
           return Container();
         }
@@ -40,13 +40,13 @@ class _CustomerRegisterSalesmanListWidgetState
     );
   }
 
-  _customerSalesmanList(CustomerRegisterGetSalesmanSuccessState state) {
+  _customerRegionList(CustomerRegisterGetRegionSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de vendedores'),
+        title: const Text('Lista de regiões'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -67,8 +67,7 @@ class _CustomerRegisterSalesmanListWidgetState
                   keyboardType: TextInputType.text,
                   autofocus: false,
                   onChanged: (value) {
-                    bloc.add(
-                        CustomerRegisterSearchSalesmanEvent(search: value));
+                    bloc.add(CustomerRegisterSearchRegionEvent(search: value));
                   },
                   style: const TextStyle(
                     color: Colors.white,
@@ -84,22 +83,22 @@ class _CustomerRegisterSalesmanListWidgetState
               ),
               const SizedBox(height: 5.0),
               Expanded(
-                child: state.salesmans.isEmpty
+                child: state.regions.isEmpty
                     ? const Center(
                         child: Text(
                             "Não encontramos nenhum registro em nossa base."))
                     : ListView.separated(
-                        itemCount: state.salesmans.length,
+                        itemCount: state.regions.length,
                         itemBuilder: (context, index) => InkWell(
                           onTap: () {
-                            bloc.customer.customer.tbSalesmanId =
-                                state.salesmans[index].id;
-                            bloc.customer.customer.salesmanName =
-                                state.salesmans[index].nameCompany;
+                            bloc.customer.customer.tbRegionId =
+                                state.regions[index].id;
+                            bloc.customer.customer.regionName =
+                                state.regions[index].description;
                             bloc.add(CustomerRegisterReturnEvent(index: 3));
                           },
                           child: ListTile(
-                            leading: Text(state.salesmans[index].nameCompany),
+                            leading: Text(state.regions[index].description),
                           ),
                         ),
                         separatorBuilder: (_, __) => const Divider(),

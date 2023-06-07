@@ -1,8 +1,8 @@
 class CustomerEntity {
   int id;
   int tbInstitutionId;
-  int tbSalesmanId;
-  String salesmanName;
+  int tbRegionId;
+  String regionName;
   int tbCarrierId;
   int tbSalesRouteId;
   String salesRouteName;
@@ -16,8 +16,8 @@ class CustomerEntity {
   CustomerEntity({
     this.id = 0,
     this.tbInstitutionId = 0,
-    this.tbSalesmanId = 0,
-    this.salesmanName = "",
+    this.tbRegionId = 0,
+    this.regionName = "",
     this.tbCarrierId = 0,
     this.tbSalesRouteId = 0,
     this.salesRouteName = "",

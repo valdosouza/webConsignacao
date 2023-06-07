@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
-import 'package:appweb/app/modules/region_register/data/model/region_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class RegionRegisterDataSource extends Gateway {

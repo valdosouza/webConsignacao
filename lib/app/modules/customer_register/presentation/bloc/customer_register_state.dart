@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
-import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 
@@ -132,17 +132,17 @@ class CustomerRegisterGetCityErrorState extends CustomerRegisterState {
       : super(customers: customers);
 }
 
-/*------------------------Getlist - Salesman----------------------------------*/
-class CustomerRegisterGetSalesmanSuccessState extends CustomerRegisterState {
-  final List<SalesmanListModel> salesmans;
+/*------------------------Getlist - Region----------------------------------*/
+class CustomerRegisterGetRegionSuccessState extends CustomerRegisterState {
+  final List<RegionRegisterModel> regions;
 
-  CustomerRegisterGetSalesmanSuccessState(
-      List<CustomerListModel> customers, this.salesmans)
+  CustomerRegisterGetRegionSuccessState(
+      List<CustomerListModel> customers, this.regions)
       : super(customers: customers);
 }
 
-class CustomerRegisterGetSalesmanErrorState extends CustomerRegisterState {
-  CustomerRegisterGetSalesmanErrorState(List<CustomerListModel> customers)
+class CustomerRegisterGetRegionErrorState extends CustomerRegisterState {
+  CustomerRegisterGetRegionErrorState(List<CustomerListModel> customers)
       : super(customers: customers);
 }
 

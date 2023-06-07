@@ -77,7 +77,7 @@ class _CustomerRegisterOthersDesktopWidgetState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Vendedor",
+                "Região de Venda",
                 style: kLabelStyle,
               ),
               const SizedBox(height: 10.0),
@@ -91,7 +91,7 @@ class _CustomerRegisterOthersDesktopWidgetState
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10.0),
                           child: Text(
-                            widget.customer?.customer.salesmanName ?? "",
+                            widget.customer?.customer.regionName ?? "",
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'OpenSans',
@@ -104,7 +104,7 @@ class _CustomerRegisterOthersDesktopWidgetState
                         child: IconButton(
                           hoverColor: Colors.transparent,
                           onPressed: () {
-                            widget.bloc.add(CustomerRegisterGetSalesmanEvent());
+                            widget.bloc.add(CustomerRegisterGetRegionEvent());
                           },
                           icon: const Icon(
                             Icons.search,

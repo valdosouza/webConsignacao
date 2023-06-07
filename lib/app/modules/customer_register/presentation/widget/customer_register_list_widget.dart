@@ -10,7 +10,7 @@ import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_
 import 'package:appweb/app/modules/customer_register/presentation/content/content_customer_register.dart';
 import 'package:appweb/app/modules/customer_register/presentation/content/content_customer_register_desktop.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_city_list_widget.dart';
-import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_salesman_list_widget.dart';
+import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_region_list_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_state_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,8 +60,8 @@ class CustomerRegisterListWidgetState
           return const CustomerRegisterCityListWidget();
         }
 
-        if (state is CustomerRegisterGetSalesmanSuccessState) {
-          return const CustomerRegisterSalesmanListWidget();
+        if (state is CustomerRegisterGetRegionSuccessState) {
+          return const CustomerRegisterRegionListWidget();
         }
 
         if (state is CustomerRegisterInfoPageState) {

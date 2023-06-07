@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
-import 'package:appweb/app/modules/region_register/data/model/region_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 
 abstract class RegionRegisterState {
   List<RegionRegisterModel> list;

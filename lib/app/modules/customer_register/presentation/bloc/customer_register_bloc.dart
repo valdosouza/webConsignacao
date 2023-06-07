@@ -1,14 +1,14 @@
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:appweb/app/modules/Core/data/model/sales_route_list_model.dart';
-import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_region.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_sales_route.dart';
-import 'package:appweb/app/modules/Core/domain/usecase/get_salesman.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get.dart';
@@ -27,14 +27,14 @@ class CustomerRegisterBloc
   final GetStates getStates;
   final CustomerRegisterGet getCustomer;
   final CustomerRegisterPost postCustomer;
-  final GetSalesman getSalesmans;
+  final GetRegion getRegion;
   final GetSalesRoute getSalesRoute;
 
   List<CustomerListModel> customers = [];
   CustomerMainModel customer = CustomerMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> cities = [];
-  List<SalesmanListModel> salesmans = [];
+  List<RegionRegisterModel> regions = [];
   List<SalesRouteListModel> salesRoute = [];
   int tabIndex = 0;
   CustomerRegisterBloc({
@@ -45,7 +45,7 @@ class CustomerRegisterBloc
     required this.getStates,
     required this.getCustomer,
     required this.postCustomer,
-    required this.getSalesmans,
+    required this.getRegion,
     required this.getSalesRoute,
   }) : super(CustomerRegisterLoadingState()) {
     getList();
@@ -74,9 +74,9 @@ class CustomerRegisterBloc
 
     postCustomerByDesktop();
 
-    getSalesmansAction();
+    getRegionAction();
 
-    searchSalesmans();
+    searchRegion();
 
     getSalesRouteAction();
 
@@ -425,35 +425,34 @@ class CustomerRegisterBloc
     });
   }
 
-  getSalesmansAction() {
-    on<CustomerRegisterGetSalesmanEvent>((event, emit) async {
+  getRegionAction() {
+    on<CustomerRegisterGetRegionEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
-      var response = await getSalesmans.call(ParamsSalesmanListGet());
+      var response = await getRegion.call(ParamsRegionListGet());
 
-      response.fold(
-          (l) => emit(CustomerRegisterGetSalesmanErrorState(customers)), (r) {
-        salesmans = r;
-        emit(CustomerRegisterGetSalesmanSuccessState(customers, r));
+      response.fold((l) => emit(CustomerRegisterGetRegionErrorState(customers)),
+          (r) {
+        regions = r;
+        emit(CustomerRegisterGetRegionSuccessState(customers, r));
       });
     });
   }
 
-  searchSalesmans() {
-    on<CustomerRegisterSearchSalesmanEvent>((event, emit) async {
+  searchRegion() {
+    on<CustomerRegisterSearchRegionEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
-        var salesmanSearched = salesmans.where((element) {
-          String name = element.nickTrade;
+        var regionSearched = regions.where((element) {
+          String name = element.description;
           return name
               .toLowerCase()
               .trim()
               .contains(event.search.toLowerCase().trim());
         }).toList();
-        if (salesmanSearched.isEmpty) {}
-        emit(CustomerRegisterGetSalesmanSuccessState(
-            customers, salesmanSearched));
+        if (regionSearched.isEmpty) {}
+        emit(CustomerRegisterGetRegionSuccessState(customers, regionSearched));
       } else {
-        emit(CustomerRegisterGetSalesmanSuccessState(customers, salesmans));
+        emit(CustomerRegisterGetRegionSuccessState(customers, regions));
       }
     });
   }

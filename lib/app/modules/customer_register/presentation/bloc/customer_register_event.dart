@@ -82,12 +82,12 @@ class CustomerRegisterPostByMobileEvent extends CustomerRegisterEvent {
   });
 }
 
-class CustomerRegisterGetSalesmanEvent extends CustomerRegisterEvent {}
+class CustomerRegisterGetRegionEvent extends CustomerRegisterEvent {}
 
-class CustomerRegisterSearchSalesmanEvent extends CustomerRegisterEvent {
+class CustomerRegisterSearchRegionEvent extends CustomerRegisterEvent {
   String search;
 
-  CustomerRegisterSearchSalesmanEvent({
+  CustomerRegisterSearchRegionEvent({
     required this.search,
   });
 }

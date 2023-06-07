@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/Core/domain/repository/get_state_respository.dart';
+import 'package:appweb/app/modules/Core/domain/repository/get_state_repository.dart';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';

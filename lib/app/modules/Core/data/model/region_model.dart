@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/region_register/domain/entity/region_register_entity.dart';
+import 'package:appweb/app/modules/Core/domain/entity/region_register_entity.dart';
 
 class RegionRegisterModel extends RegionRegisterEntity {
   RegionRegisterModel({

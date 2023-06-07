@@ -1,18 +1,21 @@
 import 'package:appweb/app/modules/Core/data/datasource/get_cnpj_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_cep_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_cities_datasource.dart';
+import 'package:appweb/app/modules/Core/data/datasource/get_region_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_sales_route_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_salesman_datasource.dart';
 import 'package:appweb/app/modules/Core/data/datasource/get_states_datasource.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_cep_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_cities_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_cnpj_repository_impl.dart';
+import 'package:appweb/app/modules/Core/data/repository/get_region_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_sales_route_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_salesman_repository_impl.dart';
 import 'package:appweb/app/modules/Core/data/repository/get_states_repository_impl.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
+import 'package:appweb/app/modules/Core/domain/usecase/get_region.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_sales_route.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_salesman.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
@@ -122,6 +125,23 @@ class CoreModule extends Module {
         Bind.factory(
           (i) => GetSalesRoute(
             repository: i.get<GetSalesRouteRepositoryImpl>(),
+          ),
+          export: true,
+        ),
+        //Get REgion
+        Bind.factory<GetRegionDatasource>(
+          (i) => GetRegionDataSourceImpl(httpClient: http.Client()),
+          export: true,
+        ),
+        Bind.factory(
+          (i) => GetRegionRepositoryImpl(
+            datasource: i.get<GetRegionDataSourceImpl>(),
+          ),
+          export: true,
+        ),
+        Bind.factory(
+          (i) => GetRegion(
+            repository: i.get<GetRegionRepositoryImpl>(),
           ),
           export: true,
         ),
