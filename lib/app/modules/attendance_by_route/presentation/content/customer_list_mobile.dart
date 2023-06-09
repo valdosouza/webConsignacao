@@ -72,6 +72,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                           CustomerGetListEvent(
                             params: ParamsGetListCustomerByRoute(
                               tbSalesRouteId: bloc.tbSalesRouteIdSelected,
+                              tbRegionId: bloc.tbRegionIdSelected,
                               kind: bloc.kindSelected,
                               dtRecord: bloc.dtRecordSelected,
                             ),
@@ -214,6 +215,9 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                                     routeRetorn:
                                         '/attendancesalesroute/mobile/',
                                     tbSalesRouteId: bloc.tbSalesRouteIdSelected,
+                                    nameSalesRoute: bloc.salesRouteSelected,
+                                    tbRegionId: bloc.tbRegionIdSelected,
+                                    nameRegion: bloc.regionSelected,
                                   );
                                   Modular.to.navigate(
                                     '/attendance/',

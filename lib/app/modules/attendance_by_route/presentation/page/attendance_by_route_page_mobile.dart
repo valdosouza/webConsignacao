@@ -1,4 +1,3 @@
-import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
+import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_bloc.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_state.dart';
@@ -16,9 +16,15 @@ import '../../attendance_by_route_module.dart';
 
 class AttendanceByRoutePageMobile extends StatefulWidget {
   final int tbSalesRouteId;
+  final String nameSalesRoute;
+  final int tbRegionId;
+  final String nameRegion;
   const AttendanceByRoutePageMobile({
     Key? key,
     required this.tbSalesRouteId,
+    required this.nameSalesRoute,
+    required this.tbRegionId,
+    required this.nameRegion,
   }) : super(key: key);
 
   @override
@@ -37,16 +43,23 @@ class SalesRoutetRegisterInterationPageState
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<AttendanceByRouteModule>();
     });
+    bloc.tbSalesRouteIdSelected = widget.tbSalesRouteId;
+    bloc.salesRouteSelected = widget.nameSalesRoute;
+    bloc.tbRegionIdSelected = widget.tbRegionId;
+    bloc.regionSelected = widget.nameRegion;
     if (widget.tbSalesRouteId == 0) {
       bloc.add(SalesRouteGetListEvent());
     } else {
-      bloc.tbSalesRouteIdSelected = widget.tbSalesRouteId;
-      bloc.add(CustomerGetListEvent(
+      bloc.add(
+        CustomerGetListEvent(
           params: ParamsGetListCustomerByRoute(
-        tbSalesRouteId: bloc.tbSalesRouteIdSelected,
-        dtRecord: bloc.dtRecordSelected,
-        kind: bloc.kindSelected,
-      )));
+            tbSalesRouteId: bloc.tbSalesRouteIdSelected,
+            tbRegionId: bloc.tbRegionIdSelected,
+            dtRecord: bloc.dtRecordSelected,
+            kind: bloc.kindSelected,
+          ),
+        ),
+      );
     }
   }
 
@@ -74,7 +87,7 @@ class SalesRoutetRegisterInterationPageState
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
-              title: const Text('Lista de Rotas'),
+              title: Text('Rotas de ${bloc.regionSelected}'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {

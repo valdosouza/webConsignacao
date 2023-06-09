@@ -21,6 +21,9 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
   String latitude;
   String routeRetorn;
   int tbSalesRouteId = 0;
+  String nameSalesRoute = "";
+  int tbRegionId = 0;
+  String nameRegion = "";
 
   OrderAttendanceModel({
     required this.id,
@@ -42,6 +45,9 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
     required this.latitude,
     required this.routeRetorn,
     this.tbSalesRouteId = 0,
+    this.nameSalesRoute = "",
+    this.tbRegionId = 0,
+    this.nameRegion = "",
   }) : super(
           id: id,
           tbInstitutionId: tbInstitutionId,
@@ -62,6 +68,9 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
           latitude: latitude,
           routeRetorn: routeRetorn,
           tbSalesRouteId: tbSalesRouteId,
+          nameSalesRoute: nameSalesRoute,
+          tbRegionId: tbRegionId,
+          nameRegion: nameRegion,
         );
 
   factory OrderAttendanceModel.fromJson(Map<String, dynamic> json) {
@@ -87,6 +96,9 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
       latitude: json['latitude'],
       routeRetorn: "",
       tbSalesRouteId: 0,
+      nameSalesRoute: "",
+      tbRegionId: 0,
+      nameRegion: "",
     );
   }
 
@@ -133,6 +145,7 @@ class OrderAttendanceModel extends OrderAttendanceEntity {
       longitude: "",
       routeRetorn: "",
       tbSalesRouteId: 0,
+      tbRegionId: 0,
     );
   }
 }

@@ -82,8 +82,13 @@ class OrderAttendanceRegisterPageMobileState
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {
                   if (bloc.orderAttendance.routeRetorn.isNotEmpty) {
-                    Modular.to.navigate(bloc.orderAttendance.routeRetorn,
-                        arguments: bloc.orderAttendance.tbSalesRouteId);
+                    Modular.to
+                        .navigate(bloc.orderAttendance.routeRetorn, arguments: [
+                      bloc.orderAttendance.tbSalesRouteId,
+                      bloc.orderAttendance.nameSalesRoute,
+                      bloc.orderAttendance.tbRegionId,
+                      bloc.orderAttendance.nameRegion,
+                    ]);
                   } else {
                     Modular.to.navigate('/customer/mobile/');
                   }

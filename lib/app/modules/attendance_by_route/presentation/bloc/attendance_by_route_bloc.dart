@@ -21,6 +21,9 @@ class AttendanceByRouteBloc
   int tbCustomerIdPickedForOrder = -1;
   int tbSalesRouteIdSelected = 0;
   String salesRouteSelected = "";
+  int tbRegionIdSelected = 0;
+  String regionSelected = "";
+
   String dtRecordSelected = CustomDate.formatDateOut(CustomDate.newDate());
   String kindSelected = "Atender";
   List<SalesRouteListModel> saleroutlist = [];
@@ -198,6 +201,7 @@ class AttendanceByRouteBloc
         add(CustomerGetListEvent(
             params: ParamsGetListCustomerByRoute(
           tbSalesRouteId: tbSalesRouteIdSelected,
+          tbRegionId: tbRegionIdSelected,
           dtRecord: dtRecordSelected,
           kind: kindSelected,
         )));

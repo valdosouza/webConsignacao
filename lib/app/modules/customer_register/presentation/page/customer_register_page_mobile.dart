@@ -99,6 +99,8 @@ class _CustomerRegisterPageMobileState
             longitude: "",
             latitude: "",
             routeRetorn: '/attendancecustomer/mobile/',
+            tbSalesRouteId: 0,
+            tbRegionId: 0,
           );
           Modular.to.navigate(
             '/attendance/',

@@ -27,10 +27,12 @@ class CustomerGetlist
 
 class ParamsGetListCustomerByRoute {
   int tbSalesRouteId;
+  int tbRegionId;
   String kind;
   String dtRecord;
   ParamsGetListCustomerByRoute({
     required this.tbSalesRouteId,
+    required this.tbRegionId,
     required this.kind,
     required this.dtRecord,
   });

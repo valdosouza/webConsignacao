@@ -19,5 +19,8 @@ class OrderAttendanceEntity {
     String? latitude,
     String? routeRetorn,
     int? tbSalesRouteId,
+    String? nameSalesRoute,
+    int? tbRegionId,
+    String? nameRegion,
   });
 }

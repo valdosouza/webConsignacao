@@ -64,6 +64,7 @@ class SalesRoutListeMobileState extends State<SalesRouteListMobile> {
                         bloc.add(CustomerGetListEvent(
                             params: ParamsGetListCustomerByRoute(
                           tbSalesRouteId: widget.lista[index].id,
+                          tbRegionId: bloc.tbRegionIdSelected,
                           kind: bloc.kindSelected,
                           dtRecord: bloc.dtRecordSelected,
                         )));

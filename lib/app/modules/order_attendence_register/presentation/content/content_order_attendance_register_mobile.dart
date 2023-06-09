@@ -3,7 +3,6 @@ import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_bloc.dart';
 import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/order_attendance_register_event.dart';
 
@@ -19,8 +18,6 @@ class ContentOrderAttendanceRegisterMobile extends StatefulWidget {
 
 class _ContentOrderAttendanceRegisterMobileState
     extends State<ContentOrderAttendanceRegisterMobile> {
-  late final OrderAttendanceModel orderAttendance;
-
   TextEditingController editcontrol = TextEditingController();
   late final OrderAttendanceRegisterBloc bloc;
 
