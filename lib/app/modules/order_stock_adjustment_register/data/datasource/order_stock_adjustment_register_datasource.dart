@@ -1,145 +1,72 @@
 import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
+import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_list_model.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_main_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class OrderStockAdjustmentRegisterDataSource extends Gateway {
   OrderStockAdjustmentRegisterDataSource({required super.httpClient});
 
-  Future<List<OrderStockAdjustmentListModel>> getlist();
-  Future<OrderStockAdjustmentMainModel> get({required int orderStockId});
-  Future<OrderStockAdjustmentListModel> post(
-      {required OrderStockAdjustmentMainModel model});
-  Future<OrderStockAdjustmentListModel> put(
-      {required OrderStockAdjustmentMainModel model});
+  Future<List<OrderStockAdjustmentRegisterModel>> getlist();
+  Future<OrderStockAdjustmentRegisterModel> get(
+      {required int orderStockAdjustmentId});
+  Future<OrderStockAdjustmentRegisterModel> post(
+      {required OrderStockAdjustmentRegisterModel model});
+  Future<OrderStockAdjustmentRegisterModel> put(
+      {required OrderStockAdjustmentRegisterModel model});
   Future<String> delete({required int id});
+  Future<List<ProductListModel>> getListProducts();
   Future<List<StockListModel>> getListStock();
-  Future<List<EntityListModel>> getListEntity();
-  Future<List<ProductListModel>> getListProduct();
+  Future<List<EntityListModel>> getListEtities();
   Future<String> closure({required OrderStatusModel model});
   Future<String> reopen({required OrderStatusModel model});
 }
 
 class OrderStockAdjustmentRegisterDataSourceImpl
     extends OrderStockAdjustmentRegisterDataSource {
-  List<OrderStockAdjustmentListModel> orderStock = [];
-  List<StockListModel> stock = [];
-  List<EntityListModel> entities = [];
+  List<OrderStockAdjustmentRegisterModel> orderStockAdjustment = [];
   List<ProductListModel> products = [];
+  List<StockListModel> stock = [];
+  List<EntityListModel> entity = [];
 
   OrderStockAdjustmentRegisterDataSourceImpl({required super.httpClient});
 
   @override
-  Future<List<OrderStockAdjustmentListModel>> getlist() async {
-    String tbInstitutionId = '1';
-    await getInstitutionId().then((value) {
-      tbInstitutionId = value.toString();
-    });
+  Future<List<OrderStockAdjustmentRegisterModel>> getlist() async {
+    try {
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
 
-    return await request(
-      'orderstockadjust/getlist/$tbInstitutionId',
-      (payload) {
-        final data = json.decode(payload);
-        orderStock.clear();
-        if (data.length > 0) {
-          orderStock = (data as List).map((json) {
-            return OrderStockAdjustmentListModel.fromJson(json);
-          }).toList();
-        }
-        return orderStock;
-      },
-      onError: (error) {
-        return ServerException;
-      },
-    );
-  }
+      final uri =
+          Uri.parse('${baseApiUrl}orderstockadjust/getlist/$tbInstitutionId');
 
-  @override
-  Future<List<EntityListModel>> getListEntity() async {
-    String tbInstitutionId = '1';
-    await getInstitutionId().then((value) {
-      tbInstitutionId = value.toString();
-    });
+      final response = await httpClient.get(uri);
 
-    return request(
-      'entity/getlist/$tbInstitutionId',
-      (payload) {
-        final data = json.decode(payload);
-        entities = (data as List).map((json) {
-          return EntityListModel.fromJson(json);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        orderStockAdjustment = (data as List).map((json) {
+          return OrderStockAdjustmentRegisterModel.fromJson(json);
         }).toList();
 
-        return entities;
-      },
-      onError: (error) {
-        return ServerException;
-      },
-    );
+        return orderStockAdjustment;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
   }
 
   @override
-  Future<List<ProductListModel>> getListProduct() async {
-    String tbInstitutionId = '1';
-    await getInstitutionId().then((value) {
-      tbInstitutionId = value.toString();
-    });
-
-    return await request(
-      'product/getlist/$tbInstitutionId',
-      (payload) {
-        final data = json.decode(payload);
-        products = (data as List).map((json) {
-          return ProductListModel.fromJson(json);
-        }).toList();
-
-        return products;
-      },
-      onError: (error) {
-        return ServerException;
-      },
-    );
-  }
-
-  @override
-  Future<OrderStockAdjustmentListModel> post({
-    required OrderStockAdjustmentMainModel model,
-  }) async {
-    int tbInstitutionId = 1;
-    await getInstitutionId().then((value) {
-      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
-    });
-    int tbUserId = 1;
-    await getUserId().then((value) {
-      (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
-    });
-    model.order.tbInstitutionId = tbInstitutionId;
-    model.order.tbUserId = tbUserId;
-
-    final body = jsonEncode(model.toJson());
-    return request(
-      'orderstockadjust',
-      method: HTTPMethod.post,
-      data: body,
-      (payload) {
-        final data = json.decode(payload);
-        var model = OrderStockAdjustmentListModel.fromJson(data);
-        return model;
-      },
-      onError: (error) {
-        return ServerException;
-      },
-    );
-  }
-
-  @override
-  Future<OrderStockAdjustmentListModel> put(
-      {required OrderStockAdjustmentMainModel model}) async {
+  Future<OrderStockAdjustmentRegisterModel> post(
+      {required OrderStockAdjustmentRegisterModel model}) async {
     try {
       int tbInstitutionId = 1;
       await getInstitutionId().then((value) {
@@ -149,22 +76,61 @@ class OrderStockAdjustmentRegisterDataSourceImpl
       await getUserId().then((value) {
         (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
       });
-      model.order.tbInstitutionId = tbInstitutionId;
-      model.order.tbUserId = tbUserId;
+      model.tbInstitutionId = tbInstitutionId;
+      model.tbUserId = tbUserId;
+
+      final uri = Uri.parse('${baseApiUrl}orderstockadjust');
       final body = jsonEncode(model.toJson());
-      return request(
-        'orderstockadjust',
-        method: HTTPMethod.put,
-        data: body,
-        (payload) {
-          final data = json.decode(payload);
-          var model = OrderStockAdjustmentListModel.fromJson(data);
-          return model;
+      final response = await httpClient.post(uri,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: body);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        var model = OrderStockAdjustmentRegisterModel.fromListJson(data);
+        return model;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<OrderStockAdjustmentRegisterModel> put(
+      {required OrderStockAdjustmentRegisterModel model}) async {
+    try {
+      int tbInstitutionId = 1;
+      await getInstitutionId().then((value) {
+        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+      });
+      int tbUserId = 1;
+      await getUserId().then((value) {
+        (kIsWeb) ? tbUserId = value : tbUserId = int.parse(value);
+      });
+      model.tbInstitutionId = tbInstitutionId;
+      model.tbUserId = tbUserId;
+
+      final uri = Uri.parse('${baseApiUrl}orderstockadjust');
+
+      final response = await httpClient.put(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
         },
-        onError: (error) {
-          throw ServerException();
-        },
+        body: jsonEncode(model.toJson()),
       );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        var model = OrderStockAdjustmentRegisterModel.fromListJson(data);
+        return model;
+      } else {
+        throw ServerException();
+      }
     } catch (e) {
       throw ServerException();
     }
@@ -172,66 +138,121 @@ class OrderStockAdjustmentRegisterDataSourceImpl
 
   @override
   Future<String> delete({required int id}) async {
-    String tbInstitutionId = '1';
-    await getInstitutionId().then((value) {
-      tbInstitutionId = value.toString();
-    });
+    try {
+      final uri = Uri.parse('${baseApiUrl}orderstockadjust/$id');
 
-    return request(
-      'orderstockadjust/$tbInstitutionId/$id',
-      method: HTTPMethod.delete,
-      (payload) {
+      final response = await httpClient.delete(uri);
+
+      if (response.statusCode == 200) {
         return "";
-      },
-      onError: (error) {
-        throw ServerException;
-      },
-    );
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
   }
 
   @override
-  Future<OrderStockAdjustmentMainModel> get({
-    required int orderStockId,
-  }) async {
-    String tbInstitutionId = '1';
-    await getInstitutionId().then((value) {
-      tbInstitutionId = value.toString();
-    });
+  Future<OrderStockAdjustmentRegisterModel> get(
+      {required int orderStockAdjustmentId}) async {
+    try {
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
 
-    return request(
-      'orderstockadjust/get/$tbInstitutionId/$orderStockId',
-      (payload) {
-        final data = json.decode(payload);
-        var model = OrderStockAdjustmentMainModel.fromJson(data);
+      final uri = Uri.parse(
+          '${baseApiUrl}orderstockadjust/get/$tbInstitutionId/$orderStockAdjustmentId');
+
+      final response = await httpClient.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        var model = OrderStockAdjustmentRegisterModel.fromListJson(data);
         return model;
-      },
-      onError: (error) {
-        throw ServerException;
-      },
-    );
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<ProductListModel>> getListProducts() async {
+    try {
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
+
+      final uri = Uri.parse('${baseApiUrl}product/getlist/$tbInstitutionId');
+
+      final response = await httpClient.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        products = (data as List).map((json) {
+          return ProductListModel.fromJson(json);
+        }).toList();
+
+        return products;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
   }
 
   @override
   Future<List<StockListModel>> getListStock() async {
-    String tbInstitutionId = '1';
-    await getInstitutionId().then((value) {
-      tbInstitutionId = value.toString();
-    });
+    try {
+      String tbInstitutionId = '1';
+      await getInstitutionId().then((value) {
+        tbInstitutionId = value.toString();
+      });
 
-    return request(
-      'stocklist/getlist/$tbInstitutionId',
-      (payload) {
-        final data = json.decode(payload);
+      final uri = Uri.parse('${baseApiUrl}stocklist/getlist/$tbInstitutionId');
+
+      final response = await httpClient.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
         stock = (data as List).map((json) {
           return StockListModel.fromJson(json);
         }).toList();
 
         return stock;
-      },
-      onError: (error) {
-        throw ServerException;
-      },
-    );
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<EntityListModel>> getListEtities() async {
+    try {
+      final uri = Uri.parse('${baseApiUrl}entity');
+
+      final response = await httpClient.get(uri);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        entity = (data as List).map((json) {
+          return EntityListModel.fromJson(json);
+        }).toList();
+
+        return entity;
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      throw ServerException();
+    }
   }
 
   @override
@@ -252,7 +273,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
         return data;
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }
@@ -275,7 +296,7 @@ class OrderStockAdjustmentRegisterDataSourceImpl
         return data;
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }

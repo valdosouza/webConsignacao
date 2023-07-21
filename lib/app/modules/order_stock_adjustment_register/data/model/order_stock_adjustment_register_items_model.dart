@@ -4,43 +4,44 @@ class OrderStockAdjustmentRegisterItemsModel
     extends OrderStockAdjustmentRegisterItemsEntity {
   OrderStockAdjustmentRegisterItemsModel({
     int? id,
+    int? tbInstitutionId,
+    int? tbOrderId,
+    int? tbStockListId,
     int? tbProductId,
-    String? nameProduct,
+    String? description,
+    String? nameStockList,
+    double? unitValue,
     double? quantity,
-    String? updateStatus,
   }) : super(
           id: id ?? 0,
+          tbInstitutionId: tbInstitutionId ?? 0,
+          tbOrderId: tbOrderId ?? 0,
+          tbStockListId: tbStockListId ?? 0,
           tbProductId: tbProductId ?? 0,
-          nameProduct: nameProduct ?? "",
+          description: description ?? "",
+          nameStockList: nameStockList ?? "",
+          unitValue: unitValue ?? 0,
           quantity: quantity ?? 0,
-          updateStatus: updateStatus ?? "N",
         );
 
   factory OrderStockAdjustmentRegisterItemsModel.fromJson(
       Map<String, dynamic> json) {
     return OrderStockAdjustmentRegisterItemsModel(
-      id: json['id'] is String ? int.parse(json['id']) : json['id'],
+      tbStockListId: json['tb_stock_list_id'] is String
+          ? int.parse(json['tb_stock_list_id'])
+          : json['tb_stock_list_id'],
       tbProductId: json['tb_product_id'] is String
           ? int.parse(json['tb_product_id'])
           : json['tb_product_id'],
-      nameProduct: json['description'] as String? ?? "",
+      description: json['description'] as String? ?? "",
+      nameStockList: json['name_stock_list'] as String? ?? "",
+      unitValue: json['unit_value'] is String
+          ? double.parse(json['unit_value'])
+          : json['unit_value'],
       quantity: json['quantity'] is String
           ? double.parse(json['quantity'])
           : json['quantity'],
-      updateStatus: json['update_status'] is String
-          ? int.parse(json['update_status'])
-          : json['update_status'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['tb_product_id'] = tbProductId;
-    data['name_product'] = nameProduct;
-    data['quantity'] = quantity;
-    data['update_status'] = updateStatus;
-    return data;
   }
 
   factory OrderStockAdjustmentRegisterItemsModel.empty() {

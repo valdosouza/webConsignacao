@@ -9,9 +9,9 @@ class ContentDesktopHome extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        child: SafeArea(
+        child: const SafeArea(
           child: Column(
-            children: const [
+            children: [
               Header(),
               Divider(thickness: 1),
               Center(

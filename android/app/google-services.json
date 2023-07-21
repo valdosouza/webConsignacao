@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "396524153897",
-    "project_id": "erpsetes-e-venda",
-    "storage_bucket": "erpsetes-e-venda.appspot.com"
+    "project_id": "apiconsigna",
+    "storage_bucket": "apiconsigna.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:396524153897:android:0e8958e15a9abc8fd38038",
         "android_client_info": {
-          "package_name": "com.setes.erpsetes"
+          "package_name": "com.industriadechocolatesamor.consigna"
         }
       },
       "oauth_client": [

@@ -1,4 +1,5 @@
-import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
@@ -8,8 +9,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 
 class OrderStockAdjustmentRegisterStocksListWidget extends StatefulWidget {
+  final OrderStockAdjustmentRegisterModel orderStockAdjustment;
   const OrderStockAdjustmentRegisterStocksListWidget({
     Key? key,
+    required this.orderStockAdjustment,
   }) : super(key: key);
 
   @override
@@ -25,9 +28,6 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
   void initState() {
     super.initState();
     bloc = Modular.get<OrderStockAdjustmentRegisterBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<OrderStockAdjustmentRegisterModule>();
-    });
   }
 
   @override
@@ -36,7 +36,7 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
         OrderStockAdjustmentRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        if (state is StocksLoadSuccessState) {
+        if (state is OrderStockAdjustmentRegisterStockSuccessState) {
           return _orderStockAdjustmentStocksList(state);
         } else {
           return Container();
@@ -45,7 +45,8 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
     );
   }
 
-  _orderStockAdjustmentStocksList(StocksLoadSuccessState state) {
+  _orderStockAdjustmentStocksList(
+      OrderStockAdjustmentRegisterStockSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -55,8 +56,7 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            bloc.tabIndex = 0;
-            bloc.add(OrderReturnMasterEvent());
+            bloc.add(OrderStockAdjustmentRegisterReturnEvent());
           },
         ),
       ),
@@ -71,8 +71,8 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
                 keyboardType: TextInputType.text,
                 autofocus: false,
                 onChanged: (value) {
-                  bloc.search = value;
-                  bloc.add(StockSearchEvent());
+                  bloc.add(OrderStockAdjustmentRegisterSearchStocksEvent(
+                      search: value));
                 },
                 style: const TextStyle(
                   color: Colors.white,
@@ -88,34 +88,31 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
             ),
             const SizedBox(height: 5.0),
             Expanded(
-              child: bloc.stocks.isEmpty
+              child: state.stock.isEmpty
                   ? const Center(
                       child: Text(
                           "Não encontramos nenhum registro em nossa base."))
                   : ListView.separated(
-                      itemCount: bloc.stocks.length,
+                      itemCount: state.stock.length,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
-                          bloc.orderMain.order.tbStockListId =
-                              bloc.stocks[index].id;
-                          bloc.orderMain.order.nameStockList =
-                              bloc.stocks[index].description;
-
-                          bloc.tabIndex = 0;
-                          bloc.add(OrderReturnMasterEvent());
+                          bloc.stock.id = state.stock[index].id;
+                          bloc.stock.description =
+                              state.stock[index].description;
+                          bloc.add(OrderStockAdjustmentRegisterReturnEvent());
                         },
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: (Colors.black),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text(bloc.stocks[index].id.toString()),
+                              child: Text(state.stock[index].id.toString()),
                             ),
                           ),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(bloc.stocks[index].description),
+                              Text(state.stock[index].description),
                             ],
                           ),
                         ),

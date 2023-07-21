@@ -14,8 +14,8 @@ Widget salesDateFilter(BuildContext context) {
         Radius.circular(kDefaultPadding),
       ),
     ),
-    child: Row(
-      children: const [
+    child: const Row(
+      children: [
         Expanded(
           child: Text("Data: 01/04/2020"),
         ),

@@ -1,4 +1,3 @@
-import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
@@ -49,7 +48,18 @@ class _DrawerPageMainState extends State<DrawerPageMain> {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            decoration: kBoxDecorationflexibleSpace,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[
+                  Colors.red,
+                  Colors.black,
+                  //Colors.black,
+                  Colors.white,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
             child: Column(
               children: <Widget>[
                 Material(
@@ -59,8 +69,8 @@ class _DrawerPageMainState extends State<DrawerPageMain> {
                       padding: const EdgeInsets.all(8.0),
                       child: Image.asset(
                         "images/logomarca.png",
-                        width: 225,
-                        height: 70,
+                        width: 180,
+                        height: 90,
                         //fit: BoxFit.fill,
                       )),
                 ),
@@ -72,10 +82,36 @@ class _DrawerPageMainState extends State<DrawerPageMain> {
               ],
             ),
           ),
+          itemMenuDraw(Icons.home, 'Clientes',
+              () => Modular.to.navigate('/customer/desktop/', arguments: 0)),
+          itemMenuDraw(Icons.home, 'Caixa',
+              () => Modular.to.navigate('/cashier/desktop/')),
+          itemMenuDraw(Icons.home, 'Produtos',
+              () => Modular.to.navigate('/product/content/')),
           itemMenuDraw(Icons.home, 'Estoque',
               () => Modular.to.navigate('/stock/desktop/')),
+          const Divider(
+            height: 10,
+            indent: 10,
+            endIndent: 10,
+            color: Colors.red,
+            thickness: 10,
+          ),
+          itemMenuDraw(Icons.home, 'Administração',
+              () => Modular.to.navigate('/admin/content/')),
+          itemMenuDraw(Icons.home, 'Financeiro',
+              () => Modular.to.navigate('/financial/content/')),
           itemMenuDraw(Icons.home, 'Pessoal',
               () => Modular.to.navigate('/resourcehuman/content/')),
+          itemMenuDraw(Icons.home, 'Produção',
+              () => Modular.to.navigate('/orderproduction/content/')),
+          const Divider(
+            height: 10,
+            indent: 10,
+            endIndent: 10,
+            color: Colors.red,
+            thickness: 10,
+          ),
           itemLogout(Icons.close, 'Sair'),
         ],
       ),

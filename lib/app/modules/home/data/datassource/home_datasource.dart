@@ -49,7 +49,7 @@ class HomeDatasourceImpl extends HomeDatasource {
         return homeSalesPaymentTypesModel;
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }

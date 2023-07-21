@@ -12,7 +12,7 @@ class Page404 extends StatelessWidget {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Gestão - Setes"),
+        title: const Text("Sistema Consignação e Venda"),
       ),
       body: SizedBox(
         height: size.height,

@@ -1,79 +1,32 @@
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
+
 abstract class OrderSaleRegisterState {}
 
-//======================MASTER============================
-class OrderLoadingState extends OrderSaleRegisterState {}
+class OrderSaleRegisterLoadingState extends OrderSaleRegisterState {}
 
-class OrderLoadedSucessState extends OrderSaleRegisterState {}
+class OrderSaleGetNewCardListErrorState extends OrderSaleRegisterState {
+  final String error;
 
-class OrderNewLoadedState extends OrderSaleRegisterState {}
-
-class OrderGetLoadedState extends OrderSaleRegisterState {}
-
-class OrderReturnMasterState extends OrderSaleRegisterState {}
-
-class OrderPostSuccessState extends OrderSaleRegisterState {}
-
-class OrderPutSuccessState extends OrderSaleRegisterState {}
-
-class OrderDeleteSuccessState extends OrderSaleRegisterState {}
-
-class OrderClosureSuccessState extends OrderSaleRegisterState {}
-
-class OrderReopenSuccessState extends OrderSaleRegisterState {}
-
-class EntitiesLoadSuccessState extends OrderSaleRegisterState {}
-
-class EntityChosenSuccessState extends OrderSaleRegisterState {}
-
-class StocksLoadSuccessState extends OrderSaleRegisterState {}
-
-//======================MASTER - Errors============================
-class OrderGetErrorState extends OrderSaleRegisterState {}
-
-class OrderLoadedErrorState extends OrderSaleRegisterState {}
-
-class OrderPostErrorState extends OrderSaleRegisterState {}
-
-class OrderPutErrorState extends OrderSaleRegisterState {}
-
-class OrderDeleteErrorState extends OrderSaleRegisterState {}
-
-class EntityLoadErrorState extends OrderSaleRegisterState {}
-
-class StocksLoadErrorState extends OrderSaleRegisterState {}
-
-class OrderClosureErrorState extends OrderSaleRegisterState {
-  OrderClosureErrorState();
+  OrderSaleGetNewCardListErrorState(this.error);
 }
 
-class OrderReopenErrorState extends OrderSaleRegisterState {
-  OrderReopenErrorState();
+class OrderSaleGetNewCardListLoadedState extends OrderSaleRegisterState {
+  OrderSaleMainCardModel model;
+
+  OrderSaleGetNewCardListLoadedState({
+    required this.model,
+  });
 }
 
-//======================Detail============================
-class OrderItemUpdateSuccessState extends OrderSaleRegisterState {}
+class OrderSaleCardPostErrorState extends OrderSaleRegisterState {
+  final String error;
+  OrderSaleCardPostErrorState({
+    required this.error,
+  });
+}
 
-class OrderItemPageEditState extends OrderSaleRegisterState {}
+class OrderSaleCardPostSucessState extends OrderSaleRegisterState {}
 
-class ProductGetSucessState extends OrderSaleRegisterState {}
+class OrderSaleRegisterCalcDoneState extends OrderSaleRegisterState {}
 
-class ProductSearchSucessState extends OrderSaleRegisterState {}
-
-class ProductChosenSucessState extends OrderSaleRegisterState {}
-
-class StockSearchSucessState extends OrderSaleRegisterState {}
-
-class EntitySearchSucessState extends OrderSaleRegisterState {}
-
-//======================Detail - Errors============================
-class OrderItemUpdateErrorState extends OrderSaleRegisterState {}
-
-class ProductGetErrorState extends OrderSaleRegisterState {}
-
-class ProductSearchErrorState extends OrderSaleRegisterState {}
-
-class StockSearchErrorState extends OrderSaleRegisterState {}
-
-class EntitySearchErrorState extends OrderSaleRegisterState {}
-//=================================================================
-
+class OrderSaleRegisterCleanDoneState extends OrderSaleRegisterState {}

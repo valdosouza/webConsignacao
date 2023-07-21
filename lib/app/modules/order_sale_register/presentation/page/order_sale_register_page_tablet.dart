@@ -1,25 +1,18 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/order_sale_register/order_sale_register_module.dart';
+import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class OrderSaleRegisterPageTablet extends StatefulWidget {
   const OrderSaleRegisterPageTablet({super.key});
 
   @override
   State<OrderSaleRegisterPageTablet> createState() =>
-      _OrderSaleRegisterPageTabletState();
+      OrderSaleRegisterPageMobileState();
 }
 
-class _OrderSaleRegisterPageTabletState
+class OrderSaleRegisterPageMobileState
     extends State<OrderSaleRegisterPageTablet> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<OrderSaleRegisterModule>();
-    });
-  }
+  late final CustomerRegisterBloc bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +21,9 @@ class _OrderSaleRegisterPageTabletState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Ordem de Transferência de estoque"),
+        title: const Text("Sistema Consignação e Venda"),
       ),
+      body: const Expanded(child: Text("Vendas - Tablet")),
     );
   }
 }

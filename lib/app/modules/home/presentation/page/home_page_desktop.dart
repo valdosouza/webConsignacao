@@ -14,13 +14,13 @@ class HomePageDesktop extends StatelessWidget {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Gestão - Setes"),
+        title: const Text("Sistema Consignação e Venda"),
       ),
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: Row(
-          children: const [
+        child: const Row(
+          children: [
             DrawerPageMain(),
             Expanded(
               flex: 5,

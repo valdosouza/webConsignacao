@@ -1,5 +1,5 @@
 import 'package:appweb/app/modules/Core/data/model/city_model.dart';
-import 'package:appweb/app/modules/Core/domain/repository/get_cities_respository.dart';
+import 'package:appweb/app/modules/Core/domain/repository/get_cities_repository.dart';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';

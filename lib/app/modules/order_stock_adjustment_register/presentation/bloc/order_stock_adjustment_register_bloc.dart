@@ -2,14 +2,13 @@ import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/order_status_model.dart';
 import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_list_model.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_main_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/entities_list_getlist.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_closure.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_delete.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_main_get.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_get.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_get_list.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_post.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/domain/usecase/order_stock_adjustment_register_put.dart';
@@ -22,7 +21,7 @@ import 'package:bloc/bloc.dart';
 
 class OrderStockAdjustmentRegisterBloc extends Bloc<
     OrderStockAdjustmentRegisterEvent, OrderStockAdjustmentRegisterState> {
-  final OrderStockAdjustmentMainGet getOrderStockAdjustment;
+  final OrderStockAdjustmentRegisterGet getOrderStockAdjustment;
   final OrderStockAdjustmentRegisterGetlist getlistOrderStockAdjustment;
   final OrderStockAdjustmentRegisterPost postOrderStockAdjustment;
   final OrderStockAdjustmentRegisterPut putOrderStockAdjustment;
@@ -34,22 +33,19 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
   final StockListGetlist stockListGetlist;
   final EntitiesListGetlist entitiesListGetlist;
 
-  List<OrderStockAdjustmentListModel> orderStockAdjustments = [];
-  OrderStockAdjustmentListModel orderStockTransList =
-      OrderStockAdjustmentListModel();
-  OrderStockAdjustmentMainModel orderMain =
-      OrderStockAdjustmentMainModel.empty();
-  OrderStockAdjustmentRegisterItemsModel orderItem =
-      OrderStockAdjustmentRegisterItemsModel.empty();
+  List<OrderStockAdjustmentRegisterModel> orderStockAdjustments = [];
+  OrderStockAdjustmentRegisterModel orderStockAdjustment =
+      OrderStockAdjustmentRegisterModel();
   List<ProductListModel> products = [];
   List<StockListModel> stocks = [];
   List<EntityListModel> entities = [];
   StockListModel stock = StockListModel.empty();
+  OrderStockAdjustmentRegisterItemsModel item =
+      OrderStockAdjustmentRegisterItemsModel.empty();
+  bool edit = false;
 
   OrderStatusModel modelStatus = OrderStatusModel.empty();
 
-  int tabIndex = 0;
-  String search = "";
   OrderStockAdjustmentRegisterBloc({
     required this.getOrderStockAdjustment,
     required this.getlistOrderStockAdjustment,
@@ -61,30 +57,19 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     required this.productGetlist,
     required this.stockListGetlist,
     required this.entitiesListGetlist,
-  }) : super(OrderLoadingState()) {
-    orderGetList();
+  }) : super(OrderStockAdjustmentRegisterLoadingState()) {
+    getList();
 
-    orderNew();
+    goToOrderStockAdjustmentDesktopPage();
 
-    orderGet();
+    // goToOrderStockAdjustmentMobilePage();
+    goToItemsPage();
 
-    orderReturnMaster();
+    postOrder();
 
-    itemsNews();
+    putOrder();
 
-    itemsEdit();
-
-    itemDelete();
-
-    productChosen();
-
-    itemsUpdate();
-
-    orderPost();
-
-    orderPut();
-
-    orderDelete();
+    deleteOrder();
 
     closureOrder();
 
@@ -96,311 +81,322 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
 
     getEntities();
 
-    searchProducts();
+    searchEventProducts();
 
-    searchStocks();
+    searchEventStocks();
 
-    searchEntities();
+    searchEventEntities();
 
-    searchOrder();
+    searchEventOrderStockAdjustment();
+
+    changeDirection();
+
+    on<OrderStockAdjustmentRegisterReturnEvent>((event, emit) {
+      if (event.item != null) {
+        orderStockAdjustment.items.removeWhere(
+            (element) => element.tbProductId == event.item!.tbProductId);
+        orderStockAdjustment.items.add(event.item!);
+      }
+      emit(OrderStockAdjustmentRegisterInfoPageState(
+          list: [], tabIndex: event.tabIndex));
+    });
   }
 
-  orderGetList() {
-    on<OrderGetListEvent>((event, emit) async {
-      emit(OrderLoadingState());
+  formatItems() {
+    if (stock.id != 0) {
+      int index = 1;
+      int orderId = orderStockAdjustment.id;
+      orderStockAdjustment.items = orderStockAdjustment.items.map((e) {
+        e.id = index++;
+        e.tbOrderId = orderId;
+        e.tbStockListId = stock.id;
+        e.nameStockList = stock.description;
+        return e;
+      }).toList();
+    }
+  }
+
+  getList() {
+    on<OrderStockAdjustmentRegisterGetListEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
 
       var response = await getlistOrderStockAdjustment
-          .call(ParamsGetlistOrderStockAdjustmentRegister(id: 1));
+          .call(ParamsGetlistOrderStockAdjustmentRegister());
 
-      response.fold((l) => emit(OrderLoadedErrorState()), (r) {
+      response.fold(
+          (l) => emit(OrderStockAdjustmentRegisterErrorState(
+              list: orderStockAdjustments)), (r) {
         orderStockAdjustments = r;
-        emit(OrderLoadedSucessState());
+        emit(OrderStockAdjustmentRegisterLoadedState(list: r));
       });
     });
   }
 
-  orderNew() {
-    on<OrderNewEvent>((event, emit) async {
-      emit(OrderLoadingState());
-      orderMain = OrderStockAdjustmentMainModel.empty();
-      emit(OrderNewLoadedState());
-    });
-  }
-
-  orderPost() {
-    on<OrderPostEvent>((event, emit) async {
-      emit(OrderLoadingState());
-
+  postOrder() {
+    on<OrderStockAdjustmentRegisterPostEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
+      formatItems();
       var response = await postOrderStockAdjustment
-          .call(ParamsPostOrderStockAdjustmentRegister(model: orderMain));
+          .call(ParamsPostOrderStockAdjustmentRegister(model: event.model));
 
-      response.fold((l) => emit(OrderPostErrorState()), (r) {
+      response.fold(
+          (l) => emit(OrderStockAdjustmentRegisterPostErrorState(
+              list: orderStockAdjustments)), (r) {
         orderStockAdjustments.add(r);
-        emit(OrderPostSuccessState());
+        emit(OrderStockAdjustmentRegisterPostSuccessState(
+            list: orderStockAdjustments));
       });
     });
   }
 
-  orderPut() {
-    on<OrderPutEvent>((event, emit) async {
-      emit(OrderLoadingState());
-
+  putOrder() {
+    on<OrderStockAdjustmentRegisterPutEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
+      formatItems();
       var response = await putOrderStockAdjustment
-          .call(ParamsPutOrderStockAdjustmentRegister(model: orderMain));
+          .call(ParamsPutOrderStockAdjustmentRegister(model: event.model));
 
-      response.fold((l) => emit(OrderPutErrorState()), (r) {
-        orderStockAdjustments[orderStockAdjustments
-            .indexWhere((element) => element.id == r.id)] = r;
+      response.fold(
+          (l) => event.model.id != 0
+              ? emit(OrderStockAdjustmentRegisterPutErrorState(
+                  list: orderStockAdjustments))
+              : emit(OrderStockAdjustmentRegisterPutErrorState(
+                  list: orderStockAdjustments)), (r) {
+        orderStockAdjustments = orderStockAdjustments.map((element) {
+          if (element.id == r.id) {
+            element = r;
+          }
+          return element;
+        }).toList();
 
-        emit(OrderPutSuccessState());
+        emit(OrderStockAdjustmentRegisterPutSuccessState(
+            list: orderStockAdjustments));
       });
     });
   }
 
-  orderDelete() {
-    on<OrderDeleteEvent>((event, emit) async {
-      emit(OrderLoadingState());
+  deleteOrder() {
+    on<OrderStockAdjustmentRegisterDeleteEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
 
-      var response = await deleteOrderStockAdjustment.call(
-          ParamsDeleteOrderStockAdjustmentRegister(id: orderMain.order.id));
+      var response = await deleteOrderStockAdjustment
+          .call(ParamsDeleteOrderStockAdjustmentRegister(id: event.model.id));
 
-      response.fold((l) => emit(OrderDeleteErrorState()), (r) {
+      response.fold(
+          (l) => emit(OrderStockAdjustmentRegisterDeleteErrorState(
+              list: orderStockAdjustments)), (r) {
         orderStockAdjustments
-            .removeWhere((element) => element.id == orderMain.order.id);
-        emit(OrderDeleteSuccessState());
+            .removeWhere((element) => element.id == event.model.id);
+        emit(OrderStockAdjustmentRegisterDeleteSuccessState(
+            list: orderStockAdjustments));
       });
     });
   }
 
   closureOrder() {
     on<OrderClosureEvent>((event, emit) async {
-      emit(OrderLoadingState());
-      modelStatus.tbInstitutionId = orderMain.order.tbInstitutionId;
-      modelStatus.id = orderMain.order.id;
+      emit(OrderStockAdjustmentRegisterLoadingState());
+      modelStatus.tbInstitutionId = orderStockAdjustment.tbInstitutionId;
+      modelStatus.id = orderStockAdjustment.id;
       modelStatus.dtRecord = CustomDate.newDate();
-      modelStatus.direction = "V";
+      modelStatus.direction = orderStockAdjustment.direction;
       var response = await closureOrderStockAdjustment
           .call(ParamsOrderStockAdjustmentClosure(model: modelStatus));
 
       response.fold((l) {
-        emit(OrderClosureErrorState());
+        emit(OrderClosureErrorState(
+          list: orderStockAdjustments,
+        ));
       }, (r) {
         orderStockAdjustments[orderStockAdjustments
                 .indexWhere((element) => element.id == modelStatus.id)]
             .status = "F";
-        emit(OrderClosureSuccessState());
+        emit(OrderClosureSuccessState(list: orderStockAdjustments, result: r));
       });
     });
   }
 
   reopenOrder() {
     on<OrderReopenEvent>((event, emit) async {
-      emit(OrderLoadingState());
-      modelStatus.tbInstitutionId = orderMain.order.tbInstitutionId;
-      modelStatus.id = orderMain.order.id;
+      emit(OrderStockAdjustmentRegisterLoadingState());
+      modelStatus.tbInstitutionId = orderStockAdjustment.tbInstitutionId;
+      modelStatus.id = orderStockAdjustment.id;
       modelStatus.dtRecord = CustomDate.newDate();
-      modelStatus.direction = "V";
+      modelStatus.direction = orderStockAdjustment.direction;
 
       var response = await reopenOrderStockAdjustment
           .call(ParamsOrderStockAdjustmentReopen(model: modelStatus));
 
-      response.fold((l) => emit(OrderClosureErrorState()), (r) {
+      response.fold(
+          (l) => emit(OrderClosureErrorState(
+                list: orderStockAdjustments,
+              )), (r) {
         orderStockAdjustments[orderStockAdjustments
                 .indexWhere((element) => element.id == modelStatus.id)]
             .status = "A";
 
-        emit(OrderReopenSuccessState());
+        emit(OrderReopenSuccessState(list: orderStockAdjustments, result: r));
       });
     });
   }
 
-  orderGet() {
-    on<OrderGetEvent>((event, emit) async {
-      emit(OrderLoadingState());
+  goToOrderStockAdjustmentDesktopPage() {
+    on<OrderStockAdjustmentRegisterDesktopEvent>((event, emit) async {
+      if (event.model != null) {
+        emit(OrderStockAdjustmentRegisterLoadingState());
 
-      final response = await getOrderStockAdjustment.call(
-          ParamsGetOrderStockAdjustmentRegister(
-              orderid: orderStockTransList.id));
+        final response = await getOrderStockAdjustment
+            .call(ParamsGetOrderStockAdjustmentRegister(id: event.model!.id));
 
-      response.fold((l) => emit(OrderGetErrorState()), (r) {
-        orderMain = r;
-        emit(OrderGetLoadedState());
-      });
-    });
-  }
-
-  orderReturnMaster() {
-    on<OrderReturnMasterEvent>((event, emit) async {
-      emit(OrderReturnMasterState());
-    });
-  }
-
-  itemsNews() {
-    on<OrderItemNewEvent>((event, emit) async {
-      emit(OrderLoadingState());
-      orderItem = OrderStockAdjustmentRegisterItemsModel.empty();
-      emit(OrderItemPageEditState());
-    });
-  }
-
-  itemsEdit() {
-    on<OrderItemEditEvent>((event, emit) async {
-      emit(OrderItemPageEditState());
-    });
-  }
-
-  itemDelete() {
-    on<OrderItemDeleteEvent>((event, emit) async {
-      if (orderItem.id > 0) {
-        orderItem.updateStatus = "D";
-        orderMain.items[orderMain.items
-            .indexWhere((element) => element.id == orderItem.id)] = orderItem;
+        response.fold(
+            (l) => emit(OrderStockAdjustmentRegisterGetErrorState(
+                list: orderStockAdjustments)), (r) {
+          orderStockAdjustment = r;
+          if (r.items.isNotEmpty) {
+            stock.description = r.items.first.description;
+            stock.id = r.items.first.tbStockListId;
+          }
+          emit(
+              OrderStockAdjustmentRegisterInfoPageState(list: [], tabIndex: 0));
+        });
       } else {
-        orderMain.items.removeWhere((item) => item == orderItem);
+        orderStockAdjustment = OrderStockAdjustmentRegisterModel();
+        emit(OrderStockAdjustmentRegisterInfoPageState(list: [], tabIndex: 0));
       }
-      tabIndex = 1;
-
-      emit(OrderItemUpdateSuccessState());
     });
   }
 
-  productChosen() {
-    on<ProductChosenEvent>((event, emit) {
-      emit(ProductChosenSucessState());
-    });
-  }
-
-  itemsUpdate() {
-    on<OrderItemUpdateEvent>((event, emit) {
-      if (orderItem.id > 0) {
-        orderItem.updateStatus = "E";
-        orderMain.items[orderMain.items
-            .indexWhere((element) => element.id == orderItem.id)] = orderItem;
+  goToItemsPage() {
+    on<OrderStockAdjustmentRegisterItemEvent>((event, emit) async {
+      if (event.item != null) {
+        emit(OrderStockAdjustmentRegisterLoadingState());
+        item = event.item! as OrderStockAdjustmentRegisterItemsModel;
+        emit(OrderStockAdjustmentRegisterItemPage(item: item));
       } else {
-        orderMain.items.add(OrderStockAdjustmentRegisterItemsModel(
-          id: 0,
-          tbProductId: orderItem.tbProductId,
-          nameProduct: orderItem.nameProduct,
-          quantity: orderItem.quantity,
-          updateStatus: "I",
-        ));
+        item = OrderStockAdjustmentRegisterItemsModel.empty();
+        emit(OrderStockAdjustmentRegisterItemPage(item: item));
       }
-      tabIndex = 1;
-      emit(OrderItemUpdateSuccessState());
     });
   }
 
   getProducts() {
-    on<ProductsGetEvent>((event, emit) async {
-      emit(OrderLoadingState());
+    on<OrderStockAdjustmentRegisterGetProductsEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
 
-      final response = await productGetlist.call(ParamsGetlistProduct(id: 1));
+      final response = await productGetlist.call(ParamsGetlistProduct());
 
-      response.fold((l) => emit(ProductGetErrorState()), (r) {
+      response.fold(
+          (l) => emit(OrderStockAdjustmentRegisterProductErrorState()), (r) {
         products = r;
-        emit(ProductGetSucessState());
+        emit(OrderStockAdjustmentRegisterProductSuccessState(products: r));
       });
     });
   }
 
   getStocks() {
-    on<StocksGetEvent>((event, emit) async {
-      emit(OrderLoadingState());
+    on<OrderStockAdjustmentRegisterGetStocksEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
 
-      final response = await stockListGetlist.call(ParamsGetListStock());
+      final response = await stockListGetlist.call(const ParamsGetListStock());
 
-      response.fold((l) => emit(StocksLoadErrorState()), (r) {
+      response.fold((l) => emit(OrderStockAdjustmentRegisterStockErrorState()),
+          (r) {
         stocks = r;
-        emit(StocksLoadSuccessState());
+        emit(OrderStockAdjustmentRegisterStockSuccessState(stock: r));
       });
     });
   }
 
   getEntities() {
-    on<EntitiesGetEvent>((event, emit) async {
-      emit(OrderLoadingState());
+    on<OrderStockAdjustmentRegisterGetEntityEvent>((event, emit) async {
+      emit(OrderStockAdjustmentRegisterLoadingState());
 
       final response = await entitiesListGetlist.call(ParamsGetListEntities());
 
-      response.fold((l) => emit(EntityLoadErrorState()), (r) {
+      response.fold((l) => emit(OrderStockAdjustmentRegisterEntityErrorState()),
+          (r) {
         entities = r;
-        emit(EntitiesLoadSuccessState());
+        emit(OrderStockAdjustmentRegisterEntitySuccessState(entity: r));
       });
     });
   }
 
-  searchProducts() {
-    on<ProductsSearchEvent>((event, emit) async {
-      if (search.isNotEmpty) {
+  searchEventProducts() {
+    on<OrderStockAdjustmentRegisterSearchProductsEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
         var productstSearched = products.where((element) {
           String name = element.description;
           int id = element.id;
           return (name
                   .toLowerCase()
                   .trim()
-                  .contains(search.toLowerCase().trim()) ||
-              id.toString() == search);
+                  .contains(event.search.toLowerCase().trim()) ||
+              id.toString() == event.search);
         }).toList();
         if (productstSearched.isNotEmpty) {
-          emit(ProductSearchSucessState());
+          emit(OrderStockAdjustmentRegisterProductSuccessState(
+              products: productstSearched));
         } else {
-          emit(ProductSearchErrorState());
+          emit(OrderStockAdjustmentRegisterProductSuccessState(products: []));
         }
       } else {
-        emit(ProductSearchErrorState());
+        emit(OrderStockAdjustmentRegisterProductSuccessState(
+            products: products));
       }
     });
   }
 
-  searchStocks() {
-    on<StockSearchEvent>((event, emit) async {
-      if (search.isNotEmpty) {
+  searchEventStocks() {
+    on<OrderStockAdjustmentRegisterSearchStocksEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
         var stockSearched = stocks.where((element) {
           String name = element.description;
           int id = element.id;
           return (name
                   .toLowerCase()
                   .trim()
-                  .contains(search.toLowerCase().trim()) ||
-              id.toString() == search);
+                  .contains(event.search.toLowerCase().trim()) ||
+              id.toString() == event.search);
         }).toList();
         if (stockSearched.isNotEmpty) {
-          emit(StockSearchSucessState());
+          emit(OrderStockAdjustmentRegisterStockSuccessState(
+              stock: stockSearched));
         } else {
-          emit(StockSearchErrorState());
+          emit(OrderStockAdjustmentRegisterStockSuccessState(stock: []));
         }
       } else {
-        emit(StockSearchErrorState());
+        emit(OrderStockAdjustmentRegisterStockSuccessState(stock: stocks));
       }
     });
   }
 
-  searchEntities() {
-    on<EntitySearchEvent>((event, emit) async {
-      if (search.isNotEmpty) {
+  searchEventEntities() {
+    on<OrderStockAdjustmentRegisterSearchEntityEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
         var entitiesSearched = entities.where((element) {
           String name = element.nickTrade;
           int id = element.id;
           return (name
                   .toLowerCase()
                   .trim()
-                  .contains(search.toLowerCase().trim()) ||
-              id.toString() == search);
+                  .contains(event.search.toLowerCase().trim()) ||
+              id.toString() == event.search);
         }).toList();
         if (entitiesSearched.isNotEmpty) {
-          emit(EntitySearchSucessState());
+          emit(OrderStockAdjustmentRegisterEntitySuccessState(
+              entity: entitiesSearched));
         } else {
-          emit(EntitySearchErrorState());
+          emit(OrderStockAdjustmentRegisterEntitySuccessState(entity: []));
         }
       } else {
-        emit(EntitySearchErrorState());
+        emit(OrderStockAdjustmentRegisterEntitySuccessState(entity: entities));
       }
     });
   }
 
-  searchOrder() {
-    on<OrderSearchEvent>((event, emit) async {
-      if (search.isNotEmpty) {
+  searchEventOrderStockAdjustment() {
+    on<OrderStockAdjustmentRegisterSearchEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
         var orderStockAdjustmentsSearched =
             orderStockAdjustments.where((element) {
           String name = element.nameEntity;
@@ -409,18 +405,28 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
           return (name
                   .toLowerCase()
                   .trim()
-                  .contains(search.toLowerCase().trim()) ||
-              date.toLowerCase().trim().contains(search.toLowerCase().trim()) ||
-              id.toString() == search);
+                  .contains(event.search.toLowerCase().trim()) ||
+              date
+                  .toLowerCase()
+                  .trim()
+                  .contains(event.search.toLowerCase().trim()) ||
+              id.toString() == event.search);
         }).toList();
         if (orderStockAdjustmentsSearched.isNotEmpty) {
-          emit(OrderLoadedSucessState());
+          emit(OrderStockAdjustmentRegisterLoadedState(
+              list: orderStockAdjustmentsSearched));
         } else {
-          emit(OrderLoadedErrorState());
+          emit(OrderStockAdjustmentRegisterLoadedState(list: []));
         }
       } else {
-        emit(OrderLoadedErrorState());
+        emit(OrderStockAdjustmentRegisterLoadedState(
+            list: orderStockAdjustments));
       }
     });
+  }
+
+  changeDirection() {
+    on<OrderStockAdjustmentRegisterChangeDirectionEvent>(
+        (event, emit) async {});
   }
 }

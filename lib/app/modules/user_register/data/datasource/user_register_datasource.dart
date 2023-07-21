@@ -36,7 +36,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
         return UserRegisterModel.fromJson(data);
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }
@@ -50,7 +50,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
         return "";
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }
@@ -72,7 +72,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
         return UserRegisterModel.fromJson(data);
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }
@@ -94,7 +94,7 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
         return result;
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }

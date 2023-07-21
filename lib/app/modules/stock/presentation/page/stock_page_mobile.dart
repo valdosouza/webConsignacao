@@ -5,14 +5,14 @@ import 'package:appweb/app/modules/stock/stock_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class StockPageMobile extends StatefulWidget {
-  const StockPageMobile({super.key});
+class StocPageMobile extends StatefulWidget {
+  const StocPageMobile({super.key});
 
   @override
-  State<StockPageMobile> createState() => _StockPageMobileState();
+  State<StocPageMobile> createState() => _StocPageMobileState();
 }
 
-class _StockPageMobileState extends State<StockPageMobile> {
+class _StocPageMobileState extends State<StocPageMobile> {
   @override
   void initState() {
     super.initState();
@@ -29,7 +29,7 @@ class _StockPageMobileState extends State<StockPageMobile> {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Gestão - Setes"),
+        title: const Text("Sistema Consignação e Venda"),
       ),
       drawer: const DrawerPageMobile(),
       body: SizedBox(

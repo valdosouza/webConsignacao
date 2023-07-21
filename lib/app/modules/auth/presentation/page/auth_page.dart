@@ -243,7 +243,7 @@ class _AuthPageState extends State<AuthPage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(100, 60),
-          backgroundColor: const Color.fromRGBO(123, 160, 91, 80),
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
           ),

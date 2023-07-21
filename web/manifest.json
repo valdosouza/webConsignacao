@@ -1,11 +1,11 @@
 {
-    "name": "erp_setes",
-    "short_name": "erp_setes",
+    "name": "web_consignacao",
+    "short_name": "web_consignacao",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Consignação e Venda",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

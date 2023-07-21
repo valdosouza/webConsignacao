@@ -1,5 +1,7 @@
 abstract class SplashState {}
 
+class SplahsLoadingState extends SplashState {}
+
 class SplashInitState extends SplashState {
   final bool logged;
 

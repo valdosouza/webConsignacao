@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
@@ -7,8 +9,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 
 class OrderStockAdjustmentRegisterEntitiesListWidget extends StatefulWidget {
+  final OrderStockAdjustmentRegisterModel orderStockAdjustment;
   const OrderStockAdjustmentRegisterEntitiesListWidget({
     Key? key,
+    required this.orderStockAdjustment,
   }) : super(key: key);
 
   @override
@@ -32,7 +36,7 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
         OrderStockAdjustmentRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        if (state is EntitiesLoadSuccessState) {
+        if (state is OrderStockAdjustmentRegisterEntitySuccessState) {
           return _orderStockAdjustmentEntitiesList(state);
         } else {
           return Container();
@@ -41,7 +45,8 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
     );
   }
 
-  _orderStockAdjustmentEntitiesList(EntitiesLoadSuccessState state) {
+  _orderStockAdjustmentEntitiesList(
+      OrderStockAdjustmentRegisterEntitySuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -51,8 +56,7 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            bloc.tabIndex = 0;
-            bloc.add(OrderReturnMasterEvent());
+            bloc.add(OrderStockAdjustmentRegisterReturnEvent());
           },
         ),
       ),
@@ -67,8 +71,8 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
                 keyboardType: TextInputType.text,
                 autofocus: false,
                 onChanged: (value) {
-                  bloc.search = value;
-                  bloc.add(EntitySearchEvent());
+                  bloc.add(OrderStockAdjustmentRegisterSearchEntityEvent(
+                      search: value));
                 },
                 style: const TextStyle(
                   color: Colors.white,
@@ -84,33 +88,32 @@ class OrderStockAdjustmentRegisterEntitiesListWidgetState
             ),
             const SizedBox(height: 5.0),
             Expanded(
-              child: bloc.entities.isEmpty
+              child: state.entity.isEmpty
                   ? const Center(
                       child: Text(
                           "Não encontramos nenhum registro em nossa base."))
                   : ListView.separated(
-                      itemCount: bloc.entities.length,
+                      itemCount: state.entity.length,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
-                          bloc.orderMain.order.nameEntity =
-                              bloc.entities[index].nickTrade;
-                          bloc.orderMain.order.tbEntityId =
-                              bloc.entities[index].id;
-                          bloc.tabIndex = 0;
-                          bloc.add(OrderReturnMasterEvent());
+                          widget.orderStockAdjustment.nameEntity =
+                              state.entity[index].nickTrade;
+                          widget.orderStockAdjustment.tbEntityid =
+                              state.entity[index].id;
+                          bloc.add(OrderStockAdjustmentRegisterReturnEvent());
                         },
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: (Colors.black),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text(bloc.entities[index].id.toString()),
+                              child: Text(state.entity[index].id.toString()),
                             ),
                           ),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(bloc.entities[index].nickTrade),
+                              Text(state.entity[index].nickTrade),
                             ],
                           ),
                         ),

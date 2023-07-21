@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/Core/domain/entity/stock_list_entity.dart';
+import 'package:appweb/app/modules/stock_list_register/domain/entity/stock_list_entity.dart';
 
 // ignore: must_be_immutable
 class StockListModel extends StockListEntity {

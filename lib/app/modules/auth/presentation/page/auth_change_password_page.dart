@@ -310,7 +310,7 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(100, 60),
-          backgroundColor: const Color.fromRGBO(123, 160, 91, 80),
+          //backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
           ),

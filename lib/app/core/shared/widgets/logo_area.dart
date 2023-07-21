@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget logoArea() {
   return Image.asset(
     "images/logomarca.png",
-    width: 225,
-    height: 70,
+    width: 250,
+    height: 140,
   );
 }

@@ -20,10 +20,16 @@ import 'package:appweb/app/modules/stock_balance/presentation/page/by_stock_list
 import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_customer_page.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_general_page.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_salesman_page.dart';
+import 'package:appweb/app/modules/stock_list_register/stock_list_register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
 
 class StockBalanceModule extends Module {
+  @override
+  List<Module> get imports => [
+        StockListRegisterModule(),
+      ];
+
   @override
   List<Bind> get binds => [
         //------------------------Csutomer--------------------------------------
@@ -99,7 +105,7 @@ class StockBalanceModule extends Module {
       ],
     ),
     ChildRoute(
-      '/bysalesman/',
+      '/salesman/',
       child: (_, args) => const StockBalanceSalesmanPage(),
       children: [
         ChildRoute(

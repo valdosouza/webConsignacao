@@ -36,8 +36,8 @@ class ResourceHumanlPageTabletState extends State<ResourceHumanPageTablet> {
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: Row(
-          children: const [
+        child: const Row(
+          children: [
             ResourceHumanMenuMain(),
             Expanded(
               child: RouterOutlet(),

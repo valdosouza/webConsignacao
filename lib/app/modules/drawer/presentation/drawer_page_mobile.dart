@@ -1,4 +1,3 @@
-import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/core/shared/widgets/item_drawer.dart';
@@ -62,7 +61,18 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            decoration: kBoxDecorationflexibleSpace,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[
+                  Colors.red,
+                  Colors.black,
+                  //Colors.black,
+                  Colors.white,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
             child: Column(
               children: <Widget>[
                 Material(
@@ -85,8 +95,16 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
               ],
             ),
           ),
+          itemMenuDraw(Icons.home, 'Clientes', () {
+            bloc.add(CashierIsOpenEvent());
+          }),
+          itemMenuDraw(Icons.home, 'Caixa',
+              () => Modular.to.navigate('/cashier/mobile/')),
+          itemMenuDraw(Icons.home, 'Produtos',
+              () => Modular.to.navigate('/product/content/')),
           itemMenuDraw(Icons.home, 'Estoque',
               () => Modular.to.navigate('/stock/mobile/')),
+          itemMenuPolicy(Icons.home, 'Política de Privacidade'),
           itemLogout(Icons.close, 'Sair'),
         ],
       ),

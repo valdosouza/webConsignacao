@@ -28,7 +28,7 @@ class _OrderStockAdjustmentRegisterPageTabletState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Ordem de Ajuste de estoque"),
+        title: const Text("Ordem de ajuste de estoque"),
       ),
     );
   }

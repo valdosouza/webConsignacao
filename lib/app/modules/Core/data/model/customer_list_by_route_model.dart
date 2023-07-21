@@ -10,6 +10,11 @@ class CustomerListByRouteModel extends CustomerListByRouteEntity {
     int? tbSalesRouteIid,
     String? nameSalesRoute,
     int? sequence,
+    String? turnBack,
+    String? street,
+    String? nmbr,
+    String? complement,
+    bool expanded = false,
   }) : super(
           id: id ?? 0,
           nameCompany: nameCompany ?? "",
@@ -19,6 +24,11 @@ class CustomerListByRouteModel extends CustomerListByRouteEntity {
           tbSalesRouteIid: tbSalesRouteIid ?? 0,
           nameSalesRoute: nameSalesRoute ?? "",
           sequence: sequence ?? 0,
+          turnBack: turnBack ?? "N",
+          street: street ?? "",
+          nmbr: nmbr ?? "",
+          complement: complement ?? "",
+          expanded: expanded,
         );
 
   factory CustomerListByRouteModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +41,11 @@ class CustomerListByRouteModel extends CustomerListByRouteEntity {
       tbSalesRouteIid: json['tb_sales_route_id'] as int? ?? 0,
       nameSalesRoute: json['name_sales_route'] as String? ?? "",
       sequence: json['sequence'] as int? ?? 0,
+      turnBack: json['turn_back'] as String? ?? "N",
+      street: json['street'] as String? ?? "",
+      nmbr: json['nmbr'] as String? ?? "",
+      complement: json['complement'] as String? ?? "",
+      expanded: false,
     );
   }
 }

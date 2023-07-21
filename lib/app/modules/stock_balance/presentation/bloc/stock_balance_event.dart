@@ -1,14 +1,13 @@
-import 'package:appweb/app/modules/stock_balance/data/model/params_get_list_stock_balance_model.dart';
-
 abstract class StockBalanceEvent {}
 
 class StockBalanceGetListEvent extends StockBalanceEvent {
-  ParamsGetlistStockBalanceModel params;
-  StockBalanceGetListEvent(this.params);
+  final int tbStockListId;
+  StockBalanceGetListEvent({required this.tbStockListId});
 }
 
 class StockBalanceSearchEvent extends StockBalanceEvent {
-  StockBalanceSearchEvent();
+  final String search;
+  StockBalanceSearchEvent({required this.search});
 }
 
 class StockBalanceCustomerGetListEvent extends StockBalanceEvent {
@@ -30,10 +29,7 @@ class StockBalanceGeneralSearchEvent extends StockBalanceEvent {
 }
 
 class StockBalanceSalesmanGetListEvent extends StockBalanceEvent {
-  ParamsGetlistStockBalanceModel params;
-  StockBalanceSalesmanGetListEvent(
-    this.params,
-  );
+  StockBalanceSalesmanGetListEvent();
 }
 
 class StockBalanceSalesmanSearchEvent extends StockBalanceEvent {
@@ -44,7 +40,7 @@ class StockBalanceSalesmanSearchEvent extends StockBalanceEvent {
 //==========================Get StockList===========================
 class StockBalanceReturnStockListPagEvent extends StockBalanceEvent {}
 
-class GetStockListEvent extends StockBalanceEvent {}
+class StockBalanceGetStockListEvent extends StockBalanceEvent {}
 
 class StockBalanceSearcheStocksListEvent extends StockBalanceEvent {
   final String search;

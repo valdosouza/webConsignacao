@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
+import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_change_password_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_recovery_password_model.dart';
 
-/// Calls the https://www.api.gestaosetes.com.br/auth/authenticate/ endpoint.
+/// Calls the http://api.industriadechocolatesamor.com.br/auth/authenticate/ endpoint.
 ///
 /// Throws a [ServerException] for all error codes.
 abstract class AuthDatasource extends Gateway {
@@ -23,23 +24,27 @@ class AuthDatasourceImpl extends AuthDatasource {
   @override
   Future<AuthModel> getAuthentication(
       {required String username, required String password}) async {
-    return await request(
-      'auth/authenticate/',
-      method: HTTPMethod.post,
-      data: jsonEncode(
+    final uri = Uri.parse('${baseApiUrl}auth/authenticate/');
+
+    final response = await httpClient.post(
+      uri,
+      body: jsonEncode(
         <String, String>{
           'email': username,
-          'password': password.toUpperCase(),
+          'password': password, //.toUpperCase(),
         },
       ),
-      (payload) {
-        final jsonMap = json.decode(payload) as Map<String, dynamic>;
-        return AuthModel.fromJson(jsonMap);
-      },
-      onError: (error) {
-        return ServerException;
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+
+    if (response.statusCode == 200) {
+      final jsonMap = json.decode(response.body) as Map<String, dynamic>;
+      return AuthModel.fromJson(jsonMap);
+    } else {
+      return Future.error(ServerException());
+    }
   }
 
   @override
@@ -55,7 +60,7 @@ class AuthDatasourceImpl extends AuthDatasource {
         return payload;
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }
@@ -78,7 +83,7 @@ class AuthDatasourceImpl extends AuthDatasource {
         return result;
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }

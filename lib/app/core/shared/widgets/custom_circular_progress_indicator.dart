@@ -35,10 +35,7 @@ class CustomCircularProgressIndicator extends StatelessWidget {
                   const SizedBox(
                     height: 120,
                     width: 120,
-                    child: CircularProgressIndicator(
-                      color: Color.fromRGBO(123, 160, 91, 80),
-                      strokeWidth: 7,
-                    ),
+                    child: CircularProgressIndicator(),
                   ),
                 ],
               ),

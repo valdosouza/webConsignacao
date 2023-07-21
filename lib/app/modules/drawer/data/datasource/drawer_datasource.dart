@@ -30,7 +30,7 @@ class DrawerDataSourceImpl extends DrawerDataSource {
         return CashierStatusModel.fromJson(data);
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }

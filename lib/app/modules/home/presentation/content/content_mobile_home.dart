@@ -50,25 +50,14 @@ class _ContentMobileHomeState extends State<ContentMobileHome> {
   }
 
   Widget _build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {
-        if (state is HomeErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Sending Message"),
-          ));
-        }
-      },
-      builder: (context, state) {
-        if (state is HomeLoadedState) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Container()],
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
+    return BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+      if (state is HomeErrorState) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Sending Message"),
+        ));
+      }
+    }, builder: (context, state) {
+      return Container();
+    });
   }
 }

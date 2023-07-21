@@ -1,4 +1,5 @@
-import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
@@ -9,8 +10,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 
 class OrderStockAdjustmentRegisterProductsListWidget extends StatefulWidget {
+  final OrderStockAdjustmentRegisterItemsModel orderStockAdjustmentItem;
   const OrderStockAdjustmentRegisterProductsListWidget({
     Key? key,
+    required this.orderStockAdjustmentItem,
   }) : super(key: key);
 
   @override
@@ -26,9 +29,6 @@ class OrderStockAdjustmentRegisterProductsListWidgetState
   void initState() {
     super.initState();
     bloc = Modular.get<OrderStockAdjustmentRegisterBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<OrderStockAdjustmentRegisterModule>();
-    });
   }
 
   @override
@@ -37,8 +37,8 @@ class OrderStockAdjustmentRegisterProductsListWidgetState
         OrderStockAdjustmentRegisterState>(
       bloc: bloc,
       builder: (context, state) {
-        if (state is ProductGetSucessState) {
-          return _orderStockAdjustmentItemProductsList(bloc);
+        if (state is OrderStockAdjustmentRegisterProductSuccessState) {
+          return _orderStockAdjustmentItemProductsList(state);
         } else {
           return Container();
         }
@@ -46,7 +46,8 @@ class OrderStockAdjustmentRegisterProductsListWidgetState
     );
   }
 
-  _orderStockAdjustmentItemProductsList(OrderStockAdjustmentRegisterBloc bloc) {
+  _orderStockAdjustmentItemProductsList(
+      OrderStockAdjustmentRegisterProductSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -56,8 +57,7 @@ class OrderStockAdjustmentRegisterProductsListWidgetState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            bloc.tabIndex = 1;
-            bloc.add(OrderReturnMasterEvent());
+            bloc.add(OrderStockAdjustmentRegisterReturnEvent());
           },
         ),
       ),
@@ -72,8 +72,8 @@ class OrderStockAdjustmentRegisterProductsListWidgetState
                 keyboardType: TextInputType.text,
                 autofocus: false,
                 onChanged: (value) {
-                  bloc.search = value;
-                  bloc.add(ProductsSearchEvent());
+                  bloc.add(OrderStockAdjustmentRegisterSearchProductsEvent(
+                      search: value));
                 },
                 style: const TextStyle(
                   color: Colors.white,
@@ -89,31 +89,33 @@ class OrderStockAdjustmentRegisterProductsListWidgetState
             ),
             const SizedBox(height: 5.0),
             Expanded(
-              child: bloc.products.isEmpty
+              child: state.products.isEmpty
                   ? const Center(
                       child: Text(
                           "Não encontramos nenhum registro em nossa base."))
                   : ListView.separated(
-                      itemCount: bloc.products.length,
+                      itemCount: state.products.length,
                       itemBuilder: (context, index) => InkWell(
                         onTap: () {
-                          bloc.orderItem.tbProductId = bloc.products[index].id;
-                          bloc.orderItem.nameProduct =
-                              bloc.products[index].description;
-                          bloc.add(ProductChosenEvent());
+                          widget.orderStockAdjustmentItem.tbProductId =
+                              state.products[index].id;
+                          widget.orderStockAdjustmentItem.description =
+                              state.products[index].description;
+                          bloc.add(OrderStockAdjustmentRegisterItemEvent(
+                              item: widget.orderStockAdjustmentItem));
                         },
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: (Colors.black),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text(bloc.products[index].id.toString()),
+                              child: Text(state.products[index].id.toString()),
                             ),
                           ),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(bloc.products[index].description),
+                              Text(state.products[index].description),
                             ],
                           ),
                         ),

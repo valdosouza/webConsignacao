@@ -1,79 +1,170 @@
-abstract class OrderStockAdjustmentRegisterState {}
+import 'package:appweb/app/modules/Core/data/model/entity_list_model.dart';
+import 'package:appweb/app/modules/Core/data/model/product_list_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_items_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
+import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
 
-//======================MASTER============================
-class OrderLoadingState extends OrderStockAdjustmentRegisterState {}
+abstract class OrderStockAdjustmentRegisterState {
+  List<OrderStockAdjustmentRegisterModel> list;
 
-class OrderLoadedSucessState extends OrderStockAdjustmentRegisterState {}
+  OrderStockAdjustmentRegisterState({
+    required this.list,
+  });
+}
 
-class OrderNewLoadedState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterLoadingState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterLoadingState() : super(list: []);
+}
 
-class OrderGetLoadedState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterLoadedState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterLoadedState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
 
-class OrderReturnMasterState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterErrorState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
 
-class OrderPostSuccessState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterInfoPageState
+    extends OrderStockAdjustmentRegisterState {
+  final OrderStockAdjustmentRegisterModel? model;
+  final int tabIndex;
+  OrderStockAdjustmentRegisterInfoPageState(
+      {required this.tabIndex,
+      required List<OrderStockAdjustmentRegisterModel> list,
+      this.model})
+      : super(list: list);
+}
 
-class OrderPutSuccessState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterGetErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterGetErrorState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
 
-class OrderDeleteSuccessState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterPostSuccessState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterPostSuccessState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
 
-class OrderClosureSuccessState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterPostErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterPostErrorState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
 
-class OrderReopenSuccessState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterPutSuccessState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterPutSuccessState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
 
-class EntitiesLoadSuccessState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterPutErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterPutErrorState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
 
-class EntityChosenSuccessState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterDeleteSuccessState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterDeleteSuccessState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
 
-class StocksLoadSuccessState extends OrderStockAdjustmentRegisterState {}
+class OrderStockAdjustmentRegisterDeleteErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterDeleteErrorState(
+      {required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
+
+class OrderClosureSuccessState extends OrderStockAdjustmentRegisterState {
+  final String result;
+  OrderClosureSuccessState(
+      {required this.result,
+      required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
+
+class OrderReopenSuccessState extends OrderStockAdjustmentRegisterState {
+  final String result;
+  OrderReopenSuccessState(
+      {required this.result,
+      required List<OrderStockAdjustmentRegisterModel> list})
+      : super(list: list);
+}
+
+class OrderStockAdjustmentRegisterProductSuccessState
+    extends OrderStockAdjustmentRegisterState {
+  final List<ProductListModel> products;
+  OrderStockAdjustmentRegisterProductSuccessState({required this.products})
+      : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterProductErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterProductErrorState() : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterEntitySuccessState
+    extends OrderStockAdjustmentRegisterState {
+  final List<EntityListModel> entity;
+  OrderStockAdjustmentRegisterEntitySuccessState({required this.entity})
+      : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterEntityErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterEntityErrorState() : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterStockSuccessState
+    extends OrderStockAdjustmentRegisterState {
+  final List<StockListModel> stock;
+  OrderStockAdjustmentRegisterStockSuccessState({required this.stock})
+      : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterStockErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterStockErrorState() : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterItemPage
+    extends OrderStockAdjustmentRegisterState {
+  final OrderStockAdjustmentRegisterItemsModel item;
+  OrderStockAdjustmentRegisterItemPage({required this.item}) : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterChangeDirectionErrorState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterChangeDirectionErrorState() : super(list: []);
+}
+
+class OrderStockAdjustmentRegisterChangeDirectionkSuccessState
+    extends OrderStockAdjustmentRegisterState {
+  OrderStockAdjustmentRegisterChangeDirectionkSuccessState() : super(list: []);
+}
 
 //======================MASTER - Errors============================
-class OrderGetErrorState extends OrderStockAdjustmentRegisterState {}
-
-class OrderLoadedErrorState extends OrderStockAdjustmentRegisterState {}
-
-class OrderPostErrorState extends OrderStockAdjustmentRegisterState {}
-
-class OrderPutErrorState extends OrderStockAdjustmentRegisterState {}
-
-class OrderDeleteErrorState extends OrderStockAdjustmentRegisterState {}
-
-class EntityLoadErrorState extends OrderStockAdjustmentRegisterState {}
-
-class StocksLoadErrorState extends OrderStockAdjustmentRegisterState {}
 
 class OrderClosureErrorState extends OrderStockAdjustmentRegisterState {
-  OrderClosureErrorState();
+  OrderClosureErrorState({required super.list});
 }
 
 class OrderReopenErrorState extends OrderStockAdjustmentRegisterState {
-  OrderReopenErrorState();
+  OrderReopenErrorState({required super.list});
 }
-
-//======================Detail============================
-class OrderItemUpdateSuccessState extends OrderStockAdjustmentRegisterState {}
-
-class OrderItemPageEditState extends OrderStockAdjustmentRegisterState {}
-
-class ProductGetSucessState extends OrderStockAdjustmentRegisterState {}
-
-class ProductSearchSucessState extends OrderStockAdjustmentRegisterState {}
-
-class ProductChosenSucessState extends OrderStockAdjustmentRegisterState {}
-
-class StockSearchSucessState extends OrderStockAdjustmentRegisterState {}
-
-class EntitySearchSucessState extends OrderStockAdjustmentRegisterState {}
-
-//======================Detail - Errors============================
-class OrderItemUpdateErrorState extends OrderStockAdjustmentRegisterState {}
-
-class ProductGetErrorState extends OrderStockAdjustmentRegisterState {}
-
-class ProductSearchErrorState extends OrderStockAdjustmentRegisterState {}
-
-class StockSearchErrorState extends OrderStockAdjustmentRegisterState {}
-
-class EntitySearchErrorState extends OrderStockAdjustmentRegisterState {}
-//=================================================================
-

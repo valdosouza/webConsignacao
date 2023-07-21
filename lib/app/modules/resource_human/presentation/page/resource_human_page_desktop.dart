@@ -34,8 +34,8 @@ class FinancialnPageDesktopState extends State<ResourceHumanPageDesktop> {
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: Row(
-          children: const [
+        child: const Row(
+          children: [
             DrawerPageMain(),
             ResourceHumanMenuMain(),
             Expanded(

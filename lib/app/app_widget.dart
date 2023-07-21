@@ -19,7 +19,7 @@ class AppWidget extends StatelessWidget {
           } else {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
-              title: 'Sistema Gestão - Setes',
+              title: 'Sistema de Consignação e Venda',
               theme: ThemeData(
                 primarySwatch: Colors.red,
               ),

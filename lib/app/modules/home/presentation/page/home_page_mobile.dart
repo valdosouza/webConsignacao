@@ -13,7 +13,7 @@ class HomePageMobile extends StatelessWidget {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Gestão - Setes"),
+        title: const Text("Consignação e Venda"),
       ),
       drawer: const DrawerPageMobile(),
       body: const ContentMobileHome(),

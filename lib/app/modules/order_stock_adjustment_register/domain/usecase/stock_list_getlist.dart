@@ -23,4 +23,6 @@ class StockListGetlist
   }
 }
 
-class ParamsGetListStock {}
+class ParamsGetListStock {
+  const ParamsGetListStock();
+}

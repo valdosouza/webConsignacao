@@ -1,6 +1,5 @@
 import 'package:appweb/app/core/shared/helpers/local_storage.dart';
 import 'package:appweb/app/core/shared/local_storage_key.dart';
-import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_recovery_password_model.dart';
 import 'package:appweb/app/modules/auth/domain/usecase/change_password.dart';
 import 'package:appweb/app/modules/auth/domain/usecase/login_email.dart';
@@ -66,28 +65,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final result = await loginEmail(
           Params(username: event.login, password: event.password));
 
-      var response = result
-          .fold((l) => const AuthErrorState('Erro ao realizar Login'),
-              (AuthModel authResponse) {
+      var response = result.fold((l) {
+        const AuthErrorState('Erro ao realizar Login');
+      }, (r) {
         if (status == PermissionStatus.granted) {
-          final AuthModel authModel = authResponse;
-          final bool auth = authModel.auth;
+          final bool auth = r.auth;
           if (auth) {
             LocalStorageService.instance.saveItem(
               key: LocalStorageKey.token,
-              value: authModel.jwt,
+              value: r.jwt,
             );
             LocalStorageService.instance.saveItem(
               key: LocalStorageKey.tbInstitutionId,
-              value: authModel.tbInstitutionId,
+              value: r.tbInstitutionId,
             );
             LocalStorageService.instance.saveItem(
               key: LocalStorageKey.tbUserId,
-              value: authModel.id,
+              value: r.id,
             );
             LocalStorageService.instance.saveItem(
               key: LocalStorageKey.userName,
-              value: authModel.username,
+              value: r.username,
             );
             return AuthSuccessState();
           } else {

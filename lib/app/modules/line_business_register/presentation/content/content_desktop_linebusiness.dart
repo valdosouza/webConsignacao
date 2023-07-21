@@ -59,9 +59,6 @@ class _ContentDesktopLinebusinessState
         final prices = state.list;
         return Scaffold(
           appBar: AppBar(
-            flexibleSpace: Container(
-              decoration: kBoxDecorationflexibleSpace,
-            ),
             title: const Text('Lista de cargos'),
             actions: [
               IconButton(

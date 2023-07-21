@@ -15,8 +15,10 @@ class CustomDate {
       } catch (e) {
         return "";
       }
+    } else {
+      date = newDate();
+      return formatDateOut(date);
     }
-    return "";
   }
 
   static formatDateIn(String date) {

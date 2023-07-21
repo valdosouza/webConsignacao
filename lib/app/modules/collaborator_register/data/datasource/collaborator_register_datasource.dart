@@ -36,7 +36,7 @@ class CollaboratorRegisterDatasourceImpl
         return CollaboratorMainModel.fromJson(data);
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }
@@ -62,7 +62,7 @@ class CollaboratorRegisterDatasourceImpl
         return CollaboratorListModel.fromJson(data);
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }
@@ -76,7 +76,7 @@ class CollaboratorRegisterDatasourceImpl
         return "";
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }
@@ -98,7 +98,7 @@ class CollaboratorRegisterDatasourceImpl
         return collaborators;
       },
       onError: (error) {
-        return ServerException;
+        return Future.error(ServerException());
       },
     );
   }

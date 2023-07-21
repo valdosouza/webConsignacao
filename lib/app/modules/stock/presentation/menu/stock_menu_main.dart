@@ -12,6 +12,11 @@ class StockMenuMain extends StatelessWidget {
         children: <Widget>[
           itemMenuDraw(
             Icons.home,
+            'Cadastro de Estoques',
+            () async => Modular.to.navigate('/stock/desktop/stocklist/'),
+          ),
+          itemMenuDraw(
+            Icons.home,
             'Ajustes de Estoque',
             () async => Modular.to.navigate('/stock/desktop/stockadjustement/'),
           ),
@@ -19,6 +24,11 @@ class StockMenuMain extends StatelessWidget {
             Icons.home,
             'Transferência de Estoques',
             () async => Modular.to.navigate('/stock/desktop/stocktransfer/'),
+          ),
+          itemMenuDraw(
+            Icons.home,
+            'Carregamento',
+            () async => Modular.to.navigate('/stock/desktop/orderloadCard/'),
           ),
           itemMenuDraw(
             Icons.home,

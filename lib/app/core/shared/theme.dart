@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kHintTextStyle = TextStyle(
-  color: Colors.white54,
+  color: Colors.white,
   fontFamily: 'OpenSans',
 );
 
@@ -10,14 +10,6 @@ const kLabelStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
-
-const kLabelAvatarStyle = TextStyle(
-  color: Colors.white,
-  fontWeight: FontWeight.bold,
-  fontSize: 12,
-  fontFamily: 'OpenSans',
-);
-
 const ktittleAppBarStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
@@ -26,7 +18,7 @@ const ktittleAppBarStyle = TextStyle(
 );
 
 const kBoxDecorationStyle = BoxDecoration(
-  color: Color(0xFF6CA8F1),
+  color: Colors.black12,
   //borderRadius: BorderRadius.circular(10),
   boxShadow: [
     BoxShadow(
@@ -39,28 +31,27 @@ const kBoxDecorationStyle = BoxDecoration(
 
 const kBoxDecorationflexibleSpace = BoxDecoration(
   gradient: LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color(0xFF73AEF5),
-      Color(0xFF61A4F1),
-      Color(0xFF478DE0),
-      Color(0xFF398AE5),
-    ],
-    stops: [0.1, 0.4, 0.7, 0.9],
-  ),
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: <Color>[
+        Color.fromARGB(255, 241, 97, 97),
+        Color.fromARGB(255, 224, 71, 71),
+        Color.fromARGB(255, 229, 57, 57),
+      ]),
 );
 
-const kPrimaryColor = Color(0xFF366CF6);
-const kSecondaryColor = Color(0xFFF5F6FC);
+const kPrimaryColor = Colors.red;
+const kButtonColor = Colors.black;
+const kSecondaryColor = Colors.white;
 const kBgLightColor = Color(0xFFF2F4FC);
 const kBgDarkColor = Color(0xFFEBEDFA);
-const kBadgeColor = Color.fromRGBO(123, 160, 91, 80);
+const kBadgeColor = Color(0xFFEE376E);
 const kGrayColor = Color(0xFF8793B2);
 const kTitleTextColor = Color(0xFF30384D);
 const kTextColor = Color(0xFF4D5875);
 
 const kDefaultPadding = 16.0;
+
 Color getColor(String color) {
   switch (color) {
     case 'green':
@@ -70,7 +61,7 @@ Color getColor(String color) {
     case 'black':
       return Colors.black;
     case 'red':
-      return const Color.fromRGBO(123, 160, 91, 80);
+      return Colors.red;
   }
   return Colors.black;
 }

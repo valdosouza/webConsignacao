@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/core/shared/helpers/local_storage.dart';
 import 'package:appweb/app/core/shared/local_storage_key.dart';
@@ -45,7 +46,8 @@ class Gateway {
     T Function(dynamic) fromJson, {
     data = const {},
     HTTPMethod method = HTTPMethod.get,
-    Function(Exception)? onError,
+    Future<T> Function(Exception)? onError,
+    //Function(Exception)? onError,
   }) async {
     debugPrint('Fetching $url from API');
     debugPrint('${method.toString().toUpperCase()} $url');
@@ -74,13 +76,15 @@ class Gateway {
           'Failed fetching $url from API => HTTP CODE: $statusCode -> ${e.toString()}');
 
       if (onError != null) {
-        return onError(e);
+        final errorResult = await onError(e);
+        throw errorResult ?? e;
       }
       rethrow;
     }
   }
 
   Future<Response> _get(String url) async {
+    debugPrint("endPonint $url");
     final response = await httpClient
         .get(
           Uri.parse('$baseApiUrl$url'),

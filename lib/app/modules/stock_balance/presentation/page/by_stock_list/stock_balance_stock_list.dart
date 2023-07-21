@@ -1,7 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
-import 'package:appweb/app/modules/stock_balance/data/model/params_get_list_stock_balance_model.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_bloc.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_event.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_state.dart';
@@ -25,9 +24,8 @@ class _ContentStockBalanceByStockListState
   @override
   void initState() {
     super.initState();
-
     bloc = Modular.get<StockBalanceBloc>();
-    bloc.add(GetStockListEvent());
+    bloc.add(StockBalanceGetStockListEvent());
   }
 
   @override
@@ -46,15 +44,12 @@ class _ContentStockBalanceByStockListState
             child: CustomCircularProgressIndicator(),
           );
         }
-        if (state is GetListByStockListLoadedState) {
+        if (state is StockBalanceLoadedState) {
           return const StockBalanceByStockListPage();
         }
 
         return Scaffold(
           appBar: AppBar(
-            flexibleSpace: Container(
-              decoration: kBoxDecorationflexibleSpace,
-            ),
             title: const Text('Lista de estoques'),
           ),
           body: Padding(
@@ -91,22 +86,9 @@ class _ContentStockBalanceByStockListState
                                 trailing: IconButton(
                                   icon: const Icon(Icons.arrow_forward_ios),
                                   onPressed: () {
-                                    bloc.add(
-                                      StockBalanceGetListEvent(
-                                        ParamsGetlistStockBalanceModel(
-                                          tbInstitutionId: 0,
-                                          tbSalesmanId: 0,
-                                          tbStockListId:
-                                              bloc.stockListList[index].id,
-                                          page: 0,
-                                          id: 0,
-                                          nameProduct: "",
-                                        ),
-                                      ),
-                                    );
-                                    //   bloc.add(StockBalanceGetListEvent(
-                                    //       tbStockListId:
-                                    //           bloc.stockListList[index].id));
+                                    bloc.add(StockBalanceGetListEvent(
+                                        tbStockListId:
+                                            bloc.stockListList[index].id));
                                   },
                                 ),
                               ),

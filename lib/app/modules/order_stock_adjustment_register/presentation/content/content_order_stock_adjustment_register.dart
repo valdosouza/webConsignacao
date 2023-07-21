@@ -1,28 +1,36 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
-import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_list_model.dart';
+import 'package:appweb/app/modules/order_stock_adjustment_register/data/model/order_stock_adjustment_register_model.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_event.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
 import 'package:flutter/material.dart';
 
-statesOrderStockAdjustment(OrderStockAdjustmentRegisterState state) {
-  if (state is OrderGetErrorState) {
+statesOrderStockAdjustments(OrderStockAdjustmentRegisterState state) {
+  if (state is OrderStockAdjustmentRegisterErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados. Tente novamente mais tarde");
-  } else if (state is OrderPostSuccessState) {
+  } else if (state is OrderStockAdjustmentRegisterPostSuccessState) {
     CustomToast.showToast("Cadastro atualizado com sucesso.");
-  } else if (state is OrderPutSuccessState) {
+  } else if (state is OrderStockAdjustmentRegisterPutSuccessState) {
     CustomToast.showToast("Cadastro atualizado com sucesso.");
-  } else if (state is OrderPostErrorState) {
+  } else if (state is OrderStockAdjustmentRegisterPostErrorState) {
     CustomToast.showToast(
         "Erro ao atualizar o cadastro. Tente novamente mais tarde.");
-  } else if (state is OrderPutErrorState) {
+  } else if (state is OrderStockAdjustmentRegisterPutErrorState) {
     CustomToast.showToast(
         "Erro editar o cadastro. Tente novamente mais tarde.");
-  } else if (state is OrderGetErrorState) {
+  } else if (state is OrderStockAdjustmentRegisterGetErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados do cadastro. Tente novamente mais tarde.");
+  } else if (state is OrderClosureSuccessState) {
+    CustomToast.showToast("Registro Encerrado com sucesso");
+  } else if (state is OrderClosureErrorState) {
+    CustomToast.showToast("Erro ao encerrar o registro");
+  } else if (state is OrderReopenSuccessState) {
+    CustomToast.showToast("Registro reaberto com sucesso");
+  } else if (state is OrderReopenErrorState) {
+    CustomToast.showToast("Erro ao reabrir o registro");
   }
 }
 
@@ -33,8 +41,7 @@ buildSearchInput(OrderStockAdjustmentRegisterBloc bloc) {
       keyboardType: TextInputType.text,
       autofocus: false,
       onChanged: (value) {
-        bloc.search = value;
-        bloc.add(OrderSearchEvent());
+        bloc.add(OrderStockAdjustmentRegisterSearchEvent(search: value));
       },
       style: const TextStyle(
         color: Colors.white,
@@ -44,7 +51,7 @@ buildSearchInput(OrderStockAdjustmentRegisterBloc bloc) {
         border: InputBorder.none,
         contentPadding: EdgeInsets.only(left: 10.0),
         hintText:
-            "Pesquise a Ordem de Ajuste de estoque por Nome do Produto, data ou estoque",
+            "Pesquise a Ordem de ajuste de estoque por Nome do Produto, data ou estoque",
         hintStyle: kHintTextStyle,
       ),
     ),
@@ -52,17 +59,18 @@ buildSearchInput(OrderStockAdjustmentRegisterBloc bloc) {
 }
 
 buildListView(OrderStockAdjustmentRegisterBloc bloc,
-    List<OrderStockAdjustmentListModel> list) {
+    List<OrderStockAdjustmentRegisterModel> orderStockAdjustment) {
   return Expanded(
-    child: list.isEmpty
+    child: orderStockAdjustment.isEmpty
         ? const Center(
             child: Text("Não encontramos nenhum registro em nossa base."))
         : ListView.separated(
-            itemCount: list.length,
+            itemCount: orderStockAdjustment.length,
             itemBuilder: (context, index) => InkWell(
               onTap: () {
-                bloc.orderStockTransList = list[index];
-                bloc.add(OrderGetEvent());
+                bloc.edit = true;
+                bloc.add(OrderStockAdjustmentRegisterDesktopEvent(
+                    model: orderStockAdjustment[index]));
               },
               child: ListTile(
                 leading: CircleAvatar(
@@ -78,9 +86,9 @@ buildListView(OrderStockAdjustmentRegisterBloc bloc,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(list[index].nameEntity),
+                          Text(orderStockAdjustment[index].nameEntity),
                           const SizedBox(height: 5.0),
-                          Text(list[index].dtRecord)
+                          Text(orderStockAdjustment[index].dtRecord)
                         ],
                       ),
                     ),
@@ -91,7 +99,7 @@ buildListView(OrderStockAdjustmentRegisterBloc bloc,
                           const Text("Situação",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           const SizedBox(height: 5.0),
-                          Text((list[index].status != "F")
+                          Text((orderStockAdjustment[index].status != "F")
                               ? "Aberta"
                               : "Fechada"),
                         ],

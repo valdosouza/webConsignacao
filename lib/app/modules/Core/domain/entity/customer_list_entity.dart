@@ -5,6 +5,10 @@ class CustomerListEntity {
   String docKind;
   String docNumber;
   String error;
+  String street;
+  String nmbr;
+  String complement;
+  bool expanded = false;
 
   CustomerListEntity({
     this.id = 0,
@@ -13,5 +17,9 @@ class CustomerListEntity {
     this.docKind = "",
     this.docNumber = "",
     this.error = "",
+    this.street = "",
+    this.nmbr = "",
+    this.complement = "",
+    this.expanded = false,
   });
 }
