@@ -21,6 +21,7 @@ class GetRegionBySalesmanDataSourceImpl extends GetRegionBySalesmanDatasource {
       await getInstitutionId().then((value) {
         tbInstitutionId = value.toString();
       });
+
       String tbSalesmanId = '1';
       await getUserId().then((value) {
         tbSalesmanId = value.toString();
