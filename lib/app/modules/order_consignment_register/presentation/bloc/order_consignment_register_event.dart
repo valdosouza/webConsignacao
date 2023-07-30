@@ -10,6 +10,13 @@ class OrderConsignmentRegisterGetlastEvent
   OrderConsignmentRegisterGetlastEvent({required this.tbCustomerId});
 }
 
+class OrderConsignmentRegisterGetlistEvent
+    extends OrderConsignmentRegisterEvent {
+  final int tbCustomerId;
+
+  OrderConsignmentRegisterGetlistEvent({required this.tbCustomerId});
+}
+
 class OrderConsignementRegisterCheckpointPostEvent
     extends OrderConsignmentRegisterEvent {
   final OrderConsignmentCheckpointModel checkpointmodel;
@@ -29,3 +36,29 @@ class OrderConsignmentRegisterClearCheckoutEvent
 
 class OrderConsignmentRegisterClearSupplyingEvent
     extends OrderConsignmentRegisterEvent {}
+
+class ReturnToCheckpointEvent extends OrderConsignmentRegisterEvent {}
+
+class ReturnToSupplyingEvent extends OrderConsignmentRegisterEvent {}
+
+class SearchEvent extends OrderConsignmentRegisterEvent {
+  String search;
+
+  SearchEvent({
+    required this.search,
+  });
+}
+
+class GetCheckpoint extends OrderConsignmentRegisterEvent {
+  int orderid;
+  GetCheckpoint({
+    required this.orderid,
+  });
+}
+
+class GetSupplying extends OrderConsignmentRegisterEvent {
+  int orderid;
+  GetSupplying({
+    required this.orderid,
+  });
+}

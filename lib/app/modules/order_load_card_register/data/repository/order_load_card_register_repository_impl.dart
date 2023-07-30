@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
+import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_list_model.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/datasource/order_load_card_register_datasource.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_items_model.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_main_model.dart';
@@ -27,6 +28,26 @@ class OrderLoadCardRegisterRepositoryImpl
   Future<Either<Failure, List<OrderLoadCardMainModel>>> getList() async {
     try {
       return Right(await orderLoadCardDatasource.getList());
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, OrderLoadCardMainModel>> get(
+      {required int orderId}) async {
+    try {
+      return Right(await orderLoadCardDatasource.get(orderId: orderId));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<OrderConsignmetListModel>>>
+      getListByUser() async {
+    try {
+      return Right(await orderLoadCardDatasource.getListByUser());
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -1,4 +1,5 @@
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_list_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
 
 abstract class OrderConsignmentRegisterState {}
@@ -8,8 +9,24 @@ class OrderConsignmentRegisterLoadingState
 
 class OrderConsigngmentGetLastErrorState extends OrderConsignmentRegisterState {
   final String error;
-
   OrderConsigngmentGetLastErrorState(this.error);
+}
+
+class OrderConsigngmentGetListErrorState extends OrderConsignmentRegisterState {
+  final String error;
+  OrderConsigngmentGetListErrorState(this.error);
+}
+
+class OrderConsigngmentGetCheckpointErrorState
+    extends OrderConsignmentRegisterState {
+  final String error;
+  OrderConsigngmentGetCheckpointErrorState(this.error);
+}
+
+class OrderConsigngmentGetSupplyingErrorState
+    extends OrderConsignmentRegisterState {
+  final String error;
+  OrderConsigngmentGetSupplyingErrorState(this.error);
 }
 
 class OrderConsignmentGetLastLoadedState extends OrderConsignmentRegisterState {
@@ -18,6 +35,22 @@ class OrderConsignmentGetLastLoadedState extends OrderConsignmentRegisterState {
   OrderConsignmentGetLastLoadedState({
     required this.checkpointmodel,
     required this.supplyingmodel,
+  });
+}
+
+class OrderConsignmentGetCheckpointLoadedState
+    extends OrderConsignmentRegisterState {
+  OrderConsignmentCheckpointModel checkpointmodel;
+  OrderConsignmentGetCheckpointLoadedState({
+    required this.checkpointmodel,
+  });
+}
+
+class OrderConsignmentGetSupplyingLoadedState
+    extends OrderConsignmentRegisterState {
+  OrderConsignmentSupplyingModel supplyingModel;
+  OrderConsignmentGetSupplyingLoadedState({
+    required this.supplyingModel,
   });
 }
 
@@ -37,6 +70,10 @@ class OrderConsignmentRegisterCheckpointPostSucessState
       {required this.supplyingmode});
 }
 
+class ReturnToCheckpointState extends OrderConsignmentRegisterState {}
+
+class ReturnToSupplyingState extends OrderConsignmentRegisterState {}
+
 class OrderConsignmentRegisterCalcDoneState
     extends OrderConsignmentRegisterState {}
 
@@ -54,3 +91,8 @@ class OrderConsignmentRegisterSupplyingClearSucessState
 
 class OrderConsignmentRegisterCheckpointClearSucessState
     extends OrderConsignmentRegisterState {}
+
+class OrderConsignmentGetListLoadedState extends OrderConsignmentRegisterState {
+  List<OrderConsignmetListModel> orderList;
+  OrderConsignmentGetListLoadedState({required this.orderList});
+}

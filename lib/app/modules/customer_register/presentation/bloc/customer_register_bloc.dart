@@ -7,13 +7,13 @@ import 'package:appweb/app/modules/Core/data/model/state_model.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
-import 'package:appweb/app/modules/Core/domain/usecase/get_region.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_sales_route.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:appweb/app/modules/customer_register/data/model/customer_main_model.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_post.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_list.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/get_region_by_salesman.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
 import 'package:bloc/bloc.dart';
@@ -27,7 +27,7 @@ class CustomerRegisterBloc
   final GetStates getStates;
   final CustomerRegisterGet getCustomer;
   final CustomerRegisterPost postCustomer;
-  final GetRegion getRegion;
+  final GetRegionBySalesman getRegionBySalesman;
   final GetSalesRoute getSalesRoute;
 
   List<CustomerListModel> customers = [];
@@ -45,7 +45,7 @@ class CustomerRegisterBloc
     required this.getStates,
     required this.getCustomer,
     required this.postCustomer,
-    required this.getRegion,
+    required this.getRegionBySalesman,
     required this.getSalesRoute,
   }) : super(CustomerRegisterLoadingState()) {
     getList();
@@ -433,7 +433,7 @@ class CustomerRegisterBloc
     on<CustomerRegisterGetRegionEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
-      var response = await getRegion.call(ParamsRegionListGet());
+      var response = await getRegionBySalesman.call(ParamsRegionListGet());
 
       response.fold((l) => emit(CustomerRegisterGetRegionErrorState(customers)),
           (r) {

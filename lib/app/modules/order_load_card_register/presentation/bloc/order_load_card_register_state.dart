@@ -1,3 +1,6 @@
+import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_list_model.dart';
+import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_main_model.dart';
+
 abstract class OrderLoadCardRegisterState {}
 
 class OrderLoadCardRegisterLoadingState extends OrderLoadCardRegisterState {}
@@ -14,9 +17,33 @@ class OrderLoadCardGetListErrorState extends OrderLoadCardRegisterState {
   OrderLoadCardGetListErrorState(this.error);
 }
 
+class GetListByUserErrorState extends OrderLoadCardRegisterState {
+  final String error;
+
+  GetListByUserErrorState(this.error);
+}
+
+class OrderLoadCardGetLoadedState extends OrderLoadCardRegisterState {
+  final OrderLoadCardMainModel orderLoadCard;
+
+  OrderLoadCardGetLoadedState({required this.orderLoadCard});
+}
+
+class OrderLoadCardGetErrorState extends OrderLoadCardRegisterState {
+  final String error;
+
+  OrderLoadCardGetErrorState(this.error);
+}
+
 class OrderLoadCardGetItemsLoadedState extends OrderLoadCardRegisterState {}
 
 class OrderLoadCardGetListLoadedState extends OrderLoadCardRegisterState {}
+
+class GetListByUserLoadedState extends OrderLoadCardRegisterState {
+  final List<OrderConsignmetListModel> orderList;
+
+  GetListByUserLoadedState({required this.orderList});
+}
 
 class OrderLoadCardPostErrorState extends OrderLoadCardRegisterState {
   final String error;
@@ -45,3 +72,5 @@ class OrderClosureErrorState extends OrderLoadCardRegisterState {
 
   OrderClosureErrorState({required this.error});
 }
+
+class ReturnToLoadCardState extends OrderLoadCardRegisterState {}

@@ -1,8 +1,10 @@
 import 'package:appweb/app/modules/order_load_card_register/data/datasource/order_load_card_register_datasource.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/repository/order_load_card_register_repository_impl.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_closure.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_items.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_list.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_list_by_user.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_post.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/page/order_load_card_register_page.dart';
@@ -34,6 +36,14 @@ class OrderLoadCardRegisterModule extends Module {
               repository: i.get<OrderLoadCardRegisterRepositoryImpl>()),
         ),
         Bind.factory(
+          (i) => OrderLoadCardRegiterGetListByUser(
+              repository: i.get<OrderLoadCardRegisterRepositoryImpl>()),
+        ),
+        Bind.factory(
+          (i) => OrderLoadCardRegiterGet(
+              repository: i.get<OrderLoadCardRegisterRepositoryImpl>()),
+        ),
+        Bind.factory(
           (i) => OrderLoadCardRegisterClosure(
               repository: i.get<OrderLoadCardRegisterRepositoryImpl>()),
         ),
@@ -41,8 +51,11 @@ class OrderLoadCardRegisterModule extends Module {
           (i) => OrderLoadCardRegisterBloc(
             getItemsOrderLoadCard: i.get<OrderLoadCardRegiterGetItems>(),
             getListOrderLoadCard: i.get<OrderLoadCardRegiterGetList>(),
+            getListByUserOrderLoadCard:
+                i.get<OrderLoadCardRegiterGetListByUser>(),
             postOrderLoadCard: i.get<OrderLoadCardRegisterPost>(),
             closureOrderLoadCard: i.get<OrderLoadCardRegisterClosure>(),
+            getByOrderLoadCard: i.get<OrderLoadCardRegiterGet>(),
           ),
         ),
       ];

@@ -5,8 +5,8 @@ import 'package:appweb/app/modules/order_load_card_register/order_load_card_regi
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_event.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_state.dart';
-import 'package:appweb/app/modules/order_load_card_register/presentation/content/content_order_load_card_register_desktop.dart';
-import 'package:appweb/app/modules/order_load_card_register/presentation/content/content_order_load_card_list.dart';
+import 'package:appweb/app/modules/order_load_card_register/presentation/content/register/content_order_load_card_register_desktop.dart';
+import 'package:appweb/app/modules/order_load_card_register/presentation/content/register/content_order_load_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';

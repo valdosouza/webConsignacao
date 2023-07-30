@@ -6,7 +6,26 @@ class OrderLoadCardRegisterGetCardEvent extends OrderLoadCardRegisterEvent {
   OrderLoadCardRegisterGetCardEvent({required this.tbSalesmanId});
 }
 
-class OrderLoadCardRegisterGetListCardEvent extends OrderLoadCardRegisterEvent {
+class OrderLoadCardRegisterGetListCardEvent
+    extends OrderLoadCardRegisterEvent {}
+
+class GetListByUserEvent extends OrderLoadCardRegisterEvent {}
+
+class ReturnToLoadCardEvent extends OrderLoadCardRegisterEvent {}
+
+class SearchEvent extends OrderLoadCardRegisterEvent {
+  String search;
+
+  SearchEvent({
+    required this.search,
+  });
+}
+
+class GetOrderLoadCard extends OrderLoadCardRegisterEvent {
+  final int orderId;
+  GetOrderLoadCard({
+    required this.orderId,
+  });
 }
 
 class OrderLoadCardPostEvent extends OrderLoadCardRegisterEvent {}

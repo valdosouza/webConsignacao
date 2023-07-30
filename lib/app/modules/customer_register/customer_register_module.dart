@@ -2,14 +2,16 @@ import 'package:appweb/app/modules/Core/core_module.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cep.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_citys.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_cnpj.dart';
-import 'package:appweb/app/modules/Core/domain/usecase/get_region.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_sales_route.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/get_states.dart';
 import 'package:appweb/app/modules/customer_register/data/datasource/customer_register_datasource.dart';
+import 'package:appweb/app/modules/customer_register/data/datasource/get_region_by_salesman_datasource.dart';
 import 'package:appweb/app/modules/customer_register/data/repository/customer_register_repository_impl.dart';
+import 'package:appweb/app/modules/customer_register/data/repository/get_region_by_salesman_repository_impl.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_get.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_post.dart';
 import 'package:appweb/app/modules/customer_register/domain/usecase/customer_register_get_list.dart';
+import 'package:appweb/app/modules/customer_register/domain/usecase/get_region_by_salesman.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/page/customer_register_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -42,6 +44,20 @@ class CustomerRegisterModule extends Module {
           (i) => CustomerRegisterPost(
               repository: i.get<CustomerRegisterRepositoryImpl>()),
         ),
+        Bind.factory<CustomerRegisterDataSource>(
+          (i) => CustomerRegisterDataSourceImpl(httpClient: http.Client()),
+        ),
+        Bind.factory<GetRegionBySalesmanDatasource>(
+          (i) => GetRegionBySalesmanDataSourceImpl(httpClient: http.Client()),
+        ),
+        Bind.factory(
+          (i) => GetRegionBySalesmanRepositoryImpl(
+              datasource: i.get<GetRegionBySalesmanDatasource>()),
+        ),
+        Bind.factory(
+          (i) => GetRegionBySalesman(
+              repository: i.get<GetRegionBySalesmanRepositoryImpl>()),
+        ),
         BlocBind.singleton((i) => CustomerRegisterBloc(
               getlist: i.get<CustomerRegisterGetlist>(),
               getCep: i.get<GetCep>(),
@@ -50,7 +66,7 @@ class CustomerRegisterModule extends Module {
               getStates: i.get<GetStates>(),
               getCustomer: i.get<CustomerRegisterGet>(),
               postCustomer: i.get<CustomerRegisterPost>(),
-              getRegion: i.get<GetRegion>(),
+              getRegionBySalesman: i.get<GetRegionBySalesman>(),
               getSalesRoute: i.get<GetSalesRoute>(),
             )),
       ];

@@ -69,32 +69,32 @@ class OrderStockAdjustmentRegisterModel
   factory OrderStockAdjustmentRegisterModel.fromListJson(
       Map<String, dynamic> json) {
     return OrderStockAdjustmentRegisterModel(
-        id: json['Order']['id'] is String
-            ? int.parse(json['Order']['id'])
-            : json['Order']['id'],
-        tbInstitutionId: json['Order']['tb_institution_id'] is String
-            ? int.parse(json['Order']['tb_institution_id'])
-            : json['Order']['tb_institution_id'],
-        tbOrderid: json['Order']['tb_order_id'] is String
-            ? int.parse(json['Order']['tb_order_id'])
-            : json['Order']['tb_order_id'],
-        tbUserId: json['Order']['tb_user_id'] is String
-            ? int.parse(json['Order']['tb_user_id'])
-            : json['Order']['tb_user_id'],
-        tbEntityid: json['Order']['tb_entity_id'] is String
-            ? int.parse(json['Order']['tb_entity_id'])
-            : json['Order']['tb_entity_id'],
-        nameEntity: json['Order']['name_entity'] as String? ?? "",
-        number: json['Order']['number'] is String
-            ? int.parse(json['Order']['number'])
-            : json['Order']['number'],
-        dtRecord: formatDate(json['Order']['dt_record'], "dd/MM/yyyy"),
-        direction: json['Order']['direction'] as String? ?? "",
-        note: json['Order']['note'] as String? ?? "",
-        status: json['Order']['status'] as String? ?? "",
-        items: json['Items'] == null
+        id: json['order']['id'] is String
+            ? int.parse(json['order']['id'])
+            : json['order']['id'],
+        tbInstitutionId: json['order']['tb_institution_id'] is String
+            ? int.parse(json['order']['tb_institution_id'])
+            : json['order']['tb_institution_id'],
+        tbOrderid: json['order']['tb_order_id'] is String
+            ? int.parse(json['order']['tb_order_id'])
+            : json['order']['tb_order_id'],
+        tbUserId: json['order']['tb_user_id'] is String
+            ? int.parse(json['order']['tb_user_id'])
+            : json['order']['tb_user_id'],
+        tbEntityid: json['order']['tb_entity_id'] is String
+            ? int.parse(json['order']['tb_entity_id'])
+            : json['order']['tb_entity_id'],
+        nameEntity: json['order']['name_entity'] as String? ?? "",
+        number: json['order']['number'] is String
+            ? int.parse(json['order']['number'])
+            : json['order']['number'],
+        dtRecord: formatDate(json['order']['dt_record'], "dd/MM/yyyy"),
+        direction: json['order']['direction'] as String? ?? "",
+        note: json['order']['note'] as String? ?? "",
+        status: json['order']['status'] as String? ?? "",
+        items: json['items'] == null
             ? null
-            : (json['Items'] as List)
+            : (json['items'] as List)
                 .map((e) => OrderStockAdjustmentRegisterItemsModel.fromJson(e))
                 .toList());
   }
@@ -112,7 +112,7 @@ class OrderStockAdjustmentRegisterModel
     data['direction'] = direction;
     data['note'] = note;
     data['status'] = status;
-    return {"Order": data, "Items": items.map((e) => e.toJson()).toList()};
+    return {"order": data, "items": items.map((e) => e.toJson()).toList()};
   }
 
   factory OrderStockAdjustmentRegisterModel.empty() {

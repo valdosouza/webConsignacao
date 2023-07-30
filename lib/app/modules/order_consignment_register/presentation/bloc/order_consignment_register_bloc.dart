@@ -1,8 +1,13 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_list_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_checkpoint_post.dart';
+import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_get_checkpoint.dart';
+import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_get_supplying.dart';
+import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_getlist.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_supplying_getlast.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_supplying_post.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_event.dart';
@@ -14,23 +19,38 @@ class OrderConsignmentRegisterBloc
   final OrderConsignmentSupplyingGetlast getlastSupplying;
   final OrderConsignmentCheckpointPost postCheckpoint;
   final OrderConsignmentSupplyingPost postSupplying;
+  final OrderConsignmentGetlist orderConsignmentGetlist;
+  final OrderConsignmentGetCheckpoint orderConsignmentGetCheckpoint;
+  final OrderConsignmentGetSupplying orderConsignmentGetSupplying;
   int stage = 0;
   late OrderAttendanceModel modelAttendance;
   OrderConsignmentCheckpointModel modelCheckpoint =
       OrderConsignmentCheckpointModel.isEmpty();
   OrderConsignmentSupplyingModel modelSupplying =
       OrderConsignmentSupplyingModel.isEmpty();
+  List<OrderConsignmetListModel> orderList = [];
+  List<OrderConsignmetListModel> orderListSearch = [];
+  String dateSelected = CustomDate.newDate();
 
-  OrderConsignmentRegisterBloc(
-      {required this.getlastSupplying,
-      required this.postCheckpoint,
-      required this.postSupplying})
-      : super(OrderConsignmentRegisterLoadingState()) {
+  OrderConsignmentRegisterBloc({
+    required this.getlastSupplying,
+    required this.postCheckpoint,
+    required this.postSupplying,
+    required this.orderConsignmentGetlist,
+    required this.orderConsignmentGetCheckpoint,
+    required this.orderConsignmentGetSupplying,
+  }) : super(OrderConsignmentRegisterLoadingState()) {
     supplyingGetlast();
     checkpointPost();
     supplyingPost();
     clearCheckout();
     clearSupplying();
+    getList();
+    searchList();
+    getCheckpoint();
+    getSupplying();
+    returnToCheckpoint();
+    returnToSupplying();
   }
 
   supplyingGetlast() {
@@ -194,6 +214,72 @@ class OrderConsignmentRegisterBloc
       }
       modelSupplying.order.note = "";
       emit(OrderConsignmentRegisterSupplyingClearSucessState());
+    });
+  }
+
+  getList() {
+    on<OrderConsignmentRegisterGetlistEvent>((event, emit) async {
+      emit(OrderConsignmentRegisterLoadingState());
+
+      final response = await orderConsignmentGetlist(event.tbCustomerId);
+
+      var result = response
+          .fold((l) => OrderConsigngmentGetListErrorState(l.toString()), (r) {
+        orderList = r;
+        return OrderConsignmentGetListLoadedState(orderList: r);
+      });
+      emit(result);
+    });
+  }
+
+  searchList() {
+    on<SearchEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        orderListSearch =
+            orderList.where((x) => x.dtRecord == event.search).toList();
+        emit(OrderConsignmentGetListLoadedState(orderList: orderListSearch));
+      } else {
+        emit(OrderConsignmentGetListLoadedState(orderList: orderList));
+      }
+    });
+  }
+
+  getCheckpoint() {
+    on<GetCheckpoint>((event, emit) async {
+      emit(OrderConsignmentRegisterLoadingState());
+      final response = await orderConsignmentGetCheckpoint(event.orderid);
+
+      var result = response.fold(
+          (l) => OrderConsigngmentGetCheckpointErrorState(l.toString()), (r) {
+        return OrderConsignmentGetCheckpointLoadedState(checkpointmodel: r);
+      });
+      emit(result);
+    });
+  }
+
+  getSupplying() {
+    on<GetSupplying>((event, emit) async {
+      emit(OrderConsignmentRegisterLoadingState());
+
+      final response = await orderConsignmentGetSupplying(event.orderid);
+
+      var result = response.fold(
+          (l) => OrderConsigngmentGetSupplyingErrorState(l.toString()), (r) {
+        return OrderConsignmentGetSupplyingLoadedState(supplyingModel: r);
+      });
+      emit(result);
+    });
+  }
+
+  returnToCheckpoint() {
+    on<ReturnToCheckpointEvent>((event, emit) async {
+      emit(ReturnToCheckpointState());
+    });
+  }
+
+  returnToSupplying() {
+    on<ReturnToSupplyingEvent>((event, emit) async {
+      emit(ReturnToSupplyingState());
     });
   }
 }

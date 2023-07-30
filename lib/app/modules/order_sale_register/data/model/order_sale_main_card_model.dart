@@ -18,10 +18,10 @@ class OrderSaleMainCardModel extends OrderSaleMainCardEntity {
   factory OrderSaleMainCardModel.fromJson(Map<String, dynamic> json) {
     return OrderSaleMainCardModel(
       order: OrderSaleModel.fromJson(json['order']),
-      items: (json['Items'] as List)
+      items: (json['items'] as List)
           .map((e) => OrderSaleCardModel.fromJson(e))
           .toList(),
-      payments: (json['Payments'] as List)
+      payments: (json['payments'] as List)
           .map((e) => OrderPaidModel.fromJson(e))
           .toList(),
     );
@@ -29,9 +29,9 @@ class OrderSaleMainCardModel extends OrderSaleMainCardEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Order'] = order.toJson();
-    data['Items'] = items.map((i) => i.toJson()).toList();
-    data['Payments'] = payments.map((p) => p.toJson()).toList();
+    data['order'] = order.toJson();
+    data['items'] = items.map((i) => i.toJson()).toList();
+    data['payments'] = payments.map((p) => p.toJson()).toList();
     return data;
   }
 

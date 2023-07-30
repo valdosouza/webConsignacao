@@ -32,9 +32,9 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
       tbInstitutionId: json['tb_institution_id'],
       tbUserId: json['tb_user_id'],
       nameUser: json['name_user'],
-      dtRecord: json['dt_record'],
-      items: (json['Items'] != null)
-          ? (json['Items'] as List)
+      dtRecord: CustomDate.formatDateIn(json['dt_record']),
+      items: (json['items'] != null)
+          ? (json['items'] as List)
               .map((e) => OrderLoadCardItemsModel.fromJson(e))
               .toList()
           : [],
@@ -47,7 +47,7 @@ class OrderLoadCardMainModel extends OrderLoadCardMainEntity {
     data['tb_institution_id'] = tbInstitutionId;
     data['tb_user_id'] = tbUserId;
     data['dt_record'] = CustomDate.formatDateOut(dtRecord);
-    data['Items'] = items.map((i) => i.toJson()).toList();
+    data['items'] = items.map((i) => i.toJson()).toList();
 
     return data;
   }

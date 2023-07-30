@@ -16,8 +16,8 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
 
   factory OrderConsignmentSupplyingModel.fromJson(Map<String, dynamic> json) {
     return OrderConsignmentSupplyingModel(
-      order: OrderConsignmentSupplyingOrderModel.fromJson(json['Order']),
-      items: (json['Items'] as List).map((e) {
+      order: OrderConsignmentSupplyingOrderModel.fromJson(json['order']),
+      items: (json['items'] as List).map((e) {
         return OrderConsignmentSupplyingCardModel.fromJson(e);
       }).toList(),
     );
@@ -25,8 +25,8 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'Order': order.toJson(),
-      'Items': items.map((e) => e.toJson()).toList(),
+      'order': order.toJson(),
+      'items': items.map((e) => e.toJson()).toList(),
     };
   }
 
@@ -126,12 +126,16 @@ class OrderConsignmentSupplyingOrderModel
       tbInstitutionId: json['tb_institution_id'] as int? ?? 0,
       tbCustomerId: json['tb_customer_id'] as int? ?? 0,
       nameCustomer: json['name_customer'] as String? ?? "",
-      tbSalesmanId: json['tb_salesman_id'],
+      tbSalesmanId: json['tb_salesman_id'] as int? ?? 0,
       nameSalesman: json['name_salesman'],
-      dtRecord: CustomDate.newDate(),
-      currentDebitBalance: double.parse(json['current_debit_balance']),
-      recall: json['recall'] as String? ?? "N",
-      note: json['note'] as String? ?? "",
+      dtRecord: (json['dt_record'] != null)
+          ? CustomDate.formatDateIn(json['dt_record'])
+          : CustomDate.newDate(),
+      currentDebitBalance: json['current_debit_balance'] is int
+          ? json['current_debit_balance'].toDouble()
+          : json['current_debit_balance'],
+      recall: (json['recall'] != null) ? json['recall'] : "N",
+      note: (json['note'] != null) ? json['note'] : "N",
     );
   }
 
@@ -188,12 +192,22 @@ class OrderConsignmentSupplyingCardModel
     return OrderConsignmentSupplyingCardModel(
       tbProductId: json['tb_product_id'] as int? ?? 0,
       nameProduct: json['name_product'] as String? ?? "",
-      bonus: double.parse(json['bonus']),
-      leftover: double.parse(json['leftover']),
-      devolution: double.parse(json['devolution']),
-      newConsignment: double.parse(json['new_consignment']),
-      qttyConsigned: double.parse(json['qtty_consigned']),
-      unitValue: double.parse(json['unit_value']),
+      bonus: json['bonus'] is int ? json['bonus'].toDouble() : json['bonus'],
+      leftover: json['leftover'] is int
+          ? json['leftover'].toDouble()
+          : json['leftover'],
+      devolution: json['devolution'] is int
+          ? json['devolution'].toDouble()
+          : json['devolution'],
+      newConsignment: json['new_consignment'] is int
+          ? json['new_consignment'].toDouble()
+          : json['new_consignment'],
+      qttyConsigned: json['qtty_consigned'] is int
+          ? json['qtty_consigned'].toDouble()
+          : json['qtty_consigned'],
+      unitValue: json['unit_value'] is int
+          ? json['unit_value'].toDouble()
+          : json['unit_value'],
     );
   }
   factory OrderConsignmentSupplyingCardModel.isEmpty() {

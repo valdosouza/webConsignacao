@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_address_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_identification_widget.dart';
-import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_others_desktop_widget.dart';
+import 'package:appweb/app/modules/customer_register/presentation/widget/desktop/customer_register_others_desktop_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_phone_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -18,10 +18,10 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
   factory OrderConsignmentCheckpointModel.fromJson(Map<String, dynamic> json) {
     return OrderConsignmentCheckpointModel(
       order: OrderConsignmentCheckpointOrderModel.fromJson(json['order']),
-      items: (json['Items'] as List)
+      items: (json['items'] as List)
           .map((e) => OrderConsignmentCheckpointCardModel.fromJson(e))
           .toList(),
-      payments: (json['Payments'] as List)
+      payments: (json['payments'] as List)
           .map((e) => OrderPaidModel.fromJson(e))
           .toList(),
     );
@@ -29,9 +29,9 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Order'] = order.toJson();
-    data['Items'] = items.map((v) => v.toJson()).toList();
-    data['Payments'] = payments.map((v) => v.toJson()).toList();
+    data['order'] = order.toJson();
+    data['items'] = items.map((v) => v.toJson()).toList();
+    data['payments'] = payments.map((v) => v.toJson()).toList();
     return data;
   }
 
@@ -151,9 +151,11 @@ class OrderConsignmentCheckpointOrderModel
       tbCustomerId: json['tb_customer_id'],
       nameCustomer: json['name_customer'] as String? ?? "",
       tbSalesmanId: json['tb_salesman_id'],
-      nameSalesman: json['name_salesman'],
+      nameSalesman: json['name_salesman'] as String? ?? "",
       dtRecord: CustomDate.formatDateIn(json['dt_record']) as String? ?? "",
-      totalValue: json['total_value'],
+      totalValue: json['total_value'] is int
+          ? json['total_value'].toDouble()
+          : json['total_value'],
       changeValue: json['change_value'] is int
           ? json['change_value'].toDouble()
           : json['change_value'],

@@ -22,7 +22,7 @@ class OrderPaidModel extends OrderPaidEntity {
     return OrderPaidModel(
       tbPaymentTypeId: json['tb_payment_type_id'],
       namePaymentType: json['name_payment_type'].toString(),
-      dtExpiration: (json['dt_expiration'] == "")
+      dtExpiration: (json['dt_expiration'] == null)
           ? ""
           : CustomDate.formatDateIn(json['dt_expiration']),
       value: json['value'] is int ? json['value'].toDouble() : json['value'],

@@ -13,9 +13,9 @@ class OrderStockTransferMainModel {
 
   factory OrderStockTransferMainModel.fromJson(Map<String, dynamic> json) =>
       OrderStockTransferMainModel(
-        order: OrderStockTransferRegisterModel.fromJson(json["Order"]),
+        order: OrderStockTransferRegisterModel.fromJson(json["order"]),
         items: List<OrderStockTransferRegisterItemsModel>.from(
-          json["Items"].map(
+          json["items"].map(
             (x) => OrderStockTransferRegisterItemsModel.fromJson(x),
           ),
         ),
@@ -27,7 +27,7 @@ class OrderStockTransferMainModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "Order": order.toJson(),
-        "Items": items.map((e) => e.toJson()).toList(),
+        "order": order.toJson(),
+        "items": items.map((e) => e.toJson()).toList(),
       };
 }
