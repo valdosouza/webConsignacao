@@ -16,9 +16,11 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 
 class OrderConsginmentRegisterPageMobile extends StatefulWidget {
   final OrderAttendanceModel orderAttendance;
+  final bool historic;
   const OrderConsginmentRegisterPageMobile({
     Key? key,
     required this.orderAttendance,
+    required this.historic,
   }) : super(key: key);
 
   @override
@@ -40,8 +42,15 @@ class OrderConsginmentRegisterPageMobileState
       Modular.isModuleReady<OrderConsignmentRegisterModule>;
     });
     bloc.modelAttendance = widget.orderAttendance;
-    bloc.add(OrderConsignmentRegisterGetlastEvent(
-        tbCustomerId: widget.orderAttendance.tbCustomerId));
+    if (!widget.historic) {
+      bloc.stage = 0;
+      bloc.add(OrderConsignmentRegisterGetlastEvent(
+          tbCustomerId: widget.orderAttendance.tbCustomerId));
+    } else {
+      bloc.stage = 2;
+      bloc.add(OrderConsignmentRegisterGetlistEvent(
+          tbCustomerId: widget.orderAttendance.tbCustomerId));
+    }
   }
 
   @override
@@ -64,9 +73,15 @@ class OrderConsginmentRegisterPageMobileState
         if (state is OrderConsignmentRegisterCheckpointPostSucessState) {
           return const ContentConsignmentSupplying();
         }
+
         if (state is ReturnToSupplyingState) {
           return const ContentConsignmentSupplying();
         }
+
+        if (state is ReturnToAttendanceState) {
+          Modular.to.navigate('/attendance/', arguments: bloc.modelAttendance);
+        }
+
         if (state is ReturnToCheckpointState) {
           return ContentConsignmentCheckpoint(
               checkpointmodel: bloc.modelCheckpoint);
@@ -76,6 +91,7 @@ class OrderConsginmentRegisterPageMobileState
           return ContentConsignmentCheckpoint(
               checkpointmodel: bloc.modelCheckpoint);
         }
+
         if (state is OrderConsignmentRegisterSupplyingPostSucessState) {
           if (bloc.modelAttendance.routeRetorn.isNotEmpty) {
             Modular.to.navigate(bloc.modelAttendance.routeRetorn, arguments: [

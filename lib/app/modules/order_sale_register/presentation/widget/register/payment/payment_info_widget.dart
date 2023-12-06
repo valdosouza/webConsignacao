@@ -1,14 +1,14 @@
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/payment/payment_info_a_vista_widget.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/payment/payment_info_boleto_widget.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/payment/payment_info_price_list_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/payment/payment_info_a_vista_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/payment/payment_info_boleto_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/payment/payment_info_price_list_widget.dart';
 import 'package:flutter/material.dart';
 
 Widget paymentinfo(OrderSaleMainCardModel modelOrdersale) {
   String calcInfoPayment() {
     modelOrdersale.order.totalValue = 0;
     for (OrderSaleCardModel item in modelOrdersale.items) {
-      modelOrdersale.order.totalValue += (item.qttySold * item.unitValue);
+      modelOrdersale.order.totalValue += (item.sale * item.unitValue);
     }
     return modelOrdersale.order.totalValue.toStringAsFixed(2);
   }

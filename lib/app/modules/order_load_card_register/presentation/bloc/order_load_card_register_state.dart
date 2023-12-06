@@ -3,7 +3,13 @@ import 'package:appweb/app/modules/order_load_card_register/data/model/order_loa
 
 abstract class OrderLoadCardRegisterState {}
 
-class OrderLoadCardRegisterLoadingState extends OrderLoadCardRegisterState {}
+class LoadingState extends OrderLoadCardRegisterState {}
+
+class GetErrorState extends OrderLoadCardRegisterState {
+  final String error;
+
+  GetErrorState({required this.error});
+}
 
 class OrderLoadCardGetItemsErrorState extends OrderLoadCardRegisterState {
   final String error;

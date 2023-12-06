@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/Core/data/model/region_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class GetRegionBySalesmanDatasource extends Gateway {
   GetRegionBySalesmanDatasource({required super.httpClient});
@@ -22,10 +23,12 @@ class GetRegionBySalesmanDataSourceImpl extends GetRegionBySalesmanDatasource {
         tbInstitutionId = value.toString();
       });
 
-      String tbSalesmanId = '1';
-      await getUserId().then((value) {
-        tbSalesmanId = value.toString();
-      });
+      String tbSalesmanId = '0';
+      if (!kIsWeb) {
+        await getUserId().then((value) {
+          tbSalesmanId = value.toString();
+        });
+      }
       final uri = Uri.parse(
           '${baseApiUrl}region/salesman/getlist/$tbInstitutionId/$tbSalesmanId');
 

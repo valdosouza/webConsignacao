@@ -23,7 +23,7 @@ class StockBalanceCustomerDataSourceImpl
 
       final tbSalesmanId = await getUserId();
       final uri = Uri.parse(
-          '${baseApiUrl}stockbalance/customer/getlist/$tbInstitutionId/$tbSalesmanId');
+          '${baseApiUrl}stockbalance/customer/getAll/$tbInstitutionId/$tbSalesmanId');
 
       final response = await httpClient.get(uri);
 

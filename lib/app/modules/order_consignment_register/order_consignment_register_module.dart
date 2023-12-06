@@ -60,7 +60,7 @@ class OrderConsignmentRegisterModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/',
-            child: (_, args) =>
-                OrderConsginmentRegisterPage(orderAttendance: args.data)),
+            child: (_, args) => OrderConsginmentRegisterPage(
+                orderAttendance: args.data[0], historic: args.data[1])),
       ];
 }

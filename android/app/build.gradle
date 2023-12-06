@@ -26,7 +26,12 @@ if (flutterMinSdkVersion == null) {
 }
 def flutterTargetSdkVersion = localProperties.getProperty('flutter.targetSdkVersion')      
 if (flutterTargetSdkVersion == null) {
-    flutterTargetSdkVersion = '31'
+    flutterTargetSdkVersion = '33'
+}
+
+def flutterCompileSdkVersion = localProperties.getProperty('flutter.compileSdkVersion')      
+if (flutterCompileSdkVersion == null) {
+    flutterCompileSdkVersion = 'android-33'
 }
 
 apply plugin: 'com.android.application'
@@ -41,7 +46,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion flutterCompileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {

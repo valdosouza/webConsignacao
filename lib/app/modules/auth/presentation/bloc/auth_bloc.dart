@@ -66,7 +66,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           Params(username: event.login, password: event.password));
 
       var response = result.fold((l) {
-        const AuthErrorState('Erro ao realizar Login');
+        AuthErrorState(error: l.toString());
       }, (r) {
         if (status == PermissionStatus.granted) {
           final bool auth = r.auth;
@@ -89,12 +89,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
             return AuthSuccessState();
           } else {
-            return const AuthErrorState('Login ou senha inválido');
+            return AuthErrorState(error: r.error);
           }
         } else if (status == PermissionStatus.denied) {
-          return const AuthErrorState('Permissão negada.');
+          return const AuthErrorState(error: 'Permissão negada.');
         } else if (status == PermissionStatus.permanentlyDenied) {
-          return const AuthErrorState('Permissão negada.');
+          return const AuthErrorState(error: 'Permissão negada.');
         }
       });
       emit(response!);

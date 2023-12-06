@@ -1,6 +1,6 @@
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/payment/payment_info_widget.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/list_items_order_sale_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/payment/payment_info_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/list_items_order_sale_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomBodyOrderSale extends StatefulWidget {

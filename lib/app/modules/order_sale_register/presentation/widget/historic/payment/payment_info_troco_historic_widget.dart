@@ -1,8 +1,8 @@
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/header_field_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/header_field_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget paymentinfotroco(OrderSaleMainCardModel modelOrderSale) {
+Widget paymentinfotrocoHistoric(OrderSaleMainCardModel modelOrderSale) {
   String calcChange() {
     double totalpayment = 0;
     double totalcash = 0;

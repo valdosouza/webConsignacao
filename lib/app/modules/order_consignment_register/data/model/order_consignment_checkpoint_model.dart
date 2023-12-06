@@ -79,7 +79,7 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
         bonus: item.bonus,
         leftover: 0.0,
         qttyConsigned: item.qttyConsigned,
-        qttySold: 0,
+        sale: 0,
         unitValue: item.unitValue,
         subtotal: 0,
       ));
@@ -193,7 +193,7 @@ class OrderConsignmentCheckpointCardModel
   double bonus;
   double qttyConsigned;
   double leftover;
-  double qttySold;
+  double sale;
   double unitValue;
   double subtotal;
   OrderConsignmentCheckpointCardModel({
@@ -202,7 +202,7 @@ class OrderConsignmentCheckpointCardModel
     required this.bonus,
     required this.qttyConsigned,
     required this.leftover,
-    required this.qttySold,
+    required this.sale,
     required this.unitValue,
     required this.subtotal,
   }) : super(
@@ -211,7 +211,7 @@ class OrderConsignmentCheckpointCardModel
           bonus: bonus,
           qttyConsigned: qttyConsigned,
           leftover: leftover,
-          qttySold: qttySold,
+          sale: sale,
           unitValue: unitValue,
           subtotal: subtotal,
         );
@@ -228,13 +228,11 @@ class OrderConsignmentCheckpointCardModel
       leftover: json['leftover'] is int
           ? json['leftover'].toDouble()
           : json['leftover'],
-      qttySold: json['qtty_sold'] is int
-          ? json['qtty_sold'].toDouble()
-          : json['qtty_sold'],
+      sale: json['sale'] is int ? json['sale'].toDouble() : json['sale'],
       unitValue: json['unit_value'] is int
           ? json['unit_value'].toDouble()
           : json['unit_value'],
-      subtotal: ((json['qtty_sold']) * (json['unit_value'])),
+      subtotal: ((json['sale']) * (json['unit_value'])),
     );
   }
 
@@ -245,7 +243,7 @@ class OrderConsignmentCheckpointCardModel
       'bonus': bonus,
       'qtty_consigned': qttyConsigned,
       'leftover': leftover,
-      'qtty_sold': qttySold,
+      'sale': sale,
       'unit_value': unitValue,
     };
   }

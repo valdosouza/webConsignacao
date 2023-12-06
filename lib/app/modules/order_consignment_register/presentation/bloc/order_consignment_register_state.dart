@@ -74,6 +74,8 @@ class ReturnToCheckpointState extends OrderConsignmentRegisterState {}
 
 class ReturnToSupplyingState extends OrderConsignmentRegisterState {}
 
+class ReturnToAttendanceState extends OrderConsignmentRegisterState {}
+
 class OrderConsignmentRegisterCalcDoneState
     extends OrderConsignmentRegisterState {}
 

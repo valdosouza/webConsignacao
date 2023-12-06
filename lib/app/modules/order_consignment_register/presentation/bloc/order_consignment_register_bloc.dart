@@ -51,6 +51,7 @@ class OrderConsignmentRegisterBloc
     getSupplying();
     returnToCheckpoint();
     returnToSupplying();
+    returnToAttendance();
   }
 
   supplyingGetlast() {
@@ -190,7 +191,7 @@ class OrderConsignmentRegisterBloc
       emit(OrderConsignmentRegisterLoadingState());
       for (OrderConsignmentCheckpointCardModel item in modelCheckpoint.items) {
         item.leftover = 0;
-        item.qttySold = 0;
+        item.sale = 0;
         item.subtotal = 0;
       }
       modelCheckpoint.order.totalValue = 0;
@@ -280,6 +281,12 @@ class OrderConsignmentRegisterBloc
   returnToSupplying() {
     on<ReturnToSupplyingEvent>((event, emit) async {
       emit(ReturnToSupplyingState());
+    });
+  }
+
+  returnToAttendance() {
+    on<ReturnToAttendanceEvent>((event, emit) async {
+      emit(ReturnToAttendanceState());
     });
   }
 }

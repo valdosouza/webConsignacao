@@ -1,10 +1,11 @@
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/order_sale_register/domain/usecase/order_sale_getlist.dart';
+
 import 'package:appweb/app/modules/order_sale_register/order_sale_register_module.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_bloc.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_event.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/custom_body_order_sale_wiget.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/custom_header_order_sale_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/custom_body_order_sale_wiget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/custom_header_order_sale_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
@@ -119,8 +120,15 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
             flex: 1,
             child: _custombutton(
                 "Informações",
-                (() =>
-                    {CustomToast.showToast("Em desenvolvimento. Aguarde..")})),
+                () => bloc.add(OrderSaleRegisterGetlistEvent(
+                        params: ParamsOrderSaleList(
+                      tbInstitutionId: 0,
+                      page: 0,
+                      tbSalesmanId: 0,
+                      number: 0,
+                      tbCustomerId: bloc.modelAttendance.tbCustomerId,
+                      nickTrade: "",
+                    )))),
           ),
           Expanded(
             flex: 1,

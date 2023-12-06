@@ -17,7 +17,7 @@ class AuthLogoutSucessState extends AuthState {}
 class AuthErrorState extends AuthState {
   final String error;
 
-  const AuthErrorState(this.error);
+  const AuthErrorState({required this.error});
 }
 
 class AuthRecoverySuccessState extends AuthState {}

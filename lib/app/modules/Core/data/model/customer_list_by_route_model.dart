@@ -33,7 +33,7 @@ class CustomerListByRouteModel extends CustomerListByRouteEntity {
 
   factory CustomerListByRouteModel.fromJson(Map<String, dynamic> json) {
     return CustomerListByRouteModel(
-      id: json['id'] as int? ?? 0,
+      id: json['tb_customer_id'] as int? ?? 0,
       nameCompany: json['name_company'] as String? ?? "",
       nickTrade: json['nick_trade'] as String? ?? "",
       docKind: json['doc_kind'] as String? ?? "",

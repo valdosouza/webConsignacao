@@ -1,8 +1,9 @@
 import 'package:appweb/app/modules/order_load_card_register/data/datasource/order_load_card_register_datasource.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/repository/order_load_card_register_repository_impl.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/cashier_is_open.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_closure.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get.dart';
-import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_items.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/get_new_order_load_card.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_list.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_list_by_user.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_post.dart';
@@ -20,15 +21,14 @@ class OrderLoadCardRegisterModule extends Module {
         ),
         Bind.factory(
           (i) => OrderLoadCardRegisterRepositoryImpl(
-              orderLoadCardDatasource:
-                  i.get<OrderLoadCardRegisterDatasourceImpl>()),
+              datasource: i.get<OrderLoadCardRegisterDatasourceImpl>()),
         ),
         Bind.factory(
           (i) => OrderLoadCardRegisterPost(
               repository: i.get<OrderLoadCardRegisterRepositoryImpl>()),
         ),
         Bind.factory(
-          (i) => OrderLoadCardRegiterGetItems(
+          (i) => GetNewOrderLoadCard(
               repository: i.get<OrderLoadCardRegisterRepositoryImpl>()),
         ),
         Bind.factory(
@@ -47,15 +47,20 @@ class OrderLoadCardRegisterModule extends Module {
           (i) => OrderLoadCardRegisterClosure(
               repository: i.get<OrderLoadCardRegisterRepositoryImpl>()),
         ),
+        Bind.factory(
+          (i) => CashierIsOpen(
+              repository: i.get<OrderLoadCardRegisterRepositoryImpl>()),
+        ),
         BlocBind.singleton(
           (i) => OrderLoadCardRegisterBloc(
-            getItemsOrderLoadCard: i.get<OrderLoadCardRegiterGetItems>(),
+            getNewOrderLoadCard: i.get<GetNewOrderLoadCard>(),
             getListOrderLoadCard: i.get<OrderLoadCardRegiterGetList>(),
             getListByUserOrderLoadCard:
                 i.get<OrderLoadCardRegiterGetListByUser>(),
             postOrderLoadCard: i.get<OrderLoadCardRegisterPost>(),
             closureOrderLoadCard: i.get<OrderLoadCardRegisterClosure>(),
             getByOrderLoadCard: i.get<OrderLoadCardRegiterGet>(),
+            cashierIsOpen: i.get<CashierIsOpen>(),
           ),
         ),
       ];

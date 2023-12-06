@@ -25,7 +25,7 @@ class StockBalanceSalesmanDataSourceImpl
         tbSalesmanId = value.toString();
       });
       final uri = Uri.parse(
-          '${baseApiUrl}stockbalance/salesman/getlist/$tbInstitutionId/$tbSalesmanId');
+          '${baseApiUrl}stockbalance/salesman/get/$tbInstitutionId/$tbSalesmanId');
 
       final response = await httpClient.get(uri);
 

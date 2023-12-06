@@ -1,6 +1,10 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
+import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_list_model.dart';
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
+import 'package:appweb/app/modules/order_sale_register/domain/usecase/get_order_sale_card.dart';
+import 'package:appweb/app/modules/order_sale_register/domain/usecase/order_sale_getlist.dart';
 import 'package:appweb/app/modules/order_sale_register/domain/usecase/order_sale_register_get_items.dart';
 import 'package:appweb/app/modules/order_sale_register/domain/usecase/order_sale_register_post.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_sale_register_event.dart';
@@ -11,16 +15,32 @@ class OrderSaleRegisterBloc
     extends Bloc<OrderSaleRegisterEvent, OrderSaleRegisterState> {
   final GetNewOrderSaleCard getNewOrderSaleCard;
   final OrderSaleRegisterPost postOrderSale;
+  final OrderSaleGetlist orderSaleGetlist;
+  final GetOrderSaleCard getOrderSaleCard;
 
   late OrderAttendanceModel modelAttendance;
   OrderSaleMainCardModel modelOrderSale = OrderSaleMainCardModel.isEmpty();
 
+  List<OrderSaleListModel> orderSaleList = [];
+  List<OrderSaleListModel> orderSaleListSearch = [];
+  int stage = 0;
+  int pageOrderSale = 0;
+  String dateSelected = CustomDate.newDate();
+
   OrderSaleRegisterBloc({
     required this.getNewOrderSaleCard,
     required this.postOrderSale,
+    required this.orderSaleGetlist,
+    required this.getOrderSaleCard,
   }) : super(OrderSaleRegisterLoadingState()) {
     ordersaleGetCard();
     ordersaleCardPos();
+    _orderSaleGetList();
+    _getBackOrderSaleGetList();
+    _searchList();
+    _getOrderSaleCard();
+    _returnToOrderSale();
+    _returnToAttendance();
   }
 
   ordersaleGetCard() {
@@ -130,7 +150,7 @@ class OrderSaleRegisterBloc
       emit(OrderSaleRegisterLoadingState());
       for (OrderSaleCardModel item in modelOrderSale.items) {
         item.bonus = 0;
-        item.qttySold = 0;
+        item.sale = 0;
         item.subtotal = 0;
       }
       modelOrderSale.order.totalValue = 0;
@@ -139,6 +159,69 @@ class OrderSaleRegisterBloc
         item.value = 0;
       }
       emit(OrderSaleRegisterCleanDoneState());
+    });
+  }
+
+  _orderSaleGetList() {
+    on<OrderSaleRegisterGetlistEvent>((event, emit) async {
+      emit(OrderSaleRegisterLoadingState());
+      if (event.params.page == 0) {
+        orderSaleList.clear();
+        pageOrderSale = 1;
+      } else {
+        pageOrderSale += 1;
+      }
+      event.params.page = pageOrderSale;
+      final response = await orderSaleGetlist(event.params);
+
+      var result = response.fold((l) => OrderSaleErrorState(l.toString()), (r) {
+        orderSaleList += r;
+        return OrderSaleGetListLoadedState(orderList: r);
+      });
+      emit(result);
+    });
+  }
+
+  _getBackOrderSaleGetList() {
+    on<OrderGetBackToGetlistEvent>((event, emit) async {
+      emit(OrderSaleRegisterLoadingState());
+      emit(OrderSaleGetListLoadedState(orderList: orderSaleList));
+    });
+  }
+
+  _searchList() {
+    on<SearchEvent>((event, emit) async {
+      if (event.search.isNotEmpty) {
+        orderSaleListSearch =
+            orderSaleList.where((x) => x.dtRecord == event.search).toList();
+        emit(OrderSaleGetListLoadedState(orderList: orderSaleListSearch));
+      } else {
+        emit(OrderSaleGetListLoadedState(orderList: orderSaleList));
+      }
+    });
+  }
+
+  _getOrderSaleCard() {
+    on<GetOrderSaleCardEvent>((event, emit) async {
+      emit(OrderSaleRegisterLoadingState());
+      final response = await getOrderSaleCard(event.orderid);
+
+      var result = response.fold((l) => OrderSaleErrorState(l.toString()), (r) {
+        return GetOrderSaleCardLoadedState(orderMain: r);
+      });
+      emit(result);
+    });
+  }
+
+  _returnToOrderSale() {
+    on<ReturnToOrderSaleEvent>((event, emit) async {
+      emit(ReturnToOrderSaleState());
+    });
+  }
+
+  _returnToAttendance() {
+    on<ReturnToAttendanceEvent>((event, emit) async {
+      emit(ReturnToAttendanceState());
     });
   }
 }

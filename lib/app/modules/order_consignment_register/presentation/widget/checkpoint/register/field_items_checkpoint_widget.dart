@@ -16,9 +16,9 @@ Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
         if (item.leftover == item.qttyConsigned) {
           return item.leftover.toStringAsFixed(0);
         }
-        return (item.qttySold > 0) ? item.leftover.toStringAsFixed(0) : "";
+        return (item.sale > 0) ? item.leftover.toStringAsFixed(0) : "";
       case 5:
-        return (item.qttySold > 0) ? item.qttySold.toStringAsFixed(0) : "";
+        return (item.sale > 0) ? item.sale.toStringAsFixed(0) : "";
       case 6:
         return (item.subtotal > 0) ? item.subtotal.toStringAsFixed(2) : "";
     }
@@ -54,13 +54,13 @@ Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
               case 4:
                 if (value.isNotEmpty) {
                   item.leftover = double.parse(value);
-                  item.qttySold = (item.qttyConsigned - item.leftover);
+                  item.sale = (item.qttyConsigned - item.leftover);
                   if (item.unitValue == 0) item.unitValue = 1;
                   item.subtotal =
                       (item.qttyConsigned - item.leftover) * item.unitValue;
                 } else {
                   item.leftover = 0;
-                  item.qttySold = 0;
+                  item.sale = 0;
                   item.subtotal = 0;
                 }
                 break;

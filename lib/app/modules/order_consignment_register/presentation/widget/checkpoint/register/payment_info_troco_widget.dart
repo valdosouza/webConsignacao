@@ -7,14 +7,15 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
     double totalpayment = 0;
     double totalcash = 0;
     double totalChange = 0;
+
     for (var item in modelCheckpoint.payments) {
       totalpayment += item.value;
       if (item.namePaymentType == "DINHEIRO") totalcash += item.value;
     }
+    modelCheckpoint.order.changeValue = 0;
     if (modelCheckpoint.order.totalValue > 0) {
       if (totalpayment > modelCheckpoint.order.totalValue) {
         if (totalcash > 0) {
-          modelCheckpoint.order.changeValue = 0;
           totalChange = totalpayment - modelCheckpoint.order.totalValue;
           if (totalcash > totalChange) {
             modelCheckpoint.order.changeValue = totalChange;

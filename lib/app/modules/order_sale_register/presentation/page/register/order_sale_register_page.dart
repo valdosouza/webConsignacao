@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:appweb/app/modules/order_sale_register/presentation/page/order_sale_register_page_desktop.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/page/order_sale_register_page_mobile.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/page/order_sale_register_page_tablet.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_desktop.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_mobile.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_tablet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appweb/app/core/shared/helpers/responsive.dart';
@@ -11,9 +11,11 @@ import 'package:flutter/services.dart';
 
 class OrderSaleRegisterPage extends StatefulWidget {
   final OrderAttendanceModel orderAttendance;
+  final bool historic;
   const OrderSaleRegisterPage({
     Key? key,
     required this.orderAttendance,
+    required this.historic,
   }) : super(key: key);
 
   @override
@@ -47,8 +49,10 @@ class _OrderSaleRegisterPageState extends State<OrderSaleRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Responsive(
-      mobile:
-          OrderSaleRegisterPageMobile(orderAttendance: widget.orderAttendance),
+      mobile: OrderSaleRegisterPageMobile(
+        orderAttendance: widget.orderAttendance,
+        historic: widget.historic,
+      ),
       tablet: const OrderSaleRegisterPageTablet(),
       desktop: const OrderSaleRegisterPageDesktop(),
     );

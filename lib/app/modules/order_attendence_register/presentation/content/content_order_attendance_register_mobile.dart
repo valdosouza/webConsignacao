@@ -86,29 +86,19 @@ class _ContentOrderAttendanceRegisterMobileState
                 separatorBuilder: (_, __) => const Divider(),
               ),
             ),
-            const SizedBox(height: 50),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            const SizedBox(height: 10),
+            const Text("Consultar Históricos", style: kLabelStyle),
+            const SizedBox(height: 10),
+            Row(
               children: <Widget>[
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(100, 50),
-                    backgroundColor: kButtonColor,
-                  ),
-                  onPressed: () {
-                    bloc.orderAttendance.note = editcontrol.text;
-                    bloc.orderAttendance.tbPriceListId = 0;
-                    bloc.orderAttendance.finished = "S";
-                    bloc.add(OrderAttendanceRegisterPostEvent());
-                  },
-                  child: const Column(
-                    children: <Widget>[
-                      SizedBox(height: 15),
-                      Icon(Icons.access_alarms_sharp),
-                      Text("Somente Registrar o Atendimento"),
-                      SizedBox(height: 15),
-                    ],
-                  ),
+                Expanded(
+                  flex: 1,
+                  child: _buttonConsignment(),
+                ),
+                const SizedBox(width: 30),
+                Expanded(
+                  flex: 1,
+                  child: _buttonSales(),
                 ),
               ],
             ),
@@ -122,9 +112,85 @@ class _ContentOrderAttendanceRegisterMobileState
               minLines: 4,
               maxLines: 4,
             ),
+            const SizedBox(height: 10),
+            _buttonAttendance(),
           ],
         ),
       ),
+    );
+  }
+
+  _buttonConsignment() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(100, 50),
+        backgroundColor: kPrimaryColor,
+      ),
+      onPressed: () {
+        Modular.to.navigate('/consignment/', arguments: [
+          bloc.orderAttendance,
+          true,
+        ]);
+      },
+      child: const Column(
+        children: <Widget>[
+          SizedBox(height: 15),
+          Icon(Icons.history_rounded),
+          Text("Consignação"),
+          SizedBox(height: 15),
+        ],
+      ),
+    );
+  }
+
+  _buttonSales() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(100, 50),
+        backgroundColor: kPrimaryColor,
+      ),
+      onPressed: () {
+        Modular.to.navigate('/ordersale/', arguments: [
+          bloc.orderAttendance,
+          true,
+        ]);
+      },
+      child: const Column(
+        children: <Widget>[
+          SizedBox(height: 15),
+          Icon(Icons.history_rounded),
+          Text("Vendas"),
+          SizedBox(height: 15),
+        ],
+      ),
+    );
+  }
+
+  _buttonAttendance() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(100, 50),
+            backgroundColor: kButtonColor,
+          ),
+          onPressed: () {
+            bloc.orderAttendance.note = editcontrol.text;
+            bloc.orderAttendance.tbPriceListId = 0;
+            bloc.orderAttendance.finished = "S";
+            bloc.add(OrderAttendanceRegisterPostEvent());
+          },
+          child: const Column(
+            children: <Widget>[
+              SizedBox(height: 15),
+              Icon(Icons.access_alarms_sharp),
+              Text("Somente Registrar o Atendimento"),
+              SizedBox(height: 15),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

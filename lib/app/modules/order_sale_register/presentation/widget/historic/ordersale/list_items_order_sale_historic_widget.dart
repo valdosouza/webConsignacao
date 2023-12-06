@@ -1,8 +1,8 @@
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/field_items_order_sale_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/field_items_order_sale_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget listitemsordersale(
+Widget listitemsordersaleHistoric(
     List<OrderSaleCardModel> items, Size size, BuildContext context) {
   final focusNodes = List.generate(items.length * 4, (index) => FocusNode());
   int contador = 1;
@@ -17,7 +17,7 @@ Widget listitemsordersale(
             child: FieldItemOrdersale(
               item: items[index],
               position: 1,
-              enabled: true,
+              enabled: false,
               textAlign: TextAlign.center,
               focus: focusNodes[(index + contador) - 1],
               listNode: focusNodes,
@@ -39,7 +39,7 @@ Widget listitemsordersale(
             child: FieldItemOrdersale(
               item: items[index],
               position: 3,
-              enabled: true,
+              enabled: false,
               textAlign: TextAlign.center,
               focus: focusNodes[(index + (contador += 1)) - 1],
               listNode: focusNodes,

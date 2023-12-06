@@ -30,7 +30,7 @@ class OrderConsignmentCheckpointCardEntity {
     double? bonus,
     double? qttyConsigned,
     double? leftover,
-    double? qttySold,
+    double? sale,
     double? unitValue,
     double? subtotal,
   });

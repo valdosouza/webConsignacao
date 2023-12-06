@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/get_new_order_load_card.dart';
 import 'package:appweb/app/modules/order_load_card_register/order_load_card_register_module.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_event.dart';
@@ -126,11 +127,19 @@ class _ContentOrderLoadCardRegisterMobileState
             child: (bloc.modelLoadCard.id == 0)
                 ? _custombutton(
                     "Finalizar", (() => {bloc.add(OrderLoadCardPostEvent())}))
-                : _custombutton("Consultar", (() {
-                    //no mobile pode passar zero que no datasource ele preenche
-                    bloc.add(
-                        OrderLoadCardRegisterGetCardEvent(tbSalesmanId: 0));
-                  })),
+                : _custombutton(
+                    "Consultar",
+                    (() {
+                      //no mobile pode passar zero que no datasource ele preenche
+                      bloc.add(
+                        OrderLoadCardRegisterGetCardEvent(
+                            params: ParamsGetNewOrderLoadCard(
+                          tbSalesmanId: 0,
+                          dtRecord: "",
+                        )),
+                      );
+                    }),
+                  ),
           ),
         ],
       ),

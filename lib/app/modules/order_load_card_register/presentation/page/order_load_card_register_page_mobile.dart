@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/get_new_order_load_card.dart';
 import 'package:appweb/app/modules/order_load_card_register/order_load_card_register_module.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_event.dart';
@@ -35,7 +36,14 @@ class OrderLoadCardRegisterPageMobileState
       Modular.isModuleReady<OrderLoadCardRegisterModule>;
     });
     //no mobile pode passar zero que no datasource ele preenche
-    bloc.add(OrderLoadCardRegisterGetCardEvent(tbSalesmanId: 0));
+    bloc.add(
+      OrderLoadCardRegisterGetCardEvent(
+        params: ParamsGetNewOrderLoadCard(
+          tbSalesmanId: 0,
+          dtRecord: "",
+        ),
+      ),
+    );
   }
 
   @override
@@ -65,7 +73,7 @@ class OrderLoadCardRegisterPageMobileState
           return ContentOrderLoadCardHistoricMobile(
               orderLoadCard: state.orderLoadCard);
         }
-        if (state is OrderLoadCardRegisterLoadingState) {
+        if (state is LoadingState) {
           return const Center(
             child: CustomCircularProgressIndicator(),
           );

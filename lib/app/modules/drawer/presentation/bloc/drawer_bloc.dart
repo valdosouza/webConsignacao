@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/drawer/domain/usecase/drawer_cashier_is_open.
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_event.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
   final DrawerCashierIsOpen drawerCashierIsOpen;
@@ -75,8 +76,13 @@ class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
   userLogged() {
     on<UserLoggedEvent>((event, emit) async {
       emit(LoadingState());
-      userName =
-          await LocalStorageService.instance.get(key: LocalStorageKey.userName);
+      try {
+        userName = await LocalStorageService.instance
+            .get(key: LocalStorageKey.userName);
+      } catch (e) {
+        debugPrint('Erro no Drawer $e');
+      }
+
       emit(GetSucessState());
     });
   }

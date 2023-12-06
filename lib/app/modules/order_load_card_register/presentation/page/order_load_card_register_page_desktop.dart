@@ -41,7 +41,7 @@ class OrderLoadCardRegisterPageDesktopState
         statesOrderLoadCard(state);
       },
       builder: (context, state) {
-        if (state is OrderLoadCardRegisterLoadingState) {
+        if (state is LoadingState) {
           return const Center(
             child: CustomCircularProgressIndicator(),
           );

@@ -9,9 +9,11 @@ import 'package:flutter/services.dart';
 
 class OrderConsginmentRegisterPage extends StatefulWidget {
   final OrderAttendanceModel orderAttendance;
+  final bool historic;
   const OrderConsginmentRegisterPage({
     Key? key,
     required this.orderAttendance,
+    required this.historic,
   }) : super(key: key);
 
   @override
@@ -48,7 +50,9 @@ class _OrderConsginmentRegisterPageState
   Widget build(BuildContext context) {
     return Responsive(
       mobile: OrderConsginmentRegisterPageMobile(
-          orderAttendance: widget.orderAttendance),
+        orderAttendance: widget.orderAttendance,
+        historic: widget.historic,
+      ),
       tablet: const OrderConsginmentRegisterPageTablet(),
       desktop: const OrderConsginmentRegisterPageDesktop(),
     );

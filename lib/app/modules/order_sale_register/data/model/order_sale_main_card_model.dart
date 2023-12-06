@@ -62,21 +62,21 @@ class OrderSaleCardModel extends OrderSaleCardEntity {
   int tbProductId;
   String nameProduct;
   double bonus;
-  double qttySold;
+  double sale;
   double unitValue;
   double subtotal;
   OrderSaleCardModel({
     required this.tbProductId,
     required this.nameProduct,
     required this.bonus,
-    required this.qttySold,
+    required this.sale,
     required this.unitValue,
     required this.subtotal,
   }) : super(
           tbProductId: tbProductId,
           nameProduct: nameProduct,
           bonus: bonus,
-          qttySold: qttySold,
+          sale: sale,
           unitValue: unitValue,
           subtotal: subtotal,
         );
@@ -88,9 +88,7 @@ class OrderSaleCardModel extends OrderSaleCardEntity {
           : int.parse(json['tb_product_id']),
       nameProduct: json['name_product'] as String,
       bonus: json['bonus'] is int ? json['bonus'].toDouble() : json['bonus'],
-      qttySold: json['qtty_sold'] is int
-          ? json['qtty_sold'].toDouble()
-          : json['qtty_sold'],
+      sale: json['sale'] is int ? json['sale'].toDouble() : json['sale'],
       unitValue: json['unit_value'] is int
           ? json['unit_value'].toDouble()
           : json['unit_value'],
@@ -103,7 +101,7 @@ class OrderSaleCardModel extends OrderSaleCardEntity {
       'tb_product_id': tbProductId,
       'name_product': nameProduct,
       'bonus': bonus,
-      'qtty_sold': qttySold,
+      'sale': sale,
       'unit_value': unitValue,
     };
   }
@@ -113,7 +111,7 @@ class OrderSaleCardModel extends OrderSaleCardEntity {
       tbProductId: 0,
       nameProduct: "",
       bonus: 0,
-      qttySold: 0,
+      sale: 0,
       unitValue: 0,
       subtotal: 0,
     );

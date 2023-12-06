@@ -41,10 +41,15 @@ class _ContentOrderConsignmentListState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            if (bloc.stage == 1) {
-              bloc.add(ReturnToSupplyingEvent());
-            } else {
-              bloc.add(ReturnToCheckpointEvent());
+            switch (bloc.stage) {
+              case 0:
+                bloc.add(ReturnToCheckpointEvent());
+                break; // The switch statement must be told to exit, or it will execute every case.
+              case 1:
+                bloc.add(ReturnToSupplyingEvent());
+                break;
+              case 2:
+                bloc.add(ReturnToAttendanceEvent());
             }
           },
         ),

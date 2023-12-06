@@ -148,10 +148,10 @@ class _ContentConsignmenteSupplyingState
           ),
           Expanded(
             flex: 1,
-            child: custombutton(
-                "Informações",
-                (() => Modular.to.navigate('/consignment/historic/',
-                    arguments: [bloc.modelSupplying.order.tbCustomerId]))),
+            child: custombutton("Informações", (() {
+              bloc.add(OrderConsignmentRegisterGetlistEvent(
+                  tbCustomerId: bloc.modelSupplying.order.tbCustomerId));
+            })),
           ),
           Expanded(
             flex: 1,

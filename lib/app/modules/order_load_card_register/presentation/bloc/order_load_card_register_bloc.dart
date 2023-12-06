@@ -1,9 +1,10 @@
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_items_model.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_main_model.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/cashier_is_open.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_closure.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get.dart';
-import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_items.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/get_new_order_load_card.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_list.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_get_list_by_user.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/order_load_card_register_post.dart';
@@ -13,25 +14,30 @@ import 'package:bloc/bloc.dart';
 
 class OrderLoadCardRegisterBloc
     extends Bloc<OrderLoadCardRegisterEvent, OrderLoadCardRegisterState> {
-  final OrderLoadCardRegiterGetItems getItemsOrderLoadCard;
+  final GetNewOrderLoadCard getNewOrderLoadCard;
   final OrderLoadCardRegiterGetList getListOrderLoadCard;
   final OrderLoadCardRegiterGetListByUser getListByUserOrderLoadCard;
   final OrderLoadCardRegisterPost postOrderLoadCard;
   final OrderLoadCardRegisterClosure closureOrderLoadCard;
   final OrderLoadCardRegiterGet getByOrderLoadCard;
+  final CashierIsOpen cashierIsOpen;
 
   OrderLoadCardMainModel modelLoadCard = OrderLoadCardMainModel.isEmpty();
   List<OrderLoadCardMainModel> listLoadCard = [];
   String dateSelected = CustomDate.newDate();
+
+  String dtCashier = CustomDate.newDate();
+
   OrderLoadCardRegisterBloc({
-    required this.getItemsOrderLoadCard,
+    required this.getNewOrderLoadCard,
     required this.getListOrderLoadCard,
     required this.postOrderLoadCard,
     required this.closureOrderLoadCard,
     required this.getListByUserOrderLoadCard,
     required this.getByOrderLoadCard,
-  }) : super(OrderLoadCardRegisterLoadingState()) {
-    orderLoadCardGetItems();
+    required this.cashierIsOpen,
+  }) : super(LoadingState()) {
+    _getNewOrderLoadCard();
     orderLoadCardGetList();
     orderLoadCardGetListByUser();
     orderLoadCardPost();
@@ -39,21 +45,22 @@ class OrderLoadCardRegisterBloc
     closureOrder();
     getOrderLoadCard();
     returnToOrderLoadCard();
+    _cashierIsOpen();
   }
 
-  orderLoadCardGetItems() {
+  _getNewOrderLoadCard() {
     on<OrderLoadCardRegisterGetCardEvent>((event, emit) async {
-      emit(OrderLoadCardRegisterLoadingState());
+      emit(LoadingState());
 
       modelLoadCard.items.clear();
-
-      final response =
-          await getItemsOrderLoadCard(tbSalesmanId: event.tbSalesmanId);
+      await _cashierIsOpen();
+      event.params.dtRecord = dtCashier;
+      final response = await getNewOrderLoadCard(event.params);
 
       var result = response.fold((l) {
         return OrderLoadCardGetItemsErrorState(l.toString());
       }, (r) {
-        modelLoadCard.items = r;
+        modelLoadCard = r;
         return OrderLoadCardGetItemsLoadedState();
       });
       emit(result);
@@ -62,7 +69,7 @@ class OrderLoadCardRegisterBloc
 
   orderLoadCardGetList() {
     on<OrderLoadCardRegisterGetListCardEvent>((event, emit) async {
-      emit(OrderLoadCardRegisterLoadingState());
+      emit(LoadingState());
 
       listLoadCard = [];
 
@@ -80,7 +87,7 @@ class OrderLoadCardRegisterBloc
 
   orderLoadCardGetListByUser() {
     on<GetListByUserEvent>((event, emit) async {
-      emit(OrderLoadCardRegisterLoadingState());
+      emit(LoadingState());
 
       final response = await getListByUserOrderLoadCard();
 
@@ -95,7 +102,7 @@ class OrderLoadCardRegisterBloc
 
   orderLoadCardPost() {
     on<OrderLoadCardPostEvent>((event, emit) async {
-      emit(OrderLoadCardRegisterLoadingState());
+      emit(LoadingState());
 
       final response = await postOrderLoadCard(modelLoadCard);
       var result = response.fold((l) {
@@ -109,7 +116,7 @@ class OrderLoadCardRegisterBloc
 
   clearOrderLoadCard() {
     on<OrderLoadCardRegisterClearEvent>((event, emit) async {
-      emit(OrderLoadCardRegisterLoadingState());
+      emit(LoadingState());
       for (OrderLoadCardItemsModel item in modelLoadCard.items) {
         item.adjust = 0;
         item.newLoad = 0;
@@ -120,7 +127,7 @@ class OrderLoadCardRegisterBloc
 
   closureOrder() {
     on<OrderClosureEvent>((event, emit) async {
-      emit(OrderLoadCardRegisterLoadingState());
+      emit(LoadingState());
 
       var response = await closureOrderLoadCard
           .call(ParamsOrderLoadCardClosure(model: modelLoadCard));
@@ -136,7 +143,7 @@ class OrderLoadCardRegisterBloc
 
   getOrderLoadCard() {
     on<GetOrderLoadCard>((event, emit) async {
-      emit(OrderLoadCardRegisterLoadingState());
+      emit(LoadingState());
 
       final response = await getByOrderLoadCard(orderId: event.orderId);
 
@@ -151,6 +158,16 @@ class OrderLoadCardRegisterBloc
   returnToOrderLoadCard() {
     on<ReturnToLoadCardEvent>((event, emit) async {
       emit(ReturnToLoadCardState());
+    });
+  }
+
+  _cashierIsOpen() async {
+    var response = await cashierIsOpen.call(ParamsCashierIsOpen());
+
+    response.fold((l) {
+      return GetErrorState(error: l.toString());
+    }, (r) {
+      dtCashier = r.dtRecord;
     });
   }
 }

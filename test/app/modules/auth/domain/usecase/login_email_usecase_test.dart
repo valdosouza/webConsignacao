@@ -19,13 +19,13 @@ void main() {
     usecase = LoginEmail(repository: mockAuthRepository);
   });
   const tAuthModel = AuthModel(
-    auth: true,
-    id: 0,
-    tbInstitutionId: 0,
-    username: 'testEmail@Email',
-    password: '123',
-    jwt: 'StringJWT',
-  );
+      auth: true,
+      id: 0,
+      tbInstitutionId: 0,
+      username: 'testEmail@Email',
+      password: '123',
+      jwt: 'StringJWT',
+      error: "");
   tParams = Params(
     username: tAuthModel.username,
     password: tAuthModel.password,

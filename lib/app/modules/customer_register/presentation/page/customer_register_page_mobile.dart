@@ -75,37 +75,70 @@ class _CustomerRegisterPageMobileState
         if (state is CustomerRegisterGetSalesRouteSuccessState) {
           return const CustomerRegisterSalesRouteListWidget();
         }
+        if (state is CustomerRegisterPostByMobileSuccessState) {
+          if (state.customer.id > 0) {
+            OrderAttendanceModel orderAttemdance = OrderAttendanceModel(
+              id: 0,
+              tbInstitutionId: 0,
+              tbUserId: 0,
+              dtRecord: CustomDate.newDate(),
+              tbCustomerId: state.customer.id,
+              nameCustomer: state.customer.nickTrade,
+              tbSalesmanId: 0,
+              nameSalesman: "",
+              tbPriceListId: 0,
+              note: "",
+              status: "A",
+              visited: "S",
+              charged: "N",
+              recall: "N",
+              finished: "N",
+              longitude: "",
+              latitude: "",
+              routeRetorn: '/attendancecustomer/mobile/',
+              tbSalesRouteId: 0,
+              tbRegionId: 0,
+            );
+            Modular.to.navigate(
+              '/attendance/',
+              arguments: orderAttemdance,
+            );
+          } else {
+            Modular.to.navigate('/attendancecustomer/mobile/');
+          }
+        }
 
         if (state is CustomerRegisterPutByMobileSuccessState) {
-          Modular.to.navigate('/attendancecustomer/mobile/');
-        }
-        if (state is CustomerRegisterPostByMobileSuccessState) {
-          OrderAttendanceModel orderAttemdance = OrderAttendanceModel(
-            id: 0,
-            tbInstitutionId: 0,
-            tbUserId: 0,
-            dtRecord: CustomDate.newDate(),
-            tbCustomerId: state.customer.id,
-            nameCustomer: state.customer.nickTrade,
-            tbSalesmanId: 0,
-            nameSalesman: "",
-            tbPriceListId: 0,
-            note: "",
-            status: "A",
-            visited: "S",
-            charged: "N",
-            recall: "N",
-            finished: "N",
-            longitude: "",
-            latitude: "",
-            routeRetorn: '/attendancecustomer/mobile/',
-            tbSalesRouteId: 0,
-            tbRegionId: 0,
-          );
-          Modular.to.navigate(
-            '/attendance/',
-            arguments: orderAttemdance,
-          );
+          if (state.customer.id > 0) {
+            OrderAttendanceModel orderAttemdance = OrderAttendanceModel(
+              id: 0,
+              tbInstitutionId: 0,
+              tbUserId: 0,
+              dtRecord: CustomDate.newDate(),
+              tbCustomerId: state.customer.id,
+              nameCustomer: state.customer.nickTrade,
+              tbSalesmanId: 0,
+              nameSalesman: "",
+              tbPriceListId: 0,
+              note: "",
+              status: "A",
+              visited: "S",
+              charged: "N",
+              recall: "N",
+              finished: "N",
+              longitude: "",
+              latitude: "",
+              routeRetorn: '/attendancecustomer/mobile/',
+              tbSalesRouteId: 0,
+              tbRegionId: 0,
+            );
+            Modular.to.navigate(
+              '/attendance/',
+              arguments: orderAttemdance,
+            );
+          } else {
+            Modular.to.navigate('/attendancecustomer/mobile/');
+          }
         }
         if (state is CustomerRegisterPostErrorState) {
           return ContentCustomerRegisterMobile(

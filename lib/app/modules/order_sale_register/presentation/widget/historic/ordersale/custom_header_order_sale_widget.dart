@@ -1,5 +1,5 @@
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/header_field_widget.dart';
-import 'package:appweb/app/modules/order_sale_register/presentation/widget/ordersale/header_items_order_sale_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/header_field_widget.dart';
+import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/header_items_order_sale_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomHeaderOrderSale extends StatelessWidget {

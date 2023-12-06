@@ -1,9 +1,11 @@
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/get_new_order_load_card.dart';
+
 abstract class OrderLoadCardRegisterEvent {}
 
 class OrderLoadCardRegisterGetCardEvent extends OrderLoadCardRegisterEvent {
-  final int tbSalesmanId;
+  final ParamsGetNewOrderLoadCard params;
 
-  OrderLoadCardRegisterGetCardEvent({required this.tbSalesmanId});
+  OrderLoadCardRegisterGetCardEvent({required this.params});
 }
 
 class OrderLoadCardRegisterGetListCardEvent
@@ -40,3 +42,5 @@ class OrderLoadCardRegisterSearchEvent extends OrderLoadCardRegisterEvent {
 }
 
 class OrderClosureEvent extends OrderLoadCardRegisterEvent {}
+
+class CashierIsOpenEvent extends OrderLoadCardRegisterEvent {}

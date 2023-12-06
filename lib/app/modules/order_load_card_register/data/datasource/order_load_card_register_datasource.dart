@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
+import 'package:appweb/app/modules/Core/data/model/cashier_status_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_list_model.dart';
-import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_items_model.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_main_model.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/get_new_order_load_card.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class OrderLoadCardRegisterDatasource extends Gateway {
@@ -12,8 +13,8 @@ abstract class OrderLoadCardRegisterDatasource extends Gateway {
 
   Future<String> post({required OrderLoadCardMainModel model});
 
-  Future<List<OrderLoadCardItemsModel>> getNewOrderLoadCard(
-      {required int tbSalesmanId});
+  Future<OrderLoadCardMainModel> getNewOrderLoadCard(
+      {required ParamsGetNewOrderLoadCard params});
 
   Future<List<OrderLoadCardMainModel>> getList();
 
@@ -22,6 +23,8 @@ abstract class OrderLoadCardRegisterDatasource extends Gateway {
   Future<List<OrderConsignmetListModel>> getListByUser();
 
   Future<String> closure({required OrderLoadCardMainModel model});
+
+  Future<CashierStatusModel> cashierIsOpen();
 }
 
 class OrderLoadCardRegisterDatasourceImpl
@@ -62,26 +65,25 @@ class OrderLoadCardRegisterDatasourceImpl
   }
 
   @override
-  Future<List<OrderLoadCardItemsModel>> getNewOrderLoadCard(
-      {required int tbSalesmanId}) async {
+  Future<OrderLoadCardMainModel> getNewOrderLoadCard(
+      {required ParamsGetNewOrderLoadCard params}) async {
     String tbInstitutionId = '1';
     await getInstitutionId().then((value) {
       tbInstitutionId = value.toString();
     });
-    String tbUserId = tbSalesmanId.toString();
+    String tbUserId = params.tbSalesmanId.toString();
     if (tbUserId == '0') {
       await getUserId().then((value) {
         tbUserId = value.toString();
       });
     }
-    var dtRecord = CustomDate.formatDateOut(CustomDate.newDate());
+    var dtRecord = CustomDate.formatDateOut(params.dtRecord);
     return request(
       'orderloadcard/getNewOrder/$tbInstitutionId/$tbUserId/$dtRecord',
       (payload) {
         final obj = json.decode(payload);
-        List<OrderLoadCardItemsModel> orderLoadCard = (obj as List).map((json) {
-          return OrderLoadCardItemsModel.fromJson(json);
-        }).toList();
+        OrderLoadCardMainModel orderLoadCard =
+            OrderLoadCardMainModel.fromJson(obj);
         return orderLoadCard;
       },
       onError: (error) {
@@ -171,6 +173,29 @@ class OrderLoadCardRegisterDatasourceImpl
       (payload) {
         final data = json.decode(payload);
         return data['result'];
+      },
+      onError: (error) {
+        return Future.error(ServerException());
+      },
+    );
+  }
+
+  @override
+  Future<CashierStatusModel> cashierIsOpen() async {
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+    String tbUserId = '1';
+    await getUserId().then((value) {
+      tbUserId = value.toString();
+    });
+
+    return request(
+      'cashier/isopen/$tbInstitutionId/$tbUserId',
+      (payload) {
+        final data = json.decode(payload);
+        return CashierStatusModel.fromJson(data);
       },
       onError: (error) {
         return Future.error(ServerException());

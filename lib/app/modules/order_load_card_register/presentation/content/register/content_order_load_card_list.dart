@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
+import 'package:appweb/app/modules/order_load_card_register/domain/usecase/get_new_order_load_card.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_event.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_state.dart';
@@ -51,8 +52,14 @@ buildListView(OrderLoadCardRegisterBloc bloc) {
             itemBuilder: (context, index) => InkWell(
               onTap: () {
                 bloc.modelLoadCard = bloc.listLoadCard[index];
-                bloc.add(OrderLoadCardRegisterGetCardEvent(
-                    tbSalesmanId: bloc.listLoadCard[index].tbUserId));
+                bloc.add(
+                  OrderLoadCardRegisterGetCardEvent(
+                    params: ParamsGetNewOrderLoadCard(
+                      tbSalesmanId: bloc.listLoadCard[index].tbUserId,
+                      dtRecord: "",
+                    ),
+                  ),
+                );
               },
               child: ListTile(
                 leading: CircleAvatar(

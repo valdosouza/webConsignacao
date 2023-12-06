@@ -143,7 +143,7 @@ class _CashierStatementCustomerWidgetState
       child: SingleChildScrollView(
         child: ExpansionPanelList(
           expansionCallback: (int index, bool isExpanded) {
-            setState(() => (bloc.customers[index].expanded = !isExpanded));
+            setState(() => (bloc.customers[index].expanded = isExpanded));
           },
           children: bloc.customers
               .map<ExpansionPanel>((CashierStatementCustomerModel customer) {

@@ -45,7 +45,9 @@ class _ContentConsignmenteCheckpointState
             title: const Text("Deseja realmente sair desta Tela"),
             actions: [
               TextButton(
-                onPressed: () => Navigator.pop(context, false),
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
                 child: const Text("Cancelar"),
               ),
               OutlinedButton(
@@ -121,8 +123,6 @@ class _ContentConsignmenteCheckpointState
             child: _custombutton("Informações", (() {
               bloc.add(OrderConsignmentRegisterGetlistEvent(
                   tbCustomerId: widget.checkpointmodel.order.tbCustomerId));
-              // Modular.to.navigate('/consignment/historic/',
-              //     arguments: [bloc.modelCheckpoint.order.tbCustomerId]);
             })),
           ),
           Expanded(

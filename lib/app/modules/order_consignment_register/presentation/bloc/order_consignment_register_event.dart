@@ -41,6 +41,8 @@ class ReturnToCheckpointEvent extends OrderConsignmentRegisterEvent {}
 
 class ReturnToSupplyingEvent extends OrderConsignmentRegisterEvent {}
 
+class ReturnToAttendanceEvent extends OrderConsignmentRegisterEvent {}
+
 class SearchEvent extends OrderConsignmentRegisterEvent {
   String search;
 

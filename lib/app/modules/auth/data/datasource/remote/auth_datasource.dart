@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
-import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_change_password_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_recovery_password_model.dart';
@@ -22,29 +20,33 @@ abstract class AuthDatasource extends Gateway {
 class AuthDatasourceImpl extends AuthDatasource {
   AuthDatasourceImpl({required super.httpClient});
   @override
+  @override
   Future<AuthModel> getAuthentication(
       {required String username, required String password}) async {
-    final uri = Uri.parse('${baseApiUrl}auth/authenticate/');
-
-    final response = await httpClient.post(
-      uri,
-      body: jsonEncode(
+    return await request(
+      'auth/authenticate/',
+      method: HTTPMethod.post,
+      data: jsonEncode(
         <String, String>{
           'email': username,
-          'password': password, //.toUpperCase(),
+          'password': password.toUpperCase(),
         },
       ),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+      (payload) {
+        final jsonMap = json.decode(payload) as Map<String, dynamic>;
+        return AuthModel.fromJson(jsonMap);
+      },
+      onError: (error) {
+        return AuthModel(
+            auth: false,
+            id: 0,
+            jwt: "",
+            password: "",
+            tbInstitutionId: 0,
+            username: username,
+            error: error.toString());
       },
     );
-
-    if (response.statusCode == 200) {
-      final jsonMap = json.decode(response.body) as Map<String, dynamic>;
-      return AuthModel.fromJson(jsonMap);
-    } else {
-      return Future.error(ServerException());
-    }
   }
 
   @override

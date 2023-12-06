@@ -107,15 +107,20 @@ class OrderAttendanceRegisterPageMobileState
           switch (bloc.orderAttendance.tbPriceListId) {
             case 0:
               if (bloc.orderAttendance.routeRetorn.isNotEmpty) {
-                Modular.to.navigate(bloc.orderAttendance.routeRetorn,
-                    arguments: bloc.orderAttendance.tbSalesRouteId);
+                Modular.to
+                    .navigate(bloc.orderAttendance.routeRetorn, arguments: [
+                  bloc.orderAttendance.tbSalesRouteId,
+                  bloc.orderAttendance.nameSalesRoute,
+                  bloc.orderAttendance.tbRegionId,
+                  bloc.orderAttendance.nameRegion,
+                ]);
               } else {
                 Modular.to.navigate('/customer/mobile/');
               }
               break;
             case 1:
-              Modular.to
-                  .navigate('/consignment/', arguments: bloc.orderAttendance);
+              Modular.to.navigate('/consignment/',
+                  arguments: [bloc.orderAttendance, false]);
               break;
             case 2:
               Modular.to
@@ -127,7 +132,9 @@ class OrderAttendanceRegisterPageMobileState
               break;
           }
         }
-        return Container();
+        return const Center(
+          child: CustomCircularProgressIndicator(),
+        );
       },
     );
   }

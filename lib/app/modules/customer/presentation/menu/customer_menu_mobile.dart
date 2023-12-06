@@ -84,15 +84,17 @@ class _CustomerMenuMobileState extends State<CustomerMenuMobile> {
                       return itemMenuDraw(
                         Icons.home,
                         bloc.regionList[index].description,
-                        () async => Modular.to.navigate(
-                          '/attendancesalesroute/mobile/',
-                          arguments: [
-                            0,
-                            "",
-                            bloc.regionList[index].id,
-                            bloc.regionList[index].description,
-                          ],
-                        ),
+                        () async {
+                          Modular.to.navigate(
+                            '/attendancesalesroute/mobile/',
+                            arguments: [
+                              0,
+                              "",
+                              bloc.regionList[index].id,
+                              bloc.regionList[index].description,
+                            ],
+                          );
+                        },
                       );
                     },
                   ),

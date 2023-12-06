@@ -15,7 +15,7 @@ class OrderSaleCardEntity {
     int? tbProductId,
     String? nameProduct,
     double? bonus,
-    double? qttySold,
+    double? sale,
     double? unitValue,
     double? subtotal,
   });

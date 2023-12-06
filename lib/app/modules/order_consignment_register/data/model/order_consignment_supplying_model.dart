@@ -67,10 +67,10 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
         tbProductId: item.tbProductId,
         bonus: 0,
         nameProduct: item.nameProduct,
-        leftover: item.qttyConsigned - item.qttySold,
+        leftover: item.qttyConsigned - item.sale,
         devolution: 0,
         newConsignment: 0,
-        qttyConsigned: item.qttyConsigned - item.qttySold,
+        qttyConsigned: item.qttyConsigned - item.sale,
         unitValue: item.unitValue,
       ));
     }
@@ -135,7 +135,7 @@ class OrderConsignmentSupplyingOrderModel
           ? json['current_debit_balance'].toDouble()
           : json['current_debit_balance'],
       recall: (json['recall'] != null) ? json['recall'] : "N",
-      note: (json['note'] != null) ? json['note'] : "N",
+      note: (json['note'] != null) ? json['note'] : "",
     );
   }
 

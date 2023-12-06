@@ -20,7 +20,7 @@ class SplashDataSourceImpl extends SplashDataSource {
       (payload) {
         final data = json.decode(payload);
 
-        return data['message'] == 'Valid Token';
+        return (data['message'] == 'Valid Token');
       },
       onError: (error) {
         return Future.error(ServerException());

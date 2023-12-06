@@ -46,8 +46,8 @@ class Gateway {
     T Function(dynamic) fromJson, {
     data = const {},
     HTTPMethod method = HTTPMethod.get,
-    Future<T> Function(Exception)? onError,
-    //Function(Exception)? onError,
+    //Future<T> Function(Exception)? onError,
+    Function(Exception)? onError,
   }) async {
     debugPrint('Fetching $url from API');
     debugPrint('${method.toString().toUpperCase()} $url');
@@ -76,8 +76,7 @@ class Gateway {
           'Failed fetching $url from API => HTTP CODE: $statusCode -> ${e.toString()}');
 
       if (onError != null) {
-        final errorResult = await onError(e);
-        throw errorResult ?? e;
+        return onError(e);
       }
       rethrow;
     }

@@ -32,7 +32,7 @@ class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
       case 2:
         return item.nameProduct;
       case 3:
-        return (item.qttySold > 0) ? item.qttySold.toStringAsFixed(0) : "";
+        return (item.sale > 0) ? item.sale.toStringAsFixed(0) : "";
       case 4:
         return (item.subtotal > 0) ? item.subtotal.toStringAsFixed(2) : "";
     }
@@ -68,10 +68,10 @@ class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
                 break;
               case 3:
                 if (value.isNotEmpty) {
-                  widget.item.qttySold = double.parse(value);
-                  if (widget.item.qttySold > 0) {
+                  widget.item.sale = double.parse(value);
+                  if (widget.item.sale > 0) {
                     widget.item.subtotal =
-                        widget.item.qttySold * widget.item.unitValue;
+                        widget.item.sale * widget.item.unitValue;
                   } else {
                     widget.item.subtotal = 0;
                   }

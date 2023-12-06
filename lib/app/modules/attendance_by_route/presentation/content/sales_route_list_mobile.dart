@@ -61,13 +61,16 @@ class SalesRoutListeMobileState extends State<SalesRouteListMobile> {
                         bloc.tbSalesRouteIdSelected = widget.lista[index].id;
                         bloc.salesRouteSelected =
                             widget.lista[index].description;
-                        bloc.add(CustomerGetListEvent(
+                        bloc.add(
+                          CustomerGetListEvent(
                             params: ParamsGetListCustomerByRoute(
-                          tbSalesRouteId: widget.lista[index].id,
-                          tbRegionId: bloc.tbRegionIdSelected,
-                          kind: bloc.kindSelected,
-                          dtRecord: bloc.dtRecordSelected,
-                        )));
+                              tbSalesRouteId: widget.lista[index].id,
+                              tbRegionId: bloc.tbRegionIdSelected,
+                              kind: bloc.kindSelected,
+                              dtRecord: bloc.dtRecordSelected,
+                            ),
+                          ),
+                        );
                       },
                     ),
                   ),
