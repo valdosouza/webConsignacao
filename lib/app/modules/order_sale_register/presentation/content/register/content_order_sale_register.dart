@@ -34,25 +34,70 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
     bloc = Modular.get<OrderSaleRegisterBloc>();
   }
 
-  Future<bool?> showConfirmationDialog() {
-    return showDialog(
+  void _showBackDialog() {
+    showDialog<void>(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Deseja realmente sair desta Tela"),
-          actions: [
+          title: const Text('Confirmação.'),
+          content: const Text(
+            "Deseja realmente sair desta Tela?",
+          ),
+          actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text("Cancelar"),
-            ),
-            OutlinedButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Não'),
               onPressed: () {
-                Modular.to.navigate(
-                  '/attendance/',
-                  arguments: bloc.modelAttendance,
-                );
+                Navigator.pop(context);
               },
-              child: const Text("Sim"),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Sim'),
+              onPressed: () {
+                Navigator.pop(context);
+                Modular.to
+                    .navigate('/attendance/', arguments: bloc.modelAttendance);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showConfirmationFinalize() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmação.'),
+          content: const Text(
+            "Deseja realmente finalizar?",
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Não'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Sim'),
+              onPressed: () {
+                Navigator.pop(context);
+                bloc.add(OrderSaleCardPostEvent(model: bloc.modelOrderSale));
+              },
             ),
           ],
         );
@@ -64,14 +109,18 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
-    return WillPopScope(
-      onWillPop: (() async {
-        final confirmation = await showConfirmationDialog();
-        return confirmation ?? false;
-      }),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
+        _showBackDialog();
+      },
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
             alignment: Alignment.center,
             child: Column(
               children: [
@@ -80,7 +129,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
                   height: 40,
                   child: Text(
                     bloc.modelAttendance.nameCustomer,
-                    style: ktittleAppBarStyle,
+                    style: kTitleAppBarStyle,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -107,8 +156,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
           Expanded(
             flex: 1,
             child: _custombutton("Voltar", (() async {
-              final confirmation = await showConfirmationDialog();
-              return confirmation ?? false;
+              _showBackDialog();
             })),
           ),
           Expanded(
@@ -133,11 +181,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
           Expanded(
             flex: 1,
             child: _custombutton(
-                "Finalizar",
-                (() => {
-                      bloc.add(
-                          OrderSaleCardPostEvent(model: bloc.modelOrderSale))
-                    })),
+                "Finalizar", (() => {_showConfirmationFinalize()})),
           ),
         ],
       ),
@@ -148,6 +192,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
       child: ElevatedButton(
+        style: kElevatedButtonStyleRed,
         onPressed: () {
           function();
           setState(() {});
@@ -162,7 +207,10 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
               color: Colors.red,
             ),
           ),
-          child: Text(buttonName),
+          child: Text(
+            buttonName,
+            style: kElevatedButtonTextStyle,
+          ),
         ),
       ),
     );

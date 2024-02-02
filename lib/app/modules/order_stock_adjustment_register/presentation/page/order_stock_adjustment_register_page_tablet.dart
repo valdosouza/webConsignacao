@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/order_stock_adjustment_register_module.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -28,7 +29,10 @@ class _OrderStockAdjustmentRegisterPageTabletState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Ordem de ajuste de estoque"),
+        title: const AutoSizeText(
+          "Ordem de ajuste de estoque",
+          style: kTitleAppBarStyle,
+        ),
       ),
     );
   }

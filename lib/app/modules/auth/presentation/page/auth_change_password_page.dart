@@ -8,6 +8,7 @@ import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_change_password_model.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_bloc.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +63,10 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
             flexibleSpace: Container(
               decoration: kBoxDecorationflexibleSpace,
             ),
-            title: const Text("Alterar senha"),
+            title: const AutoSizeText(
+              "Alterar senha",
+              style: kTitleAppBarStyle,
+            ),
             automaticallyImplyLeading: false,
             centerTitle: true,
           ),
@@ -310,7 +314,7 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(100, 60),
-          //backgroundColor: Colors.white,
+          backgroundColor: kPrimaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
           ),

@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_l
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_events.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/bloc/stock_list_state.dart';
 import 'package:appweb/app/modules/stock_list_register/presentation/page/stock_list_interation_page.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -60,10 +61,13 @@ class _ContentDesktopStockListState extends State<ContentDesktopStockList> {
         final stocks = state.list;
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Lista de estoques'),
+            title: const AutoSizeText(
+              'Lista de estoques',
+              style: kTitleAppBarStyle,
+            ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.person_add),
+                icon: const Icon(Icons.person_add, color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(StockListAddEvent());
                 },
@@ -96,7 +100,10 @@ class _ContentDesktopStockListState extends State<ContentDesktopStockList> {
                                   backgroundColor: (Colors.black),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text((index + 1).toString()),
+                                    child: Text(
+                                      (index + 1).toString(),
+                                      style: kCircleAvatarTextStyle,
+                                    ),
                                   ),
                                 ),
                                 title: Column(
@@ -106,7 +113,8 @@ class _ContentDesktopStockListState extends State<ContentDesktopStockList> {
                                   ],
                                 ),
                                 trailing: IconButton(
-                                  icon: const Icon(Icons.remove),
+                                  icon: const Icon(Icons.remove,
+                                      color: kSecondaryColor),
                                   onPressed: () {
                                     CustomToast.showToast(
                                         "Funcionalidade em desenvolvimento.");

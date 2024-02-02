@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -28,7 +29,10 @@ class _StockBalanceCustomerPageTabletState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Balanço de estoque geral"),
+        title: const AutoSizeText(
+          "Balanço de estoque geral",
+          style: kTitleAppBarStyle,
+        ),
       ),
     );
   }

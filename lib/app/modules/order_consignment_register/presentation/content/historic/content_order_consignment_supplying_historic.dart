@@ -41,6 +41,7 @@ class _ContentConsignmenteSupplyingState
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
           alignment: Alignment.center,
           child: Column(
             children: [
@@ -49,7 +50,7 @@ class _ContentConsignmenteSupplyingState
                 height: 45,
                 child: AutoSizeText(
                   "${widget.modelSupplying.order.dtRecord} - ${widget.modelSupplying.order.nameCustomer}",
-                  style: ktittleAppBarStyle,
+                  style: kTitleAppBarStyle,
                   textAlign: TextAlign.center,
                 ),
               ),

@@ -6,6 +6,7 @@ import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_
 import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_route_register_event.dart';
 import 'package:appweb/app/modules/sales_route_register/presentation/bloc/sales_route_register_state.dart';
 import 'package:appweb/app/modules/sales_route_register/presentation/page/sales_route_register_interation_page.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -62,10 +63,13 @@ class _ContentDesktopSalesRouteRegisterState
         final routes = state.list;
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Lista de Rotas'),
+            title: const AutoSizeText(
+              'Lista de Rotas',
+              style: kTitleAppBarStyle,
+            ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.person_add),
+                icon: const Icon(Icons.person_add, color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(SalesRouteRegisterAddEvent());
                 },
@@ -98,7 +102,10 @@ class _ContentDesktopSalesRouteRegisterState
                                   backgroundColor: (Colors.black),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text((index + 1).toString()),
+                                    child: Text(
+                                      (index + 1).toString(),
+                                      style: kCircleAvatarTextStyle,
+                                    ),
                                   ),
                                 ),
                                 title: Column(
@@ -108,7 +115,8 @@ class _ContentDesktopSalesRouteRegisterState
                                   ],
                                 ),
                                 trailing: IconButton(
-                                  icon: const Icon(Icons.remove),
+                                  icon: const Icon(Icons.remove,
+                                      color: kSecondaryColor),
                                   onPressed: () {
                                     CustomToast.showToast(
                                         "Funcionalidade em desenvolvimento.");

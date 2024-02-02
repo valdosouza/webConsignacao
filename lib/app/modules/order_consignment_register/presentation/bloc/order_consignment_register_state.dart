@@ -62,6 +62,15 @@ class OrderConsignmentRegisterCheckpointPostErrorState
   });
 }
 
+class CheckpointDeleteSucessState extends OrderConsignmentRegisterState {}
+
+class CheckpointDeleteErrorState extends OrderConsignmentRegisterState {
+  final String error;
+  CheckpointDeleteErrorState({
+    required this.error,
+  });
+}
+
 class OrderConsignmentRegisterCheckpointPostSucessState
     extends OrderConsignmentRegisterState {
   final OrderConsignmentSupplyingModel supplyingmode;

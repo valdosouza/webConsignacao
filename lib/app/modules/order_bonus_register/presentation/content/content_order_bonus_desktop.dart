@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_state.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/widget/order_bonus_register_data.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/widget/order_bonus_register_list_items.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -57,10 +58,9 @@ class _ContentOrderBonusRegisterDesktopState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (_) async {
         bloc.add(OrderBonusRegisterGetListEvent());
-        return true;
       },
       child: BlocConsumer<OrderBonusRegisterBloc, OrderBonusRegisterState>(
         bloc: bloc,
@@ -81,16 +81,17 @@ class _ContentOrderBonusRegisterDesktopState
                 decoration: kBoxDecorationflexibleSpace,
               ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_outlined,
+                    color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(OrderBonusRegisterGetListEvent());
                 },
               ),
-              title: Text(
+              title: AutoSizeText(
                 bloc.edit
                     ? "Editar Ordem de Bonificação"
                     : "Adicionar Ordem de Bonificação",
-                style: kHintTextStyle.copyWith(fontSize: 20.0),
+                style: kTitleAppBarStyle,
               ),
               actions: [
                 PopupMenuButton(
@@ -123,12 +124,13 @@ class _ContentOrderBonusRegisterDesktopState
                         style: TextStyle(color: Colors.white),
                       )),
                       trailing: IconButton(
-                          onPressed: () {
-                            if (bloc.orderBonus.status != "F") {
-                              bloc.add(OrderBonusRegisterItemEvent());
-                            }
-                          },
-                          icon: const Icon(Icons.add, color: Colors.white)),
+                        onPressed: () {
+                          if (bloc.orderBonus.status != "F") {
+                            bloc.add(OrderBonusRegisterItemEvent());
+                          }
+                        },
+                        icon: const Icon(Icons.add, color: kSecondaryColor),
+                      ),
                     ),
                   )
                 ],
@@ -153,7 +155,7 @@ class _ContentOrderBonusRegisterDesktopState
                               OrderBonusRegisterPostEvent(model: orderBonus));
                     },
                     backgroundColor: Colors.black,
-                    child: const Icon(Icons.save),
+                    child: const Icon(Icons.save, color: kSecondaryColor),
                   )
                 : null,
           );

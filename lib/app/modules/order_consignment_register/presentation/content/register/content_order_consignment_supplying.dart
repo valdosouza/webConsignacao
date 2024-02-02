@@ -34,23 +34,36 @@ class _ContentConsignmenteSupplyingState
     bloc = Modular.get<OrderConsignmentRegisterBloc>();
   }
 
-  Future<bool?> showConfirmationExitProcess() {
-    return showDialog(
+  void _showBackDialog() {
+    showDialog<void>(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Deseja realmente sair desta Tela?"),
-          actions: [
+          title: const Text('Confirmação.'),
+          content: const Text(
+            "Deseja realmente sair desta Tela?",
+          ),
+          actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text("Cancelar"),
-            ),
-            OutlinedButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Não'),
               onPressed: () {
-                Modular.to
-                    .navigate('/attendance/', arguments: bloc.modelAttendance);
+                Navigator.pop(context);
               },
-              child: const Text("Sim"),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Sim'),
+              onPressed: () {
+                Navigator.pop(context);
+                bloc.add(CheckpointDeleteEvent(
+                  tbOrderId: bloc.modelCheckpoint.order.id,
+                ));
+              },
             ),
           ],
         );
@@ -58,23 +71,35 @@ class _ContentConsignmenteSupplyingState
     );
   }
 
-  Future<bool?> showConfirmationProcess() {
-    return showDialog(
+  void _showConfirmationProcess() {
+    showDialog<void>(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Deseja realmente finalizar?"),
-          actions: [
+          title: const Text('Confirmação.'),
+          content: const Text(
+            "Deseja realmente finalizar?",
+          ),
+          actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text("Cancelar"),
-            ),
-            OutlinedButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Não'),
               onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Sim'),
+              onPressed: () {
+                Navigator.pop(context);
                 bloc.add(OrderConsignementRegisterSupplyngPostEvent(
                     suplyingmodel: bloc.modelSupplying));
               },
-              child: const Text("Sim"),
             ),
           ],
         );
@@ -86,31 +111,35 @@ class _ContentConsignmenteSupplyingState
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
-    return WillPopScope(
-      onWillPop: (() async {
-        if (bloc.stage == 1) {
-          final confirmation = await showConfirmationExitProcess();
-          return confirmation ?? false;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) async {
+        if (didPop) {
+          return;
         }
-        return false;
-      }),
+        _showBackDialog();
+      },
       child: Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Container(
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  height: 45,
-                  child: Text(
-                    bloc.modelSupplying.order.nameCustomer,
-                    style: ktittleAppBarStyle,
-                    textAlign: TextAlign.center,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(61.0),
+          child: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    height: 45,
+                    child: Text(
+                      bloc.modelSupplying.order.nameCustomer,
+                      style: kTitleAppBarStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                const CustomHeaderSupplying(),
-              ],
+                  const CustomHeaderSupplying(),
+                ],
+              ),
             ),
           ),
         ),
@@ -134,10 +163,7 @@ class _ContentConsignmenteSupplyingState
             child: custombutton(
               "Voltar",
               (() async {
-                if (state == 1) {
-                  final confirmation = await showConfirmationExitProcess();
-                  return (confirmation ?? false);
-                }
+                _showBackDialog();
               }),
             ),
           ),
@@ -156,8 +182,7 @@ class _ContentConsignmenteSupplyingState
           Expanded(
             flex: 1,
             child: custombutton("Finalizar", (() async {
-              final confirmation = await showConfirmationProcess();
-              return (confirmation ?? false);
+              _showConfirmationProcess();
             })),
           ),
         ],

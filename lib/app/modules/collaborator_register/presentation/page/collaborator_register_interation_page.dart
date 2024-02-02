@@ -51,10 +51,9 @@ class _CollaboratorRegisterInterationPageState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (_) async {
         bloc.add(CollaboratorRegisterGetListEvent());
-        return true;
       },
       child: BlocConsumer<CollaboratorRegisterBloc, CollaboratorRegisterState>(
         bloc: bloc,
@@ -71,7 +70,8 @@ class _CollaboratorRegisterInterationPageState
                 decoration: kBoxDecorationflexibleSpace,
               ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_outlined,
+                    color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(CollaboratorRegisterGetListEvent());
                 },

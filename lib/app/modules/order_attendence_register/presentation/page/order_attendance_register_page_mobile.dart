@@ -1,6 +1,7 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/order_attendence_register/order_attendance_register_module.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -77,9 +78,13 @@ class OrderAttendanceRegisterPageMobileState
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
-              title: Text(bloc.orderAttendance.nameCustomer),
+              title: AutoSizeText(
+                bloc.orderAttendance.nameCustomer,
+                style: kTitleAppBarStyle,
+              ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_outlined,
+                    color: kSecondaryColor),
                 onPressed: () {
                   if (bloc.orderAttendance.routeRetorn.isNotEmpty) {
                     Modular.to
@@ -123,12 +128,12 @@ class OrderAttendanceRegisterPageMobileState
                   arguments: [bloc.orderAttendance, false]);
               break;
             case 2:
-              Modular.to
-                  .navigate('/ordersale/', arguments: bloc.orderAttendance);
+              Modular.to.navigate('/ordersale/',
+                  arguments: [bloc.orderAttendance, false]);
               break;
             case 3:
-              Modular.to
-                  .navigate('/ordersale/', arguments: bloc.orderAttendance);
+              Modular.to.navigate('/ordersale/',
+                  arguments: [bloc.orderAttendance, false]);
               break;
           }
         }

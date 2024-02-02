@@ -167,7 +167,11 @@ class OrderLoadCardRegisterBloc
     response.fold((l) {
       return GetErrorState(error: l.toString());
     }, (r) {
-      dtCashier = r.dtRecord;
+      if (r.status == "A") {
+        dtCashier = r.dtRecord;
+      } else {
+        dtCashier = CustomDate.newDate();
+      }
     });
   }
 }

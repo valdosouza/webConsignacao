@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/user_register/presentation/bloc/user_register
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_state.dart';
 import 'package:appweb/app/modules/user_register/presentation/page/user_interation_page.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -67,10 +68,13 @@ class _ContentDesktopUserRegisterState
             flexibleSpace: Container(
               decoration: kBoxDecorationflexibleSpace,
             ),
-            title: const Text('Lista de usuários'),
+            title: const AutoSizeText(
+              'Lista de usuários',
+              style: kTitleAppBarStyle,
+            ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.person_add),
+                icon: const Icon(Icons.person_add, color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(UserRegisterAddEvent());
                 },
@@ -103,7 +107,10 @@ class _ContentDesktopUserRegisterState
                                   backgroundColor: (Colors.black),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text((index + 1).toString()),
+                                    child: Text(
+                                      (index + 1).toString(),
+                                      style: kCircleAvatarTextStyle,
+                                    ),
                                   ),
                                 ),
                                 title: Column(
@@ -114,7 +121,8 @@ class _ContentDesktopUserRegisterState
                                   ],
                                 ),
                                 trailing: IconButton(
-                                  icon: const Icon(Icons.remove),
+                                  icon: const Icon(Icons.remove,
+                                      color: kSecondaryColor),
                                   onPressed: () {
                                     // bloc.add(UserRegisterDeleteEvent(
                                     //     id: users[index].id!));

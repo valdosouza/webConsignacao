@@ -9,6 +9,7 @@ import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_s
 import 'package:appweb/app/modules/cashier_statement/presentation/content/content_cashier_statement_salesman_list.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/page/desktop/cashier_statement_by_order_page_desktop.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/page/desktop/cashier_statement_customer_by_salesman_desktop.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -48,7 +49,10 @@ class CashierStatementPageDesktopState
           flexibleSpace: Container(
             decoration: kBoxDecorationflexibleSpace,
           ),
-          title: const Text("Clientes Atendidos"),
+          title: const AutoSizeText(
+            "Clientes Atendidos",
+            style: kTitleAppBarStyle,
+          ),
         ),
         body: BlocConsumer<CashierStatementBloc, CashierStatementState>(
           bloc: bloc,

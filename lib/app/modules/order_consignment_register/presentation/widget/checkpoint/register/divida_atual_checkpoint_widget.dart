@@ -8,7 +8,7 @@ Widget dividaatualcheckpoint(OrderConsignmentCheckpointModel modelCheckpoint) {
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Dívida Atual'),
+        child: headerfield('Dívida Atual', 33),
       ),
       Expanded(
         flex: 4,

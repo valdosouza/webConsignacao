@@ -44,9 +44,10 @@ class _CashierBalanceMobiletState extends State<CashierBalancePageMobile> {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Consignação e Venda"),
+        title: kAppTitle,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             Modular.to.navigate('/cashier/mobile/');
           },

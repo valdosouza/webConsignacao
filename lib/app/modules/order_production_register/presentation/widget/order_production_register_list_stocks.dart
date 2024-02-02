@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -50,9 +51,13 @@ class OrderProductionRegisterStocksListWidgetState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de estoques'),
+        title: const AutoSizeText(
+          'Lista de estoques',
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             bloc.add(OrderReturnEvent());
           },
@@ -104,7 +109,10 @@ class OrderProductionRegisterStocksListWidgetState
                             backgroundColor: (Colors.black),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text(bloc.stocks[index].id.toString()),
+                              child: Text(
+                                bloc.stocks[index].id.toString(),
+                                style: kCircleAvatarTextStyle,
+                              ),
                             ),
                           ),
                           title: Column(

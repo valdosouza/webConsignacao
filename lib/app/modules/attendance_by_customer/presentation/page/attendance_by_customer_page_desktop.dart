@@ -29,12 +29,15 @@ class AttendanceByCustomerPageDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Consignação e Venda"),
+        title: kAppTitle,
       ),
       body: SizedBox(
         height: size.height,
         width: size.width,
-        child: const Text("Atendimento por Cliente - Desktop"),
+        child: const Text(
+          "Atendimento por Cliente - Desktop",
+          style: kTitleAppBarStyle,
+        ),
       ),
     );
   }

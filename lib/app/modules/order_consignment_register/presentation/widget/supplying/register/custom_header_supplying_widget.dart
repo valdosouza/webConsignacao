@@ -18,7 +18,7 @@ class CustomHeaderSupplying extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: headerfield('Observações'),
+            child: headerfield('Observações', 40),
           ),
         ],
       ),

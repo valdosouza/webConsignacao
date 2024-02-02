@@ -36,7 +36,7 @@ class _ContentCashierStatementCustomerState
     return Column(
       children: [
         Container(
-            color: Theme.of(context).primaryColor,
+            color: kPrimaryColor,
             child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Row(
@@ -139,7 +139,7 @@ class _ContentCashierStatementCustomerState
         ),
         const SizedBox(height: 15),
         Container(
-          color: Theme.of(context).primaryColor,
+          color: kPrimaryColor,
           child: const Center(
               child: Padding(
             padding: EdgeInsets.all(8.0),

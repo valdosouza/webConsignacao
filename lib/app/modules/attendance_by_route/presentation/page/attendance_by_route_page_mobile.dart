@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -78,7 +79,8 @@ class SalesRoutetRegisterInterationPageState
         }
       },
       builder: (context, state) {
-        if (state is SalesRouteListLoadingState) {
+        if ((state is SalesRouteListLoadingState) ||
+            (state is CustomerListLoadingState)) {
           return const CustomCircularProgressIndicator();
         }
         if (state is SalesRouteListLoadedState) {
@@ -87,9 +89,13 @@ class SalesRoutetRegisterInterationPageState
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
-              title: Text('Rotas de ${bloc.regionSelected}'),
+              title: AutoSizeText(
+                'Rotas de ${bloc.regionSelected}',
+                style: kTitleAppBarStyle,
+              ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_outlined,
+                    color: kSecondaryColor),
                 onPressed: () {
                   Modular.to.navigate('/customer/mobile/');
                 },
@@ -108,10 +114,13 @@ class SalesRoutetRegisterInterationPageState
                     flexibleSpace: Container(
                       decoration: kBoxDecorationflexibleSpace,
                     ),
-                    title: const Text('Ordenar Lista de Clientes'),
+                    title: const AutoSizeText(
+                      'Ordenar Lista de Clientes',
+                      style: kTitleAppBarStyle,
+                    ),
                     actions: [
                       IconButton(
-                        icon: const Icon(Icons.close),
+                        icon: const Icon(Icons.close, color: kSecondaryColor),
                         onPressed: () {
                           bloc.add(CustomerCancelOrderModeEvent());
                         },
@@ -122,10 +131,13 @@ class SalesRoutetRegisterInterationPageState
                     flexibleSpace: Container(
                       decoration: kBoxDecorationflexibleSpace,
                     ),
-                    title: Text(
-                        ' ${bloc.salesRouteSelected} - ${bloc.customerlist.length} clientes'),
+                    title: AutoSizeText(
+                      ' ${bloc.salesRouteSelected} - ${bloc.customerlist.length} clientes',
+                      style: kTitleAppBarStyle,
+                    ),
                     leading: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios),
+                      icon: const Icon(Icons.arrow_back_ios_outlined,
+                          color: kSecondaryColor),
                       onPressed: () {
                         bloc.add(SalesRouteGetListEvent());
                       },

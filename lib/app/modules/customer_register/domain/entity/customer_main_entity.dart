@@ -7,6 +7,7 @@ import 'package:appweb/app/modules/customer_register/data/model/customer_model.d
 
 class CustomerMainEntity {
   CustomerModel customer;
+  String kindFiscal;
   EntityListModel entity;
   CompanyModel? company;
   PersonModel? person;
@@ -14,6 +15,7 @@ class CustomerMainEntity {
   PhoneModel? phone;
   CustomerMainEntity({
     required this.customer,
+    required this.kindFiscal,
     required this.entity,
     required this.company,
     required this.person,

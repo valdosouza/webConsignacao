@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_bonus_register/data/model/order_bonus_register_model.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_bloc.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_event.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_state.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -59,10 +61,16 @@ class OrderBonusRegisterItemsListWidgetState
                     backgroundColor: (Colors.black),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Text((index + 1).toString()),
+                      child: Text(
+                        (index + 1).toString(),
+                        style: kCircleAvatarTextStyle,
+                      ),
                     ),
                   ),
-                  title: Text(widget.orderBonus.items[index].description),
+                  title: AutoSizeText(
+                    widget.orderBonus.items[index].description,
+                    style: kTitleAppBarStyle,
+                  ),
                   trailing:
                       Text(widget.orderBonus.items[index].quantity.toString()),
                 ),

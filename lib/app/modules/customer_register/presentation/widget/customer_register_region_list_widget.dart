@@ -2,6 +2,7 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_bloc.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_event.dart';
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -46,9 +47,13 @@ class _CustomerRegisterRegionListWidgetState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de regiões'),
+        title: const AutoSizeText(
+          'Lista de regiões',
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             bloc.add(CustomerRegisterReturnEvent(index: 3));
           },

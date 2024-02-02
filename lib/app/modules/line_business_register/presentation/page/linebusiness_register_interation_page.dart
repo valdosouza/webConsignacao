@@ -29,10 +29,9 @@ class _LinebusinessInterationPageState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (_) async {
         bloc.add(LinebusinessGetListEvent());
-        return true;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -40,7 +39,8 @@ class _LinebusinessInterationPageState
               ? const Text('Adicionar')
               : Text('Editar ${bloc.model.description}'),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios_outlined,
+                color: kSecondaryColor),
             onPressed: () {
               bloc.add(LinebusinessGetListEvent());
             },
@@ -49,7 +49,7 @@ class _LinebusinessInterationPageState
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
-                icon: const Icon(Icons.check),
+                icon: const Icon(Icons.check, color: kSecondaryColor),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     bloc.model.id > 0

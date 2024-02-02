@@ -29,7 +29,7 @@ class AuthModel extends AuthEntity {
       username: json['username'] as String,
       password: json['password'] as String,
       jwt: json['jwt'] as String,
-      error: json['error'] as String,
+      error: json['error'] is String ? json['error'] : "",
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/product_register/presentation/bloc/product_re
 import 'package:appweb/app/modules/product_register/presentation/bloc/product_register_event.dart';
 import 'package:appweb/app/modules/product_register/presentation/bloc/product_register_state.dart';
 import 'package:appweb/app/modules/product_register/presentation/page/product_register_interation_page.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -62,10 +63,13 @@ class _ContentDesktopProductRegisterState
         final prices = state.list;
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Lista de Produtos'),
+            title: const AutoSizeText(
+              'Lista de Produtos',
+              style: kTitleAppBarStyle,
+            ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.person_add),
+                icon: const Icon(Icons.person_add, color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(ProductRegisterAddEvent());
                 },
@@ -98,7 +102,10 @@ class _ContentDesktopProductRegisterState
                                   backgroundColor: (Colors.black),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text(prices[index].id.toString()),
+                                    child: Text(
+                                      prices[index].id.toString(),
+                                      style: kCircleAvatarTextStyle,
+                                    ),
                                   ),
                                 ),
                                 title: Column(
@@ -108,7 +115,8 @@ class _ContentDesktopProductRegisterState
                                   ],
                                 ),
                                 trailing: IconButton(
-                                  icon: const Icon(Icons.remove),
+                                  icon: const Icon(Icons.remove,
+                                      color: kSecondaryColor),
                                   onPressed: () {
                                     CustomToast.showToast(
                                         "Funcionalidade em desenvolvimento.");

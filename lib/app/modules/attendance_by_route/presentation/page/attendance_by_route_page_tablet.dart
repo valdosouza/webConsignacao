@@ -29,7 +29,7 @@ class AttendanceByRoutePageTabletState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Consignação e Venda"),
+        title: kAppTitle,
       ),
       body: SizedBox(
         height: size.height,

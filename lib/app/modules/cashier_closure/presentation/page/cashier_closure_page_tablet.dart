@@ -30,7 +30,7 @@ class CashierClosurePageTabletState extends State<CashierClosurePageTablet> {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Consignação e Venda"),
+        title: kAppTitle,
       ),
       drawer: const DrawerPageMobile(),
       body: SizedBox(

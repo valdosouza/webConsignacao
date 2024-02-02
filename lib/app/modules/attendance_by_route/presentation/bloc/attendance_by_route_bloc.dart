@@ -189,6 +189,7 @@ class AttendanceByRouteBloc
 
   ordererMode() {
     on<CustomerOrderedModeEvent>((event, emit) async {
+      emit(CustomerListLoadingState());
       tbCustomerIdPickedForOrder = -1;
 
       var response = await sequence.call(ParamsSequenceCustomer(

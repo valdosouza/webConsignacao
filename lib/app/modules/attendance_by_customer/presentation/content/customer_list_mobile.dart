@@ -53,7 +53,8 @@ class CustomerListeMobileState extends State<CustomerListMobile> {
                         leading: CircleAvatar(
                           backgroundColor: (Colors.black),
                           child: IconButton(
-                            icon: const Icon(Icons.edit),
+                            icon:
+                                const Icon(Icons.edit, color: kSecondaryColor),
                             onPressed: () {
                               Modular.to.navigate(
                                 '/attendancecustomer/mobile/register/edit/customer-register/',
@@ -86,8 +87,13 @@ class CustomerListeMobileState extends State<CustomerListMobile> {
                                         target: LinkTarget.blank,
                                         builder: (context, followLink) {
                                           return ElevatedButton(
-                                              onPressed: followLink,
-                                              child: const Text("Ver no mapa"));
+                                            style: kElevatedButtonStyleRed,
+                                            onPressed: followLink,
+                                            child: const Text(
+                                              "Ver no mapa",
+                                              style: kElevatedButtonTextStyle,
+                                            ),
+                                          );
                                         }),
                                   )
                                 : (widget.lista[index].complement.isNotEmpty)

@@ -43,6 +43,7 @@ class _ContentOrderSaleHistoricState extends State<ContentOrderSaleHistoric> {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
           alignment: Alignment.center,
           child: Column(
             children: [
@@ -51,7 +52,7 @@ class _ContentOrderSaleHistoricState extends State<ContentOrderSaleHistoric> {
                 height: 40,
                 child: Text(
                   widget.model.order.nameCustomer,
-                  style: ktittleAppBarStyle,
+                  style: kTitleAppBarStyle,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -88,6 +89,7 @@ class _ContentOrderSaleHistoricState extends State<ContentOrderSaleHistoric> {
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
       child: ElevatedButton(
+        style: kElevatedButtonStyleRed,
         onPressed: () {
           function();
           setState(() {});
@@ -102,7 +104,10 @@ class _ContentOrderSaleHistoricState extends State<ContentOrderSaleHistoric> {
               color: Colors.red,
             ),
           ),
-          child: Text(buttonName),
+          child: Text(
+            buttonName,
+            style: kElevatedButtonTextStyle,
+          ),
         ),
       ),
     );

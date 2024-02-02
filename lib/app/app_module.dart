@@ -12,6 +12,7 @@ import 'package:appweb/app/modules/customer_register/customer_register_module.da
 import 'package:appweb/app/modules/drawer/data/datasource/drawer_datasource.dart';
 import 'package:appweb/app/modules/drawer/data/repository/drawer_repository_impl.dart';
 import 'package:appweb/app/modules/drawer/domain/usecase/drawer_cashier_is_open.dart';
+import 'package:appweb/app/modules/drawer/domain/usecase/drawer_order_load_exist.dart';
 import 'package:appweb/app/modules/drawer/drawer_module.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:appweb/app/modules/financial/financial_module.dart';
@@ -48,8 +49,13 @@ class AppModule extends Module {
         Bind.factory(
           (i) => DrawerCashierIsOpen(repository: i.get<DrawerRepositoryImpl>()),
         ),
+        Bind.factory(
+          (i) =>
+              DrawerOrderLoadExist(repository: i.get<DrawerRepositoryImpl>()),
+        ),
         Bind.singleton((i) => DrawerBloc(
               drawerCashierIsOpen: i.get<DrawerCashierIsOpen>(),
+              drawerOrderLoadExist: i.get<DrawerOrderLoadExist>(),
             )),
       ];
 

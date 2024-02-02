@@ -176,7 +176,7 @@ class OrderSaleRegisterBloc
 
       var result = response.fold((l) => OrderSaleErrorState(l.toString()), (r) {
         orderSaleList += r;
-        return OrderSaleGetListLoadedState(orderList: r);
+        return OrderSaleGetListLoadedState(orderList: orderSaleList);
       });
       emit(result);
     });

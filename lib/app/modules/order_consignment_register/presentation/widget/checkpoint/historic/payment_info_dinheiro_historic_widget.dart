@@ -8,7 +8,7 @@ Widget paymentinfodinheirohistoric(
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Dinheiro'),
+        child: headerfield('Dinheiro', 32),
       ),
       Expanded(
         flex: 4,

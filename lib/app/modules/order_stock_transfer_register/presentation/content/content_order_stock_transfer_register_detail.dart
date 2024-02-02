@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/data/model/order_stock_transfer_register_items_model.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_transfer_register_module.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
@@ -62,7 +63,10 @@ class ContentOrderStockTransferRegisterDetailState
                     backgroundColor: (Colors.black),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Text((index + 1).toString()),
+                      child: Text(
+                        (index + 1).toString(),
+                        style: kCircleAvatarTextStyle,
+                      ),
                     ),
                   ),
                   title: Row(

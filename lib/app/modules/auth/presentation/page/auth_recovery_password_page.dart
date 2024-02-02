@@ -4,6 +4,7 @@ import 'package:appweb/app/core/shared/widgets/logo_area.dart';
 import 'package:appweb/app/modules/auth/auth_module.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_bloc.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -52,7 +53,10 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
             flexibleSpace: Container(
               decoration: kBoxDecorationflexibleSpace,
             ),
-            title: const Text("Esqueci minha senha"),
+            title: const AutoSizeText(
+              "Esqueci minha senha",
+              style: kTitleAppBarStyle,
+            ),
             automaticallyImplyLeading: false,
             centerTitle: true,
           ),
@@ -163,8 +167,8 @@ class _AuthRecoveryPasswordPageState extends State<AuthRecoveryPasswordPage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(100, 60),
+          backgroundColor: kPrimaryColor,
           shape: RoundedRectangleBorder(
-            //side: const BorderSide(color: Colors.black),
             borderRadius: BorderRadius.circular(18.0),
           ),
         ),

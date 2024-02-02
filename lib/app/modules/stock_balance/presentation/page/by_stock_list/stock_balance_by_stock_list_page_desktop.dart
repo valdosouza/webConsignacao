@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_state.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/content/content_stock_balance_customer.dart';
 import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -49,9 +50,13 @@ class StockBalanceByStockListPageDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: Text('Saldo do estoque ${bloc.stockBalance.nameStockList}'),
+        title: AutoSizeText(
+          'Saldo do estoque ${bloc.stockBalance.nameStockList}',
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             bloc.add(StockBalanceReturnStockListPagEvent());
           },

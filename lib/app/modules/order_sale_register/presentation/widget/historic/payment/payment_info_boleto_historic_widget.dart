@@ -7,7 +7,7 @@ Widget paymentBoletoHistoric(OrderSaleMainCardModel modelOrdersale) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      headerfield('Vencimento'),
+      headerfield('Vencimento', 40),
       Container(
         height: 40,
         alignment: Alignment.center,

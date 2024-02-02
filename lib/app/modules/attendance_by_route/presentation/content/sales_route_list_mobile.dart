@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/attendance_by_route/attendance_by_route_module.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_bloc.dart';
@@ -46,7 +47,10 @@ class SalesRoutListeMobileState extends State<SalesRouteListMobile> {
                       backgroundColor: (Colors.black),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: Text((index + 1).toString()),
+                        child: Text(
+                          (index + 1).toString(),
+                          style: kCircleAvatarTextStyle,
+                        ),
                       ),
                     ),
                     title: Column(

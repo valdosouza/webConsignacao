@@ -2,6 +2,7 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/content/content_cashier_statement.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -40,9 +41,13 @@ class CashierStatementByOrderPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Extrato do Atendimento"),
+        title: const AutoSizeText(
+          "Extrato do Atendimento",
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             Modular.to.navigate('/cashierstatement/mobile/customerscharged/');
           },
@@ -53,7 +58,7 @@ class CashierStatementByOrderPageMobileState
         child: Column(
           children: [
             Container(
-              color: Theme.of(context).primaryColor,
+              color: kPrimaryColor,
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(

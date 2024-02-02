@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -46,10 +47,13 @@ class _ContentOrderProductionRegisterDesktopState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
         bloc.add(OrderGetListEvent());
-        return true;
       },
       child: BlocConsumer<OrderProductionRegisterBloc,
           OrderProductionRegisterState>(
@@ -71,16 +75,17 @@ class _ContentOrderProductionRegisterDesktopState
                 decoration: kBoxDecorationflexibleSpace,
               ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_outlined,
+                    color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(OrderGetListEvent());
                 },
               ),
-              title: Text(
+              title: AutoSizeText(
                 (bloc.orderProduction.id > 0)
                     ? "Editar Ordem de Produção"
                     : "Adicionar Ordem de Produção",
-                style: kHintTextStyle.copyWith(fontSize: 20.0),
+                style: kTitleAppBarStyle,
               ),
               actions: [
                 PopupMenuButton(
@@ -175,7 +180,7 @@ class _ContentOrderProductionRegisterDesktopState
                           : bloc.add(OrderPostEvent());
                     },
                     backgroundColor: Colors.black,
-                    child: const Icon(Icons.save),
+                    child: const Icon(Icons.save, color: kSecondaryColor),
                   )
                 : null,
           );

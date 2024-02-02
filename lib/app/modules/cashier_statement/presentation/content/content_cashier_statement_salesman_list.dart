@@ -109,7 +109,7 @@ class _ContentCashierStatementSalesmanListState
 
   buildTittleSalesmanList() {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: kPrimaryColor,
       child: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Row(
@@ -140,7 +140,10 @@ class _ContentCashierStatementSalesmanListState
               backgroundColor: (Colors.black),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: Text((index + 1).toString()),
+                child: Text(
+                  (index + 1).toString(),
+                  style: kCircleAvatarTextStyle,
+                ),
               ),
             ),
             title: Row(
@@ -188,7 +191,7 @@ class _ContentCashierStatementSalesmanListState
       child: Column(
         children: [
           Container(
-            color: Theme.of(context).primaryColor,
+            color: kPrimaryColor,
             child: const Center(
                 child: Padding(
               padding: EdgeInsets.all(8.0),

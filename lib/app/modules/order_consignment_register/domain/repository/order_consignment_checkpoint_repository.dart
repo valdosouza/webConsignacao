@@ -5,4 +5,6 @@ import 'package:dartz/dartz.dart';
 abstract class OrderConsignmentCheckpointRepository {
   Future<Either<Failure, OrderConsignmentCheckpointModel>> post(
       OrderConsignmentCheckpointModel orderAttendanceCheckpoint);
+
+  Future<Either<Failure, String>> delete(int tbOrderId);
 }

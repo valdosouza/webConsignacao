@@ -1,6 +1,7 @@
 import 'package:appweb/app/modules/drawer/data/datasource/drawer_datasource.dart';
 import 'package:appweb/app/modules/drawer/data/repository/drawer_repository_impl.dart';
 import 'package:appweb/app/modules/drawer/domain/usecase/drawer_cashier_is_open.dart';
+import 'package:appweb/app/modules/drawer/domain/usecase/drawer_order_load_exist.dart';
 import 'package:appweb/app/modules/drawer/presentation/bloc/drawer_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,7 @@ class DrawerModule extends Module {
         ),
         Bind.singleton((i) => DrawerBloc(
               drawerCashierIsOpen: i.get<DrawerCashierIsOpen>(),
+              drawerOrderLoadExist: i.get<DrawerOrderLoadExist>(),
             )),
       ];
 

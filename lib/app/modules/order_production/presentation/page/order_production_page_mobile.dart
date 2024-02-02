@@ -28,7 +28,7 @@ class OrderProductionPageMobileState extends State<OrderProductionPageMobile> {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Consignação e Venda"),
+        title: kAppTitle,
       ),
       drawer: const DrawerPageMobile(),
       body: const OrderProductionPageMobile(),

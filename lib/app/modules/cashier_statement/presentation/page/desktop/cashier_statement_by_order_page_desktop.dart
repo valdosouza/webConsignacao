@@ -3,6 +3,7 @@ import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.da
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/content/content_cashier_statement.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -35,9 +36,12 @@ class CashierStatementByOrderPageDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: Text("Extrato de atendimento do dia  ${bloc.dateSelected}"),
+        title: AutoSizeText(
+          "Extrato de atendimento do dia  ${bloc.dateSelected}",
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios_rounded),
           onPressed: () {
             bloc.add(ReturnCustomerListDesktopEvent());
           },
@@ -48,7 +52,7 @@ class CashierStatementByOrderPageDesktopState
         child: Column(
           children: [
             Container(
-              color: Theme.of(context).primaryColor,
+              color: kPrimaryColor,
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(

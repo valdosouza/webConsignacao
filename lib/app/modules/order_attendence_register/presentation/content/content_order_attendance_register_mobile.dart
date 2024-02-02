@@ -47,7 +47,7 @@ class _ContentOrderAttendanceRegisterMobileState
               inputAction: TextInputAction.next,
               onChanged: (value) {},
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             SizedBox(
               height: 200,
               child: ListView.separated(
@@ -58,7 +58,10 @@ class _ContentOrderAttendanceRegisterMobileState
                       backgroundColor: (Colors.black),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: Text(bloc.pricelist[index].id.toString()),
+                        child: Text(
+                          bloc.pricelist[index].id.toString(),
+                          style: kCircleAvatarTextStyle,
+                        ),
                       ),
                     ),
                     title: Column(
@@ -68,7 +71,7 @@ class _ContentOrderAttendanceRegisterMobileState
                       ],
                     ),
                     trailing: IconButton(
-                      icon: const Icon(Icons.keyboard_arrow_right),
+                      icon: const Icon(Icons.arrow_forward_ios_outlined),
                       onPressed: () async {
                         bloc.orderAttendance.visited = 'S';
                         bloc.orderAttendance.note = editcontrol.text;
@@ -86,9 +89,9 @@ class _ContentOrderAttendanceRegisterMobileState
                 separatorBuilder: (_, __) => const Divider(),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             const Text("Consultar Históricos", style: kLabelStyle),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Row(
               children: <Widget>[
                 Expanded(
@@ -102,7 +105,7 @@ class _ContentOrderAttendanceRegisterMobileState
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             CustomInput(
               controller: editcontrol,
               title: 'Observação',
@@ -112,7 +115,7 @@ class _ContentOrderAttendanceRegisterMobileState
               minLines: 4,
               maxLines: 4,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             _buttonAttendance(),
           ],
         ),
@@ -134,10 +137,13 @@ class _ContentOrderAttendanceRegisterMobileState
       },
       child: const Column(
         children: <Widget>[
-          SizedBox(height: 15),
-          Icon(Icons.history_rounded),
-          Text("Consignação"),
-          SizedBox(height: 15),
+          SizedBox(height: 8),
+          Icon(Icons.history_rounded, color: kSecondaryColor),
+          Text(
+            "Consignação",
+            style: kElevatedButtonTextStyle,
+          ),
+          SizedBox(height: 8),
         ],
       ),
     );
@@ -157,10 +163,13 @@ class _ContentOrderAttendanceRegisterMobileState
       },
       child: const Column(
         children: <Widget>[
-          SizedBox(height: 15),
-          Icon(Icons.history_rounded),
-          Text("Vendas"),
-          SizedBox(height: 15),
+          SizedBox(height: 8),
+          Icon(Icons.history_rounded, color: kSecondaryColor),
+          Text(
+            "Vendas",
+            style: kElevatedButtonTextStyle,
+          ),
+          SizedBox(height: 8),
         ],
       ),
     );
@@ -183,10 +192,13 @@ class _ContentOrderAttendanceRegisterMobileState
           },
           child: const Column(
             children: <Widget>[
-              SizedBox(height: 15),
-              Icon(Icons.access_alarms_sharp),
-              Text("Somente Registrar o Atendimento"),
-              SizedBox(height: 15),
+              SizedBox(height: 8),
+              Icon(Icons.access_alarms_sharp, color: kSecondaryColor),
+              Text(
+                "Somente Registrar o Atendimento",
+                style: kElevatedButtonTextStyle,
+              ),
+              SizedBox(height: 8),
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicato
 import 'package:appweb/app/modules/cashier_closure/cashier_closure_module.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/bloc/cashier_closure_bloc.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/content/content_cashier_for_closure.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -55,13 +56,15 @@ class CashierClosureForClosurePageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Fechamento de Hoje"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Modular.to.navigate('/cashierclosure/mobile/');
-          },
+        title: const AutoSizeText(
+          "Fechamento de Hoje",
+          style: kTitleAppBarStyle,
         ),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_outlined,
+                color: kSecondaryColor),
+            onPressed: () async =>
+                Modular.to.navigate('/cashierclosure/mobile/')),
         actions: [
           PopupMenuButton(
             itemBuilder: (context) => [

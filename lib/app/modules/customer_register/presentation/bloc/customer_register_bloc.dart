@@ -106,16 +106,21 @@ class CustomerRegisterBloc
   Future<String?> _validadePostCustomer() async {
     tabIndex = 0;
     String? error = "";
-    if ((customer.company?.cnpj != "") && (customer.company?.cnpj != null)) {
+    if (customer.kindFiscal == "J") {
+      if ((customer.company?.cnpj == "") || (customer.company?.cnpj == null)) {
+        return "Campo CNPJ é Obrigatório";
+      }
       error = Validators.validateCNPJ(customer.company?.cnpj);
       if (error != "") {
-        return error;
+        return "Campo CNPJ é inválido";
       }
-    }
-    if ((customer.person?.cpf != "") && (customer.person?.cpf != null)) {
+    } else {
+      if ((customer.person?.cpf == "") || (customer.person?.cpf == null)) {
+        return "Campo CPF é Obrigatório";
+      }
       error = Validators.validateCPF(customer.person?.cpf);
       if (error != "") {
-        return error;
+        return "Campo CPF é inválido";
       }
     }
     if (customer.entity.nameCompany.isEmpty) {

@@ -31,12 +31,12 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Troco'),
+        child: headerfield('Troco', 32),
       ),
       Expanded(
         flex: 4,
         child: Container(
-          height: 35,
+          height: 33,
           alignment: Alignment.centerRight,
           margin: const EdgeInsets.only(
               left: 3.0, top: 1.0, right: 3.0, bottom: 1.0),

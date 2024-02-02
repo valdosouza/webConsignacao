@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 
@@ -11,7 +12,10 @@ class CustomCircularProgressIndicator extends StatelessWidget {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Processando"),
+        title: const AutoSizeText(
+          "Processando",
+          style: kTitleAppBarStyle,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -35,7 +39,10 @@ class CustomCircularProgressIndicator extends StatelessWidget {
                   const SizedBox(
                     height: 120,
                     width: 120,
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: kPrimaryColor,
+                      strokeWidth: 7,
+                    ),
                   ),
                 ],
               ),

@@ -11,6 +11,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/co
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widget/order_stock_transfer_register_list_entities.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widget/order_stock_transfer_register_list_products.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widget/order_stock_transfer_register_list_stocks.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -95,10 +96,11 @@ class OrderStockTransferRegisterPageDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Ordens de Transferência de estoque'),
+        title:
+            const AutoSizeText('Lista de Ordens de Transferência de estoque'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.person_add),
+            icon: const Icon(Icons.person_add, color: kSecondaryColor),
             onPressed: () {
               bloc.add(OrderNewEvent());
             },

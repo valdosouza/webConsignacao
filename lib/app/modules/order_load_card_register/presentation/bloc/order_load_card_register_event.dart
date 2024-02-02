@@ -42,5 +42,3 @@ class OrderLoadCardRegisterSearchEvent extends OrderLoadCardRegisterEvent {
 }
 
 class OrderClosureEvent extends OrderLoadCardRegisterEvent {}
-
-class CashierIsOpenEvent extends OrderLoadCardRegisterEvent {}

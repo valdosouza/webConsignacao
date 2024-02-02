@@ -35,10 +35,13 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
         bloc.add(UserRegisterGetListEvent());
-        return true;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -49,7 +52,8 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
               ? const Text('Adicionar usuário')
               : Text('Editar ${bloc.user.nick}'),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios_outlined,
+                color: kSecondaryColor),
             onPressed: () {
               bloc.add(UserRegisterGetListEvent());
             },
@@ -58,7 +62,7 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
-                icon: const Icon(Icons.check),
+                icon: const Icon(Icons.check, color: kSecondaryColor),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     (bloc.user.id > 0)

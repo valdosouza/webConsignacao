@@ -38,10 +38,15 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
         if (state is DrawerLogoutState) {
           Modular.to.popAndPushNamed('/auth/');
         }
-        if (state is DrawerCashierStatusState) {
+        if (state is ValidateOrderAttendanceState) {
           if (state.msg != "Aberto") {
             CustomToast.showToast(state.msg);
-            Modular.to.navigate('/cashier/mobile/');
+            if (state.msg == "Por favor faça o encerramento") {
+              Modular.to.navigate('/cashier/mobile/');
+            }
+            if (state.msg == "Por favor efetue um carregamento") {
+              Modular.to.navigate('/stock/mobile/');
+            }
           } else {
             Modular.to.navigate('/customer/mobile/');
           }
@@ -87,16 +92,18 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
                         //fit: BoxFit.fill,
                       )),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 3),
                 AutoSizeText(
                   bloc.userName,
+                  maxFontSize: 18,
+                  minFontSize: 12,
                   style: const TextStyle(color: Colors.black, fontSize: 18),
                 )
               ],
             ),
           ),
           itemMenuDraw(Icons.home, 'Clientes', () {
-            bloc.add(CashierIsOpenEvent());
+            bloc.add(ValidateOrderAttendanceEvent());
           }),
           itemMenuDraw(Icons.home, 'Caixa',
               () => Modular.to.navigate('/cashier/mobile/')),

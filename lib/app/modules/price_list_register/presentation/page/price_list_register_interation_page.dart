@@ -29,10 +29,13 @@ class _PriceListRegisterInterationPageState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
         bloc.add(PriceListRegisterGetListEvent());
-        return true;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -40,7 +43,8 @@ class _PriceListRegisterInterationPageState
               ? const Text('Adicionar')
               : Text('Editar ${bloc.model.description}'),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios_outlined,
+                color: kSecondaryColor),
             onPressed: () {
               bloc.add(PriceListRegisterGetListEvent());
             },
@@ -49,7 +53,7 @@ class _PriceListRegisterInterationPageState
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
-                icon: const Icon(Icons.check),
+                icon: const Icon(Icons.check, color: kSecondaryColor),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     bloc.model.id > 0

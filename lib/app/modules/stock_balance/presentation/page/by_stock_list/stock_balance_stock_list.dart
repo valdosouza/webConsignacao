@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_event.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_state.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/page/stock_balance_by_stock_list_page.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -50,7 +51,10 @@ class _ContentStockBalanceByStockListState
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Lista de estoques'),
+            title: const AutoSizeText(
+              'Lista de estoques',
+              style: kTitleAppBarStyle,
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24),
@@ -74,7 +78,10 @@ class _ContentStockBalanceByStockListState
                                   backgroundColor: (Colors.black),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text((index + 1).toString()),
+                                    child: Text(
+                                      (index + 1).toString(),
+                                      style: kCircleAvatarTextStyle,
+                                    ),
                                   ),
                                 ),
                                 title: Column(
@@ -84,7 +91,8 @@ class _ContentStockBalanceByStockListState
                                   ],
                                 ),
                                 trailing: IconButton(
-                                  icon: const Icon(Icons.arrow_forward_ios),
+                                  icon: const Icon(
+                                      Icons.arrow_forward_ios_outlined),
                                   onPressed: () {
                                     bloc.add(StockBalanceGetListEvent(
                                         tbStockListId:

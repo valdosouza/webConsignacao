@@ -1,5 +1,4 @@
-import 'package:appweb/app/core/shared/helpers/local_storage.dart';
-import 'package:appweb/app/core/shared/local_storage_key.dart';
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/cashier_closure_previously_model.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
 import 'package:appweb/app/modules/cashier_closure/domain/usecase/cashier_closure_get_current_date.dart';
@@ -69,10 +68,12 @@ class CashierClosureBloc
     var result = response.fold((l) {
       return MobileErrorState();
     }, (r) {
-      dtCashierToday = r.dtRecord;
-
-      LocalStorageService.instance
-          .saveItem(key: LocalStorageKey.dtCashier, value: dtCashierToday);
+      if (r.status == "A") {
+        dtCashierToday = r.dtRecord;
+      } else {
+        dtCashierToday = CustomDate.newDate();
+      }
+      dtCashierYesterday = CustomDate.yesterday(dtCashierToday);
       return GetCurrentDateSucessState();
     });
     emit(result);

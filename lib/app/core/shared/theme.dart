@@ -1,6 +1,27 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+const kAppTitle = AutoSizeText(
+  "Consignação e Venda",
+  maxFontSize: 18,
+  minFontSize: 12,
+  style: kTitleAppBarStyle,
+);
 const kHintTextStyle = TextStyle(
+  color: Colors.white,
+  fontFamily: 'OpenSans',
+);
+
+const kCircleAvatarTextStyle = TextStyle(
+  color: Colors.white,
+  fontFamily: 'OpenSans',
+);
+
+var kElevatedButtonStyleRed = ElevatedButton.styleFrom(
+  backgroundColor: const Color.fromARGB(255, 255, 0, 0),
+);
+
+const kElevatedButtonTextStyle = TextStyle(
   color: Colors.white,
   fontFamily: 'OpenSans',
 );
@@ -10,7 +31,7 @@ const kLabelStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
-const ktittleAppBarStyle = TextStyle(
+const kTitleAppBarStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
@@ -31,13 +52,14 @@ const kBoxDecorationStyle = BoxDecoration(
 
 const kBoxDecorationflexibleSpace = BoxDecoration(
   gradient: LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[
-        Color.fromARGB(255, 241, 97, 97),
-        Color.fromARGB(255, 224, 71, 71),
-        Color.fromARGB(255, 229, 57, 57),
-      ]),
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: <Color>[
+      Color.fromARGB(255, 241, 97, 97),
+      Color.fromARGB(255, 224, 71, 71),
+      Color.fromARGB(255, 229, 57, 57),
+    ],
+  ),
 );
 
 const kPrimaryColor = Colors.red;

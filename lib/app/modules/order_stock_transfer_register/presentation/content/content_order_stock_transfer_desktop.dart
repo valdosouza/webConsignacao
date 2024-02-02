@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bl
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_state.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/content/content_stock_transfer_register_master.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/content/content_order_stock_transfer_register_detail.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -43,10 +44,13 @@ class _ContentOrderStockTransferRegisterDesktopState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
         bloc.add(OrderGetListEvent());
-        return true;
       },
       child: BlocConsumer<OrderStockTransferRegisterBloc,
           OrderStockTransferRegisterState>(
@@ -68,16 +72,16 @@ class _ContentOrderStockTransferRegisterDesktopState
                 decoration: kBoxDecorationflexibleSpace,
               ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_rounded),
                 onPressed: () {
                   bloc.add(OrderGetListEvent());
                 },
               ),
-              title: Text(
+              title: AutoSizeText(
                 bloc.orderMain.order.id > 0
                     ? "Editar Ordem de Transferência de Estoque"
                     : "Adicionar Ordem de Transferência de Estoque",
-                style: kHintTextStyle.copyWith(fontSize: 20.0),
+                style: kTitleAppBarStyle,
               ),
               actions: [
                 PopupMenuButton(
@@ -115,7 +119,7 @@ class _ContentOrderStockTransferRegisterDesktopState
                             bloc.add(OrderItemNewEvent());
                           }
                         },
-                        icon: const Icon(Icons.add, color: Colors.white),
+                        icon: const Icon(Icons.add, color: kSecondaryColor),
                       ),
                     ),
                   )
@@ -137,7 +141,7 @@ class _ContentOrderStockTransferRegisterDesktopState
                           : bloc.add(OrderPostEvent());
                     },
                     backgroundColor: Colors.black,
-                    child: const Icon(Icons.save),
+                    child: const Icon(Icons.save, color: kSecondaryColor),
                   )
                 : null,
           );

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "396524153897",
+    "project_number": "357004671079",
     "project_id": "apiconsigna",
     "storage_bucket": "apiconsigna.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:396524153897:android:0e8958e15a9abc8fd38038",
+        "mobilesdk_app_id": "1:357004671079:android:71d52851899c2a4b62bcc2",
         "android_client_info": {
           "package_name": "com.industriadechocolatesamor.consigna"
         }
       },
       "oauth_client": [
         {
-          "client_id": "396524153897-7p5e7iqo5idt4mi3b1nisidv3rui0d1r.apps.googleusercontent.com",
+          "client_id": "357004671079-8ni1euad3v5egdrk9gcf2jfofemo54ns.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA1CFOxJOyHBs6kjvoIzxkKBuKG6OEogq4"
+          "current_key": "AIzaSyD2jICpOAMvc-XjtQD_jpBc9BOV2ckmO_w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "396524153897-7p5e7iqo5idt4mi3b1nisidv3rui0d1r.apps.googleusercontent.com",
+              "client_id": "357004671079-8ni1euad3v5egdrk9gcf2jfofemo54ns.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

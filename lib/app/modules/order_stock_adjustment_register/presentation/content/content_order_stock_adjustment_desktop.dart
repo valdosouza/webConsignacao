@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_data.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_list_items.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -57,10 +58,13 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
         bloc.add(OrderStockAdjustmentRegisterGetListEvent());
-        return true;
       },
       child: BlocConsumer<OrderStockAdjustmentRegisterBloc,
           OrderStockAdjustmentRegisterState>(
@@ -82,16 +86,17 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                 decoration: kBoxDecorationflexibleSpace,
               ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_outlined,
+                    color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(OrderStockAdjustmentRegisterGetListEvent());
                 },
               ),
-              title: Text(
+              title: AutoSizeText(
                 bloc.edit
                     ? "Editar Ordem de Ajuste de Estoque"
                     : "Adicionar Ordem de Ajuste de Estoque",
-                style: kHintTextStyle.copyWith(fontSize: 20.0),
+                style: kTitleAppBarStyle,
               ),
               actions: [
                 PopupMenuButton(
@@ -154,7 +159,7 @@ class _ContentOrderStockAdjustmentRegisterDesktopState
                               model: orderStockAdjustment));
                     },
                     backgroundColor: Colors.black,
-                    child: const Icon(Icons.save),
+                    child: const Icon(Icons.save, color: kSecondaryColor),
                   )
                 : null,
           );

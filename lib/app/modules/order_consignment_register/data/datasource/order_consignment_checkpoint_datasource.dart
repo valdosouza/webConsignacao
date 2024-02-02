@@ -9,6 +9,8 @@ abstract class OrderConsignmentCheckpointDatasource extends Gateway {
 
   Future<OrderConsignmentCheckpointModel> post(
       OrderConsignmentCheckpointModel model);
+
+  Future<String> delete(int tbOrderId);
 }
 
 class OrderConsignmentCheckpointDatasourceImpl
@@ -38,6 +40,29 @@ class OrderConsignmentCheckpointDatasourceImpl
       (payload) {
         if (statusCode == 200) {
           return model;
+        } else {
+          throw ServerException();
+        }
+      },
+      onError: (error) {
+        return Future.error(ServerException());
+      },
+    );
+  }
+
+  @override
+  Future<String> delete(int tbOrderId) async {
+    int tbInstitutionId = 1;
+    await getInstitutionId().then((value) {
+      (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+    });
+
+    return await request(
+      'orderconsignment/$tbInstitutionId/$tbOrderId',
+      method: HTTPMethod.delete,
+      (payload) {
+        if (statusCode == 200) {
+          return payload;
         } else {
           throw ServerException();
         }

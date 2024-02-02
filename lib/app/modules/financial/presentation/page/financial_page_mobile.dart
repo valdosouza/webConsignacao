@@ -28,7 +28,7 @@ class _FinancialPageMobileState extends State<FinancialPageMobile> {
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Sistema Consignação e Venda"),
+        title: kAppTitle,
       ),
       drawer: const DrawerPageMain(),
       body: const Expanded(

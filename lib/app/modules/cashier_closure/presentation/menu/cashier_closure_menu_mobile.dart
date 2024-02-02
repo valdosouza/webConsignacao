@@ -70,10 +70,7 @@ class _CashierClosureMenuMobileState extends State<CashierClosureMenuMobile> {
           if (state is CashierClosureLoadingState) {
             return const CustomCircularProgressIndicator();
           }
-          if (state is GetCurrentDateSucessState) {
-            return menu();
-          }
-          return Container();
+          return menu();
         });
   }
 }

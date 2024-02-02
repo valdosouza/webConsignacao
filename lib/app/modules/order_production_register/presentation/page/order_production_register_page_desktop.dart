@@ -9,6 +9,7 @@ import 'package:appweb/app/modules/order_production_register/presentation/conten
 import 'package:appweb/app/modules/order_production_register/presentation/content/content_order_production_register.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/widget/order_production_register_list_products.dart';
 import 'package:appweb/app/modules/order_production_register/presentation/widget/order_production_register_list_stocks.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -77,7 +78,10 @@ class OrderProductionRegisterPageDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Ordens de Produção'),
+        title: const AutoSizeText(
+          'Lista de Ordens de Produção',
+          style: kTitleAppBarStyle,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),
@@ -99,7 +103,7 @@ class OrderProductionRegisterPageDesktopState
           bloc.add(OrderAddEvent());
         },
         backgroundColor: Colors.black,
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: kSecondaryColor),
       ),
     );
   }

@@ -82,7 +82,8 @@ class OrderConsginmentRegisterPageMobileState
           Modular.to.navigate('/attendance/', arguments: bloc.modelAttendance);
         }
 
-        if (state is ReturnToCheckpointState) {
+        if ((state is ReturnToCheckpointState) ||
+            (state is CheckpointDeleteSucessState)) {
           return ContentConsignmentCheckpoint(
               checkpointmodel: bloc.modelCheckpoint);
         }

@@ -2,6 +2,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_tra
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_event.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_state.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -51,9 +52,13 @@ class OrderStockTransferRegisterStocksListWidgetState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de estoques'),
+        title: const AutoSizeText(
+          'Lista de estoques',
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             bloc.tabIndex = 0;
             bloc.add(OrderReturnMasterEvent());
@@ -115,7 +120,10 @@ class OrderStockTransferRegisterStocksListWidgetState
                             backgroundColor: (Colors.black),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text(bloc.stocks[index].id.toString()),
+                              child: Text(
+                                bloc.stocks[index].id.toString(),
+                                style: kCircleAvatarTextStyle,
+                              ),
                             ),
                           ),
                           title: Column(

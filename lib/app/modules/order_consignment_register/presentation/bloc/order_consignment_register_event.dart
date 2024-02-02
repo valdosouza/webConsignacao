@@ -24,6 +24,12 @@ class OrderConsignementRegisterCheckpointPostEvent
   OrderConsignementRegisterCheckpointPostEvent({required this.checkpointmodel});
 }
 
+class CheckpointDeleteEvent extends OrderConsignmentRegisterEvent {
+  final int tbOrderId;
+
+  CheckpointDeleteEvent({required this.tbOrderId});
+}
+
 class OrderConsignementRegisterSupplyngPostEvent
     extends OrderConsignmentRegisterEvent {
   final OrderConsignmentSupplyingModel suplyingmodel;

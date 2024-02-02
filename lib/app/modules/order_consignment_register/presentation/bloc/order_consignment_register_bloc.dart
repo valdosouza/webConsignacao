@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/order_attendence_register/data/model/order_at
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_list_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
+import 'package:appweb/app/modules/order_consignment_register/domain/usecase/checkpoint_delete.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_checkpoint_post.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_get_checkpoint.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_get_supplying.dart';
@@ -18,6 +19,7 @@ class OrderConsignmentRegisterBloc
     extends Bloc<OrderConsignmentRegisterEvent, OrderConsignmentRegisterState> {
   final OrderConsignmentSupplyingGetlast getlastSupplying;
   final OrderConsignmentCheckpointPost postCheckpoint;
+  final CheckpointDelete deleteCheckpoint;
   final OrderConsignmentSupplyingPost postSupplying;
   final OrderConsignmentGetlist orderConsignmentGetlist;
   final OrderConsignmentGetCheckpoint orderConsignmentGetCheckpoint;
@@ -35,6 +37,7 @@ class OrderConsignmentRegisterBloc
   OrderConsignmentRegisterBloc({
     required this.getlastSupplying,
     required this.postCheckpoint,
+    required this.deleteCheckpoint,
     required this.postSupplying,
     required this.orderConsignmentGetlist,
     required this.orderConsignmentGetCheckpoint,
@@ -44,6 +47,7 @@ class OrderConsignmentRegisterBloc
     checkpointPost();
     supplyingPost();
     clearCheckout();
+    deleteCheckout();
     clearSupplying();
     getList();
     searchList();
@@ -125,6 +129,19 @@ class OrderConsignmentRegisterBloc
         });
         emit(result);
       }
+    });
+  }
+
+  deleteCheckout() {
+    on<CheckpointDeleteEvent>((event, emit) async {
+      emit(OrderConsignmentRegisterLoadingState());
+
+      final response = await deleteCheckpoint(event.tbOrderId);
+      var result = response
+          .fold((l) => CheckpointDeleteErrorState(error: l.toString()), (r) {
+        return CheckpointDeleteSucessState();
+      });
+      emit(result);
     });
   }
 

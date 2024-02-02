@@ -9,6 +9,7 @@ import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_s
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/widget/cashier_statement_customers_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -54,9 +55,13 @@ class CashierStatementCustomersChargedPageMobileState
           flexibleSpace: Container(
             decoration: kBoxDecorationflexibleSpace,
           ),
-          title: Text(title),
+          title: AutoSizeText(
+            title,
+            style: kTitleAppBarStyle,
+          ),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios_outlined,
+                color: kSecondaryColor),
             onPressed: () {
               Modular.to.navigate('/cashierstatement/mobile/');
             },

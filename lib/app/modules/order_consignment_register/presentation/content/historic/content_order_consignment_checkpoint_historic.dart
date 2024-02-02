@@ -39,6 +39,7 @@ class _ContentConsignmenteCheckpointState
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
           alignment: Alignment.center,
           child: Column(
             children: [
@@ -47,7 +48,7 @@ class _ContentConsignmenteCheckpointState
                 height: 45,
                 child: AutoSizeText(
                   "${widget.checkpointmodel.order.dtRecord} - ${widget.checkpointmodel.order.nameCustomer}",
-                  style: ktittleAppBarStyle,
+                  style: kTitleAppBarStyle,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -92,6 +93,7 @@ class _ContentConsignmenteCheckpointState
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
       child: ElevatedButton(
+        style: kElevatedButtonStyleRed,
         onPressed: () {
           function();
           setState(() {});
@@ -106,7 +108,10 @@ class _ContentConsignmenteCheckpointState
               color: Colors.red,
             ),
           ),
-          child: Text(buttonName),
+          child: Text(
+            buttonName,
+            style: kElevatedButtonTextStyle,
+          ),
         ),
       ),
     );

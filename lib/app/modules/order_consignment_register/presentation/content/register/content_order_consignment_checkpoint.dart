@@ -37,57 +37,75 @@ class _ContentConsignmenteCheckpointState
     bloc = Modular.get<OrderConsignmentRegisterBloc>();
   }
 
-  Future<bool?> showConfirmationDialog() {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("Deseja realmente sair desta Tela"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context, false);
-                },
-                child: const Text("Cancelar"),
+  void _showBackDialog() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmação.'),
+          content: const Text(
+            "Deseja realmente sair desta Tela?",
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              OutlinedButton(
-                onPressed: () {
-                  Modular.to.navigate('/attendance/',
-                      arguments: bloc.modelAttendance);
-                },
-                child: const Text("Sim"),
+              child: const Text('Não'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-            ],
-          );
-        });
+              child: const Text('Sim'),
+              onPressed: () {
+                Navigator.pop(context);
+                Modular.to
+                    .navigate('/attendance/', arguments: bloc.modelAttendance);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
-    return WillPopScope(
-      onWillPop: (() async {
-        final confirmation = await showConfirmationDialog();
-        return confirmation ?? false;
-      }),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
+        _showBackDialog();
+      },
       child: Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Container(
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  height: 45,
-                  child: Text(
-                    bloc.modelCheckpoint.order.nameCustomer,
-                    style: ktittleAppBarStyle,
-                    textAlign: TextAlign.center,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(51.0),
+          child: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    height: 35,
+                    child: Text(
+                      bloc.modelCheckpoint.order.nameCustomer,
+                      style: kTitleAppBarStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                const CustomHeaderCheckpoint(),
-              ],
+                  const CustomHeaderCheckpoint(),
+                ],
+              ),
             ),
           ),
         ),
@@ -109,8 +127,7 @@ class _ContentConsignmenteCheckpointState
           Expanded(
             flex: 1,
             child: _custombutton("Voltar", (() async {
-              final confirmation = await showConfirmationDialog();
-              return confirmation ?? false;
+              _showBackDialog();
             })),
           ),
           Expanded(
@@ -143,6 +160,7 @@ class _ContentConsignmenteCheckpointState
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
       child: ElevatedButton(
+        style: kElevatedButtonStyleRed,
         onPressed: () {
           function();
           setState(() {});
@@ -157,7 +175,10 @@ class _ContentConsignmenteCheckpointState
               color: Colors.red,
             ),
           ),
-          child: Text(buttonName),
+          child: Text(
+            buttonName,
+            style: kElevatedButtonTextStyle,
+          ),
         ),
       ),
     );

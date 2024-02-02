@@ -22,4 +22,14 @@ class OrderConsignmentCheckpointRepositoryImpl
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>> delete(int tbOrderId) async {
+    try {
+      return Right(
+          await orderConsignmentCheckpointDatasource.delete(tbOrderId));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

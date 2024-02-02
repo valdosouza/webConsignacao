@@ -1,8 +1,10 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/cashier_closure/cashier_closure_module.dart';
 import 'package:appweb/app/modules/cashier_closure/presentation/bloc/cashier_closure_bloc.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/widget/search_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -81,10 +83,13 @@ class _ContentCashierListPreviouslyState
                   backgroundColor: (Colors.black),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: Text((index + 1).toString()),
+                    child: Text(
+                      (index + 1).toString(),
+                      style: kCircleAvatarTextStyle,
+                    ),
                   ),
                 ),
-                title: Text(bloc.closuresPreviously[index].dtRecord),
+                title: AutoSizeText(bloc.closuresPreviously[index].dtRecord),
               ),
             ),
             separatorBuilder: (_, __) => const Divider(),

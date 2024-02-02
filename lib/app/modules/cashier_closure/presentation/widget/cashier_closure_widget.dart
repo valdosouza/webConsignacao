@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -16,7 +17,7 @@ class CashierClosureWidget extends StatelessWidget {
     return SliverStickyHeader.builder(
       builder: (context, state) => Container(
         height: 60.0,
-        color: Theme.of(context).primaryColor,
+        color: kPrimaryColor,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         alignment: Alignment.centerLeft,
         child: Text(
@@ -29,7 +30,10 @@ class CashierClosureWidget extends StatelessWidget {
           (context, index) => ListTile(
             leading: CircleAvatar(
               backgroundColor: (Colors.black),
-              child: Text((index + 1).toString()),
+              child: Text(
+                (index + 1).toString(),
+                style: kCircleAvatarTextStyle,
+              ),
             ),
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

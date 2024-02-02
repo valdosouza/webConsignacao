@@ -54,6 +54,7 @@ class _CustomerRegisterIdentificationWidgetState
                               setState(() {
                                 selectPersonType = true;
                               });
+                              widget.customer?.kindFiscal = "J";
                             },
                     ),
                     const SizedBox(width: 5.0),
@@ -72,6 +73,7 @@ class _CustomerRegisterIdentificationWidgetState
                                 setState(() {
                                   selectPersonType = false;
                                 });
+                                widget.customer?.kindFiscal = "F";
                               }
                             : (value) {}),
                     const SizedBox(width: 5.0),

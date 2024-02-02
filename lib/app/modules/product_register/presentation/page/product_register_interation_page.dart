@@ -40,10 +40,13 @@ class _ProductRegisterInterationPageState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
         bloc.add(ProductRegisterGetListEvent());
-        return true;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -51,7 +54,8 @@ class _ProductRegisterInterationPageState
               ? const Text('Adicionar')
               : Text('Editar ${bloc.model.product.description}'),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios_outlined,
+                color: kSecondaryColor),
             onPressed: () {
               bloc.add(ProductRegisterGetListEvent());
             },
@@ -60,7 +64,7 @@ class _ProductRegisterInterationPageState
             Padding(
               padding: const EdgeInsets.only(right: 10.0),
               child: IconButton(
-                icon: const Icon(Icons.check),
+                icon: const Icon(Icons.check, color: kSecondaryColor),
                 onPressed: () {
                   bloc.model.product.id > 0
                       ? bloc.add(ProductRegisterPutEvent())

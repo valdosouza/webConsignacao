@@ -9,6 +9,7 @@ import 'package:appweb/app/modules/customer_register/domain/entity/customer_main
 class CustomerMainModel extends CustomerMainEntity {
   CustomerMainModel({
     required CustomerModel customer,
+    required String kindFiscal,
     required EntityListModel entity,
     CompanyModel? company,
     PersonModel? person,
@@ -16,6 +17,7 @@ class CustomerMainModel extends CustomerMainEntity {
     required PhoneModel? phone,
   }) : super(
           customer: customer,
+          kindFiscal: kindFiscal,
           entity: entity,
           company: company,
           person: person,
@@ -29,6 +31,7 @@ class CustomerMainModel extends CustomerMainEntity {
     return CustomerMainModel(
       customer: retcustomer,
       entity: retentity,
+      kindFiscal: json['company'] != null ? "J" : "F",
       company: json['company'] != null
           ? CompanyModel.fromJson(json['company'])
           : CompanyModel(
@@ -65,6 +68,7 @@ class CustomerMainModel extends CustomerMainEntity {
   factory CustomerMainModel.empty() {
     return CustomerMainModel(
         customer: CustomerModel.empty(),
+        kindFiscal: "F",
         entity: EntityListModel.empty(),
         company: CompanyModel.empty(),
         person: PersonModel.empty(),

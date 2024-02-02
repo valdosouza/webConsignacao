@@ -1,3 +1,5 @@
+import 'package:appweb/app/core/shared/theme.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
@@ -33,9 +35,15 @@ class StickyHeaderList extends StatelessWidget {
                 trailing: Text('${closureModel.items[i].tagValue}'),
                 leading: CircleAvatar(
                   backgroundColor: (Colors.black),
-                  child: Text('${i + 1}'),
+                  child: Text(
+                    '${i + 1}',
+                    style: kCircleAvatarTextStyle,
+                  ),
                 ),
-                title: Text(closureModel.items[i].description),
+                title: AutoSizeText(
+                  closureModel.items[i].description,
+                  style: kTitleAppBarStyle,
+                ),
               );
             } else {
               return const SizedBox();
@@ -64,7 +72,7 @@ class Header extends StatelessWidget {
       onTap: () {},
       child: Container(
         height: 60.0,
-        color: Theme.of(context).primaryColor,
+        color: kPrimaryColor,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         alignment: Alignment.centerLeft,
         child: Text(

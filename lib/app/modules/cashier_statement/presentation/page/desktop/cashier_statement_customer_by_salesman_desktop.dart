@@ -3,6 +3,7 @@ import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.da
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/content/content_cashier_statement_customer.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -36,10 +37,12 @@ class CashierStatementCustomerBySalesmanDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: Text(
-            "Vendedor: ${bloc.salesmanSelected} - Data: ${bloc.dateSelected}"),
+        title: AutoSizeText(
+          "Vendedor: ${bloc.salesmanSelected} - Data: ${bloc.dateSelected}",
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios_rounded),
           onPressed: () {
             bloc.add(ReturnSalesmanListDesktopEvent());
           },

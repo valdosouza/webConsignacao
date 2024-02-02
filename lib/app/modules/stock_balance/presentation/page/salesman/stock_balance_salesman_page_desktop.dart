@@ -6,6 +6,7 @@ import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_state.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/content/content_stock_balance_salesman.dart';
 import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -57,7 +58,10 @@ class StockBalanceSalesmanPageDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Balanço de Estoque Vendedor'),
+        title: const AutoSizeText(
+          'Lista de Balanço de Estoque Vendedor',
+          style: kTitleAppBarStyle,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),

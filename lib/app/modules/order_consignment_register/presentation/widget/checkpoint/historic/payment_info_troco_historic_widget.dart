@@ -8,7 +8,7 @@ Widget paymentinfotrocohistoric(
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Troco'),
+        child: headerfield('Troco', 32),
       ),
       Expanded(
         flex: 4,

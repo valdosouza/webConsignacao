@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/cashier_balance/cashier_balance_module.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_bloc.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class _CashierBalanceWidgetState extends State<CashierBalanceWidget> {
       child: Column(
         children: [
           Container(
-            color: Theme.of(context).primaryColor,
+            color: kPrimaryColor,
             child: const Center(
                 child: Padding(
               padding: EdgeInsets.all(8.0),
@@ -50,7 +51,7 @@ class _CashierBalanceWidgetState extends State<CashierBalanceWidget> {
           Text("Valor: R\$ ${totalCashier()}"),
           const SizedBox(height: 15),
           Container(
-              color: Theme.of(context).primaryColor,
+              color: kPrimaryColor,
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(

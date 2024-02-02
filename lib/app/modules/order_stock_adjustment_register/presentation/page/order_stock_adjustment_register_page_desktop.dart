@@ -12,6 +12,7 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_list_entities.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_list_products.dart';
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/widget/order_stock_adjustment_register_list_stocks.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -98,7 +99,10 @@ class OrderStockAdjustmentRegisterPageDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Ordens de Ajuste de estoque'),
+        title: const AutoSizeText(
+          'Lista de Ordens de Ajuste de estoque',
+          style: kTitleAppBarStyle,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),
@@ -122,7 +126,7 @@ class OrderStockAdjustmentRegisterPageDesktopState
           bloc.add(OrderStockAdjustmentRegisterDesktopEvent());
         },
         backgroundColor: Colors.black,
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: kSecondaryColor),
       ),
     );
   }

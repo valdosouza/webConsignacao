@@ -4,6 +4,7 @@ import 'package:appweb/app/modules/order_consignment_register/data/datasource/or
 import 'package:appweb/app/modules/order_consignment_register/data/repository/order_consignment_checkpoint_repository_impl.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/repository/order_consignment_repository_impl.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/repository/order_consignment_supplying_repository_impl.dart';
+import 'package:appweb/app/modules/order_consignment_register/domain/usecase/checkpoint_delete.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_checkpoint_post.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_get_checkpoint.dart';
 import 'package:appweb/app/modules/order_consignment_register/domain/usecase/order_consignment_get_supplying.dart';
@@ -27,6 +28,8 @@ class OrderConsignmentRegisterModule extends Module {
                 i.get<OrderConsignmentCheckpointDatasourceImpl>())),
         Bind.factory((i) => OrderConsignmentCheckpointPost(
             repository: i.get<OrderConsignmentCheckpointRepositoryImpl>())),
+        Bind.factory((i) => CheckpointDelete(
+            repository: i.get<OrderConsignmentCheckpointRepositoryImpl>())),
         Bind.factory<OrderConsignmentSupplyingDatasource>((i) =>
             OrderConsignmentSupplyingDatasourceImpl(httpClient: http.Client())),
         Bind.factory((i) => OrderConsignmentSupplyingRepositoryImpl(
@@ -49,6 +52,7 @@ class OrderConsignmentRegisterModule extends Module {
               getlastSupplying: i.get<OrderConsignmentSupplyingGetlast>(),
               postSupplying: i.get<OrderConsignmentSupplyingPost>(),
               postCheckpoint: i.get<OrderConsignmentCheckpointPost>(),
+              deleteCheckpoint: i.get<CheckpointDelete>(),
               orderConsignmentGetlist: i.get<OrderConsignmentGetlist>(),
               orderConsignmentGetCheckpoint:
                   i.get<OrderConsignmentGetCheckpoint>(),

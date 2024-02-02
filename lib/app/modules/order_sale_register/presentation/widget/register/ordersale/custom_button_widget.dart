@@ -1,9 +1,11 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:flutter/material.dart';
 
 Widget custombutton(String buttonName, Function() function) {
   return Padding(
     padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
     child: ElevatedButton(
+      style: kElevatedButtonStyleRed,
       onPressed: () {
         function();
       },
@@ -17,7 +19,10 @@ Widget custombutton(String buttonName, Function() function) {
             color: Colors.red,
           ),
         ),
-        child: Text(buttonName),
+        child: Text(
+          buttonName,
+          style: kElevatedButtonTextStyle,
+        ),
       ),
     ),
   );

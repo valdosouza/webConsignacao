@@ -44,9 +44,9 @@ class _CashierStatementCustomerWidgetState
           children: [
             buildSearchInput(),
             buildTittleCustomerList(),
-            const SizedBox(height: 10),
+            //const SizedBox(height: 10),
             buildContentCustomerList(),
-            const SizedBox(height: 15),
+            //const SizedBox(height: 15),
             buildtotalizar(),
           ],
         ),
@@ -110,7 +110,7 @@ class _CashierStatementCustomerWidgetState
 
   buildTittleCustomerList() {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: kPrimaryColor,
       child: const Padding(
         padding: EdgeInsets.all(8.0),
         child: Row(
@@ -138,7 +138,7 @@ class _CashierStatementCustomerWidgetState
     final Size size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: size.height - 280,
+      height: size.height - 268,
       width: size.width,
       child: SingleChildScrollView(
         child: ExpansionPanelList(
@@ -217,10 +217,10 @@ class _CashierStatementCustomerWidgetState
 
   buildtotalizar() {
     return SizedBox(
-      height: 87,
+      height: 101,
       child: Column(children: [
         Container(
-          color: Theme.of(context).primaryColor,
+          color: kPrimaryColor,
           child: const Center(
               child: Padding(
             padding: EdgeInsets.all(8.0),

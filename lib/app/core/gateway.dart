@@ -129,7 +129,7 @@ class Gateway {
         .delete(
           Uri.parse('$baseApiUrl$url'),
           headers: await requestOptions(),
-          body: data,
+          //body: data,
         )
         .timeout(timeout);
     return response;

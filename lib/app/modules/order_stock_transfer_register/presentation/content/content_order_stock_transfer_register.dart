@@ -69,7 +69,10 @@ buildListView(OrderStockTransferRegisterBloc bloc,
                   backgroundColor: (Colors.black),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: Text((index + 1).toString()),
+                    child: Text(
+                      (index + 1).toString(),
+                      style: kCircleAvatarTextStyle,
+                    ),
                   ),
                 ),
                 title: Row(
@@ -100,7 +103,7 @@ buildListView(OrderStockTransferRegisterBloc bloc,
                   ],
                 ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.remove),
+                  icon: const Icon(Icons.remove, color: kSecondaryColor),
                   onPressed: () {
                     CustomToast.showToast("Funcionalidade em desenvolvimento.");
                   },

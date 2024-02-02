@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/order_bonus_register/data/model/order_bonus_r
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_bloc.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_event.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/widget/order_bonus_register_custom_input_button_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class OrderBonusRegisterAddItem extends StatelessWidget {
@@ -25,14 +26,15 @@ class OrderBonusRegisterAddItem extends StatelessWidget {
           decoration: kBoxDecorationflexibleSpace,
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             bloc.add(OrderBonusRegisterReturnEvent(tabIndex: 1));
           },
         ),
-        title: Text(
+        title: AutoSizeText(
           item.tbProductId == 0 ? "Adicionar Item" : "Editar Item",
-          style: kHintTextStyle.copyWith(fontSize: 20.0),
+          style: kTitleAppBarStyle,
         ),
         actions: [
           IconButton(

@@ -7,6 +7,7 @@ import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_s
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/content/content_cashier_statement.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,9 +48,13 @@ class CashierStatementByMonthPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Extrato do mês"),
+        title: const AutoSizeText(
+          "Extrato do mês",
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             Modular.to.navigate('/cashierstatement/mobile/');
           },

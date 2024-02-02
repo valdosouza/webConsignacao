@@ -18,7 +18,7 @@ class CustomHeaderCheckpoint extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: headerfield('Total a Pagar'),
+            child: headerfield('Total a Pagar', 40),
           ),
         ],
       ),

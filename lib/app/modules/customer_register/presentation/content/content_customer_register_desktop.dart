@@ -8,6 +8,7 @@ import 'package:appweb/app/modules/customer_register/presentation/widget/custome
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_identification_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/desktop/customer_register_others_desktop_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_phone_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -53,10 +54,9 @@ class _ContentCustomerRegisterDesktopState
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (_) async {
         bloc.add(CustomerRegisterGetListEvent());
-        return true;
       },
       child: BlocConsumer<CustomerRegisterBloc, CustomerRegisterState>(
         bloc: bloc,
@@ -73,16 +73,17 @@ class _ContentCustomerRegisterDesktopState
                 decoration: kBoxDecorationflexibleSpace,
               ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_outlined,
+                    color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(CustomerRegisterGetListEvent());
                 },
               ),
-              title: Text(
+              title: AutoSizeText(
                 customer.customer.id != 0
                     ? "Editar Cliente"
                     : "Adicionar Cliente",
-                style: kHintTextStyle.copyWith(fontSize: 20.0),
+                style: kTitleAppBarStyle,
               ),
               actions: [
                 IconButton(

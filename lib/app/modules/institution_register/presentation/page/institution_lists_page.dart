@@ -2,6 +2,7 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_bloc.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_event.dart';
 import 'package:appweb/app/modules/institution_register/presentation/bloc/institution_state.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -35,9 +36,12 @@ class _InstitutionListsPageState extends State<InstitutionListsPage> {
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
-              title: const Text('Lista de estados'),
+              title: const AutoSizeText(
+                'Lista de estados',
+                style: kTitleAppBarStyle,
+              ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_rounded),
                 onPressed: () {
                   bloc.add(InstitutionReturnEvent());
                 },
@@ -103,9 +107,12 @@ class _InstitutionListsPageState extends State<InstitutionListsPage> {
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
-              title: const Text('Lista de cidades'),
+              title: const AutoSizeText(
+                'Lista de cidades',
+                style: kTitleAppBarStyle,
+              ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_rounded),
                 onPressed: () {
                   bloc.add(InstitutionReturnEvent());
                 },

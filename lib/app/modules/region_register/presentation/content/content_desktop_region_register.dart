@@ -7,6 +7,7 @@ import 'package:appweb/app/modules/region_register/presentation/bloc/region_regi
 import 'package:appweb/app/modules/region_register/presentation/bloc/region_register_state.dart';
 import 'package:appweb/app/modules/region_register/presentation/page/region_register_interation_page.dart';
 import 'package:appweb/app/modules/region_register/presentation/widget/region_register_salesman_list_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -63,10 +64,13 @@ class _ContentDesktopRegionRegisterState
         final routes = state.list;
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Lista de Regiões'),
+            title: const AutoSizeText(
+              'Lista de Regiões',
+              style: kTitleAppBarStyle,
+            ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.person_add),
+                icon: const Icon(Icons.person_add, color: kSecondaryColor),
                 onPressed: () {
                   bloc.add(RegionRegisterAddEvent());
                 },
@@ -99,7 +103,10 @@ class _ContentDesktopRegionRegisterState
                                   backgroundColor: (Colors.black),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Text((index + 1).toString()),
+                                    child: Text(
+                                      (index + 1).toString(),
+                                      style: kCircleAvatarTextStyle,
+                                    ),
                                   ),
                                 ),
                                 title: Row(
@@ -116,7 +123,8 @@ class _ContentDesktopRegionRegisterState
                                   ],
                                 ),
                                 trailing: IconButton(
-                                  icon: const Icon(Icons.remove),
+                                  icon: const Icon(Icons.remove,
+                                      color: kSecondaryColor),
                                   onPressed: () {
                                     CustomToast.showToast(
                                         "Funcionalidade em desenvolvimento.");

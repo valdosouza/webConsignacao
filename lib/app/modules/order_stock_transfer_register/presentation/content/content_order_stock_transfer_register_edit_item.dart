@@ -5,6 +5,7 @@ import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/order_stock_transfer_register_module.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_bloc.dart';
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_event.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -38,15 +39,16 @@ class _ContentOrderStockTransferRegisterEditItemState
           decoration: kBoxDecorationflexibleSpace,
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             bloc.tabIndex = 1;
             bloc.add(OrderReturnMasterEvent());
           },
         ),
-        title: Text(
+        title: AutoSizeText(
           bloc.orderItem.tbProductId == 0 ? "Adicionar Item" : "Editar Item",
-          style: kHintTextStyle.copyWith(fontSize: 20.0),
+          style: kTitleAppBarStyle,
         ),
         actions: [
           IconButton(

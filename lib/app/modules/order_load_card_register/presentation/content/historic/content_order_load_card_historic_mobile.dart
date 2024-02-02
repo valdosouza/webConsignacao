@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_main_model.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_event.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,13 @@ class _ContentOrderLoadCardHistoricMobileState
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
+          decoration: kBoxDecorationflexibleSpace,
           alignment: Alignment.center,
           child: Column(
             children: [
               Container(
                 alignment: Alignment.bottomCenter,
-                height: 40,
+                height: 30,
                 child: Text(
                   'Carregamento do dia  ${widget.orderLoadCard.dtRecord}',
                   textAlign: TextAlign.center,
@@ -92,6 +94,7 @@ class _ContentOrderLoadCardHistoricMobileState
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
       child: ElevatedButton(
+        style: kElevatedButtonStyleRed,
         onPressed: () {
           function();
           setState(() {});
@@ -106,7 +109,10 @@ class _ContentOrderLoadCardHistoricMobileState
               color: Colors.red,
             ),
           ),
-          child: Text(buttonName),
+          child: Text(
+            buttonName,
+            style: kElevatedButtonTextStyle,
+          ),
         ),
       ),
     );

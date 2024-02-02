@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,10 @@ class OrderStockTransferRegisterPageMobileState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text("Ordem de Transferência de estoque"),
+        title: const AutoSizeText(
+          "Ordem de Transferência de estoque",
+          style: kTitleAppBarStyle,
+        ),
       ),
     );
   }

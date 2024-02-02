@@ -6,6 +6,7 @@ import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/atte
 import 'package:appweb/app/modules/attendance_by_customer/presentation/content/customer_list_mobile.dart';
 import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_event.dart';
 import 'package:appweb/app/modules/attendance_by_customer/presentation/bloc/attendance_by_customer_state.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -53,9 +54,13 @@ class AttendanceByCustomerPageMobileState
               flexibleSpace: Container(
                 decoration: kBoxDecorationflexibleSpace,
               ),
-              title: Text('Lista de Clientes (${state.customerList.length})'),
+              title: AutoSizeText(
+                'Lista de Clientes (${state.customerList.length})',
+                style: kTitleAppBarStyle,
+              ),
               leading: IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios_outlined,
+                    color: kSecondaryColor),
                 onPressed: () {
                   Modular.to.navigate('/customer/mobile/');
                 },
@@ -70,12 +75,16 @@ class AttendanceByCustomerPageMobileState
               decoration: kBoxDecorationflexibleSpace,
             ),
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios_outlined,
+                  color: kSecondaryColor),
               onPressed: () {
                 Modular.to.navigate('/customer/mobile/');
               },
             ),
-            title: const Text('Erro'),
+            title: const AutoSizeText(
+              'Erro',
+              style: kTitleAppBarStyle,
+            ),
           ),
           body: const Center(child: Text("Estado não encontrado")),
         );

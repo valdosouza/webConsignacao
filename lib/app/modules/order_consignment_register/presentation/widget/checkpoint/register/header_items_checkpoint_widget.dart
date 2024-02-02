@@ -8,27 +8,27 @@ Widget headeritemscheckpoint() {
       children: [
         Expanded(
           flex: 200,
-          child: headerfield('Bonus'),
+          child: headerfield('Bonus', 40),
         ),
         Expanded(
           flex: 400,
-          child: headerfield('Descrição'),
+          child: headerfield('Descrição', 40),
         ),
         Expanded(
           flex: 270,
-          child: headerfield('Quantidade Consignada'),
+          child: headerfield('Quantidade Consignada', 40),
         ),
         Expanded(
           flex: 200,
-          child: headerfield('Sobra'),
+          child: headerfield('Sobra', 40),
         ),
         Expanded(
           flex: 315,
-          child: headerfield('Quantidade Vendida'),
+          child: headerfield('Quantidade Vendida', 40),
         ),
         Expanded(
           flex: 300,
-          child: headerfield('Valor por Produto'),
+          child: headerfield('Valor por Produto', 40),
         ),
       ],
     ),

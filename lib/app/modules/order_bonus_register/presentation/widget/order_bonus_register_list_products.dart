@@ -3,6 +3,7 @@ import 'package:appweb/app/modules/order_bonus_register/data/model/order_bonus_r
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_bloc.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_event.dart';
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_state.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -51,9 +52,13 @@ class OrderBonusRegisterProductsListWidgetState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de produtos'),
+        title: const AutoSizeText(
+          'Lista de produtos',
+          style: kTitleAppBarStyle,
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon:
+              const Icon(Icons.arrow_back_ios_outlined, color: kSecondaryColor),
           onPressed: () {
             bloc.add(OrderBonusRegisterReturnEvent());
           },
@@ -107,7 +112,10 @@ class OrderBonusRegisterProductsListWidgetState
                             backgroundColor: (Colors.black),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Text(state.products[index].id.toString()),
+                              child: Text(
+                                state.products[index].id.toString(),
+                                style: kCircleAvatarTextStyle,
+                              ),
                             ),
                           ),
                           title: Column(

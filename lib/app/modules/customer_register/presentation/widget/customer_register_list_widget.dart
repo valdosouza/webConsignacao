@@ -12,6 +12,7 @@ import 'package:appweb/app/modules/customer_register/presentation/content/conten
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_city_list_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_region_list_widget.dart';
 import 'package:appweb/app/modules/customer_register/presentation/widget/customer_register_state_list_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -83,10 +84,13 @@ class CustomerRegisterListWidgetState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: const Text('Lista de Clientes'),
+        title: const AutoSizeText(
+          'Lista de Clientes',
+          style: kTitleAppBarStyle,
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.person_add),
+            icon: const Icon(Icons.person_add, color: kSecondaryColor),
             onPressed: () {
               bloc.customer = CustomerMainModel.empty();
               bloc.add(CustomerRegisterDesktopEvent());

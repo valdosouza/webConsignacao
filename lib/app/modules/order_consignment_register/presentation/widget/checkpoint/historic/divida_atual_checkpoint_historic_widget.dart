@@ -9,7 +9,7 @@ Widget dividaatualcheckpointhistoric(
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Dívida Atual'),
+        child: headerfield('Dívida Atual', 32),
       ),
       Expanded(
         flex: 4,

@@ -19,7 +19,7 @@ class GetErrorState extends DrawerState {
 
 class GetSucessState extends DrawerState {}
 
-class DrawerCashierStatusState extends DrawerState {
+class ValidateOrderAttendanceState extends DrawerState {
   final String msg;
-  DrawerCashierStatusState({required this.msg});
+  ValidateOrderAttendanceState({required this.msg});
 }

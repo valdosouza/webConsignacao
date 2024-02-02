@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_load_card_register/domain/usecase/get_new_order_load_card.dart';
 import 'package:appweb/app/modules/order_load_card_register/order_load_card_register_module.dart';
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_bloc.dart';
@@ -34,22 +35,34 @@ class _ContentOrderLoadCardRegisterMobileState
     bloc = Modular.get<OrderLoadCardRegisterBloc>();
   }
 
-  Future<bool?> showConfirmationDialog() {
-    return showDialog(
+  void _showBackDialog() {
+    showDialog<void>(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Deseja realmente sair desta Tela"),
-          actions: [
+          title: const Text('Confirmação.'),
+          content: const Text(
+            "Deseja realmente sair desta Tela?",
+          ),
+          actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text("Cancelar"),
-            ),
-            OutlinedButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Não'),
               onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Sim'),
+              onPressed: () {
+                Navigator.pop(context);
                 Modular.to.navigate('/stock/mobile/');
               },
-              child: const Text("Sim"),
             ),
           ],
         );
@@ -61,20 +74,24 @@ class _ContentOrderLoadCardRegisterMobileState
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
-    return WillPopScope(
-      onWillPop: (() async {
-        final confirmation = await showConfirmationDialog();
-        return confirmation ?? false;
-      }),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) async {
+        if (didPop) {
+          return;
+        }
+        _showBackDialog();
+      },
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
             alignment: Alignment.center,
             child: Column(
               children: [
                 Container(
                   alignment: Alignment.bottomCenter,
-                  height: 40,
+                  height: 30,
                   child: const Text(
                     "Carregamento do próximo dia",
                     textAlign: TextAlign.center,
@@ -107,9 +124,8 @@ class _ContentOrderLoadCardRegisterMobileState
         children: [
           Expanded(
             flex: 1,
-            child: _custombutton("Voltar", (() async {
-              final confirmation = await showConfirmationDialog();
-              return confirmation ?? false;
+            child: _custombutton("Voltar", (() {
+              _showBackDialog();
             })),
           ),
           Expanded(
@@ -150,6 +166,7 @@ class _ContentOrderLoadCardRegisterMobileState
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
       child: ElevatedButton(
+        style: kElevatedButtonStyleRed,
         onPressed: () {
           function();
           setState(() {});
@@ -164,7 +181,10 @@ class _ContentOrderLoadCardRegisterMobileState
               color: Colors.red,
             ),
           ),
-          child: Text(buttonName),
+          child: Text(
+            buttonName,
+            style: kElevatedButtonTextStyle,
+          ),
         ),
       ),
     );
