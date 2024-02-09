@@ -2,10 +2,8 @@ import 'package:appweb/app/modules/Core/domain/entity/user_email_entity.dart';
 
 class UserEmailModel extends UserEmailEntity {
   UserEmailModel({
-    required String email,
-  }) : super(
-          email: email,
-        );
+    required super.email,
+  });
 
   factory UserEmailModel.fromJson(Map<String, dynamic> json) {
     return UserEmailModel(

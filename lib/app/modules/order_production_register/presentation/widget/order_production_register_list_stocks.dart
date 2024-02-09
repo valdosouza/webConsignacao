@@ -11,9 +11,9 @@ import 'package:appweb/app/modules/order_production_register/presentation/bloc/o
 class OrderProductionRegisterStocksListWidget extends StatefulWidget {
   final OrderProductionRegisterModel orderProduction;
   const OrderProductionRegisterStocksListWidget({
-    Key? key,
+    super.key,
     required this.orderProduction,
-  }) : super(key: key);
+  });
 
   @override
   State<OrderProductionRegisterStocksListWidget> createState() =>

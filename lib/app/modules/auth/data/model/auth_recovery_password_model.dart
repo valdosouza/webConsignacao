@@ -2,12 +2,9 @@ import 'package:appweb/app/modules/auth/domain/entity/auth_recovery_password_ent
 
 class AuthRecoveryPasswordModel extends AuthRecoveryPasswordEntity {
   AuthRecoveryPasswordModel({
-    required int tbUserId,
-    required String email,
-  }) : super(
-          tbUserId: tbUserId,
-          email: email,
-        );
+    required super.tbUserId,
+    required super.email,
+  });
 
   factory AuthRecoveryPasswordModel.fromJson(Map<String, dynamic> json) {
     return AuthRecoveryPasswordModel(

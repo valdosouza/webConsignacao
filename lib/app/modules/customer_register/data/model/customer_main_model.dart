@@ -8,22 +8,14 @@ import 'package:appweb/app/modules/customer_register/domain/entity/customer_main
 
 class CustomerMainModel extends CustomerMainEntity {
   CustomerMainModel({
-    required CustomerModel customer,
-    required String kindFiscal,
-    required EntityListModel entity,
-    CompanyModel? company,
-    PersonModel? person,
-    required AddressModel address,
-    required PhoneModel? phone,
-  }) : super(
-          customer: customer,
-          kindFiscal: kindFiscal,
-          entity: entity,
-          company: company,
-          person: person,
-          address: address,
-          phone: phone,
-        );
+    required super.customer,
+    required super.kindFiscal,
+    required super.entity,
+    super.company,
+    super.person,
+    required super.address,
+    required super.phone,
+  });
 
   factory CustomerMainModel.fromJson(Map<String, dynamic> json) {
     CustomerModel retcustomer = CustomerModel.fromJson(json['customer']);

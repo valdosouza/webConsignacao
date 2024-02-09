@@ -11,14 +11,14 @@ class FieldItemOrdersale extends StatefulWidget {
   final FocusNode focus;
   final List<FocusNode> listNode;
   const FieldItemOrdersale({
-    Key? key,
+    super.key,
     required this.item,
     required this.position,
     required this.enabled,
     required this.textAlign,
     required this.focus,
     required this.listNode,
-  }) : super(key: key);
+  });
 
   @override
   State<FieldItemOrdersale> createState() => _FieldItemOrdersaleState();

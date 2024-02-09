@@ -9,9 +9,9 @@ import 'package:appweb/app/modules/order_attendence_register/presentation/page/o
 class OrderAttendanceRegisterPage extends StatelessWidget {
   final OrderAttendanceModel model;
   const OrderAttendanceRegisterPage({
-    Key? key,
+    super.key,
     required this.model,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

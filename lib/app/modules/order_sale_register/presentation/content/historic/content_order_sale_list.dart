@@ -10,9 +10,9 @@ import 'package:appweb/app/modules/order_sale_register/presentation/bloc/order_s
 class ContentOrderSaleList extends StatefulWidget {
   final List<OrderSaleListModel> orderList;
   const ContentOrderSaleList({
-    Key? key,
+    super.key,
     required this.orderList,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentOrderSaleList> createState() => _ContentOrderSaleListState();

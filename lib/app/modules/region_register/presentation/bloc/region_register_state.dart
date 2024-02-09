@@ -14,40 +14,32 @@ class RegionRegisterLoadingState extends RegionRegisterState {
 }
 
 class RegionRegisterLoadedState extends RegionRegisterState {
-  RegionRegisterLoadedState({required List<RegionRegisterModel> list})
-      : super(list: list);
+  RegionRegisterLoadedState({required super.list});
 }
 
 class RegionRegisterErrorState extends RegionRegisterState {
-  RegionRegisterErrorState({required List<RegionRegisterModel> list})
-      : super(list: list);
+  RegionRegisterErrorState({required super.list});
 }
 
 class RegionRegisterInfoPageState extends RegionRegisterState {
   final RegionRegisterModel? model;
-  RegionRegisterInfoPageState(
-      {required List<RegionRegisterModel> list, this.model})
-      : super(list: list);
+  RegionRegisterInfoPageState({required super.list, this.model});
 }
 
 class RegionRegisterAddSuccessState extends RegionRegisterState {
-  RegionRegisterAddSuccessState({required List<RegionRegisterModel> list})
-      : super(list: list);
+  RegionRegisterAddSuccessState({required super.list});
 }
 
 class RegionRegisterAddErrorState extends RegionRegisterState {
-  RegionRegisterAddErrorState({required List<RegionRegisterModel> list})
-      : super(list: list);
+  RegionRegisterAddErrorState({required super.list});
 }
 
 class RegionRegisterEditSuccessState extends RegionRegisterState {
-  RegionRegisterEditSuccessState({required List<RegionRegisterModel> list})
-      : super(list: list);
+  RegionRegisterEditSuccessState({required super.list});
 }
 
 class RegionRegisterEditErrorState extends RegionRegisterState {
-  RegionRegisterEditErrorState({required List<RegionRegisterModel> list})
-      : super(list: list);
+  RegionRegisterEditErrorState({required super.list});
 }
 
 /*------------------------Getlist - Salesman----------------------------------*/

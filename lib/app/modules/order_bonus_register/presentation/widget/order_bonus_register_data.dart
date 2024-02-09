@@ -9,11 +9,11 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class OrderBonusRegisterData extends StatelessWidget {
   const OrderBonusRegisterData({
-    Key? key,
+    super.key,
     required this.orderBonus,
     required this.bloc,
     required this.controllerDate,
-  }) : super(key: key);
+  });
 
   final OrderBonusRegisterModel orderBonus;
   final OrderBonusRegisterBloc bloc;

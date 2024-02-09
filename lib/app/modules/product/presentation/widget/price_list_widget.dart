@@ -7,10 +7,10 @@ class PriceListWidget extends StatelessWidget {
   final String title;
   final List<ProductsPriceListItemsModel> prices;
   const PriceListWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.prices,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

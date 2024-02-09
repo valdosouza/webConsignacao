@@ -7,10 +7,10 @@ class CashierClosureWidget extends StatelessWidget {
   final String title;
   final List<ClosureItemsModel> model;
   const CashierClosureWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.model,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

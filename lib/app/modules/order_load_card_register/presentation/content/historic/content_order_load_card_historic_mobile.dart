@@ -11,9 +11,9 @@ import 'package:appweb/app/modules/order_load_card_register/presentation/widget/
 class ContentOrderLoadCardHistoricMobile extends StatefulWidget {
   final OrderLoadCardMainModel orderLoadCard;
   const ContentOrderLoadCardHistoricMobile({
-    Key? key,
+    super.key,
     required this.orderLoadCard,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentOrderLoadCardHistoricMobile> createState() =>

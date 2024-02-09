@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AuthRecoveryPasswordPage extends StatefulWidget {
-  const AuthRecoveryPasswordPage({Key? key}) : super(key: key);
+  const AuthRecoveryPasswordPage({super.key});
 
   @override
   State<AuthRecoveryPasswordPage> createState() =>

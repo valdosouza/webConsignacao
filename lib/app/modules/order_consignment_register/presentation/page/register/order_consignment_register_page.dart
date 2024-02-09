@@ -11,10 +11,10 @@ class OrderConsginmentRegisterPage extends StatefulWidget {
   final OrderAttendanceModel orderAttendance;
   final bool historic;
   const OrderConsginmentRegisterPage({
-    Key? key,
+    super.key,
     required this.orderAttendance,
     required this.historic,
-  }) : super(key: key);
+  });
 
   @override
   State<OrderConsginmentRegisterPage> createState() =>

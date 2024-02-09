@@ -6,9 +6,9 @@ import 'package:appweb/app/modules/order_sale_register/presentation/widget/regis
 class PaymentInfoCashHistoric extends StatefulWidget {
   final List<OrderPaidModel> modelOrderPaid;
   const PaymentInfoCashHistoric({
-    Key? key,
+    super.key,
     required this.modelOrderPaid,
-  }) : super(key: key);
+  });
 
   @override
   State<PaymentInfoCashHistoric> createState() =>

@@ -21,12 +21,12 @@ class AttendanceByRoutePageMobile extends StatefulWidget {
   final int tbRegionId;
   final String nameRegion;
   const AttendanceByRoutePageMobile({
-    Key? key,
+    super.key,
     required this.tbSalesRouteId,
     required this.nameSalesRoute,
     required this.tbRegionId,
     required this.nameRegion,
-  }) : super(key: key);
+  });
 
   @override
   State<AttendanceByRoutePageMobile> createState() =>

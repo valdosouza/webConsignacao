@@ -8,10 +8,10 @@ class CustomBodyOrderLoadCardHistoricWidget extends StatefulWidget {
   final OrderLoadCardMainModel orderLoadCard;
   final Size size;
   const CustomBodyOrderLoadCardHistoricWidget({
-    Key? key,
+    super.key,
     required this.orderLoadCard,
     required this.size,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomBodyOrderLoadCardHistoricWidget> createState() =>

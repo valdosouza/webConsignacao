@@ -6,10 +6,10 @@ class ExtraInfoHistoric extends StatefulWidget {
   final OrderConsignmentSupplyingModel modelSupplying;
   final Size size;
   const ExtraInfoHistoric({
-    Key? key,
+    super.key,
     required this.modelSupplying,
     required this.size,
-  }) : super(key: key);
+  });
 
   @override
   State<ExtraInfoHistoric> createState() => _ExtraInfoHistoricState();

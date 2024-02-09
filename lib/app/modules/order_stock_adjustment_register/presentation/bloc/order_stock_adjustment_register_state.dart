@@ -19,16 +19,12 @@ class OrderStockAdjustmentRegisterLoadingState
 
 class OrderStockAdjustmentRegisterLoadedState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterLoadedState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterLoadedState({required super.list});
 }
 
 class OrderStockAdjustmentRegisterErrorState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterErrorState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterErrorState({required super.list});
 }
 
 class OrderStockAdjustmentRegisterInfoPageState
@@ -36,75 +32,52 @@ class OrderStockAdjustmentRegisterInfoPageState
   final OrderStockAdjustmentRegisterModel? model;
   final int tabIndex;
   OrderStockAdjustmentRegisterInfoPageState(
-      {required this.tabIndex,
-      required List<OrderStockAdjustmentRegisterModel> list,
-      this.model})
-      : super(list: list);
+      {required this.tabIndex, required super.list, this.model});
 }
 
 class OrderStockAdjustmentRegisterGetErrorState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterGetErrorState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterGetErrorState({required super.list});
 }
 
 class OrderStockAdjustmentRegisterPostSuccessState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterPostSuccessState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterPostSuccessState({required super.list});
 }
 
 class OrderStockAdjustmentRegisterPostErrorState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterPostErrorState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterPostErrorState({required super.list});
 }
 
 class OrderStockAdjustmentRegisterPutSuccessState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterPutSuccessState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterPutSuccessState({required super.list});
 }
 
 class OrderStockAdjustmentRegisterPutErrorState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterPutErrorState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterPutErrorState({required super.list});
 }
 
 class OrderStockAdjustmentRegisterDeleteSuccessState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterDeleteSuccessState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterDeleteSuccessState({required super.list});
 }
 
 class OrderStockAdjustmentRegisterDeleteErrorState
     extends OrderStockAdjustmentRegisterState {
-  OrderStockAdjustmentRegisterDeleteErrorState(
-      {required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderStockAdjustmentRegisterDeleteErrorState({required super.list});
 }
 
 class OrderClosureSuccessState extends OrderStockAdjustmentRegisterState {
   final String result;
-  OrderClosureSuccessState(
-      {required this.result,
-      required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderClosureSuccessState({required this.result, required super.list});
 }
 
 class OrderReopenSuccessState extends OrderStockAdjustmentRegisterState {
   final String result;
-  OrderReopenSuccessState(
-      {required this.result,
-      required List<OrderStockAdjustmentRegisterModel> list})
-      : super(list: list);
+  OrderReopenSuccessState({required this.result, required super.list});
 }
 
 class OrderStockAdjustmentRegisterProductSuccessState

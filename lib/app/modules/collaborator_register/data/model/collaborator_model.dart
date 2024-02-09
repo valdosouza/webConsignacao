@@ -3,9 +3,9 @@ import 'package:appweb/app/modules/collaborator_register/domain/entity/collabora
 // ignore: must_be_immutable
 class CollaboratorModel extends CollaboratorEntity {
   CollaboratorModel({
-    required int id,
-    required int tbInstitutionId,
-    required String active,
+    required super.id,
+    required super.tbInstitutionId,
+    required String super.active,
     String? dtAdmission,
     String? dtResignation,
     String? salary,
@@ -17,9 +17,6 @@ class CollaboratorModel extends CollaboratorEntity {
     String? voteSection,
     String? militaryCertificate,
   }) : super(
-          id: id,
-          tbInstitutionId: tbInstitutionId,
-          active: active,
           dtAdmission: dtAdmission ?? "",
           dtResignation: dtResignation ?? "",
           salary: salary ?? "0.00",

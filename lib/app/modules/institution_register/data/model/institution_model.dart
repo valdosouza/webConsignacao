@@ -3,7 +3,7 @@ import 'package:appweb/app/modules/institution_register/domain/entity/institutio
 // ignore: must_be_immutable
 class InstitutionModel extends InstitutionEntity {
   InstitutionModel({
-    required int id,
+    required super.id,
     required String? nameCompany,
     required String? nickTrade,
     required int? tbLineBuinessId,
@@ -28,11 +28,11 @@ class InstitutionModel extends InstitutionEntity {
     required String? region,
     required String? addressKind,
     required String? zipCode,
-    required int tbCountryId,
+    required super.tbCountryId,
     required String? nameCountry,
-    required int tbStateId,
+    required super.tbStateId,
     required String? stateName,
-    required int tbCityId,
+    required super.tbCityId,
     required String? cityName,
     required String? main,
     required String? longitude,
@@ -40,7 +40,6 @@ class InstitutionModel extends InstitutionEntity {
     required String? phoneKind,
     required String? phoneNumber,
   }) : super(
-          id: id,
           nameCompany: nameCompany ?? "",
           nickTrade: nickTrade ?? "",
           tbLineBuinessId: tbLineBuinessId ?? 0,
@@ -65,11 +64,8 @@ class InstitutionModel extends InstitutionEntity {
           region: region ?? "",
           addressKind: addressKind ?? "",
           zipCode: zipCode ?? "",
-          tbCountryId: tbCountryId,
           nameCountry: nameCountry ?? "",
-          tbStateId: tbStateId,
           stateName: stateName ?? "",
-          tbCityId: tbCityId,
           cityName: cityName ?? "",
           main: main ?? "",
           longitude: longitude ?? "",

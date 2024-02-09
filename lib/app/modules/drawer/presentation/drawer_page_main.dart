@@ -77,7 +77,11 @@ class _DrawerPageMainState extends State<DrawerPageMain> {
                 const SizedBox(height: 5),
                 AutoSizeText(
                   bloc.userName,
-                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                  maxFontSize: 18,
+                  minFontSize: 12,
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
                 )
               ],
             ),

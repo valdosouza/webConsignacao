@@ -15,9 +15,9 @@ import 'package:url_launcher/link.dart';
 
 class CustomerListMobile extends StatefulWidget {
   const CustomerListMobile({
-    Key? key,
+    super.key,
     required this.lista,
-  }) : super(key: key);
+  });
   final List<CustomerListByRouteModel> lista;
   @override
   State<CustomerListMobile> createState() => SalesRoutListeMobileState();

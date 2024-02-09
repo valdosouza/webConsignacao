@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 class OrderStockAdjustmentRegisterDirectionWidget extends StatefulWidget {
   final OrderStockAdjustmentRegisterModel orderStockAdjust;
   const OrderStockAdjustmentRegisterDirectionWidget({
-    Key? key,
+    super.key,
     required this.orderStockAdjust,
-  }) : super(key: key);
+  });
 
   @override
   State<OrderStockAdjustmentRegisterDirectionWidget> createState() =>

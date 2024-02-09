@@ -12,9 +12,9 @@ import 'package:appweb/app/modules/order_consignment_register/order_consignment_
 class ContentConsignmentCheckpoint extends StatefulWidget {
   final OrderConsignmentCheckpointModel checkpointmodel;
   const ContentConsignmentCheckpoint({
-    Key? key,
+    super.key,
     required this.checkpointmodel,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentConsignmentCheckpoint> createState() =>

@@ -67,7 +67,13 @@ class CustomDate {
     initializeDateFormatting('pt_BR,', null);
     var dateMonth = DateTime.parse(formatDateOut(date));
     //return DateFormat('MMM').format(DateTime(0, currentMonthIndex)).toString();
-    return DateFormat('MMMM').format(dateMonth);
+    var descMonth = DateFormat('MMMM').format(dateMonth);
+    return descMonth.toUpperCase();
+  }
+
+  int getYear(DateTime date) {
+    var yearNumber = date.year;
+    return yearNumber.toInt();
   }
 
   static tomorrow() {

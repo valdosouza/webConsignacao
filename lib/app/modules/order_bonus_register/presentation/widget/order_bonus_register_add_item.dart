@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 
 class OrderBonusRegisterAddItem extends StatelessWidget {
   const OrderBonusRegisterAddItem({
-    Key? key,
+    super.key,
     required this.item,
     required this.bloc,
-  }) : super(key: key);
+  });
 
   final OrderBonusRegisterItemsModel item;
   final OrderBonusRegisterBloc bloc;

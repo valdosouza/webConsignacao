@@ -11,10 +11,10 @@ class CustomerRegisterAddressWidget extends StatefulWidget {
   final CustomerRegisterBloc bloc;
   final CustomerMainModel? customer;
   const CustomerRegisterAddressWidget({
-    Key? key,
+    super.key,
     required this.bloc,
     this.customer,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomerRegisterAddressWidget> createState() =>

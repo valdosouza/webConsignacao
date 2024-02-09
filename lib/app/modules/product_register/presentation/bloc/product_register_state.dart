@@ -13,41 +13,33 @@ class ProductRegisterLoadingState extends ProductRegisterState {
 }
 
 class ProductRegisterLoadedState extends ProductRegisterState {
-  ProductRegisterLoadedState({required List<ProductRegisterModel> list})
-      : super(list: list);
+  ProductRegisterLoadedState({required super.list});
 }
 
 class ProductRegisterErrorState extends ProductRegisterState {
-  ProductRegisterErrorState({required List<ProductRegisterModel> list})
-      : super(list: list);
+  ProductRegisterErrorState({required super.list});
 }
 
 class ProductRegisterInfoPageState extends ProductRegisterState {
-  ProductRegisterInfoPageState({required List<ProductRegisterModel> list})
-      : super(list: list);
+  ProductRegisterInfoPageState({required super.list});
 }
 
 class ProductRegisterGetErrorState extends ProductRegisterState {
-  ProductRegisterGetErrorState({required List<ProductRegisterModel> list})
-      : super(list: list);
+  ProductRegisterGetErrorState({required super.list});
 }
 
 class ProductRegisterPostSuccessState extends ProductRegisterState {
-  ProductRegisterPostSuccessState({required List<ProductRegisterModel> list})
-      : super(list: list);
+  ProductRegisterPostSuccessState({required super.list});
 }
 
 class ProductRegisterPostErrorState extends ProductRegisterState {
-  ProductRegisterPostErrorState({required List<ProductRegisterModel> list})
-      : super(list: list);
+  ProductRegisterPostErrorState({required super.list});
 }
 
 class ProductRegisterPutSuccessState extends ProductRegisterState {
-  ProductRegisterPutSuccessState({required List<ProductRegisterModel> list})
-      : super(list: list);
+  ProductRegisterPutSuccessState({required super.list});
 }
 
 class ProductRegisterPutErrorState extends ProductRegisterState {
-  ProductRegisterPutErrorState({required List<ProductRegisterModel> list})
-      : super(list: list);
+  ProductRegisterPutErrorState({required super.list});
 }

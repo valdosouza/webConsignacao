@@ -5,16 +5,14 @@ class PriceListModel extends PriceListRegisterEntity {
     int? id,
     int? tbInstitutionId,
     String? description,
-    dynamic validity,
-    dynamic modality,
+    super.validity,
+    super.modality,
     double? aliqProfit,
     String? active,
   }) : super(
           id: id ?? 0,
           tbInstitutionId: tbInstitutionId ?? 0,
           description: description ?? "",
-          validity: validity,
-          modality: modality,
           aliqProfit: aliqProfit ?? 0,
           active: active ?? "",
         );

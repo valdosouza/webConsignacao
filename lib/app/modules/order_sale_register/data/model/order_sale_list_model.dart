@@ -3,26 +3,16 @@ import 'package:appweb/app/modules/order_sale_register/domain/entity/order_sale_
 
 class OrderSaleListModel extends OrderSaleListEntity {
   OrderSaleListModel({
-    required int id,
-    required int tbInstitutionId,
-    required int tbUserId,
-    required int tbCustomerId,
-    required String nameEntity,
-    required String dtRecord,
-    required int number,
-    required String status,
-    required String note,
-  }) : super(
-          id: id,
-          tbInstitutionId: tbInstitutionId,
-          tbUserId: tbUserId,
-          tbCustomerId: tbCustomerId,
-          nameEntity: nameEntity,
-          dtRecord: dtRecord,
-          number: number,
-          status: status,
-          note: note,
-        );
+    required super.id,
+    required super.tbInstitutionId,
+    required super.tbUserId,
+    required super.tbCustomerId,
+    required super.nameEntity,
+    required super.dtRecord,
+    required super.number,
+    required super.status,
+    required super.note,
+  });
 
   factory OrderSaleListModel.fromJson(Map<String, dynamic> json) {
     return OrderSaleListModel(

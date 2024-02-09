@@ -14,8 +14,7 @@ abstract class CustomerRegisterState {
 }
 
 class CustomerRegisterReturnedState extends CustomerRegisterState {
-  CustomerRegisterReturnedState({required List<CustomerListModel> customers})
-      : super(customers: customers);
+  CustomerRegisterReturnedState({required super.customers});
 }
 
 class CustomerRegisterLoadingState extends CustomerRegisterState {
@@ -26,10 +25,10 @@ class CustomerRegisterInfoPageState extends CustomerRegisterState {
   final CustomerMainModel model;
   final int tabIndex;
   CustomerRegisterInfoPageState({
-    required List<CustomerListModel> customers,
+    required super.customers,
     required this.model,
     required this.tabIndex,
-  }) : super(customers: customers);
+  });
 }
 
 /*------------------------CEP - Customer----------------------------------*/
@@ -58,16 +57,16 @@ class CustomerRegisterPostByMobileSuccessState extends CustomerRegisterState {
   final CustomerListModel customer;
   CustomerRegisterPostByMobileSuccessState({
     required this.customer,
-    required List<CustomerListModel> customers,
-  }) : super(customers: customers);
+    required super.customers,
+  });
 }
 
 class CustomerRegisterPutByMobileSuccessState extends CustomerRegisterState {
   final CustomerListModel customer;
   CustomerRegisterPutByMobileSuccessState({
     required this.customer,
-    required List<CustomerListModel> customers,
-  }) : super(customers: customers);
+    required super.customers,
+  });
 }
 
 class CustomerRegisterPostErrorState extends CustomerRegisterState {
@@ -82,20 +81,20 @@ class CustomerRegisterPostErrorState extends CustomerRegisterState {
 /*------------------------Getlist - Customer----------------------------------*/
 class CustomerRegisterLoadedState extends CustomerRegisterState {
   CustomerRegisterLoadedState({
-    required List<CustomerListModel> customers,
-  }) : super(customers: customers);
+    required super.customers,
+  });
 }
 
 class CustomerRegisterErrorState extends CustomerRegisterState {
   CustomerRegisterErrorState({
-    required List<CustomerListModel> customers,
-  }) : super(customers: customers);
+    required super.customers,
+  });
 }
 
 class CustomerRegisterGetErrorState extends CustomerRegisterState {
   CustomerRegisterGetErrorState({
-    required List<CustomerListModel> customers,
-  }) : super(customers: customers);
+    required super.customers,
+  });
 }
 
 /*------------------------Getlist - State-------------------------------------*/
@@ -103,8 +102,7 @@ class CustomerRegisterGetStatesSuccessState extends CustomerRegisterState {
   final List<StateModel> states;
 
   CustomerRegisterGetStatesSuccessState(
-      {required List<CustomerListModel> customers, required this.states})
-      : super(customers: customers);
+      {required super.customers, required this.states});
 }
 
 class CustomerRegisterGetStatesErrorState extends CustomerRegisterState {
@@ -120,8 +118,7 @@ class CustomerRegisterGetCitySuccessState extends CustomerRegisterState {
   final List<CityModel> cities;
 
   CustomerRegisterGetCitySuccessState(
-      {required List<CustomerListModel> customers, required this.cities})
-      : super(customers: customers);
+      {required super.customers, required this.cities});
 }
 
 class CustomerRegisterGetCityErrorState extends CustomerRegisterState {

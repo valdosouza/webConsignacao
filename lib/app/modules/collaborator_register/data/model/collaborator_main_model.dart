@@ -9,22 +9,14 @@ import 'package:appweb/app/modules/Core/data/model/phone_model.dart';
 
 class CollaboratorMainModel extends CollaboratorMainEntity {
   CollaboratorMainModel({
-    required CollaboratorModel collaborator,
-    required EntityListModel entity,
-    CompanyModel? company,
-    PersonModel? person,
-    required AddressModel address,
-    required PhoneModel? phone,
-    required UserEmailModel userEmail,
-  }) : super(
-          collaborator: collaborator,
-          entity: entity,
-          company: company,
-          person: person,
-          address: address,
-          phone: phone,
-          userEmail: userEmail,
-        );
+    required super.collaborator,
+    required super.entity,
+    super.company,
+    super.person,
+    required super.address,
+    required super.phone,
+    required super.userEmail,
+  });
 
   factory CollaboratorMainModel.fromJson(Map<String, dynamic> json) {
     return CollaboratorMainModel(

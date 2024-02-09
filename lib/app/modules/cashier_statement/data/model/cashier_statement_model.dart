@@ -2,16 +2,11 @@ import 'package:appweb/app/modules/cashier_statement/domain/entity/cashier_state
 
 class CashierStatementModel extends CashierStatementEntity {
   CashierStatementModel({
-    required String description,
-    required double tagValue,
-    required String kind,
-    required String color,
-  }) : super(
-          description: description,
-          tagValue: tagValue,
-          kind: kind,
-          color: color,
-        );
+    required super.description,
+    required super.tagValue,
+    required super.kind,
+    required super.color,
+  });
 
   factory CashierStatementModel.fromJson(Map<String, dynamic> json) {
     return CashierStatementModel(

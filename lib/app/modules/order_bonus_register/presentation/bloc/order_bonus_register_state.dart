@@ -17,77 +17,56 @@ class OrderBonusRegisterLoadingState extends OrderBonusRegisterState {
 }
 
 class OrderBonusRegisterLoadedState extends OrderBonusRegisterState {
-  OrderBonusRegisterLoadedState({required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterLoadedState({required super.list});
 }
 
 class OrderBonusRegisterErrorState extends OrderBonusRegisterState {
-  OrderBonusRegisterErrorState({required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterErrorState({required super.list});
 }
 
 class OrderBonusRegisterInfoPageState extends OrderBonusRegisterState {
   final OrderBonusRegisterModel? model;
   final int tabIndex;
   OrderBonusRegisterInfoPageState(
-      {required this.tabIndex,
-      required List<OrderBonusRegisterModel> list,
-      this.model})
-      : super(list: list);
+      {required this.tabIndex, required super.list, this.model});
 }
 
 class OrderBonusRegisterGetErrorState extends OrderBonusRegisterState {
-  OrderBonusRegisterGetErrorState({required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterGetErrorState({required super.list});
 }
 
 class OrderBonusRegisterPostSuccessState extends OrderBonusRegisterState {
-  OrderBonusRegisterPostSuccessState(
-      {required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterPostSuccessState({required super.list});
 }
 
 class OrderBonusRegisterPostErrorState extends OrderBonusRegisterState {
-  OrderBonusRegisterPostErrorState(
-      {required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterPostErrorState({required super.list});
 }
 
 class OrderBonusRegisterPutSuccessState extends OrderBonusRegisterState {
-  OrderBonusRegisterPutSuccessState(
-      {required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterPutSuccessState({required super.list});
 }
 
 class OrderBonusRegisterPutErrorState extends OrderBonusRegisterState {
-  OrderBonusRegisterPutErrorState({required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterPutErrorState({required super.list});
 }
 
 class OrderBonusRegisterDeleteSuccessState extends OrderBonusRegisterState {
-  OrderBonusRegisterDeleteSuccessState(
-      {required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterDeleteSuccessState({required super.list});
 }
 
 class OrderBonusRegisterDeleteErrorState extends OrderBonusRegisterState {
-  OrderBonusRegisterDeleteErrorState(
-      {required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderBonusRegisterDeleteErrorState({required super.list});
 }
 
 class OrderClosureSuccessState extends OrderBonusRegisterState {
   final String result;
-  OrderClosureSuccessState(
-      {required this.result, required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderClosureSuccessState({required this.result, required super.list});
 }
 
 class OrderReopenSuccessState extends OrderBonusRegisterState {
   final String result;
-  OrderReopenSuccessState(
-      {required this.result, required List<OrderBonusRegisterModel> list})
-      : super(list: list);
+  OrderReopenSuccessState({required this.result, required super.list});
 }
 
 class OrderBonusRegisterProductSuccessState extends OrderBonusRegisterState {

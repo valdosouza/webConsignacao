@@ -3,15 +3,11 @@ import 'package:appweb/app/modules/payment_type_register/domain/entity/payment_t
 // ignore: must_be_immutable
 class PaymentTypeModel extends PaymentTypeEntity {
   PaymentTypeModel({
-    required int id,
-    required int tbInstitutionId,
-    required String description,
-    required String active,
-  }) : super(
-            id: id,
-            tbInstitutionId: tbInstitutionId,
-            description: description,
-            active: active);
+    required super.id,
+    required super.tbInstitutionId,
+    required super.description,
+    required super.active,
+  });
 
   factory PaymentTypeModel.fromJson(Map<String, dynamic> json) {
     return PaymentTypeModel(

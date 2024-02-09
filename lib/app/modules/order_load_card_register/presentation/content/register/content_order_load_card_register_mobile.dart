@@ -11,8 +11,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentOrderLoadCardRegisterMobile extends StatefulWidget {
   const ContentOrderLoadCardRegisterMobile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentOrderLoadCardRegisterMobile> createState() =>

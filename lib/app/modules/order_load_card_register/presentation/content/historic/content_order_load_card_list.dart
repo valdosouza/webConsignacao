@@ -10,9 +10,9 @@ import 'package:appweb/app/core/shared/theme.dart';
 class ContentOrderLoadCardList extends StatefulWidget {
   final List<OrderConsignmetListModel> orderList;
   const ContentOrderLoadCardList({
-    Key? key,
+    super.key,
     required this.orderList,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentOrderLoadCardList> createState() =>

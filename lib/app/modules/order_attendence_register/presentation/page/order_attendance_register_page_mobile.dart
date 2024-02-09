@@ -16,9 +16,9 @@ import 'package:appweb/app/modules/order_attendence_register/presentation/conten
 class OrderAttendanceRegisterPageMobile extends StatefulWidget {
   final OrderAttendanceModel model;
   const OrderAttendanceRegisterPageMobile({
-    Key? key,
+    super.key,
     required this.model,
-  }) : super(key: key);
+  });
 
   @override
   State<OrderAttendanceRegisterPageMobile> createState() =>

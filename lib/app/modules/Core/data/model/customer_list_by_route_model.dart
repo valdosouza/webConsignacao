@@ -14,7 +14,7 @@ class CustomerListByRouteModel extends CustomerListByRouteEntity {
     String? street,
     String? nmbr,
     String? complement,
-    bool expanded = false,
+    super.expanded,
   }) : super(
           id: id ?? 0,
           nameCompany: nameCompany ?? "",
@@ -28,7 +28,6 @@ class CustomerListByRouteModel extends CustomerListByRouteEntity {
           street: street ?? "",
           nmbr: nmbr ?? "",
           complement: complement ?? "",
-          expanded: expanded,
         );
 
   factory CustomerListByRouteModel.fromJson(Map<String, dynamic> json) {

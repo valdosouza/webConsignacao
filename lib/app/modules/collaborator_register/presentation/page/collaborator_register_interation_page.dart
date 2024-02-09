@@ -15,8 +15,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class CollaboratorRegisterInterationPage extends StatefulWidget {
   final int tabIndex;
-  const CollaboratorRegisterInterationPage({Key? key, required this.tabIndex})
-      : super(key: key);
+  const CollaboratorRegisterInterationPage({super.key, required this.tabIndex});
 
   @override
   State<CollaboratorRegisterInterationPage> createState() =>

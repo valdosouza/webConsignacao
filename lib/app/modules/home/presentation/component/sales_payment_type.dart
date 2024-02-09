@@ -10,8 +10,8 @@ class SalesPaymentType extends StatelessWidget {
     required this.svgSrc,
     required this.paymentType,
     required this.saleValues,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +35,6 @@ class SalesPaymentType extends StatelessWidget {
               width: 20,
               child: SvgPicture.asset(
                 svgSrc,
-                color: kPrimaryColor,
               ),
             ),
           ),

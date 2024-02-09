@@ -9,9 +9,9 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/
 class ContentOrderConsignmentList extends StatefulWidget {
   final List<OrderConsignmetListModel> orderList;
   const ContentOrderConsignmentList({
-    Key? key,
+    super.key,
     required this.orderList,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentOrderConsignmentList> createState() =>

@@ -6,8 +6,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class CashierBalanceWidget extends StatefulWidget {
   const CashierBalanceWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CashierBalanceWidget> createState() => _CashierBalanceWidgetState();

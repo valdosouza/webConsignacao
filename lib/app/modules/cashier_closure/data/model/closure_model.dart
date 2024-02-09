@@ -3,16 +3,11 @@ import 'package:appweb/app/modules/cashier_closure/domain/entity/closure_entity.
 
 class ClosureModel extends ClosureEntity {
   ClosureModel({
-    required String dtRecord,
-    required int tbInstitutionId,
-    required int tbUserId,
-    required List<ClosureItemsModel> items,
-  }) : super(
-          dtRecord: dtRecord,
-          tbInstitutionId: tbInstitutionId,
-          tbUserId: tbUserId,
-          items: items,
-        );
+    required super.dtRecord,
+    required super.tbInstitutionId,
+    required super.tbUserId,
+    required super.items,
+  });
 
   factory ClosureModel.fromJson(Map<String, dynamic> json) {
     return ClosureModel(

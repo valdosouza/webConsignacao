@@ -10,9 +10,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class SalesRouteListMobile extends StatefulWidget {
   const SalesRouteListMobile({
-    Key? key,
+    super.key,
     required this.lista,
-  }) : super(key: key);
+  });
   final List<SalesRouteListModel> lista;
   @override
   State<SalesRouteListMobile> createState() => SalesRoutListeMobileState();

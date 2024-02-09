@@ -3,17 +3,12 @@ import 'package:appweb/app/modules/stock_list_register/domain/entity/stock_list_
 // ignore: must_be_immutable
 class StockListModel extends StockListEntity {
   StockListModel({
-    required int id,
-    required int tbInstitutionId,
-    required String description,
-    required String main,
-    required String active,
-  }) : super(
-            id: id,
-            tbInstitutionId: tbInstitutionId,
-            description: description,
-            main: main,
-            active: active);
+    required super.id,
+    required super.tbInstitutionId,
+    required super.description,
+    required super.main,
+    required super.active,
+  });
 
   factory StockListModel.fromJson(Map<String, dynamic> json) {
     return StockListModel(

@@ -11,12 +11,12 @@ class AttendanceSalesRoutePage extends StatelessWidget {
   final int tbRegionId;
   final String nameRegion;
   const AttendanceSalesRoutePage({
-    Key? key,
+    super.key,
     required this.tbSalesRouteId,
     required this.nameSalesRoute,
     required this.tbRegionId,
     required this.nameRegion,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -13,35 +13,29 @@ class StockListLoadingState extends StockListState {
 }
 
 class StockListLoadedState extends StockListState {
-  StockListLoadedState({required List<StockListModel> list})
-      : super(list: list);
+  StockListLoadedState({required super.list});
 }
 
 class StockListErrorState extends StockListState {
-  StockListErrorState({required List<StockListModel> list}) : super(list: list);
+  StockListErrorState({required super.list});
 }
 
 class StockListInfoPageState extends StockListState {
-  StockListInfoPageState({required List<StockListModel> list})
-      : super(list: list);
+  StockListInfoPageState({required super.list});
 }
 
 class StockListAddSuccessState extends StockListState {
-  StockListAddSuccessState({required List<StockListModel> list})
-      : super(list: list);
+  StockListAddSuccessState({required super.list});
 }
 
 class StockListAddErrorState extends StockListState {
-  StockListAddErrorState({required List<StockListModel> list})
-      : super(list: list);
+  StockListAddErrorState({required super.list});
 }
 
 class StockListEditSuccessState extends StockListState {
-  StockListEditSuccessState({required List<StockListModel> list})
-      : super(list: list);
+  StockListEditSuccessState({required super.list});
 }
 
 class StockListEditErrorState extends StockListState {
-  StockListEditErrorState({required List<StockListModel> list})
-      : super(list: list);
+  StockListEditErrorState({required super.list});
 }

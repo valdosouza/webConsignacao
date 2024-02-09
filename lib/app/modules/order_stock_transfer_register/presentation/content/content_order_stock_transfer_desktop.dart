@@ -14,8 +14,8 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 
 class ContentOrderStockTransferRegisterDesktop extends StatefulWidget {
   final int tabIndex;
-  const ContentOrderStockTransferRegisterDesktop({Key? key, this.tabIndex = 0})
-      : super(key: key);
+  const ContentOrderStockTransferRegisterDesktop(
+      {super.key, this.tabIndex = 0});
 
   @override
   State<ContentOrderStockTransferRegisterDesktop> createState() =>

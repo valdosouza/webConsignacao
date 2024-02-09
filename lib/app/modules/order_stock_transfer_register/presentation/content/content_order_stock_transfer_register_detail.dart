@@ -10,8 +10,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentOrderStockTransferRegisterDetail extends StatefulWidget {
   const ContentOrderStockTransferRegisterDetail({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentOrderStockTransferRegisterDetail> createState() =>

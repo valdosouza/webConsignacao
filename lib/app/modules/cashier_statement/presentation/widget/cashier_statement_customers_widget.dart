@@ -12,8 +12,8 @@ import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_s
 
 class CashierStatementCustomerWidget extends StatefulWidget {
   const CashierStatementCustomerWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CashierStatementCustomerWidget> createState() =>

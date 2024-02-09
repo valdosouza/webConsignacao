@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class SearchWidget extends StatelessWidget {
   const SearchWidget({
-    Key? key,
+    super.key,
     required this.onChange,
     this.text,
     this.keyboardType,
     this.controller,
-  }) : super(key: key);
+  });
 
   final void Function(String) onChange;
   final String? text;

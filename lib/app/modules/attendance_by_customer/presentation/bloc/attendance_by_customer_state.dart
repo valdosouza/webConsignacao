@@ -15,11 +15,9 @@ class CustomerListLoadingState extends CustomerListState {
 }
 
 class CustomerListLoadedState extends CustomerListState {
-  CustomerListLoadedState({required List<CustomerListModel> customerList})
-      : super(customerList: customerList);
+  CustomerListLoadedState({required super.customerList});
 }
 
 class CustomerListErrorState extends CustomerListState {
-  CustomerListErrorState({required List<CustomerListModel> customerList})
-      : super(customerList: customerList);
+  CustomerListErrorState({required super.customerList});
 }

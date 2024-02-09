@@ -10,8 +10,8 @@ import 'package:appweb/app/modules/order_consignment_register/order_consignment_
 
 class ContentConsignmentSupplying extends StatefulWidget {
   const ContentConsignmentSupplying({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentConsignmentSupplying> createState() =>

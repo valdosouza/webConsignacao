@@ -8,8 +8,8 @@ import 'package:appweb/app/modules/order_attendence_register/presentation/bloc/o
 
 class ContentOrderAttendanceRegisterMobile extends StatefulWidget {
   const ContentOrderAttendanceRegisterMobile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentOrderAttendanceRegisterMobile> createState() =>

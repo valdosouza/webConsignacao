@@ -7,6 +7,7 @@ import 'package:appweb/app/modules/cashier/cashier_module.dart';
 import 'package:appweb/app/modules/cashier_balance/cashier_balance_module.dart';
 import 'package:appweb/app/modules/cashier_closure/cashier_closure_module.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
+import 'package:appweb/app/modules/cashier_statement_summary/cashier_statement_summary_module.dart';
 import 'package:appweb/app/modules/customer/customer_module.dart';
 import 'package:appweb/app/modules/customer_register/customer_register_module.dart';
 import 'package:appweb/app/modules/drawer/data/datasource/drawer_datasource.dart';
@@ -86,6 +87,8 @@ class AppModule extends Module {
         ModuleRoute('/cashier', module: CashierModule()),
         ModuleRoute('/cashierbalance', module: CashierBalanceModule()),
         ModuleRoute('/cashierstatement', module: CashierStatementModule()),
+        ModuleRoute('/cashierstatementsummary',
+            module: CashierStatementSummaryModule()),
         ModuleRoute('/cashierclosure', module: CashierClosureModule()),
         ModuleRoute('/attendance', module: OrderAttendanceRegisterModule()),
         ModuleRoute('/consignment', module: OrderConsignmentRegisterModule()),

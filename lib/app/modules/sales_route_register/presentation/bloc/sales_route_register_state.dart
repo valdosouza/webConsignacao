@@ -13,41 +13,30 @@ class SalesRouteRegisterLoadingState extends SalesRouteRegisterState {
 }
 
 class SalesRouteRegisterLoadedState extends SalesRouteRegisterState {
-  SalesRouteRegisterLoadedState({required List<SalesRouteRegisterModel> list})
-      : super(list: list);
+  SalesRouteRegisterLoadedState({required super.list});
 }
 
 class SalesRouteRegisterErrorState extends SalesRouteRegisterState {
-  SalesRouteRegisterErrorState({required List<SalesRouteRegisterModel> list})
-      : super(list: list);
+  SalesRouteRegisterErrorState({required super.list});
 }
 
 class SalesRouteRegisterInfoPageState extends SalesRouteRegisterState {
   final SalesRouteRegisterModel? model;
-  SalesRouteRegisterInfoPageState(
-      {required List<SalesRouteRegisterModel> list, this.model})
-      : super(list: list);
+  SalesRouteRegisterInfoPageState({required super.list, this.model});
 }
 
 class SalesRouteRegisterAddSuccessState extends SalesRouteRegisterState {
-  SalesRouteRegisterAddSuccessState(
-      {required List<SalesRouteRegisterModel> list})
-      : super(list: list);
+  SalesRouteRegisterAddSuccessState({required super.list});
 }
 
 class SalesRouteRegisterAddErrorState extends SalesRouteRegisterState {
-  SalesRouteRegisterAddErrorState({required List<SalesRouteRegisterModel> list})
-      : super(list: list);
+  SalesRouteRegisterAddErrorState({required super.list});
 }
 
 class SalesRouteRegisterEditSuccessState extends SalesRouteRegisterState {
-  SalesRouteRegisterEditSuccessState(
-      {required List<SalesRouteRegisterModel> list})
-      : super(list: list);
+  SalesRouteRegisterEditSuccessState({required super.list});
 }
 
 class SalesRouteRegisterEditErrorState extends SalesRouteRegisterState {
-  SalesRouteRegisterEditErrorState(
-      {required List<SalesRouteRegisterModel> list})
-      : super(list: list);
+  SalesRouteRegisterEditErrorState({required super.list});
 }

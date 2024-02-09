@@ -18,8 +18,8 @@ import 'package:appweb/app/modules/order_production_register/presentation/widget
 
 class ContentOrderProductionRegisterDesktop extends StatefulWidget {
   const ContentOrderProductionRegisterDesktop({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentOrderProductionRegisterDesktop> createState() =>

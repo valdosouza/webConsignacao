@@ -17,8 +17,7 @@ class ContentOrderStockAdjustmentRegisterDesktop extends StatefulWidget {
   final OrderStockAdjustmentRegisterModel orderStockAdjustment;
   final int tabIndex;
   const ContentOrderStockAdjustmentRegisterDesktop(
-      {Key? key, required this.orderStockAdjustment, this.tabIndex = 0})
-      : super(key: key);
+      {super.key, required this.orderStockAdjustment, this.tabIndex = 0});
 
   @override
   State<ContentOrderStockAdjustmentRegisterDesktop> createState() =>

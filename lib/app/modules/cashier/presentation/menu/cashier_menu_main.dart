@@ -16,6 +16,12 @@ class CashierMenuMain extends StatelessWidget {
             () async => Modular.to.navigate(
                 '/cashier/desktop/cashierstatement/desktop/salesman/salesmanlist/'),
           ),
+          itemMenuDraw(
+            Icons.home,
+            'Resumo Mensal',
+            () async => Modular.to.navigate(
+                '/cashier/desktop/cashierstatementsummary/desktop/cashierstatementsummary/monthly/'),
+          ),
         ],
       ),
     );

@@ -2,14 +2,10 @@ import 'package:appweb/app/modules/home/domain/entity/home_sales_payment_type_en
 
 class HomeSalesPaymentTypeModel extends HomeSalesPaymentTypeEntity {
   const HomeSalesPaymentTypeModel({
-    required String paymentType,
-    required int totalQtty,
-    required double totalValue,
-  }) : super(
-          paymentType: paymentType,
-          totalQtty: totalQtty,
-          totalValue: totalValue,
-        );
+    required super.paymentType,
+    required super.totalQtty,
+    required super.totalValue,
+  });
 
   factory HomeSalesPaymentTypeModel.fromJson(Map<String, dynamic> json) {
     return HomeSalesPaymentTypeModel(

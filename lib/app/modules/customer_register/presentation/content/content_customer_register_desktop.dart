@@ -17,10 +17,10 @@ class ContentCustomerRegisterDesktop extends StatefulWidget {
   final CustomerMainModel customer;
   final int tabIndex;
   const ContentCustomerRegisterDesktop({
-    Key? key,
+    super.key,
     required this.customer,
     required this.tabIndex,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentCustomerRegisterDesktop> createState() =>

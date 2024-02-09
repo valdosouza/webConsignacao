@@ -13,36 +13,29 @@ class PaymentTypeRegisterLoadingState extends PaymentTypeRegisterState {
 }
 
 class PaymentTypeRegisterLoadedState extends PaymentTypeRegisterState {
-  PaymentTypeRegisterLoadedState({required List<PaymentTypeModel> list})
-      : super(list: list);
+  PaymentTypeRegisterLoadedState({required super.list});
 }
 
 class PaymentTypeRegisterErrorState extends PaymentTypeRegisterState {
-  PaymentTypeRegisterErrorState({required List<PaymentTypeModel> list})
-      : super(list: list);
+  PaymentTypeRegisterErrorState({required super.list});
 }
 
 class PaymentTypeRegisterInfoPageState extends PaymentTypeRegisterState {
-  PaymentTypeRegisterInfoPageState({required List<PaymentTypeModel> list})
-      : super(list: list);
+  PaymentTypeRegisterInfoPageState({required super.list});
 }
 
 class PaymentTypeRegisterAddSuccessState extends PaymentTypeRegisterState {
-  PaymentTypeRegisterAddSuccessState({required List<PaymentTypeModel> list})
-      : super(list: list);
+  PaymentTypeRegisterAddSuccessState({required super.list});
 }
 
 class PaymentTypeRegisterAddErrorState extends PaymentTypeRegisterState {
-  PaymentTypeRegisterAddErrorState({required List<PaymentTypeModel> list})
-      : super(list: list);
+  PaymentTypeRegisterAddErrorState({required super.list});
 }
 
 class PaymentTypeRegisterEditSuccessState extends PaymentTypeRegisterState {
-  PaymentTypeRegisterEditSuccessState({required List<PaymentTypeModel> list})
-      : super(list: list);
+  PaymentTypeRegisterEditSuccessState({required super.list});
 }
 
 class PaymentTypeRegisterEditErrorState extends PaymentTypeRegisterState {
-  PaymentTypeRegisterEditErrorState({required List<PaymentTypeModel> list})
-      : super(list: list);
+  PaymentTypeRegisterEditErrorState({required super.list});
 }

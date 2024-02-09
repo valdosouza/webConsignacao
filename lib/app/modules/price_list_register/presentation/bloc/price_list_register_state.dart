@@ -13,38 +13,30 @@ class PriceListRegisterLoadingState extends PriceListRegisterState {
 }
 
 class PriceListRegisterLoadedState extends PriceListRegisterState {
-  PriceListRegisterLoadedState({required List<PriceListModel> list})
-      : super(list: list);
+  PriceListRegisterLoadedState({required super.list});
 }
 
 class PriceListRegisterErrorState extends PriceListRegisterState {
-  PriceListRegisterErrorState({required List<PriceListModel> list})
-      : super(list: list);
+  PriceListRegisterErrorState({required super.list});
 }
 
 class PriceListRegisterInfoPageState extends PriceListRegisterState {
   final PriceListModel? model;
-  PriceListRegisterInfoPageState(
-      {required List<PriceListModel> list, this.model})
-      : super(list: list);
+  PriceListRegisterInfoPageState({required super.list, this.model});
 }
 
 class PriceListRegisterAddSuccessState extends PriceListRegisterState {
-  PriceListRegisterAddSuccessState({required List<PriceListModel> list})
-      : super(list: list);
+  PriceListRegisterAddSuccessState({required super.list});
 }
 
 class PriceListRegisterAddErrorState extends PriceListRegisterState {
-  PriceListRegisterAddErrorState({required List<PriceListModel> list})
-      : super(list: list);
+  PriceListRegisterAddErrorState({required super.list});
 }
 
 class PriceListRegisterEditSuccessState extends PriceListRegisterState {
-  PriceListRegisterEditSuccessState({required List<PriceListModel> list})
-      : super(list: list);
+  PriceListRegisterEditSuccessState({required super.list});
 }
 
 class PriceListRegisterEditErrorState extends PriceListRegisterState {
-  PriceListRegisterEditErrorState({required List<PriceListModel> list})
-      : super(list: list);
+  PriceListRegisterEditErrorState({required super.list});
 }

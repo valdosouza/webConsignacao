@@ -13,13 +13,9 @@ class ProductLoadingState extends ProductState {
 }
 
 class ProductPriceListMobileSuccessState extends ProductState {
-  ProductPriceListMobileSuccessState(
-      {required List<ProductsPriceListEntity> list})
-      : super(list: list);
+  ProductPriceListMobileSuccessState({required super.list});
 }
 
 class ProductPriceListMobileErrorState extends ProductState {
-  ProductPriceListMobileErrorState(
-      {required List<ProductsPriceListEntity> list})
-      : super(list: list);
+  ProductPriceListMobileErrorState({required super.list});
 }

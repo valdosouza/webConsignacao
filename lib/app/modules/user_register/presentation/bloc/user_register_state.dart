@@ -14,14 +14,14 @@ class UserRegisterLoadingState extends UserRegisterState {
 
 class UserRegisterLoadedState extends UserRegisterState {
   UserRegisterLoadedState({
-    required List<UserRegisterModel> users,
-  }) : super(users: users);
+    required super.users,
+  });
 }
 
 class UserRegisterSuccessState extends UserRegisterState {
   UserRegisterSuccessState({
-    required List<UserRegisterModel> users,
-  }) : super(users: users);
+    required super.users,
+  });
 }
 
 class UserRegisterLogoutState extends UserRegisterState {
@@ -34,35 +34,34 @@ class UserRegisterErrorState extends UserRegisterState {
 
 class UserRegisterAddErrorState extends UserRegisterState {
   UserRegisterAddErrorState({
-    required List<UserRegisterModel> users,
-  }) : super(users: users);
+    required super.users,
+  });
 }
 
 class UserRegisterEditErrorState extends UserRegisterState {
   UserRegisterEditErrorState({
-    required List<UserRegisterModel> users,
-  }) : super(users: users);
+    required super.users,
+  });
 }
 
 class UserRegisterEditSuccessState extends UserRegisterState {
   UserRegisterEditSuccessState({
-    required List<UserRegisterModel> users,
-  }) : super(users: users);
+    required super.users,
+  });
 }
 
 class UserRegisterInfoPageState extends UserRegisterState {
-  UserRegisterInfoPageState({required List<UserRegisterModel> users})
-      : super(users: users);
+  UserRegisterInfoPageState({required super.users});
 }
 
 class UserRegisterDeleteErrorState extends UserRegisterState {
   UserRegisterDeleteErrorState({
-    required List<UserRegisterModel> users,
-  }) : super(users: users);
+    required super.users,
+  });
 }
 
 class UserRegisterDeleteSuccessState extends UserRegisterState {
   UserRegisterDeleteSuccessState({
-    required List<UserRegisterModel> users,
-  }) : super(users: users);
+    required super.users,
+  });
 }

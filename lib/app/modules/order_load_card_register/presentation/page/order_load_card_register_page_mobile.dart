@@ -14,8 +14,8 @@ import 'package:appweb/app/core/shared/utils/toast.dart';
 
 class OrderLoadCardRegisterPageMobile extends StatefulWidget {
   const OrderLoadCardRegisterPageMobile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<OrderLoadCardRegisterPageMobile> createState() =>

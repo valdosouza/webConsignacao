@@ -13,9 +13,9 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 class ContentConsignmentSupplyingHistoric extends StatefulWidget {
   final OrderConsignmentSupplyingModel modelSupplying;
   const ContentConsignmentSupplyingHistoric({
-    Key? key,
+    super.key,
     required this.modelSupplying,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentConsignmentSupplyingHistoric> createState() =>

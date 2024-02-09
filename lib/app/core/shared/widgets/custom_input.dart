@@ -51,10 +51,10 @@ class CustomInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const SizedBox(height: 10.0),
         Text(title, style: kLabelStyle),
         const SizedBox(height: 10.0),
         Container(
+          height: 45,
           width: newWidth,
           alignment: alignment,
           decoration: kBoxDecorationStyle,
@@ -70,10 +70,7 @@ class CustomInput extends StatelessWidget {
             onChanged: onChanged,
             obscureText: obscureText,
             controller: controller,
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
+            style: kFieldlStyle,
             minLines: minLines,
             maxLines: maxLines,
             decoration: InputDecoration(

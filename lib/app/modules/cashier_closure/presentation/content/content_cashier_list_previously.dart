@@ -17,8 +17,8 @@ final TextEditingController controller =
 
 class ContentCashierListPreviously extends StatefulWidget {
   const ContentCashierListPreviously({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentCashierListPreviously> createState() =>

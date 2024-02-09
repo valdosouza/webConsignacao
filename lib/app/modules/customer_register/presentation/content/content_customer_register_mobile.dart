@@ -17,10 +17,10 @@ class ContentCustomerRegisterMobile extends StatefulWidget {
   final CustomerMainModel customer;
   final int tabIndex;
   const ContentCustomerRegisterMobile({
-    Key? key,
+    super.key,
     required this.customer,
     required this.tabIndex,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentCustomerRegisterMobile> createState() =>

@@ -2,15 +2,11 @@ import 'package:appweb/app/modules/line_business_register/domain/entity/linebusi
 
 class LinebusinessModel extends LinebusinessEntity {
   LinebusinessModel({
-    required int id,
-    required int tbInstitutionId,
-    required String description,
-    required String active,
-  }) : super(
-            id: id,
-            tbInstitutionId: tbInstitutionId,
-            description: description,
-            active: active);
+    required super.id,
+    required super.tbInstitutionId,
+    required super.description,
+    required super.active,
+  });
 
   factory LinebusinessModel.fromJson(Map<String, dynamic> json) {
     return LinebusinessModel(

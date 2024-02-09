@@ -12,8 +12,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentOrderLoadCardRegisterDesktop extends StatefulWidget {
   const ContentOrderLoadCardRegisterDesktop({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentOrderLoadCardRegisterDesktop> createState() =>

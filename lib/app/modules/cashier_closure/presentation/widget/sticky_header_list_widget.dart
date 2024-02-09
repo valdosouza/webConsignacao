@@ -9,11 +9,11 @@ final StickyHeaderController controller = StickyHeaderController();
 
 class StickyHeaderList extends StatelessWidget {
   const StickyHeaderList({
-    Key? key,
+    super.key,
     required this.closureModel,
     required this.index,
     required this.listIndex,
-  }) : super(key: key);
+  });
 
   final ClosureModel closureModel;
   final List<int> listIndex;
@@ -58,10 +58,10 @@ class StickyHeaderList extends StatelessWidget {
 
 class Header extends StatelessWidget {
   const Header({
-    Key? key,
+    super.key,
     required this.title,
     this.color = Colors.lightBlue,
-  }) : super(key: key);
+  });
 
   final String title;
   final Color color;

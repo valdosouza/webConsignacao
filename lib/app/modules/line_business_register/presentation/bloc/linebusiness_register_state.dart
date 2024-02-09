@@ -13,37 +13,30 @@ class LinebusinessLoadingState extends LinebusinessRegisterState {
 }
 
 class LinebusinessLoadedState extends LinebusinessRegisterState {
-  LinebusinessLoadedState({required List<LinebusinessModel> list})
-      : super(list: list);
+  LinebusinessLoadedState({required super.list});
 }
 
 class LinebusinessErrorState extends LinebusinessRegisterState {
-  LinebusinessErrorState({required List<LinebusinessModel> list})
-      : super(list: list);
+  LinebusinessErrorState({required super.list});
 }
 
 class LinebusinessInfoPageState extends LinebusinessRegisterState {
   final LinebusinessModel? model;
-  LinebusinessInfoPageState({required List<LinebusinessModel> list, this.model})
-      : super(list: list);
+  LinebusinessInfoPageState({required super.list, this.model});
 }
 
 class LinebusinessAddSuccessState extends LinebusinessRegisterState {
-  LinebusinessAddSuccessState({required List<LinebusinessModel> list})
-      : super(list: list);
+  LinebusinessAddSuccessState({required super.list});
 }
 
 class LinebusinessAddErrorState extends LinebusinessRegisterState {
-  LinebusinessAddErrorState({required List<LinebusinessModel> list})
-      : super(list: list);
+  LinebusinessAddErrorState({required super.list});
 }
 
 class LinebusinessEditSuccessState extends LinebusinessRegisterState {
-  LinebusinessEditSuccessState({required List<LinebusinessModel> list})
-      : super(list: list);
+  LinebusinessEditSuccessState({required super.list});
 }
 
 class LinebusinessEditErrorState extends LinebusinessRegisterState {
-  LinebusinessEditErrorState({required List<LinebusinessModel> list})
-      : super(list: list);
+  LinebusinessEditErrorState({required super.list});
 }

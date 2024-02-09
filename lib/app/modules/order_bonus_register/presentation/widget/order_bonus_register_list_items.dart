@@ -12,9 +12,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 class OrderBonusRegisterItemsListWidget extends StatefulWidget {
   final OrderBonusRegisterModel orderBonus;
   const OrderBonusRegisterItemsListWidget({
-    Key? key,
+    super.key,
     required this.orderBonus,
-  }) : super(key: key);
+  });
 
   @override
   State<OrderBonusRegisterItemsListWidget> createState() =>

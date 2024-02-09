@@ -12,9 +12,9 @@ import 'package:appweb/app/core/shared/theme.dart';
 class OrderStockAdjustmentRegisterStocksListWidget extends StatefulWidget {
   final OrderStockAdjustmentRegisterModel orderStockAdjustment;
   const OrderStockAdjustmentRegisterStocksListWidget({
-    Key? key,
+    super.key,
     required this.orderStockAdjustment,
-  }) : super(key: key);
+  });
 
   @override
   State<OrderStockAdjustmentRegisterStocksListWidget> createState() =>

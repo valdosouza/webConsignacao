@@ -11,8 +11,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentOrderStockTransferRegisterEditItem extends StatefulWidget {
   const ContentOrderStockTransferRegisterEditItem({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentOrderStockTransferRegisterEditItem> createState() =>

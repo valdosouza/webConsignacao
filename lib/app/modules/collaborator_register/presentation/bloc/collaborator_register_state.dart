@@ -14,61 +14,45 @@ abstract class CollaboratorRegisterState {
 
 class CollaboratorRegisterReturnedState extends CollaboratorRegisterState {
   CollaboratorRegisterReturnedState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.modelList,
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterLoadingState extends CollaboratorRegisterState {
   CollaboratorRegisterLoadingState({
-    required int tabIndex,
+    required super.tabIndex,
   }) : super(
           modelList: [],
-          tabIndex: tabIndex,
         );
 }
 
 class CollaboratorRegisterLoadedState extends CollaboratorRegisterState {
   CollaboratorRegisterLoadedState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.modelList,
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterErrorState extends CollaboratorRegisterState {
   CollaboratorRegisterErrorState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.modelList,
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterGetErrorState extends CollaboratorRegisterState {
   CollaboratorRegisterGetErrorState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.modelList,
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterInfoPageState extends CollaboratorRegisterState {
   CollaboratorRegisterInfoPageState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.modelList,
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterCepErrorState extends CollaboratorRegisterState {
@@ -76,24 +60,18 @@ class CollaboratorRegisterCepErrorState extends CollaboratorRegisterState {
 
   CollaboratorRegisterCepErrorState({
     required this.error,
-    required int tabIndex,
-    required List<CollaboratorListModel> modelList,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.tabIndex,
+    required super.modelList,
+  });
 }
 
 class CollaboratorRegisterCnpjErrorState extends CollaboratorRegisterState {
   final String error;
   CollaboratorRegisterCnpjErrorState({
     required this.error,
-    required int tabIndex,
-    required List<CollaboratorListModel> modelList,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.tabIndex,
+    required super.modelList,
+  });
 }
 
 class CollaboratorRegisterGetStatesSuccessState
@@ -101,13 +79,10 @@ class CollaboratorRegisterGetStatesSuccessState
   final List<StateModel> states;
 
   CollaboratorRegisterGetStatesSuccessState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
+    required super.modelList,
+    required super.tabIndex,
     required this.states,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+  });
 }
 
 class CollaboratorRegisterGetStatesErrorState
@@ -115,10 +90,10 @@ class CollaboratorRegisterGetStatesErrorState
   final String error;
 
   CollaboratorRegisterGetStatesErrorState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
+    required super.modelList,
+    required super.tabIndex,
     required this.error,
-  }) : super(modelList: modelList, tabIndex: tabIndex);
+  });
 }
 
 class CollaboratorRegisterGetCitySuccessState
@@ -126,43 +101,37 @@ class CollaboratorRegisterGetCitySuccessState
   final List<CityModel> cities;
 
   CollaboratorRegisterGetCitySuccessState({
-    required List<CollaboratorListModel> modelList,
+    required super.modelList,
     required this.cities,
-    required int tabIndex,
-  }) : super(modelList: modelList, tabIndex: tabIndex);
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterGetCityErrorState extends CollaboratorRegisterState {
   final String error;
 
   CollaboratorRegisterGetCityErrorState({
-    required List<CollaboratorListModel> modelList,
+    required super.modelList,
     required this.error,
-    required int tabIndex,
-  }) : super(modelList: modelList, tabIndex: tabIndex);
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterPostSuccessState extends CollaboratorRegisterState {
   CollaboratorRegisterPostSuccessState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.modelList,
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterPostErrorState extends CollaboratorRegisterState {
   final String error;
 
   CollaboratorRegisterPostErrorState({
-    required List<CollaboratorListModel> modelList,
+    required super.modelList,
     required this.error,
-    required int tabIndex,
-  }) : super(
-          modelList: modelList,
-          tabIndex: tabIndex,
-        );
+    required super.tabIndex,
+  });
 }
 
 class CollaboratorRegisterGetLinebusinessSuccessState
@@ -172,17 +141,16 @@ class CollaboratorRegisterGetLinebusinessSuccessState
   CollaboratorRegisterGetLinebusinessSuccessState({
     required List<CollaboratorListModel> modellist,
     required this.linebusiness,
-    required int tabIndex,
+    required super.tabIndex,
   }) : super(
           modelList: modellist,
-          tabIndex: tabIndex,
         );
 }
 
 class CollaboratorRegisterGetLinebusinessErrorState
     extends CollaboratorRegisterState {
   CollaboratorRegisterGetLinebusinessErrorState({
-    required List<CollaboratorListModel> modelList,
-    required int tabIndex,
-  }) : super(modelList: modelList, tabIndex: tabIndex);
+    required super.modelList,
+    required super.tabIndex,
+  });
 }

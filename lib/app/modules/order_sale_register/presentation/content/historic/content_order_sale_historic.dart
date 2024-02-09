@@ -13,9 +13,9 @@ import 'package:appweb/app/modules/order_sale_register/presentation/widget/regis
 class ContentOrderSaleHistoric extends StatefulWidget {
   final OrderSaleMainCardModel model;
   const ContentOrderSaleHistoric({
-    Key? key,
+    super.key,
     required this.model,
-  }) : super(key: key);
+  });
 
   @override
   State<ContentOrderSaleHistoric> createState() =>

@@ -4,12 +4,9 @@ import '../../domain/entity/cashier_balance_entity.dart';
 
 class CashierBalanceModel extends CashierBalanceEntity {
   CashierBalanceModel({
-    required String dtRecord,
-    required List<CashierBalanceItemsEntity> items,
-  }) : super(
-          dtRecord: dtRecord,
-          items: items,
-        );
+    required super.dtRecord,
+    required super.items,
+  });
 
   factory CashierBalanceModel.fromJson(Map<String, dynamic> json) {
     return CashierBalanceModel(

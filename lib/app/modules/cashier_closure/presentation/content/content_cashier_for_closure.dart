@@ -11,8 +11,8 @@ import '../bloc/cashier_closure_state.dart';
 
 class ContentCashierForClosure extends StatefulWidget {
   const ContentCashierForClosure({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentCashierForClosure> createState() =>

@@ -10,8 +10,8 @@ import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_s
 
 class ContentCashierStatementSalesmanList extends StatefulWidget {
   const ContentCashierStatementSalesmanList({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentCashierStatementSalesmanList> createState() =>

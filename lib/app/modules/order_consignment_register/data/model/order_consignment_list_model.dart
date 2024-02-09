@@ -3,26 +3,16 @@ import 'package:appweb/app/modules/order_consignment_register/domain/entity/orde
 
 class OrderConsignmetListModel extends OrderConsignmentListEntity {
   OrderConsignmetListModel({
-    required int id,
-    required int tbInstitutionId,
-    required int tbUserId,
-    required int tbCustomerId,
-    required String nameEntity,
-    required String dtRecord,
-    required int number,
-    required String status,
-    required String note,
-  }) : super(
-          id: id,
-          tbInstitutionId: tbInstitutionId,
-          tbUserId: tbUserId,
-          tbCustomerId: tbCustomerId,
-          nameEntity: nameEntity,
-          dtRecord: dtRecord,
-          number: number,
-          status: status,
-          note: note,
-        );
+    required super.id,
+    required super.tbInstitutionId,
+    required super.tbUserId,
+    required super.tbCustomerId,
+    required super.nameEntity,
+    required super.dtRecord,
+    required super.number,
+    required super.status,
+    required super.note,
+  });
 
   factory OrderConsignmetListModel.fromJson(Map<String, dynamic> json) {
     return OrderConsignmetListModel(

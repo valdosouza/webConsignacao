@@ -10,11 +10,11 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class OrderStockAdjustmentRegisterData extends StatelessWidget {
   const OrderStockAdjustmentRegisterData({
-    Key? key,
+    super.key,
     required this.orderStockAdjust,
     required this.bloc,
     required this.controllerDate,
-  }) : super(key: key);
+  });
 
   final OrderStockAdjustmentRegisterModel orderStockAdjust;
   final OrderStockAdjustmentRegisterBloc bloc;

@@ -7,9 +7,9 @@ import 'package:appweb/app/core/shared/theme.dart';
 
 class CashierClosureByDayPageMobile extends StatefulWidget {
   const CashierClosureByDayPageMobile({
-    Key? key,
+    super.key,
     required this.dateSelected,
-  }) : super(key: key);
+  });
   final String dateSelected;
   @override
   State<CashierClosureByDayPageMobile> createState() =>

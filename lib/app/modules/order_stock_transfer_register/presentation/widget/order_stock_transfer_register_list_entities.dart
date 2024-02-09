@@ -9,8 +9,8 @@ import 'package:appweb/app/core/shared/theme.dart';
 
 class OrderStockTransferRegisterEntitiesListWidget extends StatefulWidget {
   const OrderStockTransferRegisterEntitiesListWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<OrderStockTransferRegisterEntitiesListWidget> createState() =>

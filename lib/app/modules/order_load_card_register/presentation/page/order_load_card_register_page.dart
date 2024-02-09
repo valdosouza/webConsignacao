@@ -10,8 +10,8 @@ import 'package:flutter/services.dart';
 
 class OrderLoadCardRegisterPage extends StatefulWidget {
   const OrderLoadCardRegisterPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<OrderLoadCardRegisterPage> createState() =>

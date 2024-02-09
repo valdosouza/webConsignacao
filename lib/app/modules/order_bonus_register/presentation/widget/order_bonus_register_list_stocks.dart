@@ -12,9 +12,9 @@ import 'package:appweb/app/core/shared/theme.dart';
 class OrderBonusRegisterStocksListWidget extends StatefulWidget {
   final OrderBonusRegisterModel orderBonus;
   const OrderBonusRegisterStocksListWidget({
-    Key? key,
+    super.key,
     required this.orderBonus,
-  }) : super(key: key);
+  });
 
   @override
   State<OrderBonusRegisterStocksListWidget> createState() =>

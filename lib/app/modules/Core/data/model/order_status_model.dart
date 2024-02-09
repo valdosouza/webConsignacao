@@ -3,16 +3,11 @@ import 'package:appweb/app/modules/Core/domain/entity/order_status_entity.dart';
 
 class OrderStatusModel extends OrderStatusEntity {
   OrderStatusModel({
-    required int tbInstitutionId,
-    required int id,
-    required String dtRecord,
-    required String direction,
-  }) : super(
-          tbInstitutionId: tbInstitutionId,
-          id: id,
-          dtRecord: dtRecord,
-          direction: direction,
-        );
+    required super.tbInstitutionId,
+    required super.id,
+    required super.dtRecord,
+    required super.direction,
+  });
 
   factory OrderStatusModel.fromJson(Map<String?, dynamic> json) {
     return OrderStatusModel(

@@ -2,14 +2,10 @@ import 'package:appweb/app/modules/auth/domain/entity/auth_change_password_entit
 
 class AuthChangePasswordModel extends AuthChangePasswordEntity {
   AuthChangePasswordModel({
-    required int tbUserId,
-    required String salt,
-    required String newPassword,
-  }) : super(
-          tbUserId: tbUserId,
-          salt: salt,
-          newPassword: newPassword,
-        );
+    required super.tbUserId,
+    required super.salt,
+    required super.newPassword,
+  });
 
   factory AuthChangePasswordModel.fromJson(Map<String, dynamic> json) {
     return AuthChangePasswordModel(

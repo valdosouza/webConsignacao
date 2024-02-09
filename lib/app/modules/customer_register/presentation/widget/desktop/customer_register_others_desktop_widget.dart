@@ -8,10 +8,10 @@ class CustomerRegisterOthersDesktopWidget extends StatefulWidget {
   final CustomerRegisterBloc bloc;
   final CustomerMainModel? customer;
   const CustomerRegisterOthersDesktopWidget({
-    Key? key,
+    super.key,
     required this.bloc,
     this.customer,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomerRegisterOthersDesktopWidget> createState() =>

@@ -10,8 +10,8 @@ import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_s
 
 class ContentCashierStatementCustomer extends StatefulWidget {
   const ContentCashierStatementCustomer({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentCashierStatementCustomer> createState() =>
@@ -59,7 +59,7 @@ class _ContentCashierStatementCustomerState
             )),
         const SizedBox(height: 10),
         SizedBox(
-          height: size.height - 315,
+          height: size.height - 331,
           width: size.width,
           child: SingleChildScrollView(
             child: ExpansionPanelList(

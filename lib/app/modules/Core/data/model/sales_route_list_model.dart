@@ -9,7 +9,7 @@ class SalesRouteListModel extends SalesRouteListEntity {
     String? street,
     String? nmbr,
     String? complement,
-    bool expanded = false,
+    super.expanded,
   }) : super(
           id: id ?? 0,
           tbInstitutionId: tbInstitutionId ?? 0,
@@ -18,7 +18,6 @@ class SalesRouteListModel extends SalesRouteListEntity {
           street: street ?? "",
           nmbr: nmbr ?? "",
           complement: complement ?? "",
-          expanded: expanded,
         );
 
   factory SalesRouteListModel.fromJson(Map<String?, dynamic> json) {

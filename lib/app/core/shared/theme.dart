@@ -31,6 +31,11 @@ const kLabelStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
+const kFieldlStyle = TextStyle(
+  color: Colors.white,
+  fontFamily: 'OpenSans',
+);
+
 const kTitleAppBarStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,

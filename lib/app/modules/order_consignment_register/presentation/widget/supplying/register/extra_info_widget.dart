@@ -7,10 +7,10 @@ class ExtraInfo extends StatefulWidget {
   final OrderConsignmentSupplyingModel modelSupplying;
   final Size size;
   const ExtraInfo({
-    Key? key,
+    super.key,
     required this.modelSupplying,
     required this.size,
-  }) : super(key: key);
+  });
 
   @override
   State<ExtraInfo> createState() => _ExtraInfoState();

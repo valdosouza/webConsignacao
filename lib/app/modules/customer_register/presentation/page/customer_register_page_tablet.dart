@@ -19,8 +19,8 @@ import 'package:appweb/app/modules/customer_register/presentation/content/conten
 
 class CustomerRegisterPageTablet extends StatefulWidget {
   const CustomerRegisterPageTablet({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CustomerRegisterPageTablet> createState() =>

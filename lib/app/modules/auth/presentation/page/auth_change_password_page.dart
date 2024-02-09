@@ -16,8 +16,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class AuthChangePasswordPage extends StatefulWidget {
   const AuthChangePasswordPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<AuthChangePasswordPage> createState() => _AuthChangePasswordPageState();

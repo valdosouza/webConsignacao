@@ -17,8 +17,7 @@ class ContentOrderBonusRegisterDesktop extends StatefulWidget {
   final OrderBonusRegisterModel orderBonus;
   final int tabIndex;
   const ContentOrderBonusRegisterDesktop(
-      {Key? key, required this.orderBonus, this.tabIndex = 0})
-      : super(key: key);
+      {super.key, required this.orderBonus, this.tabIndex = 0});
 
   @override
   State<ContentOrderBonusRegisterDesktop> createState() =>

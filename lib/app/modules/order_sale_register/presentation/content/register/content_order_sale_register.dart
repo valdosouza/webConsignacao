@@ -12,8 +12,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class ContentOrderSaleRegister extends StatefulWidget {
   const ContentOrderSaleRegister({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ContentOrderSaleRegister> createState() =>

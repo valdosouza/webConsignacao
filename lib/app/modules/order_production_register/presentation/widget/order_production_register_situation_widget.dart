@@ -7,9 +7,9 @@ import 'package:appweb/app/modules/order_production_register/data/model/order_pr
 class OrderProductionRegisterSituationWidget extends StatefulWidget {
   final OrderProductionRegisterModel orderProduction;
   const OrderProductionRegisterSituationWidget({
-    Key? key,
+    super.key,
     required this.orderProduction,
-  }) : super(key: key);
+  });
 
   @override
   State<OrderProductionRegisterSituationWidget> createState() =>
