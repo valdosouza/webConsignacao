@@ -4,6 +4,7 @@ import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_change_password_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_model.dart';
 import 'package:appweb/app/modules/auth/data/model/auth_recovery_password_model.dart';
+import 'package:flutter/foundation.dart';
 
 /// Calls the http://api.industriadechocolatesamor.com.br/auth/authenticate/ endpoint.
 ///
@@ -23,6 +24,10 @@ class AuthDatasourceImpl extends AuthDatasource {
   @override
   Future<AuthModel> getAuthentication(
       {required String username, required String password}) async {
+    var kindDevice = "APP MOBILE";
+    if (kIsWeb) {
+      kindDevice = "APP WEB";
+    }
     return await request(
       'auth/authenticate/',
       method: HTTPMethod.post,
@@ -30,6 +35,7 @@ class AuthDatasourceImpl extends AuthDatasource {
         <String, String>{
           'email': username,
           'password': password.toUpperCase(),
+          'kind_device': kindDevice,
         },
       ),
       (payload) {

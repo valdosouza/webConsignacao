@@ -11,6 +11,7 @@ class UserRegisterModel extends UserRegisterEntity {
     required super.active,
     required super.email,
     required super.nick,
+    required super.kindDevice,
   });
 
   factory UserRegisterModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +24,7 @@ class UserRegisterModel extends UserRegisterEntity {
       kind: json['kind'] as String,
       tbDeviceId: json['tb_device_id'] as int? ?? 0,
       active: json['active'] as String? ?? "N",
+      kindDevice: json['kind_device'] as String? ?? "APP MOBILE",
     );
   }
   factory UserRegisterModel.isEmpty() {
@@ -35,6 +37,7 @@ class UserRegisterModel extends UserRegisterEntity {
       kind: "",
       tbDeviceId: 0,
       active: "N",
+      kindDevice: "APP MOBILE",
     );
   }
 
@@ -48,6 +51,7 @@ class UserRegisterModel extends UserRegisterEntity {
     data['active'] = active;
     data['email'] = email;
     data['nick'] = nick;
+    data['kind_device'] = kindDevice;
     return data;
   }
 }

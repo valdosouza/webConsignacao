@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
+import 'package:appweb/app/core/shared/widgets/custom_dropdow_buttom.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
@@ -21,7 +22,8 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  bool selectRadio = false;
+  bool selectActive = false;
+  bool selectKindDevice = false;
 
   @override
   void initState() {
@@ -30,7 +32,8 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
       await Modular.isModuleReady<UserRegisterModule>();
     });
-    selectRadio = (bloc.user.active == "S");
+    selectActive = (bloc.user.active == "S");
+    selectKindDevice = (bloc.user.kindDevice == "S");
   }
 
   @override
@@ -117,55 +120,77 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
                     },
                   ),
                 const SizedBox(height: 30.0),
-                const Text("Ativo", style: kLabelStyle),
-                const SizedBox(height: 10.0),
-                Row(
-                  children: [
-                    Row(
-                      children: [
-                        Radio(
-                          value: true,
-                          groupValue: selectRadio,
-                          activeColor: Colors.red,
-                          onChanged: selectRadio
-                              ? (value) {}
-                              : (value) {
-                                  setState(() {
-                                    selectRadio = true;
-                                  });
-                                  bloc.user.active = "S";
-                                },
-                        ),
-                        const SizedBox(width: 5.0),
-                        const Text("Sim", style: kLabelStyle),
-                      ],
-                    ),
-                    const SizedBox(width: 10.0),
-                    Row(
-                      children: [
-                        Radio(
-                            value: false,
-                            groupValue: selectRadio,
-                            activeColor: Colors.red,
-                            onChanged: selectRadio
-                                ? (value) {
-                                    setState(() {
-                                      selectRadio = false;
-                                    });
-                                    bloc.user.active = "N";
-                                  }
-                                : (value) {}),
-                        const SizedBox(width: 5.0),
-                        const Text("Não", style: kLabelStyle),
-                      ],
-                    ),
-                  ],
-                ),
+                _fieldActive(),
+                const SizedBox(height: 30.0),
+                _fieldKindDevice(),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  _fieldActive() {
+    return Column(
+      children: [
+        const Text("Ativo", style: kLabelStyle),
+        const SizedBox(height: 10.0),
+        Row(
+          children: [
+            Row(
+              children: [
+                Radio(
+                  value: true,
+                  groupValue: selectActive,
+                  activeColor: Colors.red,
+                  onChanged: selectActive
+                      ? (value) {}
+                      : (value) {
+                          setState(() {
+                            selectActive = true;
+                          });
+                          bloc.user.active = "S";
+                        },
+                ),
+                const SizedBox(width: 5.0),
+                const Text("Sim", style: kLabelStyle),
+              ],
+            ),
+            const SizedBox(width: 10.0),
+            Row(
+              children: [
+                Radio(
+                    value: false,
+                    groupValue: selectActive,
+                    activeColor: Colors.red,
+                    onChanged: selectActive
+                        ? (value) {
+                            setState(() {
+                              selectActive = false;
+                            });
+                            bloc.user.active = "N";
+                          }
+                        : (value) {}),
+                const SizedBox(width: 5.0),
+                const Text("Não", style: kLabelStyle),
+              ],
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  _fieldKindDevice() {
+    return CustomDropdownButton(
+      title: "Tipo de Dispositivo",
+      initialValue: bloc.user.kindDevice,
+      icon: const Icon(Icons.arrow_drop_down_rounded),
+      list: const <String>["APP WEB", "APP MOBILE", "AMBOS"],
+      onChanged: (value) {
+        bloc.user.kindDevice = value;
+      },
     );
   }
 }

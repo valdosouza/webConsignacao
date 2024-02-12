@@ -7,6 +7,7 @@ class AuthModel extends AuthEntity {
     int? tbInstitutionId,
     String? username,
     String? password,
+    String? kindDevice,
     String? jwt,
     String? error,
   }) : super(
@@ -15,6 +16,7 @@ class AuthModel extends AuthEntity {
           tbInstitutionId: tbInstitutionId ?? 0,
           username: username ?? "",
           password: password ?? "",
+          kindDevice: kindDevice ?? "APP MOBILE",
           jwt: jwt ?? "",
           error: error ?? "",
         );
@@ -28,6 +30,8 @@ class AuthModel extends AuthEntity {
           : json['tb_institution_id'],
       username: json['username'] as String,
       password: json['password'] as String,
+      kindDevice:
+          json['kind_device'] is String ? json['kind_device'] : "APP MOBILE",
       jwt: json['jwt'] as String,
       error: json['error'] is String ? json['error'] : "",
     );
