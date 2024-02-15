@@ -18,6 +18,12 @@ class CashierMenuMain extends StatelessWidget {
           ),
           itemMenuDraw(
             Icons.home,
+            'Débitos de Clientes',
+            () async => Modular.to.navigate(
+                '/cashier/desktop/cashierstatement/desktop/customersdebit/'),
+          ),
+          itemMenuDraw(
+            Icons.home,
             'Resumo Mensal',
             () async => Modular.to.navigate(
                 '/cashier/desktop/cashierstatementsummary/desktop/cashierstatementsummary/monthly/'),

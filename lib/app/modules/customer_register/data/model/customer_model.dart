@@ -8,6 +8,7 @@ class CustomerModel extends CustomerEntity {
     int? tbCarrierId,
     int? tbSalesRouteId,
     String? nameSalesRoute,
+    int? tbSalesmanId,
     String? regionName,
     String? creditStatus,
     double? creditValue,
@@ -22,6 +23,7 @@ class CustomerModel extends CustomerEntity {
           tbCarrierId: tbCarrierId ?? 0,
           tbSalesRouteId: tbSalesRouteId ?? 0,
           salesRouteName: nameSalesRoute ?? "",
+          tbSalesmanId: tbSalesmanId ?? 0,
           regionName: regionName ?? "",
           creditStatus: creditStatus ?? "",
           creditValue: creditValue ?? 0,
@@ -41,6 +43,7 @@ class CustomerModel extends CustomerEntity {
       tbCarrierId: json['tb_carrier_id'] as int? ?? 0,
       tbSalesRouteId: json['tb_sales_route_id'] as int? ?? 0,
       nameSalesRoute: json['sales_route_name'] as String? ?? "",
+      tbSalesmanId: json['tb_salesman_id'] as int? ?? 0,
       regionName: json['region_name'] as String? ?? "",
       creditStatus: json['credit_status'] as String? ?? "",
       creditValue: json['credit_value'] is String
@@ -60,6 +63,7 @@ class CustomerModel extends CustomerEntity {
       tbInstitutionId: 0,
       tbRegionId: 0,
       tbCarrierId: 0,
+      tbSalesmanId: 0,
       creditStatus: "",
       creditValue: 0,
       wallet: "",
@@ -77,6 +81,7 @@ class CustomerModel extends CustomerEntity {
     data['region_name'] = regionName;
     data['tb_carrier_id'] = tbCarrierId;
     data['tb_sales_route_id'] = tbSalesRouteId;
+    data['tb_salesman_id'] = tbSalesmanId;
     data['sales_route_name'] = salesRouteName;
     data['credit_status'] = creditStatus;
     data['credit_value'] = 0;

@@ -7,6 +7,9 @@ import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statemen
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_salesman_model.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/customers_old_debit_model.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/salesman_model.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class CashierStatementDataSource extends Gateway {
   CashierStatementDataSource({required super.httpClient});
@@ -30,6 +33,11 @@ abstract class CashierStatementDataSource extends Gateway {
     required CashierStatementParams params,
   });
   Future<CashierStatusModel> cashierStatementGetCurrentDate();
+
+  Future<List<CustomersOldDebitModel>> getCustomerOldDebitBySalesman({
+    required CashierStatementParams params,
+  });
+  Future<List<SalesmanModel>> getSalesmans();
 }
 
 class CashierStatementDataSourceImpl extends CashierStatementDataSource {
@@ -223,6 +231,58 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
       (payload) {
         final data = json.decode(payload);
         return CashierStatusModel.fromJson(data);
+      },
+      onError: (error) {
+        return Future.error(ServerException());
+      },
+    );
+  }
+
+  @override
+  Future<List<CustomersOldDebitModel>> getCustomerOldDebitBySalesman(
+      {required CashierStatementParams params}) async {
+    await getInstitutionId().then((value) {
+      params.tbInstitutionId = int.parse(value.toString());
+    });
+    if (!kIsWeb) {
+      await getUserId().then((value) {
+        params.tbSalesmanId = int.parse(value.toString());
+      });
+    }
+
+    final body = json.encode(params.toJson());
+    return request(
+      'financial/customer/olddebit/getlist',
+      timeout: const Duration(milliseconds: 15000),
+      method: HTTPMethod.post,
+      data: body,
+      (payload) {
+        final data = json.decode(payload);
+        var model = (data as List)
+            .map((e) => CustomersOldDebitModel.fromJson(e))
+            .toList();
+        return model;
+      },
+      onError: (error) {
+        return Future.error(ServerException());
+      },
+    );
+  }
+
+  @override
+  Future<List<SalesmanModel>> getSalesmans() async {
+    String tbInstitutionId = '1';
+    await getInstitutionId().then((value) {
+      tbInstitutionId = value.toString();
+    });
+
+    return await request(
+      'salesman/getlist/$tbInstitutionId',
+      (payload) {
+        final data = json.decode(payload);
+        var model =
+            (data as List).map((e) => SalesmanModel.fromJson(e)).toList();
+        return model;
       },
       onError: (error) {
         return Future.error(ServerException());

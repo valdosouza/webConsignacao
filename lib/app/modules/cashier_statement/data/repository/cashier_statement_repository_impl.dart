@@ -6,6 +6,8 @@ import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statemen
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_salesman_model.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/customers_old_debit_model.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/salesman_model.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/repository/cashier_statement_respository.dart';
 import 'package:dartz/dartz.dart';
 
@@ -94,6 +96,29 @@ class CashierStatementRepositoryImpl implements CashierStatementRepository {
     try {
       final result = await datasource.cashierStatementGetCurrentDate();
       return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CustomersOldDebitModel>>>
+      getCustomersOldDebitBySalesman(
+          {required CashierStatementParams params}) async {
+    try {
+      final result =
+          await datasource.getCustomerOldDebitBySalesman(params: params);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<SalesmanModel>>> getSalesman() async {
+    try {
+      final model = await datasource.getSalesmans();
+      return Right(model);
     } on ServerException {
       return Left(ServerFailure());
     }

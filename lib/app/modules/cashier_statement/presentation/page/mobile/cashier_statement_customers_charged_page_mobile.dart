@@ -70,13 +70,8 @@ class CashierStatementCustomersChargedPageMobileState
         body: BlocConsumer<CashierStatementBloc, CashierStatementState>(
           bloc: bloc,
           listener: (context, state) {
-            if (state is CustomerMobileErrorState) {
-              CustomToast.showToast(
-                  "Não foi possível acessar os dados. Tente novamente mais tarde");
-            }
-            if (state is MobileErrorState) {
-              CustomToast.showToast(
-                  "Não foi possível acessar os dados. Tente novamente mais tarde");
+            if (state is ErrorState) {
+              CustomToast.showToast(state.msg);
             }
           },
           builder: (context, state) {

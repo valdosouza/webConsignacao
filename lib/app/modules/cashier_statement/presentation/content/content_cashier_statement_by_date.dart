@@ -34,9 +34,8 @@ class _ContentCashierStatementState
     return BlocConsumer<CashierStatementBloc, CashierStatementState>(
         bloc: bloc,
         listener: (context, state) {
-          if (state is MobileErrorState) {
-            CustomToast.showToast(
-                "Não foi possível acessar o extrato. Tente novamente mais tarde.");
+          if (state is ErrorState) {
+            CustomToast.showToast(state.msg);
           }
         },
         builder: (context, state) {

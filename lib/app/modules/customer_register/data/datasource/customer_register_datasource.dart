@@ -71,8 +71,13 @@ class CustomerRegisterDataSourceImpl extends CustomerRegisterDataSource {
     await getInstitutionId().then((value) {
       (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
     });
+    int tbSalesmanId = 1;
+    await getUserId().then((value) {
+      (kIsWeb) ? tbSalesmanId = value : tbSalesmanId = int.parse(value);
+    });
 
     customer.customer.tbInstitutionId = tbInstitutionId;
+    customer.customer.tbSalesmanId = tbSalesmanId;
 
     var bodyCustomer = jsonEncode(customer.toJson());
 

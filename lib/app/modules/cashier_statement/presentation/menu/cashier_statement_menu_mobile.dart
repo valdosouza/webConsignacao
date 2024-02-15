@@ -52,6 +52,12 @@ class _CashierStatementMenuMobileState
               () async => Modular.to
                   .navigate('/cashierstatement/mobile/customerscharged/'),
             ),
+            itemMenuDraw(
+              Icons.home,
+              'Débitos de Clientes',
+              () async => Modular.to
+                  .navigate('/cashierstatement/mobile/customersdebit/'),
+            ),
           ],
         ),
       );

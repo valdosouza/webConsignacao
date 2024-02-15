@@ -6,16 +6,14 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CashierStatementPageMobile extends StatefulWidget {
-  const CashierStatementPageMobile({super.key});
+class PageMobile extends StatefulWidget {
+  const PageMobile({super.key});
 
   @override
-  State<CashierStatementPageMobile> createState() =>
-      CashierStatementPageMobileState();
+  State<PageMobile> createState() => PageMobileState();
 }
 
-class CashierStatementPageMobileState
-    extends State<CashierStatementPageMobile> {
+class PageMobileState extends State<PageMobile> {
   @override
   void initState() {
     super.initState();

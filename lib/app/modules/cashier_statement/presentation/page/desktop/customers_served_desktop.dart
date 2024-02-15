@@ -14,16 +14,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CashierStatementPageDesktop extends StatefulWidget {
-  const CashierStatementPageDesktop({super.key});
+class CustomersServedDesktop extends StatefulWidget {
+  const CustomersServedDesktop({super.key});
 
   @override
-  State<CashierStatementPageDesktop> createState() =>
-      CashierStatementPageDesktopState();
+  State<CustomersServedDesktop> createState() => CustomersServedDesktopState();
 }
 
-class CashierStatementPageDesktopState
-    extends State<CashierStatementPageDesktop> {
+class CustomersServedDesktopState extends State<CustomersServedDesktop> {
   late CashierStatementBloc bloc;
   @override
   void initState() {
@@ -57,9 +55,8 @@ class CashierStatementPageDesktopState
         body: BlocConsumer<CashierStatementBloc, CashierStatementState>(
           bloc: bloc,
           listener: (context, state) {
-            if (state is DesktopErrorState) {
-              CustomToast.showToast(
-                  "Não foi possível acessar os dados. Tente novamente mais tarde");
+            if (state is ErrorState) {
+              CustomToast.showToast(state.msg);
             }
           },
           builder: (context, state) {

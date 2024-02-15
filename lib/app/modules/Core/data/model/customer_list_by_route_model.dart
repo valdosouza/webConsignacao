@@ -8,6 +8,7 @@ class CustomerListByRouteModel extends CustomerListByRouteEntity {
     String? docKind,
     String? docNumber,
     int? tbSalesRouteIid,
+    int? tbSalesmanId,
     String? nameSalesRoute,
     int? sequence,
     String? turnBack,

@@ -20,8 +20,4 @@ class CashierStatementSalesmanModel extends CashierStatementSalesmanEntity {
           : json['value_charged'],
     );
   }
-
-  factory CashierStatementSalesmanModel.empty() {
-    return CashierStatementSalesmanModel();
-  }
 }

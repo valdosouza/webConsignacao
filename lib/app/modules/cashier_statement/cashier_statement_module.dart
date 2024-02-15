@@ -7,14 +7,18 @@ import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_stat
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_current_date.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_customers.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_salesmans.dart';
+import 'package:appweb/app/modules/cashier_statement/domain/usecase/get_customer_old_debits_by_salesmans.dart';
+import 'package:appweb/app/modules/cashier_statement/domain/usecase/get_salesmans.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/page/cashier_statement_page_desktop.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/page/desktop/customers_served_desktop.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/page/desktop/customers_debit_page_desktop.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/page/mobile/cashier_statement_by_customer_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/page/mobile/cashier_statement_by_day_page_mobile.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/page/cashier_statement_page.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/page/page.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/page/mobile/cashier_statement_by_month_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/page/mobile/cashier_statement_by_order_page_mobile.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/page/mobile/cashier_statement_customers_charged_page_mobile.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/page/mobile/customers_debit_page_mobile.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -48,6 +52,11 @@ class CashierStatementModule extends Module {
         Bind.factory<CashierStatementGetCurrentDate>((i) =>
             CashierStatementGetCurrentDate(
                 repository: i.get<CashierStatementRepositoryImpl>())),
+        Bind.factory<GetCustomerOldDebitsBySalesman>((i) =>
+            GetCustomerOldDebitsBySalesman(
+                repository: i.get<CashierStatementRepositoryImpl>())),
+        Bind.factory<GetSalesmans>((i) =>
+            GetSalesmans(repository: i.get<CashierStatementRepositoryImpl>())),
         Bind.singleton<CashierStatementBloc>(
           (i) => CashierStatementBloc(
             byDay: i.get<CashierStatementGetByDay>(),
@@ -57,6 +66,9 @@ class CashierStatementModule extends Module {
             customersCharged: i.get<CashierStatementGetCustomers>(),
             salesmanCustomersCharged: i.get<CashierStatementGetSalesmans>(),
             getCurrentDate: i.get<CashierStatementGetCurrentDate>(),
+            getCustomerOldDebitsBySalesman:
+                i.get<GetCustomerOldDebitsBySalesman>(),
+            getSalesmans: i.get<GetSalesmans>(),
           ),
         )
       ];
@@ -64,7 +76,7 @@ class CashierStatementModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(
       '/mobile/',
-      child: (_, args) => const CashierStatementPage(),
+      child: (_, args) => const Page(),
     ),
     ChildRoute(
       '/mobile/byday/',
@@ -79,6 +91,10 @@ class CashierStatementModule extends Module {
       child: (_, args) => const CashierStatementCustomersChargedPageMobile(),
     ),
     ChildRoute(
+      '/mobile/customersdebit/',
+      child: (_, args) => const CustomersDebitPageMobile(),
+    ),
+    ChildRoute(
       '/mobile/bycustomer/',
       child: (_, args) => const CashierStatementByCustomerPageMobile(),
     ),
@@ -88,7 +104,11 @@ class CashierStatementModule extends Module {
     ),
     ChildRoute(
       '/desktop/salesman/salesmanlist/',
-      child: (_, args) => const CashierStatementPageDesktop(),
+      child: (_, args) => const CustomersServedDesktop(),
+    ),
+    ChildRoute(
+      '/desktop/customersdebit/',
+      child: (_, args) => const CustomersDebitPageDesktop(),
     ),
   ];
 }

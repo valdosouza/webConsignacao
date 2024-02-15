@@ -1,24 +1,26 @@
-import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/content/content_cashier_statement_customer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CashierStatementCustomerBySalesmanDesktop extends StatefulWidget {
-  const CashierStatementCustomerBySalesmanDesktop({super.key});
+import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/salesman_model.dart';
+import 'package:appweb/app/modules/cashier_statement/presentation/content/content_salesman_list.dart';
+
+class SalesmanListDesktop extends StatefulWidget {
+  final List<SalesmanModel> list;
+  const SalesmanListDesktop({
+    super.key,
+    required this.list,
+  });
 
   @override
-  State<CashierStatementCustomerBySalesmanDesktop> createState() =>
-      CashierStatementCustomerBySalesmanDesktopState();
+  State<SalesmanListDesktop> createState() => SalesmanListDesktopState();
 }
 
-class CashierStatementCustomerBySalesmanDesktopState
-    extends State<CashierStatementCustomerBySalesmanDesktop> {
-  late MaskedTextController controller;
+class SalesmanListDesktopState extends State<SalesmanListDesktop> {
   late CashierStatementBloc bloc;
 
   @override
@@ -37,18 +39,20 @@ class CashierStatementCustomerBySalesmanDesktopState
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
         ),
-        title: AutoSizeText(
-          "Vendedor: ${bloc.nameSalesman} - Data: ${bloc.dateSelected}",
+        title: const AutoSizeText(
+          "Lista de Vendedores",
           style: kTitleAppBarStyle,
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded),
           onPressed: () {
-            bloc.add(ReturnSalesmanListDesktopEvent());
+            bloc.tbSalesmanId = 0;
+            bloc.nameSalesman = "";
+            bloc.add(MainFormEvent());
           },
         ),
       ),
-      body: const ContentCashierStatementCustomer(),
+      body: ContentSalesmanList(list: bloc.salesmanList),
     );
   }
 }

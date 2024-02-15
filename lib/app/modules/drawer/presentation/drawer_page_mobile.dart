@@ -30,6 +30,34 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
     bloc.add(UserLoggedEvent());
   }
 
+  void _showAboutApp() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Sobre o Aplicativo.'),
+          content: const AutoSizeText(
+            "Esta é Versão 1.0.1+62.",
+            minFontSize: 12,
+            maxFontSize: 18,
+            maxLines: 2,
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DrawerBloc, DrawerState>(
@@ -97,7 +125,7 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
                   bloc.userName,
                   maxFontSize: 18,
                   minFontSize: 12,
-                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                  style: const TextStyle(color: Colors.black),
                 )
               ],
             ),
@@ -112,6 +140,7 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
           itemMenuDraw(Icons.home, 'Estoque',
               () => Modular.to.navigate('/stock/mobile/')),
           itemMenuPolicy(Icons.home, 'Política de Privacidade'),
+          itemMenuDraw(Icons.home, 'Sobre', () => _showAboutApp()),
           itemLogout(Icons.close, 'Sair'),
         ],
       ),

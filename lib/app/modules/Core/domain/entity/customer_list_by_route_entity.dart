@@ -5,6 +5,7 @@ class CustomerListByRouteEntity {
   String docKind;
   String docNumber;
   int tbSalesRouteIid;
+
   String nameSalesRoute;
   int sequence;
   String turnBack;

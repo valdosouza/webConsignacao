@@ -6,6 +6,7 @@ class CustomerEntity {
   int tbCarrierId;
   int tbSalesRouteId;
   String salesRouteName;
+  int tbSalesmanId;
   String creditStatus;
   double creditValue;
   String wallet;
@@ -21,6 +22,7 @@ class CustomerEntity {
     this.tbCarrierId = 0,
     this.tbSalesRouteId = 0,
     this.salesRouteName = "",
+    this.tbSalesmanId = 0,
     this.creditStatus = "",
     this.creditValue = 0,
     this.wallet = "",

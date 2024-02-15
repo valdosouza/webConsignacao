@@ -162,7 +162,7 @@ class _ContentCashierStatementSalesmanListState
             trailing: IconButton(
               icon: const Icon(Icons.arrow_forward_ios_outlined),
               onPressed: () {
-                bloc.salesmanSelected = bloc.salesmans[index].nameSalesman;
+                bloc.nameSalesman = bloc.salesmans[index].nameSalesman;
                 bloc.add(GotoCustomerListDesktopEvent(
                   params: CashierStatementParams(
                     date: bloc.dateSelected,

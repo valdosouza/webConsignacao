@@ -63,9 +63,8 @@ class CashierStatementByMonthPageMobileState
       body: BlocConsumer<CashierStatementBloc, CashierStatementState>(
         bloc: bloc,
         listener: (context, state) {
-          if (state is MobileErrorState) {
-            CustomToast.showToast(
-                "Erro ao buscar os dados. Tente novamente mais tarde.");
+          if (state is ErrorState) {
+            CustomToast.showToast(state.msg);
           }
           if (state is GetCurrentDateSucessState) {
             bloc.add(CashierStatementGetByMonthMobileEvent(

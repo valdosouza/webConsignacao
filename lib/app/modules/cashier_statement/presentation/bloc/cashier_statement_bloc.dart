@@ -4,6 +4,8 @@ import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_customer_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_salesman_model.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/customers_old_debit_model.dart';
+import 'package:appweb/app/modules/cashier_statement/data/model/salesman_model.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_customer.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_day.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_by_month.dart';
@@ -11,6 +13,8 @@ import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_stat
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_current_date.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_customers.dart';
 import 'package:appweb/app/modules/cashier_statement/domain/usecase/cashier_statement_get_salesmans.dart';
+import 'package:appweb/app/modules/cashier_statement/domain/usecase/get_customer_old_debits_by_salesmans.dart';
+import 'package:appweb/app/modules/cashier_statement/domain/usecase/get_salesmans.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
 import 'package:bloc/bloc.dart';
@@ -24,16 +28,23 @@ class CashierStatementBloc
   final CashierStatementGetCustomers customersCharged;
   final CashierStatementGetSalesmans salesmanCustomersCharged;
   final CashierStatementGetCurrentDate getCurrentDate;
+  final GetCustomerOldDebitsBySalesman getCustomerOldDebitsBySalesman;
+  final GetSalesmans getSalesmans;
 
   List<CashierStatementModel> cashierStatement = List.empty();
   List<CashierStatementCustomerModel> customers = List.empty();
   List<CashierStatementSalesmanModel> salesmans = List.empty();
+  List<CustomersOldDebitModel> customerDebits = List.empty();
+  List<SalesmanModel> salesmanList = [];
 
   int customerIndex = 0;
   String dtCashierToday = "";
   String dtCashierMonth = "";
-  String salesmanSelected = "";
+  String nameSalesman = "";
   String dateSelected = CustomDate.newDate();
+  String nameCustomer = "";
+  int tbSalesmanId = 0;
+  int page = 0;
 
   CashierStatementBloc({
     required this.byDay,
@@ -43,6 +54,8 @@ class CashierStatementBloc
     required this.customersCharged,
     required this.salesmanCustomersCharged,
     required this.getCurrentDate,
+    required this.getCustomerOldDebitsBySalesman,
+    required this.getSalesmans,
   }) : super(LoadedState()) {
     cashierStatementGetByDay();
     cashierStatementGetByMonth();
@@ -54,8 +67,10 @@ class CashierStatementBloc
     cashierStatementGetSalesmans();
     returnListSalesmanEvent();
     returnToCustomerDesktopEvent();
-
     goToOrderDetailPageDesktop();
+    _getCustomerOldDebitsBySalesman();
+    _getSalesmanList();
+    _goBackToMainForm();
   }
 
   cashierStatementGetCurrentDate() {
@@ -65,7 +80,7 @@ class CashierStatementBloc
           await getCurrentDate.call(ParamsCashierStatementGetCurrentDate());
 
       var result = response.fold((l) {
-        return MobileErrorState();
+        return ErrorState(msg: l.toString());
       }, (r) {
         dtCashierToday = r.dtRecord;
         dateSelected = r.dtRecord;
@@ -85,7 +100,7 @@ class CashierStatementBloc
 
       var response = await byDay.call(event.params);
 
-      var result = response.fold((l) => MobileErrorState(), (r) {
+      var result = response.fold((l) => ErrorState(msg: l.toString()), (r) {
         cashierStatement = r;
         return MobileSuccessState();
       });
@@ -100,7 +115,7 @@ class CashierStatementBloc
 
       var response = await byMonth.call(event.params);
 
-      var result = response.fold((l) => MobileErrorState(), (r) {
+      var result = response.fold((l) => ErrorState(msg: l.toString()), (r) {
         cashierStatement = r;
         return MobileSuccessState();
       });
@@ -122,7 +137,7 @@ class CashierStatementBloc
       event.params.date = CustomDate.formatDateOut(dtCashier);
       var response = await byCustomer.call(event.params);
 
-      var result = response.fold((l) => MobileErrorState(), (r) {
+      var result = response.fold((l) => ErrorState(msg: l.toString()), (r) {
         cashierStatement = r;
         return ByCustomerState();
       });
@@ -139,7 +154,7 @@ class CashierStatementBloc
       var response = await customersCharged.call(event.params);
 
       var result = response.fold((l) {
-        return CustomerMobileErrorState();
+        return ErrorState(msg: l.toString());
       }, (r) {
         customers = r;
         return GoToCustomerListDesktopSucessState();
@@ -163,7 +178,7 @@ class CashierStatementBloc
       }
       var response = await byOrder.call(event.params);
 
-      var result = response.fold((l) => MobileErrorState(), (r) {
+      var result = response.fold((l) => ErrorState(msg: l.toString()), (r) {
         cashierStatement = r;
         return ByCustomerState();
       });
@@ -185,7 +200,7 @@ class CashierStatementBloc
       }
       var response = await customersCharged.call(event.params);
 
-      var result = response.fold((l) => CustomerMobileErrorState(), (r) {
+      var result = response.fold((l) => ErrorState(msg: l.toString()), (r) {
         customers = r;
         return CustomerMobileSuccessState();
       });
@@ -235,13 +250,62 @@ class CashierStatementBloc
       var response = await byOrder.call(event.params);
 
       var result = response.fold((l) {
-        return DesktopErrorState();
+        return ErrorState(msg: l.toString());
       }, (r) {
         cashierStatement = r;
         return GoToOrderDetailDesktopSucessState();
       });
 
       emit(result);
+    });
+  }
+
+  _getCustomerOldDebitsBySalesman() {
+    on<GetCustomerOldDebitBySalesmanEvent>((event, emit) async {
+      emit(LoadingState());
+      if (event.params.page == 0) {
+        if (customerDebits.isNotEmpty) {
+          customerDebits.clear();
+        }
+        page = 1;
+      } else {
+        page += 1;
+      }
+      event.params.page = page;
+
+      var response = await getCustomerOldDebitsBySalesman.call(event.params);
+
+      var result = response.fold((l) {
+        return ErrorState(msg: l.toString());
+      }, (r) {
+        customerDebits += r;
+        return GetCustomerOldDebitSucessState(list: customerDebits);
+      });
+
+      emit(result);
+    });
+  }
+
+  _getSalesmanList() {
+    on<GetSalesmanListEvent>((event, emit) async {
+      emit(LoadingState());
+      var response = await getSalesmans.call("");
+
+      var result = response.fold((l) {
+        return ErrorState(msg: l.toString());
+      }, (r) {
+        salesmanList = r;
+        return GetSalesmanLoadedState();
+      });
+      emit(result);
+    });
+  }
+
+  _goBackToMainForm() {
+    on<MainFormEvent>((event, emit) async {
+      emit(LoadingState());
+      salesmanList;
+      emit(MainFormLoadedState());
     });
   }
 }

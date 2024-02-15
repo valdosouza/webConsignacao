@@ -64,3 +64,13 @@ class GotoOrderDetailDesktopEvent extends CashierStatementEvent {
     required this.params,
   });
 }
+
+class GetCustomerOldDebitBySalesmanEvent extends CashierStatementEvent {
+  final CashierStatementParams params;
+
+  GetCustomerOldDebitBySalesmanEvent({required this.params});
+}
+
+class GetSalesmanListEvent extends CashierStatementEvent {}
+
+class MainFormEvent extends CashierStatementEvent {}
