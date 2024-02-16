@@ -35,7 +35,7 @@ class CashierStatementBloc
   List<CashierStatementCustomerModel> customers = List.empty();
   List<CashierStatementSalesmanModel> salesmans = List.empty();
   List<CustomersOldDebitModel> customerDebits = List.empty();
-  List<SalesmanModel> salesmanList = [];
+  List<SalesmanModel> salesmanList = List.empty();
 
   int customerIndex = 0;
   String dtCashierToday = "";

@@ -28,6 +28,12 @@ class CashierMenuMain extends StatelessWidget {
             () async => Modular.to.navigate(
                 '/cashier/desktop/cashierstatementsummary/desktop/cashierstatementsummary/monthly/'),
           ),
+          // itemMenuDraw(
+          //   Icons.home,
+          //   'Média de Venda',
+          //   () async => Modular.to.navigate(
+          //       '/cashier/desktop/salesaverage/desktop/salesaverage/region/'),
+          // ),
         ],
       ),
     );

@@ -2,40 +2,36 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/core/shared/widgets/custom_imput_button.dart';
-import 'package:appweb/app/core/shared/widgets/custom_input.dart';
-import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
-import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_state.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/content/content_customers_debits.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/page/desktop/salesman_list_desktop.dart';
+import 'package:appweb/app/modules/sales_average/domain/usecase/get_sales_average.dart';
+import 'package:appweb/app/modules/sales_average/presentation/bloc/bloc.dart';
+import 'package:appweb/app/modules/sales_average/presentation/bloc/event.dart';
+import 'package:appweb/app/modules/sales_average/presentation/bloc/state.dart';
+import 'package:appweb/app/modules/sales_average/presentation/content/sales_average_content.dart';
+import 'package:appweb/app/modules/sales_average/sales_average_module.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CustomersDebitPageDesktop extends StatefulWidget {
-  const CustomersDebitPageDesktop({super.key});
+class SalesAveragePageDesktop extends StatefulWidget {
+  const SalesAveragePageDesktop({super.key});
 
   @override
-  State<CustomersDebitPageDesktop> createState() =>
-      CustomersDebitPageDesktopState();
+  State<SalesAveragePageDesktop> createState() =>
+      SalesAveragePageDesktopState();
 }
 
-class CustomersDebitPageDesktopState extends State<CustomersDebitPageDesktop> {
-  late MaskedTextController controller;
-  late CashierStatementBloc bloc;
-  String title = "Débitos de Clientes";
+class SalesAveragePageDesktopState extends State<SalesAveragePageDesktop> {
+  late SalesAverageBloc bloc;
+  String title = "Média de Vendas";
 
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<CashierStatementModule>();
+      await Modular.isModuleReady<SalesAverageModule>();
     });
-    bloc = Modular.get<CashierStatementBloc>();
+    bloc = Modular.get<SalesAverageBloc>();
   }
 
   @override
@@ -51,12 +47,9 @@ class CustomersDebitPageDesktopState extends State<CustomersDebitPageDesktop> {
             style: kTitleAppBarStyle,
           ),
         ),
-        body: BlocConsumer<CashierStatementBloc, CashierStatementState>(
+        body: BlocConsumer<SalesAverageBloc, SalesAverageState>(
           bloc: bloc,
           listener: (context, state) {
-            if (state is ErrorState) {
-              CustomToast.showToast(state.msg);
-            }
             if (state is ErrorState) {
               CustomToast.showToast(state.msg);
             }
@@ -65,21 +58,13 @@ class CustomersDebitPageDesktopState extends State<CustomersDebitPageDesktop> {
             if (state is LoadingState) {
               return const CustomCircularProgressIndicator();
             }
-
-            if (state is GetSalesmanLoadedState) {
-              return SalesmanListDesktop(list: bloc.salesmanList);
-            }
-            return Container(
-              padding: const EdgeInsets.all(5.0),
+            return SizedBox(
               height: size.height,
               width: size.width,
               child: Column(
                 children: [
                   search(),
-                  ContentCustomersDebits(
-                    list: bloc.customerDebits,
-                    bodyHeight: 353,
-                  ),
+                  SalesAverageContent(list: bloc.salesAverageList),
                 ],
               ),
             );
@@ -96,27 +81,12 @@ class CustomersDebitPageDesktopState extends State<CustomersDebitPageDesktop> {
             flex: 2,
             child: Padding(
               padding: const EdgeInsets.all(3.0),
-              child: CustomInput(
-                title: "Nome do Cliente",
-                initialValue: bloc.nameCustomer,
-                keyboardType: TextInputType.text,
-                inputAction: TextInputAction.go,
-                onChanged: (value) {
-                  bloc.nameCustomer = value;
-                },
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
               child: CustomInputButton(
-                initialValue: bloc.nameSalesman,
+                initialValue: bloc.nameRegion,
                 readOnly: true,
                 enabled: true,
-                title: "Nome do Vendedor",
-                onAction: () => bloc.add(GetSalesmanListEvent()),
+                title: "Nome da Região",
+                onAction: () => bloc.add(GetRegionListEvent()),
               ),
             ),
           ),
@@ -132,12 +102,12 @@ class CustomersDebitPageDesktopState extends State<CustomersDebitPageDesktop> {
                 ),
                 onPressed: () {
                   bloc.add(
-                    GetCustomerOldDebitBySalesmanEvent(
-                      params: CashierStatementParams(
-                        date: "",
-                        nameCustomer: bloc.nameCustomer,
-                        tbSalesmanId: bloc.tbSalesmanId,
-                        page: 0,
+                    GetSalesAverageEvent(
+                      params: ParamsGetSales(
+                        tbRegionId: bloc.tbRegionId,
+                        dateIinicial: bloc.dateInitial,
+                        dataFinal: bloc.dateFinal,
+                        page: bloc.page,
                       ),
                     ),
                   );

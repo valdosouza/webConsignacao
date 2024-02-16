@@ -37,7 +37,7 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
         return AlertDialog(
           title: const Text('Sobre o Aplicativo.'),
           content: const AutoSizeText(
-            "Esta é Versão 1.0.1+62.",
+            "Esta é Versão 1.0.1+63.",
             minFontSize: 12,
             maxFontSize: 18,
             maxLines: 2,

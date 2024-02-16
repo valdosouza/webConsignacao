@@ -1,26 +1,24 @@
+import 'package:appweb/app/modules/sales_average/data/model/sales_average_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
-import 'package:appweb/app/modules/cashier_statement/data/model/customers_old_debit_model.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 
-class ContentCustomersDebits extends StatefulWidget {
-  final List<CustomersOldDebitModel> list;
-  final double bodyHeight;
-  const ContentCustomersDebits({
+class SalesAverageContent extends StatefulWidget {
+  final List<SalesAverageModel> list;
+  const SalesAverageContent({
     super.key,
     required this.list,
-    required this.bodyHeight,
   });
 
   @override
-  State<ContentCustomersDebits> createState() => _ContentCustomersDebitsState();
+  State<SalesAverageContent> createState() => _SalesAverageContentState();
 }
 
-class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
+class _SalesAverageContentState extends State<SalesAverageContent> {
   late CashierStatementBloc bloc;
   late final ScrollController _scrollController;
 
@@ -80,20 +78,48 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-                flex: 3,
-                child: Text("Cliente",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ))),
+              flex: 3,
+              child: Text(
+                "Cliente",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            ),
             Expanded(
-                flex: 1,
-                child: Text("Valor",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    )))
+              flex: 1,
+              child: Text(
+                "Total de Vendas",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Número de Vendas",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Valor Médio",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -105,7 +131,7 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
       child: Container(
         padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
         alignment: Alignment.topCenter,
-        height: size.height - widget.bodyHeight, //- (283 + 60),
+        height: size.height - 343,
         child: ListView.separated(
           controller: _scrollController,
           itemCount: widget.list.length,
@@ -125,7 +151,23 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
                   Expanded(
                     flex: 1,
                     child: Text(
-                      widget.list[index].currentDebitBalance.toStringAsFixed(2),
+                      widget.list[index].totalValue.toStringAsFixed(2),
+                      textAlign: TextAlign.right,
+                      style: const TextStyle(),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      widget.list[index].numberOfSales.toStringAsFixed(0),
+                      textAlign: TextAlign.right,
+                      style: const TextStyle(),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      widget.list[index].tagValue.toStringAsFixed(2),
                       textAlign: TextAlign.right,
                       style: const TextStyle(),
                     ),
@@ -166,7 +208,7 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
   total() {
     double total = 0;
     for (var element in widget.list) {
-      total += element.currentDebitBalance;
+      total += element.totalValue;
     }
     return total.toStringAsFixed(2);
   }
