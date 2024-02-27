@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/sales_average/data/datasource/datasource.dart';
-import 'package:appweb/app/modules/sales_average/data/model/region_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:appweb/app/modules/sales_average/data/model/sales_average_model.dart';
 import 'package:appweb/app/modules/sales_average/domain/repository/respository.dart';
 import 'package:appweb/app/modules/sales_average/domain/usecase/get_sales_average.dart';

@@ -11,7 +11,7 @@ class CustomerRepositoryImpl implements CustomerRepository {
   CustomerRepositoryImpl({required this.datasource});
 
   @override
-  Future<Either<Failure, List<RegionRegisterModel>>> getRegionList() async {
+  Future<Either<Failure, List<RegionModel>>> getRegionList() async {
     try {
       final list = await datasource.getlistRegion();
       return Right(list);

@@ -8,7 +8,7 @@ import 'package:appweb/app/modules/stock_balance/domain/repository/stock_balance
 
 class StockBalanceGetlist
     implements UseCase<StockBalanceModel, ParamsGetListStockBalance> {
-  final StockBalancerRepository repository;
+  final StockBalanceRepository repository;
 
   StockBalanceGetlist({required this.repository});
 

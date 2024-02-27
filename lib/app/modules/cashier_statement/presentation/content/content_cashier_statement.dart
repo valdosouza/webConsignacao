@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
@@ -72,7 +73,7 @@ class _ContentCashierStatementState extends State<ContentCashierStatement> {
                   Expanded(
                     flex: 1,
                     child: Text(
-                      list[index].tagValue.toStringAsFixed(2),
+                      floatToStrF(list[index].tagValue),
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

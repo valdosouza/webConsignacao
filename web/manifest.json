@@ -1,11 +1,11 @@
 {
-    "name": "web_consignacao",
-    "short_name": "web_consignacao",
+    "name": "appweb",
+    "short_name": "appweb",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Consignação e Venda",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

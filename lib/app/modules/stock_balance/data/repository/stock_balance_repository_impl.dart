@@ -7,7 +7,7 @@ import 'package:appweb/app/modules/stock_balance/domain/repository/stock_balance
 
 import 'package:dartz/dartz.dart';
 
-class StockBalanceRepositoryImpl implements StockBalancerRepository {
+class StockBalanceRepositoryImpl implements StockBalanceRepository {
   final StockBalanceDataSource datasource;
 
   StockBalanceRepositoryImpl({required this.datasource});

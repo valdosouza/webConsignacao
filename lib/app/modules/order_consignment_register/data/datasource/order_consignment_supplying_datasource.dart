@@ -57,20 +57,23 @@ class OrderConsignmentSupplyingDatasourceImpl
 
       model.order.tbInstitutionId = tbInstitutionId;
       model.order.tbSalesmanId = tbUserId;
-      final uri = Uri.parse('${baseApiUrl}orderconsignment/supplying');
       var bodyConsignment = jsonEncode(model.toJson());
-      final response = await httpClient.post(
-        uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+      return await request(
+        'orderconsignment/supplying',
+        data: bodyConsignment,
+        method: HTTPMethod.post,
+        timeout: const Duration(milliseconds: 15000),
+        (payload) {
+          if (statusCode == 200) {
+            return model;
+          } else {
+            throw ServerException();
+          }
         },
-        body: bodyConsignment,
+        onError: (error) {
+          return Future.error(ServerException());
+        },
       );
-      if (response.statusCode == 200) {
-        return model;
-      } else {
-        throw ServerException();
-      }
     } catch (error) {
       throw ServerException();
     }

@@ -5,14 +5,13 @@ import 'package:appweb/app/modules/Core/domain/repository/get_region_repository.
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
 import 'package:dartz/dartz.dart';
 
-class GetRegion
-    implements UseCase<List<RegionRegisterModel>, ParamsRegionListGet> {
+class GetRegion implements UseCase<List<RegionModel>, ParamsRegionListGet> {
   final GetRegionRepository repository;
 
   GetRegion({required this.repository});
 
   @override
-  Future<Either<Failure, List<RegionRegisterModel>>> call(
+  Future<Either<Failure, List<RegionModel>>> call(
       ParamsRegionListGet params) async {
     try {
       final list = await repository.getregion();

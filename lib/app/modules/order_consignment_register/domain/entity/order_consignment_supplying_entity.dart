@@ -14,6 +14,7 @@ class OrderConsignmentSupplyingOrderEntity {
     int? tbSalesmanId,
     String? nameSalesman,
     String? dtRecord,
+    String? hrRecord,
     double? currentDebitBalance,
     String? recall,
     String? note,

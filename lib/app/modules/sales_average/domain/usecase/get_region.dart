@@ -1,7 +1,7 @@
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/Core/domain/usecase/usecase.dart';
-import 'package:appweb/app/modules/sales_average/data/model/region_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:appweb/app/modules/sales_average/domain/repository/respository.dart';
 import 'package:dartz/dartz.dart';
 

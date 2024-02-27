@@ -131,7 +131,7 @@ class CustomerRegisterGetCityErrorState extends CustomerRegisterState {
 
 /*------------------------Getlist - Region----------------------------------*/
 class CustomerRegisterGetRegionSuccessState extends CustomerRegisterState {
-  final List<RegionRegisterModel> regions;
+  final List<RegionModel> regions;
 
   CustomerRegisterGetRegionSuccessState(
       List<CustomerListModel> customers, this.regions)

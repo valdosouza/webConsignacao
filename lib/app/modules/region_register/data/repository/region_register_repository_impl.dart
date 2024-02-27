@@ -20,8 +20,7 @@ class RegionRegisterRepositoryImpl implements RegionRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, RegionRegisterModel>> put(
-      {required RegionRegisterModel model}) async {
+  Future<Either<Failure, RegionModel>> put({required RegionModel model}) async {
     try {
       final list = await datasource.put(model: model);
       return Right(list);
@@ -31,7 +30,7 @@ class RegionRegisterRepositoryImpl implements RegionRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, List<RegionRegisterModel>>> getList() async {
+  Future<Either<Failure, List<RegionModel>>> getList() async {
     try {
       final list = await datasource.getlist();
       return Right(list);
@@ -41,8 +40,8 @@ class RegionRegisterRepositoryImpl implements RegionRegisterRepository {
   }
 
   @override
-  Future<Either<Failure, RegionRegisterModel>> post(
-      {required RegionRegisterModel model}) async {
+  Future<Either<Failure, RegionModel>> post(
+      {required RegionModel model}) async {
     try {
       final list = await datasource.post(model: model);
       return Right(list);

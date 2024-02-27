@@ -2,7 +2,7 @@ import 'package:appweb/app/modules/Core/data/model/salesman_list_model.dart';
 import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 
 abstract class RegionRegisterState {
-  List<RegionRegisterModel> list;
+  List<RegionModel> list;
 
   RegionRegisterState({
     required this.list,
@@ -22,7 +22,7 @@ class RegionRegisterErrorState extends RegionRegisterState {
 }
 
 class RegionRegisterInfoPageState extends RegionRegisterState {
-  final RegionRegisterModel? model;
+  final RegionModel? model;
   RegionRegisterInfoPageState({required super.list, this.model});
 }
 
@@ -46,12 +46,11 @@ class RegionRegisterEditErrorState extends RegionRegisterState {
 class RegionRegisterGetSalesmanSuccessState extends RegionRegisterState {
   final List<SalesmanListModel> salesmans;
 
-  RegionRegisterGetSalesmanSuccessState(
-      List<RegionRegisterModel> list, this.salesmans)
+  RegionRegisterGetSalesmanSuccessState(List<RegionModel> list, this.salesmans)
       : super(list: list);
 }
 
 class RegionRegisterGetSalesmanErrorState extends RegionRegisterState {
-  RegionRegisterGetSalesmanErrorState(List<RegionRegisterModel> list)
+  RegionRegisterGetSalesmanErrorState(List<RegionModel> list)
       : super(list: list);
 }

@@ -49,9 +49,11 @@ class _ContentConsignmenteSupplyingState
                 alignment: Alignment.bottomCenter,
                 height: 45,
                 child: AutoSizeText(
-                  "${widget.modelSupplying.order.dtRecord} - ${widget.modelSupplying.order.nameCustomer}",
+                  "${widget.modelSupplying.order.dtRecord}  ${widget.modelSupplying.order.hrRecord} - ${widget.modelSupplying.order.nameCustomer}",
                   style: kTitleAppBarStyle,
                   textAlign: TextAlign.center,
+                  maxFontSize: 18,
+                  minFontSize: 12,
                 ),
               ),
               const CustomHeaderSupplying(),

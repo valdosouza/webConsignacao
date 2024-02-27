@@ -5,15 +5,13 @@ import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:appweb/app/modules/region_register/domain/repository/region_register_respository.dart';
 import 'package:dartz/dartz.dart';
 
-class RegionRegisterPost
-    implements UseCase<RegionRegisterModel, ParamsRegionPost> {
+class RegionRegisterPost implements UseCase<RegionModel, ParamsRegionPost> {
   final RegionRegisterRepository repository;
 
   RegionRegisterPost({required this.repository});
 
   @override
-  Future<Either<Failure, RegionRegisterModel>> call(
-      ParamsRegionPost params) async {
+  Future<Either<Failure, RegionModel>> call(ParamsRegionPost params) async {
     try {
       final response = await repository.post(model: params.model);
       return response;
@@ -24,6 +22,6 @@ class RegionRegisterPost
 }
 
 class ParamsRegionPost {
-  RegionRegisterModel model;
+  RegionModel model;
   ParamsRegionPost({required this.model});
 }

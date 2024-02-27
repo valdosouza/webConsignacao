@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 import 'package:flutter/material.dart';
@@ -154,8 +155,7 @@ class _ContentCashierStatementSalesmanListState
                 ),
                 Expanded(
                   flex: 1,
-                  child: Text(
-                      bloc.salesmans[index].valuerCharged.toStringAsFixed(2)),
+                  child: Text(floatToStrF(bloc.salesmans[index].valuerCharged)),
                 )
               ],
             ),
@@ -202,9 +202,9 @@ class _ContentCashierStatementSalesmanListState
             )),
           ),
           const SizedBox(height: 15),
-          Text("Valor: R\$ ${valortotal.toStringAsFixed(2)}"),
+          Text("Valor: R\$ ${floatToStrF(valortotal)}"),
           const SizedBox(height: 5),
-          Text("Média de vendas: R\$ ${valorMedio.toStringAsFixed(2)}"),
+          Text("Média de vendas: R\$ ${floatToStrF(valorMedio)}"),
         ],
       ),
     );

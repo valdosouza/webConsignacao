@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/payment/payment_info_a_vista_widget.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/payment/payment_info_boleto_widget.dart';
@@ -10,7 +11,7 @@ Widget paymentinfo(OrderSaleMainCardModel modelOrdersale) {
     for (OrderSaleCardModel item in modelOrdersale.items) {
       modelOrdersale.order.totalValue += (item.sale * item.unitValue);
     }
-    return modelOrdersale.order.totalValue.toStringAsFixed(2);
+    return floatToStrF(modelOrdersale.order.totalValue);
   }
 
   return Container(

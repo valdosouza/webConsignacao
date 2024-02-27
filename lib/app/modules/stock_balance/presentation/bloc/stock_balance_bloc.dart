@@ -1,5 +1,7 @@
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/stock_balance/data/model/stock_balance_by_product_model.dart';
+import 'package:appweb/app/modules/stock_balance/domain/usecase/customer_all_by_products.dart';
 import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_balance_getlist.dart';
 import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_list_getlist.dart';
 import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_balance_customer_getlist.dart';
@@ -16,10 +18,19 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
   final StockBalanceGeneralGetlist generalgetlist;
   final StockBalanceGetlist getlist;
   final StockListGetlist stockListGetlist;
+  final CustomerAllByProducts customerAllByProducts;
 
   StockBalanceModel stockBalance = StockBalanceModel.empty();
 
   List<StockListModel> stockListList = [];
+  StockBalanceByProductModel stockBalanceByProduct =
+      StockBalanceByProductModel.empty();
+
+  StockBalanceByProductModel filterStockBalanceByProduct =
+      StockBalanceByProductModel.empty();
+
+  String nameCustomer = "";
+  bool balanceDivergent = false;
 
   StockBalanceBloc({
     required this.customergetlist,
@@ -27,6 +38,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     required this.generalgetlist,
     required this.getlist,
     required this.stockListGetlist,
+    required this.customerAllByProducts,
   }) : super(StockBalanceLoadingState()) {
     customerGetList();
     customerSearchEvent();
@@ -38,6 +50,9 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     searchEvent();
     getStocks();
     returnStockListPage();
+    _customerAllByProducts();
+    _filterCustomer();
+    _filterBalanceDivergent();
   }
 
   getList() {
@@ -47,7 +62,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
       var response = await getlist
           .call(ParamsGetListStockBalance(tbStockListId: event.tbStockListId));
 
-      response.fold((l) => emit(StockBalanceErrorState()), (r) {
+      response.fold((l) => emit(ErrorState(msg: l.toString())), (r) {
         stockBalance = r;
         emit(StockBalanceLoadedState(item: r));
       });
@@ -83,7 +98,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
       var response =
           await customergetlist.call(const ParamsGetListStockBalanceCustomer());
 
-      response.fold((l) => emit(StockBalanceErrorState()), (r) {
+      response.fold((l) => emit(ErrorState(msg: l.toString())), (r) {
         stockBalance = r;
         emit(StockBalanceCustomerLoadedState(item: r));
       });
@@ -119,7 +134,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
       var response =
           await salesmangetlist.call(const ParamsGetListStockBalanceSalesman());
 
-      response.fold((l) => emit(StockBalanceErrorState()), (r) {
+      response.fold((l) => emit(ErrorState(msg: l.toString())), (r) {
         stockBalance = r;
         emit(StockBalanceSalesmanLoadedState(item: r));
       });
@@ -155,7 +170,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
       var response =
           await generalgetlist.call(const ParamsGetListStockBalanceGeneral());
 
-      response.fold((l) => emit(StockBalanceErrorState()), (r) {
+      response.fold((l) => emit(ErrorState(msg: l.toString())), (r) {
         stockBalance = r;
         emit(StockBalanceGeneralLoadedState(item: r));
       });
@@ -190,7 +205,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
 
       final response = await stockListGetlist.call(const ParamsGetListStock());
 
-      response.fold((l) => emit(StockBalanceGetStockListErrorState()), (r) {
+      response.fold((l) => emit(ErrorState(msg: l.toString())), (r) {
         stockListList = r;
         emit(StockBalanceGetStockListSucessState(item: stockListList));
       });
@@ -200,6 +215,60 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
   returnStockListPage() {
     on<StockBalanceReturnStockListPagEvent>((event, emit) async {
       emit(StockBalanceCustomerLoadedState(item: stockBalance));
+    });
+  }
+
+  _customerAllByProducts() {
+    on<GetStockBalanceAllCutomerByProductEvent>((event, emit) async {
+      emit(StockBalanceLoadingState());
+
+      final response = await customerAllByProducts.call(event.params);
+
+      response.fold((l) => emit(ErrorState(msg: l.toString())), (r) {
+        stockBalanceByProduct = r;
+        emit(StockBalanceAllCustomerByProductLoadedState(
+            list: stockBalanceByProduct));
+      });
+    });
+  }
+
+  _filterCustomer() {
+    on<FilterCustomerEvent>((event, emit) async {
+      if (nameCustomer.isNotEmpty) {
+        filterStockBalanceByProduct.nameProduct =
+            stockBalanceByProduct.nameProduct;
+        filterStockBalanceByProduct.tbMerchandiseId =
+            stockBalanceByProduct.tbMerchandiseId;
+        filterStockBalanceByProduct.items = stockBalanceByProduct.items
+            .where((x) => x.nameCustomer
+                .toLowerCase()
+                .contains(nameCustomer.toLowerCase()))
+            .toList();
+        emit(StockBalanceAllCustomerByProductLoadedState(
+            list: filterStockBalanceByProduct));
+      } else {
+        emit(StockBalanceAllCustomerByProductLoadedState(
+            list: stockBalanceByProduct));
+      }
+    });
+  }
+
+  _filterBalanceDivergent() {
+    on<FilterBalanceDivergentEvent>((event, emit) async {
+      if (balanceDivergent) {
+        filterStockBalanceByProduct.nameProduct =
+            stockBalanceByProduct.nameProduct;
+        filterStockBalanceByProduct.tbMerchandiseId =
+            stockBalanceByProduct.tbMerchandiseId;
+        filterStockBalanceByProduct.items = stockBalanceByProduct.items
+            .where((x) => x.quantity % 18 != 0)
+            .toList();
+        emit(StockBalanceAllCustomerByProductLoadedState(
+            list: filterStockBalanceByProduct));
+      } else {
+        emit(StockBalanceAllCustomerByProductLoadedState(
+            list: stockBalanceByProduct));
+      }
     });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/historic/payment/payment_info_a_vista_historic_widget.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/historic/payment/payment_info_boleto_historic_widget.dart';
@@ -24,7 +25,7 @@ Widget paymentinfoHistoric(OrderSaleMainCardModel modelOrdersale) {
           child: TextField(
             enabled: false,
             controller: TextEditingController(
-                text: modelOrdersale.order.totalValue.toStringAsFixed(2)),
+                text: floatToStrF(modelOrdersale.order.totalValue)),
             textAlign: TextAlign.center,
           ),
         ),

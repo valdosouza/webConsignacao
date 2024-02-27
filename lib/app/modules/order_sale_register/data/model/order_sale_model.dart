@@ -11,6 +11,7 @@ class OrderSaleModel extends OrderSaleEntity {
   int tbSalesmanId;
   String nameSalesman;
   String dtRecord;
+  String hrRecord;
   double totalValue;
   double changeValue;
   String note;
@@ -26,6 +27,7 @@ class OrderSaleModel extends OrderSaleEntity {
     required this.tbSalesmanId,
     required this.nameSalesman,
     required this.dtRecord,
+    required this.hrRecord,
     required this.totalValue,
     required this.changeValue,
     required this.note,
@@ -57,6 +59,7 @@ class OrderSaleModel extends OrderSaleEntity {
       tbSalesmanId: json['tb_salesman_id'],
       nameSalesman: json['name_salesman'],
       dtRecord: CustomDate.formatDateIn(json['dt_record']) as String? ?? "",
+      hrRecord: json['hr_record'] as String? ?? "",
       totalValue: json['total_value'] is int
           ? json['total_value'].toDouble()
           : json['total_value'],

@@ -1,4 +1,4 @@
-import 'package:appweb/app/modules/sales_average/data/model/region_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:appweb/app/modules/sales_average/data/model/sales_average_model.dart';
 
 abstract class SalesAverageState {}
@@ -24,3 +24,5 @@ class RegionLoadedState extends SalesAverageState {
 
   RegionLoadedState({required this.list});
 }
+
+class MainFormLoadedState extends SalesAverageState {}

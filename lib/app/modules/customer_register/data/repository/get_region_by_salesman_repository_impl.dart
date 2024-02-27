@@ -14,7 +14,7 @@ class GetRegionBySalesmanRepositoryImpl
   });
 
   @override
-  Future<Either<Failure, List<RegionRegisterModel>>> getList() async {
+  Future<Either<Failure, List<RegionModel>>> getList() async {
     try {
       final response = await datasource.getList();
       return Right(response);

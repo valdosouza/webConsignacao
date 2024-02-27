@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_customer_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
@@ -185,7 +186,7 @@ class _CashierStatementCustomerWidgetState
                               Expanded(
                                 flex: 1,
                                 child: Text(
-                                  customer.valuerCharged.toStringAsFixed(2),
+                                  floatToStrF(customer.valuerCharged),
                                   textAlign: TextAlign.right,
                                 ),
                               ),

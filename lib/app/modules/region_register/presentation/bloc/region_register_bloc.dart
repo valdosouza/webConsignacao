@@ -18,9 +18,9 @@ class RegionRegisterBloc
   final RegionRegisterDelete delete;
   final GetSalesman getSalesmans;
 
-  List<RegionRegisterModel> list = [];
+  List<RegionModel> list = [];
   List<SalesmanListModel> salesmans = [];
-  RegionRegisterModel model = RegionRegisterModel.empty();
+  RegionModel model = RegionModel.empty();
   OptionYesNo? optionYesNo = OptionYesNo.S;
 
   RegionRegisterBloc({
@@ -83,7 +83,7 @@ class RegionRegisterBloc
 
   regionAdd() {
     on<RegionRegisterAddEvent>((event, emit) async {
-      model = RegionRegisterModel.empty();
+      model = RegionModel.empty();
       optionYesNo = OptionYesNo.S;
       emit(RegionRegisterInfoPageState(list: list));
     });

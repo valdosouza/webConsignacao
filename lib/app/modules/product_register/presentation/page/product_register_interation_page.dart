@@ -1,5 +1,6 @@
 import 'package:appweb/app/core/shared/enum.dart';
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/product_register/data/model/product_price_list_model.dart';
@@ -169,8 +170,7 @@ class _ProductRegisterInterationPageState
           title: bloc.model.priceList[index].namePriceList!,
           alignment: Alignment.centerRight,
           textAlign: TextAlign.right,
-          initialValue:
-              bloc.model.priceList[index].priceTag!.toStringAsFixed(2),
+          initialValue: floatToStrF(bloc.model.priceList[index].priceTag!),
           validator: (value) => Validators.validateRequired(value),
           keyboardType: TextInputType.number,
           inputAction: TextInputAction.next,

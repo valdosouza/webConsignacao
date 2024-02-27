@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
@@ -20,7 +21,7 @@ class _PaymentInfoCashHistoricState extends State<PaymentInfoCashHistoric> {
   Widget build(BuildContext context) {
     var txt = TextEditingController(
         text: (widget.modelOrderPaid[0].value > 0)
-            ? widget.modelOrderPaid[0].value.toStringAsFixed(2)
+            ? floatToStrF(widget.modelOrderPaid[0].value)
             : "");
     return Row(
       children: [

@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/product/data/model/products_price_list_products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -39,7 +40,7 @@ class PriceListWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(prices[index].nameProduct),
-                  Text(prices[index].priceTag.toStringAsFixed(2))
+                  Text(floatToStrF(prices[index].priceTag))
                 ]),
           ),
           childCount: prices.length,

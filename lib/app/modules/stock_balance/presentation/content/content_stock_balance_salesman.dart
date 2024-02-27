@@ -8,9 +8,8 @@ import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance
 import 'package:flutter/material.dart';
 
 statesStockBalance(StockBalanceState state) {
-  if (state is StockBalanceErrorState) {
-    CustomToast.showToast(
-        "Erro ao buscar os dados. Tente novamente mais tarde");
+  if (state is ErrorState) {
+    CustomToast.showToast(state.msg);
   }
 }
 

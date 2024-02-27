@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
@@ -125,7 +126,7 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
                   Expanded(
                     flex: 1,
                     child: Text(
-                      widget.list[index].currentDebitBalance.toStringAsFixed(2),
+                      floatToStrF(widget.list[index].currentDebitBalance),
                       textAlign: TextAlign.right,
                       style: const TextStyle(),
                     ),
@@ -168,6 +169,6 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
     for (var element in widget.list) {
       total += element.currentDebitBalance;
     }
-    return total.toStringAsFixed(2);
+    return floatToStrF(total);
   }
 }

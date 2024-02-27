@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/header_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ Widget paymentinfopix(OrderConsignmentCheckpointModel modelCheckpoint) {
   String valorStr = "";
   var txt = TextEditingController(
       text: (modelCheckpoint.payments[1].value > 0)
-          ? modelCheckpoint.payments[1].value.toStringAsFixed(2)
+          ? floatToStrF(modelCheckpoint.payments[1].value)
           : "");
   return Row(
     children: [
@@ -34,7 +35,7 @@ Widget paymentinfopix(OrderConsignmentCheckpointModel modelCheckpoint) {
                 txt.text = "";
                 if (valor > 0) {
                   valor = valor / 100;
-                  txt.text = valor.toStringAsFixed(2);
+                  txt.text = floatToStrF(valor);
                 }
               }
               txt.selection = TextSelection.fromPosition(

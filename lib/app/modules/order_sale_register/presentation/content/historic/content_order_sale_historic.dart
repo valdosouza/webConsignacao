@@ -1,4 +1,5 @@
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/historic/ordersale/custom_body_order_sale_historic_wiget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -50,10 +51,12 @@ class _ContentOrderSaleHistoricState extends State<ContentOrderSaleHistoric> {
               Container(
                 alignment: Alignment.bottomCenter,
                 height: 40,
-                child: Text(
-                  widget.model.order.nameCustomer,
+                child: AutoSizeText(
+                  "${widget.model.order.dtRecord}  ${widget.model.order.hrRecord} - ${widget.model.order.nameCustomer}",
                   style: kTitleAppBarStyle,
                   textAlign: TextAlign.center,
+                  maxFontSize: 18,
+                  minFontSize: 12,
                 ),
               ),
               const CustomHeaderOrderSale(),

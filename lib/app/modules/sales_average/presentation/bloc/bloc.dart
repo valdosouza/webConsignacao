@@ -1,5 +1,5 @@
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
-import 'package:appweb/app/modules/sales_average/data/model/region_model.dart';
+import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:appweb/app/modules/sales_average/data/model/sales_average_model.dart';
 import 'package:appweb/app/modules/sales_average/domain/usecase/get_region.dart';
 import 'package:appweb/app/modules/sales_average/domain/usecase/get_sales_average.dart';
@@ -26,27 +26,19 @@ class SalesAverageBloc extends Bloc<SalesAverageEvent, SalesAverageState> {
   }) : super(InitState()) {
     _getSalesAverage();
     _getRegion();
+    _goBackToMainForm();
   }
 
   _getSalesAverage() {
     on<GetSalesAverageEvent>((event, emit) async {
       emit(LoadingState());
-      if (event.params.page == 0) {
-        if (salesAverageList.isNotEmpty) {
-          salesAverageList.clear();
-        }
-        page = 1;
-      } else {
-        page += 1;
-      }
-      event.params.page = page;
 
       var response = await getSalesAverage.call(event.params);
 
       var result = response.fold((l) {
         return ErrorState(msg: l.toString());
       }, (r) {
-        salesAverageList += r;
+        salesAverageList = r;
         return SalesAverageLoadedState(list: salesAverageList);
       });
 
@@ -68,6 +60,14 @@ class SalesAverageBloc extends Bloc<SalesAverageEvent, SalesAverageState> {
       });
 
       emit(result);
+    });
+  }
+
+  _goBackToMainForm() {
+    on<MainFormEvent>((event, emit) async {
+      emit(LoadingState());
+
+      emit(MainFormLoadedState());
     });
   }
 }

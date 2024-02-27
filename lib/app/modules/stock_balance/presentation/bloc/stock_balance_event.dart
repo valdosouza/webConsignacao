@@ -1,3 +1,5 @@
+import 'package:appweb/app/modules/stock_balance/domain/usecase/customer_all_by_products.dart';
+
 abstract class StockBalanceEvent {}
 
 class StockBalanceGetListEvent extends StockBalanceEvent {
@@ -48,3 +50,17 @@ class StockBalanceSearcheStocksListEvent extends StockBalanceEvent {
     required this.search,
   });
 }
+
+//=================Get StockList All Customer By Product=======================
+class GetStockBalanceAllCutomerByProductEvent extends StockBalanceEvent {
+  final ParamsGetCustomerAllByProducts params;
+  GetStockBalanceAllCutomerByProductEvent({
+    required this.params,
+  });
+}
+
+class GotoStockBalanceCustomerEvent extends StockBalanceEvent {}
+
+class FilterCustomerEvent extends StockBalanceEvent {}
+
+class FilterBalanceDivergentEvent extends StockBalanceEvent {}

@@ -10,6 +10,7 @@ import 'package:appweb/app/modules/stock_balance/domain/repository/stock_balance
 import 'package:appweb/app/modules/stock_balance/domain/repository/stock_balance_general_respository.dart';
 import 'package:appweb/app/modules/stock_balance/domain/repository/stock_balance_respository.dart';
 import 'package:appweb/app/modules/stock_balance/domain/repository/stock_balance_salesman_respository.dart';
+import 'package:appweb/app/modules/stock_balance/domain/usecase/customer_all_by_products.dart';
 import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_balance_customer_getlist.dart';
 import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_balance_general_getlist.dart';
 import 'package:appweb/app/modules/stock_balance/domain/usecase/stock_balance_getlist.dart';
@@ -77,20 +78,27 @@ class StockBalanceModule extends Module {
               datasource: i.get<StockBalanceDataSource>()),
         ),
         Bind.factory(
-          (i) => StockListGetlist(repository: i.get<StockBalancerRepository>()),
+          (i) => StockListGetlist(repository: i.get<StockBalanceRepository>()),
         ),
         //------------------------By StockList ---------------------------------
         Bind.factory(
           (i) =>
-              StockBalanceGetlist(repository: i.get<StockBalancerRepository>()),
+              StockBalanceGetlist(repository: i.get<StockBalanceRepository>()),
+        ),
+        //------------------------Customer By Product ---------------------------------
+        Bind.factory(
+          (i) => CustomerAllByProducts(
+              repository: i.get<StockBalanceCustomerRepository>()),
         ),
 
         Bind.singleton((i) => StockBalanceBloc(
-            customergetlist: i.get<StockBalanceCustomerGetlist>(),
-            salesmangetlist: i.get<StockBalanceSalesmanGetlist>(),
-            generalgetlist: i.get<StockBalanceGeneralGetlist>(),
-            getlist: i.get<StockBalanceGetlist>(),
-            stockListGetlist: i.get<StockListGetlist>())),
+              customergetlist: i.get<StockBalanceCustomerGetlist>(),
+              salesmangetlist: i.get<StockBalanceSalesmanGetlist>(),
+              generalgetlist: i.get<StockBalanceGeneralGetlist>(),
+              getlist: i.get<StockBalanceGetlist>(),
+              stockListGetlist: i.get<StockListGetlist>(),
+              customerAllByProducts: i.get<CustomerAllByProducts>(),
+            )),
       ];
   @override
   final List<ModularRoute> routes = [

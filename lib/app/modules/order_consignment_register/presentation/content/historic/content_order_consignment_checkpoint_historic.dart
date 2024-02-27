@@ -47,9 +47,11 @@ class _ContentConsignmenteCheckpointState
                 alignment: Alignment.bottomCenter,
                 height: 45,
                 child: AutoSizeText(
-                  "${widget.checkpointmodel.order.dtRecord} - ${widget.checkpointmodel.order.nameCustomer}",
+                  "${widget.checkpointmodel.order.dtRecord}   ${widget.checkpointmodel.order.hrRecord} - ${widget.checkpointmodel.order.nameCustomer}",
                   style: kTitleAppBarStyle,
                   textAlign: TextAlign.center,
+                  maxFontSize: 18,
+                  minFontSize: 12,
                 ),
               ),
               const CustomHeaderCheckpoint(),

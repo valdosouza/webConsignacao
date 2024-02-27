@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/historic/divida_anterior_checkpoint_historic_widget.dart';
@@ -24,7 +25,7 @@ Widget paymentinfohistoric(OrderConsignmentCheckpointModel modelCheckpoint) {
         break;
       }
     }
-    return modelCheckpoint.order.totalValue.toStringAsFixed(2);
+    return floatToStrF(modelCheckpoint.order.totalValue);
   }
 
   return Container(

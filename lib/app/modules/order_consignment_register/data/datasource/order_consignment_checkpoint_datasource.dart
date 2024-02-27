@@ -37,6 +37,7 @@ class OrderConsignmentCheckpointDatasourceImpl
       'orderconsignment/checkpoint',
       data: bodyConsignment,
       method: HTTPMethod.post,
+      timeout: const Duration(milliseconds: 15000),
       (payload) {
         if (statusCode == 200) {
           return model;

@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/cashier_balance/cashier_balance_module.dart';
 import 'package:appweb/app/modules/cashier_balance/presentation/bloc/cashier_balance_bloc.dart';
 import 'package:flutter/material.dart';
@@ -76,8 +77,8 @@ class _CashierBalanceWidgetState extends State<CashierBalanceWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(bloc.cashierBalance.items[index].namePaymentType),
-                    Text(bloc.cashierBalance.items[index].balanceValue
-                        .toStringAsFixed(2)),
+                    Text(floatToStrF(
+                        bloc.cashierBalance.items[index].balanceValue)),
                   ],
                 ),
               );
@@ -94,6 +95,6 @@ class _CashierBalanceWidgetState extends State<CashierBalanceWidget> {
     for (var element in bloc.cashierBalance.items) {
       total += element.balanceValue;
     }
-    return total.toStringAsFixed(2);
+    return floatToStrF(total);
   }
 }

@@ -71,17 +71,14 @@ class StockBalanceSalesmanPageMobileState
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24),
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              children: [
-                buildSearchInput(bloc),
-                const SizedBox(height: 15),
-                buildListView(bloc.stockBalance),
-              ],
-            )),
-      ),
+          padding: const EdgeInsets.all(5.0),
+          child: Column(
+            children: [
+              buildSearchInput(bloc),
+              const SizedBox(height: 15),
+              buildListView(bloc.stockBalance),
+            ],
+          )),
     );
   }
 }

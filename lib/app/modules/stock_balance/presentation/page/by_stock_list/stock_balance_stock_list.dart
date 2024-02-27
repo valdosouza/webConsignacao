@@ -34,9 +34,8 @@ class _ContentStockBalanceByStockListState
     return BlocConsumer<StockBalanceBloc, StockBalanceState>(
       bloc: bloc,
       listener: (context, state) {
-        if (state is StockBalanceErrorState) {
-          CustomToast.showToast(
-              "Erro ao buscar os dados. Tente novamente mais tarde.");
+        if (state is ErrorState) {
+          CustomToast.showToast(state.msg);
         }
       },
       builder: (context, state) {

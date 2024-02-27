@@ -34,7 +34,7 @@ class CustomerRegisterBloc
   CustomerMainModel customer = CustomerMainModel.empty();
   List<StateModel> states = [];
   List<CityModel> cities = [];
-  List<RegionRegisterModel> regions = [];
+  List<RegionModel> regions = [];
   List<SalesRouteListModel> salesRoute = [];
   int tabIndex = 0;
   CustomerRegisterBloc({

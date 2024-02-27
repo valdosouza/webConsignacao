@@ -1,11 +1,11 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
+import 'package:appweb/app/core/shared/widgets/custom_input.dart';
 import 'package:appweb/app/modules/sales_average/data/model/sales_average_model.dart';
+import 'package:appweb/app/modules/sales_average/presentation/bloc/bloc.dart';
+import 'package:appweb/app/modules/sales_average/sales_average_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
-import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
-import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
 
 class SalesAverageContent extends StatefulWidget {
   final List<SalesAverageModel> list;
@@ -19,39 +19,15 @@ class SalesAverageContent extends StatefulWidget {
 }
 
 class _SalesAverageContentState extends State<SalesAverageContent> {
-  late CashierStatementBloc bloc;
-  late final ScrollController _scrollController;
+  late SalesAverageBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<CashierStatementBloc>();
-    _scrollController = ScrollController();
-    _scrollController.addListener(infiniteScrolling);
+    bloc = Modular.get<SalesAverageBloc>();
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<CashierStatementModule>();
+      await Modular.isModuleReady<SalesAverageModule>();
     });
-  }
-
-  infiniteScrolling() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      bloc.add(
-        GetCustomerOldDebitBySalesmanEvent(
-          params: CashierStatementParams(
-            date: "",
-            nameCustomer: bloc.nameCustomer,
-            page: bloc.page,
-          ),
-        ),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 
   @override
@@ -131,9 +107,8 @@ class _SalesAverageContentState extends State<SalesAverageContent> {
       child: Container(
         padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
         alignment: Alignment.topCenter,
-        height: size.height - 343,
+        height: size.height - 393,
         child: ListView.separated(
-          controller: _scrollController,
           itemCount: widget.list.length,
           itemBuilder: (_, index) {
             return InkWell(
@@ -151,7 +126,7 @@ class _SalesAverageContentState extends State<SalesAverageContent> {
                   Expanded(
                     flex: 1,
                     child: Text(
-                      widget.list[index].totalValue.toStringAsFixed(2),
+                      floatToStrF(widget.list[index].totalValue),
                       textAlign: TextAlign.right,
                       style: const TextStyle(),
                     ),
@@ -167,7 +142,7 @@ class _SalesAverageContentState extends State<SalesAverageContent> {
                   Expanded(
                     flex: 1,
                     child: Text(
-                      widget.list[index].tagValue.toStringAsFixed(2),
+                      floatToStrF(widget.list[index].tagValue),
                       textAlign: TextAlign.right,
                       style: const TextStyle(),
                     ),
@@ -183,8 +158,17 @@ class _SalesAverageContentState extends State<SalesAverageContent> {
   }
 
   totalizar() {
+    double total = 0;
+    for (var element in widget.list) {
+      total += element.totalValue;
+    }
+    double media = 0;
+    if (total > 0) {
+      media = total / widget.list.length;
+    }
+
     return SizedBox(
-      height: 100,
+      height: 150,
       child: Column(children: [
         Container(
           color: kPrimaryColor,
@@ -198,18 +182,58 @@ class _SalesAverageContentState extends State<SalesAverageContent> {
           )),
         ),
         const SizedBox(height: 5),
-        Text("Valor total: R\$ ${total()}"),
-        const SizedBox(height: 5),
-        Text("Número de Clientes: ${widget.list.length}"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: CustomInput(
+                  readOnly: true,
+                  initialValue: floatToStrF(total),
+                  title: "Valor Total",
+                  keyboardType: TextInputType.text,
+                  onChanged: null,
+                  inputAction: TextInputAction.none,
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: CustomInput(
+                  readOnly: true,
+                  initialValue: widget.list.length.toString(),
+                  title: "Número de Clientes",
+                  keyboardType: TextInputType.text,
+                  onChanged: null,
+                  inputAction: TextInputAction.none,
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: CustomInput(
+                  readOnly: true,
+                  initialValue: floatToStrF(media),
+                  title: "Ticket médio",
+                  keyboardType: TextInputType.text,
+                  onChanged: null,
+                  inputAction: TextInputAction.none,
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ),
+          ],
+        )
       ]),
     );
-  }
-
-  total() {
-    double total = 0;
-    for (var element in widget.list) {
-      total += element.totalValue;
-    }
-    return total.toStringAsFixed(2);
   }
 }

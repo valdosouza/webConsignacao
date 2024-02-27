@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_customer_model.dart';
 import 'package:appweb/app/modules/cashier_statement/data/model/cashier_statement_params.dart';
@@ -109,7 +110,7 @@ class _ContentCashierStatementCustomerState
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      customer.valuerCharged.toStringAsFixed(2),
+                                      floatToStrF(customer.valuerCharged),
                                       textAlign: TextAlign.right,
                                     ),
                                   ),

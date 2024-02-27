@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/cashier_statement/cashier_statement_module.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_bloc.dart';
 import 'package:appweb/app/modules/cashier_statement/presentation/bloc/cashier_statement_event.dart';
@@ -93,8 +94,8 @@ class CashierStatementByOrderPageDesktopState
                   Expanded(
                     flex: 1,
                     child: Text(
-                      bloc.customers[bloc.customerIndex].valuerCharged
-                          .toStringAsFixed(2),
+                      floatToStrF(
+                          bloc.customers[bloc.customerIndex].valuerCharged),
                       textAlign: TextAlign.right,
                     ),
                   ),

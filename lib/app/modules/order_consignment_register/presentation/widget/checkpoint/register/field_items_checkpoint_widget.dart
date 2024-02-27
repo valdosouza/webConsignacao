@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
       case 5:
         return (item.sale > 0) ? item.sale.toStringAsFixed(0) : "";
       case 6:
-        return (item.subtotal > 0) ? item.subtotal.toStringAsFixed(2) : "";
+        return (item.subtotal > 0) ? floatToStrF(item.subtotal) : "";
     }
     return "";
   }

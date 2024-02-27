@@ -1,11 +1,10 @@
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_list_model.dart';
+import 'package:appweb/app/modules/stock_balance/data/model/stock_balance_by_product_model.dart';
 
 abstract class StockBalanceState {}
 
 class StockBalanceLoadingState extends StockBalanceState {}
-
-class StockBalanceErrorState extends StockBalanceState {}
 
 //====================Customer================================
 class StockBalanceCustomerLoadedState extends StockBalanceState {
@@ -50,4 +49,17 @@ class StockBalanceGetStockListSucessState extends StockBalanceState {
   });
 }
 
-class StockBalanceGetStockListErrorState extends StockBalanceState {}
+//=================StockList All Customer By Product=======================
+class StockBalanceAllCustomerByProductLoadedState extends StockBalanceState {
+  final StockBalanceByProductModel list;
+  StockBalanceAllCustomerByProductLoadedState({
+    required this.list,
+  });
+}
+
+class ErrorState extends StockBalanceState {
+  final String msg;
+  ErrorState({
+    required this.msg,
+  });
+}

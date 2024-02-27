@@ -13,7 +13,7 @@ class GetRegionRepositoryImpl implements GetRegionRepository {
   });
 
   @override
-  Future<Either<Failure, List<RegionRegisterModel>>> getregion() async {
+  Future<Either<Failure, List<RegionModel>>> getregion() async {
     try {
       final response = await datasource.getRegion();
       return Right(response);

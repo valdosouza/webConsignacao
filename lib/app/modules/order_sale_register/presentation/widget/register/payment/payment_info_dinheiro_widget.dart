@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
@@ -21,7 +22,7 @@ class _PaymentInfoCashState extends State<PaymentInfoCash> {
     String valorStr = "";
     var txt = TextEditingController(
         text: (widget.modelOrderPaid[0].value > 0)
-            ? widget.modelOrderPaid[0].value.toStringAsFixed(2)
+            ? floatToStrF(widget.modelOrderPaid[0].value)
             : "");
     return Row(
       children: [
@@ -48,7 +49,7 @@ class _PaymentInfoCashState extends State<PaymentInfoCash> {
                   txt.text = "";
                   if (valor > 0) {
                     valor = valor / 100;
-                    txt.text = valor.toStringAsFixed(2);
+                    txt.text = floatToStrF(valor);
                   }
                 }
                 txt.selection = TextSelection.fromPosition(

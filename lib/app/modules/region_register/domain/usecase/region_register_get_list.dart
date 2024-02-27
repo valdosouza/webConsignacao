@@ -6,13 +6,13 @@ import 'package:appweb/app/modules/region_register/domain/repository/region_regi
 import 'package:dartz/dartz.dart';
 
 class RegionRegisterGetlist
-    implements UseCase<List<RegionRegisterModel>, ParamsRegionGet> {
+    implements UseCase<List<RegionModel>, ParamsRegionGet> {
   final RegionRegisterRepository repository;
 
   RegionRegisterGetlist({required this.repository});
 
   @override
-  Future<Either<Failure, List<RegionRegisterModel>>> call(
+  Future<Either<Failure, List<RegionModel>>> call(
       ParamsRegionGet params) async {
     try {
       final list = await repository.getList();

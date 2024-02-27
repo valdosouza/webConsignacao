@@ -47,6 +47,7 @@ class OrderSaleMainCardModel extends OrderSaleMainCardEntity {
         tbSalesmanId: 0,
         nameSalesman: "",
         dtRecord: CustomDate.newDate(),
+        hrRecord: "",
         totalValue: 0,
         changeValue: 0,
         note: "",
@@ -92,7 +93,9 @@ class OrderSaleCardModel extends OrderSaleCardEntity {
       unitValue: json['unit_value'] is int
           ? json['unit_value'].toDouble()
           : json['unit_value'],
-      subtotal: 0,
+      subtotal: json['subtotal'] is int
+          ? json['subtotal'].toDouble()
+          : json['subtotal'],
     );
   }
 

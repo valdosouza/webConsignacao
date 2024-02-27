@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
   final RegionGetlist regionGetlist;
 
-  List<RegionRegisterModel> regionList = [];
+  List<RegionModel> regionList = [];
 
   CustomerBloc({
     required this.regionGetlist,

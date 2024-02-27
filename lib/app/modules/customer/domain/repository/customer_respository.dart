@@ -3,5 +3,5 @@ import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CustomerRepository {
-  Future<Either<Failure, List<RegionRegisterModel>>> getRegionList();
+  Future<Either<Failure, List<RegionModel>>> getRegionList();
 }

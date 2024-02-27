@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/sales_average/data/model/sales_average_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:appweb/app/core/error/exceptions.dart';
@@ -24,14 +25,24 @@ class GetSalesAverage
 }
 
 class ParamsGetSales {
+  int tbInstitutionId;
   int tbRegionId;
-  String dateIinicial;
-  String dataFinal;
-  int page;
+  String dateInitial;
+  String dateFinal;
+
   ParamsGetSales({
+    required this.tbInstitutionId,
     required this.tbRegionId,
-    required this.dateIinicial,
-    required this.dataFinal,
-    required this.page,
+    required this.dateInitial,
+    required this.dateFinal,
   });
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['tb_institution_id'] = tbInstitutionId;
+    data['tb_region_id'] = tbRegionId;
+    data['date_initial'] = CustomDate.formatDateOut(dateInitial);
+    data['date_final'] = CustomDate.formatDateOut(dateFinal);
+    return data;
+  }
 }

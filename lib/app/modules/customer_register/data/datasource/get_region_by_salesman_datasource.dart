@@ -8,15 +8,15 @@ import 'package:flutter/foundation.dart';
 abstract class GetRegionBySalesmanDatasource extends Gateway {
   GetRegionBySalesmanDatasource({required super.httpClient});
 
-  Future<List<RegionRegisterModel>> getList();
+  Future<List<RegionModel>> getList();
 }
 
 class GetRegionBySalesmanDataSourceImpl extends GetRegionBySalesmanDatasource {
-  List<RegionRegisterModel> list = [];
+  List<RegionModel> list = [];
 
   GetRegionBySalesmanDataSourceImpl({required super.httpClient});
   @override
-  Future<List<RegionRegisterModel>> getList() async {
+  Future<List<RegionModel>> getList() async {
     try {
       String tbInstitutionId = '1';
       await getInstitutionId().then((value) {
@@ -37,7 +37,7 @@ class GetRegionBySalesmanDataSourceImpl extends GetRegionBySalesmanDatasource {
       if (response.statusCode == 200) {
         var obj = jsonDecode(response.body);
         list = (obj as List).map((json) {
-          return RegionRegisterModel.fromJson(json);
+          return RegionModel.fromJson(json);
         }).toList();
         return list;
       } else {

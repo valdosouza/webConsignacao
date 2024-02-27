@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
@@ -34,7 +35,7 @@ class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
       case 3:
         return (item.sale > 0) ? item.sale.toStringAsFixed(0) : "";
       case 4:
-        return (item.subtotal > 0) ? item.subtotal.toStringAsFixed(2) : "";
+        return (item.subtotal > 0) ? floatToStrF(item.subtotal) : "";
     }
     return "";
   }

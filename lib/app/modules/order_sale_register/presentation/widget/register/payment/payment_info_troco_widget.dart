@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/header_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ Widget paymentinfotroco(OrderSaleMainCardModel modelOrderSale) {
           totalChange = totalpayment - modelOrderSale.order.totalValue;
           if (totalcash > totalChange) {
             modelOrderSale.order.changeValue = totalChange;
-            return modelOrderSale.order.changeValue.toStringAsFixed(2);
+            return floatToStrF(modelOrderSale.order.changeValue);
           }
         }
       }

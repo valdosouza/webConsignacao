@@ -1,3 +1,4 @@
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/Core/data/model/order_paid_model.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/widget/register/ordersale/header_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
   String valorStr = "";
   var txt = TextEditingController(
       text: (modelOrderPaid[1].value > 0)
-          ? modelOrderPaid[1].value.toStringAsFixed(2)
+          ? floatToStrF(modelOrderPaid[1].value)
           : "");
   return Row(
     children: [
@@ -34,7 +35,7 @@ Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
                 txt.text = "";
                 if (valor > 0) {
                   valor = valor / 100;
-                  txt.text = valor.toStringAsFixed(2);
+                  txt.text = floatToStrF(valor);
                 }
               }
               txt.selection = TextSelection.fromPosition(

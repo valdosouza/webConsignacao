@@ -1,7 +1,7 @@
 import 'package:appweb/app/modules/Core/domain/entity/region_register_entity.dart';
 
-class RegionRegisterModel extends RegionRegisterEntity {
-  RegionRegisterModel({
+class RegionModel extends RegionEntity {
+  RegionModel({
     int? id,
     int? tbInstitutionId,
     String? description,
@@ -17,8 +17,8 @@ class RegionRegisterModel extends RegionRegisterEntity {
           active: active ?? "",
         );
 
-  factory RegionRegisterModel.fromJson(Map<String?, dynamic> json) {
-    return RegionRegisterModel(
+  factory RegionModel.fromJson(Map<String?, dynamic> json) {
+    return RegionModel(
       id: json['id'] is String ? int.parse(json['id']) : json['id'],
       tbInstitutionId: json['tb_institution_id'] is String
           ? int.parse(json['tb_institution_id'])
@@ -42,8 +42,8 @@ class RegionRegisterModel extends RegionRegisterEntity {
     return data;
   }
 
-  factory RegionRegisterModel.empty() {
-    return RegionRegisterModel(
+  factory RegionModel.empty() {
+    return RegionModel(
       id: 0,
       tbInstitutionId: 0,
       description: "",

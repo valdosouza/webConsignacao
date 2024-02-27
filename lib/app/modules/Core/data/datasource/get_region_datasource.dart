@@ -7,15 +7,15 @@ import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 abstract class GetRegionDatasource extends Gateway {
   GetRegionDatasource({required super.httpClient});
 
-  Future<List<RegionRegisterModel>> getRegion();
+  Future<List<RegionModel>> getRegion();
 }
 
 class GetRegionDataSourceImpl extends GetRegionDatasource {
-  List<RegionRegisterModel> list = [];
+  List<RegionModel> list = [];
 
   GetRegionDataSourceImpl({required super.httpClient});
   @override
-  Future<List<RegionRegisterModel>> getRegion() async {
+  Future<List<RegionModel>> getRegion() async {
     try {
       String tbInstitutionId = '1';
       await getInstitutionId().then((value) {
@@ -29,7 +29,7 @@ class GetRegionDataSourceImpl extends GetRegionDatasource {
       if (response.statusCode == 200) {
         var obj = jsonDecode(response.body);
         list = (obj as List).map((json) {
-          return RegionRegisterModel.fromJson(json);
+          return RegionModel.fromJson(json);
         }).toList();
         return list;
       } else {

@@ -7,16 +7,16 @@ import 'package:appweb/app/modules/Core/data/model/region_model.dart';
 abstract class CustomerDataSource extends Gateway {
   CustomerDataSource({required super.httpClient});
 
-  Future<List<RegionRegisterModel>> getlistRegion();
+  Future<List<RegionModel>> getlistRegion();
 }
 
 class CustomerDataSourceImpl extends CustomerDataSource {
-  List<RegionRegisterModel> list = [];
+  List<RegionModel> list = [];
 
   CustomerDataSourceImpl({required super.httpClient});
 
   @override
-  Future<List<RegionRegisterModel>> getlistRegion() async {
+  Future<List<RegionModel>> getlistRegion() async {
     try {
       String tbInstitutionId = '1';
       await getInstitutionId().then((value) {
@@ -35,7 +35,7 @@ class CustomerDataSourceImpl extends CustomerDataSource {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         list = (data as List).map((json) {
-          return RegionRegisterModel.fromJson(json);
+          return RegionModel.fromJson(json);
         }).toList();
 
         return list;

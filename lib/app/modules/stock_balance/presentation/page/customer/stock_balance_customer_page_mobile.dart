@@ -1,10 +1,12 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_bloc.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_event.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_state.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/content/content_stock_balance_customer.dart';
+import 'package:appweb/app/modules/stock_balance/presentation/content/content_stock_balance_customer_detailed.dart';
 import 'package:appweb/app/modules/stock_balance/stock_balance_module.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,9 @@ class StockBalanceCustomerPageMobileState
     return BlocConsumer<StockBalanceBloc, StockBalanceState>(
       bloc: bloc,
       listener: (context, state) {
-        statesStockBalance(state);
+        if (state is ErrorState) {
+          CustomToast.showToast(state.msg);
+        }
       },
       builder: (context, state) {
         if (state is StockBalanceLoadingState) {
@@ -46,7 +50,9 @@ class StockBalanceCustomerPageMobileState
             child: CustomCircularProgressIndicator(),
           );
         }
-
+        if (state is StockBalanceAllCustomerByProductLoadedState) {
+          return ContentStockBalanceCustomerDetailed(model: state.list);
+        }
         return _listastockBalance(bloc.stockBalance);
       },
     );
@@ -71,14 +77,9 @@ class StockBalanceCustomerPageMobileState
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(children: [
-            buildSearchInput(bloc),
-            const SizedBox(height: 15),
-            buildListView(bloc.stockBalance),
-          ]),
+        padding: const EdgeInsets.all(5),
+        child: ContentStockBalanceCustomer(
+          stockBalance: bloc.stockBalance,
         ),
       ),
     );

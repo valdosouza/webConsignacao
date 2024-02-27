@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
 import 'package:appweb/app/modules/Core/data/model/stock_balance_model.dart';
 import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance_bloc.dart';
@@ -38,7 +39,9 @@ class StockBalanceGeneralPageDesktopState
     return BlocConsumer<StockBalanceBloc, StockBalanceState>(
       bloc: bloc,
       listener: (context, state) {
-        statesStockBalance(state);
+        if (state is ErrorState) {
+          CustomToast.showToast(state.msg);
+        }
       },
       builder: (context, state) {
         if (state is StockBalanceLoadingState) {

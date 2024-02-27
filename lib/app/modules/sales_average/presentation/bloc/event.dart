@@ -11,3 +11,5 @@ class GetSalesAverageEvent extends SalesAverageEvent {
 }
 
 class GetRegionListEvent extends SalesAverageEvent {}
+
+class MainFormEvent extends SalesAverageEvent {}

@@ -6,7 +6,7 @@
     <!-- Permissions options for the `storage` group -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 
     <application
         android:requestLegacyExternalStorage="true"

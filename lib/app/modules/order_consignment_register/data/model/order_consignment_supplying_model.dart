@@ -40,6 +40,7 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
         tbSalesmanId: 0,
         nameSalesman: "",
         dtRecord: CustomDate.newDate(),
+        hrRecord: "",
         currentDebitBalance: 0,
         recall: "N",
         note: "",
@@ -57,6 +58,7 @@ class OrderConsignmentSupplyingModel extends OrderConsignmentSupplyingEntity {
       tbSalesmanId: checkpoint.order.tbSalesmanId,
       nameSalesman: checkpoint.order.nameSalesman,
       dtRecord: "",
+      hrRecord: "",
       currentDebitBalance: checkpoint.order.currentDebitBalance,
       recall: "N",
       note: "",
@@ -91,6 +93,7 @@ class OrderConsignmentSupplyingOrderModel
   int tbSalesmanId;
   String nameSalesman;
   String dtRecord;
+  String hrRecord;
   double currentDebitBalance;
   String recall;
   String note;
@@ -103,6 +106,7 @@ class OrderConsignmentSupplyingOrderModel
     required this.tbSalesmanId,
     required this.nameSalesman,
     required this.dtRecord,
+    required this.hrRecord,
     required this.currentDebitBalance,
     required this.recall,
     required this.note,
@@ -131,6 +135,7 @@ class OrderConsignmentSupplyingOrderModel
       dtRecord: (json['dt_record'] != null)
           ? CustomDate.formatDateIn(json['dt_record'])
           : CustomDate.newDate(),
+      hrRecord: json['hr_record'] as String? ?? "",
       currentDebitBalance: json['current_debit_balance'] is int
           ? json['current_debit_balance'].toDouble()
           : json['current_debit_balance'],

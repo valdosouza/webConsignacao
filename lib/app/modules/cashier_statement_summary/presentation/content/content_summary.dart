@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/core/shared/widgets/custom_dropdow_buttom.dart';
 import 'package:appweb/app/core/shared/widgets/custom_imput_button.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
@@ -82,24 +83,23 @@ class _ContentSummaryState extends State<ContentSummary> {
                     ...List.generate(widget.list[index].productList.length,
                         (i) {
                       return _fieldCell(
-                        widget.list[index].productList[i].value
-                            .toStringAsFixed(2),
+                        floatToStrF(widget.list[index].productList[i].value),
                         TextAlign.right,
                         heightCell,
                       );
                     }),
                     _fieldCell(
-                      widget.list[index].oldDebit.toStringAsFixed(2),
+                      floatToStrF(widget.list[index].oldDebit),
                       TextAlign.right,
                       heightCell,
                     ),
                     _fieldCell(
-                      widget.list[index].debitBalance.toStringAsFixed(2),
+                      floatToStrF(widget.list[index].debitBalance),
                       TextAlign.right,
                       heightCell,
                     ),
                     _fieldCell(
-                      widget.list[index].totalReceived.toStringAsFixed(2),
+                      floatToStrF(widget.list[index].totalReceived),
                       TextAlign.right,
                       heightCell,
                     ),
@@ -303,23 +303,23 @@ class _ContentSummaryState extends State<ContentSummary> {
                 total += item.productList[i].value;
               }
               return _fieldCell(
-                total.toStringAsFixed(2),
+                floatToStrF(total),
                 TextAlign.center,
                 heightCell,
               );
             }),
             _fieldCell(
-              totalOldDebit.toStringAsFixed(2),
+              floatToStrF(totalOldDebit),
               TextAlign.center,
               heightCell,
             ),
             _fieldCell(
-              totalDebitBalance.toStringAsFixed(2),
+              floatToStrF(totalDebitBalance),
               TextAlign.center,
               heightCell,
             ),
             _fieldCell(
-              totalGeneral.toStringAsFixed(2),
+              floatToStrF(totalGeneral),
               TextAlign.center,
               heightCell,
             ),

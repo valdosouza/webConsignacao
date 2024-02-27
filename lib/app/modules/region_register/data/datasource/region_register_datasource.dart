@@ -8,18 +8,18 @@ import 'package:flutter/foundation.dart';
 abstract class RegionRegisterDataSource extends Gateway {
   RegionRegisterDataSource({required super.httpClient});
 
-  Future<List<RegionRegisterModel>> getlist();
-  Future<RegionRegisterModel> post({required RegionRegisterModel model});
-  Future<RegionRegisterModel> put({required RegionRegisterModel model});
+  Future<List<RegionModel>> getlist();
+  Future<RegionModel> post({required RegionModel model});
+  Future<RegionModel> put({required RegionModel model});
   Future<String> delete({required int id});
 }
 
 class RegionRegisterDataSourceImpl extends RegionRegisterDataSource {
-  List<RegionRegisterModel> list = [];
+  List<RegionModel> list = [];
 
   RegionRegisterDataSourceImpl({required super.httpClient});
   @override
-  Future<List<RegionRegisterModel>> getlist() async {
+  Future<List<RegionModel>> getlist() async {
     try {
       String tbInstitutionId = '1';
       await getInstitutionId().then((value) {
@@ -33,7 +33,7 @@ class RegionRegisterDataSourceImpl extends RegionRegisterDataSource {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         list = (data as List).map((json) {
-          return RegionRegisterModel.fromJson(json);
+          return RegionModel.fromJson(json);
         }).toList();
 
         return list;
@@ -46,7 +46,7 @@ class RegionRegisterDataSourceImpl extends RegionRegisterDataSource {
   }
 
   @override
-  Future<RegionRegisterModel> post({required RegionRegisterModel model}) async {
+  Future<RegionModel> post({required RegionModel model}) async {
     try {
       int tbInstitutionId = 1;
       await getInstitutionId().then((value) {
@@ -66,7 +66,7 @@ class RegionRegisterDataSourceImpl extends RegionRegisterDataSource {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        var model = RegionRegisterModel.fromJson(data);
+        var model = RegionModel.fromJson(data);
         return model;
       } else {
         throw ServerException();
@@ -77,7 +77,7 @@ class RegionRegisterDataSourceImpl extends RegionRegisterDataSource {
   }
 
   @override
-  Future<RegionRegisterModel> put({required RegionRegisterModel model}) async {
+  Future<RegionModel> put({required RegionModel model}) async {
     try {
       int tbInstitutionId = 1;
       await getInstitutionId().then((value) {
@@ -95,7 +95,7 @@ class RegionRegisterDataSourceImpl extends RegionRegisterDataSource {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
-        var model = RegionRegisterModel.fromJson(data);
+        var model = RegionModel.fromJson(data);
         return model;
       } else {
         throw ServerException();

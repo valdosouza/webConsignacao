@@ -1,4 +1,4 @@
-class RegionRegisterEntity {
+class RegionEntity {
   int id;
   int tbInstitutionId;
   String description;
@@ -6,7 +6,7 @@ class RegionRegisterEntity {
   String salesmanName;
   String active;
 
-  RegionRegisterEntity({
+  RegionEntity({
     this.id = 0,
     this.tbInstitutionId = 0,
     this.description = "",

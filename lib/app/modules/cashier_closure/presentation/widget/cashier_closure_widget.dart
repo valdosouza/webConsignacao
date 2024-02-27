@@ -1,4 +1,5 @@
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/cashier_closure/data/model/closure_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -39,7 +40,7 @@ class CashierClosureWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(model[index].description),
-                  Text(model[index].tagValue.toStringAsFixed(2))
+                  Text(floatToStrF(model[index].tagValue)),
                 ]),
           ),
           childCount: model.length,
