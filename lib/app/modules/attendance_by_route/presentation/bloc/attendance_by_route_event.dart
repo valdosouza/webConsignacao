@@ -1,4 +1,5 @@
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
+import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_sequence.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_set_turn_back.dart';
 import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 
@@ -44,14 +45,9 @@ class CustomerOrderModeEvent extends AttendanceByRouteEvent {
 }
 
 class CustomerOrderedModeEvent extends AttendanceByRouteEvent {
-  final int tbCustomerId;
-  final int tbSalesRouteId;
-  final int sequence;
-  CustomerOrderedModeEvent({
-    required this.tbCustomerId,
-    required this.tbSalesRouteId,
-    required this.sequence,
-  });
+  final ParamsSequenceCustomer params;
+
+  CustomerOrderedModeEvent({required this.params});
 }
 
 class CustomerCancelOrderModeEvent extends AttendanceByRouteEvent {}

@@ -192,10 +192,7 @@ class AttendanceByRouteBloc
       emit(CustomerListLoadingState());
       tbCustomerIdPickedForOrder = -1;
 
-      var response = await sequence.call(ParamsSequenceCustomer(
-          tbCustomerId: event.tbCustomerId,
-          tbSalesRouteId: event.tbSalesRouteId,
-          sequence: event.sequence));
+      var response = await sequence.call(event.params);
       response.fold((l) {
         emit(CustomerListOrderErrorState());
       }, (r) {

@@ -4,9 +4,10 @@ class CustomerListByRouteEntity {
   String nickTrade;
   String docKind;
   String docNumber;
-  int tbSalesRouteIid;
+  int tbSalesRouteId;
 
   String nameSalesRoute;
+  int defaultSeq;
   int sequence;
   String turnBack;
   String street;
@@ -20,8 +21,9 @@ class CustomerListByRouteEntity {
     this.nickTrade = "",
     this.docKind = "",
     this.docNumber = "",
-    this.tbSalesRouteIid = 0,
+    this.tbSalesRouteId = 0,
     this.nameSalesRoute = "",
+    this.defaultSeq = 0,
     this.sequence = 0,
     this.turnBack = "N",
     this.street = "",

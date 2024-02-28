@@ -2,6 +2,7 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
+import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_sequence.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_set_turn_back.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_bloc.dart';
 import 'package:appweb/app/modules/attendance_by_route/presentation/bloc/attendance_by_route_event.dart';
@@ -119,9 +120,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Text(
-                                  (widget.lista[index].sequence > 0)
-                                      ? (index + 1).toString()
-                                      : '0',
+                                  widget.lista[index].sequence.toString(),
                                   style: kCircleAvatarTextStyle,
                                 ),
                               ),
@@ -180,25 +179,33 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
                               builder: (context, state) {
                                 if (state is CustomerListOrderState) {
                                   if (((bloc.tbCustomerIdPickedForOrder !=
-                                          widget.lista[index].id)) ||
-                                      (widget.lista[index].sequence == 0)) {
+                                      widget.lista[index].id))) {
                                     return IconButton(
                                         icon: const Icon(Icons.check),
                                         onPressed: () {
                                           bloc.add(CustomerOrderedModeEvent(
+                                            params: ParamsSequenceCustomer(
+                                              tbInstitutionId: 0,
+                                              tbSalesRouteId: widget
+                                                  .lista[index].tbSalesRouteId,
+                                              tbRegionId:
+                                                  bloc.tbRegionIdSelected,
                                               tbCustomerId: bloc
                                                   .tbCustomerIdPickedForOrder,
-                                              tbSalesRouteId: widget
-                                                  .lista[index].tbSalesRouteIid,
                                               sequence:
                                                   widget.lista[index].sequence +
-                                                      1));
+                                                      1,
+                                              defaultSeq: 0,
+                                            ),
+                                          ));
                                         });
                                   } else {
                                     return IconButton(
-                                        icon: const Icon(Icons.block,
-                                            color: kSecondaryColor),
-                                        onPressed: () {});
+                                        icon: const Icon(Icons.block),
+                                        onPressed: () {
+                                          bloc.add(CustomerOrderModeEvent(
+                                              tbCustomerId: -1));
+                                        });
                                   }
                                 }
                                 return IconButton(

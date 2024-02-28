@@ -5,6 +5,7 @@ import 'package:appweb/app/core/shared/constants.dart';
 import 'package:appweb/app/core/shared/utils/custom_date.dart';
 import 'package:appweb/app/modules/Core/data/model/customer_list_by_route_model.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_get_list.dart';
+import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_sequence.dart';
 import 'package:appweb/app/modules/attendance_by_route/domain/usecase/customer_set_turn_back.dart';
 import 'package:flutter/foundation.dart';
 
@@ -12,10 +13,7 @@ abstract class CustomerDataSource extends Gateway {
   CustomerDataSource({required super.httpClient});
   Future<List<CustomerListByRouteModel>> getList(
       {required ParamsGetListCustomerByRoute params});
-  Future<void> sequence(
-      {required int tbSalesRouteId,
-      required int tbCustomerId,
-      required int sequence});
+  Future<void> sequence({required ParamsSequenceCustomer params});
   Future<String> setTurnBack({required ParamsSetTurnBack params});
 }
 
@@ -57,37 +55,26 @@ class CustomerDataSourceImpl extends CustomerDataSource {
   }
 
   @override
-  Future<void> sequence(
-      {required int tbSalesRouteId,
-      required int tbCustomerId,
-      required int sequence}) async {
+  Future<void> sequence({required ParamsSequenceCustomer params}) async {
     try {
-      int tbInstitutionId = 1;
       await getInstitutionId().then((value) {
-        (kIsWeb) ? tbInstitutionId = value : tbInstitutionId = int.parse(value);
+        (kIsWeb)
+            ? params.tbInstitutionId = value
+            : params.tbInstitutionId = int.parse(value);
       });
 
-      final uri = Uri.parse('${baseApiUrl}salesroute/sequence/');
-      var body = {
-        "tb_institution_id": tbInstitutionId,
-        "tb_sales_route_id": tbSalesRouteId,
-        "tb_customer_id": tbCustomerId,
-        "sequence": sequence
-      };
-
-      final response = await httpClient.post(
-        uri,
-        body: jsonEncode(body),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+      var bodyjson = jsonEncode(params.toJson());
+      return await request(
+        'salesroute/sequence',
+        method: HTTPMethod.post,
+        data: bodyjson,
+        (payload) {
+          return;
+        },
+        onError: (error) {
+          return Future.error(ServerException());
         },
       );
-
-      if (response.statusCode == 200) {
-        return;
-      } else {
-        throw ServerException();
-      }
     } catch (e) {
       throw ServerException();
     }

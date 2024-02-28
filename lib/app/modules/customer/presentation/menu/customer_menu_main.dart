@@ -22,6 +22,12 @@ class CustomerMenuMain extends StatelessWidget {
             () async =>
                 Modular.to.navigate('/customer/desktop/orderbonus-register/'),
           ),
+          itemMenuDraw(
+            Icons.home,
+            'Ordenar Atendimento',
+            () async =>
+                Modular.to.navigate('/customer/desktop/attendance-ordering/'),
+          ),
         ],
       ),
     );

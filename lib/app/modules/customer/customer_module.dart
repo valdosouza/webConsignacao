@@ -1,3 +1,4 @@
+import 'package:appweb/app/modules/attendance_ordering/attendance_ordering_module.dart';
 import 'package:appweb/app/modules/customer/data/datasource/customer_datasource.dart';
 import 'package:appweb/app/modules/customer/data/repository/customer_repository_impl.dart';
 import 'package:appweb/app/modules/customer/domain/usecase/region_get_list.dart';
@@ -38,6 +39,8 @@ class CustomerModule extends Module {
         ModuleRoute('/customer-register/', module: CustomerRegisterModule()),
         ModuleRoute('/orderbonus-register/',
             module: OrderBonusRegisterModule()),
+        ModuleRoute('/attendance-ordering/',
+            module: AttendanceOrderingModule()),
       ],
     ),
     ChildRoute(
