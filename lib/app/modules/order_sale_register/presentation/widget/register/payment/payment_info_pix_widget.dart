@@ -4,8 +4,6 @@ import 'package:appweb/app/modules/order_sale_register/presentation/widget/regis
 import 'package:flutter/material.dart';
 
 Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
-  double valor = 0;
-  String valorStr = "";
   var txt = TextEditingController(
       text: (modelOrderPaid[1].value > 0)
           ? floatToStrF(modelOrderPaid[1].value)
@@ -30,13 +28,7 @@ Widget paymentinfopix(List<OrderPaidModel> modelOrderPaid) {
             controller: txt,
             onChanged: (value) {
               if (value.isNotEmpty) {
-                valorStr = value.replaceAll('.', '');
-                valor = double.parse(valorStr);
-                txt.text = "";
-                if (valor > 0) {
-                  valor = valor / 100;
-                  txt.text = floatToStrF(valor);
-                }
+                txt.text = autoDecimalPoint(value);
               }
               txt.selection = TextSelection.fromPosition(
                   TextPosition(offset: txt.text.length));

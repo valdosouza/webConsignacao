@@ -11,8 +11,6 @@ class AuthLoginEvent extends AuthEvent {
 
 class AuthLogoutEvent extends AuthEvent {}
 
-class AuthCheckKeepConnectedEvent extends AuthEvent {}
-
 class AuthRecoveryEvent extends AuthEvent {
   final String email;
 

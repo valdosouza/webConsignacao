@@ -70,6 +70,7 @@ class Gateway {
           break;
       }
       statusCode = response.statusCode;
+
       return fromJson(response.body);
     } on Exception catch (e) {
       debugPrint(

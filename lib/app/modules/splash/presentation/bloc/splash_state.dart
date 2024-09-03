@@ -1,15 +1,7 @@
 abstract class SplashState {}
 
-class SplahsLoadingState extends SplashState {}
+class LoadingState extends SplashState {}
 
-class SplashInitState extends SplashState {
-  final bool logged;
+class AuthorizedState extends SplashState {}
 
-  SplashInitState({this.logged = false});
-}
-
-class SplashLoggedState extends SplashState {
-  final bool logged;
-
-  SplashLoggedState({this.logged = false});
-}
+class NotAuthorizedState extends SplashState {}

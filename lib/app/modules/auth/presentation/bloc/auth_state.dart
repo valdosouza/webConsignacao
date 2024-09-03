@@ -6,8 +6,6 @@ abstract class AuthState {
 
 class AuthInitial extends AuthState {}
 
-class AuthCheckKeepConnectedSuccessState extends AuthState {}
-
 class AuthLoadingState extends AuthState {}
 
 class AuthSuccessState extends AuthState {}

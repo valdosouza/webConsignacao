@@ -28,12 +28,14 @@ class _SplashPageState extends State<SplashPage> {
       child: BlocConsumer<SplashBloc, SplashState>(
         bloc: bloc,
         listener: (context, state) {
-          if (state is SplashLoggedState) {
-            if (!state.logged) {
-              Modular.to.navigate('/auth/');
-            } else {
-              Modular.to.navigate('/home/');
-            }
+          if (state is AuthorizedState) {
+            Modular.to.navigate('/home/');
+          }
+          if (state is NotAuthorizedState) {
+            Modular.to.navigate('/auth/');
+          }
+          if (state is LoadingState) {
+            const CustomCircularProgressIndicator();
           }
         },
         builder: (context, state) {

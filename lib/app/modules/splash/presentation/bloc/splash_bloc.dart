@@ -10,13 +10,13 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final GetAuthorization getAuthorization;
   SplashBloc({
     required this.getAuthorization,
-  }) : super(SplashInitState()) {
-    loggedSate();
+  }) : super(LoadingState()) {
+    _getAuthorization();
   }
 
-  loggedSate() {
+  _getAuthorization() {
     on<SplashInitEvent>((event, emit) async {
-      emit(SplahsLoadingState());
+      emit(LoadingState());
 
       final token = await LocalStorageService.instance
           .get(key: LocalStorageKey.token, defaultValue: '');
@@ -24,18 +24,22 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           .get(key: LocalStorageKey.keepConnected, defaultValue: false);
 
       final bool result =
-          token.toString().compareTo("") != 0 && keepConnected == 'true';
+          (token.toString().compareTo("") != 0) && (keepConnected == 'true');
       if (result) {
         var response = await getAuthorization.call(ParamsAuthorization());
 
         var result = response.fold((l) {
-          return SplashLoggedState(logged: false);
+          return NotAuthorizedState();
         }, (r) {
-          return SplashLoggedState(logged: r);
+          if (r) {
+            return AuthorizedState();
+          } else {
+            return NotAuthorizedState();
+          }
         });
         emit(result);
       } else {
-        emit(SplashLoggedState(logged: false));
+        emit(NotAuthorizedState());
       }
     });
   }

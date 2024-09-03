@@ -18,8 +18,6 @@ class PaymentInfoCash extends StatefulWidget {
 class _PaymentInfoCashState extends State<PaymentInfoCash> {
   @override
   Widget build(BuildContext context) {
-    double valor = 0;
-    String valorStr = "";
     var txt = TextEditingController(
         text: (widget.modelOrderPaid[0].value > 0)
             ? floatToStrF(widget.modelOrderPaid[0].value)
@@ -44,13 +42,7 @@ class _PaymentInfoCashState extends State<PaymentInfoCash> {
               controller: txt,
               onChanged: (value) {
                 if (value.isNotEmpty) {
-                  valorStr = value.replaceAll('.', '');
-                  valor = double.parse(valorStr);
-                  txt.text = "";
-                  if (valor > 0) {
-                    valor = valor / 100;
-                    txt.text = floatToStrF(valor);
-                  }
+                  txt.text = autoDecimalPoint(value);
                 }
                 txt.selection = TextSelection.fromPosition(
                     TextPosition(offset: txt.text.length));
