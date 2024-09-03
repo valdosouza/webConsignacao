@@ -46,6 +46,15 @@ class OrderConsignmentGetCheckpointLoadedState
   });
 }
 
+class OrderConsignmentGetCheckpointNotFoundState
+    extends OrderConsignmentRegisterState {
+  final int tbOrderId;
+  final int tbCustomerId;
+
+  OrderConsignmentGetCheckpointNotFoundState(
+      {required this.tbOrderId, required this.tbCustomerId});
+}
+
 class OrderConsignmentGetSupplyingLoadedState
     extends OrderConsignmentRegisterState {
   OrderConsignmentSupplyingModel supplyingModel;

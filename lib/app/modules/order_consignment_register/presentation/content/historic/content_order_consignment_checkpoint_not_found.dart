@@ -1,29 +1,28 @@
+import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_bloc.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_event.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/supplying/historic/custom_body_supplying_historic_wiget.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/supplying/register/custom_header_supplying_widget.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/widget/checkpoint/register/custom_header_checkpoint_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:appweb/app/core/shared/theme.dart';
-import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_supplying_model.dart';
 import 'package:appweb/app/modules/order_consignment_register/order_consignment_register_module.dart';
-import 'package:appweb/app/modules/order_consignment_register/presentation/widget/custom_button_widget.dart';
 
-class ContentConsignmentSupplyingHistoric extends StatefulWidget {
-  final OrderConsignmentSupplyingModel modelSupplying;
-  const ContentConsignmentSupplyingHistoric({
+class ContentConsignmentCheckpointNotFound extends StatefulWidget {
+  final int tbOrderId;
+  final int tbCustomerId;
+  const ContentConsignmentCheckpointNotFound({
     super.key,
-    required this.modelSupplying,
+    required this.tbOrderId,
+    required this.tbCustomerId,
   });
 
   @override
-  State<ContentConsignmentSupplyingHistoric> createState() =>
-      _ContentConsignmenteSupplyingState();
+  State<ContentConsignmentCheckpointNotFound> createState() =>
+      _ContentConsignmenteCheckpointState();
 }
 
-class _ContentConsignmenteSupplyingState
-    extends State<ContentConsignmentSupplyingHistoric> {
+class _ContentConsignmenteCheckpointState
+    extends State<ContentConsignmentCheckpointNotFound> {
   late final OrderConsignmentRegisterBloc bloc;
   @override
   void initState() {
@@ -36,8 +35,6 @@ class _ContentConsignmenteSupplyingState
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -48,23 +45,21 @@ class _ContentConsignmenteSupplyingState
               Container(
                 alignment: Alignment.bottomCenter,
                 height: 45,
-                child: AutoSizeText(
-                  "${widget.modelSupplying.order.dtRecord}  ${widget.modelSupplying.order.hrRecord} - ${widget.modelSupplying.order.nameCustomer}",
+                child: const AutoSizeText(
+                  "Ordem não encontrada",
                   style: kTitleAppBarStyle,
                   textAlign: TextAlign.center,
                   maxFontSize: 18,
                   minFontSize: 12,
                 ),
               ),
-              const CustomHeaderSupplying(),
+              const CustomHeaderCheckpoint(),
             ],
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: CustomBodySupplyingHistoricWidget(
-            size: size, modelSupplying: widget.modelSupplying),
-      ),
+      body:
+          const Center(child: Text("Verifique se foi o primeiro atendimento")),
       bottomSheet: _footer(),
     );
   }
@@ -77,21 +72,46 @@ class _ContentConsignmenteSupplyingState
         children: [
           Expanded(
             flex: 1,
-            child: custombutton("Checagem", () {
-              bloc.add(GetCheckpoint(
-                orderid: widget.modelSupplying.order.id,
-                customerid: widget.modelSupplying.order.tbCustomerId,
-              ));
+            child: _custombutton("Abastecimento", () {
+              bloc.add(GetSupplying(orderid: widget.tbOrderId));
             }),
           ),
           Expanded(
             flex: 1,
-            child: custombutton("Sair", () {
+            child: _custombutton("Sair", () {
               bloc.add(OrderConsignmentRegisterGetlistEvent(
-                  tbCustomerId: widget.modelSupplying.order.tbCustomerId));
+                  tbCustomerId: widget.tbCustomerId));
             }),
           ),
         ],
+      ),
+    );
+  }
+
+  _custombutton(String buttonName, Function() function) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
+      child: ElevatedButton(
+        style: kElevatedButtonStyleRed,
+        onPressed: () {
+          function();
+          setState(() {});
+        },
+        child: Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(
+              left: 2.0, top: 0.0, right: 2.0, bottom: 0.0),
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.red,
+            ),
+          ),
+          child: Text(
+            buttonName,
+            style: kElevatedButtonTextStyle,
+          ),
+        ),
       ),
     );
   }

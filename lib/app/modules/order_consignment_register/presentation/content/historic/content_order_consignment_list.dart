@@ -168,6 +168,7 @@ class _ContentOrderConsignmentListState
                       bloc.add(
                         GetCheckpoint(
                           orderid: widget.orderList[index].id,
+                          customerid: widget.orderList[index].tbCustomerId,
                         ),
                       );
                     },

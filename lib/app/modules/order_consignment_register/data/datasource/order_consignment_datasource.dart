@@ -65,7 +65,8 @@ class OrderConsignmentDatasourceImpl extends OrderConsignmentDatasource {
 
         return OrderConsignmentCheckpointModel.fromJson(data);
       } else {
-        throw ServerException();
+        final data = json.decode(response.body);
+        return OrderConsignmentCheckpointModel.notFoundfromJson(data);
       }
     } catch (error) {
       throw ServerException();

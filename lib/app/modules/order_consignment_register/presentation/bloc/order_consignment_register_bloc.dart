@@ -269,7 +269,11 @@ class OrderConsignmentRegisterBloc
 
       var result = response.fold(
           (l) => OrderConsigngmentGetCheckpointErrorState(l.toString()), (r) {
-        return OrderConsignmentGetCheckpointLoadedState(checkpointmodel: r);
+        if (r.order.id > 0) {
+          return OrderConsignmentGetCheckpointLoadedState(checkpointmodel: r);
+        }
+        return OrderConsignmentGetCheckpointNotFoundState(
+            tbOrderId: event.orderid, tbCustomerId: event.customerid);
       });
       emit(result);
     });

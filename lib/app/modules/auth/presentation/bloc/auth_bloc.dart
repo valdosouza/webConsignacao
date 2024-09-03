@@ -36,20 +36,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     logout();
     recoveryPassword();
     changePassword();
-    on<AuthCheckKeepConnectedEvent>(checkKeepConnected);
-  }
-
-  void checkKeepConnected(
-    AuthCheckKeepConnectedEvent event,
-    Emitter<AuthState> emit,
-  ) async {
-    emit(AuthLoadingState());
-
-    final token = await LocalStorageService.instance
-        .get(key: LocalStorageKey.token, defaultValue: '');
-    if (token != '') {
-      emit(AuthCheckKeepConnectedSuccessState());
-    }
   }
 
   Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {

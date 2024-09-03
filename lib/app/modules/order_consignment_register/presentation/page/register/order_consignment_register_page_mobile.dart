@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_event.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/bloc/order_consignment_register_state.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/content/historic/content_order_consignment_checkpoint_historic.dart';
+import 'package:appweb/app/modules/order_consignment_register/presentation/content/historic/content_order_consignment_checkpoint_not_found.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/content/historic/content_order_consignment_list.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/content/historic/content_order_consignment_supplying_historic.dart';
 import 'package:appweb/app/modules/order_consignment_register/presentation/content/register/content_order_consignment_checkpoint.dart';
@@ -127,14 +128,21 @@ class OrderConsginmentRegisterPageMobileState
         }
         if (state is OrderConsignmentGetListLoadedState) {
           return ContentOrderConsignmentList(orderList: state.orderList);
-        } else if (state is OrderConsignmentGetCheckpointLoadedState) {
+        }
+        if (state is OrderConsignmentGetCheckpointLoadedState) {
           return ContentConsignmentCheckpointHistoric(
               checkpointmodel: state.checkpointmodel);
-        } else if (state is OrderConsignmentGetSupplyingLoadedState) {
+        }
+        if (state is OrderConsignmentGetSupplyingLoadedState) {
           return ContentConsignmentSupplyingHistoric(
               modelSupplying: state.supplyingModel);
         }
-
+        if (state is OrderConsignmentGetCheckpointNotFoundState) {
+          return ContentConsignmentCheckpointNotFound(
+            tbOrderId: state.tbOrderId,
+            tbCustomerId: state.tbCustomerId,
+          );
+        }
         return Container();
       },
     );

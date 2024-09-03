@@ -6,7 +6,6 @@ import 'package:appweb/app/core/shared/widgets/logo_area.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_bloc.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -31,16 +30,6 @@ class _AuthPageState extends State<AuthPage> {
   void initState() {
     super.initState();
     bloc = Modular.get<AuthBloc>();
-    SchedulerBinding.instance.addPostFrameCallback(
-      (_) async {
-        final keepConnected = await LocalStorageService.instance
-            .get(key: LocalStorageKey.keepConnected, defaultValue: false);
-        bloc.setKeepConnected = keepConnected == 'true';
-        if (keepConnected == 'true') {
-          bloc.add(AuthCheckKeepConnectedEvent());
-        }
-      },
-    );
   }
 
   @override
@@ -75,8 +64,7 @@ class _AuthPageState extends State<AuthPage> {
           );
         }
 
-        if (state is AuthSuccessState ||
-            state is AuthCheckKeepConnectedSuccessState) {
+        if (state is AuthSuccessState) {
           Modular.to.navigate('/home/');
         }
       },

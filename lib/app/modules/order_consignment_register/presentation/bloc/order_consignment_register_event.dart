@@ -59,8 +59,10 @@ class SearchEvent extends OrderConsignmentRegisterEvent {
 
 class GetCheckpoint extends OrderConsignmentRegisterEvent {
   int orderid;
+  int customerid;
   GetCheckpoint({
     required this.orderid,
+    required this.customerid,
   });
 }
 

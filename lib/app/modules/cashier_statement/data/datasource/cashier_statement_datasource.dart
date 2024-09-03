@@ -147,6 +147,7 @@ class CashierStatementDataSourceImpl extends CashierStatementDataSource {
     });
     return await request(
       'financial/statement/getbymonth/$tbInstitutionId/$tbUserId/${params.date}',
+      timeout: const Duration(milliseconds: 15000),
       (payload) {
         final data = json.decode(payload);
         var model = (data as List)

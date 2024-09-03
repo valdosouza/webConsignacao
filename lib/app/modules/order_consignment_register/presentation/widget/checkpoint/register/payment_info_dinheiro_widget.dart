@@ -4,8 +4,6 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:flutter/material.dart';
 
 Widget paymentinfodinheiro(OrderConsignmentCheckpointModel modelCheckpoint) {
-  double valor = 0;
-  String valorStr = "";
   var txt = TextEditingController(
       text: (modelCheckpoint.payments[0].value > 0)
           ? floatToStrF(modelCheckpoint.payments[0].value)
@@ -30,13 +28,7 @@ Widget paymentinfodinheiro(OrderConsignmentCheckpointModel modelCheckpoint) {
             controller: txt,
             onChanged: (value) {
               if (value.isNotEmpty) {
-                valorStr = value.replaceAll('.', '');
-                valor = double.parse(valorStr);
-                txt.text = "";
-                if (valor > 0) {
-                  valor = valor / 100;
-                  txt.text = floatToStrF(valor);
-                }
+                txt.text = autoDecimalPoint(value);
               }
               txt.selection = TextSelection.fromPosition(
                   TextPosition(offset: txt.text.length));

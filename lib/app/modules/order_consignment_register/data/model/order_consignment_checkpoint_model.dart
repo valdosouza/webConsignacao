@@ -27,6 +27,15 @@ class OrderConsignmentCheckpointModel extends OrderConsignmentCheckpointEntity {
     );
   }
 
+  factory OrderConsignmentCheckpointModel.notFoundfromJson(
+      Map<String, dynamic> json) {
+    return OrderConsignmentCheckpointModel(
+        order: OrderConsignmentCheckpointOrderModel.notFoundfromJson(
+            json['order']),
+        items: [],
+        payments: []);
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['order'] = order.toJson();
@@ -170,6 +179,23 @@ class OrderConsignmentCheckpointOrderModel
       currentDebitBalance: json['current_debit_balance'] is int
           ? json['current_debit_balance'].toDouble()
           : json['current_debit_balance'],
+    );
+  }
+  factory OrderConsignmentCheckpointOrderModel.notFoundfromJson(
+      Map<String?, dynamic> json) {
+    return OrderConsignmentCheckpointOrderModel(
+      id: 0,
+      tbInstitutionId: 0,
+      tbCustomerId: 0,
+      nameCustomer: "",
+      tbSalesmanId: 0,
+      nameSalesman: "",
+      dtRecord: "",
+      hrRecord: "",
+      totalValue: 0.0,
+      changeValue: 0.0,
+      previousDebiBalance: 0.0,
+      currentDebitBalance: 0,
     );
   }
 
