@@ -79,7 +79,7 @@ class _ContentConsignmenteCheckpointState
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
     return PopScope(
       canPop: false,
-      onPopInvoked: (bool didPop) {
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
         if (didPop) {
           return;
         }
