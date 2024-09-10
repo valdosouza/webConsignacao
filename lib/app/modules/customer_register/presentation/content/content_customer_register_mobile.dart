@@ -55,7 +55,8 @@ class _ContentCustomerRegisterMobileState
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return PopScope(
-      onPopInvoked: (_) async {
+      canPop: true,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
         Modular.to.navigate('/customer/mobile/');
       },
       child: BlocConsumer<CustomerRegisterBloc, CustomerRegisterState>(

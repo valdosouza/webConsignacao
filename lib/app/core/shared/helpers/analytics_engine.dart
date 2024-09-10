@@ -13,7 +13,7 @@ class AnalyticsEngine {
   }
 
   static void logEvent(
-      {required String name, Map<String, Object?>? parameters}) async {
+      {required String name, required Map<String, Object> parameters}) async {
     await _instance.logEvent(
       name: name,
       parameters: parameters,

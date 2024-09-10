@@ -30,7 +30,8 @@ class _LinebusinessInterationPageState
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvoked: (_) async {
+      canPop: true,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
         bloc.add(LinebusinessGetListEvent());
       },
       child: Scaffold(
