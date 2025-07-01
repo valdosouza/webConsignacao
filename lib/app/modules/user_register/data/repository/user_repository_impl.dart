@@ -3,6 +3,7 @@ import 'package:appweb/app/core/error/failures.dart';
 import 'package:appweb/app/modules/user_register/data/datasource/user_register_datasource.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
 import 'package:appweb/app/modules/user_register/domain/repository/user_register_respository.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_getlist.dart';
 import 'package:dartz/dartz.dart';
 
 class UserRegisterRepositoryImpl implements UserRegisterRepository {
@@ -13,9 +14,10 @@ class UserRegisterRepositoryImpl implements UserRegisterRepository {
   });
 
   @override
-  Future<Either<Failure, List<UserRegisterModel>>> getList() async {
+  Future<Either<Failure, List<UserRegisterModel>>> getList(
+      {required ParamsGetUser params}) async {
     try {
-      final list = await datasource.getlist();
+      final list = await datasource.getlist(params: params);
       return Right(list);
     } on ServerException {
       return Left(ServerFailure());

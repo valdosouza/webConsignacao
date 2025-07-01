@@ -71,7 +71,7 @@ class CashierClosureForClosurePageMobileState
               PopupMenuItem(
                 onTap: (() => bloc.add(CashierClosurePostClosureEvent())),
                 value: 0,
-                child: const Text("Enceramento"),
+                child: const Text("Encerramento"),
               )
             ],
           ),

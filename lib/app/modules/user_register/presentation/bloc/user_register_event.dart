@@ -1,13 +1,19 @@
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_getlist.dart';
 
 abstract class UserRegisterEvent {}
 
-class UserRegisterGetListEvent extends UserRegisterEvent {}
+class UserRegisterGetListEvent extends UserRegisterEvent {
+  ParamsGetUser params;
+  UserRegisterGetListEvent({
+    required this.params,
+  });
+}
 
 class UserRegisterSearchEvent extends UserRegisterEvent {
-  String search;
+  ParamsGetUser params;
 
-  UserRegisterSearchEvent({required this.search});
+  UserRegisterSearchEvent({required this.params});
 }
 
 class UserRegisterInfoEvent extends UserRegisterEvent {

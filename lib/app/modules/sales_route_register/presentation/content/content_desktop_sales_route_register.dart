@@ -63,6 +63,9 @@ class _ContentDesktopSalesRouteRegisterState
         final routes = state.list;
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const AutoSizeText(
               'Lista de Rotas',
               style: kTitleAppBarStyle,

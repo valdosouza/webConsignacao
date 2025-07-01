@@ -13,6 +13,10 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
   final UserRegisterPut putUser;
   final UserRegisterDelete deleteUser;
 
+  String searchName = '';
+  String searchEmail = '';
+  String searchAtivo = 'S';
+
   List<UserRegisterModel> users = [];
   UserRegisterModel user = UserRegisterModel.isEmpty();
 
@@ -34,7 +38,8 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
   getList() async {
     on<UserRegisterGetListEvent>((event, emit) async {
       UserRegisterLoadingState();
-      var response = await getlistUser.call(ParamsGetUser());
+
+      var response = await getlistUser.call(event.params);
       var result = response.fold(
         (l) => UserRegisterErrorState(),
         (r) {
@@ -48,20 +53,20 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
 
   searchUser() {
     on<UserRegisterSearchEvent>((event, emit) async {
-      if (event.search.isNotEmpty) {
+      if (event.params.name.isNotEmpty) {
         var usersSearchedName = users.where((element) {
           String name = element.nick;
           return name
               .toLowerCase()
               .trim()
-              .contains(event.search.toLowerCase().trim());
+              .contains(event.params.name.toLowerCase().trim());
         }).toList();
         var usersSearchedEmail = users.where((element) {
           String email = element.email;
           return email
               .toLowerCase()
               .trim()
-              .contains(event.search.toLowerCase().trim());
+              .contains(event.params.email.toLowerCase().trim());
         }).toList();
         if (usersSearchedName.isNotEmpty) {
           emit(UserRegisterLoadedState(users: usersSearchedName));

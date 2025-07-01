@@ -2,6 +2,7 @@ import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/validators.dart';
 import 'package:appweb/app/core/shared/widgets/custom_dropdow_buttom.dart';
 import 'package:appweb/app/core/shared/widgets/custom_input.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_getlist.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
 import 'package:appweb/app/modules/user_register/user_register_module.dart';
@@ -44,7 +45,9 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
         if (didPop) {
           return;
         }
-        bloc.add(UserRegisterGetListEvent());
+        bloc.add(UserRegisterGetListEvent(
+          params: ParamsGetUser(name: "", email: "", active: "S"),
+        ));
       },
       child: Scaffold(
         appBar: AppBar(
@@ -58,7 +61,8 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
             icon: const Icon(Icons.arrow_back_ios_outlined,
                 color: kSecondaryColor),
             onPressed: () {
-              bloc.add(UserRegisterGetListEvent());
+              bloc.add(UserRegisterGetListEvent(
+                  params: ParamsGetUser(name: "", email: "", active: "S")));
             },
           ),
           actions: [
@@ -133,6 +137,7 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
 
   _fieldActive() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text("Ativo", style: kLabelStyle),
         const SizedBox(height: 10.0),

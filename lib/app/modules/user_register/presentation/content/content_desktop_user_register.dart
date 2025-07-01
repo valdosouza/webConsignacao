@@ -1,6 +1,8 @@
 import 'package:appweb/app/core/shared/theme.dart';
 import 'package:appweb/app/core/shared/utils/toast.dart';
 import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicator.dart';
+import 'package:appweb/app/core/shared/widgets/custom_input.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_getlist.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_bloc.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_event.dart';
 import 'package:appweb/app/modules/user_register/presentation/bloc/user_register_state.dart';
@@ -21,11 +23,12 @@ class ContentDesktopUserRegister extends StatefulWidget {
 class _ContentDesktopUserRegisterState
     extends State<ContentDesktopUserRegister> {
   late final UserRegisterBloc bloc;
-
+  bool selectActive = true;
   @override
   void initState() {
     bloc = Modular.get<UserRegisterBloc>();
-    bloc.add(UserRegisterGetListEvent());
+    bloc.add(UserRegisterGetListEvent(
+        params: ParamsGetUser(name: "", email: "", active: "S")));
     super.initState();
   }
 
@@ -144,25 +147,143 @@ class _ContentDesktopUserRegisterState
     );
   }
 
-  Container _buildSearchInput() {
+  _fieldUserName() {
+    return const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: CustomInput(
+        title: 'Nome do Usuário',
+        keyboardType: TextInputType.text,
+        inputAction: TextInputAction.next,
+        onChanged: null,
+      ),
+    );
+  }
+
+  _fieldUserEmail() {
+    return const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: CustomInput(
+        keyboardType: TextInputType.emailAddress,
+        inputAction: TextInputAction.next,
+        onChanged: null,
+        title: "email",
+      ),
+    );
+  }
+
+  _fieldActive() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Ativo",
+            style: kLabelStyle,
+            textAlign: TextAlign.left,
+          ),
+          const SizedBox(height: 10.0),
+          _fieldActiveYes(),
+          _fieldActiveNo(),
+        ],
+      ),
+    );
+  }
+
+  _fieldActiveYes() {
+    return SizedBox(
+      width: 100,
+      child: Row(
+        children: [
+          Radio(
+            value: true,
+            groupValue: selectActive,
+            activeColor: Colors.red,
+            onChanged: selectActive
+                ? (value) {}
+                : (value) {
+                    setState(() {
+                      selectActive = true;
+                    });
+                    bloc.searchAtivo = "S";
+                  },
+          ),
+          const SizedBox(width: 5.0),
+          const Text("Sim", style: kLabelStyle),
+        ],
+      ),
+    );
+  }
+
+  _fieldActiveNo() {
+    return SizedBox(
+      width: 100,
+      child: Row(
+        children: [
+          Radio(
+              value: false,
+              groupValue: selectActive,
+              activeColor: Colors.red,
+              onChanged: selectActive
+                  ? (value) {
+                      setState(() {
+                        selectActive = false;
+                      });
+                      bloc.searchAtivo = "N";
+                    }
+                  : (value) {}),
+          const SizedBox(width: 5.0),
+          const Text("Não", style: kLabelStyle),
+        ],
+      ),
+    );
+  }
+
+  _buildButton() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: IconButton(
+        hoverColor: Colors.transparent,
+        onPressed: () {
+          bloc.add(UserRegisterGetListEvent(
+            params: ParamsGetUser(
+              name: bloc.searchName,
+              email: bloc.searchEmail,
+              active: bloc.searchAtivo,
+            ),
+          ));
+        },
+        icon: const Icon(
+          Icons.search,
+          size: 20.0,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  _buildSearchInput() {
     return Container(
       decoration: kBoxDecorationStyle,
-      child: TextFormField(
-        keyboardType: TextInputType.text,
-        autofocus: false,
-        onChanged: (value) {
-          bloc.add(UserRegisterSearchEvent(search: value));
-        },
-        style: const TextStyle(
-          color: Colors.white,
-          fontFamily: 'OpenSans',
-        ),
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.only(left: 10.0),
-          hintText: "Pesquise por nome ou email",
-          hintStyle: kHintTextStyle,
-        ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 50,
+            child: _fieldUserName(),
+          ),
+          Expanded(
+            flex: 50,
+            child: _fieldUserEmail(),
+          ),
+          Expanded(
+            flex: 15,
+            child: _fieldActive(),
+          ),
+          Expanded(
+            flex: 10,
+            child: _buildButton(),
+          )
+        ],
       ),
     );
   }

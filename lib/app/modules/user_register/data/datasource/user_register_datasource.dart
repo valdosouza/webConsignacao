@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 import 'package:appweb/app/modules/user_register/data/model/user_register_model.dart';
+import 'package:appweb/app/modules/user_register/domain/usecase/user_register_getlist.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class UserRegisterDataSource extends Gateway {
   UserRegisterDataSource({required super.httpClient});
 
-  Future<List<UserRegisterModel>> getlist();
+  Future<List<UserRegisterModel>> getlist({required ParamsGetUser params});
   Future<UserRegisterModel> post({required UserRegisterModel model});
   Future<UserRegisterModel> put({required UserRegisterModel model});
   Future<String> delete({required int id});
@@ -78,14 +79,15 @@ class UserRegisterDataSourceImpl extends UserRegisterDataSource {
   }
 
   @override
-  Future<List<UserRegisterModel>> getlist() async {
+  Future<List<UserRegisterModel>> getlist(
+      {required ParamsGetUser params}) async {
     String tbInstitutionId = '1';
     await getInstitutionId().then((value) {
       tbInstitutionId = value.toString();
     });
 
     return await request(
-      'user/getlist/$tbInstitutionId',
+      'user/getlist/$tbInstitutionId/${params.active}',
       (payload) {
         final obj = json.decode(payload);
         List<UserRegisterModel> result = (obj as List).map((json) {
