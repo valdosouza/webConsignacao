@@ -314,7 +314,7 @@ class _ContentSummaryState extends State<ContentSummary> {
             itemCount: widget.list.length,
             itemBuilder: (_, index) {
               return InkWell(
-                splashColor: Colors.red.withOpacity(0.8),
+                splashColor: Colors.red.withValues(alpha: 0.8),
                 hoverColor: kPrimaryColor,
                 onTap: () async {},
                 child: Row(

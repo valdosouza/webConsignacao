@@ -14,7 +14,7 @@ Widget salesChart(BuildContext context, List<HomeSalesPaymentTypeModel> list) {
     const Color.fromARGB(255, 255, 255, 255),
     const Color.fromARGB(255, 208, 52, 56),
     const Color.fromARGB(255, 55, 52, 53),
-    kPrimaryColor.withOpacity(0.1),
+    kPrimaryColor.withValues(alpha: 0.1),
   ];
 
   totalValue = 0;

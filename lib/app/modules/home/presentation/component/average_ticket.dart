@@ -25,7 +25,7 @@ Widget averageTicket(
     decoration: BoxDecoration(
       border: Border.all(
         width: 2,
-        color: kPrimaryColor.withOpacity(0.15),
+        color: kPrimaryColor.withValues(alpha: 0.15),
       ),
       borderRadius: const BorderRadius.all(
         Radius.circular(kDefaultPadding),
