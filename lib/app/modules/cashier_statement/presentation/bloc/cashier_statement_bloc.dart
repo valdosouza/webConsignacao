@@ -73,7 +73,7 @@ class CashierStatementBloc
     _goBackToMainForm();
   }
 
-  cashierStatementGetCurrentDate() {
+  void cashierStatementGetCurrentDate() {
     on<GetCurrentDateEvent>((event, emit) async {
       emit(LoadingState());
       var response =
@@ -94,7 +94,7 @@ class CashierStatementBloc
     });
   }
 
-  cashierStatementGetByDay() {
+  void cashierStatementGetByDay() {
     on<CashierStatementGetByDayMobileEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -109,7 +109,7 @@ class CashierStatementBloc
     });
   }
 
-  cashierStatementGetByMonth() {
+  void cashierStatementGetByMonth() {
     on<CashierStatementGetByMonthMobileEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -124,7 +124,7 @@ class CashierStatementBloc
     });
   }
 
-  cashierStatementGetByCustomer() {
+  void cashierStatementGetByCustomer() {
     on<CashierStatementGetByCustomerMobileEvent>((event, emit) async {
       emit(LoadingState());
       //posicina o cliente na lista para mostrar na proxima tela do detalhamento
@@ -146,7 +146,7 @@ class CashierStatementBloc
     });
   }
 
-  cashierStatementGetByCustomerBySalesman() {
+  void cashierStatementGetByCustomerBySalesman() {
     on<GotoCustomerListDesktopEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -164,7 +164,7 @@ class CashierStatementBloc
     });
   }
 
-  cashierStatementGetByOrder() {
+  void cashierStatementGetByOrder() {
     on<CashierStatementGetByOrderMobileEvent>((event, emit) async {
       emit(LoadingState());
       //posicina o cliente na lista para mostrar na proxima tela do detalhamento
@@ -187,7 +187,7 @@ class CashierStatementBloc
     });
   }
 
-  cashierStatementGetCustomers() {
+  void cashierStatementGetCustomers() {
     on<CashierStatementGetCustomersMobileEvent>((event, emit) async {
       emit(LoadingState());
       if (event.params.date.isEmpty) {
@@ -209,7 +209,7 @@ class CashierStatementBloc
     });
   }
 
-  cashierStatementGetSalesmans() {
+  void cashierStatementGetSalesmans() {
     on<GoToSalesmanListDesktopEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -226,19 +226,19 @@ class CashierStatementBloc
     });
   }
 
-  returnListSalesmanEvent() {
+  void returnListSalesmanEvent() {
     on<ReturnSalesmanListDesktopEvent>((event, emit) async {
       emit(ReturnSalesmanListDesktopSucessState());
     });
   }
 
-  returnToCustomerDesktopEvent() {
+  void returnToCustomerDesktopEvent() {
     on<ReturnCustomerListDesktopEvent>((event, emit) async {
       emit(ReturnCustomerListDesktopSucessState());
     });
   }
 
-  goToOrderDetailPageDesktop() {
+  void goToOrderDetailPageDesktop() {
     on<GotoOrderDetailDesktopEvent>((event, emit) async {
       emit(LoadingState());
       //posicina o cliente na lista para mostrar na proxima tela do detalhamento
@@ -260,7 +260,7 @@ class CashierStatementBloc
     });
   }
 
-  _getCustomerOldDebitsBySalesman() {
+  void _getCustomerOldDebitsBySalesman() {
     on<GetCustomerOldDebitBySalesmanEvent>((event, emit) async {
       emit(LoadingState());
       if (event.params.page == 0) {
@@ -286,7 +286,7 @@ class CashierStatementBloc
     });
   }
 
-  _getSalesmanList() {
+  void _getSalesmanList() {
     on<GetSalesmanListEvent>((event, emit) async {
       emit(LoadingState());
       var response = await getSalesmans.call("");
@@ -301,7 +301,7 @@ class CashierStatementBloc
     });
   }
 
-  _goBackToMainForm() {
+  void _goBackToMainForm() {
     on<MainFormEvent>((event, emit) async {
       emit(LoadingState());
       salesmanList;

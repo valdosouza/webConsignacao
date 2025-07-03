@@ -34,19 +34,19 @@ class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
     });
   }
 
-  _validateOrderAttendance() {
+  void _validateOrderAttendance() {
     on<ValidateOrderAttendanceEvent>((event, emit) async {
       emit(LoadingState());
-      var result = "";
+      Object result = "";
       result = await _cashierIsOpen();
       if (result == "Aberto") {
         result = await _orderLoadExist();
       }
-      emit(ValidateOrderAttendanceState(msg: result));
+      emit(ValidateOrderAttendanceState(msg: result.toString()));
     });
   }
 
-  _cashierIsOpen() async {
+  Future<Object> _cashierIsOpen() async {
     var dtCurrent = CustomDate.newDate();
     var dtCashier = "";
     var response = await drawerCashierIsOpen.call(ParamsDrawerCashierIsOpen());
@@ -83,7 +83,7 @@ class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
     });
   }
 
-  _orderLoadExist() async {
+  Future<String> _orderLoadExist() async {
     try {
       var response =
           await drawerOrderLoadExist.call(ParamsDrawerOrderLoadExist());
@@ -102,10 +102,11 @@ class DrawerBloc extends Bloc<DrawerEvent, DrawerState> {
     } catch (error, s) {
       await FirebaseCrashlytics.instance
           .recordError(error, s, reason: 'Try to get a orderLoadExist');
+      return 'Erro ao verificar carregamento';
     }
   }
 
-  _userLogged() {
+  void _userLogged() {
     on<UserLoggedEvent>((event, emit) async {
       emit(LoadingState());
       try {

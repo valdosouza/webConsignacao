@@ -42,7 +42,7 @@ class OrderStockTransferRegisterEntitiesListWidgetState
     );
   }
 
-  _orderStockTransferEntitiesList(EntitiesLoadSuccessState state) {
+  Scaffold _orderStockTransferEntitiesList(EntitiesLoadSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

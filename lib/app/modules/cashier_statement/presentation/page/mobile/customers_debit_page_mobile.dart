@@ -81,7 +81,7 @@ class CustomersDebitPageMobileState extends State<CustomersDebitPageMobile> {
         ));
   }
 
-  search() {
+  Container search() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(

@@ -78,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     };
   }
 
-  login() async {
+  Future<void> login() async {
     on<AuthLoginEvent>((event, emit) async {
       emit(AuthLoadingState());
       var status = PermissionStatus.granted;
@@ -134,7 +134,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
   }
 
-  logout() async {
+  Future<void> logout() async {
     on<AuthLogoutEvent>((event, emit) async {
       LocalStorageService.instance.saveItem(
         key: LocalStorageKey.token,
@@ -147,7 +147,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
   }
 
-  recoveryPassword() async {
+  Future<void> recoveryPassword() async {
     on<AuthRecoveryEvent>((event, emit) async {
       emit(AuthLoadingState());
 
@@ -161,7 +161,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
   }
 
-  changePassword() async {
+  Future<void> changePassword() async {
     on<AuthChangeEvent>((event, emit) async {
       emit(AuthLoadingState());
 

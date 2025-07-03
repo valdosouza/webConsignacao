@@ -41,7 +41,8 @@ class _CustomerRegisterSalesRouteListWidgetState
     );
   }
 
-  _customerSalesRouteList(CustomerRegisterGetSalesRouteSuccessState state) {
+  Scaffold _customerSalesRouteList(
+      CustomerRegisterGetSalesRouteSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

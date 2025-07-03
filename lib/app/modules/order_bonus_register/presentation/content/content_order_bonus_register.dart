@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_
 import 'package:appweb/app/modules/order_bonus_register/presentation/bloc/order_bonus_register_state.dart';
 import 'package:flutter/material.dart';
 
-statesOrderBonuss(OrderBonusRegisterState state) {
+void statesOrderBonuss(OrderBonusRegisterState state) {
   if (state is OrderBonusRegisterErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados. Tente novamente mais tarde");
@@ -34,7 +34,7 @@ statesOrderBonuss(OrderBonusRegisterState state) {
   }
 }
 
-buildSearchInput(OrderBonusRegisterBloc bloc) {
+Container buildSearchInput(OrderBonusRegisterBloc bloc) {
   return Container(
     decoration: kBoxDecorationStyle,
     child: TextFormField(
@@ -57,7 +57,7 @@ buildSearchInput(OrderBonusRegisterBloc bloc) {
   );
 }
 
-buildListView(
+Expanded buildListView(
     OrderBonusRegisterBloc bloc, List<OrderBonusRegisterModel> orderBonus) {
   return Expanded(
     child: orderBonus.isEmpty

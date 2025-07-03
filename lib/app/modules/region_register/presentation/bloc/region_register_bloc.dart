@@ -48,7 +48,7 @@ class RegionRegisterBloc
         emit(RegionRegisterInfoPageState(model: model, list: list)));
   }
 
-  getList() {
+  void getList() {
     on<RegionRegisterGetListEvent>((event, emit) async {
       emit(RegionRegisterLoadingState());
 
@@ -64,7 +64,7 @@ class RegionRegisterBloc
     });
   }
 
-  searchRouteSales() {
+  void searchRouteSales() {
     on<RegionRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var listearched = list.where((element) {
@@ -81,7 +81,7 @@ class RegionRegisterBloc
     });
   }
 
-  regionAdd() {
+  void regionAdd() {
     on<RegionRegisterAddEvent>((event, emit) async {
       model = RegionModel.empty();
       optionYesNo = OptionYesNo.S;
@@ -89,7 +89,7 @@ class RegionRegisterBloc
     });
   }
 
-  regionEdit() {
+  void regionEdit() {
     on<RegionRegisterEditEvent>((event, emit) async {
       (model.active == "S")
           ? optionYesNo = OptionYesNo.S
@@ -98,7 +98,7 @@ class RegionRegisterBloc
     });
   }
 
-  postFunction() {
+  void postFunction() {
     on<RegionRegisterPostEvent>((event, emit) async {
       emit(RegionRegisterLoadingState());
       var response = await post.call(ParamsRegionPost(model: model));
@@ -114,7 +114,7 @@ class RegionRegisterBloc
     });
   }
 
-  putFunction() {
+  void putFunction() {
     on<RegionRegisterPutEvent>((event, emit) async {
       emit(RegionRegisterLoadingState());
       var response = await put.call(ParamsRegionPut(model: model));
@@ -129,7 +129,7 @@ class RegionRegisterBloc
     });
   }
 
-  getSalesmansList() {
+  void getSalesmansList() {
     on<RegionRegisterGetSalesmanEvent>((event, emit) async {
       emit(RegionRegisterLoadingState());
 

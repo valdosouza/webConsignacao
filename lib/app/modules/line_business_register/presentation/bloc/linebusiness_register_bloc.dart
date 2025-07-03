@@ -39,7 +39,7 @@ class LinebusinessRegisterBloc
     putFunction();
   }
 
-  getList() {
+  void getList() {
     on<LinebusinessGetListEvent>((event, emit) async {
       emit(LinebusinessLoadingState());
 
@@ -55,7 +55,7 @@ class LinebusinessRegisterBloc
     });
   }
 
-  search() {
+  void search() {
     on<LinebusinessSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var searched = modelList.where((element) {
@@ -72,7 +72,7 @@ class LinebusinessRegisterBloc
     });
   }
 
-  linebusinessAdd() {
+  void linebusinessAdd() {
     on<LinebusinessAddEvent>((event, emit) async {
       model = LinebusinessModel.empty();
       optionYesNo = OptionYesNo.S;
@@ -80,7 +80,7 @@ class LinebusinessRegisterBloc
     });
   }
 
-  linebusinessEdit() {
+  void linebusinessEdit() {
     on<LinebusinessEditEvent>((event, emit) async {
       (model.active == "S")
           ? optionYesNo = OptionYesNo.S
@@ -89,7 +89,7 @@ class LinebusinessRegisterBloc
     });
   }
 
-  postFunction() {
+  void postFunction() {
     on<LinebusinessPostEvent>((event, emit) async {
       emit(LinebusinessLoadingState());
       var response = await post.call(ParamsLinebusinessPost(model: model));
@@ -105,7 +105,7 @@ class LinebusinessRegisterBloc
     });
   }
 
-  putFunction() {
+  void putFunction() {
     on<LinebusinessPutEvent>((event, emit) async {
       emit(LinebusinessLoadingState());
       var response = await put.call(ParamsLinebusinessPut(model: model));

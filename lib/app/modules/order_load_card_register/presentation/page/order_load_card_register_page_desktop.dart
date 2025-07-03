@@ -57,7 +57,7 @@ class OrderLoadCardRegisterPageDesktopState
     );
   }
 
-  _listaOrderLoadCard(List<OrderLoadCardMainModel> orders) {
+  Scaffold _listaOrderLoadCard(List<OrderLoadCardMainModel> orders) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

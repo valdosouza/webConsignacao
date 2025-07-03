@@ -44,7 +44,7 @@ class AttendanceByRouteBloc
     //searchRouteSales();
   }
 
-  getListRouteSales() {
+  void getListRouteSales() {
     on<SalesRouteGetListEvent>((event, emit) async {
       emit(SalesRouteListLoadingState());
 
@@ -60,7 +60,7 @@ class AttendanceByRouteBloc
     });
   }
 
-  getListCustomer() {
+  void getListCustomer() {
     on<CustomerGetListEvent>((event, emit) async {
       emit(CustomerListLoadingState());
       var dtConsulta = DateTime.parse(event.params.dtRecord);
@@ -163,7 +163,7 @@ class AttendanceByRouteBloc
     });
   }
 
-  searchRouteSales() {
+  void searchRouteSales() {
     on<SalesRouteSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         saleroutlist.where((element) {
@@ -180,14 +180,14 @@ class AttendanceByRouteBloc
     });
   }
 
-  orderMode() {
+  void orderMode() {
     on<CustomerOrderModeEvent>((event, emit) async {
       tbCustomerIdPickedForOrder = event.tbCustomerId;
       emit(CustomerListOrderState());
     });
   }
 
-  ordererMode() {
+  void ordererMode() {
     on<CustomerOrderedModeEvent>((event, emit) async {
       emit(CustomerListLoadingState());
       tbCustomerIdPickedForOrder = -1;
@@ -207,14 +207,14 @@ class AttendanceByRouteBloc
     });
   }
 
-  cancelOrderMode() {
+  void cancelOrderMode() {
     on<CustomerCancelOrderModeEvent>((event, emit) async {
       tbCustomerIdPickedForOrder = -1;
       emit(CustomerListLoadedState());
     });
   }
 
-  setTurnBack() {
+  void setTurnBack() {
     on<CustomerSetTurnBackEvent>((event, emit) async {
       emit(SalesRouteListLoadingState());
       await customerSetTurnBack.call(event.params);

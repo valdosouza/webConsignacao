@@ -87,7 +87,7 @@ class CustomerRegisterBloc
             model: customer, customers: customers, tabIndex: event.index)));
   }
 
-  getList() {
+  void getList() {
     on<CustomerRegisterGetListEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -152,7 +152,7 @@ class CustomerRegisterBloc
     return "";
   }
 
-  postCustomerByMobile() async {
+  Future<void> postCustomerByMobile() async {
     on<CustomerRegisterPostByMobileEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
       String? errorValidate = await _validadePostCustomer();
@@ -188,7 +188,7 @@ class CustomerRegisterBloc
     });
   }
 
-  postCustomerByDesktop() {
+  void postCustomerByDesktop() {
     on<CustomerRegisterPostByDesktopEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -213,7 +213,7 @@ class CustomerRegisterBloc
     });
   }
 
-  searchCustomer() {
+  void searchCustomer() {
     on<CustomerRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var customersSearchedName = customers.where((element) {
@@ -250,7 +250,7 @@ class CustomerRegisterBloc
     });
   }
 
-  goToCustomerDesktopPage() {
+  void goToCustomerDesktopPage() {
     on<CustomerRegisterDesktopEvent>((event, emit) async {
       if (event.id != null) {
         emit(CustomerRegisterLoadingState());
@@ -272,7 +272,7 @@ class CustomerRegisterBloc
     });
   }
 
-  getCustomerMobilePage() {
+  void getCustomerMobilePage() {
     on<CustomerRegisterMobileEditEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -289,7 +289,7 @@ class CustomerRegisterBloc
     });
   }
 
-  newCustomerMobilePage() {
+  void newCustomerMobilePage() {
     on<CustomerRegisterMobileNewEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
       customer = CustomerMainModel.empty();
@@ -298,7 +298,7 @@ class CustomerRegisterBloc
     });
   }
 
-  searchCNPJ() {
+  void searchCNPJ() {
     on<CustomerRegisterCnpjEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -334,7 +334,7 @@ class CustomerRegisterBloc
     });
   }
 
-  searchCEP() {
+  void searchCEP() {
     on<CustomerRegisterCepEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -361,7 +361,7 @@ class CustomerRegisterBloc
     });
   }
 
-  getState() {
+  void getState() {
     on<CustomerRegisterGetStatesEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -376,7 +376,7 @@ class CustomerRegisterBloc
     });
   }
 
-  getCitys() {
+  void getCitys() {
     on<CustomerRegisterGetCitysEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -392,7 +392,7 @@ class CustomerRegisterBloc
     });
   }
 
-  searchEventStates() {
+  void searchEventStates() {
     on<CustomerRegisterSearchStateEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var statestSearched = states.where((element) {
@@ -414,7 +414,7 @@ class CustomerRegisterBloc
     });
   }
 
-  searchEventCitys() {
+  void searchEventCitys() {
     on<CustomerRegisterSearchCityEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var citiestSearched = cities.where((element) {
@@ -434,7 +434,7 @@ class CustomerRegisterBloc
     });
   }
 
-  getRegionAction() {
+  void getRegionAction() {
     on<CustomerRegisterGetRegionEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -448,7 +448,7 @@ class CustomerRegisterBloc
     });
   }
 
-  searchRegion() {
+  void searchRegion() {
     on<CustomerRegisterSearchRegionEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var regionSearched = regions.where((element) {
@@ -466,7 +466,7 @@ class CustomerRegisterBloc
     });
   }
 
-  getSalesRouteAction() {
+  void getSalesRouteAction() {
     on<CustomerRegisterGetSalesRouteEvent>((event, emit) async {
       emit(CustomerRegisterLoadingState());
 
@@ -480,7 +480,7 @@ class CustomerRegisterBloc
     });
   }
 
-  searchSalesRoute() {
+  void searchSalesRoute() {
     on<CustomerRegisterSearchSalesRouteEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var salesRouteSearched = salesRoute.where((element) {

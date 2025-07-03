@@ -41,7 +41,7 @@ class ContentOrderStockTransferRegisterDetailState
     );
   }
 
-  _orderStockTransferProductsList() {
+  Padding _orderStockTransferProductsList() {
     List<OrderStockTransferRegisterItemsModel> orderItemsFiltered =
         bloc.orderMain.items.where((i) => i.updateStatus != "D").toList();
     return Padding(

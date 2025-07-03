@@ -40,7 +40,7 @@ class _RegionListContentState extends State<RegionListContent> {
     );
   }
 
-  title() {
+  Container title() {
     return Container(
       color: kPrimaryColor,
       child: const Padding(
@@ -58,7 +58,7 @@ class _RegionListContentState extends State<RegionListContent> {
     );
   }
 
-  body() {
+  Expanded body() {
     return Expanded(
       child: ListView.separated(
         itemCount: widget.list.length,

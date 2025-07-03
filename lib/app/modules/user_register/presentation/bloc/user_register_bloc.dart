@@ -35,7 +35,7 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     addUser();
   }
 
-  getList() async {
+  Future<void> getList() async {
     on<UserRegisterGetListEvent>((event, emit) async {
       UserRegisterLoadingState();
 
@@ -51,7 +51,7 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     });
   }
 
-  searchUser() {
+  void searchUser() {
     on<UserRegisterSearchEvent>((event, emit) async {
       if (event.params.name.isNotEmpty) {
         var usersSearchedName = users.where((element) {
@@ -79,21 +79,21 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     });
   }
 
-  addUser() {
+  void addUser() {
     on<UserRegisterAddEvent>((event, emit) async {
       user = UserRegisterModel.isEmpty();
       emit(UserRegisterInfoPageState(users: users));
     });
   }
 
-  goToUserInfoPage() {
+  void goToUserInfoPage() {
     on<UserRegisterInfoEvent>((event, emit) async {
       user = event.model;
       emit(UserRegisterInfoPageState(users: users));
     });
   }
 
-  post() {
+  void post() {
     on<UserRegisterPostEvent>((event, emit) async {
       UserRegisterLoadingState();
       var response = await postUser.call(ParamsAddUser(user: event.model));
@@ -109,7 +109,7 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     });
   }
 
-  put() {
+  void put() {
     on<UserRegisterPutEvent>((event, emit) async {
       UserRegisterLoadingState();
       var response = await putUser.call(ParamsEditUser(model: event.model));
@@ -123,7 +123,7 @@ class UserRegisterBloc extends Bloc<UserRegisterEvent, UserRegisterState> {
     });
   }
 
-  delete() {
+  void delete() {
     on<UserRegisterDeleteEvent>((event, emit) async {
       UserRegisterLoadingState();
       var response = await deleteUser.call(ParamsDeleteUser(id: event.id));

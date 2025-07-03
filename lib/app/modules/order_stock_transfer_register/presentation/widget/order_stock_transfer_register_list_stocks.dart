@@ -46,7 +46,7 @@ class OrderStockTransferRegisterStocksListWidgetState
     );
   }
 
-  _orderStockTransferStocksList(StocksLoadSuccessState state) {
+  Scaffold _orderStockTransferStocksList(StocksLoadSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

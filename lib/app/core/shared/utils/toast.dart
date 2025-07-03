@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CustomToast {
-  static showToast(String title) {
+  static void showToast(String title) {
     Fluttertoast.showToast(
         msg: title,
         timeInSecForIosWeb: 3,

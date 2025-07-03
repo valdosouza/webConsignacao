@@ -56,7 +56,7 @@ class _ContentCashierClosureState extends State<ContentCashierClosure> {
         });
   }
 
-  _listOfCashierClosure(Size size) {
+  Container _listOfCashierClosure(Size size) {
     var list = bloc.closureModel.items;
     return Container(
       padding: const EdgeInsets.all(10),

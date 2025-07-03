@@ -69,7 +69,7 @@ class CollaboratorRegisterBloc
             modelList: modelList, tabIndex: event.index)));
   }
 
-  getList() {
+  void getList() {
     on<CollaboratorRegisterGetListEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
@@ -87,7 +87,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  postCollaboratorAction() {
+  void postCollaboratorAction() {
     on<CollaboratorRegisterPostEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
@@ -120,7 +120,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  searchCustomer() {
+  void searchCustomer() {
     on<CollaboratorRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var collaboratorSearchedName = modelList.where((element) {
@@ -161,7 +161,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  goToCollaboratorInfoPage() {
+  void goToCollaboratorInfoPage() {
     on<CollaboratorRegisterInfoEvent>((event, emit) async {
       if (event.id != null) {
         emit(CollaboratorRegisterLoadingState(tabIndex: 0));
@@ -183,7 +183,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  searchCNPJ() {
+  void searchCNPJ() {
     on<CollaboratorRegisterCnpjEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
@@ -214,7 +214,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  searchCEP() {
+  void searchCEP() {
     on<CollaboratorRegisterCepEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState(tabIndex: 1));
 
@@ -240,7 +240,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  getState() {
+  void getState() {
     on<CollaboratorRegisterGetStatesEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState(tabIndex: 1));
 
@@ -257,7 +257,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  getCitys() {
+  void getCitys() {
     on<CollaboratorRegisterGetCitysEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState(tabIndex: 1));
 
@@ -278,7 +278,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  searchEventStates() {
+  void searchEventStates() {
     on<CollaboratorRegisterSearchStateEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var statestSearched = states.where((element) {
@@ -298,7 +298,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  searchEventCitys() {
+  void searchEventCitys() {
     on<CollaboratorRegisterSearchCityEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var citiestSearched = cities.where((element) {
@@ -324,7 +324,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  getLinebusinessAction() {
+  void getLinebusinessAction() {
     on<CollaboratorRegisterGetLineBusinessEvent>((event, emit) async {
       emit(CollaboratorRegisterLoadingState(tabIndex: 0));
 
@@ -345,7 +345,7 @@ class CollaboratorRegisterBloc
     });
   }
 
-  searchLinebusiness() {
+  void searchLinebusiness() {
     on<CollaboratorRegisterSearchLinebusinessEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var linebusinessSearched = linebusiness.where((element) {

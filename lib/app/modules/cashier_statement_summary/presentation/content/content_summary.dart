@@ -63,7 +63,7 @@ class _ContentSummaryState extends State<ContentSummary> {
         });
   }
 
-  _header() {
+  Container _header() {
     const double heightCell = 55;
     return Container(
       //padding: const EdgeInsets.only(left: 10, right: 10),
@@ -136,7 +136,7 @@ class _ContentSummaryState extends State<ContentSummary> {
     );
   }
 
-  _search() {
+  SizedBox _search() {
     return SizedBox(
       height: 81,
       child: Row(
@@ -250,7 +250,7 @@ class _ContentSummaryState extends State<ContentSummary> {
     );
   }
 
-  _body(Size size) {
+  Row _body(Size size) {
     final ScrollController horizontalScroll = ScrollController();
     final ScrollController verticalScroll = ScrollController();
     const double widthScroll = 15;
@@ -303,7 +303,7 @@ class _ContentSummaryState extends State<ContentSummary> {
     );
   }
 
-  _bodyContent(Size size, double widthContainer) {
+  SingleChildScrollView _bodyContent(Size size, double widthContainer) {
     const double heightCell = 30;
     return SingleChildScrollView(
       child: Container(
@@ -388,7 +388,7 @@ class _ContentSummaryState extends State<ContentSummary> {
     );
   }
 
-  _bottom() {
+  Container _bottom() {
     const double heightCell = 35;
 
     double totalOldDebit = 0;

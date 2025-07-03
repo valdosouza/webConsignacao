@@ -81,7 +81,7 @@ class DesktopState extends State<Desktop> {
         ));
   }
 
-  search() {
+  Container search() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(
@@ -186,7 +186,7 @@ class DesktopState extends State<Desktop> {
     );
   }
 
-  title() {
+  Container title() {
     return Container(
       height: 50,
       color: kPrimaryColor,

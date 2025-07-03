@@ -18,7 +18,7 @@ class AttendanceByCustomerBloc
     searchCustomer();
   }
 
-  getListCustomer() {
+  void getListCustomer() {
     on<CustomerGetListEvent>((event, emit) async {
       emit(CustomerListLoadingState());
 
@@ -34,7 +34,7 @@ class AttendanceByCustomerBloc
     });
   }
 
-  searchCustomer() {
+  void searchCustomer() {
     on<CustomerSearchEvent>((event, emit) async {
       customerlist;
       if (event.search.isNotEmpty) {

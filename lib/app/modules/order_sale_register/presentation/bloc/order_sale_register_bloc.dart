@@ -43,7 +43,7 @@ class OrderSaleRegisterBloc
     _returnToAttendance();
   }
 
-  ordersaleGetCard() {
+  void ordersaleGetCard() {
     on<OrderSaleRegisterGetCardEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
 
@@ -114,7 +114,7 @@ class OrderSaleRegisterBloc
     return "";
   }
 
-  ordersaleCardPos() {
+  void ordersaleCardPos() {
     on<OrderSaleCardPostEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
       String errorValidate = await _validadePost();
@@ -145,7 +145,7 @@ class OrderSaleRegisterBloc
     });
   }
 
-  clearOrderSale() {
+  void clearOrderSale() {
     on<OrderSaleRegisterClearEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
       for (OrderSaleCardModel item in modelOrderSale.items) {
@@ -162,7 +162,7 @@ class OrderSaleRegisterBloc
     });
   }
 
-  _orderSaleGetList() {
+  void _orderSaleGetList() {
     on<OrderSaleRegisterGetlistEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
       if (event.params.page == 0) {
@@ -182,14 +182,14 @@ class OrderSaleRegisterBloc
     });
   }
 
-  _getBackOrderSaleGetList() {
+  void _getBackOrderSaleGetList() {
     on<OrderGetBackToGetlistEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
       emit(OrderSaleGetListLoadedState(orderList: orderSaleList));
     });
   }
 
-  _searchList() {
+  void _searchList() {
     on<SearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         orderSaleListSearch =
@@ -201,7 +201,7 @@ class OrderSaleRegisterBloc
     });
   }
 
-  _getOrderSaleCard() {
+  void _getOrderSaleCard() {
     on<GetOrderSaleCardEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
       final response = await getOrderSaleCard(event.orderid);
@@ -213,13 +213,13 @@ class OrderSaleRegisterBloc
     });
   }
 
-  _returnToOrderSale() {
+  void _returnToOrderSale() {
     on<ReturnToOrderSaleEvent>((event, emit) async {
       emit(ReturnToOrderSaleState());
     });
   }
 
-  _returnToAttendance() {
+  void _returnToAttendance() {
     on<ReturnToAttendanceEvent>((event, emit) async {
       emit(ReturnToAttendanceState());
     });

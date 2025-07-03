@@ -46,7 +46,8 @@ class OrderBonusRegisterProductsListWidgetState
     );
   }
 
-  _orderBonusItemProductsList(OrderBonusRegisterProductSuccessState state) {
+  Scaffold _orderBonusItemProductsList(
+      OrderBonusRegisterProductSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/or
 import 'package:appweb/app/modules/order_load_card_register/presentation/bloc/order_load_card_register_state.dart';
 import 'package:flutter/material.dart';
 
-statesOrderLoadCard(OrderLoadCardRegisterState state) {
+void statesOrderLoadCard(OrderLoadCardRegisterState state) {
   if (state is OrderLoadCardGetListErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados. Tente novamente mais tarde");
@@ -19,7 +19,7 @@ statesOrderLoadCard(OrderLoadCardRegisterState state) {
   }
 }
 
-buildSearchInput(OrderLoadCardRegisterBloc bloc) {
+Container buildSearchInput(OrderLoadCardRegisterBloc bloc) {
   return Container(
     decoration: kBoxDecorationStyle,
     child: TextFormField(
@@ -42,7 +42,7 @@ buildSearchInput(OrderLoadCardRegisterBloc bloc) {
   );
 }
 
-buildListView(OrderLoadCardRegisterBloc bloc) {
+Expanded buildListView(OrderLoadCardRegisterBloc bloc) {
   return Expanded(
     child: bloc.listLoadCard.isEmpty
         ? const Center(

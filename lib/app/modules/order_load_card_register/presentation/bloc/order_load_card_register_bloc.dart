@@ -48,7 +48,7 @@ class OrderLoadCardRegisterBloc
     _cashierIsOpen();
   }
 
-  _getNewOrderLoadCard() {
+  void _getNewOrderLoadCard() {
     on<OrderLoadCardRegisterGetCardEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -67,7 +67,7 @@ class OrderLoadCardRegisterBloc
     });
   }
 
-  orderLoadCardGetList() {
+  void orderLoadCardGetList() {
     on<OrderLoadCardRegisterGetListCardEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -85,7 +85,7 @@ class OrderLoadCardRegisterBloc
     });
   }
 
-  orderLoadCardGetListByUser() {
+  void orderLoadCardGetListByUser() {
     on<GetListByUserEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -100,7 +100,7 @@ class OrderLoadCardRegisterBloc
     });
   }
 
-  orderLoadCardPost() {
+  void orderLoadCardPost() {
     on<OrderLoadCardPostEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -114,7 +114,7 @@ class OrderLoadCardRegisterBloc
     });
   }
 
-  clearOrderLoadCard() {
+  void clearOrderLoadCard() {
     on<OrderLoadCardRegisterClearEvent>((event, emit) async {
       emit(LoadingState());
       for (OrderLoadCardItemsModel item in modelLoadCard.items) {
@@ -125,7 +125,7 @@ class OrderLoadCardRegisterBloc
     });
   }
 
-  closureOrder() {
+  void closureOrder() {
     on<OrderClosureEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -141,7 +141,7 @@ class OrderLoadCardRegisterBloc
     });
   }
 
-  getOrderLoadCard() {
+  void getOrderLoadCard() {
     on<GetOrderLoadCard>((event, emit) async {
       emit(LoadingState());
 
@@ -155,13 +155,13 @@ class OrderLoadCardRegisterBloc
     });
   }
 
-  returnToOrderLoadCard() {
+  void returnToOrderLoadCard() {
     on<ReturnToLoadCardEvent>((event, emit) async {
       emit(ReturnToLoadCardState());
     });
   }
 
-  _cashierIsOpen() async {
+  Future<void> _cashierIsOpen() async {
     var response = await cashierIsOpen.call(ParamsCashierIsOpen());
 
     response.fold((l) {

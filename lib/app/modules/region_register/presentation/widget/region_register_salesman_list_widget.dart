@@ -41,7 +41,7 @@ class _CustomerRegisterSalesmanListWidgetState
     );
   }
 
-  _customerSalesmanList(RegionRegisterGetSalesmanSuccessState state) {
+  Scaffold _customerSalesmanList(RegionRegisterGetSalesmanSuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

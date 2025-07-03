@@ -44,7 +44,7 @@ class _SalesAverageContentState extends State<SalesAverageContent> {
     );
   }
 
-  title() {
+  Container title() {
     return Container(
       height: 50,
       color: kPrimaryColor,
@@ -102,7 +102,7 @@ class _SalesAverageContentState extends State<SalesAverageContent> {
     );
   }
 
-  body(Size size) {
+  SingleChildScrollView body(Size size) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
@@ -157,7 +157,7 @@ class _SalesAverageContentState extends State<SalesAverageContent> {
     );
   }
 
-  totalizar() {
+  SizedBox totalizar() {
     double total = 0;
     for (var element in widget.list) {
       total += element.totalValue;

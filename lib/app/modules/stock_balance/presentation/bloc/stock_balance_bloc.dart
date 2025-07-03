@@ -55,7 +55,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     _filterBalanceDivergent();
   }
 
-  getList() {
+  void getList() {
     on<StockBalanceGetListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
@@ -69,7 +69,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  searchEvent() {
+  void searchEvent() {
     on<StockBalanceSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         StockBalanceModel stockBalanceSearched = StockBalanceModel.empty();
@@ -91,7 +91,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  customerGetList() {
+  void customerGetList() {
     on<StockBalanceCustomerGetListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
@@ -105,7 +105,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  customerSearchEvent() {
+  void customerSearchEvent() {
     on<StockBalanceCustomerSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         StockBalanceModel stockBalanceSearched = StockBalanceModel.empty();
@@ -127,7 +127,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  salesmanGetList() {
+  void salesmanGetList() {
     on<StockBalanceSalesmanGetListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
@@ -141,7 +141,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  salesmanSearchEvent() {
+  void salesmanSearchEvent() {
     on<StockBalanceSalesmanSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         StockBalanceModel stockBalanceSearched = StockBalanceModel.empty();
@@ -163,7 +163,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  generalGetList() {
+  void generalGetList() {
     on<StockBalanceGeneralGetListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
@@ -177,7 +177,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  generalSearchEvent() {
+  void generalSearchEvent() {
     on<StockBalanceGeneralSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         StockBalanceModel stockBalanceSearched = StockBalanceModel.empty();
@@ -199,7 +199,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  getStocks() {
+  void getStocks() {
     on<StockBalanceGetStockListEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
@@ -212,13 +212,13 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  returnStockListPage() {
+  void returnStockListPage() {
     on<StockBalanceReturnStockListPagEvent>((event, emit) async {
       emit(StockBalanceCustomerLoadedState(item: stockBalance));
     });
   }
 
-  _customerAllByProducts() {
+  void _customerAllByProducts() {
     on<GetStockBalanceAllCutomerByProductEvent>((event, emit) async {
       emit(StockBalanceLoadingState());
 
@@ -232,7 +232,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  _filterCustomer() {
+  void _filterCustomer() {
     on<FilterCustomerEvent>((event, emit) async {
       if (nameCustomer.isNotEmpty) {
         filterStockBalanceByProduct.nameProduct =
@@ -253,7 +253,7 @@ class StockBalanceBloc extends Bloc<StockBalanceEvent, StockBalanceState> {
     });
   }
 
-  _filterBalanceDivergent() {
+  void _filterBalanceDivergent() {
     on<FilterBalanceDivergentEvent>((event, emit) async {
       if (balanceDivergent) {
         filterStockBalanceByProduct.nameProduct =

@@ -10,7 +10,7 @@ String intToStr(int value) {
   return value.toString();
 }
 
-String autoDecimalPoint(value) {
+String autoDecimalPoint(String value) {
   double valor = 0;
   String valorStr = "";
   valorStr = value.replaceAll('.', '');

@@ -5,7 +5,7 @@ import 'package:appweb/app/modules/stock_balance/presentation/bloc/stock_balance
 
 import 'package:flutter/material.dart';
 
-buildSearchInput(StockBalanceBloc bloc) {
+Container buildSearchInput(StockBalanceBloc bloc) {
   return Container(
     decoration: kBoxDecorationStyle,
     child: TextFormField(
@@ -28,7 +28,7 @@ buildSearchInput(StockBalanceBloc bloc) {
   );
 }
 
-buildListView(StockBalanceModel stockBalance) {
+Expanded buildListView(StockBalanceModel stockBalance) {
   return Expanded(
     child: stockBalance.items.isEmpty
         ? const Center(

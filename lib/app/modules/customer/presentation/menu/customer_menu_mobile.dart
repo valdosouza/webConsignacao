@@ -110,7 +110,7 @@ class _CustomerMenuMobileState extends State<CustomerMenuMobile> {
     );
   }
 
-  _menuFixo() {
+  Drawer _menuFixo() {
     return Drawer(
       child: ListView(
         children: <Widget>[

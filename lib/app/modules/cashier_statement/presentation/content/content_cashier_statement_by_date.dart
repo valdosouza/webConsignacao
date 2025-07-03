@@ -60,7 +60,7 @@ class _ContentCashierStatementState
         });
   }
 
-  _buildSearchInput() {
+  Container _buildSearchInput() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(
@@ -112,7 +112,7 @@ class _ContentCashierStatementState
     );
   }
 
-  _listOfCashierClosure(Size size) {
+  Container _listOfCashierClosure(Size size) {
     var list = bloc.cashierStatement;
     return Container(
       padding: const EdgeInsets.all(10),

@@ -84,7 +84,7 @@ class _CustomerRegisterPageTabletState
     );
   }
 
-  _listaCustomer(List<CustomerListModel> customers) {
+  Scaffold _listaCustomer(List<CustomerListModel> customers) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

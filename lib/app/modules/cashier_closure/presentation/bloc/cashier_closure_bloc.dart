@@ -56,7 +56,7 @@ class CashierClosureBloc
     emit(CashierClosureSeachedState());
   }
 
-  getCurrentData(
+  Future<void> getCurrentData(
     CashierClosureGetCurrentDateEvent event,
     Emitter<CashierClosureState> emit,
   ) async {

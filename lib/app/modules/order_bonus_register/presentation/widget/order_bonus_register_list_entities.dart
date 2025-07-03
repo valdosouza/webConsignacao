@@ -45,7 +45,7 @@ class OrderBonusRegisterEntitiesListWidgetState
     );
   }
 
-  _orderBonusEntitiesList(OrderBonusRegisterEntitySuccessState state) {
+  Scaffold _orderBonusEntitiesList(OrderBonusRegisterEntitySuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

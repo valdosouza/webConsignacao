@@ -76,7 +76,7 @@ class OrderProductionRegisterBloc
     searchOrderProduction();
   }
 
-  getList() {
+  void getList() {
     on<OrderGetListEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -90,7 +90,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  postOrder() {
+  void postOrder() {
     on<OrderPostEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -104,7 +104,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  putOrder() {
+  void putOrder() {
     on<OrderPutEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -119,7 +119,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  deleteOrder() {
+  void deleteOrder() {
     on<OrderDeleteEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -134,7 +134,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  closureOrder() {
+  void closureOrder() {
     on<OrderClosureEvent>((event, emit) async {
       emit(OrderLoadingState());
       modelStatus.tbInstitutionId = orderProduction.tbInstitutionId;
@@ -156,7 +156,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  reopenOrder() {
+  void reopenOrder() {
     on<OrderReopenEvent>((event, emit) async {
       emit(OrderLoadingState());
       modelStatus.tbInstitutionId = orderProduction.tbInstitutionId;
@@ -176,7 +176,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  orderNew() {
+  void orderNew() {
     on<OrderAddEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -185,7 +185,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  orderEdit() {
+  void orderEdit() {
     on<OrderEditEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -193,7 +193,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  orderReturn() {
+  void orderReturn() {
     on<OrderReturnEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -201,7 +201,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  getProducts() {
+  void getProducts() {
     on<OrderGetProductsEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -214,7 +214,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  getStocks() {
+  void getStocks() {
     on<OrderGetStocksEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -227,7 +227,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  searchEventProducts() {
+  void searchEventProducts() {
     on<OrderSearchProductsEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var productstSearched = products.where((element) {
@@ -250,7 +250,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  searchEventStocks() {
+  void searchEventStocks() {
     on<OrderSearchStocksEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var stockSearched = stocks.where((element) {
@@ -273,7 +273,7 @@ class OrderProductionRegisterBloc
     });
   }
 
-  searchOrderProduction() {
+  void searchOrderProduction() {
     on<OrderSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var orderProductionsSearched = orderProductions.where(

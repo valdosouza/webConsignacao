@@ -37,7 +37,7 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
     putFunction();
   }
 
-  getList() {
+  void getList() {
     on<StockListGetListEvent>((event, emit) async {
       emit(StockListLoadingState());
 
@@ -53,7 +53,7 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
     });
   }
 
-  search() {
+  void search() {
     on<StockListSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var searched = modelList.where((element) {
@@ -70,7 +70,7 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
     });
   }
 
-  stockListAdd() {
+  void stockListAdd() {
     on<StockListAddEvent>((event, emit) async {
       model = StockListModel.empty();
       optionYesNo = OptionYesNo.S;
@@ -78,7 +78,7 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
     });
   }
 
-  stockListEdit() {
+  void stockListEdit() {
     on<StockListEditEvent>((event, emit) async {
       (model.active == "S")
           ? optionYesNo = OptionYesNo.S
@@ -87,7 +87,7 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
     });
   }
 
-  postFunction() {
+  void postFunction() {
     on<StockListPostEvent>((event, emit) async {
       emit(StockListLoadingState());
       var response = await post.call(ParamsStockListPost(model: model));
@@ -103,7 +103,7 @@ class StockListBloc extends Bloc<StockListEvent, StockListState> {
     });
   }
 
-  putFunction() {
+  void putFunction() {
     on<StockListPutEvent>((event, emit) async {
       emit(StockListLoadingState());
       var response = await put.call(ParamsStockListPut(model: model));

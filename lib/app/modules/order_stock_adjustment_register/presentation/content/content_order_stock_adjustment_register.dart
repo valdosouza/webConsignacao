@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/
 import 'package:appweb/app/modules/order_stock_adjustment_register/presentation/bloc/order_stock_adjustment_register_state.dart';
 import 'package:flutter/material.dart';
 
-statesOrderStockAdjustments(OrderStockAdjustmentRegisterState state) {
+void statesOrderStockAdjustments(OrderStockAdjustmentRegisterState state) {
   if (state is OrderStockAdjustmentRegisterErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados. Tente novamente mais tarde");
@@ -34,7 +34,7 @@ statesOrderStockAdjustments(OrderStockAdjustmentRegisterState state) {
   }
 }
 
-buildSearchInput(OrderStockAdjustmentRegisterBloc bloc) {
+Container buildSearchInput(OrderStockAdjustmentRegisterBloc bloc) {
   return Container(
     decoration: kBoxDecorationStyle,
     child: TextFormField(
@@ -58,7 +58,7 @@ buildSearchInput(OrderStockAdjustmentRegisterBloc bloc) {
   );
 }
 
-buildListView(OrderStockAdjustmentRegisterBloc bloc,
+Expanded buildListView(OrderStockAdjustmentRegisterBloc bloc,
     List<OrderStockAdjustmentRegisterModel> orderStockAdjustment) {
   return Expanded(
     child: orderStockAdjustment.isEmpty

@@ -55,7 +55,7 @@ class _CashierStatementCustomerWidgetState
     );
   }
 
-  buildSearchInput() {
+  Container buildSearchInput() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(
@@ -109,7 +109,7 @@ class _CashierStatementCustomerWidgetState
     );
   }
 
-  buildTittleCustomerList() {
+  Container buildTittleCustomerList() {
     return Container(
       color: kPrimaryColor,
       child: const Padding(
@@ -135,7 +135,7 @@ class _CashierStatementCustomerWidgetState
     );
   }
 
-  buildContentCustomerList() {
+  SizedBox buildContentCustomerList() {
     final Size size = MediaQuery.of(context).size;
 
     return SizedBox(
@@ -216,7 +216,7 @@ class _CashierStatementCustomerWidgetState
     );
   }
 
-  buildtotalizar() {
+  SizedBox buildtotalizar() {
     return SizedBox(
       height: 101,
       child: Column(children: [
@@ -240,7 +240,7 @@ class _CashierStatementCustomerWidgetState
     );
   }
 
-  totalCashier() {
+  double totalCashier() {
     double total = 0;
     for (var element in bloc.customers) {
       total += element.valuerCharged;

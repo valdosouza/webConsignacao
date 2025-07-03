@@ -45,7 +45,7 @@ class OrderProductionRegisterProductsListWidgetState
     );
   }
 
-  _orderProductionProductsList(OrderProductionRegisterBloc bloc) {
+  Scaffold _orderProductionProductsList(OrderProductionRegisterBloc bloc) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

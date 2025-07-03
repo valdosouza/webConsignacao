@@ -46,7 +46,7 @@ class OrderStockAdjustmentRegisterStocksListWidgetState
     );
   }
 
-  _orderStockAdjustmentStocksList(
+  Scaffold _orderStockAdjustmentStocksList(
       OrderStockAdjustmentRegisterStockSuccessState state) {
     return Scaffold(
       appBar: AppBar(

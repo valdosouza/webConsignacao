@@ -15,7 +15,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
     getRegionList();
   }
 
-  getRegionList() {
+  void getRegionList() {
     on<CustomerGetRegionListEvent>((event, emit) async {
       emit(CustomerLoadingState());
 

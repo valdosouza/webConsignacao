@@ -38,7 +38,7 @@ class PriceListRegisterBloc
     putFunction();
   }
 
-  getList() {
+  void getList() {
     on<PriceListRegisterGetListEvent>((event, emit) async {
       emit(PriceListRegisterLoadingState());
 
@@ -54,7 +54,7 @@ class PriceListRegisterBloc
     });
   }
 
-  search() {
+  void search() {
     on<PriceListRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var searched = modelList.where((element) {
@@ -71,7 +71,7 @@ class PriceListRegisterBloc
     });
   }
 
-  priceListAdd() {
+  void priceListAdd() {
     on<PriceListRegisterAddEvent>((event, emit) async {
       model = PriceListModel.empty();
       optionYesNo = OptionYesNo.S;
@@ -79,7 +79,7 @@ class PriceListRegisterBloc
     });
   }
 
-  priceListEdit() {
+  void priceListEdit() {
     on<PriceListRegisterEditEvent>((event, emit) async {
       (model.active == "S")
           ? optionYesNo = OptionYesNo.S
@@ -88,7 +88,7 @@ class PriceListRegisterBloc
     });
   }
 
-  postFunction() {
+  void postFunction() {
     on<PriceListRegisterPostEvent>((event, emit) async {
       emit(PriceListRegisterLoadingState());
       var response = await post.call(ParamsPriceListPost(model: model));
@@ -104,7 +104,7 @@ class PriceListRegisterBloc
     });
   }
 
-  putFunction() {
+  void putFunction() {
     on<PriceListRegisterPutEvent>((event, emit) async {
       emit(PriceListRegisterLoadingState());
       var response = await put.call(ParamsPriceListPut(model: model));

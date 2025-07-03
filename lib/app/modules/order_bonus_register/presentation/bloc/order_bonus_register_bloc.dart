@@ -99,7 +99,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  formatItems() {
+  void formatItems() {
     if (stock.id != 0) {
       int index = 1;
       int orderId = orderBonus.id;
@@ -113,7 +113,7 @@ class OrderBonusRegisterBloc
     }
   }
 
-  getList() {
+  void getList() {
     on<OrderBonusRegisterGetListEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
 
@@ -128,7 +128,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  postOrder() {
+  void postOrder() {
     on<OrderBonusRegisterPostEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
       formatItems();
@@ -144,7 +144,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  putOrder() {
+  void putOrder() {
     on<OrderBonusRegisterPutEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
       formatItems();
@@ -167,7 +167,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  deleteOrder() {
+  void deleteOrder() {
     on<OrderBonusRegisterDeleteEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
 
@@ -183,7 +183,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  closureOrder() {
+  void closureOrder() {
     on<OrderClosureEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
       modelStatus.tbInstitutionId = orderBonus.tbInstitutionId;
@@ -205,7 +205,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  reopenOrder() {
+  void reopenOrder() {
     on<OrderReopenEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
       modelStatus.tbInstitutionId = orderBonus.tbInstitutionId;
@@ -228,7 +228,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  goToOrderBonusDesktopPage() {
+  void goToOrderBonusDesktopPage() {
     on<OrderBonusRegisterDesktopEvent>((event, emit) async {
       if (event.model != null) {
         emit(OrderBonusRegisterLoadingState());
@@ -253,7 +253,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  goToItemsPage() {
+  void goToItemsPage() {
     on<OrderBonusRegisterItemEvent>((event, emit) async {
       if (event.item != null) {
         emit(OrderBonusRegisterLoadingState());
@@ -266,7 +266,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  getProducts() {
+  void getProducts() {
     on<OrderBonusRegisterGetProductsEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
 
@@ -279,7 +279,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  getStocks() {
+  void getStocks() {
     on<OrderBonusRegisterGetStocksEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
 
@@ -292,7 +292,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  getEntities() {
+  void getEntities() {
     on<OrderBonusRegisterGetEntityEvent>((event, emit) async {
       emit(OrderBonusRegisterLoadingState());
 
@@ -305,7 +305,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  searchEventProducts() {
+  void searchEventProducts() {
     on<OrderBonusRegisterSearchProductsEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var productstSearched = products.where((element) {
@@ -329,7 +329,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  searchEventStocks() {
+  void searchEventStocks() {
     on<OrderBonusRegisterSearchStocksEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var stockSearched = stocks.where((element) {
@@ -352,7 +352,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  searchEventEntities() {
+  void searchEventEntities() {
     on<OrderBonusRegisterSearchEntityEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var entitiesSearched = entities.where((element) {
@@ -375,7 +375,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  searchEventOrderBonus() {
+  void searchEventOrderBonus() {
     on<OrderBonusRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var orderBonussSearched = orderBonuss.where((element) {
@@ -403,7 +403,7 @@ class OrderBonusRegisterBloc
     });
   }
 
-  changeDirection() {
+  void changeDirection() {
     on<OrderBonusRegisterChangeDirectionEvent>((event, emit) async {});
   }
 }

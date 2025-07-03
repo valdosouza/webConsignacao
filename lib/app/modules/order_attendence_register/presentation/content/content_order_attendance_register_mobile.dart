@@ -123,7 +123,7 @@ class _ContentOrderAttendanceRegisterMobileState
     );
   }
 
-  _buttonConsignment() {
+  ElevatedButton _buttonConsignment() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(100, 50),
@@ -149,7 +149,7 @@ class _ContentOrderAttendanceRegisterMobileState
     );
   }
 
-  _buttonSales() {
+  ElevatedButton _buttonSales() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(100, 50),
@@ -175,7 +175,7 @@ class _ContentOrderAttendanceRegisterMobileState
     );
   }
 
-  _buttonAttendance() {
+  Column _buttonAttendance() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[

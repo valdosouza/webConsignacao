@@ -41,7 +41,7 @@ class CustomerRegisterCityListWidgetState
     );
   }
 
-  _customerCityList(CustomerRegisterGetCitySuccessState state) {
+  Scaffold _customerCityList(CustomerRegisterGetCitySuccessState state) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

@@ -46,7 +46,7 @@ class _ContentCashierStatementSalesmanListState
     );
   }
 
-  totalCashier() {
+  double totalCashier() {
     double total = 0;
     for (var element in bloc.salesmans) {
       total += element.valuerCharged;
@@ -54,7 +54,7 @@ class _ContentCashierStatementSalesmanListState
     return total;
   }
 
-  buildSearchInput() {
+  Container buildSearchInput() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(
@@ -108,7 +108,7 @@ class _ContentCashierStatementSalesmanListState
     );
   }
 
-  buildTittleSalesmanList() {
+  Container buildTittleSalesmanList() {
     return Container(
       color: kPrimaryColor,
       child: const Padding(
@@ -130,7 +130,7 @@ class _ContentCashierStatementSalesmanListState
     );
   }
 
-  buildContentSalesmanList() {
+  Expanded buildContentSalesmanList() {
     return Expanded(
       child: ListView.separated(
         itemCount: bloc.salesmans.length,
@@ -178,7 +178,7 @@ class _ContentCashierStatementSalesmanListState
     );
   }
 
-  buildtotalizar() {
+  SizedBox buildtotalizar() {
     final double valortotal = totalCashier();
     double valorMedio = 0;
     if (bloc.salesmans.isNotEmpty) {

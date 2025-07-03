@@ -47,7 +47,7 @@ class _ContentCashierStatementState extends State<ContentCashierStatement> {
         });
   }
 
-  _listOfCashierClosure(Size size) {
+  Container _listOfCashierClosure(Size size) {
     var list = bloc.cashierStatement;
     return Container(
       padding: const EdgeInsets.all(10),

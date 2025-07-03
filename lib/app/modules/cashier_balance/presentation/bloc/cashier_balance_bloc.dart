@@ -19,7 +19,7 @@ class CashierBalanceBloc
     getCurrentData();
   }
 
-  getCurrentData() {
+  void getCurrentData() {
     on<CashierBalanceGetDateEvent>((event, emit) async {
       emit(CashierBalanceLoadingState());
       var dtCashier = await LocalStorageService.instance
@@ -32,7 +32,7 @@ class CashierBalanceBloc
     });
   }
 
-  cashierBalanceGet() {
+  void cashierBalanceGet() {
     on<CashierBalanceMobileEvent>((event, emit) async {
       emit(CashierBalanceLoadingState());
 

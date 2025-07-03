@@ -147,7 +147,7 @@ class _ContentDesktopUserRegisterState
     );
   }
 
-  _fieldUserName() {
+  Padding _fieldUserName() {
     return const Padding(
       padding: EdgeInsets.all(8.0),
       child: CustomInput(
@@ -159,7 +159,7 @@ class _ContentDesktopUserRegisterState
     );
   }
 
-  _fieldUserEmail() {
+  Padding _fieldUserEmail() {
     return const Padding(
       padding: EdgeInsets.all(8.0),
       child: CustomInput(
@@ -171,7 +171,7 @@ class _ContentDesktopUserRegisterState
     );
   }
 
-  _fieldActive() {
+  Padding _fieldActive() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -190,7 +190,7 @@ class _ContentDesktopUserRegisterState
     );
   }
 
-  _fieldActiveYes() {
+  SizedBox _fieldActiveYes() {
     return SizedBox(
       width: 100,
       child: Row(
@@ -215,7 +215,7 @@ class _ContentDesktopUserRegisterState
     );
   }
 
-  _fieldActiveNo() {
+  SizedBox _fieldActiveNo() {
     return SizedBox(
       width: 100,
       child: Row(
@@ -239,7 +239,7 @@ class _ContentDesktopUserRegisterState
     );
   }
 
-  _buildButton() {
+  Align _buildButton() {
     return Align(
       alignment: Alignment.centerRight,
       child: IconButton(
@@ -262,7 +262,7 @@ class _ContentDesktopUserRegisterState
     );
   }
 
-  _buildSearchInput() {
+  Container _buildSearchInput() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(

@@ -65,7 +65,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     searchEventCitys();
   }
 
-  getInstitution() {
+  void getInstitution() {
     on<InstitutionGetEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -78,7 +78,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  saveInstitution() {
+  void saveInstitution() {
     on<InstitutionSaveEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -90,7 +90,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  putInstitution() {
+  void putInstitution() {
     on<InstitutionPutEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -101,7 +101,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  searchCEP() {
+  void searchCEP() {
     on<InstitutionCepEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -122,7 +122,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  searchCNPJ() {
+  void searchCNPJ() {
     on<InstitutionCnpjEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -146,7 +146,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  getState() {
+  void getState() {
     on<InstitutionGetStatesEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -159,7 +159,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  getCitys() {
+  void getCitys() {
     on<InstitutionGetCitiesEvent>((event, emit) async {
       emit(InstitutionLoadingState());
 
@@ -173,7 +173,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  searchEventStates() {
+  void searchEventStates() {
     on<SearchStateEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var statestSearched = states.where((element) {
@@ -191,7 +191,7 @@ class InstitutionBloc extends Bloc<InstitutionEvent, InstitutionState> {
     });
   }
 
-  searchEventCitys() {
+  void searchEventCitys() {
     on<SearchCityEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var citiestSearched = cities.where((element) {

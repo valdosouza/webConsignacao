@@ -43,7 +43,7 @@ class AttendanceOrderingBloc
     _goBackToMainForm();
   }
 
-  _getRegion() {
+  void _getRegion() {
     on<GetRegionListEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -60,7 +60,7 @@ class AttendanceOrderingBloc
     });
   }
 
-  _getRoute() {
+  void _getRoute() {
     on<GetRouteListEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -77,7 +77,7 @@ class AttendanceOrderingBloc
     });
   }
 
-  _getCustomer() {
+  void _getCustomer() {
     on<GetCustomerListEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -94,7 +94,7 @@ class AttendanceOrderingBloc
     });
   }
 
-  _defaultSequence() {
+  void _defaultSequence() {
     on<SetDefaultSequenceEvent>((event, emit) async {
       emit(LoadingState());
       String? errorValidate = await _validadeApplyDefaultSequence();
@@ -127,7 +127,7 @@ class AttendanceOrderingBloc
     return "";
   }
 
-  _applytDefaultSequence() {
+  void _applytDefaultSequence() {
     on<ApplyDefaultSequenceEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -151,14 +151,14 @@ class AttendanceOrderingBloc
     });
   }
 
-  _orderMode() {
+  void _orderMode() {
     on<OrderModeEvent>((event, emit) async {
       tbCustomerIdPickedForOrder = event.tbCustomerId;
       emit(CustomerLoadedState());
     });
   }
 
-  _goBackToMainForm() {
+  void _goBackToMainForm() {
     on<MainFormEvent>((event, emit) async {
       emit(LoadingState());
 

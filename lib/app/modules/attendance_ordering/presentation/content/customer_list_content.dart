@@ -124,7 +124,8 @@ class SalesRoutListeMobileState extends State<CustomerListContent> {
     );
   }
 
-  btnChangeDefaultSeq(index) {
+  BlocBuilder<AttendanceOrderingBloc, AttendanceOrderingState>
+      btnChangeDefaultSeq(int index) {
     return BlocBuilder<AttendanceOrderingBloc, AttendanceOrderingState>(
       bloc: bloc,
       builder: (context, state) {

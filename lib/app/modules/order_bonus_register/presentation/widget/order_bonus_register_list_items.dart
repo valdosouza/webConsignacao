@@ -41,7 +41,7 @@ class OrderBonusRegisterItemsListWidgetState
     );
   }
 
-  _orderBonusProductsList() {
+  Padding _orderBonusProductsList() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: widget.orderBonus.items.isEmpty

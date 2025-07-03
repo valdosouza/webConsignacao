@@ -36,7 +36,7 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
     });
   }
 
-  infiniteScrolling() {
+  void infiniteScrolling() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       bloc.add(
@@ -71,7 +71,7 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
     );
   }
 
-  title() {
+  Container title() {
     return Container(
       height: 50,
       color: kPrimaryColor,
@@ -101,7 +101,7 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
     );
   }
 
-  body(Size size) {
+  SingleChildScrollView body(Size size) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
@@ -141,7 +141,7 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
     );
   }
 
-  totalizar() {
+  SizedBox totalizar() {
     return SizedBox(
       height: 100,
       child: Column(children: [
@@ -164,7 +164,7 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
     );
   }
 
-  total() {
+  String total() {
     double total = 0;
     for (var element in widget.list) {
       total += element.currentDebitBalance;

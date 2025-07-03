@@ -14,7 +14,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     _getAuthorization();
   }
 
-  _getAuthorization() {
+  void _getAuthorization() {
     on<SplashInitEvent>((event, emit) async {
       emit(LoadingState());
 

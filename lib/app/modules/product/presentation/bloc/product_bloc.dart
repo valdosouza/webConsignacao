@@ -15,7 +15,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     searchPriceListMobile();
   }
 
-  getPriceListMobile() {
+  void getPriceListMobile() {
     on<ProductPriceListMobileEvent>((event, emit) async {
       emit(ProductLoadingState());
 
@@ -31,7 +31,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
   }
 
-  searchPriceListMobile() {
+  void searchPriceListMobile() {
     on<ProductSearchPriceListMobileEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         String search = event.search.toLowerCase().trim();

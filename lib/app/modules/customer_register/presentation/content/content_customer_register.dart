@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_
 import 'package:appweb/app/modules/customer_register/presentation/bloc/customer_register_state.dart';
 import 'package:flutter/material.dart';
 
-statesCustomer(CustomerRegisterState state) {
+void statesCustomer(CustomerRegisterState state) {
   if (state is CustomerRegisterErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados. Tente novamente mais tarde");
@@ -24,7 +24,7 @@ statesCustomer(CustomerRegisterState state) {
   }
 }
 
-buildSearchInput(CustomerRegisterBloc bloc) {
+Container buildSearchInput(CustomerRegisterBloc bloc) {
   return Container(
     decoration: kBoxDecorationStyle,
     child: TextFormField(
@@ -47,7 +47,8 @@ buildSearchInput(CustomerRegisterBloc bloc) {
   );
 }
 
-buildListView(CustomerRegisterBloc bloc, List<CustomerListModel> customers) {
+Expanded buildListView(
+    CustomerRegisterBloc bloc, List<CustomerListModel> customers) {
   return Expanded(
     child: customers.isEmpty
         ? const Center(

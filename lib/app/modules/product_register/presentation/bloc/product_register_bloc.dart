@@ -42,7 +42,7 @@ class ProductRegisterBloc
     putFunction();
   }
 
-  getList() {
+  void getList() {
     on<ProductRegisterGetListEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
 
@@ -58,7 +58,7 @@ class ProductRegisterBloc
     });
   }
 
-  searchProducts() {
+  void searchProducts() {
     on<ProductRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var modelListearched = modelList.where((element) {
@@ -75,7 +75,7 @@ class ProductRegisterBloc
     });
   }
 
-  productAdd() {
+  void productAdd() {
     on<ProductRegisterAddEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
 
@@ -93,7 +93,7 @@ class ProductRegisterBloc
     });
   }
 
-  productEdit() {
+  void productEdit() {
     on<ProductRegisterEditEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
       var response =
@@ -112,7 +112,7 @@ class ProductRegisterBloc
     });
   }
 
-  postFunction() {
+  void postFunction() {
     on<ProductRegisterPostEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
       var response = await post.call(ParamsProductRegisterPost(model: model));
@@ -133,7 +133,7 @@ class ProductRegisterBloc
     });
   }
 
-  putFunction() {
+  void putFunction() {
     on<ProductRegisterPutEvent>((event, emit) async {
       emit(ProductRegisterLoadingState());
       var response = await put.call(ParamsProductRegisterPut(model: model));

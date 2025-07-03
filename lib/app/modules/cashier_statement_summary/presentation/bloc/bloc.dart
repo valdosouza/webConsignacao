@@ -30,7 +30,7 @@ class CashierStatementSummaryBloc
     _goBackToMainForm();
   }
 
-  _get() {
+  void _get() {
     on<GetEvent>((event, emit) async {
       emit(LoadingState());
       var response = await get.call(Params(
@@ -50,7 +50,7 @@ class CashierStatementSummaryBloc
     });
   }
 
-  _getSalesmanList() {
+  void _getSalesmanList() {
     on<GetSalesmanListEvent>((event, emit) async {
       emit(LoadingState());
       var response = await getSalesmans.call("");
@@ -65,7 +65,7 @@ class CashierStatementSummaryBloc
     });
   }
 
-  _goBackToMainForm() {
+  void _goBackToMainForm() {
     on<MainFormEvent>((event, emit) async {
       emit(LoadingState());
       summaryList;

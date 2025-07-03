@@ -102,7 +102,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  formatItems() {
+  void formatItems() {
     if (stock.id != 0) {
       int index = 1;
       int orderId = orderStockAdjustment.id;
@@ -116,7 +116,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     }
   }
 
-  getList() {
+  void getList() {
     on<OrderStockAdjustmentRegisterGetListEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
 
@@ -132,7 +132,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  postOrder() {
+  void postOrder() {
     on<OrderStockAdjustmentRegisterPostEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
       formatItems();
@@ -149,7 +149,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  putOrder() {
+  void putOrder() {
     on<OrderStockAdjustmentRegisterPutEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
       formatItems();
@@ -175,7 +175,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  deleteOrder() {
+  void deleteOrder() {
     on<OrderStockAdjustmentRegisterDeleteEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
 
@@ -193,7 +193,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  closureOrder() {
+  void closureOrder() {
     on<OrderClosureEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
       modelStatus.tbInstitutionId = orderStockAdjustment.tbInstitutionId;
@@ -216,7 +216,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  reopenOrder() {
+  void reopenOrder() {
     on<OrderReopenEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
       modelStatus.tbInstitutionId = orderStockAdjustment.tbInstitutionId;
@@ -240,7 +240,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  goToOrderStockAdjustmentDesktopPage() {
+  void goToOrderStockAdjustmentDesktopPage() {
     on<OrderStockAdjustmentRegisterDesktopEvent>((event, emit) async {
       if (event.model != null) {
         emit(OrderStockAdjustmentRegisterLoadingState());
@@ -266,7 +266,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  goToItemsPage() {
+  void goToItemsPage() {
     on<OrderStockAdjustmentRegisterItemEvent>((event, emit) async {
       if (event.item != null) {
         emit(OrderStockAdjustmentRegisterLoadingState());
@@ -279,7 +279,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  getProducts() {
+  void getProducts() {
     on<OrderStockAdjustmentRegisterGetProductsEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
 
@@ -293,7 +293,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  getStocks() {
+  void getStocks() {
     on<OrderStockAdjustmentRegisterGetStocksEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
 
@@ -307,7 +307,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  getEntities() {
+  void getEntities() {
     on<OrderStockAdjustmentRegisterGetEntityEvent>((event, emit) async {
       emit(OrderStockAdjustmentRegisterLoadingState());
 
@@ -321,7 +321,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  searchEventProducts() {
+  void searchEventProducts() {
     on<OrderStockAdjustmentRegisterSearchProductsEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var productstSearched = products.where((element) {
@@ -346,7 +346,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  searchEventStocks() {
+  void searchEventStocks() {
     on<OrderStockAdjustmentRegisterSearchStocksEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var stockSearched = stocks.where((element) {
@@ -370,7 +370,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  searchEventEntities() {
+  void searchEventEntities() {
     on<OrderStockAdjustmentRegisterSearchEntityEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var entitiesSearched = entities.where((element) {
@@ -394,7 +394,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  searchEventOrderStockAdjustment() {
+  void searchEventOrderStockAdjustment() {
     on<OrderStockAdjustmentRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var orderStockAdjustmentsSearched =
@@ -425,7 +425,7 @@ class OrderStockAdjustmentRegisterBloc extends Bloc<
     });
   }
 
-  changeDirection() {
+  void changeDirection() {
     on<OrderStockAdjustmentRegisterChangeDirectionEvent>(
         (event, emit) async {});
   }

@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.1+68
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
+  sdk: '>=2.18.2 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -36,7 +36,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   # Service locator
-  get_it: ^7.7.0 
+  get_it: ^8.0.3
     
 
   flutter_modular: ^5.0.3
@@ -46,9 +46,9 @@ dependencies:
     
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
-  injectable: ^2.4.4
+  injectable: ^2.5.0
   # Value equality
-  equatable: ^2.0.3
+  equatable: ^2.0.7
    # Functional programming thingies
   dartz: ^0.10.0-nullsafety.1
   # Remote API
@@ -63,7 +63,7 @@ dependencies:
   auto_size_text: ^3.0.0-nullsafety.0
   flutter_masked_text2: ^0.9.1
   shared_preferences: ^2.5.3
-  flutter_sticky_header: ^0.6.5
+  flutter_sticky_header: ^0.8.0
   permission_handler: ^11.3.1
   url_launcher: ^6.2.3
   mask_text_input_formatter: ^2.9.0
@@ -76,7 +76,7 @@ dependencies:
   device_info_plus: ^9.1.2
   # two_dimensional_scrollables: ^0.1.1
   adaptive_scrollbar: ^2.1.2
-
+  value_layout_builder: ^0.5.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -85,16 +85,17 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^5.3.2  
-  build_runner: ^2.3.0
-  json_serializable: ^6.0.0
+  mockito: ^5.4.6
+  build_runner: ^2.5.4
+  json_serializable: ^6.9.5
+  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -112,6 +113,12 @@ flutter:
     - images/  
     - images/logoprogress.png
     - images/logomarca.png
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: fonts/ttf/OpenSans-Regular.ttf
+        - asset: fonts/ttf/OpenSans-Bold.ttf
+          weight: 700
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

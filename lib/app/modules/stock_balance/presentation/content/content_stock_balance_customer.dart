@@ -48,7 +48,7 @@ class ContentStockBalanceCustomerState
     );
   }
 
-  search(StockBalanceBloc bloc) {
+  Container search(StockBalanceBloc bloc) {
     return Container(
       decoration: kBoxDecorationStyle,
       child: TextFormField(
@@ -71,7 +71,7 @@ class ContentStockBalanceCustomerState
     );
   }
 
-  body() {
+  Expanded body() {
     return Expanded(
       child: widget.stockBalance.items.isEmpty
           ? const Center(

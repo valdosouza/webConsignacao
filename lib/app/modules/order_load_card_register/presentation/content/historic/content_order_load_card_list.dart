@@ -63,7 +63,7 @@ class _ContentOrderLoadCardListState extends State<ContentOrderLoadCardList> {
     );
   }
 
-  buildSearchInput() {
+  Container buildSearchInput() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(
@@ -111,7 +111,7 @@ class _ContentOrderLoadCardListState extends State<ContentOrderLoadCardList> {
     );
   }
 
-  buildTittleOrderList() {
+  Container buildTittleOrderList() {
     return Container(
       color: kPrimaryColor,
       child: const Padding(

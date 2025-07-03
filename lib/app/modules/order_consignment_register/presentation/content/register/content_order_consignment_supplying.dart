@@ -152,7 +152,7 @@ class _ContentConsignmenteSupplyingState
     );
   }
 
-  _footer(int state) {
+  SizedBox _footer(int state) {
     return SizedBox(
       height: 40,
       child: Row(

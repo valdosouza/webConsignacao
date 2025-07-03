@@ -55,7 +55,7 @@ class StockBalanceGeneralPageMobileState
     );
   }
 
-  _listastockBalance(StockBalanceModel customers) {
+  Scaffold _listastockBalance(StockBalanceModel customers) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

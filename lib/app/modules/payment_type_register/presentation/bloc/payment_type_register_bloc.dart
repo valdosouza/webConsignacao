@@ -38,7 +38,7 @@ class PaymentTypeRegisterBloc
     putFunction();
   }
 
-  getList() {
+  void getList() {
     on<PaymentTypeRegisterGetListEvent>((event, emit) async {
       emit(PaymentTypeRegisterLoadingState());
 
@@ -54,7 +54,7 @@ class PaymentTypeRegisterBloc
     });
   }
 
-  search() {
+  void search() {
     on<PaymentTypeRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var searched = modelList.where((element) {
@@ -71,7 +71,7 @@ class PaymentTypeRegisterBloc
     });
   }
 
-  paymentTypeAdd() {
+  void paymentTypeAdd() {
     on<PaymentTypeRegisterAddEvent>((event, emit) async {
       model = PaymentTypeModel.empty();
       optionYesNo = OptionYesNo.S;
@@ -79,7 +79,7 @@ class PaymentTypeRegisterBloc
     });
   }
 
-  paymentTypeEdit() {
+  void paymentTypeEdit() {
     on<PaymentTypeRegisterEditEvent>((event, emit) async {
       (model.active == "S")
           ? optionYesNo = OptionYesNo.S
@@ -88,7 +88,7 @@ class PaymentTypeRegisterBloc
     });
   }
 
-  postFunction() {
+  void postFunction() {
     on<PaymentTypeRegisterPostEvent>((event, emit) async {
       emit(PaymentTypeRegisterLoadingState());
       var response = await post.call(ParamsPaymentTypePost(model: model));
@@ -104,7 +104,7 @@ class PaymentTypeRegisterBloc
     });
   }
 
-  putFunction() {
+  void putFunction() {
     on<PaymentTypeRegisterPutEvent>((event, emit) async {
       emit(PaymentTypeRegisterLoadingState());
       var response = await put.call(ParamsPaymentTypePut(model: model));

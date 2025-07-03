@@ -15,16 +15,16 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     _validateOrderLoad();
   }
 
-  _validateOrderLoad() {
+  void _validateOrderLoad() {
     on<ValidateOrderLoadEvent>((event, emit) async {
       emit(LoadingState());
-      var result = "";
+      Object result = "";
       result = await _cashierIsOpen();
-      emit(ValidateOrderLoadState(msg: result));
+      emit(ValidateOrderLoadState(msg: result.toString()));
     });
   }
 
-  _cashierIsOpen() async {
+  Future<Object> _cashierIsOpen() async {
     var dtCurrent = CustomDate.newDate();
     var dtCashier = "";
     var response = await cashierIsOpen.call(ParamsCashierIsOpen());

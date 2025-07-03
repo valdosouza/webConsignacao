@@ -48,7 +48,7 @@ class CollaboratorModel extends CollaboratorEntity {
     return data;
   }
 
-  factory CollaboratorModel.fromJson(map) {
+  factory CollaboratorModel.fromJson(Map<String, dynamic> map) {
     return CollaboratorModel(
       id: map['id'],
       tbInstitutionId: map['tb_institution_id'],

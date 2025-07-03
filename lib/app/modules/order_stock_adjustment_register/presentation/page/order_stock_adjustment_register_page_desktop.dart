@@ -92,7 +92,7 @@ class OrderStockAdjustmentRegisterPageDesktopState
     );
   }
 
-  _listaOrderStockAdjustments(
+  Scaffold _listaOrderStockAdjustments(
       List<OrderStockAdjustmentRegisterModel> customers) {
     return Scaffold(
       appBar: AppBar(

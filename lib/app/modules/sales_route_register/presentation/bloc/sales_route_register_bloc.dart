@@ -38,7 +38,7 @@ class SalesRouteRegisterBloc
     putFunction();
   }
 
-  getList() {
+  void getList() {
     on<SalesRouteRegisterGetListEvent>((event, emit) async {
       emit(SalesRouteRegisterLoadingState());
 
@@ -54,7 +54,7 @@ class SalesRouteRegisterBloc
     });
   }
 
-  searchRouteSales() {
+  void searchRouteSales() {
     on<SalesRouteRegisterSearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         var listearched = list.where((element) {
@@ -71,7 +71,7 @@ class SalesRouteRegisterBloc
     });
   }
 
-  salesRouteAdd() {
+  void salesRouteAdd() {
     on<SalesRouteRegisterAddEvent>((event, emit) async {
       model = SalesRouteRegisterModel.empty();
       optionYesNo = OptionYesNo.S;
@@ -79,7 +79,7 @@ class SalesRouteRegisterBloc
     });
   }
 
-  salesRouteEdit() {
+  void salesRouteEdit() {
     on<SalesRouteRegisterEditEvent>((event, emit) async {
       (model.active == "S")
           ? optionYesNo = OptionYesNo.S
@@ -88,7 +88,7 @@ class SalesRouteRegisterBloc
     });
   }
 
-  postFunction() {
+  void postFunction() {
     on<SalesRouteRegisterPostEvent>((event, emit) async {
       SalesRouteRegisterLoadingState();
       var response = await post.call(ParamsSalesRoutePost(model: model));
@@ -104,7 +104,7 @@ class SalesRouteRegisterBloc
     });
   }
 
-  putFunction() {
+  void putFunction() {
     on<SalesRouteRegisterPutEvent>((event, emit) async {
       SalesRouteRegisterLoadingState();
       var response = await put.call(ParamsSalesRoutePut(model: model));

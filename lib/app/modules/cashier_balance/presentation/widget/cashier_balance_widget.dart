@@ -90,7 +90,7 @@ class _CashierBalanceWidgetState extends State<CashierBalanceWidget> {
     );
   }
 
-  totalCashier() {
+  String totalCashier() {
     double total = 0;
     for (var element in bloc.cashierBalance.items) {
       total += element.balanceValue;

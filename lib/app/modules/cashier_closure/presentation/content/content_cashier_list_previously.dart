@@ -57,7 +57,7 @@ class _ContentCashierListPreviouslyState
         });
   }
 
-  _listOfCashierClosure() {
+  Column _listOfCashierClosure() {
     return Column(
       children: [
         SearchWidget(

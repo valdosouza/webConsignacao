@@ -91,7 +91,7 @@ class OrderBonusRegisterPageDesktopState
     );
   }
 
-  _listaOrderBonuss(List<OrderBonusRegisterModel> customers) {
+  Scaffold _listaOrderBonuss(List<OrderBonusRegisterModel> customers) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

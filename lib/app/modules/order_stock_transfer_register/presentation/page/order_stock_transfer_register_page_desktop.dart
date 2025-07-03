@@ -90,7 +90,7 @@ class OrderStockTransferRegisterPageDesktopState
     );
   }
 
-  _listaOrderStockTransfers(List<OrderStockTransferListModel> list) {
+  Scaffold _listaOrderStockTransfers(List<OrderStockTransferListModel> list) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

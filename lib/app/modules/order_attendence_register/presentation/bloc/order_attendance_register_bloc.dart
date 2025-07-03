@@ -29,7 +29,7 @@ class OrderAttendanceRegisterBloc
     attendancePut();
   }
 
-  attendanceGetPriceList() {
+  void attendanceGetPriceList() {
     on<OrderAttendanceGetPriceListEvent>((event, emit) async {
       var response = await getPriceList.call(ParamsPriceListGet());
 
@@ -44,7 +44,7 @@ class OrderAttendanceRegisterBloc
     });
   }
 
-  attendancePost() {
+  void attendancePost() {
     on<OrderAttendanceRegisterPostEvent>((event, emit) async {
       emit(OrderAttendanceRegisterLoadingState());
       final response = await postOrderAttendance.call(orderAttendance);
@@ -93,7 +93,7 @@ class OrderAttendanceRegisterBloc
     });
   }
 
-  attendancePut() {
+  void attendancePut() {
     on<OrderAttendanceRegisterPutEvent>((event, emit) async {
       emit(OrderAttendanceRegisterLoadingState());
       final response = await putOrderAttendance.call(orderAttendance);

@@ -72,7 +72,8 @@ class OrderProductionRegisterPageDesktopState
     );
   }
 
-  _listaOrderProductions(List<OrderProductionRegisterModel> customers) {
+  Scaffold _listaOrderProductions(
+      List<OrderProductionRegisterModel> customers) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

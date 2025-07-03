@@ -58,7 +58,7 @@ class OrderConsignmentRegisterBloc
     returnToAttendance();
   }
 
-  supplyingGetlast() {
+  void supplyingGetlast() {
     on<OrderConsignmentRegisterGetlastEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
       stage = 1;
@@ -103,7 +103,7 @@ class OrderConsignmentRegisterBloc
     return "";
   }
 
-  checkpointPost() {
+  void checkpointPost() {
     on<OrderConsignementRegisterCheckpointPostEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
       String errorValidate = await _validadeCheckPoinPost();
@@ -132,7 +132,7 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  deleteCheckout() {
+  void deleteCheckout() {
     on<CheckpointDeleteEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
 
@@ -178,7 +178,7 @@ class OrderConsignmentRegisterBloc
     return "";
   }
 
-  supplyingPost() {
+  void supplyingPost() {
     on<OrderConsignementRegisterSupplyngPostEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
       String errorValidate = await _validadeSupplyingPost();
@@ -203,7 +203,7 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  clearCheckout() {
+  void clearCheckout() {
     on<OrderConsignmentRegisterClearCheckoutEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
       for (OrderConsignmentCheckpointCardModel item in modelCheckpoint.items) {
@@ -221,7 +221,7 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  clearSupplying() {
+  void clearSupplying() {
     on<OrderConsignmentRegisterClearSupplyingEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
       for (OrderConsignmentSupplyingCardModel item in modelSupplying.items) {
@@ -235,7 +235,7 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  getList() {
+  void getList() {
     on<OrderConsignmentRegisterGetlistEvent>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
 
@@ -250,7 +250,7 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  searchList() {
+  void searchList() {
     on<SearchEvent>((event, emit) async {
       if (event.search.isNotEmpty) {
         orderListSearch =
@@ -262,7 +262,7 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  getCheckpoint() {
+  void getCheckpoint() {
     on<GetCheckpoint>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
       final response = await orderConsignmentGetCheckpoint(event.orderid);
@@ -279,7 +279,7 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  getSupplying() {
+  void getSupplying() {
     on<GetSupplying>((event, emit) async {
       emit(OrderConsignmentRegisterLoadingState());
 
@@ -293,19 +293,19 @@ class OrderConsignmentRegisterBloc
     });
   }
 
-  returnToCheckpoint() {
+  void returnToCheckpoint() {
     on<ReturnToCheckpointEvent>((event, emit) async {
       emit(ReturnToCheckpointState());
     });
   }
 
-  returnToSupplying() {
+  void returnToSupplying() {
     on<ReturnToSupplyingEvent>((event, emit) async {
       emit(ReturnToSupplyingState());
     });
   }
 
-  returnToAttendance() {
+  void returnToAttendance() {
     on<ReturnToAttendanceEvent>((event, emit) async {
       emit(ReturnToAttendanceState());
     });

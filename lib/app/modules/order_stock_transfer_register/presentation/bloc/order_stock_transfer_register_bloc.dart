@@ -104,7 +104,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     searchOrder();
   }
 
-  orderGetList() {
+  void orderGetList() {
     on<OrderGetListEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -118,7 +118,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  orderNew() {
+  void orderNew() {
     on<OrderNewEvent>((event, emit) async {
       emit(OrderLoadingState());
       orderMain = OrderStockTransferMainModel.empty();
@@ -126,7 +126,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  orderPost() {
+  void orderPost() {
     on<OrderPostEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -140,7 +140,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  orderPut() {
+  void orderPut() {
     on<OrderPutEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -156,7 +156,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  orderDelete() {
+  void orderDelete() {
     on<OrderDeleteEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -171,7 +171,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  closureOrder() {
+  void closureOrder() {
     on<OrderClosureEvent>((event, emit) async {
       emit(OrderLoadingState());
       modelStatus.tbInstitutionId = orderMain.order.tbInstitutionId;
@@ -192,7 +192,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  reopenOrder() {
+  void reopenOrder() {
     on<OrderReopenEvent>((event, emit) async {
       emit(OrderLoadingState());
       modelStatus.tbInstitutionId = orderMain.order.tbInstitutionId;
@@ -213,7 +213,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  orderGet() {
+  void orderGet() {
     on<OrderGetEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -227,13 +227,13 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  orderReturnMaster() {
+  void orderReturnMaster() {
     on<OrderReturnMasterEvent>((event, emit) async {
       emit(OrderReturnMasterState());
     });
   }
 
-  itemsNews() {
+  void itemsNews() {
     on<OrderItemNewEvent>((event, emit) async {
       emit(OrderLoadingState());
       orderItem = OrderStockTransferRegisterItemsModel.empty();
@@ -241,13 +241,13 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  itemsEdit() {
+  void itemsEdit() {
     on<OrderItemEditEvent>((event, emit) async {
       emit(OrderItemPageEditState());
     });
   }
 
-  itemDelete() {
+  void itemDelete() {
     on<OrderItemDeleteEvent>((event, emit) async {
       if (orderItem.id > 0) {
         orderItem.updateStatus = "D";
@@ -262,13 +262,13 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  productChosen() {
+  void productChosen() {
     on<ProductChosenEvent>((event, emit) {
       emit(ProductChosenSucessState());
     });
   }
 
-  itemsUpdate() {
+  void itemsUpdate() {
     on<OrderItemUpdateEvent>((event, emit) {
       if (orderItem.id > 0) {
         orderItem.updateStatus = "E";
@@ -288,7 +288,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  getProducts() {
+  void getProducts() {
     on<ProductsGetEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -301,7 +301,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  getStocks() {
+  void getStocks() {
     on<StocksGetEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -314,7 +314,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  getEntities() {
+  void getEntities() {
     on<EntitiesGetEvent>((event, emit) async {
       emit(OrderLoadingState());
 
@@ -327,7 +327,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  searchProducts() {
+  void searchProducts() {
     on<ProductsSearchEvent>((event, emit) async {
       if (search.isNotEmpty) {
         var productstSearched = products.where((element) {
@@ -350,7 +350,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  searchStocks() {
+  void searchStocks() {
     on<StockSearchEvent>((event, emit) async {
       if (search.isNotEmpty) {
         var stockSearched = stocks.where((element) {
@@ -373,7 +373,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  searchEntities() {
+  void searchEntities() {
     on<EntitySearchEvent>((event, emit) async {
       if (search.isNotEmpty) {
         var entitiesSearched = entities.where((element) {
@@ -396,7 +396,7 @@ class OrderStockTransferRegisterBloc extends Bloc<
     });
   }
 
-  searchOrder() {
+  void searchOrder() {
     on<OrderSearchEvent>((event, emit) async {
       if (search.isNotEmpty) {
         var orderStockTransfersSearched = orderStockTransfers.where((element) {

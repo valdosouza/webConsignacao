@@ -47,7 +47,8 @@ class OrderStockTransferRegisterProductsListWidgetState
     );
   }
 
-  _orderStockTransferItemProductsList(OrderStockTransferRegisterBloc bloc) {
+  Scaffold _orderStockTransferItemProductsList(
+      OrderStockTransferRegisterBloc bloc) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(

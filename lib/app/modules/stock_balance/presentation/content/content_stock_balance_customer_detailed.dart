@@ -71,7 +71,7 @@ class ContentStockBalanceCustomerDetailedState
     );
   }
 
-  search() {
+  Column search() {
     return Column(
       children: [
         CustomSearchFilter(
@@ -109,7 +109,7 @@ class ContentStockBalanceCustomerDetailedState
     );
   }
 
-  title() {
+  SizedBox title() {
     return const SizedBox(
       height: 25,
       child: Row(
@@ -138,7 +138,7 @@ class ContentStockBalanceCustomerDetailedState
     );
   }
 
-  body(Size size) {
+  SingleChildRenderObjectWidget body(Size size) {
     return widget.model.items.isEmpty
         ? const Center(
             child: Text("Não encontramos nenhum registro em nossa base."))

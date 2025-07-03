@@ -29,7 +29,7 @@ class SalesAverageBloc extends Bloc<SalesAverageEvent, SalesAverageState> {
     _goBackToMainForm();
   }
 
-  _getSalesAverage() {
+  void _getSalesAverage() {
     on<GetSalesAverageEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -46,7 +46,7 @@ class SalesAverageBloc extends Bloc<SalesAverageEvent, SalesAverageState> {
     });
   }
 
-  _getRegion() {
+  void _getRegion() {
     on<GetRegionListEvent>((event, emit) async {
       emit(LoadingState());
 
@@ -63,7 +63,7 @@ class SalesAverageBloc extends Bloc<SalesAverageEvent, SalesAverageState> {
     });
   }
 
-  _goBackToMainForm() {
+  void _goBackToMainForm() {
     on<MainFormEvent>((event, emit) async {
       emit(LoadingState());
 

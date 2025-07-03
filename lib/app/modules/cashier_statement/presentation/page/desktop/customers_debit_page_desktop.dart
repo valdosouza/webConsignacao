@@ -87,7 +87,7 @@ class CustomersDebitPageDesktopState extends State<CustomersDebitPageDesktop> {
         ));
   }
 
-  search() {
+  Container search() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(

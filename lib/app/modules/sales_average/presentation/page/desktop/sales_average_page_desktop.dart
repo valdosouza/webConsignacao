@@ -77,7 +77,7 @@ class SalesAveragePageDesktopState extends State<SalesAveragePageDesktop> {
         ));
   }
 
-  search() {
+  Container search() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(

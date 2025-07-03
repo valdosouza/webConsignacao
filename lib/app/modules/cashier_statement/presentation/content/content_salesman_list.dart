@@ -40,7 +40,7 @@ class _ContentSalesmanListState extends State<ContentSalesmanList> {
     );
   }
 
-  buildTittleSalesmanList() {
+  Container buildTittleSalesmanList() {
     return Container(
       color: kPrimaryColor,
       child: const Padding(
@@ -58,7 +58,7 @@ class _ContentSalesmanListState extends State<ContentSalesmanList> {
     );
   }
 
-  buildContentSalesmanList() {
+  Expanded buildContentSalesmanList() {
     return Expanded(
       child: ListView.separated(
         itemCount: bloc.salesmanList.length,

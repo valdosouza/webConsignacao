@@ -147,7 +147,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
     );
   }
 
-  _footer() {
+  SizedBox _footer() {
     return SizedBox(
       height: 40,
       child: Row(
@@ -188,7 +188,7 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
     );
   }
 
-  _custombutton(String buttonName, Function() function) {
+  Padding _custombutton(String buttonName, Function() function) {
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 2, right: 4, bottom: 2),
       child: ElevatedButton(

@@ -6,7 +6,7 @@ import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bl
 import 'package:appweb/app/modules/order_stock_transfer_register/presentation/bloc/order_stock_transfer_register_state.dart';
 import 'package:flutter/material.dart';
 
-statesOrderStockTransfer(OrderStockTransferRegisterState state) {
+void statesOrderStockTransfer(OrderStockTransferRegisterState state) {
   if (state is OrderGetErrorState) {
     CustomToast.showToast(
         "Erro ao buscar os dados. Tente novamente mais tarde");
@@ -26,7 +26,7 @@ statesOrderStockTransfer(OrderStockTransferRegisterState state) {
   }
 }
 
-buildSearchInput(OrderStockTransferRegisterBloc bloc) {
+Container buildSearchInput(OrderStockTransferRegisterBloc bloc) {
   return Container(
     decoration: kBoxDecorationStyle,
     child: TextFormField(
@@ -51,7 +51,7 @@ buildSearchInput(OrderStockTransferRegisterBloc bloc) {
   );
 }
 
-buildListView(OrderStockTransferRegisterBloc bloc,
+Expanded buildListView(OrderStockTransferRegisterBloc bloc,
     List<OrderStockTransferListModel> list) {
   return Expanded(
     child: list.isEmpty

@@ -42,7 +42,7 @@ class OrderStockAdjustmentRegisterItemsListWidgetState
     );
   }
 
-  _orderStockAdjustProductsList() {
+  Padding _orderStockAdjustProductsList() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: widget.orderStockAdjust.items.isEmpty

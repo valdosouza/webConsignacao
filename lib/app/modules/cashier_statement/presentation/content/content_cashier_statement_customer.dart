@@ -158,7 +158,7 @@ class _ContentCashierStatementCustomerState
     );
   }
 
-  totalCashier() {
+  double totalCashier() {
     double total = 0;
     for (var element in bloc.customers) {
       total += element.valuerCharged;

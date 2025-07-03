@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class CustomDate {
-  static formatDateOut(String date) {
+  static dynamic formatDateOut(String date) {
     if (date != "") {
       try {
         //12/01/2023 - 2023-01-27
@@ -21,7 +21,7 @@ class CustomDate {
     }
   }
 
-  static formatDateIn(String date) {
+  static String formatDateIn(String date) {
     if (date != "") {
       try {
         //2023-01-12
@@ -36,7 +36,7 @@ class CustomDate {
     return "";
   }
 
-  static newDate() {
+  static String newDate() {
     try {
       initializeDateFormatting('pt_BR,', null);
       DateTime time = DateTime.now();
@@ -46,7 +46,7 @@ class CustomDate {
     }
   }
 
-  static yesterday(String date) {
+  static String yesterday(String date) {
     try {
       initializeDateFormatting('pt_BR,', null);
 
@@ -76,7 +76,7 @@ class CustomDate {
     return yearNumber.toInt();
   }
 
-  static tomorrow() {
+  static String tomorrow() {
     try {
       initializeDateFormatting('pt_BR,', null);
 

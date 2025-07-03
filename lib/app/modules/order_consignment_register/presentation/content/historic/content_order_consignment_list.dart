@@ -64,7 +64,7 @@ class _ContentOrderConsignmentListState
     );
   }
 
-  buildSearchInput() {
+  Container buildSearchInput() {
     return Container(
       decoration: kBoxDecorationStyle,
       child: Row(
@@ -112,7 +112,7 @@ class _ContentOrderConsignmentListState
     );
   }
 
-  buildTittleOrderList() {
+  Container buildTittleOrderList() {
     return Container(
       color: kPrimaryColor,
       child: const Padding(

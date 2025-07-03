@@ -119,7 +119,7 @@ class OrderStockAdjustmentRegisterModel
     return OrderStockAdjustmentRegisterModel();
   }
 
-  static formatDate(String date, String typeFormat) {
+  static String formatDate(String date, String typeFormat) {
     try {
       initializeDateFormatting('pt_BR,', null);
       DateTime time = DateTime.parse(date);
@@ -129,7 +129,7 @@ class OrderStockAdjustmentRegisterModel
     }
   }
 
-  convertDate(String date) {
+  String convertDate(String date) {
     return date.split("/").reversed.join("-");
   }
 }

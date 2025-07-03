@@ -135,7 +135,7 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
     );
   }
 
-  _fieldActive() {
+  Column _fieldActive() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -187,7 +187,7 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
     );
   }
 
-  _fieldKindDevice() {
+  CustomDropdownButton _fieldKindDevice() {
     return CustomDropdownButton(
       title: "Tipo de Dispositivo",
       initialValue: bloc.user.kindDevice,

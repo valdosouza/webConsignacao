@@ -33,7 +33,7 @@ class _ContentOrderSaleListState extends State<ContentOrderSaleList> {
     });
   }
 
-  infiniteScrolling() {
+  void infiniteScrolling() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       bloc.add(
@@ -87,7 +87,7 @@ class _ContentOrderSaleListState extends State<ContentOrderSaleList> {
     );
   }
 
-  buildTittleOrderList() {
+  Container buildTittleOrderList() {
     return Container(
       color: kPrimaryColor,
       child: const Padding(
