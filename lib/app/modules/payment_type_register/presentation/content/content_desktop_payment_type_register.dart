@@ -58,6 +58,9 @@ class _ContentDesktopPaymentTypeRegisterState
         final paymentsType = state.list;
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const AutoSizeText(
               'Lista de forma de pagamentos',
               style: kTitleAppBarStyle,

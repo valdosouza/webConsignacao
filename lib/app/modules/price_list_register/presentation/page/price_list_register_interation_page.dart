@@ -39,6 +39,9 @@ class _PriceListRegisterInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
+          ),
           title: bloc.model.id == 0
               ? const Text('Adicionar')
               : Text('Editar ${bloc.model.description}'),
