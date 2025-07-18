@@ -63,18 +63,13 @@ class _ContentDesktopProductRegisterState
         final prices = state.list;
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const AutoSizeText(
               'Lista de Produtos',
               style: kTitleAppBarStyle,
             ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.person_add, color: kSecondaryColor),
-                onPressed: () {
-                  bloc.add(ProductRegisterAddEvent());
-                },
-              ),
-            ],
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24),
@@ -130,6 +125,13 @@ class _ContentDesktopProductRegisterState
                 ],
               ),
             ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              bloc.add(ProductRegisterAddEvent());
+            },
+            backgroundColor: Colors.black,
+            child: const Icon(Icons.add, color: kSecondaryColor),
           ),
         );
       },

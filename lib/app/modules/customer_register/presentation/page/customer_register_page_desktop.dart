@@ -97,15 +97,6 @@ class _CustomerRegisterPageDesktopState
           'Lista de Clientes',
           style: kTitleAppBarStyle,
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person_add, color: kSecondaryColor),
-            onPressed: () {
-              bloc.customer = CustomerMainModel.empty();
-              bloc.add(CustomerRegisterDesktopEvent());
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),
@@ -120,6 +111,14 @@ class _CustomerRegisterPageDesktopState
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          bloc.customer = CustomerMainModel.empty();
+          bloc.add(CustomerRegisterDesktopEvent());
+        },
+        backgroundColor: Colors.black,
+        child: const Icon(Icons.add, color: kSecondaryColor),
       ),
     );
   }

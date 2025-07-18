@@ -51,6 +51,9 @@ class _ProductRegisterInterationPageState
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
+          ),
           title: bloc.model.product.id == 0
               ? const Text('Adicionar')
               : Text('Editar ${bloc.model.product.description}'),
@@ -61,19 +64,6 @@ class _ProductRegisterInterationPageState
               bloc.add(ProductRegisterGetListEvent());
             },
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: IconButton(
-                icon: const Icon(Icons.check, color: kSecondaryColor),
-                onPressed: () {
-                  bloc.model.product.id > 0
-                      ? bloc.add(ProductRegisterPutEvent())
-                      : bloc.add(ProductRegisterPostEvent());
-                },
-              ),
-            ),
-          ],
           bottom: TabBar(
             controller: _tabController,
             indicatorWeight: 2.0,
@@ -87,6 +77,15 @@ class _ProductRegisterInterationPageState
             _buildMainData(),
             _buildPriceList(),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            bloc.model.product.id > 0
+                ? bloc.add(ProductRegisterPutEvent())
+                : bloc.add(ProductRegisterPostEvent());
+          },
+          backgroundColor: Colors.black,
+          child: const Icon(Icons.save, color: kSecondaryColor),
         ),
       ),
     );
