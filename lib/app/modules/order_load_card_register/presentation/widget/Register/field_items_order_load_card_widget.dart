@@ -1,15 +1,22 @@
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_items_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-Widget fielditemsorderLoadCard(OrderLoadCardItemsModel item, int position,
-    bool enabled, int decimal, TextAlign textAlign) {
-  String setTextController(OrderLoadCardItemsModel item, int position) {
+const _kCellHeight = 40.0;
+const _kCellPadding = EdgeInsets.symmetric(horizontal: 12, vertical: 10);
+
+Widget fielditemsorderLoadCard(
+    OrderLoadCardItemsModel item,
+    int position,
+    bool enabled,
+    int decimal,
+    TextAlign textAlign,
+    ) {
+  String valueFor(OrderLoadCardItemsModel item, int position) {
     switch (position) {
       case 1:
         return item.nameProduct;
       case 2:
-        double dayBalance = item.stockBalance + item.bonus + item.sale;
+        final dayBalance = item.stockBalance + item.bonus + item.sale;
         return dayBalance.toStringAsFixed(0);
       case 3:
         return item.sale.toStringAsFixed(0);
@@ -20,45 +27,52 @@ Widget fielditemsorderLoadCard(OrderLoadCardItemsModel item, int position,
       case 6:
         return (item.newLoad > 0) ? item.newLoad.toStringAsFixed(0) : "";
       case 7:
-        double currentBalance =
-            (item.stockBalance + item.newLoad) - item.adjust;
+        final currentBalance = (item.stockBalance + item.newLoad) - item.adjust;
         return currentBalance.toStringAsFixed(0);
+      default:
+        return "";
     }
-    return "";
   }
 
-  return Container(
-    height: 30,
-    alignment: Alignment.center,
-    margin: const EdgeInsets.only(left: 3.0, top: 0.0, right: 3.0, bottom: 0.0),
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.black),
-    ),
-    child: Padding(
-      padding: (kIsWeb)
-          ? const EdgeInsets.only(left: 2.0, bottom: 4.0)
-          : const EdgeInsets.only(left: 2.0),
-      child: TextField(
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-        ),
-        enabled: enabled,
-        keyboardType: TextInputType.number,
-        textAlign: textAlign,
-        onSubmitted: (value) {
-          if (value.isEmpty) value = "0";
-          switch (position) {
-            case 5:
-              item.adjust = double.parse(value);
-              break;
-            case 6:
-              item.newLoad = double.parse(value);
-              break;
-          }
-        },
-        controller:
-            TextEditingController(text: setTextController(item, position)),
+  final controller = TextEditingController(text: valueFor(item, position));
+
+  return SizedBox(
+    height: _kCellHeight, // mesma altura em todas as células
+    child: TextFormField(
+      controller: controller,
+      readOnly: !enabled,
+      maxLines: 1,
+      textAlign: textAlign,                           // left p/ descrição; right p/ números se quiser
+      textAlignVertical: TextAlignVertical.center,    // centraliza verticalmente
+      strutStyle: const StrutStyle(                   // baseline consistente
+        forceStrutHeight: true,
+        height: 1.2,
+        leading: 0,
       ),
+      style: const TextStyle(fontSize: 14),
+      keyboardType: (position == 1)
+          ? TextInputType.text
+          : TextInputType.number,
+      decoration: const InputDecoration(
+        isDense: true,
+        contentPadding: _kCellPadding,                // padding igual p/ todas
+        border: OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(),
+        focusedBorder: OutlineInputBorder(),
+        // sem contador/erro visível p/ não alterar a altura
+        counterText: '',
+      ),
+      onFieldSubmitted: (value) {
+        if (value.isEmpty) value = "0";
+        switch (position) {
+          case 5:
+            item.adjust = double.tryParse(value) ?? 0;
+            break;
+          case 6:
+            item.newLoad = double.tryParse(value) ?? 0;
+            break;
+        }
+      },
     ),
   );
 }

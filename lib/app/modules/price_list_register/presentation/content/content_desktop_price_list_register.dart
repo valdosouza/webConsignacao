@@ -67,14 +67,6 @@ class _ContentDesktopPriceListRegisterState
               'Lista de preços',
               style: kTitleAppBarStyle,
             ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.person_add, color: kSecondaryColor),
-                onPressed: () {
-                  bloc.add(PriceListRegisterAddEvent());
-                },
-              ),
-            ],
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24),
@@ -130,6 +122,13 @@ class _ContentDesktopPriceListRegisterState
                 ],
               ),
             ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              bloc.add(PriceListRegisterAddEvent());
+            },
+            backgroundColor: Colors.black,
+            child: const Icon(Icons.add, color: kSecondaryColor),
           ),
         );
       },
