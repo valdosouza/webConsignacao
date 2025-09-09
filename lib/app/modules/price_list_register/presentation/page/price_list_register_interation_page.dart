@@ -52,21 +52,6 @@ class _PriceListRegisterInterationPageState
               bloc.add(PriceListRegisterGetListEvent());
             },
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: IconButton(
-                icon: const Icon(Icons.check, color: kSecondaryColor),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    bloc.model.id > 0
-                        ? bloc.add(PriceListRegisterPutEvent())
-                        : bloc.add(PriceListRegisterPostEvent());
-                  }
-                },
-              ),
-            ),
-          ],
         ),
         body: Form(
           key: _formKey,
@@ -129,6 +114,17 @@ class _PriceListRegisterInterationPageState
               ],
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+                bloc.model.id > 0
+                    ? bloc.add(PriceListRegisterPutEvent())
+                    : bloc.add(PriceListRegisterPostEvent());
+            }
+          },
+          backgroundColor: Colors.black,
+          child: const Icon(Icons.save, color: kSecondaryColor),
         ),
       ),
     );
