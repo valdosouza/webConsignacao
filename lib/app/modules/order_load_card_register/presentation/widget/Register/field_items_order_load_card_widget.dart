@@ -37,14 +37,14 @@ Widget fielditemsorderLoadCard(
   final controller = TextEditingController(text: valueFor(item, position));
 
   return SizedBox(
-    height: _kCellHeight, // mesma altura em todas as células
+    height: _kCellHeight,
     child: TextFormField(
       controller: controller,
       readOnly: !enabled,
       maxLines: 1,
-      textAlign: textAlign,                           // left p/ descrição; right p/ números se quiser
-      textAlignVertical: TextAlignVertical.center,    // centraliza verticalmente
-      strutStyle: const StrutStyle(                   // baseline consistente
+      textAlign: textAlign,
+      textAlignVertical: TextAlignVertical.center,
+      strutStyle: const StrutStyle(
         forceStrutHeight: true,
         height: 1.2,
         leading: 0,
@@ -55,11 +55,10 @@ Widget fielditemsorderLoadCard(
           : TextInputType.number,
       decoration: const InputDecoration(
         isDense: true,
-        contentPadding: _kCellPadding,                // padding igual p/ todas
+        contentPadding: _kCellPadding,
         border: OutlineInputBorder(),
         enabledBorder: OutlineInputBorder(),
         focusedBorder: OutlineInputBorder(),
-        // sem contador/erro visível p/ não alterar a altura
         counterText: '',
       ),
       onFieldSubmitted: (value) {
