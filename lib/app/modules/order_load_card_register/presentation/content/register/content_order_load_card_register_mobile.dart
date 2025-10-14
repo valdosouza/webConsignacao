@@ -84,13 +84,13 @@ class _ContentOrderLoadCardRegisterMobileState
       },
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 86.0,
           flexibleSpace: Container(
             decoration: kBoxDecorationflexibleSpace,
             alignment: Alignment.center,
             child: Column(
               children: [
-                Container(
-                  alignment: Alignment.bottomCenter,
+                SizedBox(
                   height: 30,
                   child: const Text(
                     "Carregamento do próximo dia",
@@ -103,7 +103,7 @@ class _ContentOrderLoadCardRegisterMobileState
                     ),
                   ),
                 ),
-                const CustomHeaderOrderLoadCard(),
+                SizedBox(height: 56.0, child: const CustomHeaderOrderLoadCard()),
               ],
             ),
           ),

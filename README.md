@@ -24,6 +24,8 @@ flutter devices
 flutter emulators
 flutter emulators --launch Medium_Phone_API_36.0
 ---
+test/app/modules
+flutter test
 
 ## 📁 Server
 

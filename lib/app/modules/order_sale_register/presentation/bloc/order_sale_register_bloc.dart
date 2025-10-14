@@ -114,6 +114,45 @@ class OrderSaleRegisterBloc
     return "";
   }
 
+  // possível correção, testar...
+  /*
+Future<String> _validadePost() async {
+  int _toCents(num v) => (v * 100).round();
+  double _fromCents(int c) => c / 100.0;
+
+  // Se for boleto, preenche e valida vencimento
+  if (modelOrderSale.payments.isNotEmpty &&
+      modelOrderSale.payments[0].tbPaymentTypeId == 3) {
+    modelOrderSale.payments[0].value = modelOrderSale.order.totalValue;
+    if (modelOrderSale.payments[0].dtExpiration.isEmpty) {
+      return "Informe a data de Vencimento.";
+    }
+  }
+
+  final totalCents = _toCents(modelOrderSale.order.totalValue);
+
+  if (totalCents == 0) {
+    final bonusCents = modelOrderSale.items
+        .fold<int>(0, (sum, it) => sum + _toCents(it.bonus));
+    if (bonusCents == 0) {
+      return "Valor total igual a zero. Informe a venda.";
+    }
+    return "";
+  } else {
+    final pagosCents = modelOrderSale.payments
+        .fold<int>(0, (sum, p) => sum + _toCents(p.value));
+
+    if (pagosCents < totalCents) {
+      final falta = _fromCents(totalCents - pagosCents).toStringAsFixed(2);
+      return "Os valores de pagamentos abaixo do esperado. Falta R\$ $falta.";
+    }
+  }
+
+  return "";
+}
+
+  */
+
   void ordersaleCardPos() {
     on<OrderSaleCardPostEvent>((event, emit) async {
       emit(OrderSaleRegisterLoadingState());
