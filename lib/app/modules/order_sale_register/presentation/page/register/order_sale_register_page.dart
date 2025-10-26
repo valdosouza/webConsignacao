@@ -1,5 +1,6 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
+import 'package:flutter/material.dart' show TargetPlatform;
+import 'package:flutter/services.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_desktop.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_mobile.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_tablet.dart';
@@ -26,7 +27,7 @@ class _OrderSaleRegisterPageState extends State<OrderSaleRegisterPage> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
       WidgetsFlutterBinding.ensureInitialized();
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeRight,
@@ -37,7 +38,7 @@ class _OrderSaleRegisterPageState extends State<OrderSaleRegisterPage> {
 
   @override
   dispose() {
-    if (Platform.isAndroid) {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,

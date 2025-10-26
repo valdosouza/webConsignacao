@@ -116,25 +116,23 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
           return;
         }
         _showBackDialog();
-      },
+      },  
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: kBoxDecorationflexibleSpace,
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  height: 40,
-                  child: Text(
-                    bloc.modelAttendance.nameCustomer,
-                    style: kTitleAppBarStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const CustomHeaderOrderSale(),
-              ],
+          toolbarHeight: 40,
+          centerTitle: true,
+          flexibleSpace: Container(decoration: kBoxDecorationflexibleSpace),
+          title: Text(
+            bloc.modelAttendance.nameCustomer,
+            style: kTitleAppBarStyle,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(56),
+            child: SizedBox(
+              height: 56,
+              child: CustomHeaderOrderSale(),
             ),
           ),
         ),
