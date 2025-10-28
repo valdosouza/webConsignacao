@@ -26,16 +26,11 @@ class Responsive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    print("📏 Largura atual da tela: ${size.width}");
-
     if (size.width >= 1100) {
-      print("🖥️ Layout escolhido: DESKTOP");
       return desktop;
     } else if (size.width >= 850 && tablet != null) {
-      print("📱 Layout escolhido: TABLET");
       return tablet!;
     } else {
-      print("📞 Layout escolhido: MOBILE");
       return mobile;
     }
   }

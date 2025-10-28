@@ -1,14 +1,12 @@
 import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
 import 'package:flutter/material.dart' show TargetPlatform;
 import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'package:appweb/app/core/shared/helpers/responsive.dart';
+import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_desktop.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_mobile.dart';
 import 'package:appweb/app/modules/order_sale_register/presentation/page/register/order_sale_register_page_tablet.dart';
-import 'package:flutter/material.dart';
-
-import 'package:appweb/app/core/shared/helpers/responsive.dart';
-import 'package:appweb/app/modules/order_attendence_register/data/model/order_attendance_model.dart';
-import 'package:flutter/services.dart';
 
 class OrderSaleRegisterPage extends StatefulWidget {
   final OrderAttendanceModel orderAttendance;
@@ -28,17 +26,17 @@ class _OrderSaleRegisterPageState extends State<OrderSaleRegisterPage> {
   void initState() {
     super.initState();
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      WidgetsFlutterBinding.ensureInitialized();
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.landscapeLeft,
-      ]);
-    }
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
   }
+}
 
   @override
   dispose() {
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+      WidgetsFlutterBinding.ensureInitialized();      
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,

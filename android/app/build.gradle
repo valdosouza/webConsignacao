@@ -3,7 +3,7 @@ plugins {
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
     // ❌ tira o google-services daqui quando usarmos o EMULADOR
-    // id "com.google.gms.google-services"
+     id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -101,9 +101,9 @@ flutter {
 dependencies {}
 
 // ✅ Bloco condicional para Google Services, quando usando o EMULADOR
-def googleServices = file("$projectDir/google-services.json")
-if (googleServices.exists()) {
-    apply plugin: "com.google.gms.google-services"
-} else {
-    logger.lifecycle("⚠️ google-services.json não encontrado; pulando Google Services plugin")
-}
+//def googleServices = file("$projectDir/google-services.json")
+//if (googleServices.exists()) {
+//    apply plugin: "com.google.gms.google-services"
+//} else {
+//    logger.lifecycle("⚠️ google-services.json não encontrado; pulando Google Services plugin")
+//}

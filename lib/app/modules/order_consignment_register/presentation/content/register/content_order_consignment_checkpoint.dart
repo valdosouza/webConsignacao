@@ -87,23 +87,29 @@ class _ContentConsignmenteCheckpointState
       },
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(51.0),
+          preferredSize: const Size.fromHeight(75),
           child: AppBar(
             flexibleSpace: Container(
               decoration: kBoxDecorationflexibleSpace,
               alignment: Alignment.center,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    alignment: Alignment.bottomCenter,
+                  SizedBox(
                     height: 35,
-                    child: Text(
-                      bloc.modelCheckpoint.order.nameCustomer,
-                      style: kTitleAppBarStyle,
-                      textAlign: TextAlign.center,
+                    child: Center(
+                      child: Text(
+                        bloc.modelCheckpoint.order.nameCustomer,
+                        style: kTitleAppBarStyle,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-                  const CustomHeaderCheckpoint(),
+                  const SizedBox(
+                    height: 40,
+                    child: CustomHeaderCheckpoint(),
+                  ),
                 ],
               ),
             ),
