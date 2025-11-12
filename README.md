@@ -13,25 +13,31 @@
 ## 🚀 Setup Guide
 
 ```bash
-flutter doctor
-flutter clean
-flutter pub get
-flutter pub upgrade
-flutter create .
-flutter run
-```
+flutter doctor                # verifica seu ambiente (Flutter, Dart, Android SDK, Chrome, VS Code/Android Studio, devices)
+flutter clean                 # apaga caches de build (build/, .dart_tool/, etc.).
+flutter pub get               # resolve e baixa as dependências pubspec.yaml (gera pubspec.lock e .dart_tool/package_config.json).         
+flutter pub outdated          # lista o que pode ser atualizado (mostra current → resolvable → latest).
+flutter pub upgrade           # atualiza as dependências para as versões mais novas permitidas pelo seu pubspec.yaml
+flutter analyze               # análise estática (erros/avisos do Dart/Flutter).
+flutter create .              # (re)cria arquivos de plataforma na pasta, adiciona plataformas faltantes e atualiza templates.
+flutter run -d chrome         
 flutter devices
 flutter emulators
 flutter emulators --launch Medium_Phone_API_36.0
----
 test/app/modules
 flutter test
+```
 
 ## 📁 Server
-
-    lib/app/core/shared/constants.dart
-
+   lib/app/core/shared/constants.dart
 ---
+
+## 📁 Modo Debug
+   lib\main.dart
+   .vscode\launch.json
+   Na barra de status do VS Code, clique em (device) e selecione Chrome. (Ou via Ctrl+Shift+P → “Flutter: Select Device”).
+   1-No VS Code: Ctrl+Shift+P → Flutter: Attach to Device. / attach to flutter on device
+   2-Selecione no launch a config pra depurar: Flutter (Chrome) - main.dart, Marque breakpoints e continue (F5)
 
 ## 📋 Menu
 
@@ -69,42 +75,3 @@ flutter test
 ### 🧑‍💼 Pessoal
 - Cargos
 - Colaboradores
-
-### 🏭 Produção
-- Ordem de Produção
-
-### 🚪 Sair
-
----
-
-## 📌 Version
-
-| Index | Versão    | Descrição         |
-|-------|-----------|--------------------|
-| 1.0   | Versão 01 | Description xxx |
-| 2.0   | Versão 02 | Description xxx |
-
----
-=======
-	Frontend - API Sistema Consignação
-
-### 🛠️ **Detail Stack:**
-	Flutter, Dart
-
-### 🚀 **Setup Guide:**
-   ```   
-   flutter doctor
-   flutter clean
-   flutter pub get
-   flutter pub upgrade
-   flutter create .
-   flutter run
-   ```
-
-## Summary
-   lib/app/core/shared/constants.dart
-
-Index|Version|Description
--|-|-
-1.0|Versão 01|Description xxx
-1.0|Versão 01|Description xxx
