@@ -67,9 +67,8 @@ class _ContentConsignmenteCheckpointState
     );
   }
 
-  SizedBox _footer() {
-    return SizedBox(
-      height: 40,
+  Expanded _footer() {
+    return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

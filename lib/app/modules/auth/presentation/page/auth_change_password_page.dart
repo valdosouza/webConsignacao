@@ -75,27 +75,25 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: Center(
-                child: SizedBox(
-                  width: 400,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      logoArea(),
-                      const SizedBox(height: 15.0),
-                      _buildMsgCode(),
-                      const SizedBox(height: 20.0),
-                      _buildCode(),
-                      const SizedBox(height: 20.0),
-                      _buildNewPassword(),
-                      const SizedBox(height: 20.0),
-                      _buildConfirmNewPassword(),
-                      const SizedBox(height: 20.0),
-                      _buildChangePasswordBtn(state),
-                      const SizedBox(height: 20.0),
-                      _buildBackBtn(),
-                    ],
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    logoArea(),
+                    const SizedBox(height: 15.0),
+                    _buildMsgCode(),
+                    const SizedBox(height: 20.0),
+                    _buildCode(),
+                    const SizedBox(height: 20.0),
+                    _buildNewPassword(),
+                    const SizedBox(height: 20.0),
+                    _buildConfirmNewPassword(),
+                    const SizedBox(height: 20.0),
+                    _buildChangePasswordBtn(state),
+                    const SizedBox(height: 20.0),
+                    _buildBackBtn(),
+                  ],
                 ),
               ),
             ),
@@ -263,9 +261,9 @@ class _AuthChangePasswordPageState extends State<AuthChangePasswordPage> {
     );
   }
 
-  SizedBox _buildChangePasswordBtn(AuthState state) {
+  Widget _buildChangePasswordBtn(AuthState state) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+      width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(100, 60),

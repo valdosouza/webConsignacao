@@ -24,7 +24,7 @@ class _CustomBodyOrderLoadCardWidgetState
     super.initState();
 
     Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      Modular.isModuleReady<OrderLoadCardRegisterModule>;
+      await Modular.isModuleReady<OrderLoadCardRegisterModule>();
     });
 
     bloc = Modular.get<OrderLoadCardRegisterBloc>();
@@ -32,10 +32,6 @@ class _CustomBodyOrderLoadCardWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height - 152,
-      width: widget.size.width,
-      child: listitemsorderLoadCard(bloc.modelLoadCard.items),
-    );
+    return listitemsorderLoadCard(bloc.modelLoadCard.items);
   }
 }

@@ -14,16 +14,19 @@ Widget itemMenuDraw(IconData icon, String text, Function ontap) {
           },
           splashColor: Colors.orangeAccent,
           child: SizedBox(
-            height: 50,
+            width: double.infinity,
+            height: 56,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Icon(icon),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      text,
-                      style: const TextStyle(fontSize: 16.0),
-                    ))
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    text,
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                ),
               ],
             ),
           )),
@@ -48,16 +51,19 @@ Widget itemMenuPolicy(IconData icon, String text) {
                 },
                 splashColor: Colors.orangeAccent,
                 child: SizedBox(
-                  height: 50,
+                  width: double.infinity,
+                  height: 56,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Icon(icon),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            text,
-                            style: const TextStyle(fontSize: 16.0),
-                          ))
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          text,
+                          style: const TextStyle(fontSize: 16.0),
+                        ),
+                      ),
                     ],
                   ),
                 ));

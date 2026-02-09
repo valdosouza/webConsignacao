@@ -9,7 +9,9 @@ Widget dividaatualsupplying(OrderConsignmentSupplyingModel modelSupplying) {
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Dívida Atual', 32),
+        child: Builder(
+          builder: (context) => headerfield(context, 'Dívida Atual', 32),
+        ),
       ),
       Expanded(
         flex: 4,

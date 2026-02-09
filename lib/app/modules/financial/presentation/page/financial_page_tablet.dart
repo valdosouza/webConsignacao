@@ -23,7 +23,6 @@ class _FinancialPageTabletState extends State<FinancialPageTablet> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -32,17 +31,13 @@ class _FinancialPageTabletState extends State<FinancialPageTablet> {
         title: kAppTitle,
       ),
       drawer: const DrawerPageMain(),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Row(
-          children: [
-            FinancialMenuMain(),
-            Expanded(
-              child: RouterOutlet(),
-            ),
-          ],
-        ),
+      body: const Row(
+        children: [
+          FinancialMenuMain(),
+          Expanded(
+            child: RouterOutlet(),
+          ),
+        ],
       ),
     );
   }

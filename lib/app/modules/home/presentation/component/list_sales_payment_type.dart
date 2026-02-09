@@ -5,10 +5,8 @@ import 'package:intl/intl.dart';
 
 Widget listSalesPaymentType(
     BuildContext context, List<HomeSalesPaymentTypeModel> list) {
-  final mediaQueryData = MediaQuery.of(context);
   final brF = NumberFormat.currency(locale: "pt_BR", symbol: "R\$");
-  return SizedBox(
-    height: mediaQueryData.size.height - 300,
+  return Expanded(
     child: ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, index) {

@@ -49,6 +49,12 @@ class _PaymentInfoCashState extends State<PaymentInfoCash> {
               },
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
+              textAlignVertical: TextAlignVertical.center,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+              ),
               onFieldSubmitted: (value) {
                 if (value.isNotEmpty) {
                   widget.modelOrderPaid[0].value = double.parse(value);

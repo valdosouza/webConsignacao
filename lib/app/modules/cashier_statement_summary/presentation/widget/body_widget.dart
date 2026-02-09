@@ -10,36 +10,38 @@ class BodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return AdaptiveScrollbar(
-      controller: verticalScroll,
-      width: width,
-      position: ScrollbarPosition.right,
-      child: AdaptiveScrollbar(
-        underSpacing: EdgeInsets.only(bottom: width),
-        controller: horizontalScroll,
-        width: width,
-        position: ScrollbarPosition.bottom,
-        child: SingleChildScrollView(
-          controller: horizontalScroll,
-          scrollDirection: Axis.horizontal,
-          child: SizedBox(
-            height: 800, //size.height,
-            width: size.width,
-            child: ListView.builder(
-              padding: EdgeInsets.only(bottom: width),
-              controller: verticalScroll,
-              itemCount: 100,
-              itemBuilder: (context, index) {
-                return SizedBox(
-                  height: 30,
-                  child: Text("Line $index"),
-                );
-              },
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double height =
+            constraints.maxHeight.isFinite ? constraints.maxHeight : 300;
+        return AdaptiveScrollbar(
+          controller: verticalScroll,
+          width: width,
+          position: ScrollbarPosition.right,
+          child: AdaptiveScrollbar(
+            underSpacing: EdgeInsets.only(bottom: width),
+            controller: horizontalScroll,
+            width: width,
+            position: ScrollbarPosition.bottom,
+            child: SingleChildScrollView(
+              controller: horizontalScroll,
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: constraints.maxWidth,
+                height: height,
+                child: ListView.builder(
+                  padding: EdgeInsets.only(bottom: width),
+                  controller: verticalScroll,
+                  itemCount: 100,
+                  itemBuilder: (context, index) {
+                    return Text("Line $index");
+                  },
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

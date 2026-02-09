@@ -33,29 +33,43 @@ Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
     decoration: BoxDecoration(
       border: Border.all(color: Colors.black),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          height: 35,
-          alignment: Alignment.center,
-          margin: const EdgeInsets.only(
-              left: 3.0, top: 1.0, right: 3.0, bottom: 1.0),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
+    child: SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            height: 35,
+            alignment: Alignment.center,
+            margin: const EdgeInsets.only(
+                left: 3.0, top: 1.0, right: 3.0, bottom: 1.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+            ),
+            child: TextField(
+              enabled: false,
+              controller: TextEditingController(text: calcInfoPayment()),
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+              ),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                isDense: true,
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+              ),
+            ),
           ),
-          child: TextField(
-            enabled: false,
-            controller: TextEditingController(text: calcInfoPayment()),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        paymentinfodinheiro(modelCheckpoint),
-        paymentinfopix(modelCheckpoint),
-        paymentinfotroco(modelCheckpoint),
-        dividaanteriorcheckpoint(modelCheckpoint),
-        dividaatualcheckpoint(modelCheckpoint),
-      ],
+          paymentinfodinheiro(modelCheckpoint),
+          paymentinfopix(modelCheckpoint),
+          paymentinfotroco(modelCheckpoint),
+          dividaanteriorcheckpoint(modelCheckpoint),
+          dividaatualcheckpoint(modelCheckpoint),
+        ],
+      ),
     ),
   );
 }

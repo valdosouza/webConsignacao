@@ -134,7 +134,7 @@ class _DrawerPageMainState extends State<DrawerPageMain> {
             },
             splashColor: Colors.orangeAccent,
             child: SizedBox(
-              height: 50,
+              width: double.infinity,
               child: Row(
                 children: <Widget>[
                   Icon(icon),

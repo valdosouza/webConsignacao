@@ -1,9 +1,8 @@
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_items_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-Widget fielditemsorderLoadCard(OrderLoadCardItemsModel item, int position,
-    bool enabled, int decimal, TextAlign textAlign) {
+Widget fielditemsorderLoadCard(BuildContext context, OrderLoadCardItemsModel item,
+    int position, bool enabled, int decimal, TextAlign textAlign) {
   String setTextController(OrderLoadCardItemsModel item, int position) {
     switch (position) {
       case 1:
@@ -28,23 +27,26 @@ Widget fielditemsorderLoadCard(OrderLoadCardItemsModel item, int position,
   }
 
   return Container(
-    height: 30,
+    height: 28,
     alignment: Alignment.center,
     margin: const EdgeInsets.only(left: 3.0, top: 0.0, right: 3.0, bottom: 0.0),
     decoration: BoxDecoration(
       border: Border.all(color: Colors.black),
     ),
-    child: Padding(
-      padding: (kIsWeb)
-          ? const EdgeInsets.only(left: 2.0, bottom: 4.0)
-          : const EdgeInsets.only(left: 2.0),
-      child: TextField(
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-        ),
-        enabled: enabled,
-        keyboardType: TextInputType.number,
-        textAlign: textAlign,
+    child: TextField(
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+      ),
+      enabled: enabled,
+      keyboardType: TextInputType.number,
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Colors.black,
+            fontSize: 12,
+          ),
+      textAlign: textAlign,
+      textAlignVertical: TextAlignVertical.center,
         onSubmitted: (value) {
           if (value.isEmpty) value = "0";
           switch (position) {
@@ -58,7 +60,6 @@ Widget fielditemsorderLoadCard(OrderLoadCardItemsModel item, int position,
         },
         controller:
             TextEditingController(text: setTextController(item, position)),
-      ),
     ),
   );
 }

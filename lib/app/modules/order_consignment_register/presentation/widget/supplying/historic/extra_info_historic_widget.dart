@@ -18,17 +18,15 @@ class ExtraInfoHistoric extends StatefulWidget {
 class _ExtraInfoHistoricState extends State<ExtraInfoHistoric> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          (widget.modelSupplying.order.recall == "S")
-              ? const Text("Produto recolhido")
-              : const Text("Operação Normal"),
-          Container(
-            height: widget.size.height - 220,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        (widget.modelSupplying.order.recall == "S")
+            ? const Text("Produto recolhido")
+            : const Text("Operação Normal"),
+        Expanded(
+          child: Container(
             alignment: Alignment.topCenter,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
@@ -47,9 +45,9 @@ class _ExtraInfoHistoricState extends State<ExtraInfoHistoric> {
               ),
             ),
           ),
-          dividaatualsupplyinghistoric(widget.modelSupplying),
-        ],
-      ),
+        ),
+        dividaatualsupplyinghistoric(widget.modelSupplying),
+      ],
     );
   }
 }

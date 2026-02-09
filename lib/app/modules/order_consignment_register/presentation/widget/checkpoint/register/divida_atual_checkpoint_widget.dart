@@ -9,7 +9,9 @@ Widget dividaatualcheckpoint(OrderConsignmentCheckpointModel modelCheckpoint) {
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Dívida Atual', 33),
+        child: Builder(
+          builder: (context) => headerfield(context, 'Dívida Atual', 33),
+        ),
       ),
       Expanded(
         flex: 4,

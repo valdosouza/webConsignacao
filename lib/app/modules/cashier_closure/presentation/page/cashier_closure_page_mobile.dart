@@ -25,7 +25,6 @@ class CashierClosurePageMobileState extends State<CashierClosurePageMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -44,11 +43,7 @@ class CashierClosurePageMobileState extends State<CashierClosurePageMobile> {
         ),
       ),
       drawer: const DrawerPageMobile(),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const CashierClosureMenuMobile(),
-      ),
+      body: const CashierClosureMenuMobile(),
     );
   }
 }

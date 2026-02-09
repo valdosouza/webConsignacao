@@ -7,8 +7,7 @@ class CustomHeaderSupplying extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
+    return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -18,7 +17,7 @@ class CustomHeaderSupplying extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: headerfield('Observações', 40),
+            child: headerfield(context, 'Observações', 50),
           ),
         ],
       ),

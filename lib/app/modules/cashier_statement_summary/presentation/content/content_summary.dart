@@ -50,15 +50,11 @@ class _ContentSummaryState extends State<ContentSummary> {
           if (state is LoadingState) {
             return const CustomCircularProgressIndicator();
           }
-          return SizedBox(
-            height: size.height,
-            width: size.width,
-            child: Column(
-              children: [
-                _search(),
-                _body(size),
-              ],
-            ),
+          return Column(
+            children: [
+              _search(),
+              _body(size),
+            ],
           );
         });
   }
@@ -136,9 +132,8 @@ class _ContentSummaryState extends State<ContentSummary> {
     );
   }
 
-  SizedBox _search() {
-    return SizedBox(
-      height: 81,
+  Expanded _search() {
+    return Expanded(
       child: Row(
         children: [
           Expanded(

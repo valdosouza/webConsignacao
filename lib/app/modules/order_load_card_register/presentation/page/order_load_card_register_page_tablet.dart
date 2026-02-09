@@ -23,7 +23,7 @@ class OrderSaleRegisterPageMobileState
         ),
         title: kAppTitle,
       ),
-      body: const Expanded(child: Text("Vendas - Tablet")),
+      body: const Center(child: Text("Vendas - Tablet")),
     );
   }
 }

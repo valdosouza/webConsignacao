@@ -6,17 +6,6 @@ class CustomHeaderOrderLoadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 55,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 1,
-            child: headeritemsorderLoadCard(),
-          ),
-        ],
-      ),
-    );
+    return headeritemsorderLoadCard();
   }
 }

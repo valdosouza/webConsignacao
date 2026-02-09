@@ -34,12 +34,13 @@ class _ContentOrderAttendanceRegisterMobileState
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return ListView(
       padding: const EdgeInsets.all(10),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
+      children: [
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
             CustomInput(
               title: 'Data',
               initialValue: CustomDate.newDate(),
@@ -48,46 +49,45 @@ class _ContentOrderAttendanceRegisterMobileState
               onChanged: (value) {},
             ),
             const SizedBox(height: 8),
-            SizedBox(
-              height: 200,
-              child: ListView.separated(
-                itemCount: bloc.pricelist.length,
-                itemBuilder: (context, index) => InkWell(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: (Colors.black),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Text(
-                          bloc.pricelist[index].id.toString(),
-                          style: kCircleAvatarTextStyle,
-                        ),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: bloc.pricelist.length,
+              itemBuilder: (context, index) => InkWell(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: (Colors.black),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Text(
+                        bloc.pricelist[index].id.toString(),
+                        style: kCircleAvatarTextStyle,
                       ),
                     ),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(bloc.pricelist[index].description),
-                      ],
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.arrow_forward_ios_outlined),
-                      onPressed: () async {
-                        bloc.orderAttendance.visited = 'S';
-                        bloc.orderAttendance.note = editcontrol.text;
-                        bloc.orderAttendance.tbPriceListId =
-                            bloc.pricelist[index].id;
-                        if (bloc.orderAttendance.id == 0) {
-                          bloc.add(OrderAttendanceRegisterPostEvent());
-                        } else {
-                          bloc.add(OrderAttendanceRegisterPutEvent());
-                        }
-                      },
-                    ),
+                  ),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(bloc.pricelist[index].description),
+                    ],
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.arrow_forward_ios_outlined),
+                    onPressed: () async {
+                      bloc.orderAttendance.visited = 'S';
+                      bloc.orderAttendance.note = editcontrol.text;
+                      bloc.orderAttendance.tbPriceListId =
+                          bloc.pricelist[index].id;
+                      if (bloc.orderAttendance.id == 0) {
+                        bloc.add(OrderAttendanceRegisterPostEvent());
+                      } else {
+                        bloc.add(OrderAttendanceRegisterPutEvent());
+                      }
+                    },
                   ),
                 ),
-                separatorBuilder: (_, __) => const Divider(),
               ),
+              separatorBuilder: (_, __) => const Divider(),
             ),
             const SizedBox(height: 8),
             const Text("Consultar Históricos", style: kLabelStyle),
@@ -117,9 +117,10 @@ class _ContentOrderAttendanceRegisterMobileState
             ),
             const SizedBox(height: 8),
             _buttonAttendance(),
-          ],
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

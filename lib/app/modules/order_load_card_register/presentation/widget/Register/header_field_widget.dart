@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
-Widget headerfield(String description) {
+Widget headerfield(BuildContext context, String description) {
+  final TextStyle textStyle = Theme.of(context).textTheme.bodySmall?.copyWith(
+        color: Colors.white,
+        fontSize: 12,
+      ) ??
+      const TextStyle(
+        color: Colors.white,
+        fontSize: 12,
+      );
   return Container(
     alignment: Alignment.center,
-    height: 45,
+    height: 40,
     margin: const EdgeInsets.only(left: 3.0, top: 1.0, right: 3.0, bottom: 1.0),
     decoration: BoxDecoration(
       border: Border.all(color: Colors.black),
@@ -12,7 +20,9 @@ Widget headerfield(String description) {
     child: Text(
       description,
       textAlign: TextAlign.center,
-      style: const TextStyle(color: Colors.white),
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: textStyle,
     ),
   );
 }

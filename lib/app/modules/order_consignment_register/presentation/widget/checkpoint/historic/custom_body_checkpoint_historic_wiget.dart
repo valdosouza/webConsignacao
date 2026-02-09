@@ -18,9 +18,7 @@ class _CustomBodyCheckpointHistoricWidgetState
     extends State<CustomBodyCheckpointHistoricWidget> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height - 127,
-      width: widget.size.width,
+    return Expanded(
       child: Center(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

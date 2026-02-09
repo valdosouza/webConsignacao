@@ -1,0 +1,10 @@
+- Always use null-safety and follow Effective Dart.
+- Prefer small widgets, extract private widgets when build() grows.
+- When changing UI, keep existing behavior unless explicitly asked.
+- Always update or create tests when adding logic (unit/widget tests).
+- Prefer const constructors where possible.
+- Use Theme.of(context) and avoid hardcoded colors/sizes when feasible.
+- Do not introduce new state management libs unless asked.
+- When editing pubspec.yaml, explain why each dependency is needed.
+- Output: provide code changes with file paths and minimal explanation.
+- The architecture this project is Clean architecture

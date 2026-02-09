@@ -8,7 +8,6 @@ class HomePageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -16,18 +15,14 @@ class HomePageDesktop extends StatelessWidget {
         ),
         title: kAppTitle,
       ),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Row(
-          children: [
-            DrawerPageMain(),
-            Expanded(
-              flex: 5,
-              child: RouterOutlet(),
-            ),
-          ],
-        ),
+      body: const Row(
+        children: [
+          DrawerPageMain(),
+          Expanded(
+            flex: 5,
+            child: RouterOutlet(),
+          ),
+        ],
       ),
     );
   }

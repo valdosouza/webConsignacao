@@ -6,7 +6,6 @@ class Page404 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -14,11 +13,7 @@ class Page404 extends StatelessWidget {
         ),
         title: kAppTitle,
       ),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Center(child: Text("Página não existe")),
-      ),
+      body: const Center(child: Text("Página não existe")),
     );
   }
 }

@@ -12,7 +12,9 @@ Widget paymentinfopix(OrderConsignmentCheckpointModel modelCheckpoint) {
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Pix', 32),
+        child: Builder(
+          builder: (context) => headerfield(context, 'Pix', 32),
+        ),
       ),
       Expanded(
         flex: 4,
@@ -35,6 +37,12 @@ Widget paymentinfopix(OrderConsignmentCheckpointModel modelCheckpoint) {
             },
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
+            textAlignVertical: TextAlignVertical.center,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+            ),
             onSubmitted: (value) {
               if (value.isNotEmpty) {
                 modelCheckpoint.payments[1].value = double.parse(value);

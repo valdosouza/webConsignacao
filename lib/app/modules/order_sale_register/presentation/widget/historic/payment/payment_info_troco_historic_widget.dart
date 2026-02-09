@@ -49,6 +49,12 @@ Widget paymentinfotrocoHistoric(OrderSaleMainCardModel modelOrderSale) {
               text: calcChange(),
             ),
             textAlign: TextAlign.right,
+            textAlignVertical: TextAlignVertical.center,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+            ),
           ),
         ),
       ),

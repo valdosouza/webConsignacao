@@ -24,27 +24,27 @@ class CustomCircularProgressIndicator extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    height: 120,
-                    width: 120,
-                    child: Center(
-                        child: Image.asset(
+              SizedBox(
+                width: 100,
+                height: 100,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(
                       "images/logoprogress.png",
-                      width: 90,
-                      height: 90,
-                    )),
-                  ),
-                  const SizedBox(
-                    height: 120,
-                    width: 120,
-                    child: CircularProgressIndicator(
-                      color: kPrimaryColor,
-                      strokeWidth: 7,
+                      width: 80,
+                      height: 80,
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: CircularProgressIndicator(
+                        color: kPrimaryColor,
+                        strokeWidth: 6,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 5),
               const Text(

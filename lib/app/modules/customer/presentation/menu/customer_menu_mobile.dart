@@ -32,7 +32,6 @@ class _CustomerMenuMobileState extends State<CustomerMenuMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return BlocConsumer<CustomerBloc, CustomerState>(
       bloc: bloc,
       listener: (context, state) {
@@ -45,64 +44,55 @@ class _CustomerMenuMobileState extends State<CustomerMenuMobile> {
           return const CustomCircularProgressIndicator();
         }
         if (state is CustomerGetRegionListLoadedState) {
-          return SingleChildScrollView(
-            child: SizedBox(
-              height: size.height,
-              child: Column(
-                children: [
-                  itemMenuDraw(
-                    Icons.home,
-                    'Lista',
-                    () async =>
-                        Modular.to.navigate('/attendancecustomer/mobile/'),
+          return Column(
+            children: [
+              itemMenuDraw(
+                Icons.home,
+                'Lista',
+                () async => Modular.to.navigate('/attendancecustomer/mobile/'),
+              ),
+              itemMenuDraw(
+                Icons.home,
+                'Novo',
+                () async => Modular.to.navigate(
+                    '/customer/mobile/register/customer-register/'),
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
+                decoration: kBoxDecorationflexibleSpace,
+                child: const Text(
+                  "Clientes por Região",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.white,
                   ),
-                  itemMenuDraw(
-                    Icons.home,
-                    'Novo',
-                    () async => Modular.to.navigate(
-                        '/customer/mobile/register/customer-register/'),
-                  ),
-                  Container(
-                    width: size.width,
-                    padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
-                    decoration: kBoxDecorationflexibleSpace,
-                    child: const SizedBox(
-                      child: Text(
-                        "Clientes por Região",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height,
-                    child: ListView.builder(
-                      itemCount: bloc.regionList.length,
-                      itemBuilder: (context, index) {
-                        return itemMenuDraw(
-                          Icons.home,
-                          bloc.regionList[index].description,
-                          () async {
-                            Modular.to.navigate(
-                              '/attendancesalesroute/mobile/',
-                              arguments: [
-                                0,
-                                "",
-                                bloc.regionList[index].id,
-                                bloc.regionList[index].description,
-                              ],
-                            );
-                          },
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: bloc.regionList.length,
+                  itemBuilder: (context, index) {
+                    return itemMenuDraw(
+                      Icons.home,
+                      bloc.regionList[index].description,
+                      () async {
+                        Modular.to.navigate(
+                          '/attendancesalesroute/mobile/',
+                          arguments: [
+                            0,
+                            "",
+                            bloc.regionList[index].id,
+                            bloc.regionList[index].description,
+                          ],
                         );
                       },
-                    ),
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
-            ),
+            ],
           );
         }
         return _menuFixo();

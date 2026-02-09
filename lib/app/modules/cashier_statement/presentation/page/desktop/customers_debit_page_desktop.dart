@@ -76,9 +76,11 @@ class CustomersDebitPageDesktopState extends State<CustomersDebitPageDesktop> {
               child: Column(
                 children: [
                   search(),
-                  ContentCustomersDebits(
-                    list: bloc.customerDebits,
-                    bodyHeight: 353,
+                  Expanded(
+                    child: ContentCustomersDebits(
+                      list: bloc.customerDebits,
+                      bodyHeight: 353,
+                    ),
                   ),
                 ],
               ),

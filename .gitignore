@@ -13,6 +13,8 @@ node_modules/
 .history
 .svn/
 
+.cursorrules
+
 # IntelliJ related
 *.iml
 *.ipr

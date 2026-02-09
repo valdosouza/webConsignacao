@@ -24,7 +24,6 @@ class CashierClosurePageDesktopState extends State<CashierClosurePageDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -32,18 +31,14 @@ class CashierClosurePageDesktopState extends State<CashierClosurePageDesktop> {
         ),
         title: kAppTitle,
       ),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Row(
-          children: [
-            DrawerPageMain(),
-            CashierMenuMain(),
-            Expanded(
-              child: RouterOutlet(),
-            ),
-          ],
-        ),
+      body: const Row(
+        children: [
+          DrawerPageMain(),
+          CashierMenuMain(),
+          Expanded(
+            child: RouterOutlet(),
+          ),
+        ],
       ),
     );
   }

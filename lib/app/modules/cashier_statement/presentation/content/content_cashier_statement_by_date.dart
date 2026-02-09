@@ -47,9 +47,7 @@ class _ContentCashierStatementState
             return const Center(
                 child: Text("Não encontramos nenhum registro em nossa base."));
           }
-          return SizedBox(
-            height: size.height,
-            width: size.width,
+          return Expanded(
             child: SingleChildScrollView(
               child: Column(children: [
                 _buildSearchInput(),

@@ -22,7 +22,6 @@ class PageDesktopState extends State<PageDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -31,11 +30,7 @@ class PageDesktopState extends State<PageDesktop> {
         title: kAppTitle,
       ),
       drawer: const DrawerPageMobile(),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Expanded(child: Text("Módulos com múltiplas pages")),
-      ),
+      body: const Text("Módulos com múltiplas pages"),
     );
   }
 }

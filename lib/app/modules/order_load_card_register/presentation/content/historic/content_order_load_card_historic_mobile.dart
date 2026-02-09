@@ -41,51 +41,48 @@ class _ContentOrderLoadCardHistoricMobileState
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.bottomCenter,
-                height: 30,
-                child: Text(
-                  'Carregamento do dia  ${widget.orderLoadCard.dtRecord}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    fontFamily: 'OpenSans',
-                  ),
-                ),
-              ),
-              const CustomHeaderOrderLoadCard(),
-            ],
-          ),
+        ),
+        centerTitle: true,
+        title: Text(
+          'Carregamento do dia  ${widget.orderLoadCard.dtRecord}',
+          textAlign: TextAlign.center,
+          style: kTitleAppBarStyle,
         ),
       ),
-      body: SingleChildScrollView(
-        child: CustomBodyOrderLoadCardHistoricWidget(
-          orderLoadCard: widget.orderLoadCard,
-          size: size,
+      body: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Column(
+          children: [
+            const CustomHeaderOrderLoadCard(),
+            Expanded(
+              child: CustomBodyOrderLoadCardHistoricWidget(
+                orderLoadCard: widget.orderLoadCard,
+                size: size,
+              ),
+            ),
+          ],
         ),
       ),
       bottomSheet: _footer(),
     );
   }
 
-  SizedBox _footer() {
-    return SizedBox(
-      height: 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: _custombutton("Sair", (() async {
-              bloc.add(GetListByUserEvent());
-            })),
-          ),
-        ],
+  Widget _footer() {
+    return SafeArea(
+      top: false,
+      child: SizedBox(
+        height: 56,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: _custombutton("Sair", (() async {
+                bloc.add(GetListByUserEvent());
+              })),
+            ),
+          ],
+        ),
       ),
     );
   }

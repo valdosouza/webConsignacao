@@ -59,15 +59,12 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return SizedBox(
-      child: Column(
-        children: [
-          title(),
-          body(size),
-          totalizar(),
-        ],
-      ),
+    return Column(
+      children: [
+        title(),
+        Expanded(child: body()),
+        totalizar(),
+      ],
     );
   }
 
@@ -101,67 +98,60 @@ class _ContentCustomersDebitsState extends State<ContentCustomersDebits> {
     );
   }
 
-  SingleChildScrollView body(Size size) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
-        alignment: Alignment.topCenter,
-        height: size.height - widget.bodyHeight, //- (283 + 60),
-        child: ListView.separated(
-          controller: _scrollController,
-          itemCount: widget.list.length,
-          itemBuilder: (_, index) {
-            return InkWell(
-              splashColor: Colors.red.withValues(alpha: 0.8),
-              hoverColor: kPrimaryColor,
-              onTap: () async {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Text(widget.list[index].nameCustomer),
+  Widget body() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+      child: ListView.separated(
+        controller: _scrollController,
+        itemCount: widget.list.length,
+        itemBuilder: (_, index) {
+          return InkWell(
+            splashColor: Colors.red.withValues(alpha: 0.8),
+            hoverColor: kPrimaryColor,
+            onTap: () async {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Text(widget.list[index].nameCustomer),
+                ),
+                const SizedBox(height: 1),
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    floatToStrF(widget.list[index].currentDebitBalance),
+                    textAlign: TextAlign.right,
+                    style: const TextStyle(),
                   ),
-                  const SizedBox(height: 1),
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      floatToStrF(widget.list[index].currentDebitBalance),
-                      textAlign: TextAlign.right,
-                      style: const TextStyle(),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-          separatorBuilder: (_, __) => const Divider(),
-        ),
+                ),
+              ],
+            ),
+          );
+        },
+        separatorBuilder: (_, __) => const Divider(),
       ),
     );
   }
 
-  SizedBox totalizar() {
-    return SizedBox(
-      height: 100,
-      child: Column(children: [
-        Container(
-          color: kPrimaryColor,
-          child: const Center(
-              child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "Totalizador",
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            ),
-          )),
-        ),
-        const SizedBox(height: 5),
-        Text("Valor total: R\$ ${total()}"),
-        const SizedBox(height: 5),
-        Text("Número de Clientes: ${widget.list.length}"),
-      ]),
-    );
+  Widget totalizar() {
+    return Column(children: [
+      Container(
+        color: kPrimaryColor,
+        child: const Center(
+            child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            "Totalizador",
+            style: TextStyle(fontSize: 16, color: Colors.white),
+          ),
+        )),
+      ),
+      const SizedBox(height: 5),
+      Text("Valor total: R\$ ${total()}"),
+      const SizedBox(height: 5),
+      Text("Número de Clientes: ${widget.list.length}"),
+    ]);
   }
 
   String total() {
