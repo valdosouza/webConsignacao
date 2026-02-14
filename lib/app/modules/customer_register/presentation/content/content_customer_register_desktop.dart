@@ -86,18 +86,6 @@ class _ContentCustomerRegisterDesktopState
                     : "Adicionar Cliente",
                 style: kTitleAppBarStyle,
               ),
-              actions: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.check,
-                    size: 30.0,
-                  ),
-                  onPressed: () {
-                    bloc.add(CustomerRegisterPostByDesktopEvent(
-                        model: bloc.customer));
-                  },
-                ),
-              ],
               bottom: TabBar(
                 controller: _tabController,
                 indicatorWeight: 2.0,
@@ -125,6 +113,13 @@ class _ContentCustomerRegisterDesktopState
                   customer: customer,
                 ),
               ],
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                bloc.add(CustomerRegisterPostByDesktopEvent(model: bloc.customer));
+              },
+              backgroundColor: Colors.black,
+              child: const Icon(Icons.save, color: kSecondaryColor),
             ),
           );
         },

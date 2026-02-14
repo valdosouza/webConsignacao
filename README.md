@@ -1,16 +1,108 @@
-# appweb
+# WebConsignacao
 
-A new Flutter project.
+**Frontend - API Sistema de Consignação**
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🛠️ Stack Detail
+- **Flutter**
+- **Dart**
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🚀 Setup Guide
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter doctor
+flutter clean
+flutter pub get
+flutter pub upgrade
+flutter create .
+flutter run
+```
+flutter devices
+flutter emulators
+flutter emulators --launch Medium_Phone_API_36.0
+---
+
+## 📁 Server
+
+    lib/app/core/shared/constants.dart
+
+---
+
+## 📋 Menu
+
+### 👥 Clientes
+- Cadastro de Clientes
+- Ordem de Bonificação
+- Ordenar Atendimento
+
+### 💰 Caixa
+- Clientes Atendidos
+- Débitos de Clientes
+- Resumo Mensal
+- Média de Venda
+
+### 📦 Produtos
+- Cadastro de Produtos
+- Tabela de Preço
+
+### 🏷️ Estoque
+- Cadastro de Estoque
+- Ajustes de Estoque
+- Transferência de Estoques
+- Carregamento
+- Saldo por Estoque
+
+### 🛠️ Administração
+- Estabelecimento
+- Cadastro de Usuários
+- Cadastro de Rotas
+- Cadastro de Regiões
+
+### 💵 Financeiro
+- Forma de Pagamento
+
+### 🧑‍💼 Pessoal
+- Cargos
+- Colaboradores
+
+### 🏭 Produção
+- Ordem de Produção
+
+### 🚪 Sair
+
+---
+
+## 📌 Version
+
+| Index | Versão    | Descrição         |
+|-------|-----------|--------------------|
+| 1.0   | Versão 01 | Description xxx |
+| 2.0   | Versão 02 | Description xxx |
+
+---
+=======
+	Frontend - API Sistema Consignação
+
+### 🛠️ **Detail Stack:**
+	Flutter, Dart
+
+### 🚀 **Setup Guide:**
+   ```   
+   flutter doctor
+   flutter clean
+   flutter pub get
+   flutter pub upgrade
+   flutter create .
+   flutter run
+   ```
+
+## Summary
+   lib/app/core/shared/constants.dart
+
+Index|Version|Description
+-|-|-
+1.0|Versão 01|Description xxx
+1.0|Versão 01|Description xxx

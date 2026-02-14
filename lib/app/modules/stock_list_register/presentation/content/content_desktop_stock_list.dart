@@ -61,6 +61,9 @@ class _ContentDesktopStockListState extends State<ContentDesktopStockList> {
         final stocks = state.list;
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const AutoSizeText(
               'Lista de estoques',
               style: kTitleAppBarStyle,

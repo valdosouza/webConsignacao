@@ -60,6 +60,9 @@ class _ContentDesktopLinebusinessState
         final prices = state.list;
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const AutoSizeText(
               'Lista de cargos',
               style: kTitleAppBarStyle,

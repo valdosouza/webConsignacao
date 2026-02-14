@@ -50,6 +50,9 @@ class _ContentStockBalanceByStockListState
 
         return Scaffold(
           appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+            ),
             title: const AutoSizeText(
               'Lista de estoques',
               style: kTitleAppBarStyle,
