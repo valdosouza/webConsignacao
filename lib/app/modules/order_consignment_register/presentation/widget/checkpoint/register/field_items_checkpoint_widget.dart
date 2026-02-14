@@ -2,8 +2,12 @@ import 'package:appweb/app/core/shared/utils/function.dart';
 import 'package:appweb/app/modules/order_consignment_register/data/model/order_consignment_checkpoint_model.dart';
 import 'package:flutter/material.dart';
 
-Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
-    int position, bool enabled, int decimal, TextAlign textAlign) {
+Widget fielditemscheckpoint(BuildContext context,
+    OrderConsignmentCheckpointCardModel item,
+    int position,
+    bool enabled,
+    int decimal,
+    TextAlign textAlign) {
   String setTextController(
       OrderConsignmentCheckpointCardModel item, int position) {
     switch (position) {
@@ -27,48 +31,56 @@ Widget fielditemscheckpoint(OrderConsignmentCheckpointCardModel item,
   }
 
   return Container(
-    height: 30,
+    height: 28,
     alignment: Alignment.center,
     margin: const EdgeInsets.only(left: 3.0, top: 0.0, right: 3.0, bottom: 0.0),
     decoration: BoxDecoration(
       border: Border.all(color: Colors.black),
     ),
-    child: Padding(
-      padding: const EdgeInsets.only(left: 2.0),
-      child: TextField(
-          enabled: enabled,
-          keyboardType: TextInputType.number,
-          textAlign: textAlign,
-          onSubmitted: (value) {
-            if (value.isEmpty) value = "0";
-            switch (position) {
-              case 1:
-                item.bonus = double.parse(value);
-                break;
-              case 2:
-                item.nameProduct = value;
-                break;
-              case 3:
-                item.qttyConsigned = double.parse(value);
+    child: TextField(
+      enabled: enabled,
+      keyboardType: TextInputType.number,
+      textAlign: textAlign,
+      textAlignVertical: TextAlignVertical.center,
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Colors.black,
+            fontSize: 12,
+          ),
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+      ),
+      onSubmitted: (value) {
+        if (value.isEmpty) value = "0";
+        switch (position) {
+          case 1:
+            item.bonus = double.parse(value);
+            break;
+          case 2:
+            item.nameProduct = value;
+            break;
+          case 3:
+            item.qttyConsigned = double.parse(value);
 
-                break;
-              case 4:
-                if (value.isNotEmpty) {
-                  item.leftover = double.parse(value);
-                  item.sale = (item.qttyConsigned - item.leftover);
-                  if (item.unitValue == 0) item.unitValue = 1;
-                  item.subtotal =
-                      (item.qttyConsigned - item.leftover) * item.unitValue;
-                } else {
-                  item.leftover = 0;
-                  item.sale = 0;
-                  item.subtotal = 0;
-                }
-                break;
+            break;
+          case 4:
+            if (value.isNotEmpty) {
+              item.leftover = double.parse(value);
+              item.sale = (item.qttyConsigned - item.leftover);
+              if (item.unitValue == 0) item.unitValue = 1;
+              item.subtotal =
+                  (item.qttyConsigned - item.leftover) * item.unitValue;
+            } else {
+              item.leftover = 0;
+              item.sale = 0;
+              item.subtotal = 0;
             }
-          },
-          controller:
-              TextEditingController(text: setTextController(item, position))),
+            break;
+        }
+      },
+      controller:
+          TextEditingController(text: setTextController(item, position)),
     ),
   );
 }

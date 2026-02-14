@@ -41,10 +41,7 @@ class _AuthPageState extends State<AuthPage> {
           children: <Widget>[
             degradeArea(),
             Center(
-              child: SizedBox(
-                width: 400,
-                child: _buildForm(context),
-              ),
+              child: _buildForm(context),
             ),
           ],
         ),

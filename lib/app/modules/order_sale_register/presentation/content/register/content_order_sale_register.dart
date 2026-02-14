@@ -118,29 +118,36 @@ class _ContentOrderSaleRegisterState extends State<ContentOrderSaleRegister> {
         _showBackDialog();
       },
       child: Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: kBoxDecorationflexibleSpace,
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  height: 40,
-                  child: Text(
-                    bloc.modelAttendance.nameCustomer,
-                    style: kTitleAppBarStyle,
-                    textAlign: TextAlign.center,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(95.0),
+          child: AppBar(
+            flexibleSpace: Container(
+              decoration: kBoxDecorationflexibleSpace,
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    height: 40,
+                    child: Text(
+                      bloc.modelAttendance.nameCustomer,
+                      style: kTitleAppBarStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                const CustomHeaderOrderSale(),
-              ],
+                  const CustomHeaderOrderSale(),
+                ],
+              ),
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: CustomBodyOrderSale(
-              size: size, modelOrdersale: bloc.modelOrderSale),
+        body: Column(
+          children: [
+            Expanded(
+              child: CustomBodyOrderSale(
+                  size: size, modelOrdersale: bloc.modelOrderSale),
+            ),
+          ],
         ),
         bottomSheet: (keyboardHide) ? _footer() : null,
       ),

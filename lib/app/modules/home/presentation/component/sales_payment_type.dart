@@ -30,12 +30,8 @@ class SalesPaymentType extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: SizedBox(
-              height: 20,
-              width: 20,
-              child: SvgPicture.asset(
-                svgSrc,
-              ),
+            child: SvgPicture.asset(
+              svgSrc,
             ),
           ),
           Expanded(

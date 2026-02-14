@@ -12,7 +12,9 @@ Widget paymentinfodinheiro(OrderConsignmentCheckpointModel modelCheckpoint) {
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Dinheiro', 32),
+        child: Builder(
+          builder: (context) => headerfield(context, 'Dinheiro', 32),
+        ),
       ),
       Expanded(
         flex: 4,
@@ -35,6 +37,12 @@ Widget paymentinfodinheiro(OrderConsignmentCheckpointModel modelCheckpoint) {
             },
             keyboardType: TextInputType.number,
             textAlign: TextAlign.right,
+            textAlignVertical: TextAlignVertical.center,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+            ),
             onSubmitted: (value) {
               if (value.isNotEmpty) {
                 modelCheckpoint.payments[0].value = double.parse(value);

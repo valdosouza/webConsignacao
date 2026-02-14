@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:appweb/app/core/error/exceptions.dart';
 import 'package:appweb/app/core/gateway.dart';
 
 abstract class SplashDataSource extends Gateway {
@@ -20,7 +19,7 @@ class SplashDataSourceImpl extends SplashDataSource {
         return (data['message'] == 'Valid Token');
       },
       onError: (error) {
-        return Future.error(ServerException());
+        return false;
       },
     );
   }

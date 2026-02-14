@@ -7,7 +7,9 @@ Widget paymentBoletoHistoric(OrderSaleMainCardModel modelOrdersale) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      headerfield('Vencimento', 40),
+      Builder(
+        builder: (context) => headerfield(context, 'Vencimento', 50),
+      ),
       Container(
         height: 40,
         alignment: Alignment.center,
@@ -23,6 +25,12 @@ Widget paymentBoletoHistoric(OrderSaleMainCardModel modelOrdersale) {
               mask: '00/00/0000',
               text: modelOrdersale.payments[0].dtExpiration),
           textAlign: TextAlign.center,
+          textAlignVertical: TextAlignVertical.center,
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            isDense: true,
+            contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+          ),
         ),
       ),
     ],

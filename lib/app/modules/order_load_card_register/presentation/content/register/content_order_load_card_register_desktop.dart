@@ -68,14 +68,25 @@ class _ContentOrderLoadCardRegisterDesktopState
           ),
         ],
       ),
-      body: SizedBox(
-        height: size.height,
-        child: Column(
-          children: [
-            const CustomHeaderOrderLoadCard(),
-            CustomBodyOrderLoadCardWidget(size: size),
-          ],
-        ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final double minTableWidth =
+              constraints.maxWidth < 1100 ? 1100 : constraints.maxWidth;
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              width: minTableWidth,
+              child: Column(
+                children: [
+                  const CustomHeaderOrderLoadCard(),
+                  Expanded(
+                    child: CustomBodyOrderLoadCardWidget(size: size),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

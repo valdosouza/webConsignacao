@@ -4,33 +4,35 @@ import 'package:flutter/material.dart';
 Widget headeritemscheckpoint() {
   return Container(
     alignment: Alignment.center,
-    child: Row(
-      children: [
-        Expanded(
-          flex: 200,
-          child: headerfield('Bonus', 40),
-        ),
-        Expanded(
-          flex: 400,
-          child: headerfield('Descrição', 40),
-        ),
-        Expanded(
-          flex: 270,
-          child: headerfield('Quantidade Consignada', 40),
-        ),
-        Expanded(
-          flex: 200,
-          child: headerfield('Sobra', 40),
-        ),
-        Expanded(
-          flex: 315,
-          child: headerfield('Quantidade Vendida', 40),
-        ),
-        Expanded(
-          flex: 300,
-          child: headerfield('Valor por Produto', 40),
-        ),
-      ],
+    child: Builder(
+      builder: (context) => Row(
+        children: [
+          Expanded(
+            flex: 200,
+            child: headerfield(context, 'Bonus', 50),
+          ),
+          Expanded(
+            flex: 400,
+            child: headerfield(context, 'Descrição', 50),
+          ),
+          Expanded(
+            flex: 270,
+            child: headerfield(context, 'Quantidade Consignada', 50),
+          ),
+          Expanded(
+            flex: 200,
+            child: headerfield(context, 'Sobra', 50),
+          ),
+          Expanded(
+            flex: 315,
+            child: headerfield(context, 'Quantidade Vendida', 50),
+          ),
+          Expanded(
+            flex: 300,
+            child: headerfield(context, 'Valor por Produto', 50),
+          ),
+        ],
+      ),
     ),
   );
 }

@@ -16,26 +16,19 @@ class CustomBodyCheckpoint extends StatefulWidget {
 class _CustomBodyCheckpointState extends State<CustomBodyCheckpoint> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height - 127,
-      width: widget.size.width,
-      child: Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 9,
-              child: listitemscheckpoint(
-                  widget.modelCheckpoint.items, widget.size),
-            ),
-            Expanded(
-              flex: 3,
-              child: paymentinfo(widget.modelCheckpoint),
-            ),
-          ],
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 9,
+          child: listitemscheckpoint(widget.modelCheckpoint.items, widget.size),
         ),
-      ),
+        Expanded(
+          flex: 3,
+          child: paymentinfo(widget.modelCheckpoint),
+        ),
+      ],
     );
   }
 }

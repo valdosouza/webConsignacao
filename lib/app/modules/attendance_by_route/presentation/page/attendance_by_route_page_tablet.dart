@@ -23,7 +23,6 @@ class AttendanceByRoutePageTabletState
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -31,11 +30,7 @@ class AttendanceByRoutePageTabletState
         ),
         title: kAppTitle,
       ),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Text("Atendimento por Rota de Venda - Tablet"),
-      ),
+      body: const Text("Atendimento por Rota de Venda - Tablet"),
     );
   }
 }

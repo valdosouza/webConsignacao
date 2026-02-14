@@ -16,26 +16,20 @@ class CustomBodyOrderSale extends StatefulWidget {
 class _CustomBodyOrderSaleState extends State<CustomBodyOrderSale> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height - 127,
-      width: widget.size.width,
-      child: Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 9,
-              child: listitemsordersale(
-                  widget.modelOrdersale.items, widget.size, context),
-            ),
-            Expanded(
-              flex: 3,
-              child: paymentinfo(widget.modelOrdersale),
-            ),
-          ],
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 9,
+          child: listitemsordersale(
+              widget.modelOrdersale.items, widget.size, context),
         ),
-      ),
+        Expanded(
+          flex: 3,
+          child: paymentinfo(context, widget.modelOrdersale),
+        ),
+      ],
     );
   }
 }

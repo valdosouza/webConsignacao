@@ -42,31 +42,38 @@ class _ContentOrderSaleHistoricState extends State<ContentOrderSaleHistoric> {
     final Size size = MediaQuery.of(context).size;
     final bool keyboardHide = (MediaQuery.of(context).viewInsets.bottom == 0);
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: kBoxDecorationflexibleSpace,
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.bottomCenter,
-                height: 40,
-                child: AutoSizeText(
-                  "${widget.model.order.dtRecord}  ${widget.model.order.hrRecord} - ${widget.model.order.nameCustomer}",
-                  style: kTitleAppBarStyle,
-                  textAlign: TextAlign.center,
-                  maxFontSize: 18,
-                  minFontSize: 12,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(95.0),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: kBoxDecorationflexibleSpace,
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  height: 40,
+                  child: AutoSizeText(
+                    "${widget.model.order.dtRecord}  ${widget.model.order.hrRecord} - ${widget.model.order.nameCustomer}",
+                    style: kTitleAppBarStyle,
+                    textAlign: TextAlign.center,
+                    maxFontSize: 18,
+                    minFontSize: 12,
+                  ),
                 ),
-              ),
-              const CustomHeaderOrderSale(),
-            ],
+                const CustomHeaderOrderSale(),
+              ],
+            ),
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: CustomBodyOrderSaleHistoricWidget(
-            size: size, modelOrdersale: widget.model),
+      body: Column(
+        children: [
+          Expanded(
+            child: CustomBodyOrderSaleHistoricWidget(
+                size: size, modelOrdersale: widget.model),
+          ),
+        ],
       ),
       bottomSheet: (keyboardHide) ? _footer() : null,
     );

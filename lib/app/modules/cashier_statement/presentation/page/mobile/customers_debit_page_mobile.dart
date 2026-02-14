@@ -37,7 +37,6 @@ class CustomersDebitPageMobileState extends State<CustomersDebitPageMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
@@ -66,16 +65,14 @@ class CustomersDebitPageMobileState extends State<CustomersDebitPageMobile> {
             if (state is LoadingState) {
               return const CustomCircularProgressIndicator();
             }
-            return SizedBox(
-              height: size.height,
-              width: size.width,
-              child: Column(
-                children: [
-                  search(),
-                  ContentCustomersDebits(
+            return Column(
+              children: [
+                search(),
+                Expanded(
+                  child: ContentCustomersDebits(
                       list: bloc.customerDebits, bodyHeight: 283),
-                ],
-              ),
+                ),
+              ],
             );
           },
         ));

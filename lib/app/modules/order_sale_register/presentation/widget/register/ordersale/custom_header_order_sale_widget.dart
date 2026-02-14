@@ -8,7 +8,7 @@ class CustomHeaderOrderSale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

@@ -61,17 +61,20 @@ class _ContentConsignmenteSupplyingState
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: CustomBodySupplyingHistoricWidget(
-            size: size, modelSupplying: widget.modelSupplying),
+      body: Column(
+        children: [
+          Expanded(
+            child: CustomBodySupplyingHistoricWidget(
+                size: size, modelSupplying: widget.modelSupplying),
+          ),
+        ],
       ),
       bottomSheet: _footer(),
     );
   }
 
-  SizedBox _footer() {
-    return SizedBox(
-      height: 40,
+  Expanded _footer() {
+    return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -30,8 +30,10 @@ class _CashierStatementMenuMobileState
 
   @override
   Widget build(BuildContext context) {
+    final double drawerWidth = MediaQuery.of(context).size.width;
     menu() {
       return Drawer(
+        width: drawerWidth,
         child: ListView(
           children: <Widget>[
             itemMenuDraw(

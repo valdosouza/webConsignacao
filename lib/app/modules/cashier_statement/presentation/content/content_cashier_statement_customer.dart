@@ -33,7 +33,6 @@ class _ContentCashierStatementCustomerState
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         Container(
@@ -59,9 +58,7 @@ class _ContentCashierStatementCustomerState
               ),
             )),
         const SizedBox(height: 10),
-        SizedBox(
-          height: size.height - 331,
-          width: size.width,
+        Expanded(
           child: SingleChildScrollView(
             child: ExpansionPanelList(
               expansionCallback: (int index, bool isExpanded) {

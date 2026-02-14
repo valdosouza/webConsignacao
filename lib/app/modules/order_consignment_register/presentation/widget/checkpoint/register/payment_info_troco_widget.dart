@@ -32,7 +32,9 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Troco', 32),
+        child: Builder(
+          builder: (context) => headerfield(context, 'Troco', 32),
+        ),
       ),
       Expanded(
         flex: 4,
@@ -50,6 +52,12 @@ Widget paymentinfotroco(OrderConsignmentCheckpointModel modelCheckpoint) {
               text: calcChange(),
             ),
             textAlign: TextAlign.right,
+            textAlignVertical: TextAlignVertical.center,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+            ),
           ),
         ),
       ),

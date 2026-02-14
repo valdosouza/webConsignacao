@@ -34,115 +34,106 @@ class CustomerListeMobileState extends State<CustomerListMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          _buildSearchInput(),
-          SizedBox(
-            height: size.height - 133,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2.0),
-              child: widget.lista.isEmpty
-                  ? const Center(
-                      child: Text(
-                          "Não encontramos nenhum registro em nossa base."))
-                  : ListView.separated(
-                      itemCount: widget.lista.length,
-                      itemBuilder: (context, index) => ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: (Colors.black),
-                          child: IconButton(
-                            icon:
-                                const Icon(Icons.edit, color: kSecondaryColor),
-                            onPressed: () {
-                              Modular.to.navigate(
-                                '/attendancecustomer/mobile/register/edit/customer-register/',
-                                arguments: widget.lista[index].id,
-                              );
-                            },
-                          ),
-                        ),
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AutoSizeText(
-                              widget.lista[index].nickTrade,
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                              maxLines: 2,
-                            ),
-                            AutoSizeText(
-                              "End: ${widget.lista[index].street}, ${widget.lista[index].nmbr}",
-                              style: const TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.normal),
-                              maxLines: 1,
-                            ),
-                            (widget.lista[index].complement.startsWith("https"))
-                                ? SizedBox(
-                                    child: Link(
-                                        uri: Uri.parse(widget
-                                            .lista[index].complement
-                                            .trim()),
-                                        target: LinkTarget.blank,
-                                        builder: (context, followLink) {
-                                          return ElevatedButton(
-                                            style: kElevatedButtonStyleRed,
-                                            onPressed: followLink,
-                                            child: const Text(
-                                              "Ver no mapa",
-                                              style: kElevatedButtonTextStyle,
-                                            ),
-                                          );
-                                        }),
-                                  )
-                                : (widget.lista[index].complement.isNotEmpty)
-                                    ? Text(
-                                        "Comp: ${widget.lista[index].complement}",
-                                        style: const TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.normal),
-                                      )
-                                    : const Text("")
-                          ],
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.arrow_forward_ios_outlined),
+    return Column(
+      children: [
+        _buildSearchInput(),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+            child: widget.lista.isEmpty
+                ? const Center(
+                    child:
+                        Text("Não encontramos nenhum registro em nossa base."))
+                : ListView.separated(
+                    itemCount: widget.lista.length,
+                    itemBuilder: (context, index) => ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: (Colors.black),
+                        child: IconButton(
+                          icon: const Icon(Icons.edit, color: kSecondaryColor),
                           onPressed: () {
-                            OrderAttendanceModel orderAttemdance =
-                                OrderAttendanceModel(
-                              id: 0,
-                              tbInstitutionId: 0,
-                              tbUserId: 0,
-                              dtRecord: CustomDate.newDate(),
-                              tbCustomerId: widget.lista[index].id,
-                              nameCustomer: widget.lista[index].nickTrade,
-                              tbSalesmanId: 0,
-                              nameSalesman: "",
-                              tbPriceListId: 0,
-                              note: "",
-                              status: "A",
-                              visited: "S",
-                              charged: "N",
-                              recall: "N",
-                              finished: "N",
-                              longitude: "",
-                              latitude: "",
-                              routeRetorn: '/attendancecustomer/mobile/',
-                            );
                             Modular.to.navigate(
-                              '/attendance/',
-                              arguments: orderAttemdance,
+                              '/attendancecustomer/mobile/register/edit/customer-register/',
+                              arguments: widget.lista[index].id,
                             );
                           },
                         ),
                       ),
-                      separatorBuilder: (_, __) => const Divider(),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AutoSizeText(
+                            widget.lista[index].nickTrade,
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                            maxLines: 2,
+                          ),
+                          AutoSizeText(
+                            "End: ${widget.lista[index].street}, ${widget.lista[index].nmbr}",
+                            style: const TextStyle(
+                                fontSize: 10, fontWeight: FontWeight.normal),
+                            maxLines: 1,
+                          ),
+                          if (widget.lista[index].complement.startsWith("https"))
+                            Link(
+                              uri: Uri.parse(
+                                  widget.lista[index].complement.trim()),
+                              target: LinkTarget.blank,
+                              builder: (context, followLink) {
+                                return ElevatedButton(
+                                  style: kElevatedButtonStyleRed,
+                                  onPressed: followLink,
+                                  child: const Text(
+                                    "Ver no mapa",
+                                    style: kElevatedButtonTextStyle,
+                                  ),
+                                );
+                              },
+                            )
+                          else if (widget.lista[index].complement.isNotEmpty)
+                            Text(
+                              "Comp: ${widget.lista[index].complement}",
+                              style: const TextStyle(
+                                  fontSize: 10, fontWeight: FontWeight.normal),
+                            ),
+                        ],
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.arrow_forward_ios_outlined),
+                        onPressed: () {
+                          OrderAttendanceModel orderAttemdance =
+                              OrderAttendanceModel(
+                            id: 0,
+                            tbInstitutionId: 0,
+                            tbUserId: 0,
+                            dtRecord: CustomDate.newDate(),
+                            tbCustomerId: widget.lista[index].id,
+                            nameCustomer: widget.lista[index].nickTrade,
+                            tbSalesmanId: 0,
+                            nameSalesman: "",
+                            tbPriceListId: 0,
+                            note: "",
+                            status: "A",
+                            visited: "S",
+                            charged: "N",
+                            recall: "N",
+                            finished: "N",
+                            longitude: "",
+                            latitude: "",
+                            routeRetorn: '/attendancecustomer/mobile/',
+                          );
+                          Modular.to.navigate(
+                            '/attendance/',
+                            arguments: orderAttemdance,
+                          );
+                        },
+                      ),
                     ),
-            ),
+                    separatorBuilder: (_, __) => const Divider(),
+                  ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

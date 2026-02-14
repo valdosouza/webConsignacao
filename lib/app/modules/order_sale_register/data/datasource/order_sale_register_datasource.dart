@@ -54,7 +54,7 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
         return OrderSaleModel.fromJson(data);
       },
       onError: (error) {
-        return Future.error(ServerException());
+        throw ServerException();
       },
     );
   }
@@ -77,7 +77,7 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
         return orderSaleCard;
       },
       onError: (error) {
-        return Future.error(ServerException());
+        throw ServerException();
       },
     );
   }
@@ -105,7 +105,7 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
           return orderSaleList;
         },
         onError: (error) {
-          return Future.error(ServerException());
+          throw ServerException();
         },
       );
     } catch (error) {
@@ -128,7 +128,7 @@ class OrderSaleRegisterDatasourceImpl extends OrderSaleRegisterDatasource {
           return OrderSaleMainCardModel.fromJson(data);
         },
         onError: (error) {
-          return Future.error(ServerException());
+          throw ServerException();
         },
       );
     } catch (error) {

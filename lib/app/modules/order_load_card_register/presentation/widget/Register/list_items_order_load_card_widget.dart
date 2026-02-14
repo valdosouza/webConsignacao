@@ -10,39 +10,39 @@ Widget listitemsorderLoadCard(List<OrderLoadCardItemsModel> items) {
       child: Row(
         children: [
           Expanded(
-            flex: 500,
+            flex: 4,
             child: fielditemsorderLoadCard(
-                items[index], 1, false, 0, TextAlign.left),
+                context, items[index], 1, false, 0, TextAlign.left),
           ),
           Expanded(
-            flex: 250,
+            flex: 2,
             child: fielditemsorderLoadCard(
-                items[index], 2, false, 0, TextAlign.center),
+                context, items[index], 2, false, 0, TextAlign.center),
           ),
           Expanded(
-            flex: 250,
+            flex: 2,
             child: fielditemsorderLoadCard(
-                items[index], 3, false, 0, TextAlign.center),
+                context, items[index], 3, false, 0, TextAlign.center),
           ),
           Expanded(
-            flex: 250,
+            flex: 2,
             child: fielditemsorderLoadCard(
-                items[index], 4, false, 0, TextAlign.center),
+                context, items[index], 4, false, 0, TextAlign.center),
           ),
           Expanded(
-            flex: 250,
-            child: fielditemsorderLoadCard(
-                items[index], 5, (items[index].id == 0), 0, TextAlign.center),
+            flex: 2,
+            child: fielditemsorderLoadCard(context, items[index], 5,
+                (items[index].id == 0), 0, TextAlign.center),
           ),
           Expanded(
-            flex: 250,
-            child: fielditemsorderLoadCard(
-                items[index], 6, (items[index].id == 0), 0, TextAlign.center),
+            flex: 2,
+            child: fielditemsorderLoadCard(context, items[index], 6,
+                (items[index].id == 0), 0, TextAlign.center),
           ),
           Expanded(
-            flex: 250,
+            flex: 2,
             child: fielditemsorderLoadCard(
-                items[index], 7, false, 0, TextAlign.center),
+                context, items[index], 7, false, 0, TextAlign.center),
           ),
         ],
       ),

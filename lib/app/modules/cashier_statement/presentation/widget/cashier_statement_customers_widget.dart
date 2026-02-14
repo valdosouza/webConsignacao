@@ -35,13 +35,10 @@ class _CashierStatementCustomerWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
-    return SizedBox(
-      height: size.height,
-      width: size.width,
+    return Expanded(
       child: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             buildSearchInput(),
             buildTittleCustomerList(),
@@ -135,109 +132,97 @@ class _CashierStatementCustomerWidgetState
     );
   }
 
-  SizedBox buildContentCustomerList() {
-    final Size size = MediaQuery.of(context).size;
-
-    return SizedBox(
-      height: size.height - 268,
-      width: size.width,
-      child: SingleChildScrollView(
-        child: ExpansionPanelList(
-          expansionCallback: (int index, bool isExpanded) {
-            setState(() => (bloc.customers[index].expanded = isExpanded));
-          },
-          children: bloc.customers
-              .map<ExpansionPanel>((CashierStatementCustomerModel customer) {
-            return ExpansionPanel(
-                isExpanded: customer.expanded,
-                canTapOnHeader: true,
-                headerBuilder: (BuildContext context, bool isExpanded) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                        onTap: () {
-                          bloc.customerIndex = bloc.customers.indexOf(customer);
-                          if (customer.valuerCharged > 0) {
-                            bloc.add(
-                              CashierStatementGetByOrderMobileEvent(
-                                params: CashierStatementParams(
-                                  date: bloc.dateSelected,
-                                  tbCustomerId: customer.id,
-                                  tbOrderId: customer.tbOrderId,
-                                ),
-                              ),
-                            );
-                            Modular.to
-                                .navigate('/cashierstatement/mobile/byorder/');
-                          } else {
-                            CustomToast.showToast(
-                                "Somente atendimento Registrado!");
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                  flex: 3, child: Text(customer.nameCustomer)),
-                              Expanded(
-                                  flex: 1, child: Text(customer.timeAttendace)),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  floatToStrF(customer.valuerCharged),
-                                  textAlign: TextAlign.right,
-                                ),
-                              ),
-                            ],
+  Widget buildContentCustomerList() {
+    return ExpansionPanelList(
+      expansionCallback: (int index, bool isExpanded) {
+        setState(() => (bloc.customers[index].expanded = isExpanded));
+      },
+      children: bloc.customers
+          .map<ExpansionPanel>((CashierStatementCustomerModel customer) {
+        return ExpansionPanel(
+            isExpanded: customer.expanded,
+            canTapOnHeader: true,
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                    onTap: () {
+                      bloc.customerIndex = bloc.customers.indexOf(customer);
+                      if (customer.valuerCharged > 0) {
+                        bloc.add(
+                          CashierStatementGetByOrderMobileEvent(
+                            params: CashierStatementParams(
+                              date: bloc.dateSelected,
+                              tbCustomerId: customer.id,
+                              tbOrderId: customer.tbOrderId,
+                            ),
                           ),
-                        )),
-                  );
-                },
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Observações",
-                      style: kLabelStyle,
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      customer.note,
-                      textAlign: TextAlign.left,
-                    ),
-                    const SizedBox(height: 5),
-                  ],
-                ));
-          }).toList(),
-        ),
-      ),
+                        );
+                        Modular.to
+                            .navigate('/cashierstatement/mobile/byorder/');
+                      } else {
+                        CustomToast.showToast("Somente atendimento Registrado!");
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                              flex: 3, child: Text(customer.nameCustomer)),
+                          Expanded(
+                              flex: 1, child: Text(customer.timeAttendace)),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              floatToStrF(customer.valuerCharged),
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+              );
+            },
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Text(
+                  "Observações",
+                  style: kLabelStyle,
+                  textAlign: TextAlign.left,
+                ),
+                Text(
+                  customer.note,
+                  textAlign: TextAlign.left,
+                ),
+                const SizedBox(height: 5),
+              ],
+            ));
+      }).toList(),
     );
   }
 
-  SizedBox buildtotalizar() {
-    return SizedBox(
-      height: 101,
-      child: Column(children: [
-        Container(
-          color: kPrimaryColor,
-          child: const Center(
-              child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "Totais",
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            ),
-          )),
-        ),
-        const SizedBox(height: 10),
-        Text("Valor: R\$ ${totalCashier()}"),
-        const SizedBox(height: 5),
-        Text("Quantidade de clientes: ${bloc.customers.length}"),
-        const SizedBox(height: 5),
-      ]),
-    );
+  Widget buildtotalizar() {
+    return Column(children: [
+      Container(
+        color: kPrimaryColor,
+        child: const Center(
+            child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            "Totais",
+            style: TextStyle(fontSize: 16, color: Colors.white),
+          ),
+        )),
+      ),
+      const SizedBox(height: 10),
+      Text("Valor: R\$ ${totalCashier()}"),
+      const SizedBox(height: 5),
+      Text("Quantidade de clientes: ${bloc.customers.length}"),
+      const SizedBox(height: 5),
+    ]);
   }
 
   double totalCashier() {

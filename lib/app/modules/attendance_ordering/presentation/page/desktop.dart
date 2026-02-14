@@ -38,7 +38,6 @@ class DesktopState extends State<Desktop> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
@@ -66,9 +65,7 @@ class DesktopState extends State<Desktop> {
             if (state is RouteLoadedState) {
               return const RouteListDesktop();
             }
-            return SizedBox(
-              height: size.height,
-              width: size.width,
+            return Expanded(
               child: Column(
                 children: [
                   search(),

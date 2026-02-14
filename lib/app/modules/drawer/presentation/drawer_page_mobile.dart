@@ -36,11 +36,9 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Sobre o Aplicativo.'),
-          content: const AutoSizeText(
+          content: const Text(
             "Esta é Versão 1.0.1+67.",
-            minFontSize: 12,
-            maxFontSize: 18,
-            maxLines: 2,
+            softWrap: true,
           ),
           actions: <Widget>[
             TextButton(

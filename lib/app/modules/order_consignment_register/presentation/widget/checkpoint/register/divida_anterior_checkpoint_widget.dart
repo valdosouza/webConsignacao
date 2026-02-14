@@ -12,7 +12,9 @@ Widget dividaanteriorcheckpoint(
       children: [
         Expanded(
           flex: 5,
-          child: headerfield('Div. Anterior', 33),
+          child: Builder(
+            builder: (context) => headerfield(context, 'Div. Anterior', 33),
+          ),
         ),
         Expanded(
           flex: 4,

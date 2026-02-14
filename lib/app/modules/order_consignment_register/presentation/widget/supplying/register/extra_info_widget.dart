@@ -20,32 +20,30 @@ class _ExtraInfoState extends State<ExtraInfo> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Checkbox(
-                checkColor: Colors.white,
-                value: isChecked,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isChecked = value!;
-                    (isChecked)
-                        ? widget.modelSupplying.order.recall = "S"
-                        : widget.modelSupplying.order.recall = "N";
-                  });
-                },
-              ),
-              const Text("Produto recolhido"),
-            ],
-          ),
-          Container(
-            height: widget.size.height - 220,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Checkbox(
+              checkColor: Colors.white,
+              value: isChecked,
+              onChanged: (bool? value) {
+                setState(() {
+                  isChecked = value!;
+                  (isChecked)
+                      ? widget.modelSupplying.order.recall = "S"
+                      : widget.modelSupplying.order.recall = "N";
+                });
+              },
+            ),
+            const Text("Produto recolhido"),
+          ],
+        ),
+        Expanded(
+          child: Container(
             alignment: Alignment.topCenter,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
@@ -68,9 +66,9 @@ class _ExtraInfoState extends State<ExtraInfo> {
               ),
             ),
           ),
-          dividaatualsupplying(widget.modelSupplying),
-        ],
-      ),
+        ),
+        dividaatualsupplying(widget.modelSupplying),
+      ],
     );
   }
 }

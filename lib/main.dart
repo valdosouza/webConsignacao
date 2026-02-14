@@ -7,7 +7,7 @@ import 'main_android.dart' if (dart.library.html) 'main_web.dart'
     as main_platform;
 
 Future<void> main() async {
-  main_general.init();
+  await main_general.init();
   main_platform.init();
   runApp(
     ModularApp(

@@ -23,7 +23,6 @@ class _AdminPageMobileState extends State<AdminPageMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -32,11 +31,7 @@ class _AdminPageMobileState extends State<AdminPageMobile> {
         title: kAppTitle,
       ),
       drawer: const DrawerPageMobile(),
-      body: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: const Text("Disponivel apenas para Desktop"),
-      ),
+      body: const Text("Disponivel apenas para Desktop"),
     );
   }
 }

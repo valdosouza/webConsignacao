@@ -44,6 +44,12 @@ class _PaymentInfoCashHistoricState extends State<PaymentInfoCashHistoric> {
               enabled: false,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
+              textAlignVertical: TextAlignVertical.center,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+              ),
             ),
           ),
         ),

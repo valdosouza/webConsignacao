@@ -134,14 +134,12 @@ class _ContentOrderLoadCardListState extends State<ContentOrderLoadCardList> {
   }
 
   Widget buildContentOrderList() {
-    final Size size = MediaQuery.of(context).size;
-    return widget.orderList.isEmpty
-        ? const Center(
-            child: Text("Não encontramos nenhum registro em nossa base."))
-        : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: size.height - 149,
+    return Expanded(
+      child: widget.orderList.isEmpty
+          ? const Center(
+              child: Text("Não encontramos nenhum registro em nossa base."))
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
               child: ListView.separated(
                 itemCount: widget.orderList.length,
                 itemBuilder: (context, index) => ListTile(
@@ -175,6 +173,6 @@ class _ContentOrderLoadCardListState extends State<ContentOrderLoadCardList> {
                 separatorBuilder: (_, __) => const Divider(),
               ),
             ),
-          );
+    );
   }
 }

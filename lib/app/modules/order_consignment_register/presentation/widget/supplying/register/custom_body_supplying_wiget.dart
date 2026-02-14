@@ -16,27 +16,20 @@ class CustomBodySupplying extends StatefulWidget {
 class _CustomBodySupplyingState extends State<CustomBodySupplying> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height - 127,
-      width: widget.size.width,
-      child: Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 9,
-              child:
-                  listitemssupplying(widget.modelSupplying.items, widget.size),
-            ),
-            Expanded(
-              flex: 3,
-              child: ExtraInfo(
-                  modelSupplying: widget.modelSupplying, size: widget.size),
-            ),
-          ],
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 9,
+          child: listitemssupplying(widget.modelSupplying.items, widget.size),
         ),
-      ),
+        Expanded(
+          flex: 3,
+          child:
+              ExtraInfo(modelSupplying: widget.modelSupplying, size: widget.size),
+        ),
+      ],
     );
   }
 }

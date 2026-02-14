@@ -86,78 +86,75 @@ class _ContentOrderLoadCardRegisterMobileState
         appBar: AppBar(
           flexibleSpace: Container(
             decoration: kBoxDecorationflexibleSpace,
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  height: 30,
-                  child: const Text(
-                    "Carregamento do próximo dia",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      fontFamily: 'OpenSans',
-                    ),
-                  ),
-                ),
-                const CustomHeaderOrderLoadCard(),
-              ],
-            ),
+          ),
+          centerTitle: true,
+          title: const Text(
+            "Carregamento do próximo dia",
+            textAlign: TextAlign.center,
+            style: kTitleAppBarStyle,
           ),
         ),
-        body: SingleChildScrollView(
-          child: CustomBodyOrderLoadCardWidget(size: size),
+        body: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Column(
+            children: [
+              const CustomHeaderOrderLoadCard(),
+              Expanded(
+                child: CustomBodyOrderLoadCardWidget(size: size),
+              ),
+            ],
+          ),
         ),
         bottomSheet: (keyboardHide) ? _footer() : null,
       ),
     );
   }
 
-  SizedBox _footer() {
-    return SizedBox(
-      height: 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: _custombutton("Voltar", (() {
-              _showBackDialog();
-            })),
-          ),
-          Expanded(
-            flex: 1,
-            child: _custombutton(
-                "Limpar", () => bloc.add(OrderLoadCardRegisterClearEvent())),
-          ),
-          Expanded(
-            flex: 1,
-            child: _custombutton(
-                "Histórico", (() => bloc.add(GetListByUserEvent()))),
-          ),
-          Expanded(
-            flex: 1,
-            child: (bloc.modelLoadCard.id == 0)
-                ? _custombutton(
-                    "Finalizar", (() => {bloc.add(OrderLoadCardPostEvent())}))
-                : _custombutton(
-                    "Consultar",
-                    (() {
-                      //no mobile pode passar zero que no datasource ele preenche
-                      bloc.add(
-                        OrderLoadCardRegisterGetCardEvent(
-                            params: ParamsGetNewOrderLoadCard(
-                          tbSalesmanId: 0,
-                          dtRecord: "",
-                        )),
-                      );
-                    }),
-                  ),
-          ),
-        ],
+  Widget _footer() {
+    return SafeArea(
+      top: false,
+      child: SizedBox(
+        height: 56,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: _custombutton("Voltar", (() {
+                _showBackDialog();
+              })),
+            ),
+            Expanded(
+              flex: 1,
+              child: _custombutton(
+                  "Limpar", () => bloc.add(OrderLoadCardRegisterClearEvent())),
+            ),
+            Expanded(
+              flex: 1,
+              child: _custombutton(
+                  "Histórico", (() => bloc.add(GetListByUserEvent()))),
+            ),
+            Expanded(
+              flex: 1,
+              child: (bloc.modelLoadCard.id == 0)
+                  ? _custombutton(
+                      "Finalizar", (() => {bloc.add(OrderLoadCardPostEvent())}))
+                  : _custombutton(
+                      "Consultar",
+                      (() {
+                        //no mobile pode passar zero que no datasource ele preenche
+                        bloc.add(
+                          OrderLoadCardRegisterGetCardEvent(
+                              params: ParamsGetNewOrderLoadCard(
+                            tbSalesmanId: 0,
+                            dtRecord: "",
+                          )),
+                        );
+                      }),
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

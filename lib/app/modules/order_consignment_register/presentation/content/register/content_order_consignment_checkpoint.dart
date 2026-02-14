@@ -109,49 +109,56 @@ class _ContentConsignmenteCheckpointState
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: CustomBodyCheckpoint(
-              size: size, modelCheckpoint: bloc.modelCheckpoint),
+        body: Column(
+          children: [
+            Expanded(
+              child: CustomBodyCheckpoint(
+                  size: size, modelCheckpoint: bloc.modelCheckpoint),
+            ),
+          ],
         ),
         bottomSheet: (keyboardHide) ? _footer() : null,
       ),
     );
   }
 
-  SizedBox _footer() {
-    return SizedBox(
-      height: 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: _custombutton("Voltar", (() async {
-              _showBackDialog();
-            })),
-          ),
-          Expanded(
-            flex: 1,
-            child: _custombutton("Limpar",
-                () => bloc.add(OrderConsignmentRegisterClearCheckoutEvent())),
-          ),
-          Expanded(
-            flex: 1,
-            child: _custombutton("Informações", (() {
-              bloc.add(OrderConsignmentRegisterGetlistEvent(
-                  tbCustomerId: widget.checkpointmodel.order.tbCustomerId));
-            })),
-          ),
-          Expanded(
-            flex: 1,
-            child: _custombutton(
-                "Finalizar",
-                (() => {
-                      bloc.add(OrderConsignementRegisterCheckpointPostEvent(
-                          checkpointmodel: bloc.modelCheckpoint))
-                    })),
-          ),
-        ],
+  Widget _footer() {
+    return SafeArea(
+      top: false,
+      child: SizedBox(
+        height: 56,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: _custombutton("Voltar", (() async {
+                _showBackDialog();
+              })),
+            ),
+            Expanded(
+              flex: 1,
+              child: _custombutton("Limpar",
+                  () => bloc.add(OrderConsignmentRegisterClearCheckoutEvent())),
+            ),
+            Expanded(
+              flex: 1,
+              child: _custombutton("Informações", (() {
+                bloc.add(OrderConsignmentRegisterGetlistEvent(
+                    tbCustomerId: widget.checkpointmodel.order.tbCustomerId));
+              })),
+            ),
+            Expanded(
+              flex: 1,
+              child: _custombutton(
+                  "Finalizar",
+                  (() => {
+                        bloc.add(OrderConsignementRegisterCheckpointPostEvent(
+                            checkpointmodel: bloc.modelCheckpoint))
+                      })),
+            ),
+          ],
+        ),
       ),
     );
   }

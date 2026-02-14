@@ -36,8 +36,7 @@ Widget salesChart(BuildContext context, List<HomeSalesPaymentTypeModel> list) {
     contador++;
   }
 
-  return SizedBox(
-    height: 200,
+  return Expanded(
     child: Stack(
       children: [
         PieChart(

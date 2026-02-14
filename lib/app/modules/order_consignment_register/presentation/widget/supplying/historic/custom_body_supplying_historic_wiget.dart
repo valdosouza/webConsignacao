@@ -18,27 +18,21 @@ class _CustomBodySupplyingHistoricWidgetState
     extends State<CustomBodySupplyingHistoricWidget> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height - 127,
-      width: widget.size.width,
-      child: Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 9,
-              child: listitemssupplyinghistoric(
-                  widget.modelSupplying.items, widget.size),
-            ),
-            Expanded(
-              flex: 3,
-              child: ExtraInfoHistoric(
-                  modelSupplying: widget.modelSupplying, size: widget.size),
-            ),
-          ],
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 9,
+          child: listitemssupplyinghistoric(
+              widget.modelSupplying.items, widget.size),
         ),
-      ),
+        Expanded(
+          flex: 3,
+          child: ExtraInfoHistoric(
+              modelSupplying: widget.modelSupplying, size: widget.size),
+        ),
+      ],
     );
   }
 }

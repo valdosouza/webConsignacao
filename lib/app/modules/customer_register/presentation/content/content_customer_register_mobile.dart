@@ -53,7 +53,6 @@ class _ContentCustomerRegisterMobileState
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return PopScope(
       canPop: true,
       onPopInvokedWithResult: (bool didPop, Object? result) async {
@@ -105,32 +104,32 @@ class _ContentCustomerRegisterMobileState
                 tabs: myTabs,
               ),
             ),
-            body: SingleChildScrollView(
-              child: SizedBox(
-                height: size.height - 150,
-                width: size.width,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: <Widget>[
-                    CustomerRegisterIdentificationWidget(
-                      bloc: bloc,
-                      customer: customer,
-                    ),
-                    CustomerRegisterAddressWidget(
-                      bloc: bloc,
-                      customer: customer,
-                    ),
-                    CustomerRegisterPhoneWidget(
-                      bloc: bloc,
-                      customer: customer,
-                    ),
-                    CustomerRegisterOthersMobileWidget(
-                      bloc: bloc,
-                      customer: customer,
-                    ),
-                  ],
+            body: Column(
+              children: [
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: <Widget>[
+                      CustomerRegisterIdentificationWidget(
+                        bloc: bloc,
+                        customer: customer,
+                      ),
+                      CustomerRegisterAddressWidget(
+                        bloc: bloc,
+                        customer: customer,
+                      ),
+                      CustomerRegisterPhoneWidget(
+                        bloc: bloc,
+                        customer: customer,
+                      ),
+                      CustomerRegisterOthersMobileWidget(
+                        bloc: bloc,
+                        customer: customer,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
           );
         },

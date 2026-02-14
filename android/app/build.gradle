@@ -86,10 +86,6 @@ android {
         // Use println para exibir mensagens no console 
         println("Configuracoes de assinatura:")
         println("StoreFile: ${signingConfigs.release.storeFile}")
-        println("StorePassword: ${signingConfigs.release.storePassword}")
-        println("KeyAlias: ${signingConfigs.release.keyAlias}")
-        println("KeyPassword: ${signingConfigs.release.keyPassword}")
-        println("flutterCompileSdkVersion: $flutterCompileSdkVersion")
     }       
 }
 

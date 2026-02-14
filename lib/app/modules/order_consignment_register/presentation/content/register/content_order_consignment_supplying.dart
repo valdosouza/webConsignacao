@@ -143,18 +143,21 @@ class _ContentConsignmenteSupplyingState
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: CustomBodySupplying(
-              size: size, modelSupplying: bloc.modelSupplying),
+        body: Column(
+          children: [
+            Expanded(
+              child: CustomBodySupplying(
+                  size: size, modelSupplying: bloc.modelSupplying),
+            ),
+          ],
         ),
         bottomSheet: (keyboardHide) ? _footer(bloc.stage) : null,
       ),
     );
   }
 
-  SizedBox _footer(int state) {
-    return SizedBox(
-      height: 40,
+  Expanded _footer(int state) {
+    return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

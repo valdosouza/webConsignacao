@@ -5,8 +5,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 100,
+    return const Expanded(
       child: Text('Head'),
     );
   }

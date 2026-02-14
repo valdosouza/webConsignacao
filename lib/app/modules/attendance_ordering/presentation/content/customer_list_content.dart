@@ -28,99 +28,80 @@ class SalesRoutListeMobileState extends State<CustomerListContent> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaquery = MediaQuery.of(context);
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: mediaquery.size.height - 243,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                child: bloc.customerList.isEmpty
-                    ? const Center(
-                        child: Text(
-                            "Não encontramos nenhum registro em nossa base."))
-                    : ListView.separated(
-                        itemCount: bloc.customerList.length,
-                        itemBuilder: (context, index) => InkWell(
-                          child: ListTile(
-                            title: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                    flex: 1,
-                                    child: CircleAvatar(
-                                      backgroundColor: (bloc.customerList[index]
-                                                  .defaultSeq ==
-                                              0)
-                                          ? (Colors.red)
-                                          : (Colors.black),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Text(
-                                          bloc.customerList[index].defaultSeq
-                                              .toString(),
-                                          style: kCircleAvatarTextStyle,
-                                        ),
-                                      ),
-                                    )),
-                                Expanded(
-                                  flex: 3,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      AutoSizeText(
-                                        bloc.customerList[index].nickTrade,
-                                        style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold),
-                                        maxLines: 2,
-                                      ),
-                                      AutoSizeText(
-                                        "End: ${bloc.customerList[index].street}, ${bloc.customerList[index].nmbr}",
-                                        style: const TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.normal),
-                                        maxLines: 1,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: AutoSizeText(
-                                    bloc.customerList[index].sequence
-                                        .toString(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                    maxLines: 1,
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: btnChangeDefaultSeq(index),
-                                ),
-                              ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2.0),
+      child: bloc.customerList.isEmpty
+          ? const Center(
+              child: Text("Não encontramos nenhum registro em nossa base."))
+          : ListView.separated(
+              itemCount: bloc.customerList.length,
+              itemBuilder: (context, index) => InkWell(
+                child: ListTile(
+                  title: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                          flex: 1,
+                          child: CircleAvatar(
+                            backgroundColor:
+                                (bloc.customerList[index].defaultSeq == 0)
+                                    ? (Colors.red)
+                                    : (Colors.black),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Text(
+                                bloc.customerList[index].defaultSeq.toString(),
+                                style: kCircleAvatarTextStyle,
+                              ),
                             ),
-                          ),
-                          onLongPress: () {
-                            bloc.add(OrderModeEvent(
-                                tbCustomerId: bloc.customerList[index].id));
-                          },
+                          )),
+                      Expanded(
+                        flex: 3,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              bloc.customerList[index].nickTrade,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                              maxLines: 2,
+                            ),
+                            AutoSizeText(
+                              "End: ${bloc.customerList[index].street}, ${bloc.customerList[index].nmbr}",
+                              style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.normal),
+                              maxLines: 1,
+                            ),
+                          ],
                         ),
-                        separatorBuilder: (_, __) => const Divider(),
                       ),
+                      Expanded(
+                        flex: 1,
+                        child: AutoSizeText(
+                          bloc.customerList[index].sequence.toString(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: btnChangeDefaultSeq(index),
+                      ),
+                    ],
+                  ),
+                ),
+                onLongPress: () {
+                  bloc.add(
+                      OrderModeEvent(tbCustomerId: bloc.customerList[index].id));
+                },
               ),
+              separatorBuilder: (_, __) => const Divider(),
             ),
-          ),
-        ],
-      ),
     );
   }
 

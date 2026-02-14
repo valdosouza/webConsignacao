@@ -58,6 +58,12 @@ class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
           keyboardType: TextInputType.number,
           textInputAction: TextInputAction.done,
           textAlign: widget.textAlign,
+          textAlignVertical: TextAlignVertical.center,
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            isDense: true,
+            contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+          ),
           onSubmitted: (value) {
             if (value.isEmpty) value = "0";
             switch (widget.position) {

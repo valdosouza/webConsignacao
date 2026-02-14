@@ -7,7 +7,9 @@ class CashierMenuMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double drawerWidth = MediaQuery.of(context).size.width;
     return Drawer(
+      width: drawerWidth,
       child: ListView(
         children: <Widget>[
           itemMenuDraw(

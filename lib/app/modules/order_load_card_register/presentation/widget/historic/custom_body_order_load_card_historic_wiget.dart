@@ -31,10 +31,6 @@ class _CustomBodyOrderLoadCardHistoricWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height - 152,
-      width: widget.size.width,
-      child: listitemsorderLoadCardHistoric(widget.orderLoadCard.items),
-    );
+    return listitemsorderLoadCardHistoric(widget.orderLoadCard.items);
   }
 }

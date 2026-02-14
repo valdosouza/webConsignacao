@@ -1,22 +1,14 @@
 import 'package:appweb/app/modules/order_load_card_register/data/model/order_load_card_items_model.dart';
 import 'package:flutter/material.dart';
 
-const _kCellHeight = 40.0;
-const _kCellPadding = EdgeInsets.symmetric(horizontal: 12, vertical: 10);
-
-Widget fielditemsorderLoadCard(
-    OrderLoadCardItemsModel item,
-    int position,
-    bool enabled,
-    int decimal,
-    TextAlign textAlign,
-    ) {
-  String valueFor(OrderLoadCardItemsModel item, int position) {
+Widget fielditemsorderLoadCard(BuildContext context, OrderLoadCardItemsModel item,
+    int position, bool enabled, int decimal, TextAlign textAlign) {
+  String setTextController(OrderLoadCardItemsModel item, int position) {
     switch (position) {
       case 1:
         return item.nameProduct;
       case 2:
-        final dayBalance = item.stockBalance + item.bonus + item.sale;
+        double dayBalance = item.stockBalance + item.bonus + item.sale;
         return dayBalance.toStringAsFixed(0);
       case 3:
         return item.sale.toStringAsFixed(0);
@@ -27,51 +19,47 @@ Widget fielditemsorderLoadCard(
       case 6:
         return (item.newLoad > 0) ? item.newLoad.toStringAsFixed(0) : "";
       case 7:
-        final currentBalance = (item.stockBalance + item.newLoad) - item.adjust;
+        double currentBalance =
+            (item.stockBalance + item.newLoad) - item.adjust;
         return currentBalance.toStringAsFixed(0);
-      default:
-        return "";
     }
+    return "";
   }
 
-  final controller = TextEditingController(text: valueFor(item, position));
-
-  return SizedBox(
-    height: _kCellHeight,
-    child: TextFormField(
-      controller: controller,
-      readOnly: !enabled,
-      maxLines: 1,
+  return Container(
+    height: 28,
+    alignment: Alignment.center,
+    margin: const EdgeInsets.only(left: 3.0, top: 0.0, right: 3.0, bottom: 0.0),
+    decoration: BoxDecoration(
+      border: Border.all(color: Colors.black),
+    ),
+    child: TextField(
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+      ),
+      enabled: enabled,
+      keyboardType: TextInputType.number,
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Colors.black,
+            fontSize: 12,
+          ),
       textAlign: textAlign,
       textAlignVertical: TextAlignVertical.center,
-      strutStyle: const StrutStyle(
-        forceStrutHeight: true,
-        height: 1.2,
-        leading: 0,
-      ),
-      style: const TextStyle(fontSize: 14),
-      keyboardType: (position == 1)
-          ? TextInputType.text
-          : TextInputType.number,
-      decoration: const InputDecoration(
-        isDense: true,
-        contentPadding: _kCellPadding,
-        border: OutlineInputBorder(),
-        enabledBorder: OutlineInputBorder(),
-        focusedBorder: OutlineInputBorder(),
-        counterText: '',
-      ),
-      onFieldSubmitted: (value) {
-        if (value.isEmpty) value = "0";
-        switch (position) {
-          case 5:
-            item.adjust = double.tryParse(value) ?? 0;
-            break;
-          case 6:
-            item.newLoad = double.tryParse(value) ?? 0;
-            break;
-        }
-      },
+        onSubmitted: (value) {
+          if (value.isEmpty) value = "0";
+          switch (position) {
+            case 5:
+              item.adjust = double.parse(value);
+              break;
+            case 6:
+              item.newLoad = double.parse(value);
+              break;
+          }
+        },
+        controller:
+            TextEditingController(text: setTextController(item, position)),
     ),
   );
 }

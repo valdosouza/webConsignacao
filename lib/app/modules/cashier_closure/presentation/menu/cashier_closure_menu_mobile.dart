@@ -31,8 +31,10 @@ class _CashierClosureMenuMobileState extends State<CashierClosureMenuMobile> {
 
   @override
   Widget build(BuildContext context) {
+    final double drawerWidth = MediaQuery.of(context).size.width;
     menu() {
       return Drawer(
+        width: drawerWidth,
         child: ListView(
           children: <Widget>[
             itemMenuDraw(

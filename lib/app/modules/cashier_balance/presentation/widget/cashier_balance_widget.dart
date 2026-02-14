@@ -27,10 +27,7 @@ class _CashierBalanceWidgetState extends State<CashierBalanceWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height,
-      width: size.width,
+    return Expanded(
       child: Column(
         children: [
           Container(
@@ -46,9 +43,7 @@ class _CashierBalanceWidgetState extends State<CashierBalanceWidget> {
           ),
           const SizedBox(height: 15),
           Text("Data: ${bloc.cashierBalance.dtRecord}"),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Text("Valor: R\$ ${totalCashier()}"),
           const SizedBox(height: 15),
           Container(

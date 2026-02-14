@@ -8,7 +8,9 @@ Widget paymentinfopixhistoric(OrderConsignmentCheckpointModel modelCheckpoint) {
     children: [
       Expanded(
         flex: 5,
-        child: headerfield('Pix', 32),
+        child: Builder(
+          builder: (context) => headerfield(context, 'Pix', 32),
+        ),
       ),
       Expanded(
         flex: 4,

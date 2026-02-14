@@ -178,7 +178,7 @@ class _ContentCashierStatementSalesmanListState
     );
   }
 
-  SizedBox buildtotalizar() {
+  Expanded buildtotalizar() {
     final double valortotal = totalCashier();
     double valorMedio = 0;
     if (bloc.salesmans.isNotEmpty) {
@@ -186,8 +186,7 @@ class _ContentCashierStatementSalesmanListState
     } else {
       valorMedio = 0;
     }
-    return SizedBox(
-      height: 100,
+    return Expanded(
       child: Column(
         children: [
           Container(

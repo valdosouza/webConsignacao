@@ -13,32 +13,33 @@ Widget listitemscheckpoint(
           Expanded(
             flex: 200,
             child: fielditemscheckpoint(
-                items[index], 1, false, 0, TextAlign.center),
+                context, items[index], 1, false, 0, TextAlign.center),
           ),
           Expanded(
             flex: 400,
             child:
-                fielditemscheckpoint(items[index], 2, false, 0, TextAlign.left),
+                fielditemscheckpoint(context, items[index], 2, false, 0,
+                    TextAlign.left),
           ),
           Expanded(
             flex: 270,
             child: fielditemscheckpoint(
-                items[index], 3, false, 0, TextAlign.center),
+                context, items[index], 3, false, 0, TextAlign.center),
           ),
           Expanded(
             flex: 200,
             child: fielditemscheckpoint(
-                items[index], 4, true, 0, TextAlign.center),
+                context, items[index], 4, true, 0, TextAlign.center),
           ),
           Expanded(
             flex: 315,
             child: fielditemscheckpoint(
-                items[index], 5, false, 2, TextAlign.center),
+                context, items[index], 5, false, 2, TextAlign.center),
           ),
           Expanded(
             flex: 300,
             child: fielditemscheckpoint(
-                items[index], 6, false, 2, TextAlign.right),
+                context, items[index], 6, false, 2, TextAlign.right),
           ),
         ],
       ),

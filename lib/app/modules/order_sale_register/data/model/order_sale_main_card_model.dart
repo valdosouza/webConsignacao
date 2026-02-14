@@ -83,19 +83,20 @@ class OrderSaleCardModel extends OrderSaleCardEntity {
         );
 
   factory OrderSaleCardModel.fromJson(Map<String?, dynamic> json) {
+    double parseDouble(dynamic value) {
+      if (value == null) return 0.0;
+      return value is int ? value.toDouble() : value as double;
+    }
+
     return OrderSaleCardModel(
       tbProductId: json['tb_product_id'] is int
           ? json['tb_product_id']
           : int.parse(json['tb_product_id']),
       nameProduct: json['name_product'] as String,
-      bonus: json['bonus'] is int ? json['bonus'].toDouble() : json['bonus'],
-      sale: json['sale'] is int ? json['sale'].toDouble() : json['sale'],
-      unitValue: json['unit_value'] is int
-          ? json['unit_value'].toDouble()
-          : json['unit_value'],
-      subtotal: json['subtotal'] is int
-          ? json['subtotal'].toDouble()
-          : json['subtotal'],
+      bonus: parseDouble(json['bonus']),
+      sale: parseDouble(json['sale']),
+      unitValue: parseDouble(json['unit_value']),
+      subtotal: parseDouble(json['subtotal']),
     );
   }
 

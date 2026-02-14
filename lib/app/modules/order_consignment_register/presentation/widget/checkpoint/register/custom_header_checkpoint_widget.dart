@@ -7,8 +7,7 @@ class CustomHeaderCheckpoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
+    return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -18,7 +17,7 @@ class CustomHeaderCheckpoint extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: headerfield('Total a Pagar', 40),
+            child: headerfield(context, 'Total a Pagar', 50),
           ),
         ],
       ),
