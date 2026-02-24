@@ -36,4 +36,16 @@ class AuthModel extends AuthEntity {
       error: json['error'] is String ? json['error'] : "",
     );
   }
+
+  /// Serializes to JSON (snake_case keys for API compatibility).
+  Map<String, dynamic> toJson() => {
+        'auth': auth,
+        'id': id,
+        'tb_institution_id': tbInstitutionId,
+        'username': username,
+        'password': password,
+        'kind_device': kindDevice,
+        'jwt': jwt,
+        'error': error,
+      };
 }
