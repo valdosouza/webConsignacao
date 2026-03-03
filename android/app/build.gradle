@@ -41,7 +41,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.industriadechocolatesamor.consigna"
     compileSdk flutterCompileSdkVersion.toInteger()
-    ndkVersion flutter.ndkVersion
+    ndkVersion "27.0.12077973"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

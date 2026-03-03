@@ -12,7 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AttendanceByCustomerPageMobile extends StatefulWidget {
-  const AttendanceByCustomerPageMobile({super.key});
+  const AttendanceByCustomerPageMobile({super.key, this.bloc});
+
+  final AttendanceByCustomerBloc? bloc;
 
   @override
   State<AttendanceByCustomerPageMobile> createState() =>
@@ -26,10 +28,12 @@ class AttendanceByCustomerPageMobileState
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AttendanceByCustomerBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceByCustomerModule>();
-    });
+    bloc = widget.bloc ?? Modular.get<AttendanceByCustomerBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<AttendanceByCustomerModule>();
+      });
+    }
     bloc.add(CustomerGetListEvent());
   }
 

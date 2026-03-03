@@ -8,7 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CashierStatementMenuMobile extends StatefulWidget {
-  const CashierStatementMenuMobile({super.key});
+  const CashierStatementMenuMobile({super.key, this.bloc});
+
+  /// Optional bloc for tests; when null, uses `Modular.get<CashierStatementBloc>()`.
+  final CashierStatementBloc? bloc;
 
   @override
   State<CashierStatementMenuMobile> createState() =>
@@ -22,7 +25,7 @@ class _CashierStatementMenuMobileState
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<CashierStatementBloc>();
+    bloc = widget.bloc ?? Modular.get<CashierStatementBloc>();
     if (bloc.dtCashierToday == "") {
       bloc.add(GetCurrentDateEvent());
     }

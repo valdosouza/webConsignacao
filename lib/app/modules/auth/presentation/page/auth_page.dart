@@ -6,7 +6,6 @@ import 'package:appweb/app/core/shared/widgets/degrade_area.dart';
 import 'package:appweb/app/core/shared/widgets/logo_area.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_bloc.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';

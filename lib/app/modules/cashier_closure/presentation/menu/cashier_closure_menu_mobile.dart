@@ -9,7 +9,10 @@ import '../bloc/cashier_closure_event.dart';
 import '../bloc/cashier_closure_state.dart';
 
 class CashierClosureMenuMobile extends StatefulWidget {
-  const CashierClosureMenuMobile({super.key});
+  const CashierClosureMenuMobile({super.key, this.bloc});
+
+  /// Optional bloc for tests; when null, uses `Modular.get<CashierClosureBloc>()`.
+  final CashierClosureBloc? bloc;
 
   @override
   State<CashierClosureMenuMobile> createState() =>
@@ -22,10 +25,12 @@ class _CashierClosureMenuMobileState extends State<CashierClosureMenuMobile> {
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<CashierClosureBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<CashierClosureModule>();
-    });
+    bloc = widget.bloc ?? Modular.get<CashierClosureBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<CashierClosureModule>();
+      });
+    }
     bloc.add(CashierClosureGetCurrentDateEvent());
   }
 

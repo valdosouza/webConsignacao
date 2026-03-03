@@ -32,14 +32,29 @@ test/
 │   ├── pump_app.dart          # Helpers para widget tests (pumpApp, etc.)
 │   ├── fake_auth_bloc.dart    # Bloc fake para AuthPage
 │   ├── fake_splash_bloc.dart  # Bloc fake para SplashPage
-│   └── fake_auth_repository.dart  # Repositório fake (unit/testes que precisam de repo)
+│   ├── fake_auth_repository.dart  # Repositório fake (unit/testes que precisam de repo)
+│   ├── fake_attendance_by_customer_bloc.dart  # Bloc fake para attendance_by_customer
+│   ├── fake_attendance_by_route_bloc.dart     # Bloc fake para attendance_by_route
+│   └── fake_attendance_ordering_bloc.dart     # Bloc fake para attendance_ordering
 ├── fixtures/                  # JSON e dados estáticos para testes
 ├── app/
 │   ├── core/                  # Testes de validadores, etc.
 │   └── modules/               # Testes por feature (model, usecase, page widget)
+│       ├── auth/              # Auth: widget test da AuthPage
+│       ├── cashier/           # Caixa: widget test do menu (CashierMenuMobile)
+│       ├── cashier_balance/   # Saldo caixa: widget test + unit test do model
+│       ├── cashier_closure/   # Fechamento caixa: widget + menu + unit tests models
+│       ├── cashier_statement/        # Extrato caixa: widget + menu + unit test model
+│       ├── cashier_statement_summary/ # Resumo extrato: widget + unit tests models
+│       ├── attendance_by_customer/    # Atendimento por cliente: widget test CustomerListMobile
+│       ├── attendance_by_route/       # Atendimento por rota: widget tests SalesRouteListMobile, CustomerListMobile
+│       ├── attendance_ordering/       # Ordenação de atendimento: widget tests RegionListContent, RouteListContent, CustomerListContent
+│       ├── Core/                      # Core: unit tests CustomerListModel, SalesRouteListModel, CustomerListByRouteModel, RegionModel
+│       ├── splash/                   # Splash: widget test da SplashPage
+│       └── ...
 integration_test/
 ├── integration_test.dart      # Placeholder para descoberta
-├── app_test.dart              # Fluxos E2E (splash → auth, login → home)
+├── app_test.dart              # Fluxos E2E (splash → auth, login → home, cashier, cashier balance, cashier closure, cashier statement, cashier statement summary, attendance by customer, attendance by route, attendance ordering)
 ├── integration_fakes.dart      # IntegrationFakeAuthRepository
 ├── auth_module_test.dart      # Módulo de auth com fake para E2E
 └── test_app_module.dart       # AppModule com AuthModuleTest

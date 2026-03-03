@@ -11,7 +11,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 class CustomerListContent extends StatefulWidget {
   const CustomerListContent({
     super.key,
+    this.bloc,
   });
+
+  final AttendanceOrderingBloc? bloc;
 
   @override
   State<CustomerListContent> createState() => SalesRoutListeMobileState();
@@ -23,7 +26,7 @@ class SalesRoutListeMobileState extends State<CustomerListContent> {
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AttendanceOrderingBloc>();
+    bloc = widget.bloc ?? Modular.get<AttendanceOrderingBloc>();
   }
 
   @override

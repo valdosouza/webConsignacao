@@ -12,8 +12,10 @@ class SalesRouteListMobile extends StatefulWidget {
   const SalesRouteListMobile({
     super.key,
     required this.lista,
+    this.bloc,
   });
   final List<SalesRouteListModel> lista;
+  final AttendanceByRouteBloc? bloc;
   @override
   State<SalesRouteListMobile> createState() => SalesRoutListeMobileState();
 }
@@ -24,10 +26,12 @@ class SalesRoutListeMobileState extends State<SalesRouteListMobile> {
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AttendanceByRouteBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceByRouteModule>();
-    });
+    bloc = widget.bloc ?? Modular.get<AttendanceByRouteBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<AttendanceByRouteModule>();
+      });
+    }
   }
 
   @override

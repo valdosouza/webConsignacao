@@ -14,8 +14,10 @@ class CustomerListMobile extends StatefulWidget {
   const CustomerListMobile({
     super.key,
     required this.lista,
+    this.bloc,
   });
   final List<CustomerListModel> lista;
+  final AttendanceByCustomerBloc? bloc;
   @override
   State<CustomerListMobile> createState() => CustomerListeMobileState();
 }
@@ -26,10 +28,12 @@ class CustomerListeMobileState extends State<CustomerListMobile> {
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AttendanceByCustomerBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceByCustomerModule>();
-    });
+    bloc = widget.bloc ?? Modular.get<AttendanceByCustomerBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<AttendanceByCustomerModule>();
+      });
+    }
   }
 
   @override

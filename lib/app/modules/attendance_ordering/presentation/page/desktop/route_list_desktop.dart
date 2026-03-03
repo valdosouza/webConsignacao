@@ -10,7 +10,10 @@ import 'package:appweb/app/core/shared/theme.dart';
 class RouteListDesktop extends StatefulWidget {
   const RouteListDesktop({
     super.key,
+    this.bloc,
   });
+
+  final AttendanceOrderingBloc? bloc;
 
   @override
   State<RouteListDesktop> createState() => RouteListDesktopState();
@@ -22,10 +25,12 @@ class RouteListDesktopState extends State<RouteListDesktop> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceOrderingModule>();
-    });
-    bloc = Modular.get<AttendanceOrderingBloc>();
+    bloc = widget.bloc ?? Modular.get<AttendanceOrderingBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<AttendanceOrderingModule>();
+      });
+    }
   }
 
   @override
@@ -48,7 +53,7 @@ class RouteListDesktopState extends State<RouteListDesktop> {
           },
         ),
       ),
-      body: RouteListContent(list: bloc.routeList),
+      body: RouteListContent(list: bloc.routeList, bloc: bloc),
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:appweb/app/core/shared/widgets/custom_circular_progress_indicato
 import 'package:appweb/app/modules/splash/presentation/bloc/splash_bloc.dart';
 import 'package:appweb/app/modules/splash/presentation/bloc/splash_event.dart';
 import 'package:appweb/app/modules/splash/presentation/bloc/splash_state.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';

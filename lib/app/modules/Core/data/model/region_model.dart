@@ -12,7 +12,7 @@ class RegionModel extends RegionEntity {
           id: id ?? 0,
           tbInstitutionId: tbInstitutionId ?? 0,
           description: description ?? "",
-          tbSalesmanId: tbInstitutionId ?? 0,
+          tbSalesmanId: tbSalesmanId ?? 0,
           salesmanName: salesmanName ?? "",
           active: active ?? "",
         );

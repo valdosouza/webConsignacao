@@ -1,5 +1,6 @@
 /// Simple form validators used by auth and other forms.
 /// Kept in a separate file for testability without touching UI.
+library;
 
 /// Returns an error message if [email] is invalid; null if valid.
 String? validateEmail(String? email) {

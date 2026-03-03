@@ -17,7 +17,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class Desktop extends StatefulWidget {
-  const Desktop({super.key});
+  const Desktop({super.key, this.bloc});
+
+  final AttendanceOrderingBloc? bloc;
 
   @override
   State<Desktop> createState() => DesktopState();
@@ -30,10 +32,12 @@ class DesktopState extends State<Desktop> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceOrderingModule>();
-    });
-    bloc = Modular.get<AttendanceOrderingBloc>();
+    bloc = widget.bloc ?? Modular.get<AttendanceOrderingBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<AttendanceOrderingModule>();
+      });
+    }
   }
 
   @override
@@ -60,17 +64,17 @@ class DesktopState extends State<Desktop> {
               return const CustomCircularProgressIndicator();
             }
             if (state is RegionLoadedState) {
-              return const RegionListDesktop();
+              return RegionListDesktop(bloc: bloc);
             }
             if (state is RouteLoadedState) {
-              return const RouteListDesktop();
+              return RouteListDesktop(bloc: bloc);
             }
             return Expanded(
               child: Column(
                 children: [
                   search(),
                   title(),
-                  const CustomerListContent(),
+                  CustomerListContent(bloc: bloc),
                 ],
               ),
             );

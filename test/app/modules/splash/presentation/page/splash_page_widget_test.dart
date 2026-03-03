@@ -1,4 +1,3 @@
-import 'package:appweb/app/modules/splash/presentation/bloc/splash_bloc.dart';
 import 'package:appweb/app/modules/splash/presentation/page/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
