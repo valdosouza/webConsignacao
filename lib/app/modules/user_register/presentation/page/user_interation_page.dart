@@ -141,47 +141,35 @@ class _UserInteractionPageState extends State<UserInteractionPage> {
       children: [
         const Text("Ativo", style: kLabelStyle),
         const SizedBox(height: 10.0),
-        Row(
-          children: [
-            Row(
-              children: [
-                Radio(
-                  value: true,
-                  groupValue: selectActive,
-                  activeColor: Colors.red,
-                  onChanged: selectActive
-                      ? (value) {}
-                      : (value) {
-                          setState(() {
-                            selectActive = true;
-                          });
-                          bloc.user.active = "S";
-                        },
-                ),
-                const SizedBox(width: 5.0),
-                const Text("Sim", style: kLabelStyle),
-              ],
-            ),
-            const SizedBox(width: 10.0),
-            Row(
-              children: [
-                Radio(
-                    value: false,
-                    groupValue: selectActive,
-                    activeColor: Colors.red,
-                    onChanged: selectActive
-                        ? (value) {
-                            setState(() {
-                              selectActive = false;
-                            });
-                            bloc.user.active = "N";
-                          }
-                        : (value) {}),
-                const SizedBox(width: 5.0),
-                const Text("Não", style: kLabelStyle),
-              ],
-            ),
-          ],
+        RadioGroup<bool>(
+          groupValue: selectActive,
+          onChanged: (bool? value) {
+            if (value != null) {
+              setState(() {
+                selectActive = value;
+                bloc.user.active = value ? "S" : "N";
+              });
+            }
+          },
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Radio<bool>(value: true, activeColor: Colors.red),
+                  const SizedBox(width: 5.0),
+                  const Text("Sim", style: kLabelStyle),
+                ],
+              ),
+              const SizedBox(width: 10.0),
+              Row(
+                children: [
+                  Radio<bool>(value: false, activeColor: Colors.red),
+                  const SizedBox(width: 5.0),
+                  const Text("Não", style: kLabelStyle),
+                ],
+              ),
+            ],
+          ),
         )
       ],
     );

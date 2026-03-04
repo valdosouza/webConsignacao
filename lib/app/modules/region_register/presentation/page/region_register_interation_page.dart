@@ -135,35 +135,33 @@ class RegiontRegisterInterationPageState
                 const SizedBox(height: 30.0),
                 const Text("Ativo", style: kLabelStyle),
                 const SizedBox(height: 10.0),
-                Row(
-                  children: [
-                    Radio<OptionYesNo>(
+                RadioGroup<OptionYesNo>(
+                  groupValue: bloc.optionYesNo,
+                  onChanged: (OptionYesNo? value) {
+                    if (value != null) {
+                      setState(() {
+                        bloc.optionYesNo = value;
+                        bloc.model.active = value == OptionYesNo.S ? "S" : "N";
+                      });
+                    }
+                  },
+                  child: Row(
+                    children: [
+                      Radio<OptionYesNo>(
                         value: OptionYesNo.N,
-                        groupValue: bloc.optionYesNo,
                         activeColor: Colors.red,
-                        onChanged: (value) {
-                          setState(() {
-                            bloc.optionYesNo = value;
-                          });
-                          bloc.model.active = "N";
-                        }),
-                    const SizedBox(width: 5.0),
-                    const Text("Não", style: kLabelStyle),
-                    const SizedBox(width: 5.0),
-                    Radio<OptionYesNo>(
+                      ),
+                      const SizedBox(width: 5.0),
+                      const Text("Não", style: kLabelStyle),
+                      const SizedBox(width: 5.0),
+                      Radio<OptionYesNo>(
                         value: OptionYesNo.S,
-                        groupValue: bloc.optionYesNo,
                         activeColor: Colors.red,
-                        onChanged: (value) {
-                          setState(() {
-                            bloc.optionYesNo = value;
-                          });
-
-                          bloc.model.active = "S";
-                        }),
-                    const SizedBox(width: 5.0),
-                    const Text("Sim", style: kLabelStyle),
-                  ],
+                      ),
+                      const SizedBox(width: 5.0),
+                      const Text("Sim", style: kLabelStyle),
+                    ],
+                  ),
                 ),
               ],
             ),

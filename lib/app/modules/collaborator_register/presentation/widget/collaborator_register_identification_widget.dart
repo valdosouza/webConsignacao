@@ -38,45 +38,36 @@ class _CollaboratorRegisterIdentificationWidgetState
           children: [
             const Text("Tipo de Pessoa", style: kLabelStyle),
             const SizedBox(height: 10.0),
-            Row(
-              children: [
-                Row(
-                  children: [
-                    Radio(
-                      value: true,
-                      groupValue: selectPersonType,
-                      activeColor: Colors.red,
-                      onChanged: selectPersonType
-                          ? (value) {}
-                          : (value) {
-                              setState(() {
-                                selectPersonType = true;
-                              });
-                            },
-                    ),
-                    const SizedBox(width: 5.0),
-                    const Text("Jurídica", style: kLabelStyle),
-                  ],
-                ),
-                const SizedBox(width: 10.0),
-                Row(
-                  children: [
-                    Radio(
-                        value: false,
-                        groupValue: selectPersonType,
+            RadioGroup<bool>(
+              groupValue: selectPersonType,
+              onChanged: (bool? value) {
+                if (value != null) setState(() => selectPersonType = value);
+              },
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      Radio<bool>(
+                        value: true,
                         activeColor: Colors.red,
-                        onChanged: selectPersonType
-                            ? (value) {
-                                setState(() {
-                                  selectPersonType = false;
-                                });
-                              }
-                            : (value) {}),
-                    const SizedBox(width: 5.0),
-                    const Text("Física", style: kLabelStyle),
-                  ],
-                ),
-              ],
+                      ),
+                      const SizedBox(width: 5.0),
+                      const Text("Jurídica", style: kLabelStyle),
+                    ],
+                  ),
+                  const SizedBox(width: 10.0),
+                  Row(
+                    children: [
+                      Radio<bool>(
+                        value: false,
+                        activeColor: Colors.red,
+                      ),
+                      const SizedBox(width: 5.0),
+                      const Text("Física", style: kLabelStyle),
+                    ],
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 30.0),
             selectPersonType ? _buildCompany() : _buildPerson(),

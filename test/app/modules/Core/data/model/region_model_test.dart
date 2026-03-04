@@ -18,8 +18,7 @@ void main() {
       expect(model.id, 10);
       expect(model.tbInstitutionId, 1);
       expect(model.description, 'Região Sul');
-      // Note: constructor passes tbInstitutionId to super for tbSalesmanId
-      expect(model.tbSalesmanId, 1);
+      expect(model.tbSalesmanId, 2);
       expect(model.salesmanName, 'Vendedor A');
       expect(model.active, 'S');
     });
