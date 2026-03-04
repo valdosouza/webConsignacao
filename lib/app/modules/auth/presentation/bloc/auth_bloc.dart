@@ -6,7 +6,8 @@ import 'package:appweb/app/modules/auth/domain/usecase/login_email.dart';
 import 'package:appweb/app/modules/auth/domain/usecase/recovery_password.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_event.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
+import 'package:flutter/material.dart' show TargetPlatform;
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -83,11 +84,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoadingState());
       var status = PermissionStatus.granted;
       Map<String, dynamic> deviceData = <String, dynamic>{};
-      if (!kIsWeb) {
-        final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-        deviceData = _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
-        if (int.parse(deviceData['versionRelease']) <= 10) {
-          status = await Permission.storage.request();
+      if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+        try {
+          final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+          deviceData =
+              _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
+          if (int.parse(deviceData['versionRelease'] ?? '11') <= 10) {
+            status = await Permission.storage.request();
+          }
+        } catch (_) {
+          // Non-Android platform (Windows, iOS, etc.): skip device check
+          deviceData = {'versionRelease': '11'};
         }
       }
       LocalStorageService.instance.saveItem(
@@ -100,8 +107,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       var response = result.fold((l) {
         AuthErrorState(error: l.toString());
       }, (r) {
+        final release = deviceData['versionRelease'] ?? '11';
         if ((status == PermissionStatus.granted) ||
-            (int.parse(deviceData['versionRelease']) > 10)) {
+            (int.parse(release) > 10)) {
           final bool auth = r.auth;
           if (auth) {
             LocalStorageService.instance.saveItem(

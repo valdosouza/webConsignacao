@@ -7,8 +7,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_app_module.dart';
 
+/// Pumps until [finder] matches or [timeout] expires. Avoids pumpAndSettle
+/// which times out with infinite animations (e.g. CircularProgressIndicator).
+Future<void> pumpUntil(
+  WidgetTester tester,
+  Finder finder, {
+  Duration timeout = const Duration(seconds: 10),
+  Duration step = const Duration(milliseconds: 200),
+}) async {
+  final end = DateTime.now().add(timeout);
+  while (DateTime.now().isBefore(end)) {
+    await tester.pump(step);
+    if (tester.any(finder)) return;
+  }
+}
+
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({});
@@ -22,7 +38,7 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await pumpUntil(tester, find.text('Email'));
 
     expect(find.text('Email'), findsOneWidget);
     expect(find.text('LOGIN'), findsOneWidget);
@@ -37,12 +53,15 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
   });
@@ -56,15 +75,19 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/cashier/mobile/');
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     expect(find.text('Saldo'), findsOneWidget);
     expect(find.text('Extrato'), findsOneWidget);
@@ -80,15 +103,19 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/cashierbalance/');
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -103,15 +130,19 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/cashierclosure/mobile/');
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     expect(find.text('Fechamento'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -126,15 +157,19 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/cashierstatement/mobile/');
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -149,15 +184,19 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/cashierstatementsummary/desktop/cashierstatementsummary/monthly/');
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.text('Resumo mensal de operações'), findsOneWidget);
@@ -172,15 +211,19 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/attendancecustomer/mobile/');
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -195,16 +238,20 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/attendancesalesroute/mobile/',
         arguments: [0, 'Rotas', 1, 'Região']);
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -219,15 +266,19 @@ void main() {
         child: const AppWidget(),
       ),
     );
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
 
     await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
     await tester.enterText(find.byType(TextFormField).last, 'password');
     await tester.tap(find.text('LOGIN'));
-    await tester.pumpAndSettle(const Duration(seconds: 15));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/customer/desktop/attendance-ordering/');
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 2));
 
     expect(find.text('Ordenação de Atendimento'), findsOneWidget);
   });
