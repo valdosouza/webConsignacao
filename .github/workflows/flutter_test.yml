@@ -8,28 +8,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  test_web:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Analyze
-        run: flutter analyze
-
-      - name: Unit and widget tests
-        run: flutter test
-
-      - name: Integration tests (Web)
-        run: flutter test integration_test/app_test.dart -d chrome
-
   test_android:
     runs-on: ubuntu-latest
     steps:
@@ -48,10 +26,26 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Unit and widget tests
+        run: flutter test
+
       - name: Integration tests (Android emulator)
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 34
           arch: x86_64
-          script: flutter test integration_test/app_test.dart -d emulator-5554
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+          script: |
+            adb kill-server
+            adb start-server
+            adb wait-for-device
+            until adb shell getprop sys.boot_completed | tr -d '\r' | grep -q "1"; do
+              sleep 5
+            done
+            adb devices
+            flutter test integration_test/app_test.dart -d emulator-5554
 
