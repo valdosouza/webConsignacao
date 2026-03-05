@@ -43,9 +43,7 @@ jobs:
             adb kill-server
             adb start-server
             adb wait-for-device
-            until adb shell getprop sys.boot_completed | tr -d '\r' | grep -q "1"; do
-              sleep 5
-            done
+            bash -lc 'until adb shell getprop sys.boot_completed | tr -d "\r" | grep -q "1"; do sleep 5; done'
             adb devices
             flutter test integration_test/app_test.dart -d emulator-5554
 
