@@ -20,11 +20,41 @@ Future<void> pumpUntil(
     await tester.pump(step);
     if (tester.any(finder)) return;
   }
+  throw TestFailure('Timeout waiting for finder: $finder');
+}
+
+Future<void> launchAppToAuth(WidgetTester tester, {bool desktop = false}) async {
+  if (desktop) {
+    tester.view.physicalSize = const Size(1200, 800);
+    addTearDown(tester.view.resetPhysicalSize);
+  }
+
+  runApp(
+    ModularApp(
+      module: TestAppModule(),
+      child: const AppWidget(),
+    ),
+  );
+  // Unmount tree to reduce async spill between tests.
+  addTearDown(() async {
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pump();
+  });
+
+  await pumpUntil(tester, find.text('Email'));
+}
+
+Future<void> loginAndWaitHome(WidgetTester tester) async {
+  await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
+  await tester.enterText(find.byType(TextFormField).last, 'password');
+  await tester.tap(find.text('LOGIN'));
+  await tester.pump();
+  await pumpUntil(tester, find.text('Consignação e Venda'));
 }
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.onlyPumps;
 
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({});
@@ -32,13 +62,7 @@ void main() {
 
   testWidgets('Flow 1: open app, splash redirects to auth, auth screen shows',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await pumpUntil(tester, find.text('Email'));
+    await launchAppToAuth(tester);
 
     expect(find.text('Email'), findsOneWidget);
     expect(find.text('LOGIN'), findsOneWidget);
@@ -47,21 +71,8 @@ void main() {
   testWidgets(
       'Flow 2: login with fake backend, navigate to home, verify content',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester);
+    await loginAndWaitHome(tester);
 
     expect(find.text('Consignação e Venda'), findsWidgets);
   });
@@ -69,25 +80,12 @@ void main() {
   testWidgets(
       'Flow 3: after login, navigate to cashier and verify menu (Saldo, Extrato, Fechamento)',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester);
+    await loginAndWaitHome(tester);
 
     Modular.to.navigate('/cashier/mobile/');
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    await pumpUntil(tester, find.text('Saldo'));
 
     expect(find.text('Saldo'), findsOneWidget);
     expect(find.text('Extrato'), findsOneWidget);
@@ -97,25 +95,12 @@ void main() {
   testWidgets(
       'Flow 4: after login, navigate to cashier balance and verify screen',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester);
+    await loginAndWaitHome(tester);
 
     Modular.to.navigate('/cashierbalance/');
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    await pumpUntil(tester, find.byIcon(Icons.arrow_back_ios_outlined));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -124,25 +109,12 @@ void main() {
   testWidgets(
       'Flow 5: after login, navigate to cashier closure and verify screen',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester);
+    await loginAndWaitHome(tester);
 
     Modular.to.navigate('/cashierclosure/mobile/');
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    await pumpUntil(tester, find.byIcon(Icons.arrow_back_ios_outlined));
 
     expect(find.text('Fechamento'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -151,25 +123,12 @@ void main() {
   testWidgets(
       'Flow 6: after login, navigate to cashier statement and verify screen',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester);
+    await loginAndWaitHome(tester);
 
     Modular.to.navigate('/cashierstatement/mobile/');
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    await pumpUntil(tester, find.byIcon(Icons.arrow_back_ios_outlined));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -178,25 +137,12 @@ void main() {
   testWidgets(
       'Flow 7: after login, navigate to cashier statement summary and verify screen',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester);
+    await loginAndWaitHome(tester);
 
     Modular.to.navigate('/cashierstatementsummary/desktop/cashierstatementsummary/monthly/');
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    await pumpUntil(tester, find.text('Resumo mensal de operações'));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.text('Resumo mensal de operações'), findsOneWidget);
@@ -205,25 +151,12 @@ void main() {
   testWidgets(
       'Flow 8: after login, navigate to attendance by customer and verify screen',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester);
+    await loginAndWaitHome(tester);
 
     Modular.to.navigate('/attendancecustomer/mobile/');
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    await pumpUntil(tester, find.byIcon(Icons.arrow_back_ios_outlined));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -232,26 +165,13 @@ void main() {
   testWidgets(
       'Flow 9: after login, navigate to attendance by route and verify screen',
       (WidgetTester tester) async {
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester);
+    await loginAndWaitHome(tester);
 
     Modular.to.navigate('/attendancesalesroute/mobile/',
         arguments: [0, 'Rotas', 1, 'Região']);
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    await pumpUntil(tester, find.byIcon(Icons.arrow_back_ios_outlined));
 
     expect(find.text('Consignação e Venda'), findsWidgets);
     expect(find.byIcon(Icons.arrow_back_ios_outlined), findsOneWidget);
@@ -260,24 +180,8 @@ void main() {
   testWidgets(
       'Flow 10: after login, navigate to attendance ordering and verify screen',
       (WidgetTester tester) async {
-    // Force desktop viewport (>= 1100px) so Responsive shows Desktop with "Ordenação de Atendimento"
-    tester.view.physicalSize = const Size(1200, 800);
-    addTearDown(tester.view.resetPhysicalSize);
-    runApp(
-      ModularApp(
-        module: TestAppModule(),
-        child: const AppWidget(),
-      ),
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
-    await tester.pump(const Duration(seconds: 3));
-
-    await tester.enterText(find.byType(TextFormField).first, 'test@test.com');
-    await tester.enterText(find.byType(TextFormField).last, 'password');
-    await tester.tap(find.text('LOGIN'));
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 3));
+    await launchAppToAuth(tester, desktop: true);
+    await loginAndWaitHome(tester);
 
     Modular.to.navigate('/customer/desktop/attendance-ordering/');
     await pumpUntil(tester, find.text('Ordenação de Atendimento'));
