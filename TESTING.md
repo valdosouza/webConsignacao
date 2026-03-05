@@ -16,9 +16,8 @@ Roda todos os testes em `test/` (unit + widget). Não depende de rede nem de dis
 
 ```bash
 # Com dispositivo/emulador conectado (escolha um)
-flutter test integration_test -d windows
-flutter test integration_test -d chrome
-flutter test integration_test -d <deviceId>
+flutter test integration_test/app_test.dart -d chrome
+flutter test integration_test/app_test.dart -d <androidDeviceId>
 ```
 
 Os integration tests usam **fake backend** (sem API real): o módulo `TestAppModule` injeta `AuthModuleTest` com `IntegrationFakeAuthRepository`. Não é necessária rede para o fluxo de login.
@@ -82,7 +81,7 @@ integration_test/
    Se o teste indiretamente usa `SharedPreferences` ou outros serviços que dependem de binding, chamar `TestWidgetsFlutterBinding.ensureInitialized()` (e, quando aplicável, `SharedPreferences.setMockInitialValues({})`) no início do teste ou em `setUpAll`.
 
 5. **Integration tests**  
-   Rodar com dispositivo definido (`-d windows`, `-d chrome`, etc.) para evitar “mais de um dispositivo conectado”. Não usar backend real; o projeto já usa `TestAppModule` + fake auth.
+   Rodar com dispositivo definido (`-d chrome` ou `-d <androidDeviceId>`) para evitar “mais de um dispositivo conectado”. Não usar backend real; o projeto já usa `TestAppModule` + fake auth.
 
 ## Como escrever novos testes
 
@@ -108,13 +107,31 @@ integration_test/
   ```
   O relatório é gerado em `coverage/lcov.info` (pode ser aberto com ferramentas como VS Code “Coverage Gutters” ou `lcov`).
 
+## Checklist antes do PR
+
+Rode os mesmos checks do CI localmente para evitar erros no GitHub:
+
+```powershell
+.\scripts\ci_local.ps1
+```
+
+Ou manualmente:
+
+```bash
+flutter analyze
+flutter test
+flutter test integration_test/app_test.dart -d chrome
+flutter test integration_test/app_test.dart -d <androidDeviceId>
+```
+
 ## CI
 
 O workflow em `.github/workflows/flutter_test.yml` roda em push/PR para `main` ou `master`:
 
 - `flutter analyze`
 - `flutter test` (unit + widget)
-- `flutter test integration_test -d windows`
+- `flutter test integration_test/app_test.dart -d chrome`
+- `flutter test integration_test/app_test.dart -d emulator-5554` (Android)
 
 Há também um exemplo comentado em `docs/ci_flutter.yml` para referência.
 
@@ -125,5 +142,6 @@ Há também um exemplo comentado em `docs/ci_flutter.yml` para referência.
 | Objetivo              | Comando |
 |-----------------------|--------|
 | Unit + widget         | `flutter test` |
-| Integration           | `flutter test integration_test -d windows` (ou outro device) |
+| Integration (Web)     | `flutter test integration_test/app_test.dart -d chrome` |
+| Integration (Android) | `flutter test integration_test/app_test.dart -d <androidDeviceId>` |
 | Analisar código       | `flutter analyze` |
