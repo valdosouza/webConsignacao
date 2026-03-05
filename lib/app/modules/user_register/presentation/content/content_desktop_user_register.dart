@@ -183,8 +183,23 @@ class _ContentDesktopUserRegisterState
             textAlign: TextAlign.left,
           ),
           const SizedBox(height: 10.0),
-          _fieldActiveYes(),
-          _fieldActiveNo(),
+          RadioGroup<bool>(
+            groupValue: selectActive,
+            onChanged: (bool? value) {
+              if (value != null) {
+                setState(() {
+                  selectActive = value;
+                  bloc.searchAtivo = value ? "S" : "N";
+                });
+              }
+            },
+            child: Row(
+              children: [
+                _fieldActiveYes(),
+                _fieldActiveNo(),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -195,19 +210,7 @@ class _ContentDesktopUserRegisterState
       width: 100,
       child: Row(
         children: [
-          Radio(
-            value: true,
-            groupValue: selectActive,
-            activeColor: Colors.red,
-            onChanged: selectActive
-                ? (value) {}
-                : (value) {
-                    setState(() {
-                      selectActive = true;
-                    });
-                    bloc.searchAtivo = "S";
-                  },
-          ),
+          Radio<bool>(value: true, activeColor: Colors.red),
           const SizedBox(width: 5.0),
           const Text("Sim", style: kLabelStyle),
         ],
@@ -220,18 +223,7 @@ class _ContentDesktopUserRegisterState
       width: 100,
       child: Row(
         children: [
-          Radio(
-              value: false,
-              groupValue: selectActive,
-              activeColor: Colors.red,
-              onChanged: selectActive
-                  ? (value) {
-                      setState(() {
-                        selectActive = false;
-                      });
-                      bloc.searchAtivo = "N";
-                    }
-                  : (value) {}),
+          Radio<bool>(value: false, activeColor: Colors.red),
           const SizedBox(width: 5.0),
           const Text("Não", style: kLabelStyle),
         ],

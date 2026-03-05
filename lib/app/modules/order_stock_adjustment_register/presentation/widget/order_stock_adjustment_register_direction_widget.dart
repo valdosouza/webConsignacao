@@ -29,51 +29,39 @@ class _OrderStockAdjustmentRegisterDirectionWidgetState
   @override
   Widget build(BuildContext context) {
     active = widget.orderStockAdjust.direction == 'E' ? true : false;
-    return Row(
-      children: [
-        Row(
-          children: [
-            Radio(
-              value: true,
-              groupValue: selectRadio,
-              activeColor: Colors.red,
-              onChanged: (widget.orderStockAdjust.status != "F")
-                  ? selectRadio
-                      ? (value) {}
-                      : (value) {
-                          setState(() {
-                            selectRadio = true;
-                            widget.orderStockAdjust.direction = "E";
-                          });
-                        }
-                  : null,
-            ),
-            const SizedBox(width: 5.0),
-            const Text("Entrada", style: kLabelStyle),
-          ],
+    final bool enabled = widget.orderStockAdjust.status != "F";
+    return IgnorePointer(
+      ignoring: !enabled,
+      child: RadioGroup<bool>(
+        groupValue: selectRadio,
+        onChanged: (bool? value) {
+          if (value != null) {
+            setState(() {
+              selectRadio = value;
+              widget.orderStockAdjust.direction = value ? "E" : "S";
+            });
+          }
+        },
+        child: Row(
+        children: [
+          Row(
+            children: [
+              Radio<bool>(value: true, activeColor: Colors.red),
+              const SizedBox(width: 5.0),
+              const Text("Entrada", style: kLabelStyle),
+            ],
+          ),
+          const SizedBox(width: 10.0),
+          Row(
+            children: [
+              Radio<bool>(value: false, activeColor: Colors.red),
+              const SizedBox(width: 5.0),
+              const Text("Saída", style: kLabelStyle),
+            ],
+          ),
+        ],
         ),
-        const SizedBox(width: 10.0),
-        Row(
-          children: [
-            Radio(
-                value: false,
-                groupValue: selectRadio,
-                activeColor: Colors.red,
-                onChanged: (widget.orderStockAdjust.status != "F")
-                    ? selectRadio
-                        ? (value) {
-                            setState(() {
-                              selectRadio = false;
-                              widget.orderStockAdjust.direction = "S";
-                            });
-                          }
-                        : (value) {}
-                    : null),
-            const SizedBox(width: 5.0),
-            const Text("Saída", style: kLabelStyle),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }

@@ -37,7 +37,7 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
         return AlertDialog(
           title: const Text('Sobre o Aplicativo.'),
           content: const Text(
-            "Esta é Versão 1.0.1+67.",
+            "Esta é Versão 1.0.1+68.",
             softWrap: true,
           ),
           actions: <Widget>[

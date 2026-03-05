@@ -14,4 +14,10 @@ class HomeSalesPaymentTypeModel extends HomeSalesPaymentTypeEntity {
       totalValue: double.parse(json['totalValue'].toString()),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'paymentType': paymentType,
+        'totalQtty': totalQtty,
+        'totalValue': totalValue,
+      };
 }

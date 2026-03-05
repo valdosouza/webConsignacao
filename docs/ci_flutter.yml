@@ -1,0 +1,39 @@
+# Example GitHub Actions workflow for Flutter (unit, widget, integration tests).
+# Copy to .github/workflows/flutter_test.yml and adjust as needed.
+#
+# name: Flutter Tests
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+# jobs:
+#   test_web:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: subosito/flutter-action@v2
+#         with:
+#           channel: 'stable'
+#       - run: flutter pub get
+#       - run: flutter analyze
+#       - run: flutter test
+#       - run: flutter test integration_test/app_test.dart -d chrome
+#
+#   test_android:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-java@v4
+#         with:
+#           distribution: temurin
+#           java-version: '17'
+#       - uses: subosito/flutter-action@v2
+#         with:
+#           channel: 'stable'
+#       - run: flutter pub get
+#       - uses: reactivecircus/android-emulator-runner@v2
+#         with:
+#           api-level: 35
+#           arch: x86_64
+#           script: flutter test integration_test/app_test.dart -d emulator-5554

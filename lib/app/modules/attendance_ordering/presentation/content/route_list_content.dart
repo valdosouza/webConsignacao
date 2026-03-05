@@ -8,9 +8,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class RouteListContent extends StatefulWidget {
   final List<SalesRouteRegisterModel> list;
+  final AttendanceOrderingBloc? bloc;
   const RouteListContent({
     super.key,
     required this.list,
+    this.bloc,
   });
 
   @override
@@ -23,10 +25,12 @@ class _RegionListContentState extends State<RouteListContent> {
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AttendanceOrderingBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceOrderingModule>();
-    });
+    bloc = widget.bloc ?? Modular.get<AttendanceOrderingBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<AttendanceOrderingModule>();
+      });
+    }
   }
 
   @override

@@ -7,7 +7,10 @@ import '../bloc/cashier_balance_bloc.dart';
 import '../bloc/cashier_balance_state.dart';
 
 class ContentMobileCashierBalance extends StatefulWidget {
-  const ContentMobileCashierBalance({super.key});
+  const ContentMobileCashierBalance({super.key, this.bloc});
+
+  /// Optional bloc for tests; when null, uses `Modular.get<CashierBalanceBloc>()`.
+  final CashierBalanceBloc? bloc;
 
   @override
   State<ContentMobileCashierBalance> createState() =>
@@ -21,10 +24,12 @@ class _ContentMobileCashierBalanceState
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 0)).then((_) async {
-      await Modular.isModuleReady<CashierBalanceModule>();
-    });
-    bloc = Modular.get<CashierBalanceBloc>();
+    bloc = widget.bloc ?? Modular.get<CashierBalanceBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 0)).then((_) async {
+        await Modular.isModuleReady<CashierBalanceModule>();
+      });
+    }
   }
 
   @override
@@ -32,7 +37,7 @@ class _ContentMobileCashierBalanceState
     return BlocBuilder<CashierBalanceBloc, CashierBalanceState>(
       bloc: bloc,
       builder: (context, state) {
-        return const CashierBalanceWidget();
+        return CashierBalanceWidget(bloc: bloc);
       },
     );
   }

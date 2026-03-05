@@ -1,6 +1,7 @@
 import 'package:appweb/app/core/shared/helpers/local_storage.dart';
 import 'package:appweb/app/core/shared/local_storage_key.dart';
 import 'package:appweb/app/core/shared/theme.dart';
+import 'package:appweb/app/core/shared/validators/form_validators.dart';
 import 'package:appweb/app/core/shared/widgets/degrade_area.dart';
 import 'package:appweb/app/core/shared/widgets/logo_area.dart';
 import 'package:appweb/app/modules/auth/presentation/bloc/auth_bloc.dart';
@@ -11,25 +12,27 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 // ignore: must_be_immutable
 class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+  /// Optional bloc for testing; when null, [Modular.get<AuthBloc>] is used.
+  final Bloc<AuthEvent, AuthState>? bloc;
+
+  const AuthPage({super.key, this.bloc});
 
   @override
   State<AuthPage> createState() => _AuthPageState();
 }
 
 class _AuthPageState extends State<AuthPage> {
-  late final AuthBloc bloc;
+  late final Bloc<AuthEvent, AuthState> bloc;
   bool confirmPasswordVisible = false;
+  bool _rememberMe = false; // Used when bloc is not AuthBloc (e.g. in tests)
   TextEditingController loginController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
-
   final _form = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AuthBloc>();
+    bloc = widget.bloc ?? Modular.get<AuthBloc>();
   }
 
   @override
@@ -50,7 +53,7 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Widget _buildForm(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
+    return BlocConsumer<Bloc<AuthEvent, AuthState>, AuthState>(
       bloc: bloc,
       listener: (context, state) {
         if (state is AuthErrorState) {
@@ -109,6 +112,7 @@ class _AuthPageState extends State<AuthPage> {
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
             textInputAction: TextInputAction.done,
+            validator: validateEmail,
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -147,6 +151,7 @@ class _AuthPageState extends State<AuthPage> {
             keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
             autofocus: false,
+            validator: (v) => validatePassword(v, minLength: 1),
             style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -183,23 +188,31 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
+  bool get _keepConnected =>
+      bloc is AuthBloc ? (bloc as AuthBloc).keepConnected : _rememberMe;
+
+  void _setKeepConnected(bool value) {
+    if (bloc is AuthBloc) {
+      (bloc as AuthBloc).setKeepConnected = value;
+    } else {
+      _rememberMe = value;
+    }
+    setState(() {});
+    LocalStorageService.instance.saveItem(
+      key: LocalStorageKey.keepConnected,
+      value: value,
+    );
+  }
+
   Widget _buildRememberMeCheckbox() {
     return Row(
       children: <Widget>[
         Checkbox(
-          value: bloc.keepConnected,
+          value: _keepConnected,
           checkColor: Colors.green,
           activeColor: Colors.white,
           onChanged: (value) {
-            setState(
-              () {
-                bloc.setKeepConnected = value ?? false;
-                LocalStorageService.instance.saveItem(
-                  key: LocalStorageKey.keepConnected,
-                  value: value ?? false,
-                );
-              },
-            );
+            setState(() => _setKeepConnected(value ?? false));
           },
         ),
         const Text(
@@ -234,8 +247,11 @@ class _AuthPageState extends State<AuthPage> {
           ),
         ),
         onPressed: () {
-          bloc.add(AuthLoginEvent(
-              login: loginController.text, password: passwordController.text));
+          if (_form.currentState?.validate() ?? false) {
+            bloc.add(AuthLoginEvent(
+                login: loginController.text,
+                password: passwordController.text));
+          }
         },
         child: const Text(
           'LOGIN',

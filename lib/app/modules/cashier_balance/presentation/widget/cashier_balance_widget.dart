@@ -8,7 +8,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 class CashierBalanceWidget extends StatefulWidget {
   const CashierBalanceWidget({
     super.key,
+    this.bloc,
   });
+
+  /// Optional bloc for tests; when null, uses `Modular.get<CashierBalanceBloc>()`.
+  final CashierBalanceBloc? bloc;
 
   @override
   State<CashierBalanceWidget> createState() => _CashierBalanceWidgetState();
@@ -19,10 +23,12 @@ class _CashierBalanceWidgetState extends State<CashierBalanceWidget> {
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<CashierBalanceBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<CashierBalanceModule>();
-    });
+    bloc = widget.bloc ?? Modular.get<CashierBalanceBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<CashierBalanceModule>();
+      });
+    }
   }
 
   @override

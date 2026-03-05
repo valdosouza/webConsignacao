@@ -5,6 +5,7 @@ import 'package:appweb/app/modules/order_sale_register/data/datasource/order_sal
 import 'package:appweb/app/modules/order_sale_register/data/model/order_sale_main_card_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThrowingClient extends http.BaseClient {
   @override
@@ -17,6 +18,9 @@ class TestOrderSaleRegisterDatasource extends OrderSaleRegisterDatasourceImpl {
   TestOrderSaleRegisterDatasource({required super.httpClient});
 
   @override
+  Future<String> getToken() async => '';
+
+  @override
   Future getInstitutionId() async => '1';
 
   @override
@@ -24,6 +28,11 @@ class TestOrderSaleRegisterDatasource extends OrderSaleRegisterDatasourceImpl {
 }
 
 void main() {
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences.setMockInitialValues({});
+  });
+
   test('post throws ServerException when request fails', () async {
     final datasource = TestOrderSaleRegisterDatasource(
       httpClient: ThrowingClient(),

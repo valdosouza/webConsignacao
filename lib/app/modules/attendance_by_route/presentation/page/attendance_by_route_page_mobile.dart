@@ -20,12 +20,14 @@ class AttendanceByRoutePageMobile extends StatefulWidget {
   final String nameSalesRoute;
   final int tbRegionId;
   final String nameRegion;
+  final AttendanceByRouteBloc? bloc;
   const AttendanceByRoutePageMobile({
     super.key,
     required this.tbSalesRouteId,
     required this.nameSalesRoute,
     required this.tbRegionId,
     required this.nameRegion,
+    this.bloc,
   });
 
   @override
@@ -40,10 +42,12 @@ class SalesRoutetRegisterInterationPageState
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AttendanceByRouteBloc>();
-    Future.delayed(const Duration(milliseconds: 100)).then((_) async {
-      await Modular.isModuleReady<AttendanceByRouteModule>();
-    });
+    bloc = widget.bloc ?? Modular.get<AttendanceByRouteBloc>();
+    if (widget.bloc == null) {
+      Future.delayed(const Duration(milliseconds: 100)).then((_) async {
+        await Modular.isModuleReady<AttendanceByRouteModule>();
+      });
+    }
     bloc.tbSalesRouteIdSelected = widget.tbSalesRouteId;
     bloc.salesRouteSelected = widget.nameSalesRoute;
     bloc.tbRegionIdSelected = widget.tbRegionId;

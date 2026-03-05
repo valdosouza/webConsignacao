@@ -7,17 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+  /// Optional bloc for testing; when null, [Modular.get<SplashBloc>] is used.
+  final Bloc<SplashEvent, SplashState>? bloc;
+
+  const SplashPage({super.key, this.bloc});
 
   @override
   State<SplashPage> createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
-  late final SplashBloc bloc;
+  late final Bloc<SplashEvent, SplashState> bloc;
   @override
   void initState() {
-    bloc = Modular.get<SplashBloc>();
+    bloc = widget.bloc ?? Modular.get<SplashBloc>();
     bloc.add(SplashInitEvent());
     super.initState();
   }
@@ -25,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: BlocConsumer<SplashBloc, SplashState>(
+      child: BlocConsumer<Bloc<SplashEvent, SplashState>, SplashState>(
         bloc: bloc,
         listener: (context, state) {
           if (state is AuthorizedState) {

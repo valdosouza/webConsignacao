@@ -18,8 +18,10 @@ class CustomerListMobile extends StatefulWidget {
   const CustomerListMobile({
     super.key,
     required this.lista,
+    this.bloc,
   });
   final List<CustomerListByRouteModel> lista;
+  final AttendanceByRouteBloc? bloc;
   @override
   State<CustomerListMobile> createState() => SalesRoutListeMobileState();
 }
@@ -30,7 +32,7 @@ class SalesRoutListeMobileState extends State<CustomerListMobile> {
   @override
   void initState() {
     super.initState();
-    bloc = Modular.get<AttendanceByRouteBloc>();
+    bloc = widget.bloc ?? Modular.get<AttendanceByRouteBloc>();
   }
 
   @override
