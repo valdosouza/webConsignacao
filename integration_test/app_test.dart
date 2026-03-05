@@ -260,6 +260,9 @@ void main() {
   testWidgets(
       'Flow 10: after login, navigate to attendance ordering and verify screen',
       (WidgetTester tester) async {
+    // Force desktop viewport (>= 1100px) so Responsive shows Desktop with "Ordenação de Atendimento"
+    tester.binding.window.physicalSizeTestValue = const Size(1200, 800);
+    addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
     runApp(
       ModularApp(
         module: TestAppModule(),
@@ -277,8 +280,7 @@ void main() {
     await tester.pump(const Duration(seconds: 3));
 
     Modular.to.navigate('/customer/desktop/attendance-ordering/');
-    await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    await pumpUntil(tester, find.text('Ordenação de Atendimento'));
 
     expect(find.text('Ordenação de Atendimento'), findsOneWidget);
   });
