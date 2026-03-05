@@ -13,6 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -26,24 +32,55 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Gradle cache
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Analyze
         run: flutter analyze
 
       - name: Unit and widget tests
         run: flutter test
 
+      - name: AVD cache
+        uses: actions/cache@v4
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-api-34
+
+      - name: Create AVD snapshot
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: default
+          arch: x86_64
+          profile: pixel_7
+          force-avd-creation: false
+          disable-linux-hw-accel: false
+          disable-animations: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: |
+            echo "AVD snapshot generated"
+
       - name: Integration tests (Android emulator)
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
+          target: default
           arch: x86_64
+          profile: pixel_7
+          force-avd-creation: false
+          disable-linux-hw-accel: false
           disable-animations: true
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
-            adb kill-server
-            adb start-server
             adb wait-for-device
-            bash -lc 'until adb shell getprop sys.boot_completed | tr -d "\r" | grep -q "1"; do sleep 5; done'
+            while [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ]; do
+              sleep 5
+            done
             adb devices
             flutter test integration_test/app_test.dart -d emulator-5554
 
