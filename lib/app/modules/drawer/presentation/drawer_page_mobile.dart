@@ -9,6 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class DrawerPageMobile extends StatefulWidget {
   const DrawerPageMobile({super.key});
@@ -19,6 +20,7 @@ class DrawerPageMobile extends StatefulWidget {
 
 class _DrawerPageMobileState extends State<DrawerPageMobile> {
   late final DrawerBloc bloc;
+  String _appVersion = '';
 
   @override
   void initState() {
@@ -28,16 +30,27 @@ class _DrawerPageMobileState extends State<DrawerPageMobile> {
     });
     bloc = Modular.get<DrawerBloc>();
     bloc.add(UserLoggedEvent());
+    _loadAppVersion();
+  }
+
+  Future<void> _loadAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    if (!mounted) return;
+    setState(() {
+      _appVersion = '${packageInfo.version}+${packageInfo.buildNumber}';
+    });
   }
 
   void _showAboutApp() {
+    final versionText =
+        _appVersion.isNotEmpty ? _appVersion : 'carregando...';
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Sobre o Aplicativo.'),
-          content: const Text(
-            "Esta é Versão 1.0.1+68.",
+          content: Text(
+            "Esta é Versão $versionText",
             softWrap: true,
           ),
           actions: <Widget>[

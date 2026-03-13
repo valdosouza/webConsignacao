@@ -3,6 +3,8 @@ plugins {
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
     id "com.google.gms.google-services"
+    id 'com.google.firebase.firebase-perf'
+    id 'com.google.firebase.crashlytics'
 }
 
 def localProperties = new Properties()
@@ -39,7 +41,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.industriadechocolatesamor.consigna"
+    namespace "com.industriadechocolatesamor.appweb"
     compileSdk 36
     ndkVersion "28.2.13676358"
 
@@ -58,10 +60,10 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.industriadechocolatesamor.consigna"
+        applicationId "com.industriadechocolatesamor.appweb"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutterMinSdkVersion
+        minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

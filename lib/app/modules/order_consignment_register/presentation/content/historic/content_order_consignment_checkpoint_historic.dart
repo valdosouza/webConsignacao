@@ -67,26 +67,24 @@ class _ContentConsignmenteCheckpointState
     );
   }
 
-  Expanded _footer() {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: _custombutton("Abastecimento", () {
-              bloc.add(GetSupplying(orderid: widget.checkpointmodel.order.id));
-            }),
-          ),
-          Expanded(
-            flex: 1,
-            child: _custombutton("Sair", () {
-              bloc.add(OrderConsignmentRegisterGetlistEvent(
-                  tbCustomerId: widget.checkpointmodel.order.tbCustomerId));
-            }),
-          ),
-        ],
-      ),
+  Widget _footer() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: _custombutton("Abastecimento", () {
+            bloc.add(GetSupplying(orderid: widget.checkpointmodel.order.id));
+          }),
+        ),
+        Expanded(
+          flex: 1,
+          child: _custombutton("Sair", () {
+            bloc.add(OrderConsignmentRegisterGetlistEvent(
+                tbCustomerId: widget.checkpointmodel.order.tbCustomerId));
+          }),
+        ),
+      ],
     );
   }
 

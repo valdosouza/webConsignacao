@@ -156,40 +156,38 @@ class _ContentConsignmenteSupplyingState
     );
   }
 
-  Expanded _footer(int state) {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: custombutton(
-              "Voltar",
-              (() async {
-                _showBackDialog();
-              }),
-            ),
+  Widget _footer(int state) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: custombutton(
+            "Voltar",
+            (() async {
+              _showBackDialog();
+            }),
           ),
-          Expanded(
-            flex: 1,
-            child: custombutton("Limpar",
-                () => bloc.add(OrderConsignmentRegisterClearSupplyingEvent())),
-          ),
-          Expanded(
-            flex: 1,
-            child: custombutton("Informações", (() {
-              bloc.add(OrderConsignmentRegisterGetlistEvent(
-                  tbCustomerId: bloc.modelSupplying.order.tbCustomerId));
-            })),
-          ),
-          Expanded(
-            flex: 1,
-            child: custombutton("Finalizar", (() async {
-              _showConfirmationProcess();
-            })),
-          ),
-        ],
-      ),
+        ),
+        Expanded(
+          flex: 1,
+          child: custombutton("Limpar",
+              () => bloc.add(OrderConsignmentRegisterClearSupplyingEvent())),
+        ),
+        Expanded(
+          flex: 1,
+          child: custombutton("Informações", (() {
+            bloc.add(OrderConsignmentRegisterGetlistEvent(
+                tbCustomerId: bloc.modelSupplying.order.tbCustomerId));
+          })),
+        ),
+        Expanded(
+          flex: 1,
+          child: custombutton("Finalizar", (() async {
+            _showConfirmationProcess();
+          })),
+        ),
+      ],
     );
   }
 }
