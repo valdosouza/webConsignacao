@@ -47,13 +47,11 @@ class _ContentCashierStatementState
             return const Center(
                 child: Text("Não encontramos nenhum registro em nossa base."));
           }
-          return Expanded(
-            child: SingleChildScrollView(
-              child: Column(children: [
-                _buildSearchInput(),
-                _listOfCashierClosure(size),
-              ]),
-            ),
+          return SingleChildScrollView(
+            child: Column(children: [
+              _buildSearchInput(),
+              _listOfCashierClosure(size),
+            ]),
           );
         });
   }

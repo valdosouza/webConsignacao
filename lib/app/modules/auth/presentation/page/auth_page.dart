@@ -73,21 +73,24 @@ class _AuthPageState extends State<AuthPage> {
           key: _form,
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                logoArea(),
-                if (state is AuthLoadingState)
-                  const CircularProgressIndicator(),
-                const SizedBox(height: 10.0),
-                _buildEmail(),
-                const SizedBox(height: 10.0),
-                _buildPassword(),
-                _buildRememberMeCheckbox(),
-                _buildForgetPassword(),
-                const SizedBox(height: 10.0),
-                _buildLoginBtn(context),
-              ],
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 420),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  logoArea(),
+                  if (state is AuthLoadingState)
+                    const CircularProgressIndicator(),
+                  const SizedBox(height: 10.0),
+                  _buildEmail(),
+                  const SizedBox(height: 10.0),
+                  _buildPassword(),
+                  _buildRememberMeCheckbox(),
+                  _buildForgetPassword(),
+                  const SizedBox(height: 10.0),
+                  _buildLoginBtn(context),
+                ],
+              ),
             ),
           ),
         );
@@ -143,7 +146,6 @@ class _AuthPageState extends State<AuthPage> {
         ),
         const SizedBox(height: 10.0),
         Container(
-          width: MediaQuery.of(context).size.width,
           decoration: kBoxDecorationStyle,
           child: TextFormField(
             obscureText: !confirmPasswordVisible,

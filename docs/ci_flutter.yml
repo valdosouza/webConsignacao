@@ -8,18 +8,6 @@
 #   pull_request:
 #     branches: [ main ]
 # jobs:
-#   test_web:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v4
-#       - uses: subosito/flutter-action@v2
-#         with:
-#           channel: 'stable'
-#       - run: flutter pub get
-#       - run: flutter analyze
-#       - run: flutter test
-#       - run: flutter test integration_test/app_test.dart -d chrome
-#
 #   test_android:
 #     runs-on: ubuntu-latest
 #     steps:
@@ -32,6 +20,8 @@
 #         with:
 #           channel: 'stable'
 #       - run: flutter pub get
+#       - run: flutter analyze
+#       - run: flutter test
 #       - uses: reactivecircus/android-emulator-runner@v2
 #         with:
 #           api-level: 35

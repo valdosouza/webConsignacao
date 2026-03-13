@@ -69,14 +69,12 @@ class DesktopState extends State<Desktop> {
             if (state is RouteLoadedState) {
               return RouteListDesktop(bloc: bloc);
             }
-            return Expanded(
-              child: Column(
-                children: [
-                  search(),
-                  title(),
-                  CustomerListContent(bloc: bloc),
-                ],
-              ),
+            return Column(
+              children: [
+                search(),
+                title(),
+                CustomerListContent(bloc: bloc),
+              ],
             );
           },
         ));

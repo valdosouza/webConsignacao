@@ -73,29 +73,27 @@ class _ContentConsignmenteSupplyingState
     );
   }
 
-  Expanded _footer() {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: custombutton("Checagem", () {
-              bloc.add(GetCheckpoint(
-                orderid: widget.modelSupplying.order.id,
-                customerid: widget.modelSupplying.order.tbCustomerId,
-              ));
-            }),
-          ),
-          Expanded(
-            flex: 1,
-            child: custombutton("Sair", () {
-              bloc.add(OrderConsignmentRegisterGetlistEvent(
-                  tbCustomerId: widget.modelSupplying.order.tbCustomerId));
-            }),
-          ),
-        ],
-      ),
+  Widget _footer() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: custombutton("Checagem", () {
+            bloc.add(GetCheckpoint(
+              orderid: widget.modelSupplying.order.id,
+              customerid: widget.modelSupplying.order.tbCustomerId,
+            ));
+          }),
+        ),
+        Expanded(
+          flex: 1,
+          child: custombutton("Sair", () {
+            bloc.add(OrderConsignmentRegisterGetlistEvent(
+                tbCustomerId: widget.modelSupplying.order.tbCustomerId));
+          }),
+        ),
+      ],
     );
   }
 }
