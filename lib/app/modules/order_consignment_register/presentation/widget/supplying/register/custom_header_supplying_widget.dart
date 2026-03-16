@@ -3,7 +3,8 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:flutter/material.dart';
 
 class CustomHeaderSupplying extends StatelessWidget {
-  const CustomHeaderSupplying({super.key});
+  final double headerHeight;
+  const CustomHeaderSupplying({super.key, this.headerHeight = 50});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +14,11 @@ class CustomHeaderSupplying extends StatelessWidget {
         children: [
           Expanded(
             flex: 9,
-            child: headeritemssupplying(),
+            child: headeritemssupplying(headerHeight: headerHeight),
           ),
           Expanded(
             flex: 3,
-            child: headerfield(context, 'Observações', 50),
+            child: headerfield(context, 'Observações', headerHeight),
           ),
         ],
       ),

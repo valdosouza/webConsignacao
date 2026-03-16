@@ -70,6 +70,11 @@ class Gateway {
           break;
       }
       statusCode = response.statusCode;
+      if (statusCode < 200 || statusCode >= 300) {
+        throw HttpException(
+          'Request failed [$statusCode] for "$url": ${response.body}',
+        );
+      }
 
       return fromJson(response.body);
     } on Exception catch (e) {

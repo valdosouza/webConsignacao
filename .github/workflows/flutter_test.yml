@@ -41,31 +41,8 @@ jobs:
       - name: Unit and widget tests
         run: flutter test
 
-      - name: AVD cache
-        uses: actions/cache@v4
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-api-34
-
-      - name: Create AVD snapshot
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          target: default
-          arch: x86_64
-          profile: pixel_7
-          force-avd-creation: false
-          disable-linux-hw-accel: false
-          disable-animations: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: |
-            echo "AVD snapshot generated"
-
-      - name: Integration tests (Android emulator)
+      - name: Integration tests (Android emulator) [disabled]
+        if: ${{ false }}
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34

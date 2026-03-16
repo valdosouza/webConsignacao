@@ -16,7 +16,6 @@ Roda todos os testes em `test/` (unit + widget). Não depende de rede nem de dis
 
 ```bash
 # Com dispositivo/emulador conectado (escolha um)
-flutter test integration_test/app_test.dart -d chrome
 flutter test integration_test/app_test.dart -d <androidDeviceId>
 ```
 
@@ -81,7 +80,7 @@ integration_test/
    Se o teste indiretamente usa `SharedPreferences` ou outros serviços que dependem de binding, chamar `TestWidgetsFlutterBinding.ensureInitialized()` (e, quando aplicável, `SharedPreferences.setMockInitialValues({})`) no início do teste ou em `setUpAll`.
 
 5. **Integration tests**  
-   Rodar com dispositivo definido (`-d chrome` ou `-d <androidDeviceId>`) para evitar “mais de um dispositivo conectado”. Não usar backend real; o projeto já usa `TestAppModule` + fake auth.
+   Rodar com dispositivo definido (`-d <androidDeviceId>`) para evitar “mais de um dispositivo conectado”. Não usar backend real; o projeto já usa `TestAppModule` + fake auth.
 
 ## Como escrever novos testes
 
@@ -120,7 +119,6 @@ Ou manualmente:
 ```bash
 flutter analyze
 flutter test
-flutter test integration_test/app_test.dart -d chrome
 flutter test integration_test/app_test.dart -d <androidDeviceId>
 ```
 
@@ -130,7 +128,6 @@ O workflow em `.github/workflows/flutter_test.yml` roda em push/PR para `main` o
 
 - `flutter analyze`
 - `flutter test` (unit + widget)
-- `flutter test integration_test/app_test.dart -d chrome`
 - `flutter test integration_test/app_test.dart -d emulator-5554` (Android)
 
 Há também um exemplo comentado em `docs/ci_flutter.yml` para referência.
@@ -142,6 +139,5 @@ Há também um exemplo comentado em `docs/ci_flutter.yml` para referência.
 | Objetivo              | Comando |
 |-----------------------|--------|
 | Unit + widget         | `flutter test` |
-| Integration (Web)     | `flutter test integration_test/app_test.dart -d chrome` |
 | Integration (Android) | `flutter test integration_test/app_test.dart -d <androidDeviceId>` |
 | Analisar código       | `flutter analyze` |

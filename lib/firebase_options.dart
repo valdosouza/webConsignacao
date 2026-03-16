@@ -50,20 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCsYQSKfAnyvMMiOBBlQHA96LwbRMi2Mlc',
-    appId: '1:357004671079:web:28abd450a2f6ea2962bcc2',
-    messagingSenderId: '357004671079',
-    projectId: 'apiconsigna',
-    authDomain: 'apiconsigna.firebaseapp.com',
-    storageBucket: 'apiconsigna.appspot.com',
-    measurementId: 'G-Z4PSM4G424',
+    apiKey: 'AIzaSyCrwMOsBbQePZ42F3PjtiODk1YpdKMgvvA',
+    appId: '1:348911054485:web:3ea6bcafd6722ce87f759c',
+    messagingSenderId: '348911054485',
+    projectId: 'appweb-61889',
+    authDomain: 'appweb-61889.firebaseapp.com',
+    storageBucket: 'appweb-61889.firebasestorage.app',
+    measurementId: 'G-N2GNBWVQS4',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD2jICpOAMvc-XjtQD_jpBc9BOV2ckmO_w',
-    appId: '1:357004671079:android:71d52851899c2a4b62bcc2',
-    messagingSenderId: '357004671079',
-    projectId: 'apiconsigna',
-    storageBucket: 'apiconsigna.appspot.com',
+    apiKey: 'AIzaSyBIapGvuxVEzQVt7IbbTBsgchk3EnDfmSQ',
+    appId: '1:348911054485:android:4eaa6072d564496b7f759c',
+    messagingSenderId: '348911054485',
+    projectId: 'appweb-61889',
+    storageBucket: 'appweb-61889.firebasestorage.app',
   );
+
 }

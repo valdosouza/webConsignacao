@@ -35,19 +35,17 @@ class _CashierStatementCustomerWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            buildSearchInput(),
-            buildTittleCustomerList(),
-            //const SizedBox(height: 10),
-            buildContentCustomerList(),
-            //const SizedBox(height: 15),
-            buildtotalizar(),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          buildSearchInput(),
+          buildTittleCustomerList(),
+          //const SizedBox(height: 10),
+          buildContentCustomerList(),
+          //const SizedBox(height: 15),
+          buildtotalizar(),
+        ],
       ),
     );
   }

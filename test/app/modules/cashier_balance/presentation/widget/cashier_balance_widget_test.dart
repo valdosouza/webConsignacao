@@ -6,12 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../../../helpers/fake_cashier_balance_bloc.dart';
 import '../../../../../helpers/pump_app.dart';
 
-/// CashierBalanceWidget root is [Expanded]; it must be inside a [Column] or [Row].
 Widget wrapBalanceWidget(CashierBalanceWidget widget) {
   return Scaffold(
-    body: Column(
-      children: [widget],
-    ),
+    body: widget,
   );
 }
 

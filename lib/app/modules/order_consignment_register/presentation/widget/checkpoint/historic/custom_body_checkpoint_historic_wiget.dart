@@ -18,23 +18,21 @@ class _CustomBodyCheckpointHistoricWidgetState
     extends State<CustomBodyCheckpointHistoricWidget> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 9,
-              child: listitemscheckpointhistoric(
-                  widget.modelCheckpoint.items, widget.size),
-            ),
-            Expanded(
-              flex: 3,
-              child: paymentinfohistoric(widget.modelCheckpoint),
-            ),
-          ],
-        ),
+    return Center(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 9,
+            child:
+                listitemscheckpointhistoric(widget.modelCheckpoint.items, widget.size),
+          ),
+          Expanded(
+            flex: 3,
+            child: paymentinfohistoric(widget.modelCheckpoint),
+          ),
+        ],
       ),
     );
   }
