@@ -87,8 +87,9 @@ class _ContentConsignmenteCheckpointState
       },
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(51.0),
+          preferredSize: const Size.fromHeight(95.0),
           child: AppBar(
+            toolbarHeight: 95,
             flexibleSpace: Container(
               decoration: kBoxDecorationflexibleSpace,
               alignment: Alignment.center,
@@ -96,14 +97,14 @@ class _ContentConsignmenteCheckpointState
                 children: [
                   Container(
                     alignment: Alignment.bottomCenter,
-                    height: 35,
+                    height: 45,
                     child: Text(
                       bloc.modelCheckpoint.order.nameCustomer,
                       style: kTitleAppBarStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const CustomHeaderCheckpoint(),
+                  const CustomHeaderCheckpoint(headerHeight: 50),
                 ],
               ),
             ),

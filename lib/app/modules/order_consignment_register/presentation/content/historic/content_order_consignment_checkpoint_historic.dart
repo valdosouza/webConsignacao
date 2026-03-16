@@ -38,6 +38,7 @@ class _ContentConsignmenteCheckpointState
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 95,
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
           alignment: Alignment.center,
@@ -54,7 +55,7 @@ class _ContentConsignmenteCheckpointState
                   minFontSize: 12,
                 ),
               ),
-              const CustomHeaderCheckpoint(),
+              const CustomHeaderCheckpoint(headerHeight: 50),
             ],
           ),
         ),

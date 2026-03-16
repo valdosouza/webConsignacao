@@ -121,8 +121,9 @@ class _ContentConsignmenteSupplyingState
       },
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(61.0),
+          preferredSize: const Size.fromHeight(95.0),
           child: AppBar(
+            toolbarHeight: 95,
             flexibleSpace: Container(
               decoration: kBoxDecorationflexibleSpace,
               alignment: Alignment.center,
@@ -137,7 +138,7 @@ class _ContentConsignmenteSupplyingState
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const CustomHeaderSupplying(),
+                  const CustomHeaderSupplying(headerHeight: 50),
                 ],
               ),
             ),

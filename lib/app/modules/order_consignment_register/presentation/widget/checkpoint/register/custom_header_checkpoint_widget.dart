@@ -3,7 +3,8 @@ import 'package:appweb/app/modules/order_consignment_register/presentation/widge
 import 'package:flutter/material.dart';
 
 class CustomHeaderCheckpoint extends StatelessWidget {
-  const CustomHeaderCheckpoint({super.key});
+  final double headerHeight;
+  const CustomHeaderCheckpoint({super.key, this.headerHeight = 50});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +14,11 @@ class CustomHeaderCheckpoint extends StatelessWidget {
         children: [
           Expanded(
             flex: 9,
-            child: headeritemscheckpoint(),
+            child: headeritemscheckpoint(headerHeight: headerHeight),
           ),
           Expanded(
             flex: 3,
-            child: headerfield(context, 'Total a Pagar', 50),
+            child: headerfield(context, 'Total a Pagar', headerHeight),
           ),
         ],
       ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 Widget listitemscheckpointhistoric(
     List<OrderConsignmentCheckpointCardModel> items, Size size) {
   return ListView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
     itemCount: items.length,
     itemBuilder: (context, index) => Padding(
       padding: const EdgeInsets.all(2.0),

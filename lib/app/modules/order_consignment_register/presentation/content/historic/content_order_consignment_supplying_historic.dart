@@ -40,6 +40,7 @@ class _ContentConsignmenteSupplyingState
 
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 95,
         flexibleSpace: Container(
           decoration: kBoxDecorationflexibleSpace,
           alignment: Alignment.center,
@@ -56,7 +57,7 @@ class _ContentConsignmenteSupplyingState
                   minFontSize: 12,
                 ),
               ),
-              const CustomHeaderSupplying(),
+              const CustomHeaderSupplying(headerHeight: 50),
             ],
           ),
         ),
