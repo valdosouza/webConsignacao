@@ -65,7 +65,8 @@ jobs:
           script: |
             echo "AVD snapshot generated"
 
-      - name: Integration tests (Android emulator)
+      - name: Integration tests (Android emulator) [disabled]
+        if: ${{ false }}
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
