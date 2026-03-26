@@ -11,6 +11,9 @@ Widget paymentinfo(BuildContext context, OrderSaleMainCardModel modelOrdersale) 
     for (OrderSaleCardModel item in modelOrdersale.items) {
       modelOrdersale.order.totalValue += (item.sale * item.unitValue);
     }
+    // Arredonda para 2 casas para evitar drift de ponto flutuante na comparação posterior
+    modelOrdersale.order.totalValue =
+        double.parse(modelOrdersale.order.totalValue.toStringAsFixed(2));
     return floatToStrF(modelOrdersale.order.totalValue);
   }
 
@@ -47,7 +50,7 @@ Widget paymentinfo(BuildContext context, OrderSaleMainCardModel modelOrdersale) 
             ),
           ),
           (modelOrdersale.payments.length == 1)
-              ? paymentBoleto(modelOrdersale)
+              ? PaymentBoleto(modelOrdersale: modelOrdersale)
               : paymentAVista(modelOrdersale),
           const SizedBox(height: 15),
           paymentInfoPriceList(modelOrdersale),

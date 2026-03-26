@@ -22,7 +22,10 @@ class _CustomBodySupplyingState extends State<CustomBodySupplying> {
       children: [
         Expanded(
           flex: 9,
-          child: listitemssupplying(widget.modelSupplying.items, widget.size),
+          child: ListItemsSupplying(
+            items: widget.modelSupplying.items,
+            size: widget.size,
+          ),
         ),
         Expanded(
           flex: 3,

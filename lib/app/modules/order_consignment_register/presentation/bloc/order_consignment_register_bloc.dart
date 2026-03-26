@@ -89,13 +89,15 @@ class OrderConsignmentRegisterBloc
       for (var item in modelCheckpoint.payments) {
         valuereceived += item.value;
       }
-      if (valuereceived >
-          (modelCheckpoint.order.totalValue +
-              modelCheckpoint.order.changeValue)) {
+      // Arredonda para 2 casas para evitar falha por erro de ponto flutuante
+      double valuereceivedR = double.parse(valuereceived.toStringAsFixed(2));
+      double totalR = double.parse(modelCheckpoint.order.totalValue.toStringAsFixed(2));
+      double changeR = double.parse(modelCheckpoint.order.changeValue.toStringAsFixed(2));
+      double payment0R = double.parse(modelCheckpoint.payments[0].value.toStringAsFixed(2));
+      if (valuereceivedR > (totalR + changeR)) {
         return "Verifique! Valor recebido maior que o devido";
       }
-      if (modelCheckpoint.order.changeValue >
-          modelCheckpoint.payments[0].value) {
+      if (changeR > payment0R) {
         return "Verifique! Verifique o valor do troco";
       }
     }
@@ -168,8 +170,11 @@ class OrderConsignmentRegisterBloc
       for (var item in modelSupplying.items) {
         newConsignment += item.newConsignment;
       }
+      // Arredonda para 2 casas antes de comparar com zero
+      double bonusR = double.parse(bonus.toStringAsFixed(2));
+      double newConsignmentR = double.parse(newConsignment.toStringAsFixed(2));
       if (modelSupplying.order.recall != "S") {
-        if ((newConsignment == 0) && (bonus == 0)) {
+        if ((newConsignmentR == 0) && (bonusR == 0)) {
           return "Preecha a coluna de Bonus ou de Nova Consignação.";
         }
       }

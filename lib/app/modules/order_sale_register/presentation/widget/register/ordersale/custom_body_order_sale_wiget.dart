@@ -22,8 +22,10 @@ class _CustomBodyOrderSaleState extends State<CustomBodyOrderSale> {
       children: [
         Expanded(
           flex: 9,
-          child: listitemsordersale(
-              widget.modelOrdersale.items, widget.size, context),
+          child: ListItemsOrderSale(
+            items: widget.modelOrdersale.items,
+            size: widget.size,
+          ),
         ),
         Expanded(
           flex: 3,

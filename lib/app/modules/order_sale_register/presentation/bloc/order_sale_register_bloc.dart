@@ -106,7 +106,12 @@ class OrderSaleRegisterBloc
       for (var item in modelOrderSale.payments) {
         payment += item.value;
       }
-      if (payment < modelOrderSale.order.totalValue) {
+      // Arredonda ambos para 2 casas para evitar falha por erro de ponto flutuante
+      double paymentRounded =
+          double.parse(payment.toStringAsFixed(2));
+      double totalRounded =
+          double.parse(modelOrderSale.order.totalValue.toStringAsFixed(2));
+      if (paymentRounded < totalRounded) {
         return "Os valores de pagamentos abaixo do esperado.";
       }
     }

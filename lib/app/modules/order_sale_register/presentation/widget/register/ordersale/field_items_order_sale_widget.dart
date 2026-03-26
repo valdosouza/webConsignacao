@@ -26,7 +26,9 @@ class FieldItemOrdersale extends StatefulWidget {
 }
 
 class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
-  String setTextController(OrderSaleCardModel item, int position) {
+  late TextEditingController _controller;
+
+  String _textForItem(OrderSaleCardModel item, int position) {
     switch (position) {
       case 1:
         return (item.bonus > 0) ? item.bonus.toStringAsFixed(0) : "";
@@ -38,6 +40,32 @@ class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
         return (item.subtotal > 0) ? floatToStrF(item.subtotal) : "";
     }
     return "";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        TextEditingController(text: _textForItem(widget.item, widget.position));
+  }
+
+  @override
+  void didUpdateWidget(FieldItemOrdersale oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Atualiza o controller somente se o campo não estiver em foco,
+    // para não interromper a digitação em andamento.
+    if (!widget.focus.hasFocus) {
+      final newText = _textForItem(widget.item, widget.position);
+      if (_controller.text != newText) {
+        _controller.text = newText;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -78,7 +106,8 @@ class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
                   widget.item.sale = double.parse(value);
                   if (widget.item.sale > 0) {
                     widget.item.subtotal =
-                        widget.item.sale * widget.item.unitValue;
+                        double.parse((widget.item.sale * widget.item.unitValue)
+                            .toStringAsFixed(2));
                   } else {
                     widget.item.subtotal = 0;
                   }
@@ -86,8 +115,7 @@ class _FieldItemOrdersaleState extends State<FieldItemOrdersale> {
                 break;
             }
           },
-          controller: TextEditingController(
-              text: setTextController(widget.item, widget.position)),
+          controller: _controller,
         ),
       ),
     );

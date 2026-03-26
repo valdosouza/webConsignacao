@@ -16,12 +16,42 @@ class PaymentInfoCash extends StatefulWidget {
 }
 
 class _PaymentInfoCashState extends State<PaymentInfoCash> {
+  late TextEditingController _txt;
+  late FocusNode _focus;
+
+  @override
+  void initState() {
+    super.initState();
+    _focus = FocusNode();
+    _txt = TextEditingController(
+      text: (widget.modelOrderPaid[0].value > 0)
+          ? floatToStrF(widget.modelOrderPaid[0].value)
+          : "",
+    );
+  }
+
+  @override
+  void didUpdateWidget(PaymentInfoCash oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!_focus.hasFocus) {
+      final newText = (widget.modelOrderPaid[0].value > 0)
+          ? floatToStrF(widget.modelOrderPaid[0].value)
+          : "";
+      if (_txt.text != newText) {
+        _txt.text = newText;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _txt.dispose();
+    _focus.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var txt = TextEditingController(
-        text: (widget.modelOrderPaid[0].value > 0)
-            ? floatToStrF(widget.modelOrderPaid[0].value)
-            : "");
     return Row(
       children: [
         Expanded(
@@ -39,13 +69,14 @@ class _PaymentInfoCashState extends State<PaymentInfoCash> {
               border: Border.all(color: Colors.black),
             ),
             child: TextFormField(
-              controller: txt,
+              focusNode: _focus,
+              controller: _txt,
               onChanged: (value) {
                 if (value.isNotEmpty) {
-                  txt.text = autoDecimalPoint(value);
+                  _txt.text = autoDecimalPoint(value);
                 }
-                txt.selection = TextSelection.fromPosition(
-                    TextPosition(offset: txt.text.length));
+                _txt.selection = TextSelection.fromPosition(
+                    TextPosition(offset: _txt.text.length));
               },
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
@@ -53,7 +84,8 @@ class _PaymentInfoCashState extends State<PaymentInfoCash> {
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 6, vertical: 6),
               ),
               onFieldSubmitted: (value) {
                 if (value.isNotEmpty) {

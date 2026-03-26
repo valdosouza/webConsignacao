@@ -16,6 +16,9 @@ Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
     }
     modelCheckpoint.order.totalValue +=
         modelCheckpoint.order.previousDebiBalance;
+    // Arredonda para 2 casas para evitar drift de ponto flutuante
+    modelCheckpoint.order.totalValue =
+        double.parse(modelCheckpoint.order.totalValue.toStringAsFixed(2));
     modelCheckpoint.order.currentDebitBalance =
         modelCheckpoint.order.totalValue;
     for (OrderPaidModel item in modelCheckpoint.payments) {
@@ -63,8 +66,8 @@ Widget paymentinfo(OrderConsignmentCheckpointModel modelCheckpoint) {
               ),
             ),
           ),
-          paymentinfodinheiro(modelCheckpoint),
-          paymentinfopix(modelCheckpoint),
+          PaymentInfoDinheiro(modelCheckpoint: modelCheckpoint),
+          PaymentInfoPix(modelCheckpoint: modelCheckpoint),
           paymentinfotroco(modelCheckpoint),
           dividaanteriorcheckpoint(modelCheckpoint),
           dividaatualcheckpoint(modelCheckpoint),
