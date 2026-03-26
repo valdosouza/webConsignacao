@@ -24,8 +24,10 @@ class _CustomBodySupplyingHistoricWidgetState
       children: [
         Expanded(
           flex: 9,
-          child: listitemssupplyinghistoric(
-              widget.modelSupplying.items, widget.size),
+          child: ListItemsSupplyingHistoric(
+            items: widget.modelSupplying.items,
+            size: widget.size,
+          ),
         ),
         Expanded(
           flex: 3,

@@ -28,8 +28,10 @@ class _CustomBodyOrderSaleHistoricWidgetState
       children: [
         Expanded(
           flex: 9,
-          child: listitemsordersaleHistoric(
-              widget.modelOrdersale.items, widget.size, context),
+          child: ListItemsOrderSaleHistoric(
+            items: widget.modelOrdersale.items,
+            size: widget.size,
+          ),
         ),
         Expanded(
           flex: 3,

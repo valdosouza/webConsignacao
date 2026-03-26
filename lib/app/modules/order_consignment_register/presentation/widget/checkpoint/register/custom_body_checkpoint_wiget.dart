@@ -22,7 +22,10 @@ class _CustomBodyCheckpointState extends State<CustomBodyCheckpoint> {
       children: [
         Expanded(
           flex: 9,
-          child: listitemscheckpoint(widget.modelCheckpoint.items, widget.size),
+          child: ListItemsCheckpoint(
+            items: widget.modelCheckpoint.items,
+            size: widget.size,
+          ),
         ),
         Expanded(
           flex: 3,

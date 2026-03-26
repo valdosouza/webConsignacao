@@ -159,7 +159,8 @@ class _CashierStatementCustomerWidgetState
                         Modular.to
                             .navigate('/cashierstatement/mobile/byorder/');
                       } else {
-                        CustomToast.showToast("Somente atendimento Registrado!");
+                        CustomToast.showToast(
+                            "Somente atendimento Registrado!");
                       }
                     },
                     child: Padding(
@@ -167,8 +168,7 @@ class _CashierStatementCustomerWidgetState
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                              flex: 3, child: Text(customer.nameCustomer)),
+                          Expanded(flex: 3, child: Text(customer.nameCustomer)),
                           Expanded(
                               flex: 1, child: Text(customer.timeAttendace)),
                           Expanded(
@@ -216,7 +216,7 @@ class _CashierStatementCustomerWidgetState
         )),
       ),
       const SizedBox(height: 10),
-      Text("Valor: R\$ ${totalCashier()}"),
+      Text("Valor: R\$ ${totalCashier().toStringAsFixed(2)}"),
       const SizedBox(height: 5),
       Text("Quantidade de clientes: ${bloc.customers.length}"),
       const SizedBox(height: 5),

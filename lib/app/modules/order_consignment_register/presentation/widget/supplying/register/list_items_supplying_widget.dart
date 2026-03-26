@@ -2,50 +2,121 @@ import 'package:appweb/app/modules/order_consignment_register/data/model/order_c
 import 'package:appweb/app/modules/order_consignment_register/presentation/widget/supplying/register/field_items_supplying_widget.dart';
 import 'package:flutter/material.dart';
 
-Widget listitemssupplying(
-    List<OrderConsignmentSupplyingCardModel> items, Size size) {
-  return ListView.builder(
-    itemCount: items.length,
-    itemBuilder: (context, index) => Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 190,
-            child:
-                fielditemssupplying(
-                    context, items[index], 1, true, 0, TextAlign.center),
+class ListItemsSupplying extends StatefulWidget {
+  final List<OrderConsignmentSupplyingCardModel> items;
+  final Size size;
+
+  const ListItemsSupplying({
+    super.key,
+    required this.items,
+    required this.size,
+  });
+
+  @override
+  State<ListItemsSupplying> createState() => _ListItemsSupplyingState();
+}
+
+class _ListItemsSupplyingState extends State<ListItemsSupplying> {
+  late List<FocusNode> _focusNodes;
+
+  // 6 colunas: bonus, nome, restante, devolução, nova consignação, qtty
+  static const int _cols = 6;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNodes =
+        List.generate(widget.items.length * _cols, (_) => FocusNode());
+  }
+
+  @override
+  void dispose() {
+    for (final node in _focusNodes) {
+      node.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: widget.items.length,
+      itemBuilder: (context, index) {
+        final base = index * _cols;
+        return Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 190,
+                child: FieldItemSupplying(
+                  item: widget.items[index],
+                  position: 1,
+                  enabled: true,
+                  decimal: 0,
+                  textAlign: TextAlign.center,
+                  focus: _focusNodes[base],
+                ),
+              ),
+              Expanded(
+                flex: 380,
+                child: FieldItemSupplying(
+                  item: widget.items[index],
+                  position: 2,
+                  enabled: false,
+                  decimal: 0,
+                  textAlign: TextAlign.left,
+                  focus: _focusNodes[base + 1],
+                ),
+              ),
+              Expanded(
+                flex: 190,
+                child: FieldItemSupplying(
+                  item: widget.items[index],
+                  position: 3,
+                  enabled: false,
+                  decimal: 0,
+                  textAlign: TextAlign.center,
+                  focus: _focusNodes[base + 2],
+                ),
+              ),
+              Expanded(
+                flex: 240,
+                child: FieldItemSupplying(
+                  item: widget.items[index],
+                  position: 4,
+                  enabled: true,
+                  decimal: 0,
+                  textAlign: TextAlign.center,
+                  focus: _focusNodes[base + 3],
+                ),
+              ),
+              Expanded(
+                flex: 315,
+                child: FieldItemSupplying(
+                  item: widget.items[index],
+                  position: 5,
+                  enabled: true,
+                  decimal: 2,
+                  textAlign: TextAlign.center,
+                  focus: _focusNodes[base + 4],
+                ),
+              ),
+              Expanded(
+                flex: 270,
+                child: FieldItemSupplying(
+                  item: widget.items[index],
+                  position: 6,
+                  enabled: false,
+                  decimal: 2,
+                  textAlign: TextAlign.center,
+                  focus: _focusNodes[base + 5],
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            flex: 380,
-            child:
-                fielditemssupplying(
-                    context, items[index], 2, false, 0, TextAlign.left),
-          ),
-          Expanded(
-            flex: 190,
-            child: fielditemssupplying(
-                context, items[index], 3, false, 0, TextAlign.center),
-          ),
-          Expanded(
-            flex: 240,
-            child:
-                fielditemssupplying(
-                    context, items[index], 4, true, 0, TextAlign.center),
-          ),
-          Expanded(
-            flex: 315,
-            child:
-                fielditemssupplying(
-                    context, items[index], 5, true, 2, TextAlign.center),
-          ),
-          Expanded(
-            flex: 270,
-            child: fielditemssupplying(
-                context, items[index], 6, false, 2, TextAlign.center),
-          ),
-        ],
-      ),
-    ),
-  );
+        );
+      },
+    );
+  }
 }

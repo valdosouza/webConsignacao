@@ -26,7 +26,10 @@ class _CustomBodyCheckpointHistoricWidgetState
           Expanded(
             flex: 9,
             child:
-                listitemscheckpointhistoric(widget.modelCheckpoint.items, widget.size),
+                ListItemsCheckpointHistoric(
+                  items: widget.modelCheckpoint.items,
+                  size: widget.size,
+                ),
           ),
           Expanded(
             flex: 3,
